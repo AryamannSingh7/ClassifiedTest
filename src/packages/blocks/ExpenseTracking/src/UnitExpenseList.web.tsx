@@ -114,7 +114,9 @@ class UnitExpenseList extends UnitExpenseListController {
                                 <Grid container spacing={2} className="info">
                                   <Grid item xs={6}>
                                     <span>{t("Cost")}:</span>
-                                    <p>{expense.attributes.expense_amount}</p>
+                                    <p>
+                                      {expense.attributes.address.currency + " " + expense.attributes.expense_amount}
+                                    </p>
                                   </Grid>
                                   <Grid item xs={6}>
                                     <span>{t("Issue")}:</span>

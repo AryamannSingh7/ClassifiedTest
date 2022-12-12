@@ -8,7 +8,7 @@ Feature: AddEditExpense
         And Should go back to unit expense listing when Add Expense
         And Should go back to Expense Details when Edit Expense
         And Should load the expense category
-        And Should load the building list
+        And Should load the Complex list
         And Should load the Expense details when edit
 
     Scenario: Expense Form
@@ -16,4 +16,5 @@ Feature: AddEditExpense
         When ExpenseDetail loaded without error
         Then Should Add expense when submit
         Then Should Edit expense when submit
-        Then Should load the unit list
+        Then Should load the unit list after building change
+        Then Should load the building list after complex change

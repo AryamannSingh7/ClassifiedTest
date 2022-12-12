@@ -1,10 +1,9 @@
 import { defineFeature, loadFeature } from "jest-cucumber";
-import { configure, mount } from "enzyme";
+import { mount } from "enzyme";
 import React, { Component } from "react";
 import AddExpenseSuccess from "../../src/AddExpenseSuccess.web";
 import { ExpenseTrackingStyle } from "../../src/ExpenseTrackingStyle.web";
 import { Button, IconButton } from "@material-ui/core";
-import Adapter from "enzyme-adapter-react-16";
 
 const addExpenseSuccessProps = {
   navigation: {
@@ -28,10 +27,6 @@ jest.mock("react-i18next", () => ({
     return Component;
   },
 }));
-
-configure({
-  adapter: new Adapter(),
-});
 
 defineFeature(feature, (test) => {
   beforeEach(() => {

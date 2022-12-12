@@ -81,7 +81,8 @@ class MyExpenseList extends MyExpenseListController {
                                     <Grid item xs={12}>
                                       <Box className="header">
                                         <h4>
-                                          Building {building.attributes.building_management.name} Unit{" "}
+                                          Society: {building.attributes.society_management.name}, Building:{" "}
+                                          {building.attributes.building_management.name}, Unit:{" "}
                                           {building.attributes.apartment_name}
                                         </h4>
                                         <Box className="right-menu">
@@ -93,7 +94,7 @@ class MyExpenseList extends MyExpenseListController {
                                   <Grid container spacing={2} className="info">
                                     <Grid item xs={12}>
                                       <span>{t("City")}:</span>
-                                      <p>{building.attributes.building_management.city || "N/A"}</p>
+                                      <p>{building.attributes.address.city || "N/A"}</p>
                                     </Grid>
                                   </Grid>
                                 </Card>

@@ -18,6 +18,7 @@ interface IExpenseDetails {
   unitName: string;
   resolvedBy: string;
   summary: string;
+  currency: string;
 }
 
 interface IExpenseDetailsResponse {
@@ -32,6 +33,9 @@ interface IExpense {
     expense_amount: string;
     issue_title: string;
     expense_category_id: number;
+    address: {
+      currency: string;
+    };
     building_management: {
       id: number;
       name: string;
@@ -117,6 +121,7 @@ export default class ExpenseDetailController extends BlockComponent<Props, S, SS
         unitName: "",
         resolvedBy: "",
         summary: "",
+        currency: "",
       },
       // Customizable Area End
     };
@@ -209,6 +214,7 @@ export default class ExpenseDetailController extends BlockComponent<Props, S, SS
           unitName: expense.attributes.apartment_management.apartment_name,
           resolvedBy: expense.attributes.resolved_by,
           summary: expense.attributes.summary,
+          currency: expense.attributes.address.currency,
         },
       });
     }

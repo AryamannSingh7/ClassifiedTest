@@ -1,11 +1,10 @@
 import { defineFeature, loadFeature } from "jest-cucumber";
-import { configure, mount } from "enzyme";
+import { mount } from "enzyme";
 import React, { Component } from "react";
 import AddEditExpense from "../../src/AddEditExpense.web";
 import { ExpenseTrackingStyle } from "../../src/ExpenseTrackingStyle.web";
 import { IconButton, Select } from "@material-ui/core";
 import { Formik } from "formik";
-import Adapter from "enzyme-adapter-react-16";
 import { Message } from "../../../../framework/src/Message";
 import MessageEnum, { getName } from "../../../../framework/src/Messages/MessageEnum";
 import { runEngine } from "../../../../framework/src/RunEngine";
@@ -51,6 +50,23 @@ const buildingList = {
     {
       id: 3,
       name: "First Building",
+    },
+  ],
+};
+
+const allComplexList = {
+  data: [
+    {
+      id: "5",
+      attributes: {
+        name: "New Society",
+      },
+    },
+    {
+      id: "6",
+      attributes: {
+        name: "Ti1",
+      },
     },
   ],
 };
@@ -129,10 +145,6 @@ const expenseResponse = {
   },
 };
 
-configure({
-  adapter: new Adapter(),
-});
-
 defineFeature(feature, (test) => {
   beforeEach(() => {
     jest.resetModules();
@@ -189,12 +201,12 @@ defineFeature(feature, (test) => {
       runEngine.sendMessage("Expense Category", expenseCategory);
     });
 
-    then("Should load the building list", async () => {
-      let ownBuildingList = new Message(getName(MessageEnum.RestAPIResponceMessage));
-      ownBuildingList.addData(getName(MessageEnum.RestAPIResponceDataMessage), ownBuildingList);
-      ownBuildingList.addData(getName(MessageEnum.RestAPIResponceSuccessMessage), buildingList);
-      instance.GetBuildingListCallId = ownBuildingList;
-      runEngine.sendMessage("Owner own building list", ownBuildingList);
+    then("Should load the Complex list", async () => {
+      let complexList = new Message(getName(MessageEnum.RestAPIResponceMessage));
+      complexList.addData(getName(MessageEnum.RestAPIResponceDataMessage), complexList);
+      complexList.addData(getName(MessageEnum.RestAPIResponceSuccessMessage), allComplexList);
+      instance.GetComplexListCallId = complexList;
+      runEngine.sendMessage("complex list", complexList);
     });
 
     then("Should load the Expense details when edit", async () => {
@@ -283,10 +295,10 @@ defineFeature(feature, (test) => {
       runEngine.sendMessage("Edit Expense", editExpense);
     });
 
-    then("Should load the unit list", async () => {
-      const selectSpy = jest.spyOn(AddEditExpenseMountWrapper.find(Select).at(1).props(), "onChange");
+    then("Should load the unit list after building change", async () => {
+      const selectSpy = jest.spyOn(AddEditExpenseMountWrapper.find(Select).at(2).props(), "onChange");
       AddEditExpenseMountWrapper.find(Select)
-        .at(1)
+        .at(2)
         .props()
         .onChange({ target: { value: "12" } });
       expect(selectSpy).toHaveBeenCalled();
@@ -296,6 +308,21 @@ defineFeature(feature, (test) => {
       ownUnitList.addData(getName(MessageEnum.RestAPIResponceSuccessMessage), unitList);
       instance.GetUnitListCallId = ownUnitList;
       runEngine.sendMessage("Expense Details", ownUnitList);
+    });
+
+    then("Should load the building list after complex change", async () => {
+      const selectSpy = jest.spyOn(AddEditExpenseMountWrapper.find(Select).at(1).props(), "onChange");
+      AddEditExpenseMountWrapper.find(Select)
+        .at(1)
+        .props()
+        .onChange({ target: { value: "12" } });
+      expect(selectSpy).toHaveBeenCalled();
+
+      let ownBuildingList = new Message(getName(MessageEnum.RestAPIResponceMessage));
+      ownBuildingList.addData(getName(MessageEnum.RestAPIResponceDataMessage), ownBuildingList);
+      ownBuildingList.addData(getName(MessageEnum.RestAPIResponceSuccessMessage), buildingList);
+      instance.GetBuildingListCallId = ownBuildingList;
+      runEngine.sendMessage("Building List", ownBuildingList);
     });
   });
 });

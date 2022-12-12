@@ -30,10 +30,15 @@ export interface IExpenseBuilding {
   id: string;
   attributes: {
     apartment_name: string;
+    address: { city: string };
     building_management: {
       id: number;
       name: string;
       city: string | null;
+    };
+    society_management: {
+      id: number;
+      name: string;
     };
   };
 }
@@ -232,6 +237,7 @@ export default class MyExpenseListController extends BlockComponent<Props, S, SS
     msg.addData(getName(MessageEnum.NavigationPropsMessage), this.props);
     msg.addData(getName(MessageEnum.AddExpenseDataMessage), {
       isMainPage: true,
+      societyId: "",
       buildingId: "",
       unitId: "",
     });
@@ -249,7 +255,7 @@ export default class MyExpenseListController extends BlockComponent<Props, S, SS
   };
 
   handleApplyFilter = () => {
-    if (this.state.unitList.length > 0) {
+    if (this.state.filterUnitList.length > 0 || this.state.unitList.length > 0) {
       this.setState({ loading: true, filterUnitList: this.state.unitList }, () => {
         this.handleFilterModal();
       });

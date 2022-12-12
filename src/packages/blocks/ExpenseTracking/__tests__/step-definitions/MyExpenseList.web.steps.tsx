@@ -1,9 +1,8 @@
 import { defineFeature, loadFeature } from "jest-cucumber";
-import { configure, mount } from "enzyme";
+import { mount } from "enzyme";
 import React, { Component } from "react";
 import MyExpenseList from "../../src/MyExpenseList.web";
 import { ExpenseTrackingStyle } from "../../src/ExpenseTrackingStyle.web";
-import Adapter from "enzyme-adapter-react-16";
 import { Button, Drawer, IconButton } from "@material-ui/core";
 import { Message } from "../../../../framework/src/Message";
 import MessageEnum, { getName } from "../../../../framework/src/Messages/MessageEnum";
@@ -32,10 +31,6 @@ jest.mock("react-i18next", () => ({
   },
 }));
 
-configure({
-  adapter: new Adapter(),
-});
-
 const emptyUnitExpenseList = {
   data: [],
 };
@@ -46,6 +41,9 @@ const unitMyExpenseList = {
       id: "94",
       attributes: {
         apartment_name: "301",
+        address: {
+          city: "delhi",
+        },
         society_management: {
           id: 5,
           name: "New Society",

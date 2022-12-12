@@ -1,9 +1,8 @@
 import { defineFeature, loadFeature } from "jest-cucumber";
-import { configure, mount } from "enzyme";
+import { mount } from "enzyme";
 import React, { Component } from "react";
 import ExpenseDetail from "../../src/ExpenseDetail.web";
 import { ExpenseTrackingStyle } from "../../src/ExpenseTrackingStyle.web";
-import Adapter from "enzyme-adapter-react-16";
 import { Button, Dialog, IconButton } from "@material-ui/core";
 import { Message } from "../../../../framework/src/Message";
 import MessageEnum, { getName } from "../../../../framework/src/Messages/MessageEnum";
@@ -62,10 +61,6 @@ const expenseDetailsByID = {
     },
   },
 };
-
-configure({
-  adapter: new Adapter(),
-});
 
 defineFeature(feature, (test) => {
   beforeEach(() => {

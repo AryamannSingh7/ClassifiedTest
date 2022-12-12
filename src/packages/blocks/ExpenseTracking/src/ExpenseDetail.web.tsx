@@ -71,7 +71,9 @@ class ExpenseDetail extends ExpenseDetailController {
                             <Grid container spacing={2} className="info expense-details">
                               <Grid item xs={6}>
                                 <span>{t("Cost")}</span>
-                                <p>{this.state.expenseDetails.expenseCost}</p>
+                                <p>
+                                  {this.state.expenseDetails.currency + " " + this.state.expenseDetails.expenseCost}
+                                </p>
                               </Grid>
                               <Grid item xs={6}>
                                 <span>{t("Issue")}</span>

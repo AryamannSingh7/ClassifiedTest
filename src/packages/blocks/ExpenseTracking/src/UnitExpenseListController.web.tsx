@@ -16,6 +16,9 @@ export interface IExpense {
     expense_amount: number;
     issue_title: string;
     expense_category_id: number;
+    address: {
+      currency: string;
+    };
     building_management: {
       id: number;
       name: string;
@@ -64,8 +67,10 @@ interface S {
 
   unitId: string;
   buildingId: string;
+  societyId: string;
   unitName: string;
   buildingName: string;
+  societyName: string;
   expenseList: IExpense[];
 
   expenseCategoryList: IExpenseCategory[];
@@ -109,8 +114,10 @@ export default class UnitExpenseListController extends BlockComponent<Props, S, 
 
       unitId: "",
       buildingId: "",
+      societyId: "",
       unitName: "",
       buildingName: "",
+      societyName: "",
       expenseList: [],
 
       expenseCategoryList: [],
@@ -152,8 +159,10 @@ export default class UnitExpenseListController extends BlockComponent<Props, S, 
             this.setState({
               unitId: unit.id,
               buildingId: unit.attributes.building_management.id,
+              societyId: unit.attributes.society_management.id,
               unitName: unit.attributes.apartment_name,
               buildingName: unit.attributes.building_management.name,
+              societyName: unit.attributes.society_management.name,
             });
           }
           break;
@@ -327,6 +336,7 @@ export default class UnitExpenseListController extends BlockComponent<Props, S, 
     msg.addData(getName(MessageEnum.NavigationPropsMessage), this.props);
     msg.addData(getName(MessageEnum.AddExpenseDataMessage), {
       isMainPage: false,
+      societyId: this.state.societyId,
       buildingId: this.state.buildingId,
       unitId: this.state.unitId,
     });
@@ -352,7 +362,7 @@ export default class UnitExpenseListController extends BlockComponent<Props, S, 
   };
 
   handleApplyFilter = () => {
-    if (this.state.categoryList.length > 0) {
+    if (this.state.filterCategoryList.length > 0 || this.state.categoryList.length > 0) {
       this.setState({ loading: true, filterCategoryList: this.state.categoryList }, () => {
         this.handleFilterModal();
       });

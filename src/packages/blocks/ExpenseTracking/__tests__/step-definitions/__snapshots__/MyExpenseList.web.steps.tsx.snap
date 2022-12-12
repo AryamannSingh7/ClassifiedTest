@@ -108,6 +108,21 @@ exports[`MyExpenseList Filter on My Unit Expense List 1`] = `
           "height": "calc(100% - 100px)",
           "justifyContent": "center",
         },
+        "& .text-area-box": Object {
+          "& img": Object {
+            "left": "18px",
+            "position": "absolute",
+            "top": "32px",
+          },
+          "& textarea": Object {
+            "fontSize": "16px",
+            "height": "100px !important",
+            "outline": "none",
+            "padding": "10px 10px 10px 64px !important",
+            "width": "100%",
+          },
+          "position": "relative",
+        },
         "& .top-bar": Object {
           "alignItems": "center",
           "background": "#FFFFFF",
@@ -2323,6 +2338,21 @@ exports[`MyExpenseList My Empty Unit Expense List 1`] = `
           "gap": "20px",
           "height": "calc(100% - 100px)",
           "justifyContent": "center",
+        },
+        "& .text-area-box": Object {
+          "& img": Object {
+            "left": "18px",
+            "position": "absolute",
+            "top": "32px",
+          },
+          "& textarea": Object {
+            "fontSize": "16px",
+            "height": "100px !important",
+            "outline": "none",
+            "padding": "10px 10px 10px 64px !important",
+            "width": "100%",
+          },
+          "position": "relative",
         },
         "& .top-bar": Object {
           "alignItems": "center",
@@ -4540,6 +4570,21 @@ exports[`MyExpenseList My Unit Expense List 1`] = `
           "height": "calc(100% - 100px)",
           "justifyContent": "center",
         },
+        "& .text-area-box": Object {
+          "& img": Object {
+            "left": "18px",
+            "position": "absolute",
+            "top": "32px",
+          },
+          "& textarea": Object {
+            "fontSize": "16px",
+            "height": "100px !important",
+            "outline": "none",
+            "padding": "10px 10px 10px 64px !important",
+            "width": "100%",
+          },
+          "position": "relative",
+        },
         "& .top-bar": Object {
           "alignItems": "center",
           "background": "#FFFFFF",
@@ -6755,6 +6800,21 @@ exports[`MyExpenseList User navigates to MyExpenseList 1`] = `
           "gap": "20px",
           "height": "calc(100% - 100px)",
           "justifyContent": "center",
+        },
+        "& .text-area-box": Object {
+          "& img": Object {
+            "left": "18px",
+            "position": "absolute",
+            "top": "32px",
+          },
+          "& textarea": Object {
+            "fontSize": "16px",
+            "height": "100px !important",
+            "outline": "none",
+            "padding": "10px 10px 10px 64px !important",
+            "width": "100%",
+          },
+          "position": "relative",
         },
         "& .top-bar": Object {
           "alignItems": "center",

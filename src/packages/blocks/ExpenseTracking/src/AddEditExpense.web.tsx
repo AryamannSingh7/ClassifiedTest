@@ -14,6 +14,7 @@ import {
   InputAdornment,
   Input,
   FormControl,
+  TextareaAutosize,
 } from "@material-ui/core";
 import KeyboardBackspaceIcon from "@material-ui/icons/KeyboardBackspace";
 import {
@@ -26,7 +27,13 @@ import {
   SummaryIcon,
   UnitIcon,
 } from "./assets";
-import AddEditExpenseController, { IBuilding, IExpenseCategory, IUnit, Props } from "./AddEditExpenseController.web";
+import AddEditExpenseController, {
+  IBuilding,
+  IComplex,
+  IExpenseCategory,
+  IUnit,
+  Props,
+} from "./AddEditExpenseController.web";
 import { Formik, Form } from "formik";
 import { withTranslation } from "react-i18next";
 import { ExpenseTrackingStyle } from "./ExpenseTrackingStyle.web";
@@ -164,6 +171,37 @@ class AddEditExpense extends AddEditExpenseController {
                                 <Box className="select-box">
                                   <Select
                                     displayEmpty
+                                    value={values.society}
+                                    name="society"
+                                    onChange={(e: React.ChangeEvent<{ value: unknown }>) => {
+                                      const societyId: string = e.target.value as string;
+                                      setFieldValue("society", societyId);
+                                      this.getBuildingList(societyId);
+                                    }}
+                                    onBlur={handleBlur}
+                                    variant="filled"
+                                    className="select-input"
+                                    input={<OutlinedInput />}
+                                  >
+                                    <MenuItem value="" disabled>
+                                      {t("Complex Name")}
+                                    </MenuItem>
+                                    {this.state.complexList.map((complex: IComplex) => {
+                                      return (
+                                        <MenuItem value={complex.id} key={complex.id}>
+                                          {complex.attributes.name}
+                                        </MenuItem>
+                                      );
+                                    })}
+                                  </Select>
+                                  <img src={BuildingIcon} alt="" />
+                                </Box>
+                                {errors.society && touched.society && <p className="error">{t(errors.society)}</p>}
+                              </FormControl>
+                              <FormControl fullWidth>
+                                <Box className="select-box">
+                                  <Select
+                                    displayEmpty
                                     value={values.building}
                                     name="building"
                                     onChange={(e: React.ChangeEvent<{ value: unknown }>) => {
@@ -237,19 +275,17 @@ class AddEditExpense extends AddEditExpenseController {
                                 )}
                               </FormControl>
                               <FormControl fullWidth>
-                                <Input
-                                  value={values.summary}
-                                  name="summary"
-                                  className="select-input input"
-                                  onChange={handleChange}
-                                  onBlur={handleBlur}
-                                  placeholder={t("Summary of the issue")}
-                                  startAdornment={
-                                    <InputAdornment position="start">
-                                      <img src={SummaryIcon} alt="" />
-                                    </InputAdornment>
-                                  }
-                                />
+                                <Box className="text-area-box">
+                                  <TextareaAutosize
+                                    value={values.summary}
+                                    name="summary"
+                                    className="select-input input"
+                                    onChange={handleChange}
+                                    onBlur={handleBlur}
+                                    placeholder={t("Summary of the issue")}
+                                  />
+                                  <img src={SummaryIcon} alt="" />
+                                </Box>
                                 {errors.summary && touched.summary && <p className="error">{t(errors.summary)}</p>}
                               </FormControl>
 
