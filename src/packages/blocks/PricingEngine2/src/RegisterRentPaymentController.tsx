@@ -101,6 +101,7 @@ export default class CoverImageController extends BlockComponent<
       const apiRequestCallId = message.getData(getName(MessageEnum.RestAPIResponceDataMessage));
       const responseJson = message.getData(getName(MessageEnum.RestAPIResponceSuccessMessage));
       let errorReponse = message.getData(getName(MessageEnum.RestAPIResponceErrorMessage));
+      console.log("ERROR",errorReponse)
       if (this.getRentUnitListId === apiRequestCallId) {
         if(responseJson.hasOwnProperty("data")){
           this.setState({
@@ -109,20 +110,26 @@ export default class CoverImageController extends BlockComponent<
         }
       }
       if (this.getRentBuildingListId === apiRequestCallId) {
-        if(responseJson.hasOwnProperty("data")){
-          this.setState({
-            BuildingListing:responseJson.data
-          })
-        }
+        this.rentBuildingList(responseJson)
       }
       if(this.RegisterRentPaymentId === apiRequestCallId){
-        if(responseJson.hasOwnProperty("data")){
-          window.history.back()
-        }
+        this.registerPaymentResponse(responseJson)
       }
     }
   }
 
+  rentBuildingList = (responseJson:any) => {
+    if(responseJson.hasOwnProperty("data")){
+      this.setState({
+        BuildingListing:responseJson.data
+      })
+    }
+  }
+  registerPaymentResponse = (responseJson:any) => {
+    if(responseJson.hasOwnProperty("data")){
+      window.history.back()
+    }
+  }
   getAmountDue = async () => {
     if(this.state.selectedUnit && this.state.selectedBuilding && this.state.selectedMonth){
       this.getRentDueAmountId = await this.apiCall({

@@ -193,24 +193,31 @@ export default class CoverImageController extends BlockComponent<
         }
       }
       if(this.fullPaymentUpdateId === apiRequestCallId){
-        if(responseJson.hasOwnProperty("data")){
-          this.setState({
-            paymentConfirmModal:false
-          })
-          this.getRentUnitList()
-        }
+        this.fullPaymentResponse(responseJson)
       }
       if(this.partialPaymentUpdateId === apiRequestCallId){
-        if(responseJson.status === "SUCCESS"){
-          this.setState({
-            paymentConfirmModal:false
-          })
-          this.getRentUnitList()
-        }
+        this.partialPaymentResponse(responseJson)
       }
     }
   }
 
+  fullPaymentResponse = (responseJson:any) => {
+    if(responseJson.hasOwnProperty("data")){
+      this.setState({
+        paymentConfirmModal:false
+      })
+      this.getRentUnitList()
+    }
+  }
+
+  partialPaymentResponse = (responseJson:any) => {
+    if(responseJson.status === "SUCCESS"){
+      this.setState({
+        paymentConfirmModal:false
+      })
+      this.getRentUnitList()
+    }
+  }
   
   handleClick = (event:any) => {
     this.setState({anchorEl:event.currentTarget })

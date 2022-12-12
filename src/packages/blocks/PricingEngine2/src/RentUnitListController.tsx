@@ -30,7 +30,6 @@ interface SS {
 
 export default class CoverImageController extends BlockComponent<Props, S, SS> {
   apiEmailLoginCallId: string = "";
-  emailReg: RegExp;
   labelTitle: string = "";
   getVisitorListId: string = "";
   getRentUnitListId: string = "";
@@ -50,7 +49,6 @@ export default class CoverImageController extends BlockComponent<Props, S, SS> {
       UnitListing: [],
     };
 
-    this.emailReg = new RegExp("");
     this.labelTitle = configJSON.labelTitle;
 
     runEngine.attachBuildingBlock(this as IBlock, this.subScribedMessages);
@@ -65,7 +63,8 @@ export default class CoverImageController extends BlockComponent<Props, S, SS> {
     if (getName(MessageEnum.RestAPIResponceMessage) === message.id) {
       const apiRequestCallId = message.getData(getName(MessageEnum.RestAPIResponceDataMessage));
       const responseJson = message.getData(getName(MessageEnum.RestAPIResponceSuccessMessage));
-      var errorReponse = message.getData(getName(MessageEnum.RestAPIResponceErrorMessage));
+      let errorReponse = message.getData(getName(MessageEnum.RestAPIResponceErrorMessage));
+      console.log("ERROR",errorReponse)
       if (this.getRentUnitListId === apiRequestCallId) {
         if(responseJson.hasOwnProperty("data")){
           this.setState({

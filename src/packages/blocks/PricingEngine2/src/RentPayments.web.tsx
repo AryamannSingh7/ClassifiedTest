@@ -9,7 +9,6 @@ import { withRouter } from 'react-router';
 import RentPaymentController, {
   Props
 } from "./RentPaymentController";
-// import './style.css'
 import {withTranslation} from "react-i18next";
 import ArrowForwardIosIcon from '@material-ui/icons/ArrowForwardIos';
 
