@@ -267,7 +267,7 @@ export default class CoverImageController extends BlockComponent<
     return descriptionValidation
   }
 
-  checkValidation = (categoryValidation,amountValidation,descriptionValidation) => {
+  checkValidation = (categoryValidation:any,amountValidation:any,descriptionValidation:any) => {
     let validation = false
     if(!categoryValidation || !amountValidation || !descriptionValidation){
       validation = true
