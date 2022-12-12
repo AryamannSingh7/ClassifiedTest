@@ -266,9 +266,16 @@ export default class CoverImageController extends BlockComponent<
     }
     return descriptionValidation
   }
+
+  checkValidation = (categoryValidation,amountValidation,descriptionValidation) => {
+    let validation = false
+    if(!categoryValidation || !amountValidation || !descriptionValidation){
+      validation = true
+    }
+    return validation
+  }
   handleOptionValidation = () => {
     let optionValidation = false
-    //NOSONAR
     let updatedArray = this.state.budgetItems.map((item:any) => {
       let categoryValidation = false
       let amountValidation = false
@@ -276,8 +283,8 @@ export default class CoverImageController extends BlockComponent<
       categoryValidation = this.categoryValidation(item)
       amountValidation = this.amountValidation(item)
       descriptionValidation = this.descriptionValidation(item)
-      //NOSONAR
-      if(!categoryValidation || !amountValidation || !descriptionValidation)
+      let validationResult = this.checkValidation(categoryValidation,amountValidation,descriptionValidation)
+      if(validationResult)
       {
         let updatedObject = item
         if(!categoryValidation){
