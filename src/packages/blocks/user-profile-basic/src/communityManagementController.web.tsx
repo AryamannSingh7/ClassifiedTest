@@ -388,13 +388,13 @@ this.setState({loading:false,showDialog:false})
         }   else if(apiRequestCallId === this.createChatRoomAPIId){
           if(responseJson.hasOwnProperty("data")){
             localStorage.setItem('selectedChat',JSON.stringify(responseJson.data))
-            //
+            
             this.props.history.push({
               pathname: '/chairmanchat',
               state: { data: responseJson.data }
             })
           }else{
-            //
+            
           }
         } else if (apiRequestCallId === this.getInvitationAPICall) {
           if (!responseJson.errors) {
@@ -412,9 +412,6 @@ this.setState({allInvitation:responseJson.member_invitations.data,loading:false}
             //@ts-ignore
             //@ts-nocheck
             this.setState({ loading: false })
-            // localStorage.setItem('res_token', responseJson.meta.token)
-            // localStorage.setItem('res_user', responseJson.data.attributes)
-            // localStorage.setItem('res_user_id', responseJson.data.id)
             //@ts-ignore
             //@ts-nocheck
             this.props.history.push('/addressfill')
