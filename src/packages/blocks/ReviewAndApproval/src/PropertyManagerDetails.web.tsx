@@ -199,21 +199,25 @@ class PropertyManagerDetails extends PropertyManagerDetailsController {
                                   </Box>
                                 </Box>
                                 <Grid container spacing={2}>
-                                  <Grid item xs={12}>
-                                    <Box className="box-item-content">
-                                      <span>{t("Contract")}</span>
-                                      <p>
-                                        {moment(property.attributes.start_date, "YYYY-MM-DD").format("MMMM DD, YYYY")} -{" "}
-                                        {moment(property.attributes.end_date, "YYYY-MM-DD").format("MMMM DD, YYYY")}
-                                      </p>
-                                    </Box>
-                                  </Grid>
-                                  <Grid item xs={12}>
-                                    <Box className="box-item-content">
-                                      <span>{t("Charges")}</span>
-                                      <p>{property.attributes.fixed_persentage_of_rent}/Month</p>
-                                    </Box>
-                                  </Grid>
+                                  {property.attributes.start_date && property.attributes.end_date && (
+                                    <Grid item xs={12}>
+                                      <Box className="box-item-content">
+                                        <span>{t("Contract")}</span>
+                                        <p>
+                                          {moment(property.attributes.start_date, "YYYY-MM-DD").format("MMMM DD, YYYY")}{" "}
+                                          - {moment(property.attributes.end_date, "YYYY-MM-DD").format("MMMM DD, YYYY")}
+                                        </p>
+                                      </Box>
+                                    </Grid>
+                                  )}
+                                  {property.attributes.fixed_persentage_of_rent && (
+                                    <Grid item xs={12}>
+                                      <Box className="box-item-content">
+                                        <span>{t("Charges")}</span>
+                                        <p>{property.attributes.fixed_persentage_of_rent}/Month</p>
+                                      </Box>
+                                    </Grid>
+                                  )}
                                 </Grid>
                               </Card>
                             </Grid>
@@ -263,26 +267,23 @@ class PropertyManagerDetails extends PropertyManagerDetailsController {
                       </Card>
                     </Box>
 
-                    <Box className="pdf-content-box">
-                      <Card>
-                        <Box className="heading">
-                          <img src={PdfIcon} alt="" />
-                          <h4>
-                            {this.state.propertyManagerDetails.managerName +
-                              " " +
-                              this.state.propertyManagerDetails.IdType}{" "}
-                          </h4>
-                        </Box>
-                        <Link target="_blank" href={this.state.propertyManagerDetails.IdPdfDocument}>
-                          <img src={DownloadIcon} alt="" />
-                        </Link>
-                      </Card>
-                    </Box>
-
-                    {/* <Box className="button-box">
-                      <Button className="decline">Decline</Button>
-                      <Button className="accept">Accept</Button>
-                    </Box> */}
+                    {this.state.propertyManagerDetails.IdPdfDocument && (
+                      <Box className="pdf-content-box">
+                        <Card>
+                          <Box className="heading">
+                            <img src={PdfIcon} alt="" />
+                            <h4>
+                              {this.state.propertyManagerDetails.managerName +
+                                " " +
+                                this.state.propertyManagerDetails.IdType}{" "}
+                            </h4>
+                          </Box>
+                          <Link target="_blank" href={this.state.propertyManagerDetails.IdPdfDocument}>
+                            <img src={DownloadIcon} alt="" />
+                          </Link>
+                        </Card>
+                      </Box>
+                    )}
                   </Box>
                 </Container>
               </Box>

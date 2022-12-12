@@ -64,6 +64,8 @@ export default class PropertyManagerRequestController extends BlockComponent<Pro
 
       if (responseJson && responseJson.data) {
         this.setState({ requestList: responseJson.data });
+      } else {
+        this.setState({ requestList: [] });
       }
 
       errorResponse = message.getData(getName(MessageEnum.RestAPIResponceErrorMessage));
@@ -134,12 +136,12 @@ export default class PropertyManagerRequestController extends BlockComponent<Pro
 
     apiRequest.addData(
       getName(MessageEnum.RestAPIResponceEndPointMessage),
-      `bx_block_property_manager/property_manager_requests/update_request?id=${requestId}&status=${status}`
+      `bx_block_property_manager/update_request?id=${requestId}&status=${status}`
     );
 
     apiRequest.addData(getName(MessageEnum.RestAPIRequestHeaderMessage), JSON.stringify(header));
 
-    apiRequest.addData(getName(MessageEnum.RestAPIRequestMethodMessage), configJSON.apiMethodTypePut);
+    apiRequest.addData(getName(MessageEnum.RestAPIRequestMethodMessage), configJSON.apiMethodTypeGet);
 
     runEngine.sendMessage(apiRequest.id, apiRequest);
     return true;

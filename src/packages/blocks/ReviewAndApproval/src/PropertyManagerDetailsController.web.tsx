@@ -242,10 +242,10 @@ export default class PropertyManagerDetailsController extends BlockComponent<Pro
           companyName: manager.attributes.company_name,
           phoneNumber: manager.attributes.mobile_number,
           email: manager.attributes.email,
-          IdType: manager.attributes.id_proof.name,
+          IdType: manager.attributes.id_proof ? manager.attributes.id_proof.name : "",
           IdNumber: manager.attributes.id_number,
           IdDate: manager.attributes.id_expiration_date,
-          IdPdfDocument: manager.attributes.image.url,
+          IdPdfDocument: manager.attributes.image ? manager.attributes.image.url : "",
           propertyList: manager.attributes.properties ? manager.attributes.properties.data : [],
         },
       });

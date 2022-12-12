@@ -329,7 +329,7 @@ class EditPropertyManager extends RegisterPropertyManagerController {
                               <FormControl fullWidth>
                                 <Box className="upload-box" onClick={() => this.uploadIDCard.click()}>
                                   <img src={UploadIcon} alt="" />
-                                  <p>{t("Upload Tenant ID Card Copy")}</p>
+                                  <p>{t("Upload Manager ID copy")}</p>
                                 </Box>
                                 <input
                                   onChange={(e: any) => setFieldValue("idCardFile", e.target.files[0])}

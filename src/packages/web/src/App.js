@@ -328,6 +328,8 @@ import BudgetReportDetails from '../../blocks/StoreCredits/src/BudgetReportDetai
 import ExpenseReport from '../../blocks/StoreCredits/src/ExpenseReport.web';
 import AuditReport from '../../blocks/StoreCredits/src/AuditReport.web';
 import ManagementFeeReport from '../../blocks/StoreCredits/src/ManagementFeeReport.web';
+import AuditReportDetails from '../../blocks/StoreCredits/src/AuditReportDetails.web';
+import InvitationReport from '../../blocks/StoreCredits/src/InvitationReport.web';
 
 // My Unit
 import MyUnitList from '../../blocks/TaskAllocator/src/MyUnitList.web';
@@ -2065,14 +2067,12 @@ const routeMap = {
     roles: [ROLE.CHAIRMAN, ROLE.MANAGER],
     exact: true
   },
-
   BudgetReportDetails: {
     component: BudgetReportDetails,
     path: '/BudgetReports/:id',
     roles: [ROLE.CHAIRMAN, ROLE.MANAGER],
     exact: true
   },
-
   ExpenseReport: {
     component: ExpenseReport,
     path: '/ExpenseReports',
@@ -2088,6 +2088,18 @@ const routeMap = {
   ManagementFeeReport: {
     component: ManagementFeeReport,
     path: '/ManagementFeeReports',
+    roles: [ROLE.CHAIRMAN, ROLE.MANAGER],
+    exact: true
+  },
+  AuditReportDetails: {
+    component: AuditReportDetails,
+    path: '/AuditReportDetails',
+    roles: [ROLE.CHAIRMAN, ROLE.MANAGER],
+    exact: true
+  },
+  InvitationReport: {
+    component: InvitationReport,
+    path: '/InvitationReport',
     roles: [ROLE.CHAIRMAN, ROLE.MANAGER],
     exact: true
   },

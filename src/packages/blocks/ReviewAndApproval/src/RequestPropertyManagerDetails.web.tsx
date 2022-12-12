@@ -119,7 +119,7 @@ class RequestPropertyManagerDetails extends RequestPropertyManagerDetailsControl
                           });
                         }}
                       >
-                        Decline
+                        {t("Decline")}
                       </Button>
                       <Button
                         className="accept"
@@ -129,7 +129,7 @@ class RequestPropertyManagerDetails extends RequestPropertyManagerDetailsControl
                           });
                         }}
                       >
-                        Accept
+                        {t("Accept")}
                       </Button>
                     </Box>
                   </Box>

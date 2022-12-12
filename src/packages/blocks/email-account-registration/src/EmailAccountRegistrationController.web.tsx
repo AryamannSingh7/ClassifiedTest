@@ -843,7 +843,7 @@ export default class EmailAccountRegistrationController extends BlockComponent<
       // owner_phone_number: this.state.selectCode + attributes.owner_phone,
       // owner_email: attributes.owner_email,
       password: attributes.password,
-      full_phone_number:  this.state.selectCode + attributes.phone,
+      full_phone_number:  this.state.selectCode + "-" +attributes.phone,
       password_confirmation: attributes.confirm_password
     };
 
