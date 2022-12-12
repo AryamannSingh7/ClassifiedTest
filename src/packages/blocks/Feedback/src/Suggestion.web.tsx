@@ -1,35 +1,22 @@
-import React, { useState } from 'react';
+import React from 'react';
 //components
 import {
   Box,
   Button,
-  Link,
-  Typography,
-  IconButton,
   Grid,
-  Card,
-  CardContent,
-  CardActions,
-  Menu,
-  MenuItem
 } from "@material-ui/core";
 
 //resources
-import MailOutlineIcon from '@material-ui/icons/MailOutline';
 import KeyboardBackspaceIcon from '@material-ui/icons/KeyboardBackspace';
 
-import { Formik, Form, Field } from "formik";
 import { withRouter } from 'react-router';
 import Loader from "../../../components/src/Loader.web";
-import { Input } from "react-native-elements";
-import * as Yup from "yup";
-import CountryCodeSelector from "../../country-code-selector/src/CountryCodeSelector";
 //Customizable Area End
 
 //resorces
-import { Tenant_Logo, Grid_Icon, Filter_Icon, Claender } from "../src/assets";
 import SuggestionController,{Props} from './SuggestionController.web';
 import { Building1 } from '../../ContentManagement/src/assets';
+import { Claender } from './assets';
 
 class Suggestion extends SuggestionController {
   constructor(props: Props) {
@@ -39,7 +26,6 @@ class Suggestion extends SuggestionController {
      this.getSuggtionListing()
   }
   render() {
-    const { navigation } = this.props;
     return (
       <>
         <Box className="login-wrapper incident-wrapper">

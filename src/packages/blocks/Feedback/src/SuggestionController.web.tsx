@@ -8,10 +8,8 @@ import MessageEnum, {
 
 // Customizable Area Start
 import * as Yup from 'yup';
-import { withRouter, RouteComponentProps } from "react-router-dom";
+import {  RouteComponentProps } from "react-router-dom";
 import { imgPasswordInVisible, imgPasswordVisible } from "./assets";
-import { valueContainerCSS } from "react-select/src/components/containers";
-import { truncateSync } from "fs";
 // Customizable Area End
 
 export const configJSON = require("./config");
@@ -92,35 +90,11 @@ export default class SuggestionController extends BlockComponent<
     };
 
     // Customizable Area Start
-    this.arrayholder = [];
-    this.passwordReg = new RegExp("\\w+");
-    this.emailReg = new RegExp("\\w+");
-
-    this.imgPasswordVisible = imgPasswordVisible;
-    this.imgPasswordInVisible = imgPasswordInVisible;
-
-    this.labelHeader = configJSON.labelHeader;
-    this.labelFirstName = configJSON.labelFirstName;
-    this.lastName = configJSON.lastName;
-    this.labelEmail = configJSON.labelEmail;
-    this.labelPassword = configJSON.labelPassword;
-    this.labelRePassword = configJSON.labelRePassword;
-    this.labelLegalText = configJSON.labelLegalText;
-    this.labelLegalTermCondition = configJSON.labelLegalTermCondition;
-    this.labelLegalPrivacyPolicy = configJSON.labelLegalPrivacyPolicy;
-    this.btnTextSignUp = configJSON.btnTextSignUp;
+ 
     // Customizable Area End
   }
 
-  async componentDidUpdate(prevProps: any, prevState: any) {
-    if (
-      prevState.sortBy !== this.state.sortBy ||
-      prevState.status !== this.state.status
 
-    ) {
-     this.getIncidentListing(this.state.sortBy ,this.state.status)
-    }
-  }
 
   async receive(from: string, message: Message) {
     // Customizable Area Start
@@ -138,30 +112,8 @@ export default class SuggestionController extends BlockComponent<
       );
 
       if (apiRequestCallId && responseJson) {
-        if (apiRequestCallId === this.validationApiCallId) {
-          this.arrayholder = responseJson.data;
-
-          if (this.arrayholder && this.arrayholder.length !== 0) {
-            let regexData = this.arrayholder[0];
-
-            if (regexData.password_validation_regexp) {
-              this.passwordReg = new RegExp(
-                regexData.password_validation_regexp
-              );
-            }
-
-            if (regexData.password_validation_rules) {
-              this.setState({
-                passwordHelperText: regexData.password_validation_rules
-              });
-            }
-
-            if (regexData.email_validation_regexp) {
-              this.emailReg = new RegExp(regexData.email_validation_regexp);
-            }
-          }
-        }
-      else if (apiRequestCallId === this.apicreateIncidentCallId) {
+        
+     if (apiRequestCallId === this.apicreateIncidentCallId) {
           if (responseJson && responseJson.data) {
             console.log("apicreateIncidentCallId===========>",responseJson)
             localStorage.setItem("createIncidentId",responseJson.data.id)
@@ -211,8 +163,7 @@ export default class SuggestionController extends BlockComponent<
         else if (apiRequestCallId === this.getIncidentDetailsByIdApiCallId) {
           if (responseJson && responseJson?.data ) {
           console.log("getIncidentDetailsByIdApiCallId ========================>",responseJson)
-          this.setState({getIncidentDetails :responseJson?.data})
-          console.log("responseJson getIncidentDetails========================>",this.state?.getIncidentDetails)
+         
           this.setState({loading: false})
           } else if (responseJson?.errors) {
             let error = responseJson.errors[0] as string;
@@ -229,8 +180,7 @@ export default class SuggestionController extends BlockComponent<
         else if (apiRequestCallId === this.getCommonAreaApiCallId) {
           if (responseJson && responseJson?.data ) {
           console.log("getCommonAreaApiCallId  ========================>",responseJson)
-          this.setState({commonAreaData :responseJson?.data.common_areas})
-
+         
           this.setState({loading: false})
           } else if (responseJson?.errors) {
             let error = Object.values(responseJson.errors[0])[0] as string;
@@ -244,8 +194,7 @@ export default class SuggestionController extends BlockComponent<
         else if (apiRequestCallId === this.getIncidentRelatedApiCallId) {
           if (responseJson && responseJson?.data ) {
           console.log("getIncidentRelatedApiCallId========================>",responseJson)
-          this.setState({incidentRelatedData :responseJson?.data.incident_relateds})
-
+          
           this.setState({loading: false})
           } else if (responseJson?.errors) {
             let error = Object.values(responseJson.errors[0])[0] as string;
@@ -273,8 +222,7 @@ export default class SuggestionController extends BlockComponent<
         else if (apiRequestCallId === this.getMyApartmentListApiCallId) {
           if (responseJson && responseJson?.data ) {
           console.log("getMyApartmentListApiCallId========================>",responseJson)
-          this.setState({myApartmentList :responseJson?.data})
-
+          
           this.setState({loading: false})
           } else if (responseJson?.errors) {
             let error = Object.values(responseJson.errors[0])[0] as string;
@@ -288,31 +236,9 @@ export default class SuggestionController extends BlockComponent<
       }
     }
 
-    if (getName(MessageEnum.NavigationPayLoadMessage) === message.id) {
-      const otpAuthTkn = message.getData(
-        getName(MessageEnum.AuthTokenDataMessage)
-      );
-      if (otpAuthTkn && otpAuthTkn.length > 0) {
-        this.setState({ otpAuthToken: otpAuthTkn });
-        runEngine.debugLog("otpAuthTkn", this.state.otpAuthToken);
-        runEngine.unSubscribeFromMessages(this as IBlock, [message.id]);
-      }
-    }
+   
 
-    if (getName(MessageEnum.CountryCodeMessage) === message.id) {
-      var selectedCode = message.getData(
-        getName(MessageEnum.CountyCodeDataMessage)
-      );
-
-      if (selectedCode !== undefined) {
-        this.setState({
-          countryCodeSelected:
-            selectedCode.indexOf("+") > 0
-              ? selectedCode.split("+")[1]
-              : selectedCode
-        });
-      }
-    }
+  
     // Customizable Area End
   }
 
@@ -399,11 +325,8 @@ export default class SuggestionController extends BlockComponent<
 
   btnConfirmPasswordShowHideProps = {
     onPress: () => {
-      this.setState({
-        enableReTypePasswordField: !this.state.enableReTypePasswordField
-      });
-      this.txtInputConfirmPasswordProps.secureTextEntry = !this.state
-        .enableReTypePasswordField;
+     
+      
       this.imgEnableRePasswordFieldProps.source = this
         .txtInputConfirmPasswordProps.secureTextEntry
         ? imgPasswordVisible
@@ -417,9 +340,7 @@ export default class SuggestionController extends BlockComponent<
 
   btnPasswordShowHideProps = {
     onPress: () => {
-      this.setState({ enablePasswordField: !this.state.enablePasswordField });
-      this.txtInputPasswordProps.secureTextEntry = !this.state
-        .enablePasswordField;
+     
       this.imgEnablePasswordFieldProps.source = this.txtInputPasswordProps
         .secureTextEntry
         ? imgPasswordVisible
@@ -442,7 +363,7 @@ export default class SuggestionController extends BlockComponent<
 
   txtInputEmailWebPrpos = {
     onChangeText: (text: string) => {
-      this.setState({ email: text });
+      
       //@ts-ignore
       this.txtInputEmailPrpos.value = text;
     }
@@ -459,7 +380,7 @@ export default class SuggestionController extends BlockComponent<
 
   txtPhoneNumberWebProps = {
     onChangeText: (text: string) => {
-      this.setState({ phone: text });
+  
 
       //@ts-ignore
       this.txtPhoneNumberProps.value = text;
@@ -478,7 +399,7 @@ export default class SuggestionController extends BlockComponent<
 
   txtInputLastNamePrpos = {
     onChangeText: (text: string) => {
-      this.setState({ lastName: text });
+      
 
       //@ts-ignore
       this.txtInputLastNamePrpos.value = text;
@@ -487,7 +408,7 @@ export default class SuggestionController extends BlockComponent<
 
   txtInputFirstNamePrpos = {
     onChangeText: (text: string) => {
-      this.setState({ firstName: text });
+    
 
       //@ts-ignore
       this.txtInputFirstNamePrpos.value = text;
@@ -496,7 +417,7 @@ export default class SuggestionController extends BlockComponent<
 
   txtInputConfirmPasswordProps = {
     onChangeText: (text: string) => {
-      this.setState({ reTypePassword: text });
+     
 
       //@ts-ignore
       this.txtInputConfirmPasswordProps.value = text;
@@ -506,7 +427,7 @@ export default class SuggestionController extends BlockComponent<
 
   txtInputPasswordProps = {
     onChangeText: (text: string) => {
-      this.setState({ password: text });
+     
 
       //@ts-ignore
       this.txtInputPasswordProps.value = text;
@@ -838,83 +759,7 @@ confirmOrRejectIncident =(id : any,val : any)=>{
   };
 
 
-  handleClick = (event:any) => {
-    this.setState({anchorEl:event.currentTarget })
-  };
-  handleClose = (e:any, v:any) => {
-    let sortBy : any ;
-    console.log("v=========>",v)
-    if(v === undefined || v === null){
-      sortBy =this.state.sortBy
-    }
-    else {
-      sortBy =v;
-    }
-    this.setState({anchorEl:null,sortBy : sortBy})
-  };
-
-  handleClick_1 = (event :any) => {
-    this.setState({anchorEl_1:event.currentTarget})
-  };
-
-  handleClose_1 = (e:any, v:any) => {
-   let status : any ;
-    if(v === undefined || v === null){
-      status =this.state.status;
-    }
-    else {
-      status =v;
-    }
-    this.setState({anchorEl_1:null ,status :status})
-  };
-
-  handleSelectMedia  =   (
-    e: any,
-    existingMedia: any[],
-    setFieldValue: (field: string, value: any, shouldValidate?: boolean) => void,
-    setFieldError: (field: string, message: string) => void
-  ) => {
-    let media = [];
-    let files = e.target.files;
-    console.log("filessss=====>",files);
-
-
-if(files.length !== 0){
-  for (let i = 0; i < files.length; i += 1) {
-    if(files[i] && !["image/jpg", "image/jpeg", "image/gif", "image/png","video/mp4","video/x-m4v" ].includes(files[i].type))
-    {
-      console.log("type=====>",files[i].type);
-      this.setState({upload: false,sizeError : false,notImageOrVideoError:true});
-       return ;
-    }
-    else if(files[i] && files[i].size >= 10e6)
-    {
-       console.log("size=====>",files[i].size);
-       this.setState({upload: false , sizeError : true ,notImageOrVideoError:false});
-      return ;
-    }
-    console.log("media push =====>",files[i]);
-    media.push({
-      file: {
-        lastModified: files[i].lastModified,
-        lastModifiedDate: files[i].lastModifiedDate,
-        name: files[i].name,
-        size: files[i].size,
-        type: files[i].type
-      },
-      url: URL.createObjectURL(files[i])
-    });
-  }
-  e.target.value = "";
-  this.setState({upload: true ,sizeError : false,notImageOrVideoError:false});
-  console.log("media======>",media)
-  setFieldValue("media", media);
-}
-else {
-  this.setState({upload: false,sizeError : false,notImageOrVideoError:false});
-}
-
-  };
+  
 
 createIncidentSchema() {
     const validations = Yup.object().shape({
