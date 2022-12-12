@@ -2075,7 +2075,6 @@ const routeMap = {
     roles: [ROLE.CHAIRMAN, ROLE.MANAGER],
     exact: true
   },
-<<<<<<< HEAD
 
   GenerateBudgetReport:{
     component: GenerateBudgetReport,
@@ -2091,8 +2090,6 @@ const routeMap = {
     exact: true
   },
 
-=======
->>>>>>> 37c395b40b3822c20ddf287d70cdc362d9c7c25d
   ExpenseReport: {
     component: ExpenseReport,
     path: '/ExpenseReports',
