@@ -396,19 +396,6 @@ this.setState({loading:false,showDialog:false})
           }else{
             //
           }
-        }if (apiRequestCallId === this.deleteVehicleAPICallId) {
-          if (!responseJson.errors) {
-            console.log(responseJson)
-            //@ts-ignore
-            //@ts-nocheck
-           this.setState({setRequestOpen:false,loading:false,allProfileKeys:Object.keys(responseJson)},()=>this.getInvitation())
-
-          } else {
-            //Check Error Response
-            this.parseApiErrorResponse(responseJson);
-          }
-
-          this.parseApiCatchErrorResponse(errorReponse);
         } else if (apiRequestCallId === this.getInvitationAPICall) {
           if (!responseJson.errors) {
 this.setState({allInvitation:responseJson.member_invitations.data,loading:false})
