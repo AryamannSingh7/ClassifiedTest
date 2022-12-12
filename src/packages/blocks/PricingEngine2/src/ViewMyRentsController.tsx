@@ -24,9 +24,17 @@ interface S {
   loading: boolean;
   sortBy:any;
   status:any;
-  pollListing:any;
+  invoiceListing:any;
   paymentConfirmModal:boolean;
   isPartialPayment:boolean;
+  paymentAmount:any;
+  rentUpdateId:any;
+  partialPayment:any;
+  paymentMonth:any;
+  buildingName:any;
+  unitName:any;
+  tenantName:any;
+  partialPaymentError:any;
 }
 
 interface SS {
@@ -43,6 +51,9 @@ export default class CoverImageController extends BlockComponent<
   emailReg: RegExp;
   labelTitle: string = "";
   getRentUnitViseListId: string = "";
+  partialPaymentUpdateId:string = "";
+  fullPaymentUpdateId:string = "";
+
   constructor(props: Props) {
 
     super(props);
@@ -58,9 +69,17 @@ export default class CoverImageController extends BlockComponent<
       loading:false,
       sortBy : "" ,
       status:"",
-      pollListing:[],
+      invoiceListing:[],
       paymentConfirmModal:false,
       isPartialPayment:false,
+      paymentAmount:0,
+      partialPayment:0,
+      paymentMonth:"",
+      rentUpdateId:"",
+      buildingName:"",
+      unitName:"",
+      tenantName:"",
+      partialPaymentError:""
     };
 
     this.emailReg = new RegExp("");
@@ -74,6 +93,18 @@ export default class CoverImageController extends BlockComponent<
     this.getRentUnitList()
   }
 
+  handlePaymentClick= (item:any,isPartial:boolean) => {
+    this.setState({
+      paymentConfirmModal:true,
+      isPartialPayment:isPartial,
+      paymentAmount:item.attributes.amount,
+      rentUpdateId:item.id,
+      paymentMonth:`${item?.attributes?.month} ${item?.attributes?.year}`,
+      buildingName:item.attributes.building_name,
+      unitName:item.attributes.apartment_name,
+      tenantName:item.attributes.tenant_name,
+    })
+  }
   getRentUnitList = async () => {
     const {id} = this.props.match.params
     this.getRentUnitViseListId = await this.apiCall({
@@ -83,6 +114,40 @@ export default class CoverImageController extends BlockComponent<
     });
   };
 
+  UpdatePartialPayment = async (body:any) => {
+    this.partialPaymentUpdateId = await this.apiCall({
+      contentType: "application/json",
+      method: "PUT",
+      endPoint: `/bx_block_rent_payment/partial_payment/${this.state.rentUpdateId}`,
+      body:JSON.stringify(body)
+    });
+  };
+
+  UpdateFullPayment = async () => {
+    this.fullPaymentUpdateId = await this.apiCall({
+      contentType: "application/json",
+      method: "PUT",
+      endPoint: `/bx_block_rent_payment/full_payments/${this.state.rentUpdateId}`,
+    });
+  };
+
+
+  managePayment = () => {
+    if(this.state.partialPayment){
+      if(this.state.partialPayment !== ""){
+        const body = {
+          "partial_payment": this.state.partialPayment
+        }
+        this.UpdatePartialPayment(body)
+      }else{
+        this.setState({
+          partialPaymentError:"Please enter partial payment Amount"
+        })
+      }
+    }else{
+      this.UpdateFullPayment()
+    }
+  }
 
   apiCall = async (data: any) => {
     const { contentType, method, endPoint, body } = data;
@@ -103,7 +168,15 @@ export default class CoverImageController extends BlockComponent<
   };
 
   handleCloseDeleteModal = () => {
-
+    this.setState({
+      paymentConfirmModal:false,
+      paymentAmount:"",
+      rentUpdateId:"",
+      paymentMonth:``,
+      buildingName:"",
+      unitName:"",
+      tenantName:"",
+    })
   }
 
   async receive(from: string, message: Message) {
@@ -111,8 +184,29 @@ export default class CoverImageController extends BlockComponent<
       const apiRequestCallId = message.getData(getName(MessageEnum.RestAPIResponceDataMessage));
       const responseJson = message.getData(getName(MessageEnum.RestAPIResponceSuccessMessage));
       var errorReponse = message.getData(getName(MessageEnum.RestAPIResponceErrorMessage));
-      if(this.apiEmailLoginCallId === apiRequestCallId ){
+      if(this.getRentUnitViseListId === apiRequestCallId ){
         console.log(responseJson,errorReponse)
+        if(responseJson.hasOwnProperty("data")){
+          this.setState({
+            invoiceListing:responseJson.data
+          })
+        }
+      }
+      if(this.fullPaymentUpdateId === apiRequestCallId){
+        if(responseJson.hasOwnProperty("data")){
+          this.setState({
+            paymentConfirmModal:false
+          })
+          this.getRentUnitList()
+        }
+      }
+      if(this.partialPaymentUpdateId === apiRequestCallId){
+        if(responseJson.status === "SUCCESS"){
+          this.setState({
+            paymentConfirmModal:false
+          })
+          this.getRentUnitList()
+        }
       }
     }
   }

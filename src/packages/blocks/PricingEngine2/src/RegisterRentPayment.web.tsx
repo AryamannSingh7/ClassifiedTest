@@ -67,7 +67,7 @@ class RegisterRentPayment extends RegisterRentPaymentController{
                                 native
                                 style={{backgroundColor:"#F9F9F9",borderRadius:"100px",height:"60px",border:"1px solid #f0f0f0"}}
                                 value={this.state.selectedMonth}
-                                onChange={(e:any)=> this.setState({selectedMonth:e.target.value})}
+                                onChange={(e:any)=> this.setState({selectedMonth:e.target.value},this.getAmountDue)}
                                 startAdornment={
                                     <InputAdornment position="start">
                                         <img src={calendar} style={{marginLeft:"25px"}} />
@@ -129,7 +129,8 @@ class RegisterRentPayment extends RegisterRentPaymentController{
                                 className="selectBuildingBoxRent"
                                 native
                                 style={{backgroundColor:"#F9F9F9",borderRadius:"100px",height:"50px",border:"1px solid #f0f0f0"}}
-                                value=""
+                                value={this.state.selectedUnit}
+                                onChange={(e:any)=> this.setState({selectedUnit:e.target.value},this.getAmountDue)}
                                 startAdornment={
                                     <InputAdornment position="start">
                                         <img src={Unit} style={{marginLeft:"25px"}} />
@@ -144,7 +145,7 @@ class RegisterRentPayment extends RegisterRentPaymentController{
                                 {
                                     this.state.UnitListing?.map((item:any,key:any)=> {
                                         return(
-                                            <option key={key} value={item.id}> {item?.attributes?.apartment_name}</option>
+                                            <option key={key} value={item.attributes.apartment_management.id}> {item.attributes?.apartment_management?.apartment_name}</option>
                                         )
                                     })
                                 }
@@ -208,7 +209,7 @@ class RegisterRentPayment extends RegisterRentPaymentController{
                         }
                     </Grid>
                     <Box style={{width:"90%",marginBottom:"30px",marginTop:"10px"}}>
-                        <CloseButton variant="contained" fullWidth size="large" onClick={()=> this.props.history.push("/AddRentPayment")}>
+                        <CloseButton variant="contained" fullWidth size="large" onClick={this.createPayment}>
                             {t("Register Rent Payment")}
                         </CloseButton>
                     </Box>

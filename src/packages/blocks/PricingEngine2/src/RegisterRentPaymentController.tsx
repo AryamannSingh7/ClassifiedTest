@@ -49,7 +49,8 @@ export default class CoverImageController extends BlockComponent<
   labelTitle: string = "";
   getRentBuildingListId: string = "";
   getRentUnitListId: string = "";
-
+  RegisterRentPaymentId:string = "";
+  getRentDueAmountId:string = "";
   constructor(props: Props) {
 
     super(props);
@@ -90,7 +91,9 @@ export default class CoverImageController extends BlockComponent<
   manageSelectBuilding = (e:any) => {
     this.setState({
       selectedBuilding:e.target.value
-    })
+    },
+      this.getAmountDue
+    )
     this.getRentUnitList(e.target.value)
   }
   async receive(from: string, message: Message) {
@@ -112,6 +115,21 @@ export default class CoverImageController extends BlockComponent<
           })
         }
       }
+      if(this.RegisterRentPaymentId === apiRequestCallId){
+        if(responseJson.hasOwnProperty("data")){
+          window.history.back()
+        }
+      }
+    }
+  }
+
+  getAmountDue = async () => {
+    if(this.state.selectedUnit && this.state.selectedBuilding && this.state.selectedMonth){
+      this.getRentDueAmountId = await this.apiCall({
+        contentType: "application/json",
+        method: "GET",
+        endPoint: `bx_block_rent_payment/due_amount?building_name=${this.state.selectedBuilding}&month=${this.state.selectedMonth}&unit_name=${this.state.selectedUnit}`,
+      });
     }
   }
 
@@ -133,13 +151,29 @@ export default class CoverImageController extends BlockComponent<
   };
 
   createPayment = () => {
+    let create ={}
+    if(this.state.paymentType ==="full"){
+      create={
+        month:this.state.selectedMonth,
+        building_management_id:this.state.selectedBuilding,
+        apartment_management_id:this.state.selectedUnit
+      }
+    }else {
+      create = {
+        month:this.state.selectedMonth,
+        building_management_id:this.state.selectedBuilding,
+        apartment_management_id:this.state.selectedUnit,
+        partial_payment:this.state.partialPaymentAmount
+      }
+    }
+    this.registerPayment(create)
 
   }
 
   registerPayment = async (body:any) => {
-    this.getRentUnitListId = await this.apiCall({
+    this.RegisterRentPaymentId = await this.apiCall({
       contentType: "application/json",
-      method: "GET",
+      method: "POST",
       endPoint: `/bx_block_rent_payment/rent_payments`,
       body:JSON.stringify(body)
     });
