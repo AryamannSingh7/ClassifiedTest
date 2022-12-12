@@ -27,10 +27,8 @@ import SearchIcon from "@material-ui/icons/Search";
 import MoreVertIcon from "@material-ui/icons/MoreVert";
 //@ts-ignore
 import Pagination from "@material-ui/lab/Pagination";
-import { withRouter } from 'react-router';
+import { withRouter } from "react-router";
 import { withTranslation } from "react-i18next";
-import "../../../web/src/i18n.js";
-import i18next from "i18next";
 import { ROLE } from "../../../framework/src/Enum";
 import { ReportsStyleWeb } from "./ReportsStyle.web";
 import { SearchIconImage } from "./assets";
@@ -38,19 +36,10 @@ import { SearchIconImage } from "./assets";
 class BudgetReport extends BudgetReportController {
   constructor(props: Props) {
     super(props);
-  } 
-
-  async componentDidMount(): Promise<void> {
-    // this.getBuildingsList();
   }
 
-  async componentDidUpdate(prevProps: any, prevState: any): Promise<void> {}
-
   render() {
-    const { classes } = this.props;
-    const { t }: any = this.props;
-
-    console.log(this.state);
+    const { t, classes }: any = this.props;
 
     return (
       <>
@@ -81,26 +70,13 @@ class BudgetReport extends BudgetReportController {
                 <Box className="top-bar">
                   <Box className="filter">
                     {localStorage.getItem("userType") === ROLE.MANAGER && (
-                      <Select
-                        displayEmpty
-                        value=""
-                        // onChange={(e: any) => this.setState({ selectedBuilding: e.target.value })}
-                        className="select-input"
-                      >
+                      <Select displayEmpty value="" className="select-input">
                         <MenuItem value="" disabled>
                           {t("Select Building")}
                         </MenuItem>
-                        {/* {this.state.buildingsList.map((building: any) => {
-                          return <MenuItem value={building.name}>{building.name}</MenuItem>;
-                        })} */}
                       </Select>
                     )}
-                    <Select
-                      displayEmpty
-                      className="select-input"
-                      value=""
-                      // onChange={(e: any) => this.setState({ selectedYear: e.target.value })}
-                    >
+                    <Select displayEmpty className="select-input" value="">
                       <MenuItem value="" disabled>
                         {t("Select Year")}
                       </MenuItem>
@@ -108,12 +84,7 @@ class BudgetReport extends BudgetReportController {
                       <MenuItem value="completed">{t("Completed")}</MenuItem>
                       <MenuItem value="cancelled">{t("Cancelled")}</MenuItem>
                     </Select>
-                    <Select
-                      displayEmpty
-                      className="select-input"
-                      value=""
-                      // onChange={(e: any) => this.setState({ selectedStatus: e.target.value })}
-                    >
+                    <Select displayEmpty className="select-input" value="">
                       <MenuItem value="" disabled>
                         {t("Select Status")}
                       </MenuItem>
@@ -137,14 +108,7 @@ class BudgetReport extends BudgetReportController {
                       <h4>{t("Budget Reports")}</h4>
                       <div className="search-box">
                         <SearchIcon />
-                        <InputBase
-                          placeholder={t("Search")}
-                          className="search"
-                          value=""
-                          onChange={(e: any) => {
-                            // this.setState({ filter: { ...this.state.filter, search: e.target.value } });
-                          }}
-                        />
+                        <InputBase placeholder={t("Search")} className="search" value="" />
                       </div>
                     </Box>
                     <Divider />
@@ -179,7 +143,9 @@ class BudgetReport extends BudgetReportController {
                                 </IconButton>
                               }
                             >
-                              <MenuItem onClick={()=> this.props.history.push("/BudgetReports/1")}>{t("View")}</MenuItem>
+                              <MenuItem onClick={() => this.props.history.push("/BudgetReports/1")}>
+                                {t("View")}
+                              </MenuItem>
                               <MenuItem>{t("Download")}</MenuItem>
                               <MenuItem>{t("Share")}</MenuItem>
                             </Menu>
@@ -190,30 +156,10 @@ class BudgetReport extends BudgetReportController {
                     <Divider />
                     <Box className="table-bottom">
                       <p>
-                        Showing <span className="current-page">{0}</span> of{" "}
-                        <span className="total-page">
-                          0{/* {this.state.pagination ? this.state.pagination.total_count : 0} */}
-                        </span>{" "}
+                        Showing <span className="current-page">{0}</span> of <span className="total-page">0</span>{" "}
                         results
                       </p>
-                      {/* {this.state.pagination && ( */}
-                      <Pagination
-                        // onChange={(event: any, value: any) => {
-                        //   this.setState({
-                        //     ...this.state,
-                        //     filter: {
-                        //       ...this.state.filter,
-                        //       page: Number(value),
-                        //     },
-                        //   });
-                        // }}
-                        // count={this.state.pagination.total_pages}
-                        // page={this.state.pagination.current_page}
-                        siblingCount={2}
-                        variant="outlined"
-                        shape="rounded"
-                      />
-                      {/* )} */}
+                      <Pagination siblingCount={2} variant="outlined" shape="rounded" />
                     </Box>
                   </Grid>
                 </Grid>

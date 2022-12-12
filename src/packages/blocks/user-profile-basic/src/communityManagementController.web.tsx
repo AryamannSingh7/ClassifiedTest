@@ -388,30 +388,17 @@ this.setState({loading:false,showDialog:false})
         }   else if(apiRequestCallId === this.createChatRoomAPIId){
           if(responseJson.hasOwnProperty("data")){
             localStorage.setItem('selectedChat',JSON.stringify(responseJson.data))
-            //
+            
             this.props.history.push({
               pathname: '/chairmanchat',
               state: { data: responseJson.data }
             })
           }else{
-            //
+            
           }
-        }if (apiRequestCallId === this.deleteVehicleAPICallId) {
-          if (!responseJson.errors) {
-            console.log(responseJson)
-            //@ts-ignore
-            //@ts-nocheck
-           this.setState({setRequestOpen:false,loading:false,allProfileKeys:Object.keys(responseJson)},()=>this.getInvitation())
-
-          } else {
-            //Check Error Response
-            this.parseApiErrorResponse(responseJson);
-          }
-
-          this.parseApiCatchErrorResponse(errorReponse);
         } else if (apiRequestCallId === this.getInvitationAPICall) {
           if (!responseJson.errors) {
-this.setState({allInvitation:responseJson.data,loading:false})
+this.setState({allInvitation:responseJson.member_invitations.data,loading:false})
 
 
           } else {
@@ -425,9 +412,6 @@ this.setState({allInvitation:responseJson.data,loading:false})
             //@ts-ignore
             //@ts-nocheck
             this.setState({ loading: false })
-            // localStorage.setItem('res_token', responseJson.meta.token)
-            // localStorage.setItem('res_user', responseJson.data.attributes)
-            // localStorage.setItem('res_user_id', responseJson.data.id)
             //@ts-ignore
             //@ts-nocheck
             this.props.history.push('/addressfill')
@@ -578,7 +562,7 @@ this.setState({allInvitation:responseJson.data,loading:false})
   };
 
   handleToolTip = (e:any,text:any) => {
-
+this.setState({openToolTip:!this.state.openToolTip})
   }
 
   invitationData = (value:any) => {

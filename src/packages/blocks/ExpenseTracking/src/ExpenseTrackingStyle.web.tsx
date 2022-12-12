@@ -230,6 +230,21 @@ export const ExpenseTrackingStyle: any = {
       position: "sticky",
       bottom: 0,
     },
+    "& .text-area-box": {
+      position: "relative",
+      "& textarea": {
+        width: "100%",
+        height: "100px !important",
+        fontSize: "16px",
+        padding: "10px 10px 10px 64px !important",
+        outline: "none",
+      },
+      "& img": {
+        position: "absolute",
+        left: "18px",
+        top: "32px",
+      },
+    },
   },
 };
 // Customizable Area End

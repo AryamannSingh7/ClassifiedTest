@@ -5,7 +5,6 @@ import MessageEnum, { getName } from "../../../framework/src/Messages/MessageEnu
 import { runEngine } from "../../../framework/src/RunEngine";
 
 // Customizable Area Start
-import { ApiCatchErrorResponse, ApiErrorResponse } from "../../../components/src/APIErrorResponse";
 // Customizable Area End
 
 export const configJSON = require("./config.js");
@@ -46,6 +45,5 @@ export default class ReportDashboardController extends BlockComponent<Props, S, 
   }
 
   // Customizable Area Start
-  async componentDidMount(): Promise<void> {}
   // Customizable Area End
 }
