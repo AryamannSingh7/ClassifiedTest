@@ -35,6 +35,8 @@ import Search from '../../blocks/search/src/Search';
 import MultipleCurrencySupport from '../../blocks/multiplecurrencysupport/src/MultipleCurrencySupport';
 import NewPassword from '../../blocks/forgot-password/src/NewPassword';
 import Feedback from '../../blocks/Feedback/src/Feedback';
+import SuggestionListing from '../../blocks/Feedback/src/Suggestion.web';
+
 // import Contactus from "../../blocks/contactus/src/Contactus";
 import AddContactus from '../../blocks/contactus/src/AddContactus';
 import CountryCodeSelector from '../../blocks/country-code-selector/src/CountryCodeSelector';
@@ -519,6 +521,11 @@ const routeMap = {
   ChangePassword: {
     component: ChangePassword,
     path: '/ChangePassword',
+    exact: true
+  },
+  SuggestionListing: {
+    component: SuggestionListing,
+    path: '/SuggestionListing',
     exact: true
   },
   ChairmanChangePassword: {
