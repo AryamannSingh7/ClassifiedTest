@@ -243,21 +243,39 @@ export default class CoverImageController extends BlockComponent<
     return titleValidation
   }
 
+  categoryValidation = (item:any) => {
+    let categoryValidation = false
+    if(item.budgetCategory !== ""){
+      categoryValidation = true
+    }
+    return categoryValidation
+  }
+
+  amountValidation = (item:any) => {
+    let amountValidation = false
+    if(item.amount !== ""){
+      amountValidation = true
+    }
+    return amountValidation
+  }
+
+  descriptionValidation = (item:any) => {
+    let descriptionValidation = false
+    if(item.description !== ""){
+      descriptionValidation = true
+    }
+    return descriptionValidation
+  }
   handleOptionValidation = () => {
     let optionValidation = false
     let updatedArray = this.state.budgetItems.map((item:any) => {
       let categoryValidation = false
       let amountValidation = false
       let descriptionValidation = false
-      if(item.budgetCategory !== ""){
-        categoryValidation = true
-      }
-      if(item.amount !== ""){
-        amountValidation = true
-      }
-      if(item.description !== ""){
-        descriptionValidation = true
-      }
+      categoryValidation = this.categoryValidation(item)
+      amountValidation = this.amountValidation(item)
+      descriptionValidation = this.descriptionValidation(item)
+
       if(!categoryValidation || !amountValidation || !descriptionValidation)
       {
         let updatedObject = item
@@ -317,6 +335,12 @@ export default class CoverImageController extends BlockComponent<
     this.setState({
       budgetItems:updatedArray
     })
+    optionValidation = this.manageOptionValidation(updatedArray)
+    return optionValidation
+  }
+
+  manageOptionValidation = (updatedArray:any) => {
+    let optionValidation = false
     updatedArray.forEach((item:any)=>{
       if(item.error){
         return
@@ -326,7 +350,6 @@ export default class CoverImageController extends BlockComponent<
     })
     return optionValidation
   }
-
   handleValidation(){
     let titleValidation = false
     let optionValidation = false
