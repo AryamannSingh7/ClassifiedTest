@@ -347,7 +347,7 @@ getIncidentDetails= (id :any) => {
    //@ts-ignore
   this.props.history.push({pathname: "/IncidentDetails",id});
 
-  //this.getIncidentDetailsById(id)
+  
 }
 
 confirmOrRejectIncident =(id : any,val : any)=>{
@@ -410,13 +410,11 @@ confirmOrRejectIncident =(id : any,val : any)=>{
      const header = {
       token :localStorage.getItem("userToken")
     };
-   // console.log("values create==================>",incidentFromData.media[0].file );
     const formData = new FormData();
    formData.append('incident[common_area_id]', incidentFromData?.commonArea?.id);
    formData.append('incident[incident_related_id]', incidentRelated[0]);
    formData.append('incident[incident_title]', incidentFromData.incidentTitle);
    formData.append('incident[description]', incidentFromData.description);
-  //  formData.append('incident[attachments]', incidentFromData.media[0].file);
    formData.append('incident[apartment_management_id]', incidentFromData.myApartment.id);
 
    for (let j = 0; j < incidentFromData.media.length; j += 1) {
@@ -478,7 +476,6 @@ confirmOrRejectIncident =(id : any,val : any)=>{
         token :localStorage.getItem("userToken")
       };
 
-      //const id = localStorage.getItem("userId");
       const requestMessage = new Message(
         getName(MessageEnum.RestAPIRequestMessage)
       );
@@ -516,7 +513,6 @@ confirmOrRejectIncident =(id : any,val : any)=>{
         token :localStorage.getItem("userToken")
       };
 
-      //const id = localStorage.getItem("userId");
       const requestMessage = new Message(
         getName(MessageEnum.RestAPIRequestMessage)
       );
@@ -552,7 +548,6 @@ confirmOrRejectIncident =(id : any,val : any)=>{
         token :localStorage.getItem("userToken")
       };
       const society_id = localStorage.getItem("society_id")
-      //const id = localStorage.getItem("userId");
       const requestMessage = new Message(
         getName(MessageEnum.RestAPIRequestMessage)
       );
@@ -588,7 +583,6 @@ confirmOrRejectIncident =(id : any,val : any)=>{
         token :localStorage.getItem("userToken")
       };
 
-      //const id = localStorage.getItem("userId");
       const requestMessage = new Message(
         getName(MessageEnum.RestAPIRequestMessage)
       );
@@ -623,7 +617,6 @@ confirmOrRejectIncident =(id : any,val : any)=>{
         "Content-Type": configJSON.validationApiContentType,
         token :localStorage.getItem("userToken")
       };
-      //const id = localStorage.getItem("userId");
       const requestMessage = new Message(
         getName(MessageEnum.RestAPIRequestMessage)
       );
@@ -662,9 +655,7 @@ createIncidentSchema() {
       incidentTitle: Yup.string().required(`This field is required`).max(50, "Too Long!"),
       description: Yup.string().required(`This field is required`).max(200, "Too Long!"),
       myApartment:Yup.string().required(`This field is required`).trim(),
-      //media: Yup.array()
-      // .min(1, ("Atleast one image required"))
-      // .required(`This field is required.`)
+     
     });
 
     return validations ;
