@@ -1,4 +1,3 @@
-import { IBlock } from "../../../framework/src/IBlock";
 import { Message } from "../../../framework/src/Message";
 import { BlockComponent } from "../../../framework/src/BlockComponent";
 import { runEngine } from "../../../framework/src/RunEngine";
@@ -103,50 +102,16 @@ export default class SuggestionController extends BlockComponent<
         getName(MessageEnum.RestAPIResponceDataMessage)
       );
 
-      var responseJson = message.getData(
+      let responseJson = message.getData(
         getName(MessageEnum.RestAPIResponceSuccessMessage)
       );
 
-      var errorReponse = message.getData(
-        getName(MessageEnum.RestAPIResponceErrorMessage)
-      );
+      
 
       if (apiRequestCallId && responseJson) {
         
-     if (apiRequestCallId === this.apicreateIncidentCallId) {
-          if (responseJson && responseJson.data) {
-            console.log("apicreateIncidentCallId===========>",responseJson)
-            localStorage.setItem("createIncidentId",responseJson.data.id)
-            //@ts-ignore
-            this.props.history.push("/IncidentReportedSuccessfully")
-            this.setState({loading: false})
-          } else if (responseJson?.errors) {
-            let error = responseJson.errors[0]
-            this.setState({ error });
-          } else {
-            this.setState({ error: responseJson?.error || "Something went wrong!" });
-          }
-
-          this.parseApiCatchErrorResponse(this.state.error);
-          this.setState({loading: false , error:null})
-        }
-        else if (apiRequestCallId === this.apiupdateIncidentCallId) {
-          if (responseJson && responseJson.data) {
-            console.log("apiupdateIncidentCallId===========>",responseJson)
-               //@ts-ignore
-              this.props.history.push("/IncidentListing")
-            this.setState({loading: false})
-          } else if (responseJson?.errors) {
-            let error = Object.values(responseJson.errors[0])[0] as string;
-            this.setState({ error });
-          } else {
-            this.setState({ error: responseJson?.error || "Something went wrong!" });
-          }
-
-          this.parseApiCatchErrorResponse(this.state.error);
-          this.setState({loading: false , error:null})
-        }
-        else if (apiRequestCallId === this.getSuggestionListingApiCallId) {
+    
+         if (apiRequestCallId === this.getSuggestionListingApiCallId) {
           if (responseJson && responseJson?.data ) {
           console.log("getIncidentListingApiCallId ========================>",responseJson)
           this.setState({suggestionList :responseJson?.data})
@@ -160,79 +125,8 @@ export default class SuggestionController extends BlockComponent<
           this.parseApiCatchErrorResponse(this.state.error);
           this.setState({loading: false , error:null})
         }
-        else if (apiRequestCallId === this.getIncidentDetailsByIdApiCallId) {
-          if (responseJson && responseJson?.data ) {
-          console.log("getIncidentDetailsByIdApiCallId ========================>",responseJson)
-         
-          this.setState({loading: false})
-          } else if (responseJson?.errors) {
-            let error = responseJson.errors[0] as string;
-                     //@ts-ignore
-                    //@ts-nocheck
-              this.props.history.push("/IncidentListing")
-            this.setState({ error });
-          } else {
-            this.setState({ error: responseJson?.error || "Something went wrong!" });
-          }
-          this.parseApiCatchErrorResponse(this.state.error);
-          this.setState({loading: false , error:null})
-        }
-        else if (apiRequestCallId === this.getCommonAreaApiCallId) {
-          if (responseJson && responseJson?.data ) {
-          console.log("getCommonAreaApiCallId  ========================>",responseJson)
-         
-          this.setState({loading: false})
-          } else if (responseJson?.errors) {
-            let error = Object.values(responseJson.errors[0])[0] as string;
-            this.setState({ error });
-          } else {
-            this.setState({ error: responseJson?.error || "Something went wrong!" });
-          }
-          this.parseApiCatchErrorResponse(this.state.error);
-          this.setState({loading: false , error:null})
-        }
-        else if (apiRequestCallId === this.getIncidentRelatedApiCallId) {
-          if (responseJson && responseJson?.data ) {
-          console.log("getIncidentRelatedApiCallId========================>",responseJson)
-          
-          this.setState({loading: false})
-          } else if (responseJson?.errors) {
-            let error = Object.values(responseJson.errors[0])[0] as string;
-            this.setState({ error });
-          } else {
-            this.setState({ error: responseJson?.error || "Something went wrong!" });
-          }
-          this.parseApiCatchErrorResponse(this.state.error);
-          this.setState({loading: false , error:null})
-        } else if (apiRequestCallId === this.createChatRoomAPIId) {
-          if (responseJson && responseJson?.data) {
-            console.log("createChatRoom ========================>", responseJson)
-            localStorage.setItem('selectedChat', JSON.stringify(responseJson.data))
-            this.props.history.push('/incidentchat')
-            this.setState({ loading: false })
-          } else if (responseJson?.errors) {
-            let error = responseJson.errors[0] as string;
-            this.setState({ error });
-          } else {
-            this.setState({ error: responseJson?.error || "Something went wrong!" });
-          }
-          this.parseApiCatchErrorResponse(this.state.error);
-          this.setState({ loading: false, error: null })
-        }
-        else if (apiRequestCallId === this.getMyApartmentListApiCallId) {
-          if (responseJson && responseJson?.data ) {
-          console.log("getMyApartmentListApiCallId========================>",responseJson)
-          
-          this.setState({loading: false})
-          } else if (responseJson?.errors) {
-            let error = Object.values(responseJson.errors[0])[0] as string;
-            this.setState({ error });
-          } else {
-            this.setState({ error: responseJson?.error || "Something went wrong!" });
-          }
-          this.parseApiCatchErrorResponse(this.state.error);
-          this.setState({loading: false , error:null})
-        }
+       
+
       }
     }
 
