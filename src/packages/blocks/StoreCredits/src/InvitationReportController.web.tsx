@@ -19,13 +19,6 @@ export interface Props {
 
 interface S {
   // Customizable Area Start
-  ApproveModal: boolean;
-  setOpen:boolean;
-  rejectReason:any;
-  RejectReasonError:any;
-  isRejectReportModalOpen: boolean;
-  isApproveReportModalOpen: boolean;
-
   // Customizable Area End
 }
 
@@ -33,7 +26,7 @@ interface SS {
   id: any;
 }
 
-export default class BudgetReportController extends BlockComponent<Props, S, SS> {
+export default class InvitationReportController extends BlockComponent<Props, S, SS> {
   constructor(props: Props) {
     super(props);
     this.receive = this.receive.bind(this);
@@ -41,14 +34,7 @@ export default class BudgetReportController extends BlockComponent<Props, S, SS>
     // Customizable Area Start
     this.subScribedMessages = [getName(MessageEnum.RestAPIResponceMessage), getName(MessageEnum.RestAPIRequestMessage)];
 
-    this.state = {
-      ApproveModal: false,
-      setOpen:false,
-      rejectReason:"",
-      RejectReasonError:"",
-      isRejectReportModalOpen: false,
-      isApproveReportModalOpen: false,
-    };
+    this.state = {};
     // Customizable Area End
     runEngine.attachBuildingBlock(this as IBlock, this.subScribedMessages);
   }
@@ -59,16 +45,5 @@ export default class BudgetReportController extends BlockComponent<Props, S, SS>
   }
 
   // Customizable Area Start
-  handleRejectReportModal = () => {
-    this.setState({
-      isRejectReportModalOpen: !this.state.isRejectReportModalOpen,
-    });
-  };
-
-  handleApproveReportModal = () => {
-    this.setState({
-      isApproveReportModalOpen: !this.state.isApproveReportModalOpen,
-    });
-  };
   // Customizable Area End
 }

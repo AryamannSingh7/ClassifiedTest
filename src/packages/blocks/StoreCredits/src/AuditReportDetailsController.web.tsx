@@ -19,13 +19,8 @@ export interface Props {
 
 interface S {
   // Customizable Area Start
-  ApproveModal: boolean;
-  setOpen:boolean;
-  rejectReason:any;
-  RejectReasonError:any;
   isRejectReportModalOpen: boolean;
   isApproveReportModalOpen: boolean;
-
   // Customizable Area End
 }
 
@@ -33,7 +28,7 @@ interface SS {
   id: any;
 }
 
-export default class BudgetReportController extends BlockComponent<Props, S, SS> {
+export default class AuditReportDetailsController extends BlockComponent<Props, S, SS> {
   constructor(props: Props) {
     super(props);
     this.receive = this.receive.bind(this);
@@ -42,10 +37,6 @@ export default class BudgetReportController extends BlockComponent<Props, S, SS>
     this.subScribedMessages = [getName(MessageEnum.RestAPIResponceMessage), getName(MessageEnum.RestAPIRequestMessage)];
 
     this.state = {
-      ApproveModal: false,
-      setOpen:false,
-      rejectReason:"",
-      RejectReasonError:"",
       isRejectReportModalOpen: false,
       isApproveReportModalOpen: false,
     };

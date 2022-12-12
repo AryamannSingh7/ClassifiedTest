@@ -283,7 +283,6 @@ export default class RegisterPropertyManagerController extends BlockComponent<Pr
 
     this.GetIDTypeListCallId = apiRequest.messageId;
 
-    const society_id = localStorage.getItem("society_id");
     apiRequest.addData(getName(MessageEnum.RestAPIResponceEndPointMessage), `bx_block_family/id_proofs`);
 
     apiRequest.addData(getName(MessageEnum.RestAPIRequestHeaderMessage), JSON.stringify(header));
@@ -446,21 +445,27 @@ export default class RegisterPropertyManagerController extends BlockComponent<Pr
   getPropertyManagerDetailResponse = async (responseJson: any) => {
     if (responseJson && responseJson.data) {
       const manager = responseJson.data;
-      const IdCardCopy: any[] = [manager.attributes.image];
 
-      const IdCardCopyUrlPromise: any[] = IdCardCopy.map(async (file: any) => {
-        return new Promise(async (resolve, reject) => {
-          let blobString = await this.fileUrlToDataURL(file.url);
-          resolve(blobString);
+      let IdCardFile: any[] = [];
+      if (manager.attributes.image) {
+        const IdCardCopy: any[] = [manager.attributes.image];
+
+        const IdCardCopyUrlPromise: any[] = IdCardCopy.map(async (file: any) => {
+          return new Promise(async (resolve, reject) => {
+            let blobString = await this.fileUrlToDataURL(file.url);
+            resolve(blobString);
+          });
         });
-      });
 
-      let IdCardCopyFilesPromise = await Promise.allSettled(IdCardCopyUrlPromise);
-      let IdCardCopyFiles = IdCardCopyFilesPromise.map((file: any) => file.value);
+        let IdCardCopyFilesPromise = await Promise.allSettled(IdCardCopyUrlPromise);
+        let IdCardCopyFiles = IdCardCopyFilesPromise.map((file: any) => file.value);
 
-      const IdCardFile = IdCardCopyFiles.map((blobString: any, index: number) => {
-        return this.dataURLtoFileObject(blobString, manager.attributes.name + " " + manager.attributes.id_proof.name);
-      });
+        IdCardFile = IdCardCopyFiles.map((blobString: any, index: number) => {
+          return this.dataURLtoFileObject(blobString, manager.attributes.name + " " + manager.attributes.id_proof.name);
+        });
+      } else {
+        IdCardFile = [null];
+      }
 
       this.setState({
         propertyManagerForm: {
@@ -469,7 +474,7 @@ export default class RegisterPropertyManagerController extends BlockComponent<Pr
           email: manager.attributes.email,
           countryCode: manager.attributes.mobile_number.split("-")[0],
           mobileNumber: manager.attributes.mobile_number.split("-")[1],
-          idType: manager.attributes.id_proof.id,
+          idType: manager.attributes.id_proof ? manager.attributes.id_proof.id : "",
           idNumber: manager.attributes.id_number,
           idDate: manager.attributes.id_expiration_date,
           idCardFile: IdCardFile[0],
@@ -684,10 +689,12 @@ export default class RegisterPropertyManagerController extends BlockComponent<Pr
       .matches(/\S/, "Required"),
     idNumber: Yup.string()
       .required("Required")
-      .matches(/\S/, "Required"),
+      .matches(/\S/, "Required")
+      .nullable(),
     idDate: Yup.string()
       .required("Required")
-      .matches(/\S/, "Required"),
+      .matches(/\S/, "Required")
+      .nullable(),
     idCardFile: Yup.array()
       .min(1, "Required")
       .nullable(),
