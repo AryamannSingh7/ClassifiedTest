@@ -6,14 +6,14 @@ import {
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import { makeStyles,withStyles } from '@material-ui/core/styles';
 import { withRouter } from 'react-router';
-import RentPaymentController, {
+import RentUnitListController, {
   Props
-} from "./RentPaymentController";
+} from "./RentUnitListController";
 import './style.css'
 import {withTranslation} from "react-i18next";
 import ArrowForwardIosIcon from '@material-ui/icons/ArrowForwardIos';
 
-class Visitors extends RentPaymentController{
+class RentUnitLists extends RentUnitListController{
   constructor(props: Props) {
     super(props);
   }
@@ -36,30 +36,36 @@ class Visitors extends RentPaymentController{
                 </Grid>
                 <Box style={{background: "#F7F9FE",minHeight:"95%",display:'flex',flexDirection:"column",alignItems:'center',justifyContent:"space-between"}} >
                     <Grid container spacing={2} style={{width:"90%"}}>
-                        <Grid item xs={12}> 
-                            <Box
-                                display="flex"
-                                justifyContent='space-between'
-                                alignItems="center"
-                                borderRadius="15px"
-                                bgcolor="white"
-                                marginTop='1.5rem'
-                                padding='1.5rem'
-                                style={{boxShadow:"rgba(99, 99, 99, 0.2) 0px 2px 8px 0px"}}
-                                onClick={()=>this.props.history.push("/UnitRentList/1 ")}
-                            >
-                                <Box style={{minWidth:"100%"}}>
-                                    <Box style={{display:"flex",alignItems:"center",justifyContent:"space-between"}}>
-                                        <Box>
-                                            <Typography variant={"body1"} style={{fontWeight:"bold",marginTop:"5px"}}>
-                                                Unit 102
-                                            </Typography>
+                        {
+                            this.state.UnitListing.map((item:any,key:any)=> {
+                                return(
+                                    <Grid item xs={12}>
+                                    <Box
+                                        display="flex"
+                                        justifyContent='space-between'
+                                        alignItems="center"
+                                        borderRadius="15px"
+                                        bgcolor="white"
+                                        marginTop='1.5rem'
+                                        padding='1.5rem'
+                                        style={{boxShadow:"rgba(99, 99, 99, 0.2) 0px 2px 8px 0px"}}
+                                        onClick={()=>this.props.history.push(`/UnitRentList/${item.attributes.apartment_management.id}`)}
+                                    >
+                                        <Box style={{minWidth:"100%"}}>
+                                            <Box style={{display:"flex",alignItems:"center",justifyContent:"space-between"}}>
+                                                <Box>
+                                                    <Typography variant={"body1"} style={{fontWeight:"bold",marginTop:"5px"}}>
+                                                        {item.attributes.apartment_management.apartment_name}
+                                                    </Typography>
+                                                </Box>
+                                                <ArrowForwardIosIcon fontSize="small" style={{color:"#BFBFBF",fontSize:"25px"}}/>
+                                            </Box>
                                         </Box>
-                                        <ArrowForwardIosIcon fontSize="small" style={{color:"#BFBFBF",fontSize:"25px"}}/> 
                                     </Box>
-                                </Box>
-                            </Box>
-                        </Grid>
+                                </Grid>
+                                )
+                            })
+                        }
                     </Grid>
                      <Box style={{width:"90%",marginBottom:"50px",marginTop:"10px"}}>
                         <CloseButton variant="contained" fullWidth size="large" onClick={()=> this.props.history.push("/AddRentPayment")}>
@@ -72,7 +78,7 @@ class Visitors extends RentPaymentController{
     );
   }
 }
-export default withTranslation()(withRouter(Visitors))
+export default withTranslation()(withRouter(RentUnitLists))
 
 const CloseButton = withStyles((theme) => ({
     root: {

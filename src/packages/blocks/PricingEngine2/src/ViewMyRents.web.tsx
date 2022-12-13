@@ -15,7 +15,7 @@ import {withTranslation} from "react-i18next";
 import ArrowForwardIosIcon from '@material-ui/icons/ArrowForwardIos';
 import {exclamation,currency} from "./assets";
 
-class Visitors extends ViewMyInvoicesController{
+class ViewMyRents extends ViewMyInvoicesController{
   constructor(props: Props) {
     super(props);
   }
@@ -57,74 +57,80 @@ class Visitors extends ViewMyInvoicesController{
                 </Grid>
                 <Box style={{background: "#F7F9FE",minHeight:"95%",display:'flex',flexDirection:"column",alignItems:'center',justifyContent:"space-between"}} >
                     <Grid container spacing={2} style={{width:"90%",marginTop:".5rem"}}>
-                        <Grid item xs={12}> 
-                            <Box
-                                display="flex"
-                                justifyContent='space-between'
-                                alignItems="center"
-                                borderRadius="15px"
-                                bgcolor="white"
-                                marginTop='.5rem'
-                                padding='1.5rem'
-                                style={{boxShadow:"rgba(99, 99, 99, 0.2) 0px 2px 8px 0px"}}
+                        {
+                            this.state.invoiceListing?.map((item:any,key:any)=> {
+                                return(
+                                    <Grid item xs={12} key={key}>
+                                        <Box
+                                            display="flex"
+                                            justifyContent='space-between'
+                                            alignItems="center"
+                                            borderRadius="15px"
+                                            bgcolor="white"
+                                            marginTop='.5rem'
+                                            padding='1.5rem'
+                                            style={{boxShadow:"rgba(99, 99, 99, 0.2) 0px 2px 8px 0px"}}
 
-                            >
-                                <Box style={{minWidth:"100%"}}>
-                                    <Grid container spacing={1} onClick={()=>this.props.history.push("/RentDetails/1")}>
-                                        <Grid xs={12}>
-                                            <Box style={{display:"flex",alignItems:"center",justifyContent:"space-between"}}>
-                                                <Typography variant={"subtitle2"}>
-                                                    March 2022
-                                                </Typography>
-                                                <Typography variant="subtitle2" className="paymentStatusRed">
-                                                    Due
-                                                </Typography>
+                                        >
+                                            <Box style={{minWidth:"100%"}}>
+                                                <Grid container spacing={1} onClick={()=>this.props.history.push(`/RentDetails/${item.id}`)}>
+                                                    <Grid xs={12}>
+                                                        <Box style={{display:"flex",alignItems:"center",justifyContent:"space-between"}}>
+                                                            <Typography variant={"subtitle2"}>
+                                                                {item?.attributes?.month} {item?.attributes?.year}
+                                                            </Typography>
+                                                            <Typography variant="subtitle2" className="paymentStatusRed">
+                                                                Due
+                                                            </Typography>
+                                                        </Box>
+                                                    </Grid>
+                                                    <Grid item xs={6} style={{marginTop:"15px"}}>
+                                                        <Typography variant={"subtitle2"} >
+                                                            {t("Tenant")}
+                                                        </Typography>
+                                                        <Typography variant={"body1"} style={{fontWeight:"bold",marginTop:"5px"}}>
+                                                            {item.attributes.tenant_name}
+                                                        </Typography>
+                                                    </Grid>
+                                                    <Grid item xs={6} style={{marginTop:"15px"}}>
+                                                        <Typography variant={"subtitle2"} >
+                                                            {t("Building Name")}
+                                                        </Typography>
+                                                        <Typography variant={"body1"} style={{fontWeight:"bold",marginTop:"5px"}}>
+                                                            {item.attributes.building_name}
+                                                        </Typography>
+                                                    </Grid>
+                                                    <Grid item xs={6} style={{marginTop:"8px"}}>
+                                                        <Typography variant={"subtitle2"} >
+                                                            {t("Unit Number")}
+                                                        </Typography>
+                                                        <Typography variant={"body1"} style={{fontWeight:"bold",marginTop:"5px"}}>
+                                                            {item.attributes.unit_no}
+                                                        </Typography>
+                                                    </Grid>
+                                                    <Grid item xs={6} style={{marginTop:"8px"}}>
+                                                        <Typography variant={"subtitle2"} >
+                                                            {t("Amount")}
+                                                        </Typography>
+                                                        <Typography variant={"body1"} style={{fontWeight:"bold",marginTop:"5px"}}>
+                                                            SR{item.attributes.amount}
+                                                        </Typography>
+                                                    </Grid>
+                                                </Grid>
+                                                <Grid container spacing={2} style={{marginTop:"10px"}}>
+                                                    <Grid item xs={6} >
+                                                        <PartialButton fullWidth onClick={() => this.handlePaymentClick(item,true)}>Partial Payment</PartialButton>
+                                                    </Grid>
+                                                    <Grid item xs={6} >
+                                                        <FullButton fullWidth onClick={() => this.handlePaymentClick(item,false)}>Full Payment</FullButton>
+                                                    </Grid>
+                                                </Grid>
                                             </Box>
-                                        </Grid>
-                                        <Grid item xs={6} style={{marginTop:"15px"}}>
-                                            <Typography variant={"subtitle2"} >
-                                                {t("Landlord")}
-                                            </Typography>
-                                            <Typography variant={"body1"} style={{fontWeight:"bold",marginTop:"5px"}}>
-                                                Mr. Ali Khanost
-                                            </Typography>
-                                        </Grid>
-                                        <Grid item xs={6} style={{marginTop:"15px"}}>
-                                            <Typography variant={"subtitle2"} >
-                                                {t("Building Name")}
-                                            </Typography>
-                                            <Typography variant={"body1"} style={{fontWeight:"bold",marginTop:"5px"}}>
-                                                Building 1
-                                            </Typography>
-                                        </Grid>
-                                        <Grid item xs={6} style={{marginTop:"8px"}}>
-                                            <Typography variant={"subtitle2"} >
-                                                {t("Unit Number")}
-                                            </Typography>
-                                            <Typography variant={"body1"} style={{fontWeight:"bold",marginTop:"5px"}}>
-                                                A-4512
-                                            </Typography>
-                                        </Grid>
-                                        <Grid item xs={6} style={{marginTop:"8px"}}>
-                                            <Typography variant={"subtitle2"} >
-                                                {t("Amount")}
-                                            </Typography>
-                                            <Typography variant={"body1"} style={{fontWeight:"bold",marginTop:"5px"}}>
-                                                SR500
-                                            </Typography>
-                                        </Grid>
+                                        </Box>
                                     </Grid>
-                                    <Grid container spacing={2} style={{marginTop:"10px"}}>
-                                        <Grid item xs={6} >
-                                            <PartialButton fullWidth onClick={()=> this.setState({paymentConfirmModal:true,isPartialPayment:true})}>Partial Payment</PartialButton>
-                                        </Grid>
-                                        <Grid item xs={6} >
-                                            <FullButton fullWidth onClick={()=> this.setState({paymentConfirmModal:true,isPartialPayment:false})}>Full Payment</FullButton>
-                                        </Grid>
-                                    </Grid>
-                                </Box>
-                            </Box>
-                        </Grid>
+                                )
+                            })
+                        }
                     </Grid>
                 </Box>
                 <Modal
@@ -158,11 +164,11 @@ class Visitors extends ViewMyInvoicesController{
                                 {
                                     this.state.isPartialPayment ?
                                         <Typography variant="body2" style={{textAlign:"center"}}>
-                                            {"John Doe"} {t("is claiming to have paid")} SR 200 {t("out of")} SR 500 {t("rent towards")} March 2022 {t("for Flat No.")} A-102 of Park Avenue. {t("Please confirm by typing paid amount.")}
+                                            {this.state.tenantName} {t("is claiming to have paid")} SR {this.state.paymentAmount} {t("out of")} SR {this.state.paymentAmount} {t("rent towards")} {this.state.paymentMonth} {t("for Flat No.")} {this.state.unitName} of {this.state.buildingName}. {t("Please confirm by typing paid amount.")}
                                         </Typography>
                                             :
                                         <Typography variant="body2" style={{textAlign:"center"}}>
-                                            John Doe {t("is claiming to have paid")} SR 500 {t("rent towards")} March 2022 {t("for Flat No.")} A-102 of Park Avenue. {t("Please confirm")}
+                                            {this.state.tenantName} {t("is claiming to have paid")} SR {this.state.paymentAmount} {t("rent towards")} {this.state.paymentMonth} {t("for Flat No.")} {this.state.unitName} of {this.state.buildingName}. {t("Please confirm")}
                                         </Typography>
                                 }
                                 {
@@ -172,6 +178,9 @@ class Visitors extends ViewMyInvoicesController{
                                             <Input
                                                 style={{backgroundColor:"#F9F9F9",height:"60px",width:"90%",display:'flex',alignItems:"center",borderRadius:"100px"}}
                                                 id="paritalPaymentBox"
+                                                type="number"
+                                                value={this.state.partialPayment}
+                                                onChange={(e:any)=> this.setState({partialPayment:e.target.value})}
                                                 disableUnderline
                                                 placeholder="Enter Partial paid amount"
                                                 fullWidth
@@ -186,7 +195,7 @@ class Visitors extends ViewMyInvoicesController{
                                 }
                                 <Box style={{marginTop:"15px",width:"90%",display:"flex",flexDirection:"column",alignItems:"center"}}>
                                     {/*@ts-ignore*/}
-                                    <CloseButton variant="outlined" fullWidth style={{marginRight:"10px",marginBottom:"15px"}} onClick={this.handleDelete}  >{t("Yes")}, {t("Paid")}</CloseButton>
+                                    <CloseButton variant="outlined" fullWidth style={{marginRight:"10px",marginBottom:"15px"}} onClick={this.managePayment}  >{t("Yes")}, {t("Paid")}</CloseButton>
                                     {
                                         !this.state.isPartialPayment &&
                                         <Button fullWidth onClick={this.handleCloseDeleteModal}>{t("No, Not Paid")}</Button>
@@ -201,7 +210,7 @@ class Visitors extends ViewMyInvoicesController{
     );
   }
 }
-export default withTranslation()(withRouter(Visitors))
+export default withTranslation()(withRouter(ViewMyRents))
 
 const CloseButton = withStyles((theme) => ({
     root: {

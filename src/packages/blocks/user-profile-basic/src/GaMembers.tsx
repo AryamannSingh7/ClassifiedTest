@@ -151,7 +151,7 @@ getData(item: any) {
                             name="selectedBUilding"
                             onChange={this.handleChange}
                           >
-                            <option value={2022}>{t("Select Building")}</option>
+                            <option value={''}>{t("Select Building")}</option>
                             {
                               this.state.allBuilding.map((item:any)=><>
                               <option value={item.id}>{item.name}</option>
@@ -169,7 +169,7 @@ getData(item: any) {
                             name="selctedUnit"
                             onChange={this.handleChange}
                           >
-                            <option value={2022}>{t("Select Unit")}</option>
+                            <option value={''}>{t("Select Unit")}</option>
                             {
                               this.state.allUnit.map((item:any)=><>
                               <option value={item.id}>{item.apartment_name}</option>

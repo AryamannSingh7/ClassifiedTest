@@ -358,6 +358,16 @@ class ResidentDashboard extends DashboardController {
                       />
                     </Link>
                   </Grid>
+                  <Grid item xs={6} sm={6}>
+                    <Link href="/FacilityReservation">
+                      <DashboardCard
+                        image={DashboardDocument}
+                        heading={t("Facility Reservation")}
+                        title={t("Facility Reservation")}
+                        value="NA"
+                      />
+                    </Link>
+                  </Grid>
                 </Grid>
               </Container>
             </Grid>
