@@ -178,6 +178,7 @@
       & h5 {
         padding-left: 10px;
         margin-bottom: 10px;
+        font-weight: 500;
       }
     }
   }
@@ -856,14 +857,20 @@
     }
     & .customButton {
       padding-bottom: 0;
-      & .MuiButton-contained
-      {
-        &.contain
-      {
-        padding: 5px 45px;
+      & .MuiButton-contained {
+        &.contain {
+          padding: 5px 45px;
+        }
       }
-      }
-      
+    }
+  }
+  &.facility-card {
+    & .facility-subtitle {
+      font-weight: bold !important;
+      color: $DARK !important;
+    }
+    & .span-subtitle {
+      color: $DARK !important;
     }
   }
 }
