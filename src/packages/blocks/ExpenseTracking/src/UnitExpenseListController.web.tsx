@@ -348,7 +348,9 @@ export default class UnitExpenseListController extends BlockComponent<Props, S, 
   };
 
   handleSortFilter = (sortFilter: string) => {
-    this.setState({ loading: true, sort: sortFilter });
+    if (sortFilter !== this.state.sort) {
+      this.setState({ loading: true, sort: sortFilter });
+    }
   };
 
   handleChangeCheckboxEvent = (e: React.ChangeEvent<HTMLInputElement>, categotyId: number) => {
