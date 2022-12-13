@@ -40,12 +40,11 @@ import CountryCodeSelector from "../../country-code-selector/src/CountryCodeSele
 import VisitorsListController, { Props } from "./VisitorsListController";
 import DashboardHeader from "../../dashboard/src/DashboardHeader.web";
 import ChairmanSidebar from "../../dashboard/src/ChairmanSidebar.web";
-import { withTranslation } from 'react-i18next';
 import 'web/src/i18n';
 import VisitorsSidebar from "../../dashboard/src/VisitorsSidebar.web";
 import { call_org, email_org, chat, facebook, twitter_org, instagram, snap, bentalyLogo } from "../../user-profile-basic/src/assets";
 import {NoProfile_Img} from "../../search/src/assets"
-
+import { withTranslation,useTranslation } from 'react-i18next';
 
 class UnitGeneralDetails extends VisitorsListController {
   constructor(props: Props) {
@@ -239,18 +238,37 @@ class UnitGeneralDetails extends VisitorsListController {
                     </Paper>
                   </Box>
                   <br></br><br></br>
-                  <Grid item xs={6}>
+                 <FamilyDeatils profileDetails={profileDetails}/>
+              </Container>
+            </Grid>
+          </Box>
+        </Box>
+        {/* <Loader loading={this.state.loading} /> */}
+      </>
+    )
+  }
+}
+
+//@ts-ignore
+export default withTranslation()(withRouter(UnitGeneralDetails)); 
+
+const FamilyDeatils = (props:any) => {
+  const profileDetails =props?.profileDetails;
+  const {t} = useTranslation()
+  return(
+   <>
+    <Grid item xs={6}>
                        <Typography variant="h6" style={dashBoard.Headings}>{t("Family Deatils")}</Typography>
                   </Grid>
                   <Box  className="famliy-container" style={{marginTop:"10px"}}>
                   {
-                       profileDetails?.families.families !== 0 ?
+                       profileDetails?.families?.families !== 0 ?
                     <Paper>
                         <Grid container >
                             <Box  style={{padding:"35px 25px 25px 35px",width:'100%'}}>
                             <Grid container  >
                               {
-                                 profileDetails?.families.families?.map((val:any,index:any)=>(
+                                 profileDetails?.families?.families?.map((val:any,index:any)=>(
                                   <Grid xs={12} md={6} key={index} >
                                   <Box className="famliy-card">
                                   <Box className="famliy-row">
@@ -273,20 +291,9 @@ class UnitGeneralDetails extends VisitorsListController {
                  </Typography> 
                 }
                   </Box>
-
-              </Container>
-            </Grid>
-          </Box>
-        </Box>
-        {/* <Loader loading={this.state.loading} /> */}
-      </>
-    )
-  }
+   </>
+  )
 }
-
-//@ts-ignore
-export default withTranslation()(withRouter(UnitGeneralDetails)); 
-
 const dashBoard = {
   navigation: {
     display: "flex",
