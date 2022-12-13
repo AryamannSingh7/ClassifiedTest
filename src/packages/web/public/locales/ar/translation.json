@@ -931,6 +931,9 @@
   "Add Another Unit": "أضف وحدة أخرى",
   "Add Another Rent History": "أضف تاريخ إيجار آخر",
   "A verification ownership request has been sent to the building/complex manger for approval, Upon approval of ownership the unit will be added to his list of units": "تم إرسال طلب التحقق من الملكية إلى مدير المبنى / المجمع للموافقة عليه ، وعند الموافقة على الملكية سيتم إضافة الوحدة إلى قائمة الوحدات الخاصة به",
+  "Generate Budget Report": "إنشاء تقرير الميزانية",
+  "Enter budget year": "أدخل سنة الميزانية",
+  "Add Another Budget Item": "أضف عنصر ميزانية آخر"
   "Edit Expense": "تحرير المصاريف",
   "Add Another Expense": "أضف نفقة أخرى",
   "Expense Date": "تاريخ المصاريف",
