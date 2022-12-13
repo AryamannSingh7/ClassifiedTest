@@ -35,6 +35,8 @@ import Search from '../../blocks/search/src/Search';
 import MultipleCurrencySupport from '../../blocks/multiplecurrencysupport/src/MultipleCurrencySupport';
 import NewPassword from '../../blocks/forgot-password/src/NewPassword';
 import Feedback from '../../blocks/Feedback/src/Feedback';
+import SuggestionListing from '../../blocks/Feedback/src/Suggestion.web';
+
 // import Contactus from "../../blocks/contactus/src/Contactus";
 import AddContactus from '../../blocks/contactus/src/AddContactus';
 import CountryCodeSelector from '../../blocks/country-code-selector/src/CountryCodeSelector';
@@ -320,14 +322,16 @@ import RentDetails from '../../blocks/PricingEngine2/src/RentDetails.web';
 import AddRentPayment from '../../blocks/PricingEngine2/src/RegisterRentPayment.web';
 
 // Reports
-import ReportDashboard from '../../blocks/ExpenseTracking/src/ReportDashboard.web';
-import BudgetReport from '../../blocks/ExpenseTracking/src/BudgetReport.web';
-import BudgetReportDetails from '../../blocks/ExpenseTracking/src/BudgetReportDetails.web';
 import GenerateBudgetReport from "../../blocks/ExpenseTracking/src/GenerateBudgetReport.web"
 import GenerateBudgetReportPreview from "../../blocks/ExpenseTracking/src/BudgetReportPreview.web"
-import ExpenseReport from '../../blocks/ExpenseTracking/src/ExpenseReport.web';
-import AuditReport from '../../blocks/ExpenseTracking/src/AuditReport.web';
-import ManagementFeeReport from '../../blocks/ExpenseTracking/src/ManagementFeeReport.web';
+import ReportDashboard from '../../blocks/StoreCredits/src/ReportDashboard.web';
+import BudgetReport from '../../blocks/StoreCredits/src/BudgetReport.web';
+import BudgetReportDetails from '../../blocks/StoreCredits/src/BudgetReportDetails.web';
+import ExpenseReport from '../../blocks/StoreCredits/src/ExpenseReport.web';
+import AuditReport from '../../blocks/StoreCredits/src/AuditReport.web';
+import ManagementFeeReport from '../../blocks/StoreCredits/src/ManagementFeeReport.web';
+import AuditReportDetails from '../../blocks/StoreCredits/src/AuditReportDetails.web';
+import InvitationReport from '../../blocks/StoreCredits/src/InvitationReport.web';
 
 // My Unit
 import MyUnitList from '../../blocks/TaskAllocator/src/MyUnitList.web';
@@ -519,6 +523,11 @@ const routeMap = {
   ChangePassword: {
     component: ChangePassword,
     path: '/ChangePassword',
+    exact: true
+  },
+  SuggestionListing: {
+    component: SuggestionListing,
+    path: '/SuggestionListing',
     exact: true
   },
   ChairmanChangePassword: {
@@ -2060,7 +2069,6 @@ const routeMap = {
     roles: [ROLE.CHAIRMAN, ROLE.MANAGER],
     exact: true
   },
-
   BudgetReportDetails: {
     component: BudgetReportDetails,
     path: '/BudgetReports/:id',
@@ -2097,6 +2105,18 @@ const routeMap = {
   ManagementFeeReport: {
     component: ManagementFeeReport,
     path: '/ManagementFeeReports',
+    roles: [ROLE.CHAIRMAN, ROLE.MANAGER],
+    exact: true
+  },
+  AuditReportDetails: {
+    component: AuditReportDetails,
+    path: '/AuditReportDetails',
+    roles: [ROLE.CHAIRMAN, ROLE.MANAGER],
+    exact: true
+  },
+  InvitationReport: {
+    component: InvitationReport,
+    path: '/InvitationReport',
     roles: [ROLE.CHAIRMAN, ROLE.MANAGER],
     exact: true
   },

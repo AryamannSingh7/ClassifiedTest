@@ -283,7 +283,7 @@ class CommunityUserProfile extends CommunityUserProfileController {
                       </FormControl>
                       </Grid>
                       <Grid item xs={2}>
-                        <Button variant="contained" onClick={this.getUserProfile} style={dashBoard.backColor}><InputAdornment position="start" style={{color:'white'}}>
+                        <Button className='btnMy' variant="contained" onClick={this.getUserProfile} style={dashBoard.backColor}><InputAdornment position="start" style={{color:'white'}}>
                                 <SearchIcon />
                               </InputAdornment>{t("Search")}</Button>
                       </Grid>

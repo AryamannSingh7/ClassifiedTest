@@ -304,4 +304,204 @@ export const ReportsStyleWeb: any = {
       gap: "12px",
     },
   },
+  reportDetails: {
+    "& .navigation": {
+      display: "block",
+    },
+    "& .navigation .sub-heading": {
+      fontWeight: 600,
+      marginTop: 5,
+    },
+    "& .navigation .sub-heading-box": {
+      marginTop: 15,
+      marginBottom: 15,
+      display: "flex",
+      justifyContent: "space-between",
+      alignItems: "center",
+    },
+    "& .navigation .sub-heading-box select": {
+      width: "109px",
+      height: "40px",
+      borderRadius: "8px",
+      background: "#ffffff",
+      border: "0",
+      padding: "0 12px",
+    },
+    "& .top-bar": {
+      display: "flex",
+      justifyContent: "space-between",
+      alignItems: "center",
+    },
+    "& ::placeholder": {
+      color: "black !important",
+      opacity: "1",
+    },
+    "& :-ms-input-placeholder": {
+      color: "black !important",
+      opacity: "1",
+    },
+    "& ::-ms-input-placeholder": {
+      color: "black !important",
+      opacity: "1",
+    },
+    "& a": {
+      textDecoration: "none !important",
+      color: "black",
+    },
+    "& .pending": {
+      background: "#FFEDE0",
+      color: "#FC8434",
+      fontWeight: 600,
+      padding: "5px 10px",
+      borderRadius: "25px",
+    },
+    "& .error": {
+      color: "red",
+    },
+    "& .budget-box": {
+      marginTop: "50px",
+      marginBottom: "30px",
+      "& .MuiCard-root": {
+        boxShadow: "none",
+        borderRadius: "8px",
+      },
+      "& .heading": {
+        padding: "20px",
+      },
+      "& .budget-content-box": {
+        padding: "20px",
+        "& .head": {
+          fontSize: "14px",
+          "& span": {
+            fontWeight: "400",
+          },
+        },
+      },
+      "& .footer": {
+        padding: "20px",
+        "& .content-line": {
+          "& p": {
+            fontSize: "22px",
+          },
+          "& span": {
+            fontSize: "22px",
+            fontWeight: "600",
+            color: "#FC8434",
+          },
+        },
+      },
+      "& .content-line": {
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "space-between",
+        "& span": {
+          fontWeight: "600",
+        },
+      },
+      "& .audit-line": {
+        "& p": {
+          width: "60%",
+          display: "inline-block",
+        },
+        "& span": {
+          width: "40%",
+        },
+      },
+      "& .head.audit-line": {
+        "& p": {
+          fontWeight: "600",
+        },
+        "& span": {
+          fontWeight: "600 !important",
+        },
+      },
+      "& hr": {
+        display: "block",
+        height: "1px",
+        border: 0,
+        borderTop: "1px solid #e0e0e0",
+        padding: 0,
+      },
+    },
+    "& .building-box": {
+      "& .MuiCard-root": {
+        boxShadow: "none",
+        borderRadius: "8px",
+        padding: "20px",
+        "& .left-box": {
+          display: "flex",
+          gap: "30px",
+          flexDirection: "column",
+          "& .building": {
+            display: "flex",
+            alignItems: "center",
+            gap: "20px",
+            "& img": {
+              width: "70px",
+              height: "70px",
+              borderRadius: "50%",
+            },
+          },
+        },
+        "& .right-box img": {
+          width: "100%",
+          height: "120px",
+          borderRadius: "8px",
+        },
+      },
+    },
+    "& .budget-box.audit-box": {
+      marginTop: "20px",
+      "& .heading": {
+        display: "flex",
+        justifyContent: "space-between",
+        alignItems: "center",
+      },
+      "& .report-pdf-box": {
+        border: "1px solid #E4E4E4",
+        padding: "12px 20px",
+        borderRadius: "8px",
+        marginTop: "20px",
+        display: "flex",
+        justifyContent: "space-between",
+        alignItems: "center",
+        "& .left-side": {
+          display: "flex",
+          alignItems: "center",
+          gap: "10px",
+          fontWeight: "600",
+        },
+      },
+    },
+    "& .rejection-box .MuiCard-root": {
+      padding: "20px",
+      boxShadow: "none",
+      margin: "0 0 20px",
+    },
+    "& .rejection-box .MuiCard-root h4": {
+      color: "red",
+      marginBottom: "10px",
+    },
+    "& .button-box": {
+      display: "flex",
+      justifyContent: "flex-end",
+      alignItems: "center",
+      marginBottom: "50px",
+      gap: "20px",
+    },
+    "& .button-box button": {
+      minWidth: "150px",
+      padding: "12px 20px",
+      borderRadius: "5px",
+      fontWeight: "600",
+    },
+    "& .button-box button.cancel": {
+      border: "1px solid #2B6FED",
+      color: "#2B6FED",
+    },
+    "& .button-box button.edit": {
+      color: "white",
+      background: "#2B6FED",
+    },
+  },
 };

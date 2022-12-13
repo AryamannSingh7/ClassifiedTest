@@ -19,6 +19,8 @@ export interface Props {
 
 interface S {
   // Customizable Area Start
+  isRejectReportModalOpen: boolean;
+  isApproveReportModalOpen: boolean;
   // Customizable Area End
 }
 
@@ -26,7 +28,7 @@ interface SS {
   id: any;
 }
 
-export default class ReportDashboardController extends BlockComponent<Props, S, SS> {
+export default class AuditReportDetailsController extends BlockComponent<Props, S, SS> {
   constructor(props: Props) {
     super(props);
     this.receive = this.receive.bind(this);
@@ -34,7 +36,10 @@ export default class ReportDashboardController extends BlockComponent<Props, S, 
     // Customizable Area Start
     this.subScribedMessages = [getName(MessageEnum.RestAPIResponceMessage), getName(MessageEnum.RestAPIRequestMessage)];
 
-    this.state = {};
+    this.state = {
+      isRejectReportModalOpen: false,
+      isApproveReportModalOpen: false,
+    };
     // Customizable Area End
     runEngine.attachBuildingBlock(this as IBlock, this.subScribedMessages);
   }
@@ -45,5 +50,16 @@ export default class ReportDashboardController extends BlockComponent<Props, S, 
   }
 
   // Customizable Area Start
+  handleRejectReportModal = () => {
+    this.setState({
+      isRejectReportModalOpen: !this.state.isRejectReportModalOpen,
+    });
+  };
+
+  handleApproveReportModal = () => {
+    this.setState({
+      isApproveReportModalOpen: !this.state.isApproveReportModalOpen,
+    });
+  };
   // Customizable Area End
 }

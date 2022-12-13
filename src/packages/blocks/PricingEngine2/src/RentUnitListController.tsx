@@ -21,7 +21,7 @@ interface S {
   loading: boolean;
   sortBy: any;
   status: any;
-  BuildingListing: any;
+  UnitListing: any;
 }
 
 interface SS {
@@ -30,10 +30,9 @@ interface SS {
 
 export default class CoverImageController extends BlockComponent<Props, S, SS> {
   apiEmailLoginCallId: string = "";
-  emailReg: RegExp;
   labelTitle: string = "";
   getVisitorListId: string = "";
-  getRentBuildingListId: string = "";
+  getRentUnitListId: string = "";
 
   constructor(props: Props) {
     super(props);
@@ -47,17 +46,16 @@ export default class CoverImageController extends BlockComponent<Props, S, SS> {
       loading: false,
       sortBy: "",
       status: "",
-      BuildingListing: [],
+      UnitListing: [],
     };
 
-    this.emailReg = new RegExp("");
     this.labelTitle = configJSON.labelTitle;
 
     runEngine.attachBuildingBlock(this as IBlock, this.subScribedMessages);
   }
 
   async componentDidMount() {
-    this.getRentBuildingList();
+    this.getRentUnitList();
   }
 
 
@@ -65,26 +63,27 @@ export default class CoverImageController extends BlockComponent<Props, S, SS> {
     if (getName(MessageEnum.RestAPIResponceMessage) === message.id) {
       const apiRequestCallId = message.getData(getName(MessageEnum.RestAPIResponceDataMessage));
       const responseJson = message.getData(getName(MessageEnum.RestAPIResponceSuccessMessage));
-      var errorReponse = message.getData(getName(MessageEnum.RestAPIResponceErrorMessage));
-      if (this.getRentBuildingListId === apiRequestCallId) {
+      let errorReponse = message.getData(getName(MessageEnum.RestAPIResponceErrorMessage));
+      console.log("ERROR",errorReponse)
+      if (this.getRentUnitListId === apiRequestCallId) {
         if(responseJson.hasOwnProperty("data")){
           this.setState({
-            BuildingListing:responseJson.data
+            UnitListing:responseJson.data
           })
         }
       }
     }
   }
 
-  getRentBuildingList = async () => {
-    this.getRentBuildingListId = await this.apiCall({
+  getRentUnitList = async () => {
+    const {id} = this.props.match.params
+    console.log("BuildingID",id)
+    this.getRentUnitListId = await this.apiCall({
       contentType: "application/json",
       method: "GET",
-      endPoint: `/bx_block_rent_payment/buildings`,
+      endPoint: `/bx_block_rent_payment/apartments/${id}`,
     });
   };
-
-
 
   apiCall = async (data: any) => {
     const { contentType, method, endPoint, body } = data;

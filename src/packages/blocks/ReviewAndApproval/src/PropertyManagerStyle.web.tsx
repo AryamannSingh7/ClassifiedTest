@@ -77,10 +77,16 @@ export const PropertyManagerStyleWeb: any = {
       borderRadius: "10px",
       background: "white",
       boxShadow: "4px 0px 14px #ececec",
+      "& h4": {
+        fontSize: "17px",
+      },
       "& .new-req-box": {
         display: "flex",
         alignItems: "center",
         justifyContent: "space-between",
+        "& h4": {
+          fontSize: "17px",
+        },
         "& .right-side-req-box": {
           display: "flex",
           alignItems: "center",
@@ -116,8 +122,10 @@ export const PropertyManagerStyleWeb: any = {
       "& .info": {
         "& span": {
           color: "gray",
+          fontSize: "14px",
         },
         "& p": {
+          marginTop: "5px",
           color: "black",
         },
       },
@@ -480,6 +488,9 @@ export const PropertyManagerStyleWeb: any = {
       alignItems: "center",
       justifyContent: "center",
     },
+    "& .top-bar .left-icon span": {
+      fontSize: "18px",
+    },
     "& .top-bar .right-icon": {
       display: "flex",
       alignItems: "center",
@@ -503,9 +514,9 @@ export const PropertyManagerStyleWeb: any = {
       overflowX: "hidden",
     },
     "& .details-box-item": {
-      margin: "15px 0",
+      margin: "16px 0",
       "& h4": {
-        marginBottom: "10px",
+        marginBottom: "14px",
       },
       "& .MuiCard-root": {
         boxShadow: "none",
@@ -518,10 +529,12 @@ export const PropertyManagerStyleWeb: any = {
           "& .box-item-content span": {
             fontSize: "14px",
             lineHeight: "14px",
+            color: "gray",
           },
           "& .box-item-content p": {
             fontWeight: "600",
             marginTop: "5px",
+            fontSize: "16px",
           },
         },
         "& .heading-box-item": {
@@ -542,6 +555,15 @@ export const PropertyManagerStyleWeb: any = {
           },
         },
       },
+    },
+    "& .details-box-item .box-item-content span": {
+      fontSize: "14px",
+      lineHeight: "14px",
+      color: "gray",
+    },
+    "& .details-box-item .box-item-content p": {
+      marginTop: "5px",
+      fontSize: "16px",
     },
     "& .list-box .content-box .heading-box-item": {
       marginBottom: "0 !important",

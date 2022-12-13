@@ -144,7 +144,7 @@ class PendingRequest extends CommunityUserProfileController {
                               <CardContent style={{padding:"0px 16px 16px 16px"}}>
                               <Typography variant="h6"
                               //@ts-ignore 
-                              style={dashBoard.unitno}>{item.attributes.apartment_management.apartment_name}</Typography>
+                              style={dashBoard.unitno}>{item?.attributes?.apartment_management?.apartment_name || 'N/A'}</Typography>
                               <Typography variant="h6" style={{textAlign:"center", marginTop:"5px"}}>{item.attributes.full_name}</Typography>
                               <div style={{textAlign:"center",marginTop:"5px"}}>
                                 {/* <Typography variant="h6" style={dashBoard.userType}>{item.userType}</Typography> */}

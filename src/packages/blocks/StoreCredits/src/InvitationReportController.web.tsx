@@ -26,7 +26,7 @@ interface SS {
   id: any;
 }
 
-export default class ReportDashboardController extends BlockComponent<Props, S, SS> {
+export default class InvitationReportController extends BlockComponent<Props, S, SS> {
   constructor(props: Props) {
     super(props);
     this.receive = this.receive.bind(this);

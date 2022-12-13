@@ -245,10 +245,10 @@ class OwnerDashboard extends DashboardController {
                               this.setState(
                                 {
                                   property: {
-                                    manager: "",
+                                    manager: request.attributes.property_manager.name,
                                     building: request.attributes.building_management.name,
                                     unit: request.attributes.apartment_management.data.attributes.apartment_name,
-                                    company: "",
+                                    company:  request.attributes.property_manager.company_name,
                                   },
                                 },
                                 () => {
@@ -553,7 +553,7 @@ class OwnerDashboard extends DashboardController {
                     </Link>
                   </Grid>
                   <Grid item xs={6} sm={6}>
-                    <Link href="">
+                    <Link href="/RentPayments">
                       <DashboardCard image={keyhand} heading={t("Rent Payments")} title={t("Registered")} value="75" />
                     </Link>
                   </Grid>

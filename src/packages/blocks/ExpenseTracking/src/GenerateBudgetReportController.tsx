@@ -92,7 +92,7 @@ export default class CoverImageController extends BlockComponent<
           budgetCategoryError:"",
           amount:"",
           amountError:"",
-          description:"",
+                   
           descriptionError:"",
           error:false,
           _destroy: "false",
@@ -222,10 +222,8 @@ export default class CoverImageController extends BlockComponent<
     return date.toISOString().startsWith(dateStr);
   }
 
-  handleValidation(){
+  handleTitleValidation = () => {
     let titleValidation = false
-    let optionValidation = false
-
     if(this.state.budgetYear){
       if(this.state.budgetYear.length >=4){
         this.setState({
@@ -242,79 +240,115 @@ export default class CoverImageController extends BlockComponent<
         pollTitleError:"Year can't be empty."
       })
     }
+    return titleValidation
+  }
 
+  categoryValidation = (item:any) => {
+    let categoryValidation = false
+    if(item.budgetCategory !== ""){
+      categoryValidation = true
+    }
+    return categoryValidation
+  }
+
+  amountValidation = (item:any) => {
+    let amountValidation = false
+    if(item.amount !== ""){
+      amountValidation = true
+    }
+    return amountValidation
+  }
+
+  descriptionValidation = (item:any) => {
+    let descriptionValidation = false
+    if(item.description !== ""){
+      descriptionValidation = true
+    }
+    return descriptionValidation
+  }
+
+  checkValidation = (categoryValidation:any,amountValidation:any,descriptionValidation:any) => {
+    let validation = false
+    if(!categoryValidation || !amountValidation || !descriptionValidation){
+      validation = true
+    }
+    return validation
+  }
+  handleOptionValidation = () => {
+    let optionValidation = false
     let updatedArray = this.state.budgetItems.map((item:any) => {
-       let categoryValidation = false
-       let amountValidation = false
-       let descriptionValidation = false
-       if(item.budgetCategory !== ""){
-         categoryValidation = true
-       }
-       if(item.amount !== ""){
-         amountValidation = true
-       }
-      if(item.description !== ""){
-        descriptionValidation = true
-      }
-       if(!categoryValidation || !amountValidation || !descriptionValidation)
-       {
-          let updatedObject = item
-          if(!categoryValidation){
-            updatedObject = {
-              ...updatedObject,
-              budgetCategoryError:"Category Can't be empty",
-              error:true
-            }
-          }else{
-            updatedObject =  {
-              ...updatedObject,
-              budgetCategoryError:""
-            }
-          }
-          if(!amountValidation){
-            updatedObject =  {
-              ...updatedObject,
-              amountError:"Please Enter Amount",
-              error:true
-            }
-          }else{
-            updatedObject =  {
-              ...updatedObject,
-              amountError:"",
-            }
-          }
-          if(!descriptionValidation){
-            updatedObject =  {
-              ...updatedObject,
-              descriptionError:"Please Enter Description",
-              error:true
-            }
-          }else{
-            updatedObject =  {
-              ...updatedObject,
-              descriptionError:"",
-            }
-          }
-          return {
+      let categoryValidation = false
+      let amountValidation = false
+      let descriptionValidation = false
+      categoryValidation = this.categoryValidation(item)
+      amountValidation = this.amountValidation(item)
+      descriptionValidation = this.descriptionValidation(item)
+      let validationResult = this.checkValidation(categoryValidation,amountValidation,descriptionValidation)
+      if(validationResult)
+      {
+        let updatedObject = item
+        if(!categoryValidation){
+          updatedObject = {
             ...updatedObject,
+            budgetCategoryError:"Category Can't be empty",
+            error:true
           }
-       }else{
-         if(categoryValidation && amountValidation && descriptionValidation){
-           return {
-             ...item,
-             error:false
-           }
-         }else{
-             return {
-               ...item,
-               error:true
-             }
-           }
-         }
+        }else{
+          updatedObject =  {
+            ...updatedObject,
+            budgetCategoryError:""
+          }
+        }
+        if(!amountValidation){
+          updatedObject =  {
+            ...updatedObject,
+            amountError:"Please Enter Amount",
+            error:true
+          }
+        }else{
+          updatedObject =  {
+            ...updatedObject,
+            amountError:"",
+          }
+        }
+        if(!descriptionValidation){
+          updatedObject =  {
+            ...updatedObject,
+            descriptionError:"Please Enter Description",
+            error:true
+          }
+        }else{
+          updatedObject =  {
+            ...updatedObject,
+            descriptionError:"",
+          }
+        }
+        return {
+          ...updatedObject,
+        }
+      }else{
+        if(categoryValidation && amountValidation && descriptionValidation){
+          return {
+            ...item,
+            error:false
+          }
+        }else{
+          return {
+            ...item,
+            error:true
+          }
+        }
+      }
     })
     this.setState({
       budgetItems:updatedArray
     })
+    optionValidation = this.manageOptionValidation(updatedArray)
+    return optionValidation
+  }
+
+  manageOptionValidation = (updatedArray:any) => {
+    let optionValidation = false
     updatedArray.forEach((item:any)=>{
       if(item.error){
         return
@@ -322,6 +356,14 @@ export default class CoverImageController extends BlockComponent<
         optionValidation = true
       }
     })
+    return optionValidation
+  }
+  handleValidation(){
+    let titleValidation = false
+    let optionValidation = false
+
+    titleValidation = this.handleTitleValidation()
+    optionValidation = this.handleOptionValidation()
 
     if(titleValidation && optionValidation){
       return true
