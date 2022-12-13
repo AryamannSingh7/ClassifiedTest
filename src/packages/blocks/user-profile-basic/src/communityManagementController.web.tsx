@@ -1181,12 +1181,12 @@ this.setState({openToolTip:!this.state.openToolTip})
 
   }
   handleChange = (e: any) => {
-
-    if (e.target.value) {
+    
+      console.log(e.target.value)
       // @ts-ignore
       // @ts-nocheck
       this.setState({ ...this.state, [e.target.name]: e.target.value }, () => this.getUnit(e))
-    }
+    
 
   }
   //@ts-ignore
