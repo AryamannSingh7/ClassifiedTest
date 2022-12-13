@@ -1,12 +1,9 @@
 // Customizable Area Start
-import React, { useRef } from "react";
+import React from "react";
 import { Button, Container, IconButton, withStyles, Box, Grid } from "@material-ui/core";
-import { Link } from "react-router-dom";
 import KeyboardBackspaceIcon from "@material-ui/icons/KeyboardBackspace";
-// import { BuildingImage, UnitRegisterCompleteIcon } from "./assets";
 import RegisterPropertyManagerController, { Props } from "./RegisterPropertyManagerController.web";
 import { withTranslation } from "react-i18next";
-import "../../../web/src/i18n.js";
 import { PropertyManagerStyleWeb } from "./PropertyManagerStyle.web";
 import { BuildingLogo, SuccessIcon } from "./assets";
 
@@ -16,8 +13,7 @@ class RegisterPropertyManagerSuccess extends RegisterPropertyManagerController {
   }
 
   render() {
-    const { classes } = this.props;
-    const { t }: any = this.props;
+    const { classes, t } = this.props;
 
     return (
       <>

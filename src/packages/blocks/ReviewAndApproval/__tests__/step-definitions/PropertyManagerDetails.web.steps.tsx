@@ -121,7 +121,6 @@ defineFeature(feature, (test) => {
 
     when("I navigate to the PropertyManagerDetails", () => {
       instance = PropertyManagerDetailsMountWrapper.instance();
-      console.log(instance);
     });
 
     then("PropertyManagerDetails will load with out errors", () => {
