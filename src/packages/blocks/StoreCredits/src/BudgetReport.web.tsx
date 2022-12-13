@@ -97,7 +97,7 @@ class BudgetReport extends BudgetReportController {
                     </Button>
                   </Box>
                   {localStorage.getItem("userType") === ROLE.MANAGER && (
-                    <Box className="create-meeting">
+                    <Box className="create-meeting" onClick={()=> this.props.history.push("/GenerateBudgetReport")}>
                       <Button onClick={() => {}}>{t("Generate Report")}</Button>
                     </Box>
                   )}
