@@ -1425,7 +1425,9 @@ exports[`ExpenseDetail Delete Expense Details 1`] = `
                                                       "marginBottom": "15px",
                                                     }
                                                   }
-                                                />
+                                                >
+                                                  Invalid date
+                                                </h4>
                                                 <WithStyles(ForwardRef(Card))
                                                   className="tenant"
                                                 >
@@ -4396,7 +4398,9 @@ exports[`ExpenseDetail User navigates to ExpenseDetail 1`] = `
                                                       "marginBottom": "15px",
                                                     }
                                                   }
-                                                />
+                                                >
+                                                  Invalid date
+                                                </h4>
                                                 <WithStyles(ForwardRef(Card))
                                                   className="tenant"
                                                 >

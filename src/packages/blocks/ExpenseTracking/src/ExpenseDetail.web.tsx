@@ -21,6 +21,7 @@ import { EditIcon, DeleteIcon, DeleteExpenseIcon } from "./assets";
 import SidebarImageComponent from "../../../components/src/OwnerSidebarImage.web";
 import { ExpenseTrackingStyle } from "./ExpenseTrackingStyle.web";
 import Loader from "../../../components/src/Loader.web";
+import moment from "moment";
 // Customizable Area End
 
 class ExpenseDetail extends ExpenseDetailController {
@@ -66,7 +67,9 @@ class ExpenseDetail extends ExpenseDetailController {
                     <Box className="tenant-list">
                       <Grid container spacing={2}>
                         <Grid item xs={12}>
-                          <h4 style={{ marginBottom: "15px" }}>{this.state.expenseDetails.expenseDate}</h4>
+                          <h4 style={{ marginBottom: "15px" }}>
+                            {moment(this.state.expenseDetails.expenseDate, "YYYY-MM-DD").format("MMMM DD, YYYY")}
+                          </h4>
                           <Card className="tenant">
                             <Grid container spacing={2} className="info expense-details">
                               <Grid item xs={6}>
