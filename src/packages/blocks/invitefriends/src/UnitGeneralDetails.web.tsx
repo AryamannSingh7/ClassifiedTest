@@ -101,7 +101,30 @@ class UnitGeneralDetails extends VisitorsListController {
                   </Box>
                   <Box style={{marginTop:"10px"}}>
                     <Paper>
-                        <Grid container spacing={3}>
+                    <CardDeatils profileDetails={profileDetails}/>   
+                    </Paper>
+                  </Box>
+                  <br></br><br></br>
+                 <FamilyDeatils profileDetails={profileDetails}/>
+              </Container>
+            </Grid>
+          </Box>
+        </Box>
+        {/* <Loader loading={this.state.loading} /> */}
+      </>
+    )
+  }
+}
+
+//@ts-ignore
+export default withTranslation()(withRouter(UnitGeneralDetails)); 
+
+const CardDeatils = (props:any) => {
+  const profileDetails =props?.profileDetails;
+  const {t} = useTranslation()
+  return(
+   <>
+     <Grid container spacing={3}>
                             <Grid item xs={12} sm={4} style={{borderRight:"1px solid #979797"}}>
                                 <Card style={dashBoard.cardStyle}>
                                     <CardActionArea>
@@ -229,29 +252,13 @@ class UnitGeneralDetails extends VisitorsListController {
                                            :
                                            null
                                       }
-                                      
-                                      
                                 </Grid>
                                 </Box>
                             </Grid>
                         </Grid>
-                    </Paper>
-                  </Box>
-                  <br></br><br></br>
-                 <FamilyDeatils profileDetails={profileDetails}/>
-              </Container>
-            </Grid>
-          </Box>
-        </Box>
-        {/* <Loader loading={this.state.loading} /> */}
-      </>
-    )
-  }
+   </>
+  )
 }
-
-//@ts-ignore
-export default withTranslation()(withRouter(UnitGeneralDetails)); 
-
 const FamilyDeatils = (props:any) => {
   const profileDetails =props?.profileDetails;
   const {t} = useTranslation()
