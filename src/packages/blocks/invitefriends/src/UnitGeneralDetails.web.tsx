@@ -126,7 +126,73 @@ class UnitGeneralDetails extends VisitorsListController {
                                             <Typography variant="subtitle1">{profileDetails?.date_of_birth?.date_of_birth || 'N/A'}</Typography>
                                         </Grid>
 
-                                        {
+                                    <HobbiesDeatils profileDetails={profileDetails} />
+                                    </Grid>
+                                   <WebsiteDeatils profileDetails={profileDetails}/>
+                                </Box>
+                            </Grid>
+                        </Grid>
+                    </Paper>
+                  </Box>
+                  <br></br><br></br>
+                 <FamilyDeatils profileDetails={profileDetails}/>
+              </Container>
+            </Grid>
+          </Box>
+        </Box>
+        {/* <Loader loading={this.state.loading} /> */}
+      </>
+    )
+  }
+}
+
+//@ts-ignore
+export default withTranslation()(withRouter(UnitGeneralDetails)); 
+
+const CardDeatils = (props:any) => {
+  const profileDetails =props?.profileDetails;
+  return(
+   <>
+    <Grid item xs={12} sm={4} style={{borderRight:"1px solid #979797"}}>
+                                <Card style={dashBoard.cardStyle}>
+                                    <CardActionArea>
+                                    <CardMedia
+                                        component="img"
+                                        height="140"
+                                        image={profileDetails?.profile_pic?.url || NoProfile_Img}
+                                        alt="green iguana"
+                                        style={dashBoard.profileImage}
+                                    />
+                                    <CardContent style={{padding:"0px 16px 16px 16px"}}>
+                                    <Typography variant="h6"
+                                    //@ts-ignore 
+                                    style={dashBoard.unitno}> {profileDetails?.full_name?.name || 'N/A'}</Typography>
+                                    <Typography variant="h6" style={{marginTop:"5px"}}> {profileDetails?.apartment_number?.apartment_number || 'N/A'} </Typography>
+                                        <Grid container spacing={3} style={{marginTop:"5px"}}>
+                                            <Grid item xs={2} sm={2}>
+                                                <img src={call_org} style={{width:"40px"}} onClick={()=> window.location.href = `tel:${profileDetails?.full_phone_number?.full_phone_number}`}/>
+                                            </Grid>
+                                            <Grid item xs={2} sm={2}>
+                                                {/* <img src={chat} style={{width:"40px"}} onClick={()=>this.openChat(profileDetails?.attribute)}/> */}
+                                            </Grid>
+                                            <Grid item xs={2} sm={2}>
+                                                <img src={email_org} style={{width:"40px"}} onClick={()=> window.location.href = `mailto:${profileDetails?.email?.email}`}/>
+                                            </Grid>
+                                        </Grid>
+                                    </CardContent>
+                                    </CardActionArea>
+                                </Card>
+                            </Grid>
+   </>
+  )
+}
+
+const HobbiesDeatils = (props:any) => {
+  const profileDetails =props?.profileDetails;
+  const {t} = useTranslation()
+  return(
+   <>
+     {
                                 profileDetails?.hobbies?.publilc_access ?
                                   <Box className="bio-row" >
                                      <Typography variant="subtitle1" style={dashBoard.subtitleClr}>{t("Hobbies")}</Typography>   
@@ -148,8 +214,15 @@ class UnitGeneralDetails extends VisitorsListController {
                                   :
                                   null
                               }
-                                    </Grid>
-                                    <Grid container spacing={3} style={{marginTop:"5px"}}>
+   </>
+  )
+}
+
+const WebsiteDeatils = (props:any) => {
+  const profileDetails =props?.profileDetails;
+  return(
+   <>
+      <Grid container spacing={3} style={{marginTop:"5px"}}>
                                       {
                                            profileDetails?.website.length !== 0 ?
                                            <>
@@ -201,64 +274,10 @@ class UnitGeneralDetails extends VisitorsListController {
                                            null
                                       }
                                 </Grid>
-                                </Box>
-                            </Grid>
-                        </Grid>
-                    </Paper>
-                  </Box>
-                  <br></br><br></br>
-                 <FamilyDeatils profileDetails={profileDetails}/>
-              </Container>
-            </Grid>
-          </Box>
-        </Box>
-        {/* <Loader loading={this.state.loading} /> */}
-      </>
-    )
-  }
-}
-
-//@ts-ignore
-export default withTranslation()(withRouter(UnitGeneralDetails)); 
-
-const CardDeatils = (props:any) => {
-  const profileDetails =props?.profileDetails;
-  const {t} = useTranslation()
-  return(
-   <>
-    <Grid item xs={12} sm={4} style={{borderRight:"1px solid #979797"}}>
-                                <Card style={dashBoard.cardStyle}>
-                                    <CardActionArea>
-                                    <CardMedia
-                                        component="img"
-                                        height="140"
-                                        image={profileDetails?.profile_pic?.url || NoProfile_Img}
-                                        alt="green iguana"
-                                        style={dashBoard.profileImage}
-                                    />
-                                    <CardContent style={{padding:"0px 16px 16px 16px"}}>
-                                    <Typography variant="h6"
-                                    //@ts-ignore 
-                                    style={dashBoard.unitno}> {profileDetails?.full_name?.name || 'N/A'}</Typography>
-                                    <Typography variant="h6" style={{marginTop:"5px"}}> {profileDetails?.apartment_number?.apartment_number || 'N/A'} </Typography>
-                                        <Grid container spacing={3} style={{marginTop:"5px"}}>
-                                            <Grid item xs={2} sm={2}>
-                                                <img src={call_org} style={{width:"40px"}} onClick={()=> window.location.href = `tel:${profileDetails?.full_phone_number?.full_phone_number}`}/>
-                                            </Grid>
-                                            <Grid item xs={2} sm={2}>
-                                                {/* <img src={chat} style={{width:"40px"}} onClick={()=>this.openChat(profileDetails?.attribute)}/> */}
-                                            </Grid>
-                                            <Grid item xs={2} sm={2}>
-                                                <img src={email_org} style={{width:"40px"}} onClick={()=> window.location.href = `mailto:${profileDetails?.email?.email}`}/>
-                                            </Grid>
-                                        </Grid>
-                                    </CardContent>
-                                    </CardActionArea>
-                                </Card>
-                            </Grid>
    </>
   )
 }
+
 const FamilyDeatils = (props:any) => {
   const profileDetails =props?.profileDetails;
   const {t} = useTranslation()
