@@ -240,7 +240,7 @@ class CommunityUserProfile extends CommunityUserProfileController {
                             name="selectedBUilding"
                             onChange={this.handleChange}
                           >
-                            <option value={2022}>{t("Select Building")}</option>
+                            <option value={''}>{t("Select Building")}</option>
                             {
                               this.state.allBuilding.map((item:any)=><>
                               <option value={item.id}>{item.name}</option>
@@ -258,7 +258,7 @@ class CommunityUserProfile extends CommunityUserProfileController {
                             name="selctedUnit"
                             onChange={this.handleChange}
                           >
-                            <option value={2022}>{t("Select Unit")}</option>
+                            <option value={''}>{t("Select Unit")}</option>
                             {
                               this.state.allUnit.map((item:any)=><>
                               <option value={item.id}>{item.apartment_name}</option>
@@ -274,11 +274,13 @@ class CommunityUserProfile extends CommunityUserProfileController {
                             // value={this.state.Year}
                             onChange={this.handleChange}
                           >
-                            <option value={2022}>{t("Select User Type")}</option>
-                            <option value={'ga_member'}>ga_member</option>
-                            <option value={'resident'}>resident</option>
-                            <option value={'owner'}>owner</option>
-                            <option value={'property_manager'}>property_manager</option>
+                            <option value={''}>{t("Select User Type")}</option>
+                            <option value={''}>{t("All")}</option>
+
+                            <option value={'ga_member'}>Ga Member</option>
+                            <option value={'resident'}>Resident</option>
+                            <option value={'owner'}>Owner</option>
+                            <option value={'property_manager'}>Property Manager</option>
                           </NativeSelect>
                       </FormControl>
                       </Grid>
