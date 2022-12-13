@@ -151,8 +151,14 @@ class PropertyManagerDetails extends PropertyManagerDetailsController {
                                     {property.attributes.apartment_management.apartment_name}
                                   </h4>
                                   <Box className="right-box-item">
-                                    <img src={EditIcon} alt="edit" onClick={() => this.handleEditProperty(property)} />
                                     <img
+                                      className="edit-property-image"
+                                      src={EditIcon}
+                                      alt="edit"
+                                      onClick={() => this.handleEditProperty(property)}
+                                    />
+                                    <img
+                                      className="delete-property-image"
                                       onClick={() => this.handleDeleteProperty(property.id)}
                                       src={DeleteIcon}
                                       alt="delete"
