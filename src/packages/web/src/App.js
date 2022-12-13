@@ -322,6 +322,8 @@ import RentDetails from '../../blocks/PricingEngine2/src/RentDetails.web';
 import AddRentPayment from '../../blocks/PricingEngine2/src/RegisterRentPayment.web';
 
 // Reports
+import GenerateBudgetReport from "../../blocks/ExpenseTracking/src/GenerateBudgetReport.web"
+import GenerateBudgetReportPreview from "../../blocks/ExpenseTracking/src/BudgetReportPreview.web"
 import ReportDashboard from '../../blocks/StoreCredits/src/ReportDashboard.web';
 import BudgetReport from '../../blocks/StoreCredits/src/BudgetReport.web';
 import BudgetReportDetails from '../../blocks/StoreCredits/src/BudgetReportDetails.web';
@@ -2073,6 +2075,21 @@ const routeMap = {
     roles: [ROLE.CHAIRMAN, ROLE.MANAGER],
     exact: true
   },
+
+  GenerateBudgetReport:{
+    component: GenerateBudgetReport,
+    path: '/GenerateBudgetReport',
+    roles: [ROLE.MANAGER],
+    exact: true
+  },
+
+  GenerateBudgetReportPreview:{
+    component: GenerateBudgetReportPreview,
+    path: '/GenerateBudgetReportPreview',
+    roles: [ROLE.MANAGER],
+    exact: true
+  },
+
   ExpenseReport: {
     component: ExpenseReport,
     path: '/ExpenseReports',
