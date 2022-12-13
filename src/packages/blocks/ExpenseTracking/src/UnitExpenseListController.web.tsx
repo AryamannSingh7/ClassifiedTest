@@ -16,8 +16,17 @@ export interface IExpense {
     expense_amount: number;
     issue_title: string;
     expense_category_id: number;
-    building_management_id: number;
-    apartment_management_id: number;
+    address: {
+      currency: string;
+    };
+    building_management: {
+      id: number;
+      name: string;
+    };
+    apartment_management: {
+      id: number;
+      apartment_name: string;
+    };
     resolved_by: string;
     expense_category: {
       id: number;
@@ -32,10 +41,6 @@ interface IResponseExpenseList {
 
 interface IResponseExpenseCategoryList {
   expense_category: IExpenseCategory[];
-}
-
-interface IResponseDeleteExpense {
-  data: IExpense;
 }
 
 export interface IExpenseCategory {
@@ -56,13 +61,16 @@ export interface Props {
 }
 
 interface S {
+  // Customizable Area Start
   loading: boolean;
   isFilterOpen: boolean;
 
   unitId: string;
   buildingId: string;
+  societyId: string;
   unitName: string;
   buildingName: string;
+  societyName: string;
   expenseList: IExpense[];
 
   expenseCategoryList: IExpenseCategory[];
@@ -70,6 +78,7 @@ interface S {
   sort: string;
   categoryList: number[];
   filterCategoryList: number[];
+  // Customizable Area End
 }
 
 interface SS {
@@ -79,26 +88,36 @@ interface SS {
 }
 
 export default class UnitExpenseListController extends BlockComponent<Props, S, SS> {
+  // Customizable Area Start
   GetAllExpenseListCallId: string = "";
   GetAllExpenseCategoryListCallId: string = "";
   GetUnitDetailsCallId: string = "";
   DeleteExpenseCallId: string = "";
+  // Customizable Area End
 
   constructor(props: Props) {
     super(props);
     this.receive = this.receive.bind(this);
 
     // Customizable Area Start
-    this.subScribedMessages = [getName(MessageEnum.RestAPIResponceMessage), getName(MessageEnum.RestAPIRequestMessage)];
+    this.subScribedMessages = [
+      // Customizable Area Start
+      getName(MessageEnum.RestAPIResponceMessage),
+      getName(MessageEnum.RestAPIRequestMessage),
+      // Customizable Area End
+    ];
 
     this.state = {
+      // Customizable Area Start
       loading: false,
       isFilterOpen: false,
 
       unitId: "",
       buildingId: "",
+      societyId: "",
       unitName: "",
       buildingName: "",
+      societyName: "",
       expenseList: [],
 
       expenseCategoryList: [],
@@ -106,14 +125,21 @@ export default class UnitExpenseListController extends BlockComponent<Props, S, 
       sort: "desc",
       categoryList: [],
       filterCategoryList: [],
+      // Customizable Area End
     };
     runEngine.attachBuildingBlock(this as IBlock, this.subScribedMessages);
+
+    // Customizable Area Start
+    // Customizable Area End
   }
 
   async receive(from: string, message: Message) {
+    runEngine.debugLog("Message Recived", message);
+
+    // Customizable Area Start
     if (getName(MessageEnum.RestAPIResponceMessage) === message.id) {
-      let responseJson: any = message.getData(getName(MessageEnum.RestAPIResponceSuccessMessage));
-      let errorResponse: any = message.getData(getName(MessageEnum.RestAPIResponceErrorMessage));
+      let responseJson = message.getData(getName(MessageEnum.RestAPIResponceSuccessMessage));
+      let errorResponse = message.getData(getName(MessageEnum.RestAPIResponceErrorMessage));
 
       const apiRequestCallId = message.getData(getName(MessageEnum.RestAPIResponceDataMessage));
 
@@ -133,14 +159,16 @@ export default class UnitExpenseListController extends BlockComponent<Props, S, 
             this.setState({
               unitId: unit.id,
               buildingId: unit.attributes.building_management.id,
+              societyId: unit.attributes.society_management.id,
               unitName: unit.attributes.apartment_name,
               buildingName: unit.attributes.building_management.name,
+              societyName: unit.attributes.society_management.name,
             });
           }
           break;
         // Delete Expense - API Response
         case this.DeleteExpenseCallId:
-          this.deleteExpenseResponse(responseJson.data);
+          this.deleteExpenseResponse();
           break;
       }
 
@@ -151,8 +179,10 @@ export default class UnitExpenseListController extends BlockComponent<Props, S, 
       }
       ApiCatchErrorResponse(errorResponse);
     }
+    // Customizable Area End
   }
 
+  // Customizable Area Start
   async componentDidMount(): Promise<void> {
     const unit_id = this.props.navigation.getParam("id");
     this.setState({ unitId: unit_id }, () => {
@@ -162,7 +192,7 @@ export default class UnitExpenseListController extends BlockComponent<Props, S, 
     });
   }
 
-  async componentDidUpdate(prevProps: any, prevState: any): Promise<void> {
+  async componentDidUpdate(prevProps: Readonly<Props>, prevState: Readonly<S>): Promise<void> {
     if (
       prevState.sort !== this.state.sort ||
       JSON.stringify(prevState.filterCategoryList) !== JSON.stringify(this.state.filterCategoryList)
@@ -283,11 +313,9 @@ export default class UnitExpenseListController extends BlockComponent<Props, S, 
     return true;
   };
 
-  deleteExpenseResponse = (responseJson: IResponseDeleteExpense) => {
+  deleteExpenseResponse = () => {
     this.setState({ loading: false }, () => {
-      if (responseJson && responseJson.data) {
-        this.getAllExpenseList();
-      }
+      this.getAllExpenseList();
     });
   };
 
@@ -308,6 +336,7 @@ export default class UnitExpenseListController extends BlockComponent<Props, S, 
     msg.addData(getName(MessageEnum.NavigationPropsMessage), this.props);
     msg.addData(getName(MessageEnum.AddExpenseDataMessage), {
       isMainPage: false,
+      societyId: this.state.societyId,
       buildingId: this.state.buildingId,
       unitId: this.state.unitId,
     });
@@ -333,7 +362,7 @@ export default class UnitExpenseListController extends BlockComponent<Props, S, 
   };
 
   handleApplyFilter = () => {
-    if (this.state.categoryList.length > 0) {
+    if (this.state.filterCategoryList.length > 0 || this.state.categoryList.length > 0) {
       this.setState({ loading: true, filterCategoryList: this.state.categoryList }, () => {
         this.handleFilterModal();
       });
@@ -343,4 +372,5 @@ export default class UnitExpenseListController extends BlockComponent<Props, S, 
   handleClearFilter = () => {
     this.setState({ categoryList: [] });
   };
+  // Customizable Area End
 }

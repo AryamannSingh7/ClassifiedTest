@@ -1,4 +1,6 @@
 import React from "react";
+
+// Customizable Area Start
 import { withTranslation } from "react-i18next";
 import ExpenseDetailController, { Props } from "./ExpenseDetailController.web";
 import {
@@ -19,16 +21,23 @@ import { EditIcon, DeleteIcon, DeleteExpenseIcon } from "./assets";
 import SidebarImageComponent from "../../../components/src/OwnerSidebarImage.web";
 import { ExpenseTrackingStyle } from "./ExpenseTrackingStyle.web";
 import Loader from "../../../components/src/Loader.web";
+// Customizable Area End
 
 class ExpenseDetail extends ExpenseDetailController {
   constructor(props: Props) {
     super(props);
+    // Customizable Area Start
+    // Customizable Area End
   }
+
+  // Customizable Area Start
+  // Customizable Area End
 
   render() {
     const { t, classes } = this.props;
 
     return (
+      // Customizable Area Start
       <>
         <Loader loading={this.state.loading} />
 
@@ -62,7 +71,9 @@ class ExpenseDetail extends ExpenseDetailController {
                             <Grid container spacing={2} className="info expense-details">
                               <Grid item xs={6}>
                                 <span>{t("Cost")}</span>
-                                <p>{this.state.expenseDetails.expenseCost}</p>
+                                <p>
+                                  {this.state.expenseDetails.currency + " " + this.state.expenseDetails.expenseCost}
+                                </p>
                               </Grid>
                               <Grid item xs={6}>
                                 <span>{t("Issue")}</span>
@@ -120,14 +131,13 @@ class ExpenseDetail extends ExpenseDetailController {
               </Typography>
               <DialogActions className="dialog-button-group">
                 <Button onClick={() => this.handleDeleteExpense()}>{t("Yes, Delete")}</Button>
-                <Button data-test-id="close-delete-expense-button" onClick={() => this.handleExpenseModal()}>
-                  {t("No, Don’t Delete")}
-                </Button>
+                <Button onClick={() => this.handleExpenseModal()}>{t("No, Don’t Delete")}</Button>
               </DialogActions>
             </Box>
           </DialogContent>
         </Dialog>
       </>
+      // Customizable Area End
     );
   }
 }
