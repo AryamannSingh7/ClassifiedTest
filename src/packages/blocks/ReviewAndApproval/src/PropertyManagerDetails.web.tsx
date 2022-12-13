@@ -17,14 +17,10 @@ import {
   Input,
   InputAdornment,
 } from "@material-ui/core";
-import { Menu } from "@szhsin/react-menu";
-import MoreVertIcon from "@material-ui/icons/MoreVert";
 import KeyboardBackspaceIcon from "@material-ui/icons/KeyboardBackspace";
 import PropertyManagerDetailsController, { Props } from "./PropertyManagerDetailsController.web";
 import {
   BuildingLogo,
-  SortIcon,
-  FilterIcon,
   EditIcon,
   DeleteIcon,
   BlueManagerIcon,
@@ -44,9 +40,7 @@ import {
   FeeTypeIcon,
 } from "./assets";
 import { withTranslation } from "react-i18next";
-import "../../../web/src/i18n.js";
 import { PropertyManagerStyleWeb } from "./PropertyManagerStyle.web";
-import NavigateNextIcon from "@material-ui/icons/NavigateNext";
 import { Form, Formik } from "formik";
 import moment from "moment";
 import Loader from "../../../components/src/Loader.web";
@@ -57,8 +51,7 @@ class PropertyManagerDetails extends PropertyManagerDetailsController {
   }
 
   render() {
-    const { classes } = this.props;
-    const { t }: any = this.props;
+    const { t, classes }: any = this.props;
 
     return (
       <>
@@ -158,41 +151,9 @@ class PropertyManagerDetails extends PropertyManagerDetailsController {
                                     {property.attributes.apartment_management.apartment_name}
                                   </h4>
                                   <Box className="right-box-item">
+                                    <img src={EditIcon} alt="edit" onClick={() => this.handleEditProperty(property)} />
                                     <img
-                                      src={EditIcon}
-                                      alt="edit"
-                                      onClick={() => {
-                                        this.setState(
-                                          {
-                                            propertyId: property.id,
-                                            propertyForm: {
-                                              ...this.state.propertyForm,
-                                              buildingId: property.attributes.building_management_id,
-                                              unitId: property.attributes.apartment_management_id,
-                                              buildingName: property.attributes.building_management.name,
-                                              unitName: property.attributes.apartment_management.apartment_name,
-                                              startDate: property.attributes.start_date,
-                                              endDate: property.attributes.end_date,
-                                              feeType: property.attributes.fees_type,
-                                              rent: property.attributes.fixed_persentage_of_rent,
-                                            },
-                                          },
-                                          () => {
-                                            this.handleEditPropertyModal();
-                                          }
-                                        );
-                                      }}
-                                    />
-                                    <img
-                                      onClick={() => {
-                                        if (this.state.propertyManagerDetails.propertyList.length === 1) {
-                                          this.setState({ loading: true }, () =>
-                                            this.deletePropertyManager(this.state.propertyManagerId)
-                                          );
-                                        } else {
-                                          this.setState({ loading: true }, () => this.deleteProperty(property.id));
-                                        }
-                                      }}
+                                      onClick={() => this.handleDeleteProperty(property.id)}
                                       src={DeleteIcon}
                                       alt="delete"
                                     />
@@ -315,7 +276,7 @@ class PropertyManagerDetails extends PropertyManagerDetailsController {
           >
             {({ values, errors, touched, handleChange, handleBlur, handleSubmit, setFieldValue }) => {
               return (
-                <Form onSubmit={handleSubmit} translate="true">
+                <Form onSubmit={handleSubmit} translate="yes">
                   <Box>
                     <h4>{t("Edit Property")}</h4>
                     <FormControl fullWidth>
