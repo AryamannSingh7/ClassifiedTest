@@ -55,6 +55,7 @@ export default class VisitorDetailsController extends BlockComponent<
   labelTitle: string = "";
   getVisitorListId:string = "";
   getUnitListId:string = "";
+  getSecurityUnitListId:string =""
   getUnitId:string =""
   getBuildingListId:string ="";
   getUnitGeneralDetailsId="";
@@ -119,7 +120,7 @@ export default class VisitorDetailsController extends BlockComponent<
   async componentDidMount() {
     await this.getVisitorList(this.state.searchQuery,this.state.page)
     await this.getBuildingList()
-    await this.getSecurityUnitList(this.state.page)
+    await this.getSecurityUnitList(this.state?.buildingID,this.state?.page,this.state?.searchQuery)
     await this.getSecurityBuildingList()
   }
 
@@ -131,7 +132,7 @@ export default class VisitorDetailsController extends BlockComponent<
   }
 
   handleUnitPagination = (e:any,value:any) => {
-    this.getSecurityUnitList(value)
+    this.getSecurityUnitList("",value,"")
     this.setState({
       page:value
     })
@@ -147,6 +148,12 @@ export default class VisitorDetailsController extends BlockComponent<
     this.setState({
       deleteConfirmModal:true
     })
+  }
+  unitSearch = (e:any) => {
+    this.setState({
+      searchQuery:e.target.value
+    })
+    this.getSecurityUnitList(this.state.buildingID,1,e.target.value)
   }
 
   manageSearch = (e:any) => {
@@ -184,7 +191,7 @@ export default class VisitorDetailsController extends BlockComponent<
   unitGeneralDetailsResponse = (responseJson:any) => {
         if(responseJson.hasOwnProperty("resident")){
           this.setState({
-            getUnitGeneralDetails:responseJson?.resident?.data,
+            getUnitGeneralDetails:responseJson,
           })
         }else{
           this.setState({
@@ -247,17 +254,17 @@ export default class VisitorDetailsController extends BlockComponent<
     }
   }
 
-  getSecurityUnitList = async (page:any) => {
-    console.log("DID I CALLED yes ?",)
+  getSecurityUnitList = async (securityBuildingId : any,page:any,searchQuery : any ) => {
+    console.log("DID I CALLED yes securityBuildingId?",securityBuildingId)
     const societyID = localStorage.getItem("society_id")
     this.getUnitListId = await this.apiCall({
       contentType:"application/json",
       method: "GET",
-      endPoint:`bx_block_settings/apartment_managements/unit_list?society_management_id=${societyID}&building_management_id=&page=${page}`,
+      endPoint:`bx_block_settings/apartment_managements/unit_list?society_management_id=${societyID}&building_management_id=${securityBuildingId}&page=${page}&q=${searchQuery} `,
     });
   }
   getSecurityBuildingList = async () => {
-    console.log("DID I CALLED yes ?",)
+    console.log("DID I CALLED yes buildingID?",this.state?.buildingID)
     const societyID = localStorage.getItem("society_id")
     this.getSecurityBuildingListId = await this.apiCall({
       contentType:"application/json",
