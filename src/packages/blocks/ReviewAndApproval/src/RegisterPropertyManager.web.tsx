@@ -212,8 +212,9 @@ class RegisterPropertyManager extends RegisterPropertyManagerController {
                                       </h4>
                                       <Box className="box-icons">
                                         <img
+                                          className="edit-property-icon"
                                           src={EditIcon}
-                                          alt=""
+                                          alt="edit"
                                           onClick={() => {
                                             this.setState({ propertyId: index + "", propertyForm: property }, () => {
                                               this.handleOpenAddPropertyModal();
@@ -221,8 +222,9 @@ class RegisterPropertyManager extends RegisterPropertyManagerController {
                                           }}
                                         />
                                         <img
+                                          className="delete-property-icon"
                                           src={DeleteIcon}
-                                          alt=""
+                                          alt="delete"
                                           onClick={() => {
                                             const newPropertyList = this.state.propertyList.filter(
                                               (property: any, id: number) => id !== index

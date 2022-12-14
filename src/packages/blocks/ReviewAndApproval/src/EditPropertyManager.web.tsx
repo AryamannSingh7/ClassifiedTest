@@ -208,6 +208,7 @@ class EditPropertyManager extends RegisterPropertyManagerController {
                                       </h4>
                                       <Box className="box-icons">
                                         <img
+                                          className="edit-property-icon"
                                           src={EditIcon}
                                           alt="edit"
                                           onClick={() => {
@@ -233,6 +234,7 @@ class EditPropertyManager extends RegisterPropertyManagerController {
                                           }}
                                         />
                                         <img
+                                          className="delete-property-icon"
                                           src={DeleteIcon}
                                           alt="delete"
                                           onClick={() => {
