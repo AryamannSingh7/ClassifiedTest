@@ -1,6 +1,11 @@
 import React from "react";
 import { withTranslation } from "react-i18next";
-import TotalExpenseController, { Props } from "./TotalExpenseController.web";
+import TotalExpenseController, {
+  ICategoryExpense,
+  ICityExpense,
+  IUnitExpense,
+  Props,
+} from "./TotalExpenseController.web";
 import { Box, Card, Container, Grid, IconButton, Link, MenuItem, withStyles } from "@material-ui/core";
 import KeyboardBackspaceIcon from "@material-ui/icons/KeyboardBackspace";
 import { ExpenseIcon, FilterIcon } from "../assets";
@@ -15,7 +20,9 @@ class TotalExpense extends TotalExpenseController {
   }
 
   render() {
-    const { t, classes }: any = this.props;
+    const { t, classes } = this.props;
+
+    console.log(this.state);
 
     return (
       <>
@@ -70,8 +77,13 @@ class TotalExpense extends TotalExpenseController {
                                 <img src={ExpenseIcon} alt="" />
                               </Box>
                               <Box className="content-box">
-                                <h4>Total Expenses</h4>
-                                <h4 className="amount">SR 50,000</h4>
+                                <h4>{t("Total Expenses")}</h4>
+                                <h4 className="amount">
+                                  {this.validateCurrency(
+                                    this.state.totalExpense.currency,
+                                    this.state.totalExpense.expense
+                                  )}
+                                </h4>
                               </Box>
                             </Box>
                           </Card>
@@ -81,64 +93,75 @@ class TotalExpense extends TotalExpenseController {
                       <Grid container spacing={2}>
                         <Grid item xs={12}>
                           <Box className="heading">
-                            <h4>Categorywise Expense Report</h4>
+                            <h4>{t("Categorywise Expense Report")}</h4>
                           </Box>
                         </Grid>
-                        <Grid item xs={6}>
-                          <ExpenseCard heading="Electricity" title="Total Expenses" value="SR 1,500" />
-                        </Grid>
-                        <Grid item xs={6}>
-                          <ExpenseCard heading="Plumbing" title="Total Expenses" value="SR 1,500" />
-                        </Grid>
-                        <Grid item xs={6}>
-                          <ExpenseCard heading="Maintenance" title="Total Expenses" value="SR 1,500" />
-                        </Grid>
-                        <Grid item xs={6}>
-                          <ExpenseCard heading="Cleaning Service" title="Total Expenses" value="SR 1,500" />
-                        </Grid>
-                        <Grid item xs={6}>
-                          <ExpenseCard heading="Misc" title="Total Expenses" value="SR 1,500" />
-                        </Grid>
+                        {this.state.categoryWiseExpense.length === 0 && (
+                          <Grid item xs={12}>
+                            <Card className="expense-card">{t("No Expense Available")}</Card>
+                          </Grid>
+                        )}
+                        {this.state.categoryWiseExpense.map((expense: ICategoryExpense, index: number) => {
+                          return (
+                            <Grid item xs={6} key={index}>
+                              <ExpenseCard
+                                heading={expense.title}
+                                title="Total Expenses"
+                                value={this.validateCurrency(expense.currency, expense.expenses)}
+                              />
+                            </Grid>
+                          );
+                        })}
                       </Grid>
                       <br />
                       <Grid container spacing={2}>
                         <Grid item xs={12}>
                           <Box className="heading">
-                            <h4>Unitwise Expense Report</h4>
+                            <h4>{t("Unitwise Expense Report")}</h4>
                           </Box>
                         </Grid>
-                        <Grid item xs={6}>
-                          <ExpenseCard heading="Unit 101 Building 5" title="Total Expenses" value="SR 1,500" />
-                        </Grid>
-                        <Grid item xs={6}>
-                          <ExpenseCard heading="Unit 101 Building 5" title="Total Expenses" value="SR 1,500" />
-                        </Grid>
-                        <Grid item xs={6}>
-                          <ExpenseCard heading="Unit 101 Building 5" title="Total Expenses" value="SR 1,500" />
-                        </Grid>
-                        <Grid item xs={6}>
-                          <ExpenseCard heading="Unit 101 Building 5" title="Total Expenses" value="SR 1,500" />
-                        </Grid>
+                        {this.state.unitWiseExpense.length === 0 && (
+                          <Grid item xs={12}>
+                            <Card className="expense-card">{t("No Expense Available")}</Card>
+                          </Grid>
+                        )}
+                        {this.state.unitWiseExpense.map((expense: IUnitExpense, index: number) => {
+                          return (
+                            <Grid item xs={6} key={index}>
+                              <Link href={`/TotalExpense/${expense.id}`}>
+                                <ExpenseCard
+                                  heading={`Unit ${expense.unit_name} Building ${expense.building_name}`}
+                                  title="Total Expenses"
+                                  value={this.validateCurrency(expense.currency, expense.expenses)}
+                                />
+                              </Link>
+                            </Grid>
+                          );
+                        })}
                       </Grid>
                       <br />
                       <Grid container spacing={2}>
                         <Grid item xs={12}>
                           <Box className="heading">
-                            <h4>Citywise Expense Report</h4>
+                            <h4>{t("Citywise Expense Report")}</h4>
                           </Box>
                         </Grid>
-                        <Grid item xs={6}>
-                          <ExpenseCard heading="Dubai" title="Total Expenses" value="SR 1,500" />
-                        </Grid>
-                        <Grid item xs={6}>
-                          <ExpenseCard heading="New York" title="Total Expenses" value="SR 1,500" />
-                        </Grid>
-                        <Grid item xs={6}>
-                          <ExpenseCard heading="London" title="Total Expenses" value="SR 1,500" />
-                        </Grid>
-                        <Grid item xs={6}>
-                          <ExpenseCard heading="Chicago" title="Total Expenses" value="SR 1,500" />
-                        </Grid>
+                        {this.state.cityWiseExpense.length === 0 && (
+                          <Grid item xs={12}>
+                            <Card className="expense-card">{t("No Expense Available")}</Card>
+                          </Grid>
+                        )}
+                        {this.state.cityWiseExpense.map((expense: ICityExpense, index: number) => {
+                          return (
+                            <Grid item xs={6} key={index}>
+                              <ExpenseCard
+                                heading={expense.city_name}
+                                title="Total Expenses"
+                                value={this.validateCurrency(expense.currency, expense.expenses)}
+                              />
+                            </Grid>
+                          );
+                        })}
                       </Grid>
                     </Box>
                   </Box>
