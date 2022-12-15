@@ -137,8 +137,6 @@ export default class UnitTotalExpenseController extends BlockComponent<Props, S,
             });
           }
           break;
-        default:
-          break;
       }
 
       if (responseJson && responseJson.meta && responseJson.meta.token) {
