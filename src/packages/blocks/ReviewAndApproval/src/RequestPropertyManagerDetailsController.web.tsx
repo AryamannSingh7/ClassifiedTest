@@ -175,12 +175,12 @@ export default class RequestPropertyManagerDetailsController extends BlockCompon
 
     apiRequest.addData(
       getName(MessageEnum.RestAPIResponceEndPointMessage),
-      `bx_block_property_manager/property_manager_requests/update_request?id=${this.state.propertyId}&status=${status}`
+      `bx_block_property_manager/update_request?id=${this.state.propertyId}&status=${status}`
     );
 
     apiRequest.addData(getName(MessageEnum.RestAPIRequestHeaderMessage), JSON.stringify(header));
 
-    apiRequest.addData(getName(MessageEnum.RestAPIRequestMethodMessage), configJSON.apiMethodTypePut);
+    apiRequest.addData(getName(MessageEnum.RestAPIRequestMethodMessage), configJSON.apiMethodTypeGet);
 
     runEngine.sendMessage(apiRequest.id, apiRequest);
     return true;

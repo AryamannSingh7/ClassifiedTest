@@ -39,6 +39,7 @@
   color: blue;
   font-weight: bold !important;
   border: 5px solid gray;
+
   & .MuiTypography-body1 {
     font-weight: 600;
   }
@@ -47,6 +48,7 @@
 .unactive {
   color: gray;
   font-weight: bold !important;
+
   & .MuiTypography-body1 {
     font-weight: 600;
   }
@@ -112,12 +114,14 @@ h4.MuiTypography-body1 {
     width: 100%;
   }
 }
+
 .white-box {
   /* padding: 1rem; */
   background: white;
   border-radius: 8px;
   display: flex;
 }
+
 // .left-side{
 //   border-right: 1px solid #1A181D25;
 //     max-width: 200px;
@@ -128,17 +132,21 @@ h4.MuiTypography-body1 {
   // gap: 1.25rem;
   // margin-top: 1rem;
 }
+
 .right-side {
   padding: 1rem;
   width: 100%;
+
   .heading {
     color: #181d2557;
   }
+
   .content {
     color: #181d25;
     padding: 10px 20px 10px 0px;
   }
 }
+
 .social-icon {
   .icon-1 {
     background: #f6ece6;
@@ -146,3 +154,16 @@ h4.MuiTypography-body1 {
     border-radius: 50%;
   }
 }
+.btnMy .MuiButton-label{color: white !important;
+font:caption !important;
+}
+
+.MuiNativeSelect-select.MuiNativeSelect-select {
+  // font: caption !important;
+}
+.MbtnMy .MuiButton-label{
+  color:#2773DF !important;
+  }
+  .MuiButtonBase-root-2 .MuiButton-label{
+    color:white !important;
+    }

@@ -56,7 +56,7 @@ class VisitorsList extends VisitorsListController {
                         <Grid item xs={3} md={3} sm={3} className="SideBar">
                             {/* Chairman Sidebar -- */}
                            {
-                             userType === "Visitors" ? 
+                             userType === "Security" ? 
                             <VisitorsSidebar {...this.props} />
                             :
                             <ChairmanSidebarWeb {...this.props} /> 

@@ -971,6 +971,23 @@ CreateFacilityReservation = async(val :any) => {
     this.setState({anchorEl:null,sortBy : sortBy})
   };
 
+  handleClick_1 = (event :any) => {
+    this.setState({anchorEl_1:event.currentTarget})
+  };
+   
+  handleClose_1 = (e:any, v:any) => {
+   let status : any ;
+    if(v === undefined || v === null){
+      console.log("v=========>",v)
+      status =this.state.status;
+    }
+    else {
+      status =v;
+    }
+    this.setState({anchorEl_1:null ,status :status})
+  };
+  
+  
 
   deleteFacility =(id:any)=>{
     const header = {
@@ -1056,9 +1073,13 @@ CreateFacilityReservation = async(val :any) => {
 
   CreateFacilityReservationSchema() {
     const validations = Yup.object().shape({
-      areaReserve: Yup.string().trim(),
+      areaReserve: Yup.string().required(`This field is required`).trim(),
       buildingName:Yup.string().required(`This field is required`).trim(),
-      date: Yup.date().required("Date is required"),
+      date: Yup.date()
+      .required()
+      .typeError("please enter a valid date")
+      .min(new Date(Date.now() -86400000), "Date cannot be in the past")
+      ,
       timeFrom:Yup.string().required("Start time is required"),
       timeTo:Yup.string().required("End time is required")
     .test("is-greater", "End time should be greater than Start time", function(value) {

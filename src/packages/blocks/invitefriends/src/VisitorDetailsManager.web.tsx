@@ -48,7 +48,15 @@ class VisitorDetails extends VisitorDetailsController {
         //@ts-ignore
         const {t} = this.props
         const userType  = localStorage.getItem("selectUserType");
-
+        let comingWtihCar :any=""
+        if( this.state?.visitorDetails?.vehicle_detail?.car_number){
+            comingWtihCar = "Yes"
+        }
+        else {
+            comingWtihCar = "No"
+        }
+    
+        console.log("this.state?.visitorDetails======>",this.state?.visitorDetails)
         return (
             <>
                 <Box style={{ background: "#F4F7FF" }} className={classes.announcements}>
@@ -58,7 +66,7 @@ class VisitorDetails extends VisitorDetailsController {
                         <Grid item xs={3} md={3} sm={3} className="SideBar">
                             {/* Chairman Sidebar -- */}
                             {
-                             userType === "Visitors" ? 
+                             userType === "Security" ? 
                             <VisitorsSidebar {...this.props} />
                             :
                             <ChairmanSidebarWeb {...this.props} /> 
@@ -84,12 +92,70 @@ class VisitorDetails extends VisitorDetailsController {
                                 <Box className="meeting-table">
                                     <Grid item sm={12} md={12} xs={12}>
                                         <Box className="table-top">
-                                            <h5>{t("Visitors Details")}</h5>
+                                            <h5>{t(this.state.visitorDetails.name)}</h5>
                                         </Box>
                                         <Divider />
                                         <Box width="100%" style={{display:'flex',flexDirection:"column",alignItems:"center"}}>
                                             <Box style={{width:"95%"}}>
+                                                {
+                                                    userType === "Security" ?
+                                                    <>
+                                                    <Box style={{display:"flex",margin:"10px 0px"}}>
+                                                    <Typography style={{marginRight:"5px"}}>{t("Date")} : </Typography>
+                                                    <Typography style={{fontWeight:"bold"}}>{moment(this.state?.visitorDetails?.schedule_date).format("DD MMMM YYYY")}</Typography>
+                                                </Box>
+                                                <Divider/>
                                                 <Box style={{display:"flex",margin:"10px 0px"}}>
+                                                    <Typography style={{marginRight:"5px"}}>{t("Time")} : </Typography>
+                                                    <Typography style={{fontWeight:"bold"}}>{moment(this.state?.visitorDetails?.schedule_time).format("HH:mm")}</Typography>
+                                                </Box>
+                                                <Divider/>
+                                                <Box style={{display:"flex",margin:"10px 0px"}}>
+                                                    <Typography style={{marginRight:"5px"}}>{t("Resident Name")} : </Typography>
+                                                    <Typography style={{fontWeight:"bold"}}>{this.state.visitorDetails.resident_name}</Typography>
+                                                </Box>
+                                                <Divider/>
+
+                                                     <Box style={{display:"flex",margin:"10px 0px"}}>
+                                                    <Typography style={{marginRight:"5px"}}>{t("Owner Name")} : </Typography>
+                                                    <Typography style={{fontWeight:"bold"}}>{this.state.visitorDetails?.Owner_name}</Typography>
+                                                </Box>
+                                                <Divider/>
+                                              
+                                                <Box style={{display:"flex",margin:"10px 0px"}}>
+                                                    <Typography style={{marginRight:"5px"}}>{t("Building Name")} : </Typography>
+                                                    <Typography style={{fontWeight:"bold"}}>{this.state.visitorDetails?.building_management?.name}</Typography>
+                                                </Box>
+                                                <Divider/>
+                                                <Box style={{display:"flex",margin:"10px 0px"}}>
+                                                    <Typography style={{marginRight:"5px"}}>{t("Unit Number")} : </Typography>
+                                                    <Typography style={{fontWeight:"bold"}}>{this.state.visitorDetails.unit_number}</Typography>
+                                                </Box>
+                                                <Divider/>
+                                                
+                                                <Box style={{display:"flex",margin:"10px 0px"}}>
+                                                    <Typography style={{marginRight:"5px"}}>{t("Visitor Phone Number")} : </Typography>
+                                                    <Typography style={{fontWeight:"bold"}}>{this.state?.visitorDetails?.mobile_number?.full_mobile_number}</Typography>
+                                                </Box>
+                                                    <Divider/>
+                                                <Box style={{display:"flex",margin:"10px 0px"}}>
+                                                    <Typography style={{marginRight:"5px"}}>{t("Coming with car")} : </Typography>
+                                                    <Typography style={{fontWeight:"bold"}}>{comingWtihCar}</Typography>
+                                                </Box>
+                                                <Divider/>
+                                                <Box style={{display:"flex",margin:"10px 0px"}}>
+                                                    <Typography style={{marginRight:"5px"}}>{t("Car Plate Number")} : </Typography>
+                                                    <Typography style={{fontWeight:"bold"}}>{this.state?.visitorDetails?.vehicle_detail?.car_number || "N/A"}</Typography>
+                                                </Box>
+                                                <Divider/>
+                                                <Box style={{margin:"10px 0px"}}>
+                                                    <Typography style={{marginRight:"5px"}}>{t("ID Copy")} : </Typography>
+                                                    <img style={{margin: '10px',width: '200px'}} src={this.state?.visitorDetails?.image?.url}/>
+                                                </Box>
+                                                    </>
+                                                    :
+                                                    <>
+                                                    <Box style={{display:"flex",margin:"10px 0px"}}>
                                                     <Typography style={{marginRight:"5px"}}>{t("Visitor Name")} : </Typography>
                                                     <Typography style={{fontWeight:"bold"}}>{this.state.visitorDetails.name}</Typography>
                                                 </Box>
@@ -118,6 +184,8 @@ class VisitorDetails extends VisitorDetailsController {
                                                     <Typography style={{marginRight:"5px"}}>{t("Phone Number")} : </Typography>
                                                     <Typography style={{fontWeight:"bold"}}>{this.state?.visitorDetails?.mobile_number?.full_mobile_number}</Typography>
                                                 </Box>
+                                                    </>
+                                                }
                                             </Box>
                                         </Box>
                                     </Grid>

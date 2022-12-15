@@ -127,7 +127,7 @@ class MyTeamCore extends ChairmanNominationMainController {
                                                     </Grid>
                                                 }
                                                 {
-                                                    item.attributes.stage === "Nomination Ended" &&
+                                                    item.attributes.stage === "Nomination Closed" &&
                                                     <Grid item xs={12} className={"nominationGrayBG"} style={{marginBottom:"10px",marginTop:"10px"}}>
                                                         <Typography variant="body1" style={{width:"100%"}} className="nominationGrayText" >{item.attributes.stage || "NA"}</Typography>
                                                     </Grid>
