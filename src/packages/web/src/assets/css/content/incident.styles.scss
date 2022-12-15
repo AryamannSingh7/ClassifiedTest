@@ -85,6 +85,13 @@
           font-weight: 700;
         }
       }
+      & .card-listing-row
+      {
+        & .h5-title
+        {
+          font-weight: bold;
+        }
+      }
     }
     &.common-incident-block {
       &.create-reservation-wrapper{

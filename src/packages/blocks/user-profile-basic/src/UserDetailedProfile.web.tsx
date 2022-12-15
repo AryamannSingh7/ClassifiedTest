@@ -227,13 +227,13 @@ class UserDetailedProfile extends UserDetailedProfileController {
                                         <Typography variant="h6" style={dashBoard.userType}>{t("GA Member")}</Typography>
                                     </div>
                                         <Grid container spacing={3} style={{marginTop:"5px",gap:'1rem'}}>
+                                            <Grid item xs={2} sm={2}>
+                                                <img src={chat} style={{width:"40px"}} onClick={()=>this.openChat(profileDetails?.id)}/>
+                                            </Grid>
                                         <Grid item xs={2} sm={2}>
                                                 <img src={call_org} style={{width:"40px"}} onClick={()=> window.location.href = `tel:${profileDetails?.attributes?.full_phone_number?.full_phone_number}`}/>
                                             </Grid>
                                            
-                                            <Grid item xs={2} sm={2}>
-                                                <img src={chat} style={{width:"40px"}} onClick={()=>this.openChat(profileDetails?.id)}/>
-                                            </Grid>
                                             <Grid item xs={2} sm={2}>
                                                 <img src={email_org} style={{width:"40px"}} onClick={()=> window.location.href = `mailto:${profileDetails?.attributes?.email?.email}`}/>
                                             </Grid>

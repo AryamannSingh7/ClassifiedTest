@@ -253,7 +253,7 @@ class FacilityManagerDetail extends FacilityManagerContorller {
                 <Box className="provider-dialouge-body classified-dialouge-body desktop-ui">
                   <Box className="dialouge-header">
                     <DialogTitle className="alert-dialog-title" id="alert-dialog-title">
-                      Cancel Reservation 
+                      Cancel Reservation sdss
                     </DialogTitle>
                     <Button>
                       <img src={Close_Icon} className="close-icon" onClick={() => { this.setState({ ignoreShowDialog: false, addNote: null }) }} />

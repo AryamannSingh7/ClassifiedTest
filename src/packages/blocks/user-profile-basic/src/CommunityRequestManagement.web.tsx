@@ -133,7 +133,7 @@ class CommunityRequestManagement extends CommunityUserProfileController {
                                 <img src= {addgroup} style={dashBoard.mailIcon}/>
                             </div>
                             <div style={{display:"flex", alignItems:"center"}}>
-                                <Typography variant="h6" style={dashBoard.subHeading}>{t("Pending Join request")}</Typography>
+                                <Typography variant="h6" style={dashBoard.subHeading}>{t("Pending Join requests")}</Typography>
                                 <img
                                 aria-owns={this.state.openToolTip ? 'mouse-over-popover' : undefined}
                                 aria-haspopup="true"
