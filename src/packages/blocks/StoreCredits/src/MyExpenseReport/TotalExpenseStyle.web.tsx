@@ -223,16 +223,61 @@ export const TotalExpenseStyle: any = {
       marginBottom: "0px",
       color: "#FD9048",
     },
+    "& .city-wise-heading": {
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "space-between",
+      marginBottom: "15px",
+      "& .select-box": {
+        background: "white",
+        borderRadius: "25px",
+        padding: "10px 30px",
+        display: "flex",
+        alignItems: "center",
+        gap: "25px",
+        cursor: "pointer",
+      },
+      "& .szh-menu-container ul": {
+        left: "-9.3px !important",
+        top: "12px !important",
+      },
+    },
     "& .rented-empty-card": {
       boxShadow: "none",
       borderRadius: "8px",
       padding: "20px",
+      "& .heading": {
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "space-between",
+        "& span": {
+          fontWeight: "600",
+          borderRadius: "25px",
+          padding: "5px 15px",
+        },
+        "& span.Empty": {
+          color: "#595959",
+          background: "#D7D7D7",
+        },
+        "& span.Rented": {
+          color: "#2B6FED",
+          background: "#2B6FED20",
+        },
+      },
       "& h4": {
-        marginBottom: "10px",
+        marginBottom: "16px",
+      },
+      "& span": {
+        color: "grey",
+        fontSize: "14px",
       },
       "& .orange": {
         color: "#FC8434",
         fontWeight: "600",
+      },
+      "& p": {
+        marginTop: "5px",
+        fontSize: "17px",
       },
     },
   },
