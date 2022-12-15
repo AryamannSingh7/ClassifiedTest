@@ -94,6 +94,25 @@ exports[`UnitTotalExpense User navigates to UnitTotalExpense 1`] = `
           "marginBottom": "20px",
           "textTransform": "capitalize",
         },
+        "& .city-wise-heading": Object {
+          "& .select-box": Object {
+            "alignItems": "center",
+            "background": "white",
+            "borderRadius": "25px",
+            "cursor": "pointer",
+            "display": "flex",
+            "gap": "25px",
+            "padding": "10px 30px",
+          },
+          "& .szh-menu-container ul": Object {
+            "left": "-9.3px !important",
+            "top": "12px !important",
+          },
+          "alignItems": "center",
+          "display": "flex",
+          "justifyContent": "space-between",
+          "marginBottom": "15px",
+        },
         "& .date-box": Object {
           "background": "white",
           "border": "1px solid #f0f0f0",
@@ -127,12 +146,38 @@ exports[`UnitTotalExpense User navigates to UnitTotalExpense 1`] = `
           "position": "relative",
         },
         "& .rented-empty-card": Object {
+          "& .heading": Object {
+            "& span": Object {
+              "borderRadius": "25px",
+              "fontWeight": "600",
+              "padding": "5px 15px",
+            },
+            "& span.Empty": Object {
+              "background": "#D7D7D7",
+              "color": "#595959",
+            },
+            "& span.Rented": Object {
+              "background": "#2B6FED20",
+              "color": "#2B6FED",
+            },
+            "alignItems": "center",
+            "display": "flex",
+            "justifyContent": "space-between",
+          },
           "& .orange": Object {
             "color": "#FC8434",
             "fontWeight": "600",
           },
           "& h4": Object {
-            "marginBottom": "10px",
+            "marginBottom": "16px",
+          },
+          "& p": Object {
+            "fontSize": "17px",
+            "marginTop": "5px",
+          },
+          "& span": Object {
+            "color": "grey",
+            "fontSize": "14px",
           },
           "borderRadius": "8px",
           "boxShadow": "none",
@@ -357,6 +402,25 @@ exports[`UnitTotalExpense User navigates to UnitTotalExpense 1`] = `
           "marginBottom": "20px",
           "textTransform": "capitalize",
         },
+        "& .city-wise-heading": Object {
+          "& .select-box": Object {
+            "alignItems": "center",
+            "background": "white",
+            "borderRadius": "25px",
+            "cursor": "pointer",
+            "display": "flex",
+            "gap": "25px",
+            "padding": "10px 30px",
+          },
+          "& .szh-menu-container ul": Object {
+            "left": "-9.3px !important",
+            "top": "12px !important",
+          },
+          "alignItems": "center",
+          "display": "flex",
+          "justifyContent": "space-between",
+          "marginBottom": "15px",
+        },
         "& .date-box": Object {
           "background": "white",
           "border": "1px solid #f0f0f0",
@@ -390,12 +454,38 @@ exports[`UnitTotalExpense User navigates to UnitTotalExpense 1`] = `
           "position": "relative",
         },
         "& .rented-empty-card": Object {
+          "& .heading": Object {
+            "& span": Object {
+              "borderRadius": "25px",
+              "fontWeight": "600",
+              "padding": "5px 15px",
+            },
+            "& span.Empty": Object {
+              "background": "#D7D7D7",
+              "color": "#595959",
+            },
+            "& span.Rented": Object {
+              "background": "#2B6FED20",
+              "color": "#2B6FED",
+            },
+            "alignItems": "center",
+            "display": "flex",
+            "justifyContent": "space-between",
+          },
           "& .orange": Object {
             "color": "#FC8434",
             "fontWeight": "600",
           },
           "& h4": Object {
-            "marginBottom": "10px",
+            "marginBottom": "16px",
+          },
+          "& p": Object {
+            "fontSize": "17px",
+            "marginTop": "5px",
+          },
+          "& span": Object {
+            "color": "grey",
+            "fontSize": "14px",
           },
           "borderRadius": "8px",
           "boxShadow": "none",
@@ -512,7 +602,7 @@ exports[`UnitTotalExpense User navigates to UnitTotalExpense 1`] = `
     }
   >
     <div
-      className="MuiBox-root MuiBox-root-1 height overflowY & .top-bar & .top-bar .left-icon & .top-bar .left-icon span & .top-bar .right-icon & .top-bar .right-icon img & .right-image & a & .MuiContainer-root & .tenant-list-box & .tenant-list-box .tenant-list & .date-box & .date-box.MuiInput-underline::before & .date-box.MuiInput-underline::after & .input-date-box & .total-expense & .big-box & .big-box .image & .big-box h4 & .big-box .state p & .big-box button & .big-box button.yellow & .big-box .content-box & .big-box .content-box .left-content & .big-box .content-box .left-content .state & .big-box .content-box .right-content .state & .big-box .content-box .right-content & .big-box .content-box .center-content & .big-box .content-box .center-content .vertical-line & .big-box .content-box .center-content .image & .big-box .content-box .center-content .image.text & .big-box .content-box .center-content .image.text h4 & .rented-empty-card"
+      className="MuiBox-root MuiBox-root-1 height overflowY & .top-bar & .top-bar .left-icon & .top-bar .left-icon span & .top-bar .right-icon & .top-bar .right-icon img & .right-image & a & .MuiContainer-root & .tenant-list-box & .tenant-list-box .tenant-list & .date-box & .date-box.MuiInput-underline::before & .date-box.MuiInput-underline::after & .input-date-box & .total-expense & .big-box & .big-box .image & .big-box h4 & .big-box .state p & .big-box button & .big-box button.yellow & .big-box .content-box & .big-box .content-box .left-content & .big-box .content-box .left-content .state & .big-box .content-box .right-content .state & .big-box .content-box .right-content & .big-box .content-box .center-content & .big-box .content-box .center-content .vertical-line & .big-box .content-box .center-content .image & .big-box .content-box .center-content .image.text & .big-box .content-box .center-content .image.text h4 & .city-wise-heading & .rented-empty-card"
       style={
         Object {
           "background": "#F4F7FF",
