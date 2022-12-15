@@ -1072,10 +1072,13 @@ CreateFacilityReservation = async(val :any) => {
 
   CreateFacilityReservationSchema() {
     const validations = Yup.object().shape({
-      areaReserve: Yup.string().trim(),
+      areaReserve: Yup.string().required(`This field is required`).trim(),
       buildingName:Yup.string().required(`This field is required`).trim(),
-      date: Yup.date().required("Date is required")
-      .min(new Date(), "Date cannot be in the past"),
+      date: Yup.date()
+      .required()
+      .typeError("please enter a valid date")
+      .min(new Date(Date.now() -86400000), "Date cannot be in the past")
+      ,
       timeFrom:Yup.string().required("Start time is required"),
       timeTo:Yup.string().required("End time is required")
     .test("is-greater", "End time should be greater than Start time", function(value) {

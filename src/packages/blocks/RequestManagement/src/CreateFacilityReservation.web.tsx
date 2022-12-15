@@ -244,6 +244,10 @@ class CreateFacilityReservation extends FacilityReservationController {
                        }
                           
                         </Box>
+                         {JSON.stringify(errors, null, 2)} 
+                          {JSON.stringify(values, null, 2)}  
+
+
                       </Form>
                     )}
                   </Formik>
