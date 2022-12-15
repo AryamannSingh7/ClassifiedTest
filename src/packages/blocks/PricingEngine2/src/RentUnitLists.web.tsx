@@ -29,7 +29,7 @@ class RentUnitLists extends RentUnitListController{
                       <Box style={{ display:"flex", alignItems:"center", gap:"1rem"}}>
                           <ArrowBackIcon onClick={() => window.history.back( )} />
                           <p style={{ fontSize: '1.2rem', fontWeight: 600 }}>
-                              Building Name
+                              {this.state.buildingName}
                           </p>
                       </Box>
                   </Grid>

@@ -21,6 +21,7 @@ interface S {
   loading: boolean;
   sortBy: any;
   status: any;
+  buildingName:any;
   UnitListing: any;
 }
 
@@ -33,7 +34,6 @@ export default class CoverImageController extends BlockComponent<Props, S, SS> {
   labelTitle: string = "";
   getVisitorListId: string = "";
   getRentUnitListId: string = "";
-
   constructor(props: Props) {
     super(props);
     this.receive = this.receive.bind(this);
@@ -47,6 +47,7 @@ export default class CoverImageController extends BlockComponent<Props, S, SS> {
       sortBy: "",
       status: "",
       UnitListing: [],
+      buildingName:"",
     };
 
     this.labelTitle = configJSON.labelTitle;
@@ -68,7 +69,8 @@ export default class CoverImageController extends BlockComponent<Props, S, SS> {
       if (this.getRentUnitListId === apiRequestCallId) {
         if(responseJson.hasOwnProperty("data")){
           this.setState({
-            UnitListing:responseJson.data
+            UnitListing:responseJson.data,
+            buildingName:responseJson?.data[0]?.attributes?.building_name || ""
           })
         }
       }
