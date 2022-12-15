@@ -3,7 +3,7 @@ import React, { Component } from "react";
 import { PropertyManagerStyleWeb } from "../../src/PropertyManagerStyle.web";
 import EditPropertyManager from "../../src/EditPropertyManager.web";
 import { mount } from "enzyme";
-import { Drawer, ExpansionPanelActions, IconButton, Select } from "@material-ui/core";
+import { Drawer, IconButton, Select } from "@material-ui/core";
 import { Formik } from "formik";
 import MessageEnum, { getName } from "../../../../framework/src/Messages/MessageEnum";
 import { Message } from "../../../../framework/src/Message";
