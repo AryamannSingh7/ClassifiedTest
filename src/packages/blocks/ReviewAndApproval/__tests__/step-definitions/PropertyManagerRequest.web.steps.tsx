@@ -7,16 +7,12 @@ import { Message } from "../../../../framework/src/Message";
 import MessageEnum, { getName } from "../../../../framework/src/Messages/MessageEnum";
 import { runEngine } from "../../../../framework/src/RunEngine";
 import { Button } from "@material-ui/core";
+import {
+  componentProps,
+  newRequestListMockData,
+} from "../../../../components/src/TestCase/PropertyManagerMockData.web";
 
-const PropertyManagerRequestProps = {
-  navigation: {
-    getParam: jest.fn(),
-    goBack: jest.fn(),
-    navigate: jest.fn(),
-  },
-  id: "PropertyManagerRequest",
-  classes: PropertyManagerStyleWeb,
-};
+const PropertyManagerRequestProps = componentProps("PropertyManagerRequest", PropertyManagerStyleWeb);
 
 jest.mock("@material-ui/core/styles", () => ({
   withStyles: (styles: any) => (component: Component) => component,
@@ -30,86 +26,6 @@ jest.mock("react-i18next", () => ({
 }));
 
 const feature = loadFeature("./__tests__/features/PropertyManagerRequest.feature");
-
-const newRequestEmptyListMockData: any[] = [];
-
-const updateManagerMockData = {
-  data: {
-    id: "237",
-    type: "property_manager_new_request",
-    attributes: {
-      country: "India",
-      city: "Bhopal",
-      building_management: {
-        id: 3,
-        name: "First Building",
-      },
-      apartment_management: {
-        data: {
-          id: "94",
-          type: "apartment_management",
-          attributes: {
-            apartment_name: "301",
-          },
-        },
-      },
-      status: "Requested",
-      property_manager: {
-        id: 37,
-        company_name: "qwerty",
-        name: "JohnDoe",
-        email: "john1298@yopmail.com",
-        mobile_number: "+963-142356777",
-        id_proof_id: null,
-        id_number: null,
-        id_expiration_date: null,
-        account_id: 424,
-        created_at: "2022-12-13T09:43:27.218Z",
-        updated_at: "2022-12-13T09:43:27.218Z",
-      },
-    },
-  },
-};
-
-const newRequestListMockData = {
-  data: [
-    {
-      id: "237",
-      type: "property_manager_new_request",
-      attributes: {
-        country: "India",
-        city: "Bhopal",
-        building_management: {
-          id: 3,
-          name: "First Building",
-        },
-        apartment_management: {
-          data: {
-            id: "94",
-            type: "apartment_management",
-            attributes: {
-              apartment_name: "301",
-            },
-          },
-        },
-        status: "Requested",
-        property_manager: {
-          id: 37,
-          company_name: "qwerty",
-          name: "JohnDoe",
-          email: "john1298@yopmail.com",
-          mobile_number: "+963-142356777",
-          id_proof_id: null,
-          id_number: null,
-          id_expiration_date: null,
-          account_id: 424,
-          created_at: "2022-12-13T09:43:27.218Z",
-          updated_at: "2022-12-13T09:43:27.218Z",
-        },
-      },
-    },
-  ],
-};
 
 defineFeature(feature, (test) => {
   beforeEach(() => {
@@ -158,7 +74,7 @@ defineFeature(feature, (test) => {
     then("Should not show request list is empty in web", () => {
       let newRequestList = new Message(getName(MessageEnum.RestAPIResponceMessage));
       newRequestList.addData(getName(MessageEnum.RestAPIResponceDataMessage), newRequestList);
-      newRequestList.addData(getName(MessageEnum.RestAPIResponceSuccessMessage), newRequestEmptyListMockData);
+      newRequestList.addData(getName(MessageEnum.RestAPIResponceSuccessMessage), []);
       instance.GetManagerRequestCallId = newRequestList;
       runEngine.sendMessage("New property Manager's Request List", newRequestList);
     });
@@ -182,7 +98,7 @@ defineFeature(feature, (test) => {
 
       let updateRequestList = new Message(getName(MessageEnum.RestAPIResponceMessage));
       updateRequestList.addData(getName(MessageEnum.RestAPIResponceDataMessage), updateRequestList);
-      updateRequestList.addData(getName(MessageEnum.RestAPIResponceSuccessMessage), updateManagerMockData);
+      updateRequestList.addData(getName(MessageEnum.RestAPIResponceSuccessMessage), { data: {} });
       instance.EditManagerRequestCallId = updateRequestList;
       runEngine.sendMessage("Update property manager", updateRequestList);
     });

@@ -8,16 +8,17 @@ import { Message } from "../../../../framework/src/Message";
 import MessageEnum, { getName } from "../../../../framework/src/Messages/MessageEnum";
 import { runEngine } from "../../../../framework/src/RunEngine";
 import { Formik } from "formik";
+import {
+  buildingListMockData,
+  componentProps,
+  propertyFormMockData,
+  unitListMockData,
+  idTypeListMockData,
+  complexDetailsMockData,
+  localStorageMock,
+} from "../../../../components/src/TestCase/PropertyManagerMockData.web";
 
-const RegisterPropertyManagerProps = {
-  navigation: {
-    getParam: jest.fn(),
-    goBack: jest.fn(),
-    navigate: jest.fn(),
-  },
-  id: "RegisterPropertyManager",
-  classes: PropertyManagerStyleWeb,
-};
+const RegisterPropertyManagerProps = componentProps("RegisterPropertyManager", PropertyManagerStyleWeb);
 
 jest.mock("@material-ui/core/styles", () => ({
   withStyles: (styles: any) => (component: Component) => component,
@@ -32,81 +33,6 @@ jest.mock("react-i18next", () => ({
 
 const feature = loadFeature("./__tests__/features/RegisterPropertyManager.feature");
 
-const propertyListMockData = [
-  {
-    country: "India",
-    city: "Bhopal",
-    buildingId: "3",
-    unitId: "3",
-    buildingName: "DFG",
-    unitName: "123",
-    startDate: "12-12-2022",
-    endDate: "12-01-2023",
-    feeType: "Fixed Payment",
-    rent: "1200",
-  },
-];
-
-const buildingListMockData = {
-  buildings: [
-    {
-      id: 3,
-      name: "First Building",
-    },
-  ],
-};
-
-const unitListMockData = {
-  apartments: [
-    {
-      id: 94,
-      apartment_name: "301",
-    },
-    {
-      id: 89,
-      apartment_name: "102",
-    },
-  ],
-};
-
-const idTypeListMockData = { relaions: [{ id: 1, name: "Aadhar" }] };
-
-const complexDetailsMockData = {
-  complex: {
-    id: 5,
-    name: "New Society",
-  },
-  complex_address: {
-    id: 5,
-    country: "India",
-    latitude: 23.9998,
-    longitude: 12.345,
-    address: "1, Plaza",
-    state: "Madya Pradesh",
-    city: "Bhopal",
-    region: "",
-  },
-};
-
-const localStorageMock = (() => {
-  let store: any = {};
-
-  return {
-    getItem(key: any) {
-      return store[key] || null;
-    },
-    setItem(key: any, value: any) {
-      store[key] = value.toString();
-    },
-    removeItem(key: any) {
-      delete store[key];
-    },
-    clear() {
-      store = {};
-    },
-  };
-})();
-
 Object.defineProperty(window, "sessionStorage", {
   value: localStorageMock,
 });
@@ -119,7 +45,7 @@ defineFeature(feature, (test) => {
 
   test("User navigates to RegisterPropertyManager", ({ given, when, then }) => {
     beforeEach(() => {
-      window.sessionStorage.setItem("propertyList", JSON.stringify(propertyListMockData));
+      window.sessionStorage.setItem("propertyList", JSON.stringify(propertyFormMockData));
     });
     let RegisterPropertyManagerMountWrapper: any;
     let instance: any;
@@ -183,7 +109,7 @@ defineFeature(feature, (test) => {
     });
 
     then("Should register the property manager", () => {
-      instance.setState({ propertyList: propertyListMockData });
+      instance.setState({ propertyList: propertyFormMockData });
       RegisterPropertyManagerMountWrapper.update();
 
       const formSpy = jest.spyOn(RegisterPropertyManagerMountWrapper.find(Formik).at(0).props(), "onSubmit");

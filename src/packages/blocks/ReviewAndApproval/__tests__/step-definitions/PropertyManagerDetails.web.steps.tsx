@@ -8,16 +8,13 @@ import MessageEnum, { getName } from "../../../../framework/src/Messages/Message
 import { runEngine } from "../../../../framework/src/RunEngine";
 import { Drawer } from "@material-ui/core";
 import { Formik } from "formik";
+import {
+  componentProps,
+  complexDetailsMockData,
+  propertyManagerMockData,
+} from "../../../../components/src/TestCase/PropertyManagerMockData.web";
 
-const PropertyManagerDetailsProps = {
-  navigation: {
-    getParam: jest.fn(),
-    goBack: jest.fn(),
-    navigate: jest.fn(),
-  },
-  id: "PropertyManagerDetails",
-  classes: PropertyManagerStyleWeb,
-};
+const PropertyManagerDetailsProps = componentProps("PropertyManagerDetails", PropertyManagerStyleWeb);
 
 jest.mock("@material-ui/core/styles", () => ({
   withStyles: (styles: any) => (component: Component) => component,
@@ -31,80 +28,6 @@ jest.mock("react-i18next", () => ({
 }));
 
 const feature = loadFeature("./__tests__/features/PropertyManagerDetails.feature");
-
-const propertyList = {
-  id: "27",
-  type: "property",
-  attributes: {
-    id: 27,
-    building_management_id: 3,
-    apartment_management_id: 89,
-    start_date: "2022-12-01",
-    end_date: "2022-12-30",
-    fees_type: "Fixed Percentage",
-    fixed_persentage_of_rent: "10 %",
-    account_id: 173,
-    property_manager_request_id: 38,
-    building_management: {
-      id: 3,
-      name: "First Building",
-    },
-    apartment_management: {
-      id: 89,
-      apartment_name: "102",
-    },
-  },
-};
-
-const propertyManagerDetailsMockData = {
-  data: {
-    id: "38",
-    type: "property_manager_request",
-    attributes: {
-      id: 38,
-      company_name: "google",
-      name: "JohnDeo",
-      email: "johndow147@yopmail.com",
-      mobile_number: "+1284-14245672",
-      id_number: "1234 1212 2323 4546",
-      id_expiration_date: "2022-12-01",
-      properties: {
-        data: [propertyList, propertyList],
-      },
-      id_proof: { id: 1, name: "Aadhar" },
-      account: {
-        id: 425,
-        full_phone_number: "+1284-14245672",
-        email: "johndow147@yopmail.com",
-        full_name: "JohnDeo",
-      },
-      image: {
-        url: "https://ti1finalleap-158677-ruby.b158677.dev.eastus.az.svc.builder.cafe/rails/active_storage/blobs/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBBb2dEIiwiZXhwIjpudWxsLCJwdXIiOiJibG9iX2lkIn19--99a5fc4d7dbe095d90dd11c37d60f835bcb28b61/sample.pdf",
-      },
-    },
-  },
-};
-
-const deletePropertyManagerMockData = {
-  message: "Delete",
-};
-
-const complexDetailsMockData = {
-  complex: {
-    id: 5,
-    name: "New Society",
-  },
-  complex_address: {
-    id: 5,
-    country: "India",
-    latitude: 23.9998,
-    longitude: 12.345,
-    address: "1, Plaza",
-    state: "Madya Pradesh",
-    city: "Bhopal",
-    region: "",
-  },
-};
 
 defineFeature(feature, (test) => {
   beforeEach(() => {
@@ -142,10 +65,7 @@ defineFeature(feature, (test) => {
     then("Should load property manager details", () => {
       let propertyManagerDetails = new Message(getName(MessageEnum.RestAPIResponceMessage));
       propertyManagerDetails.addData(getName(MessageEnum.RestAPIResponceDataMessage), propertyManagerDetails);
-      propertyManagerDetails.addData(
-        getName(MessageEnum.RestAPIResponceSuccessMessage),
-        propertyManagerDetailsMockData
-      );
+      propertyManagerDetails.addData(getName(MessageEnum.RestAPIResponceSuccessMessage), propertyManagerMockData);
       instance.GetPropertyManagerDetailsCallId = propertyManagerDetails;
       runEngine.sendMessage("Property Manager Details", propertyManagerDetails);
     });
@@ -153,7 +73,9 @@ defineFeature(feature, (test) => {
     then("Should delete the property manager", () => {
       let deletePropertyManager = new Message(getName(MessageEnum.RestAPIResponceMessage));
       deletePropertyManager.addData(getName(MessageEnum.RestAPIResponceDataMessage), deletePropertyManager);
-      deletePropertyManager.addData(getName(MessageEnum.RestAPIResponceSuccessMessage), deletePropertyManagerMockData);
+      deletePropertyManager.addData(getName(MessageEnum.RestAPIResponceSuccessMessage), {
+        message: "Delete",
+      });
       instance.DeletePropertyManagerCallId = deletePropertyManager;
       runEngine.sendMessage("Delete Property Manager", deletePropertyManager);
     });
@@ -161,7 +83,7 @@ defineFeature(feature, (test) => {
     then("Should delete the property when there is multiple property", () => {
       instance.setState({
         propertyManagerDetails: {
-          propertyList: propertyManagerDetailsMockData.data.attributes.properties.data,
+          propertyList: propertyManagerMockData.data.attributes.properties.data,
         },
       });
       PropertyManagerDetailsMountWrapper.update();
@@ -175,7 +97,7 @@ defineFeature(feature, (test) => {
 
       let deleteProperty = new Message(getName(MessageEnum.RestAPIResponceMessage));
       deleteProperty.addData(getName(MessageEnum.RestAPIResponceDataMessage), deleteProperty);
-      deleteProperty.addData(getName(MessageEnum.RestAPIResponceSuccessMessage), propertyManagerDetailsMockData);
+      deleteProperty.addData(getName(MessageEnum.RestAPIResponceSuccessMessage), propertyManagerMockData);
       instance.DeletePropertyCallId = deleteProperty;
       runEngine.sendMessage("Delete Property", deleteProperty);
     });
@@ -183,7 +105,7 @@ defineFeature(feature, (test) => {
     then("Should delete the property manager when there is single property", () => {
       instance.setState({
         propertyManagerDetails: {
-          propertyList: [propertyList],
+          propertyList: [propertyManagerMockData.data.attributes.properties.data[0]],
         },
       });
       PropertyManagerDetailsMountWrapper.update();
@@ -207,7 +129,7 @@ defineFeature(feature, (test) => {
     then("Should edit the property", () => {
       instance.setState({
         propertyManagerDetails: {
-          propertyList: propertyManagerDetailsMockData.data.attributes.properties.data,
+          propertyList: propertyManagerMockData.data.attributes.properties.data,
         },
       });
       PropertyManagerDetailsMountWrapper.update();

@@ -6,58 +6,12 @@ import { mount } from "enzyme";
 import { Message } from "../../../../framework/src/Message";
 import MessageEnum, { getName } from "../../../../framework/src/Messages/MessageEnum";
 import { runEngine } from "../../../../framework/src/RunEngine";
+import {
+  componentProps,
+  propertyManagerMockData,
+} from "../../../../components/src/TestCase/PropertyManagerMockData.web";
 
-const PropertyManagerListProps = {
-  navigation: {
-    getParam: jest.fn(),
-    goBack: jest.fn(),
-    navigate: jest.fn(),
-  },
-  id: "PropertyManagerList",
-  classes: PropertyManagerStyleWeb,
-};
-
-const propertyManagerListMockData = {
-  data: [
-    {
-      id: "25",
-      attributes: {
-        id: 25,
-        company_name: "google",
-        name: "johndow",
-        properties: {
-          data: [
-            {
-              id: "20",
-              type: "property",
-              attributes: {
-                id: 20,
-                account_id: 173,
-                property_manager_request_id: 25,
-                building_management: {
-                  id: 3,
-                  name: "First Building",
-                },
-                apartment_management: {
-                  id: 94,
-                  apartment_name: "301",
-                },
-              },
-            },
-          ],
-        },
-      },
-    },
-  ],
-};
-
-const deleteManagerMockData = {
-  message: "Added",
-};
-
-const newRequestListMockData = {
-  data: [{ id: "1" }, { id: "1" }],
-};
+const PropertyManagerListProps = componentProps("PropertyManagerList", PropertyManagerStyleWeb);
 
 jest.mock("@material-ui/core/styles", () => ({
   withStyles: (styles: any) => (component: Component) => component,
@@ -108,7 +62,9 @@ defineFeature(feature, (test) => {
     when("PropertyManagerList load without error", () => {
       let propertyManagerList = new Message(getName(MessageEnum.RestAPIResponceMessage));
       propertyManagerList.addData(getName(MessageEnum.RestAPIResponceDataMessage), propertyManagerList);
-      propertyManagerList.addData(getName(MessageEnum.RestAPIResponceSuccessMessage), propertyManagerListMockData);
+      propertyManagerList.addData(getName(MessageEnum.RestAPIResponceSuccessMessage), {
+        data: [propertyManagerMockData.data, propertyManagerMockData.data],
+      });
       instance.GetPropertyManagerListCallId = propertyManagerList;
       runEngine.sendMessage("property Manager List", propertyManagerList);
     });
@@ -120,7 +76,9 @@ defineFeature(feature, (test) => {
     then("NewRequest load without error", () => {
       let newRequestList = new Message(getName(MessageEnum.RestAPIResponceMessage));
       newRequestList.addData(getName(MessageEnum.RestAPIResponceDataMessage), newRequestList);
-      newRequestList.addData(getName(MessageEnum.RestAPIResponceSuccessMessage), newRequestListMockData);
+      newRequestList.addData(getName(MessageEnum.RestAPIResponceSuccessMessage), {
+        data: [{ id: "1" }, { id: "1" }],
+      });
       instance.GetManagerRequestCallId = newRequestList;
       runEngine.sendMessage("New Request List", newRequestList);
     });
@@ -130,7 +88,9 @@ defineFeature(feature, (test) => {
 
       let deleteManager = new Message(getName(MessageEnum.RestAPIResponceMessage));
       deleteManager.addData(getName(MessageEnum.RestAPIResponceDataMessage), deleteManager);
-      deleteManager.addData(getName(MessageEnum.RestAPIResponceSuccessMessage), deleteManagerMockData);
+      deleteManager.addData(getName(MessageEnum.RestAPIResponceSuccessMessage), {
+        message: "Added",
+      });
       instance.DeletePropertyManagerCallId = deleteManager;
       runEngine.sendMessage("Delete Property Manager", deleteManager);
     });
