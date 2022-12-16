@@ -23,6 +23,9 @@ import { withTranslation } from 'react-i18next';
 import '../../../web/src/i18n.js';
 import { Users_Icon,upcoming } from "../src/assets";
 
+
+import SearchIcon from "@material-ui/icons/Search";
+
 class ManagerFacilityReservation extends FacilityManagerContorller {
   constructor(props: Props) {
     super(props);
@@ -140,6 +143,7 @@ class ManagerFacilityReservation extends FacilityManagerContorller {
 
                     <Box className="customButton">
                       <Button variant="contained" onClick={() => this.serachHandle()}>
+                      <SearchIcon />
                         {t("Search")}
                       </Button>
                     </Box>
@@ -159,7 +163,7 @@ class ManagerFacilityReservation extends FacilityManagerContorller {
                             <strong><h4>Facility Reservation</h4></strong>
                             <Box className="card-rows">
                               <img src={upcoming} alt="Bank Icon" />
-                              <h5> {val?.attributes?.common_area?.name}</h5>
+                              <h5 className="reservationTitle"> {val?.attributes?.common_area?.name}</h5>
                             </Box>
                             <Box className="card-rows">
                               <img src={upcoming} alt="Bank Icon" />
@@ -224,6 +228,10 @@ const dashBoard: any = {
     paddingBottom: 25,
     background: "#fff",
     borderRadius: 10, 
+  },
+  reservationTitle: {
+    fontWeight: "500",
+    color: "red",
   },
   CardsIcons: {
     border: "1px solid #d9d4d3",

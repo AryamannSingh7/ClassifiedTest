@@ -46,6 +46,7 @@ class Unit extends VisitorsListController {
         // @ts-ignore
         const {t} = this.props
         console.log("securityBuildingList==========>",this.state?.securityBuildingList)
+        console.log("this.state.buildingID==========>",this.state?.buildingID)
         return (
             <>
                 <Box style={{ background: "#F4F7FF" }} className={classes.announcements}>
@@ -74,20 +75,20 @@ class Unit extends VisitorsListController {
                                 </Box>
                                 <Box className="top-bar">
                                     <Box className="filter">
-                                        <Select displayEmpty value={this.state.buildingID} className="select-input" placeholder="Select Building" onChange={(e)=> this.setState({buildingID:e.target.value},()=>this.getUnitList(e.target.value))}>
+                                        <Select displayEmpty value={this.state.buildingID} className="select-input" placeholder="Select Building" onChange={(e)=> this.setState({buildingID:e.target.value})}>
                                             <MenuItem value="" disabled>
                                                 {t("Select Building")}
                                             </MenuItem>
                                             {
                                                 this.state?.securityBuildingList?.length > 0 &&
-                                                    this.state.buildingList.map((item:any,key:any) => {
+                                                    this.state?.securityBuildingList?.map((item:any,key:any) => {
                                                         return(
                                                             <MenuItem value={item.id} key={key}>{item.name}</MenuItem>
                                                         )
                                                     })
                                             }
                                         </Select>
-                                        <Button onClick={()=> this.getVisitorList(this.state.searchQuery,1)} startIcon={<img src={SearchIconImage} />}>Search</Button>
+                                        <Button onClick={()=> this.getSecurityUnitList(this.state.buildingID,1,this.state.searchQuery)} startIcon={<img src={SearchIconImage} />}>Search</Button>
                                     </Box>
                                 </Box>
                                 <Box className="meeting-table">
@@ -97,7 +98,7 @@ class Unit extends VisitorsListController {
                                             <Box className="filter">
                                                 <Box className="search-box">
                                                     <SearchIcon />
-                                                    <InputBase placeholder={t("Search")} className="search" onChange={this.manageSearch} />
+                                                    <InputBase placeholder={t("Search")} className="search" onChange={this.unitSearch} />
                                                 </Box>
                                             </Box>
                                         </Box>

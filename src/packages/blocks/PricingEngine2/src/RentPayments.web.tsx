@@ -9,11 +9,10 @@ import { withRouter } from 'react-router';
 import RentPaymentController, {
   Props
 } from "./RentPaymentController";
-import './style.css'
 import {withTranslation} from "react-i18next";
 import ArrowForwardIosIcon from '@material-ui/icons/ArrowForwardIos';
 
-class Visitors extends RentPaymentController{
+class RentPayments extends RentPaymentController{
   constructor(props: Props) {
     super(props);
   }
@@ -36,38 +35,46 @@ class Visitors extends RentPaymentController{
                 </Grid>
                 <Box style={{background: "#F7F9FE",minHeight:"95%",display:'flex',flexDirection:"column",alignItems:'center',justifyContent:"space-between"}} >
                     <Grid container spacing={2} style={{width:"90%"}}>
-                        <Grid item xs={12}> 
-                            <Box
-                                display="flex"
-                                justifyContent='space-between'
-                                alignItems="center"
-                                borderRadius="15px"
-                                bgcolor="white"
-                                marginTop='1.5rem'
-                                padding='1.5rem'
-                                style={{boxShadow:"rgba(99, 99, 99, 0.2) 0px 2px 8px 0px"}}
-                                onClick={()=>this.props.history.push("/RentUnitList/1 ")}
-                            >
-                                <Box style={{minWidth:"100%"}}>
-                                    <Box style={{display:"flex",alignItems:"center",justifyContent:"space-between"}}>
-                                        <Box>
-                                            <Typography variant={"body1"} style={{fontWeight:"bold",marginTop:"5px"}}>
-                                                Building Name
-                                            </Typography>
-                                            <Typography variant={"body2"} style={{marginTop:"5px"}}>
-                                                City Name
-                                            </Typography>
+                        {
+                            this.state.BuildingListing?.map((item:any,key:any)=> {
+                                return(
+                                    <Grid key={key} item xs={12} style={{position:"relative"}}>
+                                        <Box
+                                            display="flex"
+                                            justifyContent='space-between'
+                                            alignItems="center"
+                                            borderRadius="15px"
+                                            bgcolor="white"
+                                            marginTop='1.5rem'
+                                            padding='1.5rem'
+                                            style={{boxShadow:"rgba(99, 99, 99, 0.2) 0px 2px 8px 0px"}}
+                                            onClick={()=>this.props.history.push(`/RentUnitList/${item.id}`)}
+                                        >
+                                            <Box style={{minWidth:"100%",height:"70px"}}>
+                                                <Box style={{display:"flex",alignItems:"center",justifyContent:"space-between"}}>
+                                                    <Box>
+                                                        <Typography variant={"body1"} style={{fontWeight:"bold",marginTop:"5px"}}>
+                                                            {item.attributes.name}
+                                                        </Typography>
+                                                        <Typography variant={"body2"} style={{marginTop:"5px"}}>
+                                                            {item.attributes.city || "NA"}
+                                                        </Typography>
+                                                    </Box>
+                                                    <ArrowForwardIosIcon fontSize="small" style={{color:"#BFBFBF",fontSize:"25px"}}/>
+                                                </Box>
+                                            </Box>
+                                        </Box>
+                                        <Box style={{position:"absolute",bottom:"20px",left:"30px"}} onClick={()=> window.open(`https://maps.google.com?q=${item.attributes?.lat},${item.attributes?.long}`, '_blank')}>
                                             <Typography variant={"subtitle1"} style={{fontWeight:"bold",color:"#FC8434",marginTop:"5px"}}>
                                                 {t("See building on map")}
                                             </Typography>
                                         </Box>
-                                        <ArrowForwardIosIcon fontSize="small" style={{color:"#BFBFBF",fontSize:"25px"}}/> 
-                                    </Box>
-                                </Box>
-                            </Box>
-                        </Grid>
+                                    </Grid>
+                                )
+                            })
+                        }
                     </Grid>
-                     <Box style={{width:"90%",marginBottom:"50px",marginTop:"10px"}}>
+                     <Box style={{width:"90%",marginBottom:"30px",marginTop:"10px"}}>
                         <CloseButton variant="contained" fullWidth size="large" onClick={()=> this.props.history.push("/AddRentPayment")}>
                             {t("Register Rent Payment")}
                         </CloseButton>
@@ -78,7 +85,7 @@ class Visitors extends RentPaymentController{
     );
   }
 }
-export default withTranslation()(withRouter(Visitors))
+export default withTranslation()(withRouter(RentPayments))
 
 const CloseButton = withStyles((theme) => ({
     root: {

@@ -14,15 +14,18 @@ export interface Props {
   id: string;
   // Customizable Area Start
   classes: any;
-  history: any;
-  match: any;
-  location: any;
   // Customizable Area End
 }
 
 interface S {
   // Customizable Area Start
   ApproveModal: boolean;
+  setOpen:boolean;
+  rejectReason:any;
+  RejectReasonError:any;
+  isRejectReportModalOpen: boolean;
+  isApproveReportModalOpen: boolean;
+
   // Customizable Area End
 }
 
@@ -40,6 +43,11 @@ export default class BudgetReportController extends BlockComponent<Props, S, SS>
 
     this.state = {
       ApproveModal: false,
+      setOpen:false,
+      rejectReason:"",
+      RejectReasonError:"",
+      isRejectReportModalOpen: false,
+      isApproveReportModalOpen: false,
     };
     // Customizable Area End
     runEngine.attachBuildingBlock(this as IBlock, this.subScribedMessages);
@@ -51,5 +59,16 @@ export default class BudgetReportController extends BlockComponent<Props, S, SS>
   }
 
   // Customizable Area Start
+  handleRejectReportModal = () => {
+    this.setState({
+      isRejectReportModalOpen: !this.state.isRejectReportModalOpen,
+    });
+  };
+
+  handleApproveReportModal = () => {
+    this.setState({
+      isApproveReportModalOpen: !this.state.isApproveReportModalOpen,
+    });
+  };
   // Customizable Area End
 }
