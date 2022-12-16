@@ -1,5 +1,5 @@
 import { defineFeature, loadFeature } from "jest-cucumber";
-import React, { Component } from "react";
+import React from "react";
 import { PropertyManagerStyleWeb } from "../../src/PropertyManagerStyle.web";
 import PropertyManagerSuccess from "../../src/PropertyManagerSuccess.web";
 import { mount } from "enzyme";
@@ -7,17 +7,6 @@ import { Button, IconButton } from "@material-ui/core";
 import { componentProps } from "../../../../components/src/TestCase/PropertyManagerMockData.web";
 
 const PropertyManagerSuccessProps = componentProps("PropertyManagerSuccess", PropertyManagerStyleWeb);
-
-jest.mock("@material-ui/core/styles", () => ({
-  withStyles: (styles: any) => (component: Component) => component,
-}));
-
-jest.mock("react-i18next", () => ({
-  withTranslation: () => (Component: any) => {
-    Component.defaultProps = { ...Component.defaultProps, t: () => "" };
-    return Component;
-  },
-}));
 
 const feature = loadFeature("./__tests__/features/PropertyManagerSuccess.feature");
 

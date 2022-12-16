@@ -1,5 +1,5 @@
 import { defineFeature, loadFeature } from "jest-cucumber";
-import React, { Component } from "react";
+import React from "react";
 import { PropertyManagerStyleWeb } from "../../src/PropertyManagerStyle.web";
 import PropertyManagerList from "../../src/PropertyManagerList.web";
 import { mount } from "enzyme";
@@ -12,17 +12,6 @@ import {
 } from "../../../../components/src/TestCase/PropertyManagerMockData.web";
 
 const PropertyManagerListProps = componentProps("PropertyManagerList", PropertyManagerStyleWeb);
-
-jest.mock("@material-ui/core/styles", () => ({
-  withStyles: (styles: any) => (component: Component) => component,
-}));
-
-jest.mock("react-i18next", () => ({
-  withTranslation: () => (Component: any) => {
-    Component.defaultProps = { ...Component.defaultProps, t: () => "" };
-    return Component;
-  },
-}));
 
 const feature = loadFeature("./__tests__/features/PropertyManagerList.feature");
 

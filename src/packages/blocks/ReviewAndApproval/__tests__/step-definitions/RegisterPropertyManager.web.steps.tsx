@@ -1,5 +1,5 @@
 import { defineFeature, loadFeature } from "jest-cucumber";
-import React, { Component } from "react";
+import React from "react";
 import { PropertyManagerStyleWeb } from "../../src/PropertyManagerStyle.web";
 import RegisterPropertyManager from "../../src/RegisterPropertyManager.web";
 import { mount } from "enzyme";
@@ -19,17 +19,6 @@ import {
 } from "../../../../components/src/TestCase/PropertyManagerMockData.web";
 
 const RegisterPropertyManagerProps = componentProps("RegisterPropertyManager", PropertyManagerStyleWeb);
-
-jest.mock("@material-ui/core/styles", () => ({
-  withStyles: (styles: any) => (component: Component) => component,
-}));
-
-jest.mock("react-i18next", () => ({
-  withTranslation: () => (Component: any) => {
-    Component.defaultProps = { ...Component.defaultProps, t: () => "" };
-    return Component;
-  },
-}));
 
 const feature = loadFeature("./__tests__/features/RegisterPropertyManager.feature");
 
