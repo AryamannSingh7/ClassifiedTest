@@ -261,7 +261,7 @@ class CommunityUserProfile extends CommunityUserProfileController {
                             <option value={''}>{t("Select Unit")}</option>
                             {
                               this.state.allUnit.map((item:any)=><>
-                              <option value={item.id}>{item.apartment_name}</option>
+                              <option value={item.id}>{item.attributes.apartment_name}</option>
                               </>)
                             }
                           </NativeSelect>

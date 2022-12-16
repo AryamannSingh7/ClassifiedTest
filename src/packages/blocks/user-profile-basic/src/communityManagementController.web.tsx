@@ -489,11 +489,10 @@ this.setState({allInvitation:responseJson.member_invitations.data,loading:false}
         } else if (apiRequestCallId === this.getUnitApiCallId) {
           if (!responseJson.errors) {
             console.log(responseJson)
-            let temp = [responseJson.data.unit_apartments]
             //@ts-ignore
             //@ts-nocheck
 
-            this.setState({ allUnit: responseJson.data.unit_apartments }, () => console.log(this.state.allUnit[0]))
+            this.setState({ allUnit: responseJson.apartment_managements.data }, () => console.log(this.state.allUnit[0]))
           } else {
             //Check Error Response
             this.parseApiErrorResponse(responseJson);
@@ -1328,7 +1327,7 @@ this.setState({loading:true})
       getName(MessageEnum.RestAPIResponceEndPointMessage),
       //@ts-ignore
       //@ts-nocheck
-       `bx_block_address/apartment_list?id=${this.state.selectedBUilding}`
+       `bx_block_settings/apartment_managements/unit_list?society_management_id=${localStorage.getItem('society_id')}&building_management_id=${this.state.selectedBUilding}`
       // `bx_block_address/apartment_list?id=${this.state.selectBuilding.id}`
 
     );

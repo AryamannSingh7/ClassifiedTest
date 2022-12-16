@@ -36,6 +36,8 @@ import MultipleCurrencySupport from '../../blocks/multiplecurrencysupport/src/Mu
 import NewPassword from '../../blocks/forgot-password/src/NewPassword';
 import Feedback from '../../blocks/Feedback/src/Feedback';
 import SuggestionListing from '../../blocks/Feedback/src/Suggestion.web';
+import NewSuggestion from '../../blocks/Feedback/src/NewSuggestion.web';
+
 
 // import Contactus from "../../blocks/contactus/src/Contactus";
 import AddContactus from '../../blocks/contactus/src/AddContactus';
@@ -524,6 +526,11 @@ const routeMap = {
   SuggestionListing: {
     component: SuggestionListing,
     path: '/SuggestionListing',
+    exact: true
+  },
+  NewSuggestion: {
+    component: NewSuggestion,
+    path: '/NewSuggestion',
     exact: true
   },
   ChairmanChangePassword: {
