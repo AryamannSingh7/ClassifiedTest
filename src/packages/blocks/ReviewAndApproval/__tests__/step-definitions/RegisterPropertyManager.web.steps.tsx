@@ -221,21 +221,7 @@ defineFeature(feature, (test) => {
       RegisterPropertyManagerMountWrapper.find(Formik)
         .at(1)
         .props()
-        .onSubmit(
-          {
-            country: "",
-            city: "",
-            buildingId: "",
-            unitId: "",
-            buildingName: "",
-            unitName: "",
-            startDate: "",
-            endDate: "",
-            feeType: "",
-            rent: "",
-          },
-          { resetForm: () => jest.fn() }
-        );
+        .onSubmit(propertyFormMockData[0], { resetForm: () => jest.fn() });
       expect(formSpy).toHaveBeenCalled();
     });
 
@@ -247,21 +233,7 @@ defineFeature(feature, (test) => {
       RegisterPropertyManagerMountWrapper.find(Formik)
         .at(1)
         .props()
-        .onSubmit(
-          {
-            country: "",
-            city: "",
-            buildingId: "",
-            unitId: "",
-            buildingName: "",
-            unitName: "",
-            startDate: "",
-            endDate: "",
-            feeType: "",
-            rent: "",
-          },
-          { resetForm: () => jest.fn() }
-        );
+        .onSubmit(propertyFormMockData[0], { resetForm: () => jest.fn() });
       expect(formSpy).toHaveBeenCalled();
     });
   });

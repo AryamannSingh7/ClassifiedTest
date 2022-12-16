@@ -1,5 +1,3 @@
-import { Component } from "react";
-
 export const componentProps = (unitId: string, style: any) => {
   return {
     navigation: {

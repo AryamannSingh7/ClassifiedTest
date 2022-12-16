@@ -15,6 +15,7 @@ import {
   propertyListMockData,
   buildingListMockData,
   unitListMockData,
+  propertyFormMockData,
 } from "../../../../components/src/TestCase/PropertyManagerMockData.web";
 
 const EditPropertyManagerProps = componentProps("EditPropertyManager", PropertyManagerStyleWeb);
@@ -168,21 +169,7 @@ defineFeature(feature, (test) => {
       EditPropertyManagerMountWrapper.find(Formik)
         .at(1)
         .props()
-        .onSubmit(
-          {
-            country: "",
-            city: "",
-            buildingId: "",
-            unitId: "",
-            buildingName: "",
-            unitName: "",
-            startDate: "",
-            endDate: "",
-            feeType: "",
-            rent: "",
-          },
-          { resetForm: () => jest.fn() }
-        );
+        .onSubmit(propertyFormMockData[0], { resetForm: () => jest.fn() });
       expect(formSpy).toHaveBeenCalled();
 
       let createProperty = new Message(getName(MessageEnum.RestAPIResponceMessage));
@@ -200,21 +187,7 @@ defineFeature(feature, (test) => {
       EditPropertyManagerMountWrapper.find(Formik)
         .at(1)
         .props()
-        .onSubmit(
-          {
-            country: "",
-            city: "",
-            buildingId: "",
-            unitId: "",
-            buildingName: "",
-            unitName: "",
-            startDate: "",
-            endDate: "",
-            feeType: "",
-            rent: "",
-          },
-          { resetForm: () => jest.fn() }
-        );
+        .onSubmit(propertyFormMockData[0], { resetForm: () => jest.fn() });
       expect(formSpy).toHaveBeenCalled();
 
       let editProperty = new Message(getName(MessageEnum.RestAPIResponceMessage));
