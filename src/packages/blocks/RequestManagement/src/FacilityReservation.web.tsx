@@ -38,7 +38,6 @@ class FacilityReservation extends FacilityReservationController {
   }
   render() {
     const { navigation } = this.props;
-    console.log("getFacilityReservationCount=======>", this.state.facilityCount)
     const { total_upcoming_count, total_pending_count, total_completed_count, total_cancelled_count, total_rejected_count } = this.state?.facilityCount;
     return (
       <>

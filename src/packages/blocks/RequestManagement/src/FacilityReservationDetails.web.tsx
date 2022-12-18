@@ -42,11 +42,6 @@ import {
   InfoIcon,
   CROSS,
   DeleteIcon2
-  // User_Icon,
-  // Calender_Icon,
-  // Info_Icon,
-  // Clipboard_Icon,
-  // Close_Icon
 }
   from "../src/assets";
 class FacilityReservationDetails extends FacilityReservationController {
@@ -63,7 +58,6 @@ class FacilityReservationDetails extends FacilityReservationController {
   }
 
   render() {
-    //console.log("getFacilityReservationDetails===========>",this.state?.getFacilityReservationDetails)
     const { navigation } = this.props;
     const reservation = localStorage.getItem("idOrName");
     const id = this.state?.getFacilityReservationDetails?.id;

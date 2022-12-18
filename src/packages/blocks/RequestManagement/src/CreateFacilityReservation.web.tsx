@@ -40,8 +40,6 @@ import {
   // Box_Icon,
   Building1,
   LEADING_ICON,
-  // Checkmark_Icon,
-  // Error_Icon,
   TimeIcon
 } from "../src/assets";
 import { Visibility, VisibilityOff } from "@material-ui/icons";
@@ -68,10 +66,8 @@ class CreateFacilityReservation extends FacilityReservationController {
     const { navigation } = this.props;
     const id = this.state?.getFacilityReservationDetails?.id;
     const attributes = this.state?.getFacilityReservationDetails?.attributes;
-//console.log("commonAreaData=============>", this.state?.areaReserve, this.state?.areaReserveName,this.state?.areaReserveDetail)
     //@ts-ignore
     const FacilityId = this.props.history?.location?.id;
-    console.log("attributes?.date =============>", attributes?.start_time, attributes?.end_time)
     return (
       <>
         <Box className="login-wrapper incident-wrapper">
