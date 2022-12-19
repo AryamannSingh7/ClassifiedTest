@@ -54,6 +54,11 @@ export interface S {
   showDialog:any;
   deleteShowDialog:any;
   facilityCount:any;
+  areaReserve : any,
+  areaReserveName:any,
+  areaReserveDetail:any,
+  reservationFees:any,
+  currency:any
   // Customizable Area End
 }
 
@@ -147,6 +152,11 @@ export default class FacilityReservationController extends BlockComponent<
       showDialog:false,
       deleteShowDialog:false,
       facilityCount:{},
+      areaReserve : " ",
+      areaReserveName:"",
+      areaReserveDetail:"",
+      reservationFees:"",
+      currency:""
       // Customizable Area End
     };
 
@@ -614,6 +624,18 @@ clear= () => {
   this.props.history.push("/");
 }
 
+onChange = (e :any)=>{
+  if(e.target.name === 'areaReserve'){
+    const array = e.target?.value?.split(","); 
+    const details = array [1]
+    const name = array[2]
+    const reservation_fee = array[3]
+    const currency = array[4]
+    
+    this.setState({ areaReserve:e.target?.value , areaReserveName : name , areaReserveDetail:details , reservationFees:reservation_fee,currency:currency})
+  }
+}
+
 getFacilityReservationDetails= (idOrName :any) => {
   if(idOrName){
     if(idOrName ==="Upcoming" || idOrName ==="Pending" || idOrName ==="Previous" || idOrName ==="Rejected" ||idOrName ==="Cancelled"){
@@ -987,6 +1009,7 @@ CreateFacilityReservation = async(val :any) => {
     this.setState({anchorEl_1:null ,status :status})
   };
   
+  
 
   deleteFacility =(id:any)=>{
     const header = {
@@ -1072,10 +1095,13 @@ CreateFacilityReservation = async(val :any) => {
 
   CreateFacilityReservationSchema() {
     const validations = Yup.object().shape({
-      areaReserve: Yup.string().trim(),
+      areaReserve: Yup.string().required(`This field is required`).trim(),
       buildingName:Yup.string().required(`This field is required`).trim(),
-      date: Yup.date().required("Date is required")
-      .min(new Date(), "Date cannot be in the past"),
+      date: Yup.date()
+      .required()
+      .typeError("please enter a valid date")
+      .min(new Date(Date.now() -86400000), "Date cannot be in the past")
+      ,
       timeFrom:Yup.string().required("Start time is required"),
       timeTo:Yup.string().required("End time is required")
     .test("is-greater", "End time should be greater than Start time", function(value) {

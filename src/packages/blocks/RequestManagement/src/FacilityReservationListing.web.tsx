@@ -48,7 +48,6 @@ class FacilityReservationListing extends FacilityReservationController {
   render() {
     const { navigation } = this.props;
     const reservation = localStorage.getItem("idOrName");
-    console.log("this.props?.history.location?.reservation==========>", this.state?.facilityReservationListing)
     let facilityReservationListing: any;
 
     if (reservation === "Previous") {
