@@ -46,11 +46,13 @@ class Suggestion extends SuggestionController {
                 </Box>
                 <Box className="content-block-wrapper common-incident-block">
                   <Box className="incident-content-wrapper">
-                  <Box className='suggestion-card'>
-                    <p>Suggestion Title</p>
+                    {
+                      this.state.suggestionList.map((item:any)=>{
+                return  <Box className='suggestion-card' style={{marginTop:'1rem'}}>
+                    <p>{item?.attributes?.title}</p>
                     <br/>
                     <p>
-                    On the contrary, description of the services detection should set clear rules  
+                    {item?.attributes?.description}  
                     </p>
 
                     <div style={{display:'flex',justifyContent:'space-between',alignItems:'center'}}>
@@ -61,11 +63,19 @@ class Suggestion extends SuggestionController {
                       </p>
                       </div>
                       <p>
-                      1 Response
+                        {
+                          item?.attributes?.reponse?.length
+                        }
+                      {
+                        item?.attributes?.reponse && <>Response</>
+                      }
                       </p>
                     </div>
 
                    </Box>
+
+                      })
+                    }
                   </Box>
                   <Box className="customButton add-incident">
                     <Button variant="contained" onClick={() => { this.setState({ loading: true });//@ts-ignore

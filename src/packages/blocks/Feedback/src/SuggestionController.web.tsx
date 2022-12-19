@@ -115,18 +115,8 @@ export default class SuggestionController extends BlockComponent<
         
     
         if (apiRequestCallId === this.getSuggestionListingApiCallId) {
-          if (responseJson?.data ) {
-          console.log("getIncidentListingApiCallId ========================>",responseJson)
-          this.setState({suggestionList :responseJson?.data})
-          this.setState({loading: false})
-          } else if (responseJson?.errors) {
-            let error = Object.values(responseJson.errors[0])[0] as string;
-            this.setState({ error });
-          } else {
-            this.setState({ error: responseJson?.error || "Something went wrong!" });
-          }
-          this.parseApiCatchErrorResponse(this.state.error);
-          this.setState({loading: false , error:null})
+          this.getSuggestionListData(responseJson)
+         
         }
         else if (apiRequestCallId === this.getRelatedToDataAPICallId) {
           this.getRealtedData(responseJson)
@@ -148,6 +138,20 @@ export default class SuggestionController extends BlockComponent<
 }
 
   // Customizable Area Start
+  getSuggestionListData(responseJson:any){
+    if (responseJson?.data ) {
+      console.log("getIncidentListingApiCallId ========================>",responseJson)
+      this.setState({suggestionList :responseJson?.data})
+      this.setState({loading: false})
+      } else if (responseJson?.errors) {
+        let error = Object.values(responseJson.errors[0])[0] as string;
+        this.setState({ error });
+      } else {
+        this.setState({ error: responseJson?.error || "Something went wrong!" });
+      }
+      this.parseApiCatchErrorResponse(this.state.error);
+      this.setState({loading: false , error:null})
+  }
   createSuggestionHandle(responseJson:any){
     if (responseJson?.data ) {
       console.log("createData ========================>",responseJson)
@@ -699,7 +703,7 @@ createSuggtionSchema() {
         "title": values.title,
 	"description": values.description,
 	"account_id": localStorage.getItem('userId'),
-	"building_management_id": 1,
+	"building_management_id": 4,
 	"suggestion_related_id": values.relatedTo
 
       }
@@ -712,6 +716,7 @@ createSuggtionSchema() {
 
       const header = {
         token: localStorage.getItem("userToken"),
+        "content-type":'application/json'
       };
 
       requestMessage.addData(
