@@ -1,15 +1,3 @@
-export const componentProps = (unitId: string, style: any) => {
-  return {
-    navigation: {
-      getParam: jest.fn(),
-      goBack: jest.fn(),
-      navigate: jest.fn(),
-    },
-    id: unitId,
-    classes: style,
-  };
-};
-
 export const propertyManagerMockData = {
   data: {
     id: "38",

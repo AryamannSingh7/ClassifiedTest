@@ -4,7 +4,7 @@ import { PropertyManagerStyleWeb } from "../../src/PropertyManagerStyle.web";
 import PropertyManagerSuccess from "../../src/PropertyManagerSuccess.web";
 import { mount } from "enzyme";
 import { Button, IconButton } from "@material-ui/core";
-import { componentProps } from "../../../../components/src/TestCase/PropertyManagerMockData.web";
+import { componentProps } from "../../../../components/src/TestCase/ComponentProps.web";
 
 const PropertyManagerSuccessProps = componentProps("PropertyManagerSuccess", PropertyManagerStyleWeb);
 

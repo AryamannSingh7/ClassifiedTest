@@ -10,13 +10,13 @@ import { runEngine } from "../../../../framework/src/RunEngine";
 import { Formik } from "formik";
 import {
   buildingListMockData,
-  componentProps,
   propertyFormMockData,
   unitListMockData,
   idTypeListMockData,
   complexDetailsMockData,
   localStorageMock,
 } from "../../../../components/src/TestCase/PropertyManagerMockData.web";
+import { componentProps } from "../../../../components/src/TestCase/ComponentProps.web";
 
 const RegisterPropertyManagerProps = componentProps("RegisterPropertyManager", PropertyManagerStyleWeb);
 

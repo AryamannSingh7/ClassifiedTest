@@ -8,9 +8,9 @@ import MessageEnum, { getName } from "../../../../framework/src/Messages/Message
 import { runEngine } from "../../../../framework/src/RunEngine";
 import { Button } from "@material-ui/core";
 import {
-  componentProps,
   newRequestListMockData,
 } from "../../../../components/src/TestCase/PropertyManagerMockData.web";
+import { componentProps } from "../../../../components/src/TestCase/ComponentProps.web";
 
 const PropertyManagerRequestProps = componentProps("PropertyManagerRequest", PropertyManagerStyleWeb);
 

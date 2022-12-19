@@ -9,7 +9,6 @@ import MessageEnum, { getName } from "../../../../framework/src/Messages/Message
 import { Message } from "../../../../framework/src/Message";
 import { runEngine } from "../../../../framework/src/RunEngine";
 import {
-  componentProps,
   propertyManagerMockData,
   idTypeListMockData,
   propertyListMockData,
@@ -17,6 +16,7 @@ import {
   unitListMockData,
   propertyFormMockData,
 } from "../../../../components/src/TestCase/PropertyManagerMockData.web";
+import { componentProps } from "../../../../components/src/TestCase/ComponentProps.web";
 
 const EditPropertyManagerProps = componentProps("EditPropertyManager", PropertyManagerStyleWeb);
 

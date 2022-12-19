@@ -9,10 +9,10 @@ import { runEngine } from "../../../../framework/src/RunEngine";
 import { Drawer } from "@material-ui/core";
 import { Formik } from "formik";
 import {
-  componentProps,
   complexDetailsMockData,
   propertyManagerMockData,
 } from "../../../../components/src/TestCase/PropertyManagerMockData.web";
+import { componentProps } from "../../../../components/src/TestCase/ComponentProps.web";
 
 const PropertyManagerDetailsProps = componentProps("PropertyManagerDetails", PropertyManagerStyleWeb);
 

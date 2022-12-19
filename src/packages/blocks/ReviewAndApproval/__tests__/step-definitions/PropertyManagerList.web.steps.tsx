@@ -7,9 +7,9 @@ import { Message } from "../../../../framework/src/Message";
 import MessageEnum, { getName } from "../../../../framework/src/Messages/MessageEnum";
 import { runEngine } from "../../../../framework/src/RunEngine";
 import {
-  componentProps,
   propertyManagerMockData,
 } from "../../../../components/src/TestCase/PropertyManagerMockData.web";
+import { componentProps } from "../../../../components/src/TestCase/ComponentProps.web";
 
 const PropertyManagerListProps = componentProps("PropertyManagerList", PropertyManagerStyleWeb);
 
