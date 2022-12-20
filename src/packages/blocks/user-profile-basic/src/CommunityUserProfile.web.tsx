@@ -264,7 +264,7 @@ class CommunityUserProfile extends CommunityUserProfileController {
                               <option value={item.id}>{item.apartment_name}</option>
                               </>)
                             }     
-                          </NativeSelect>
+                          </NativeSelect> 
                       </FormControl>
                       </Grid>
                       <Grid item xs={4}>
