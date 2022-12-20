@@ -489,8 +489,8 @@ export default class FamilyController extends BlockComponent<Props, S, SS> {
 
   addVehicleSchema() {
     const validations = Yup.object().shape({
-
-      full_name: Yup.string().required(`This field is required`).trim(),
+//@ts-ignore
+      full_name: Yup.string().required(`This field is required`).trim().matches("^[a-zA-Z\-]+$","Only characters are allowed in username"),
       relation: Yup.string().required(`This field is required`).trim(),
       IDoption: Yup.string().required(`This field is required`).trim(),
        IDnumber: Yup.string().required(`This field is required`).trim(),

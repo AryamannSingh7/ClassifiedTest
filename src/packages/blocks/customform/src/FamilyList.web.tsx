@@ -42,7 +42,7 @@ class FamilyList extends FamilyController {
         <Grid container className="auth-container">
           <Grid item xs={12} md={7} className="auth-cols" style={{ justifyContent: 'unset', overflowY: 'auto', overflowX: 'hidden' }}>
             <Grid container>
-              <Grid xs={12} style={{ display: 'flex', alignItems: 'center' }}>
+              <Grid xs={12} style={{ display: 'flex', alignItems: 'center',borderBottom:'1px solid #0000001f',paddingBottom:'0.25rem',marginBottom:'1rem' }}>
                 <ArrowBackIcon onClick={this.redirectToDashboard} />
                 <p style={{ fontWeight: 600, fontSize: '1.25rem' }}>
 

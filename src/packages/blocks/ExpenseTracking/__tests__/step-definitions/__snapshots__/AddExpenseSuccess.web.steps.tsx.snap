@@ -108,6 +108,21 @@ exports[`AddExpenseSuccess User navigates to AddExpenseSuccess 1`] = `
           "height": "calc(100% - 100px)",
           "justifyContent": "center",
         },
+        "& .text-area-box": Object {
+          "& img": Object {
+            "left": "18px",
+            "position": "absolute",
+            "top": "32px",
+          },
+          "& textarea": Object {
+            "fontSize": "16px",
+            "height": "100px !important",
+            "outline": "none",
+            "padding": "10px 10px 10px 64px !important",
+            "width": "100%",
+          },
+          "position": "relative",
+        },
         "& .top-bar": Object {
           "alignItems": "center",
           "background": "#FFFFFF",
@@ -365,6 +380,21 @@ exports[`AddExpenseSuccess User navigates to AddExpenseSuccess 1`] = `
           "height": "calc(100% - 100px)",
           "justifyContent": "center",
         },
+        "& .text-area-box": Object {
+          "& img": Object {
+            "left": "18px",
+            "position": "absolute",
+            "top": "32px",
+          },
+          "& textarea": Object {
+            "fontSize": "16px",
+            "height": "100px !important",
+            "outline": "none",
+            "padding": "10px 10px 10px 64px !important",
+            "width": "100%",
+          },
+          "position": "relative",
+        },
         "& .top-bar": Object {
           "alignItems": "center",
           "background": "#FFFFFF",
@@ -406,7 +436,7 @@ exports[`AddExpenseSuccess User navigates to AddExpenseSuccess 1`] = `
     }
   >
     <div
-      className="MuiBox-root MuiBox-root-1 height overflowY & .top-bar & .top-bar .left-icon & .top-bar .right-icon img & .right-image & a & .page-container & .issue-lease-content .select-input-box .select-input & .issue-lease-content .MuiSelect-root & .issue-lease-content .select-box & .issue-lease-content .select-box img & .issue-lease-content .select-box .select-input & .issue-lease-content .select-box .select-input.input & .issue-lease-content .select-input-box .select-input .MuiListItemIcon-root & .issue-lease-content .select-input-box .input.select-input & .issue-lease-content .select-input-box .input.select-input .MuiInputAdornment-positionStart & .issue-lease-content .select-input-box .input.select-input:before & .issue-lease-content .select-input-box .input.select-input:after & .issue-lease-content .tenant-info & .issue-lease-content .tenant-info a & .issue-lease-content .tenant-info span & .issue-lease-content .tenant-info p & .success-page & .next-button & .next-button button & .error & ::placeholder & :-ms-input-placeholder & ::-ms-input-placeholder & .form.issue-lease-content .next-button"
+      className="MuiBox-root MuiBox-root-1 height overflowY & .top-bar & .top-bar .left-icon & .top-bar .right-icon img & .right-image & a & .page-container & .issue-lease-content .select-input-box .select-input & .issue-lease-content .MuiSelect-root & .issue-lease-content .select-box & .issue-lease-content .select-box img & .issue-lease-content .select-box .select-input & .issue-lease-content .select-box .select-input.input & .issue-lease-content .select-input-box .select-input .MuiListItemIcon-root & .issue-lease-content .select-input-box .input.select-input & .issue-lease-content .select-input-box .input.select-input .MuiInputAdornment-positionStart & .issue-lease-content .select-input-box .input.select-input:before & .issue-lease-content .select-input-box .input.select-input:after & .issue-lease-content .tenant-info & .issue-lease-content .tenant-info a & .issue-lease-content .tenant-info span & .issue-lease-content .tenant-info p & .success-page & .next-button & .next-button button & .error & ::placeholder & :-ms-input-placeholder & ::-ms-input-placeholder & .form.issue-lease-content .next-button & .text-area-box"
     >
       <WithStyles(ForwardRef(Grid))
         container={true}

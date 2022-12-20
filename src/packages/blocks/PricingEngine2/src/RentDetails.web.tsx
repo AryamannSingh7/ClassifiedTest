@@ -1,10 +1,10 @@
 import * as React from "react";
 // custom components
 import {
-    Grid, Box, Divider, AppBar, Tabs, Tab, Link, IconButton, Typography,Button,
+    Grid, Box,Typography,Button,
 } from "@material-ui/core";
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
-import { makeStyles,withStyles } from '@material-ui/core/styles';
+import {withStyles } from '@material-ui/core/styles';
 import { withRouter } from 'react-router';
 import {Share} from "../../CollectTransactionFees/src/assets"
 import {share2} from "./assets"
@@ -13,7 +13,6 @@ import RentDetailsController, {
 } from "./RentDetailsController";
 import './style.css'
 import {withTranslation} from "react-i18next";
-import ArrowForwardIosIcon from '@material-ui/icons/ArrowForwardIos';
 
 class ReceiptDetails extends RentDetailsController{
   constructor(props: Props) {

@@ -17,6 +17,11 @@ const screenProps = {
   id: "PricingEngine2",
 };
 
+const RentPaymentsProps = {
+  navigation: navigation,
+  id: "RentPayments",
+};
+
 const feature = loadFeature(
   "./__tests__/features/PricingEngine2-scenario.web.feature"
 );

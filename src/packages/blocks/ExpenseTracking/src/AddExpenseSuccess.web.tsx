@@ -23,8 +23,6 @@ class AddExpenseSuccess extends AddEditExpenseController {
   render() {
     const { classes, t } = this.props;
 
-    console.log(this.state);
-
     return (
       // Customizable Area Start
       <>

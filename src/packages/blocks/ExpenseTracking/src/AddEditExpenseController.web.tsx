@@ -13,18 +13,39 @@ interface ExpenseForm {
   expenseAmount: string;
   issueTitle: string;
   category: string;
+  society: string;
   building: string;
   unit: string;
   resolvedBy: string;
   summary: string;
 }
 
+export interface IComplex {
+  id: string;
+  attributes: {
+    name: string;
+  };
+}
+
+interface IComplexResponse {
+  data: IComplex[];
+}
+
 export interface IExpenseCategory {
   id: number;
   title: string;
 }
+
 export interface IResponseExpenseCategory {
   expense_category: IExpenseCategory[];
+}
+
+interface IResponseBuilding {
+  buildings: IBuilding[];
+}
+
+interface IResponseUnit {
+  apartments: IUnit[];
 }
 
 export interface IBuilding {
@@ -58,9 +79,9 @@ interface S {
   expenseForm: ExpenseForm;
 
   expenseCategoryList: IExpenseCategory[];
+  complexList: IComplex[];
   buildingList: IBuilding[];
   unitList: IUnit[];
-
   // Customizable Area End
 }
 
@@ -78,6 +99,7 @@ export default class AddEditExpenseController extends BlockComponent<Props, S, S
   AddExpenseCallId: string = "";
   GetExpenseDetailsCallId: string = "";
   EditExpenseCallId: string = "";
+  GetComplexListCallId: string = "";
   // Customizable Area End
 
   constructor(props: Props) {
@@ -94,6 +116,7 @@ export default class AddEditExpenseController extends BlockComponent<Props, S, S
     ];
 
     this.state = {
+      // Customizable Area Start
       loading: false,
       isComingFromMainPage: false,
 
@@ -103,6 +126,7 @@ export default class AddEditExpenseController extends BlockComponent<Props, S, S
         expenseAmount: "",
         issueTitle: "",
         category: "",
+        society: "",
         building: "",
         unit: "",
         resolvedBy: "",
@@ -110,44 +134,45 @@ export default class AddEditExpenseController extends BlockComponent<Props, S, S
       },
 
       expenseCategoryList: [],
+      complexList: [],
       buildingList: [],
       unitList: [],
+      // Customizable Area End
     };
     runEngine.attachBuildingBlock(this as IBlock, this.subScribedMessages);
 
-    // Customizable Area End
+    // Customizable Area Start
     // Customizable Area End
   }
 
   async receive(from: string, message: Message) {
     runEngine.debugLog("Message Recived", message);
 
-    // Customizable Area End
+    // Customizable Area Start
     if (getName(MessageEnum.NavigationPayLoadMessage) === message.id) {
       const data = message.getData(getName(MessageEnum.AddExpenseDataMessage));
-      if (data) {
-        const { isMainPage, unitId, buildingId } = data;
+      const { isMainPage, unitId, buildingId, societyId } = data;
 
-        this.setState(
-          {
-            isComingFromMainPage: isMainPage,
-            expenseForm: {
-              ...this.state.expenseForm,
-              building: buildingId,
-              unit: unitId,
-            },
+      this.setState(
+        {
+          isComingFromMainPage: isMainPage,
+          expenseForm: {
+            ...this.state.expenseForm,
+            society: societyId,
+            building: buildingId,
+            unit: unitId,
           },
-          () => {
-            this.getBuildingList();
-            this.getUnitList(buildingId);
-          }
-        );
-      }
+        },
+        () => {
+          this.getBuildingList(societyId);
+          this.getUnitList(buildingId);
+        }
+      );
     }
 
     if (getName(MessageEnum.RestAPIResponceMessage) === message.id) {
-      let responseJson: any = message.getData(getName(MessageEnum.RestAPIResponceSuccessMessage));
-      let errorResponse: any = message.getData(getName(MessageEnum.RestAPIResponceErrorMessage));
+      let responseJson = message.getData(getName(MessageEnum.RestAPIResponceSuccessMessage));
+      let errorResponse = message.getData(getName(MessageEnum.RestAPIResponceErrorMessage));
 
       const apiRequestCallId = message.getData(getName(MessageEnum.RestAPIResponceDataMessage));
 
@@ -157,16 +182,16 @@ export default class AddEditExpenseController extends BlockComponent<Props, S, S
           this.getAllExpenseCategoryListResponse(responseJson);
           break;
         // Get Building List - API Response
+        case this.GetComplexListCallId:
+          this.handleComplexListResponse(responseJson);
+          break;
+        // Get Building List - API Response
         case this.GetBuildingListCallId:
-          if (responseJson && responseJson.buildings) {
-            this.setState({ buildingList: responseJson.buildings });
-          }
+          this.handleBuildingListResponse(responseJson);
           break;
         // Get Unit List - API Response
         case this.GetUnitListCallId:
-          if (responseJson && responseJson.apartments) {
-            this.setState({ unitList: responseJson.apartments });
-          }
+          this.handleUnitListResponse(responseJson);
           break;
         // Add Expense - API Response
         case this.AddExpenseCallId:
@@ -191,6 +216,7 @@ export default class AddEditExpenseController extends BlockComponent<Props, S, S
                   expenseAmount: expense.attributes.expense_amount,
                   issueTitle: expense.attributes.issue_title,
                   category: expense.attributes.expense_category.id,
+                  society: expense.attributes.society_management.id,
                   building: expense.attributes.building_management.id,
                   unit: expense.attributes.apartment_management.id,
                   resolvedBy: expense.attributes.resolved_by,
@@ -198,6 +224,7 @@ export default class AddEditExpenseController extends BlockComponent<Props, S, S
                 },
               },
               () => {
+                this.getBuildingList(this.state.expenseForm.society);
                 this.getUnitList(this.state.expenseForm.building);
               }
             );
@@ -222,8 +249,8 @@ export default class AddEditExpenseController extends BlockComponent<Props, S, S
       if (this.state.expenseId) {
         this.getExpenseDetails();
       }
+      this.getComplexList();
       this.getAllExpenseCategoryList();
-      this.getBuildingList();
     });
   }
 
@@ -256,7 +283,36 @@ export default class AddEditExpenseController extends BlockComponent<Props, S, S
     }
   };
 
-  getBuildingList = () => {
+  getComplexList = () => {
+    const header = {
+      "Content-Type": configJSON.ApiContentType,
+      token: localStorage.getItem("userToken"),
+    };
+
+    const apiRequest = new Message(getName(MessageEnum.RestAPIRequestMessage));
+
+    this.GetComplexListCallId = apiRequest.messageId;
+
+    apiRequest.addData(
+      getName(MessageEnum.RestAPIResponceEndPointMessage),
+      `bx_block_society_management/society_managements`
+    );
+
+    apiRequest.addData(getName(MessageEnum.RestAPIRequestHeaderMessage), JSON.stringify(header));
+
+    apiRequest.addData(getName(MessageEnum.RestAPIRequestMethodMessage), configJSON.apiMethodTypeGet);
+
+    runEngine.sendMessage(apiRequest.id, apiRequest);
+    return true;
+  };
+
+  handleComplexListResponse = (responseJson: IComplexResponse) => {
+    if (responseJson && responseJson.data) {
+      this.setState({ complexList: responseJson.data });
+    }
+  };
+
+  getBuildingList = (societyId: string) => {
     const header = {
       "Content-Type": configJSON.ApiContentType,
       token: localStorage.getItem("userToken"),
@@ -266,10 +322,9 @@ export default class AddEditExpenseController extends BlockComponent<Props, S, S
 
     this.GetBuildingListCallId = apiRequest.messageId;
 
-    const society_id = localStorage.getItem("society_id");
     apiRequest.addData(
       getName(MessageEnum.RestAPIResponceEndPointMessage),
-      `society_managements/${society_id}/bx_block_meeting/find_building`
+      `society_managements/${societyId}/bx_block_meeting/find_building`
     );
 
     apiRequest.addData(getName(MessageEnum.RestAPIRequestHeaderMessage), JSON.stringify(header));
@@ -278,6 +333,12 @@ export default class AddEditExpenseController extends BlockComponent<Props, S, S
 
     runEngine.sendMessage(apiRequest.id, apiRequest);
     return true;
+  };
+
+  handleBuildingListResponse = (responseJson: IResponseBuilding) => {
+    if (responseJson && responseJson.buildings) {
+      this.setState({ buildingList: responseJson.buildings });
+    }
   };
 
   getUnitList = (building: string) => {
@@ -302,6 +363,12 @@ export default class AddEditExpenseController extends BlockComponent<Props, S, S
 
     runEngine.sendMessage(apiRequest.id, apiRequest);
     return true;
+  };
+
+  handleUnitListResponse = (responseJson: IResponseUnit) => {
+    if (responseJson && responseJson.apartments) {
+      this.setState({ unitList: responseJson.apartments });
+    }
   };
 
   getExpenseDetails = () => {
@@ -329,9 +396,13 @@ export default class AddEditExpenseController extends BlockComponent<Props, S, S
 
   validationExpenseFormSchema = Yup.object().shape({
     expenseDate: Yup.string().required("Required").matches(/\S/, "Required"),
-    expenseAmount: Yup.string().required("Required").matches(/\S/, "Required"),
+    expenseAmount: Yup.string()
+      .required("Required")
+      .matches(/\S/, "Required")
+      .matches(/^\d+$/, "The field should have digits only"),
     issueTitle: Yup.string().required("Required").matches(/\S/, "Required"),
     category: Yup.string().required("Required").matches(/\S/, "Required"),
+    society: Yup.string().required("Required").matches(/\S/, "Required"),
     building: Yup.string().required("Required").matches(/\S/, "Required"),
     unit: Yup.string().required("Required").matches(/\S/, "Required"),
     resolvedBy: Yup.string().required("Required").matches(/\S/, "Required"),
@@ -349,6 +420,7 @@ export default class AddEditExpenseController extends BlockComponent<Props, S, S
         apartment_management_id: values.unit,
         resolved_by: values.resolvedBy,
         summary: values.summary,
+        society_management_id: values.society,
       },
     };
 
@@ -384,6 +456,7 @@ export default class AddEditExpenseController extends BlockComponent<Props, S, S
         apartment_management_id: values.unit,
         resolved_by: values.resolvedBy,
         summary: values.summary,
+        society_management_id: values.society,
       },
     };
 
@@ -429,6 +502,7 @@ export default class AddEditExpenseController extends BlockComponent<Props, S, S
         this.handleEditExpenseForm(values);
       } else {
         this.handleAddExpenseForm(values);
+        resetForm();
       }
     });
   };

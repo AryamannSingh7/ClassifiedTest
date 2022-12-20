@@ -21,7 +21,7 @@ interface S {
   loading: boolean;
   sortBy: any;
   status: any;
-  pollListing: any;
+  BuildingListing: any;
 }
 
 interface SS {
@@ -47,7 +47,7 @@ export default class CoverImageController extends BlockComponent<Props, S, SS> {
       loading: false,
       sortBy: "",
       status: "",
-      pollListing: [],
+      BuildingListing: [],
     };
 
     this.emailReg = new RegExp("");
@@ -60,13 +60,18 @@ export default class CoverImageController extends BlockComponent<Props, S, SS> {
     this.getRentBuildingList();
   }
 
+
   async receive(from: string, message: Message) {
     if (getName(MessageEnum.RestAPIResponceMessage) === message.id) {
       const apiRequestCallId = message.getData(getName(MessageEnum.RestAPIResponceDataMessage));
       const responseJson = message.getData(getName(MessageEnum.RestAPIResponceSuccessMessage));
       var errorReponse = message.getData(getName(MessageEnum.RestAPIResponceErrorMessage));
-      if (this.apiEmailLoginCallId === apiRequestCallId) {
-        console.log(responseJson, errorReponse);
+      if (this.getRentBuildingListId === apiRequestCallId) {
+        if(responseJson.hasOwnProperty("data")){
+          this.setState({
+            BuildingListing:responseJson.data
+          })
+        }
       }
     }
   }
@@ -75,9 +80,11 @@ export default class CoverImageController extends BlockComponent<Props, S, SS> {
     this.getRentBuildingListId = await this.apiCall({
       contentType: "application/json",
       method: "GET",
-      endPoint: `bx_block_rent_payment/apartments`,
+      endPoint: `/bx_block_rent_payment/buildings`,
     });
   };
+
+
 
   apiCall = async (data: any) => {
     const { contentType, method, endPoint, body } = data;
