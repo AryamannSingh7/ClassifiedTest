@@ -259,7 +259,7 @@ class CommunityUserProfile extends CommunityUserProfileController {
                             onChange={this.handleChange}
                           >
                             <option value={''}>{t("Select Unit")}</option>
-                            { 
+                            {  
                               this.state.allUnit.map((item:any)=><>
                               <option value={item.id}>{item.apartment_name}</option>
                               </>)
