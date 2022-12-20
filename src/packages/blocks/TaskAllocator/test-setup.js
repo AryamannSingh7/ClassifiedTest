@@ -21,3 +21,13 @@ jest.mock("react-i18next", () => ({
     return Component;
   },
 }));
+
+window.matchMedia =
+  window.matchMedia ||
+  function () {
+    return {
+      matches: false,
+      addListener: function () {},
+      removeListener: function () {},
+    };
+  };
