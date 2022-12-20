@@ -10,19 +10,19 @@ import MessageEnum, {
 } from "../../../../framework/src/Messages/MessageEnum";
 // @ts-ignore
 import React from "react";
-import RentPayments from "../../src/RentPayments.web";
+import ViewMyRents from "../../src/ViewMyRents.web";
 const navigation = require("react-navigation");
 
 const screenProps = {
   navigation: {},
-  id: "RentPayments",
+  id: "ViewMyRents",
   location: jest.fn(),
   history: jest.fn(),
   match: jest.fn()
 };
 
 const feature = loadFeature(
-    "./__tests__/features/RentPayment-scenario.web.feature"
+    "./__tests__/features/ViewMyRents-scenario.web.feature"
 );
 
 defineFeature(feature, (test) => {
@@ -32,30 +32,23 @@ defineFeature(feature, (test) => {
     jest.spyOn(helpers, "getOS").mockImplementation(() => "web");
   });
 
-  test("User navigates to RentPayment", ({ given, when, then }) => {
-    let RentPaymentsWrapper:any;
+  test("User navigates to ViewMyRents", ({ given, when, then }) => {
+    let ViewMyRentsWrapper:any;
     // @ts-ignore
     let instance:any;
 
-    given("I am a User loading RentPayment", () => {
-      RentPaymentsWrapper = mount(<RentPayments {...screenProps} />,{ wrappingComponent: BrowserRouter });
-      console.log("Check For Wrapper",RentPaymentsWrapper)
+    given("I am a User loading ViewMyRents", () => {
+      ViewMyRentsWrapper = mount(<ViewMyRents {...screenProps} />,{ wrappingComponent: BrowserRouter });
     });
 
-    when("I navigate to the RentPayment", () => {
+    when("I navigate to the ViewMyRents", () => {
       // @ts-ignore
-      instance = RentPaymentsWrapper.instance();
-      console.log("CHECK FOR INSTANCE",instance)
+      instance = ViewMyRentsWrapper.instance();
     });
 
-    then("RentPayment will load with out errors", () => {
-      expect(RentPaymentsWrapper).toBeTruthy();
-      expect(RentPaymentsWrapper).toMatchSnapshot();
+    then("ViewMyRents will load with out errors", () => {
+      expect(ViewMyRentsWrapper).toBeTruthy();
+      expect(ViewMyRentsWrapper).toMatchSnapshot();
     });
-
-    then("I am able to click Back Button", () => {
-      console.log("CHECK FOR INSTANCE",instance)
-    });
-
   });
 });

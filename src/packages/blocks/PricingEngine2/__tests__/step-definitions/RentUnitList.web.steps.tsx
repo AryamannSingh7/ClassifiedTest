@@ -10,7 +10,7 @@ import MessageEnum, {
 } from "../../../../framework/src/Messages/MessageEnum";
 // @ts-ignore
 import React from "react";
-import RentPayments from "../../src/RentPayments.web";
+import RentUnitLists from "../../src/RentUnitLists.web";
 const navigation = require("react-navigation");
 
 const screenProps = {
@@ -22,7 +22,7 @@ const screenProps = {
 };
 
 const feature = loadFeature(
-    "./__tests__/features/RentPayment-scenario.web.feature"
+    "./__tests__/features/RentUnitList-scenario.web.feature"
 );
 
 defineFeature(feature, (test) => {
@@ -32,30 +32,23 @@ defineFeature(feature, (test) => {
     jest.spyOn(helpers, "getOS").mockImplementation(() => "web");
   });
 
-  test("User navigates to RentPayment", ({ given, when, then }) => {
-    let RentPaymentsWrapper:any;
+  test("User navigates to RentPayment Unit List", ({ given, when, then }) => {
+    let RentUnitListsWrapper:any;
     // @ts-ignore
     let instance:any;
 
-    given("I am a User loading RentPayment", () => {
-      RentPaymentsWrapper = mount(<RentPayments {...screenProps} />,{ wrappingComponent: BrowserRouter });
-      console.log("Check For Wrapper",RentPaymentsWrapper)
+    given("I am a User loading RentPayment Unit List", () => {
+      RentUnitListsWrapper = mount(<RentUnitLists {...screenProps} />,{ wrappingComponent: BrowserRouter });
     });
 
-    when("I navigate to the RentPayment", () => {
+    when("I navigate to the RentPayment Unit List", () => {
       // @ts-ignore
-      instance = RentPaymentsWrapper.instance();
-      console.log("CHECK FOR INSTANCE",instance)
+      instance = RentUnitListsWrapper.instance();
     });
 
-    then("RentPayment will load with out errors", () => {
-      expect(RentPaymentsWrapper).toBeTruthy();
-      expect(RentPaymentsWrapper).toMatchSnapshot();
+    then("RentPayment will load with out errors Unit List", () => {
+      expect(RentUnitListsWrapper).toBeTruthy();
+      expect(RentUnitListsWrapper).toMatchSnapshot();
     });
-
-    then("I am able to click Back Button", () => {
-      console.log("CHECK FOR INSTANCE",instance)
-    });
-
   });
 });

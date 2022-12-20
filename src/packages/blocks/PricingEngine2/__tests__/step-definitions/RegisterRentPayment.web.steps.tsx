@@ -10,19 +10,26 @@ import MessageEnum, {
 } from "../../../../framework/src/Messages/MessageEnum";
 // @ts-ignore
 import React from "react";
-import RentPayments from "../../src/RentPayments.web";
+import RegisterRentPayment from "../../src/RegisterRentPayment.web";
 const navigation = require("react-navigation");
 
 const screenProps = {
   navigation: {},
-  id: "RentPayments",
+  id: "ViewMyRents",
   location: jest.fn(),
   history: jest.fn(),
   match: jest.fn()
 };
 
+jest.mock("react-i18next", () => ({
+  withTranslation: () => (Component: any) => {
+    Component.defaultProps = { ...Component.defaultProps, t: () => "" };
+    return Component;
+  },
+}));
+
 const feature = loadFeature(
-    "./__tests__/features/RentPayment-scenario.web.feature"
+    "./__tests__/features/RegisterRentPayment-scenario.web.feature"
 );
 
 defineFeature(feature, (test) => {
@@ -32,29 +39,23 @@ defineFeature(feature, (test) => {
     jest.spyOn(helpers, "getOS").mockImplementation(() => "web");
   });
 
-  test("User navigates to RentPayment", ({ given, when, then }) => {
-    let RentPaymentsWrapper:any;
+  test("User navigates to Register Rent payment", ({ given, when, then }) => {
+    let RegisterRentPaymentWrapper:any;
     // @ts-ignore
     let instance:any;
 
-    given("I am a User loading RentPayment", () => {
-      RentPaymentsWrapper = mount(<RentPayments {...screenProps} />,{ wrappingComponent: BrowserRouter });
-      console.log("Check For Wrapper",RentPaymentsWrapper)
+    given("I am a User loading Register Rent payment", () => {
+      RegisterRentPaymentWrapper = mount(<RegisterRentPayment {...screenProps} />,{ wrappingComponent: BrowserRouter });
     });
 
-    when("I navigate to the RentPayment", () => {
+    when("I navigate to the Register Rent payment", () => {
       // @ts-ignore
-      instance = RentPaymentsWrapper.instance();
-      console.log("CHECK FOR INSTANCE",instance)
+      instance = RegisterRentPaymentWrapper.instance();
     });
 
-    then("RentPayment will load with out errors", () => {
-      expect(RentPaymentsWrapper).toBeTruthy();
-      expect(RentPaymentsWrapper).toMatchSnapshot();
-    });
-
-    then("I am able to click Back Button", () => {
-      console.log("CHECK FOR INSTANCE",instance)
+    then("Register Rent payment will load with out errors", () => {
+      expect(RegisterRentPaymentWrapper).toBeTruthy();
+      expect(RegisterRentPaymentWrapper).toMatchSnapshot();
     });
 
   });
