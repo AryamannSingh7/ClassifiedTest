@@ -3,7 +3,11 @@ import React from 'react';
 import {
   Box,
   Button,
+  Card,
+  CardActions,
+  CardContent,
   Grid,
+  Typography,
 } from "@material-ui/core";
 
 //resources
@@ -48,31 +52,36 @@ class Suggestion extends SuggestionController {
                   <Box className="incident-content-wrapper">
                     {
                       this.state.suggestionList.map((item:any)=>{
-                return  <Box className='suggestion-card' style={{marginTop:'1rem'}}>
-                    <p>{item?.attributes?.title}</p>
-                    <br/>
-                    <p>
-                    {item?.attributes?.description}  
-                    </p>
-
-                    <div style={{display:'flex',justifyContent:'space-between',alignItems:'center'}}>
-                      <div style={{display:'flex',justifyContent:'center',alignItems:'center'}}>
-<img src={Claender}/>
-                      <p>
-                      21-06-22
-                      </p>
-                      </div>
-                      <p>
-                        {
-                          item?.attributes?.reponse?.length
-                        }
-                      {
-                        item?.attributes?.reponse && <>Response</>
-                      }
-                      </p>
-                    </div>
-
-                   </Box>
+                return  <Card className="incident-card facility-card card" key={item.id}>
+                <CardContent className="costom-card-content">
+                  {/* <Typography component="h4">
+                   {val?.attributes?.date}
+                 </Typography> */}
+                  {/* <Typography component="span">
+                   Facility Reserved:
+                 </Typography> */}
+                  <Typography className="sub-title h5-title" component="h4">
+                    {item?.attributes?.title}
+                  </Typography>
+                  <Box className="card-listing-row">
+                    <Typography component="span" className="span-subtitle">
+                    {item?.attributes?.description}
+                    </Typography>
+                  
+                  </Box>
+                  
+                  <hr />
+                  <CardActions className="card-footer">
+                    <Typography className="sub-title h5-title" component="h5">
+                  <img src={Claender}/>   26/2/12
+                    </Typography>
+                    <Box className="customButton">
+                      <Button variant="contained" className="contain blue" type="submit" >1 Response</Button>
+                    </Box>
+                    {/* <Button className="success">Resolved</Button> */}
+                  </CardActions>
+                </CardContent>
+              </Card>
 
                       })
                     }
