@@ -14,6 +14,7 @@ export interface Props {
   id: string;
   // Customizable Area Start
   classes: any;
+  t: (label: string) => string;
   // Customizable Area End
 }
 
@@ -387,24 +388,12 @@ export default class PropertyManagerDetailsController extends BlockComponent<Pro
   };
 
   registerPropertyFormSchema: any = Yup.object().shape({
-    buildingId: Yup.string()
-      .required("Required")
-      .matches(/\S/, "Required"),
-    unitId: Yup.string()
-      .required("Required")
-      .matches(/\S/, "Required"),
-    startDate: Yup.string()
-      .required("Required")
-      .matches(/\S/, "Required"),
-    endDate: Yup.string()
-      .required("Required")
-      .matches(/\S/, "Required"),
-    feeType: Yup.string()
-      .required("Required")
-      .matches(/\S/, "Required"),
-    rent: Yup.string()
-      .required("Required")
-      .matches(/\S/, "Required"),
+    buildingId: Yup.string().required("Required").matches(/\S/, "Required"),
+    unitId: Yup.string().required("Required").matches(/\S/, "Required"),
+    startDate: Yup.string().required("Required").matches(/\S/, "Required"),
+    endDate: Yup.string().required("Required").matches(/\S/, "Required"),
+    feeType: Yup.string().required("Required").matches(/\S/, "Required"),
+    rent: Yup.string().required("Required").matches(/\S/, "Required"),
   });
 
   handleEditPropertyModal = () => {
@@ -416,6 +405,36 @@ export default class PropertyManagerDetailsController extends BlockComponent<Pro
       return name;
     }
     return "-";
+  };
+
+  handleEditProperty = (property: any) => {
+    this.setState(
+      {
+        propertyId: property.id,
+        propertyForm: {
+          ...this.state.propertyForm,
+          buildingId: property.attributes.building_management_id,
+          unitId: property.attributes.apartment_management_id,
+          buildingName: property.attributes.building_management.name,
+          unitName: property.attributes.apartment_management.apartment_name,
+          startDate: property.attributes.start_date,
+          endDate: property.attributes.end_date,
+          feeType: property.attributes.fees_type,
+          rent: property.attributes.fixed_persentage_of_rent,
+        },
+      },
+      () => {
+        this.handleEditPropertyModal();
+      }
+    );
+  };
+
+  handleDeleteProperty = (propertyId: any) => {
+    if (this.state.propertyManagerDetails.propertyList.length === 1) {
+      this.setState({ loading: true }, () => this.deletePropertyManager(this.state.propertyManagerId));
+    } else {
+      this.setState({ loading: true }, () => this.deleteProperty(propertyId));
+    }
   };
   // Customizable Area End
 }
