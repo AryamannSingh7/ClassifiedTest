@@ -9,7 +9,7 @@ import MessageEnum, {
   getName
 } from "../../../../framework/src/Messages/MessageEnum";
 import React from "react";
-import Customform from "../../src/Customform";
+import FamilyList from "../../src/FamilyList.web";
 
 const screenProps = {
   navigation: {
@@ -32,20 +32,22 @@ defineFeature(feature, test => {
   });
 
   test("User navigates to family", ({ given, when, then }) => {
-    let customformBlock: ShallowWrapper;
-    let instance: Customform;
+    let familyListBlock: ShallowWrapper;
+    // @ts-ignore
+    let instance: FamilyList;
 
     given("I am a User loading family", () => {
-      customformBlock = shallow(<Customform {...screenProps} />);
+      familyListBlock = shallow(<FamilyList {...screenProps} />);
     });
 
     when("I navigate to the family", () => {
-      instance = customformBlock.instance() as Customform;
+      // @ts-ignore
+      instance = familyListBlock.instance() as FamilyList;
     });
 
     then("customform will load with out errors", () => {
-      expect(customformBlock).toBeTruthy();
-      expect(customformBlock).toMatchSnapshot();
+      expect(familyListBlock).toBeTruthy();
+      expect(familyListBlock).toMatchSnapshot();
 
       ///
 
@@ -97,15 +99,15 @@ defineFeature(feature, test => {
     });
 
     then("I can enter firm name with out errors", () => {
-      let textInputComponent = customformBlock.findWhere(
+      let textInputComponent = familyListBlock.findWhere(
         node => node.prop("testID") === "shopName"
       );
       textInputComponent.simulate("changeText", "Gold Gully");
-      expect(customformBlock).toBeTruthy();
+      expect(familyListBlock).toBeTruthy();
     });
 
     then("I can select the button with with out errors", () => {
-      let buttonComponent = customformBlock.findWhere(
+      let buttonComponent = familyListBlock.findWhere(
         node => node.prop("testID") === "submitButton"
       );
       buttonComponent.simulate("press");
@@ -113,13 +115,13 @@ defineFeature(feature, test => {
     });
 
     then("I can leave the screen with out errors", () => {
-      let buttonComponent = customformBlock.findWhere(
+      let buttonComponent = familyListBlock.findWhere(
         node => node.prop("testID") === "btnHideKeyboard"
       );
       buttonComponent.simulate("press");
 
       instance.componentWillUnmount();
-      expect(customformBlock).toBeTruthy();
+      expect(familyListBlock).toBeTruthy();
     });
   });
 });
