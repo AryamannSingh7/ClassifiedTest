@@ -82,6 +82,8 @@ defineFeature(feature, (test) => {
     });
 
     then("Should delete the unit pending request", async () => {
+      instance.deleteRequestUnit();
+
       let deleteUnit = new Message(getName(MessageEnum.RestAPIResponceMessage));
       deleteUnit.addData(getName(MessageEnum.RestAPIResponceDataMessage), deleteUnit);
       deleteUnit.addData(getName(MessageEnum.RestAPIResponceSuccessMessage), { code: 200, message: "Done" });

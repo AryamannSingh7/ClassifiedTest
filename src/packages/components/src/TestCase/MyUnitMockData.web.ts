@@ -93,3 +93,35 @@ export const TenantDetailsMockData = {
     disable_chat: false,
   },
 };
+
+export const buildingListMockData = {
+  data: {
+    buildings: [
+      {
+        id: 3,
+        name: "First Building",
+        society_management_id: 5,
+        description: "A-",
+      },
+    ],
+  },
+};
+
+export const floorListMockData = { floors: [2, 1, 3, 4, 5] };
+
+export const unitListMockData = {
+  apartment_managements: [
+    {
+      id: 98,
+      apartment_name: "402",
+    },
+    {
+      id: 88,
+      apartment_name: "101",
+    },
+    {
+      id: 95,
+      apartment_name: "302",
+    },
+  ],
+};

@@ -1,5 +1,5 @@
 // Customizable Area Start
-import React, { useRef } from "react";
+import React from "react";
 import {
   Button,
   Container,
@@ -7,10 +7,6 @@ import {
   withStyles,
   Box,
   Grid,
-  MenuItem,
-  Select,
-  ListItemIcon,
-  OutlinedInput,
   InputAdornment,
   Input,
   FormControl,
@@ -46,7 +42,6 @@ import RegisterUnitController, { Props } from "./RegisterUnitController.web";
 import moment from "moment";
 import { Formik, Form } from "formik";
 import { withTranslation } from "react-i18next";
-import "../../../web/src/i18n.js";
 import { MyUnitStyle } from "./MyUnitStyle.web";
 
 class EditMyUnit extends RegisterUnitController {
