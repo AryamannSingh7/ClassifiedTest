@@ -27,7 +27,7 @@ import TextEditor from "./TextEditorGenerateReport.web";
 import Backdrop from "@material-ui/core/Backdrop";
 import { withRouter } from 'react-router';
 import { withTranslation } from 'react-i18next';
-import '../../../web/src/i18n.js';
+import 'web/src/i18n.js';
 
 class CreateSurveys extends GenerateBudgetReportController {
   constructor(props: Props) {

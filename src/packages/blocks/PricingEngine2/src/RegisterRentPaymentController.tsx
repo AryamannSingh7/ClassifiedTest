@@ -135,7 +135,7 @@ export default class CoverImageController extends BlockComponent<
       this.getRentDueAmountId = await this.apiCall({
         contentType: "application/json",
         method: "GET",
-        endPoint: `bx_block_rent_payment/due_amount?building_name=${this.state.selectedBuilding}&month=${this.state.selectedMonth}&unit_name=${this.state.selectedUnit}`,
+        endPoint: `bx_block_rent_payment/due_amount?month=${this.state.selectedMonth}&apartment_id=${this.state.selectedUnit}`,
       });
     }
   }

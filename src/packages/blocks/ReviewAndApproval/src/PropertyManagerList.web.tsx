@@ -7,7 +7,6 @@ import KeyboardBackspaceIcon from "@material-ui/icons/KeyboardBackspace";
 import PropertyManagerListController, { Props } from "./PropertyManagerListController.web";
 import { BuildingLogo, SortIcon } from "./assets";
 import { withTranslation } from "react-i18next";
-import "../../../web/src/i18n.js";
 import { PropertyManagerStyleWeb } from "./PropertyManagerStyle.web";
 import NavigateNextIcon from "@material-ui/icons/NavigateNext";
 import Loader from "../../../components/src/Loader.web";
@@ -18,8 +17,7 @@ class PropertyManagerList extends PropertyManagerListController {
   }
 
   render() {
-    const { classes } = this.props;
-    const { t }: any = this.props;
+    const { t, classes }: any = this.props;
 
     return (
       <>
@@ -46,8 +44,8 @@ class PropertyManagerList extends PropertyManagerListController {
                         </IconButton>
                       }
                     >
-                      <MenuItem onClick={() => this.setState({ sort: "asc" })}>{t("Ascending")}</MenuItem>
-                      <MenuItem onClick={() => this.setState({ sort: "desc" })}>{t("Descending")}</MenuItem>
+                      <MenuItem onClick={() => this.handleSort("asc")}>{t("Ascending")}</MenuItem>
+                      <MenuItem onClick={() => this.handleSort("desc")}>{t("Descending")}</MenuItem>
                     </Menu>
                   </div>
                 </Box>
@@ -78,9 +76,7 @@ class PropertyManagerList extends PropertyManagerListController {
                           )}
                           {this.state.propertyManagerList.map((propertyManager: any, index: number) => {
                             const building: any[] = propertyManager.attributes.properties.data.map((property: any) => {
-                              return `Building ${property.attributes.building_management.name} unit ${
-                                property.attributes.apartment_management.apartment_name
-                              }`;
+                              return `Building ${property.attributes.building_management.name} unit ${property.attributes.apartment_management.apartment_name}`;
                             });
                             return (
                               <Grid item xs={12} key={index}>
@@ -98,29 +94,15 @@ class PropertyManagerList extends PropertyManagerListController {
                                             }
                                           >
                                             <MenuItem
-                                              onClick={() =>
-                                                this.props.navigation.navigate("PropertyManagerDetails", {
-                                                  id: propertyManager.id,
-                                                })
-                                              }
+                                              onClick={() => this.handleNavigationToDetails(propertyManager.id)}
                                             >
                                               {t("View")}
                                             </MenuItem>
-                                            <MenuItem
-                                              onClick={() =>
-                                                this.props.navigation.navigate("EditPropertyManager", {
-                                                  id: propertyManager.id,
-                                                })
-                                              }
-                                            >
+                                            <MenuItem onClick={() => this.handleNavigationToEdit(propertyManager.id)}>
                                               {t("Edit")}
                                             </MenuItem>
                                             <MenuItem
-                                              onClick={() =>
-                                                this.setState({ loading: true }, () =>
-                                                  this.deletePropertyManager(propertyManager.id)
-                                                )
-                                              }
+                                              onClick={() => this.handleDeletePropertyManager(propertyManager.id)}
                                             >
                                               {t("Delete")}
                                             </MenuItem>
