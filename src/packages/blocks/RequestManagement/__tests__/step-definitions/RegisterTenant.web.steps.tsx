@@ -161,7 +161,7 @@ defineFeature(feature, (test) => {
 
     then("Should change the page when submit the form", () => {
       const formSpy = jest.spyOn(RegisterTenantMountWrapper.find(Formik).at(0).props(), "onSubmit");
-      RegisterTenantMountWrapper.find(Formik).at(0).props().onSubmit({ myTenantForm }, { resetForm: () => jest.fn() });
+      RegisterTenantMountWrapper.find(Formik).at(0).props().onSubmit(myTenantForm, { resetForm: () => jest.fn() });
       expect(formSpy).toHaveBeenCalled();
     });
   });

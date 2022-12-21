@@ -127,7 +127,7 @@ defineFeature(feature, (test) => {
 
     then("Should edit the my tenant", () => {
       const formEditSpy = jest.spyOn(EditTenantMountWrapper.find(Formik).at(0).props(), "onSubmit");
-      EditTenantMountWrapper.find(Formik).at(0).props().onSubmit({ myTenantForm }, { resetForm: () => jest.fn() });
+      EditTenantMountWrapper.find(Formik).at(0).props().onSubmit(myTenantForm, { resetForm: () => jest.fn() });
       expect(formEditSpy).toHaveBeenCalled();
 
       const editTenant = new Message(getName(MessageEnum.RestAPIResponceMessage));
