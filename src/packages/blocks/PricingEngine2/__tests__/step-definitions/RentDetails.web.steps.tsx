@@ -18,7 +18,8 @@ const screenProps = {
   id: "ViewMyRents",
   location: jest.fn(),
   history: jest.fn(),
-  match: jest.fn()
+  match: jest.fn(),
+  t:jest.fn()
 };
 
 jest.mock("react-i18next", () => ({
@@ -45,12 +46,14 @@ defineFeature(feature, (test) => {
     let instance:any;
 
     given("I am a User loading ViewMyRents", () => {
-      RentDetailsWrapper = mount(<RentDetails {...screenProps} />,{ wrappingComponent: BrowserRouter });
+      // @ts-ignore
+      RentDetailsWrapper = mount(<RentDetails.WrappedComponent {...screenProps} />,{ wrappingComponent: BrowserRouter });
     });
 
     when("I navigate to the ViewMyRents", () => {
       // @ts-ignore
       instance = RentDetailsWrapper.instance();
+      console.log("INSTANSCE",instance)
     });
 
     then("ViewMyRents will load with out errors", () => {

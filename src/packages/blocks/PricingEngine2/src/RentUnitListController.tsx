@@ -32,7 +32,6 @@ interface SS {
 export default class CoverImageController extends BlockComponent<Props, S, SS> {
   apiEmailLoginCallId: string = "";
   labelTitle: string = "";
-  getVisitorListId: string = "";
   getRentUnitListId: string = "";
   constructor(props: Props) {
     super(props);
@@ -79,7 +78,6 @@ export default class CoverImageController extends BlockComponent<Props, S, SS> {
 
   getRentUnitList = async () => {
     const {id} = this.props.match.params
-    console.log("BuildingID",id)
     this.getRentUnitListId = await this.apiCall({
       contentType: "application/json",
       method: "GET",

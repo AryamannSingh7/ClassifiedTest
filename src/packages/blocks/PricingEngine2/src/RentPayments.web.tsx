@@ -26,7 +26,7 @@ class RentPayments extends RentPaymentController{
                 <Grid container style={{ margin: '1rem', width: '90%' }} >
                   <Grid item xs={12} style={{ display:"flex", alignItems:"center", gap:"1rem",justifyContent:"space-between"}} >
                       <Box style={{ display:"flex", alignItems:"center", gap:"1rem"}}>
-                          <ArrowBackIcon onClick={() => this.props.history.push("/")} />
+                          <ArrowBackIcon className="rentPaymentsBackBtn" onClick={() => this.props.history.push("/")} />
                           <p style={{ fontSize: '1.2rem', fontWeight: 600 }}>
                               {t("Rent Payments")}
                           </p>
@@ -40,6 +40,7 @@ class RentPayments extends RentPaymentController{
                                 return(
                                     <Grid key={key} item xs={12} style={{position:"relative"}}>
                                         <Box
+                                            className="unitListBox"
                                             display="flex"
                                             justifyContent='space-between'
                                             alignItems="center"
@@ -64,7 +65,7 @@ class RentPayments extends RentPaymentController{
                                                 </Box>
                                             </Box>
                                         </Box>
-                                        <Box style={{position:"absolute",bottom:"20px",left:"30px"}} onClick={()=> window.open(`https://maps.google.com?q=${item.attributes?.lat},${item.attributes?.long}`, '_blank')}>
+                                        <Box className="rentPaymentBuildingMapBtn" style={{position:"absolute",bottom:"20px",left:"30px"}} onClick={()=> window.open(`https://maps.google.com?q=${item.attributes?.lat},${item.attributes?.long}`, '_blank')}>
                                             <Typography variant={"subtitle1"} style={{fontWeight:"bold",color:"#FC8434",marginTop:"5px"}}>
                                                 {t("See building on map")}
                                             </Typography>
@@ -75,7 +76,7 @@ class RentPayments extends RentPaymentController{
                         }
                     </Grid>
                      <Box style={{width:"90%",marginBottom:"30px",marginTop:"10px"}}>
-                        <CloseButton variant="contained" fullWidth size="large" onClick={()=> this.props.history.push("/AddRentPayment")}>
+                        <CloseButton className="RegisterRentPayment" variant="contained" fullWidth size="large" onClick={()=> this.props.history.push("/AddRentPayment")}>
                             {t("Register Rent Payment")}
                         </CloseButton>
                     </Box>
