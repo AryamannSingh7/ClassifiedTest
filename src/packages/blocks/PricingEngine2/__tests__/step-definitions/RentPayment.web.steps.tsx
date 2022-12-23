@@ -1,8 +1,7 @@
 import { defineFeature, loadFeature } from "jest-cucumber";
-import { shallow,mount } from "enzyme";
+import {mount} from "enzyme";
 import {BrowserRouter} from "react-router-dom"
 import * as helpers from "../../../../framework/src/Helpers";
-import {Button} from "@material-ui/core";
 import { runEngine } from "../../../../framework/src/RunEngine";
 import { Message } from "../../../../framework/src/Message";
 
@@ -12,9 +11,6 @@ import MessageEnum, {
 // @ts-ignore
 import React from "react";
 import RentPayments from "../../src/RentPayments.web";
-import {IconButton} from "@material-ui/core";
-import RentDetails from "../../src/RentDetails.web";
-const navigation = require("react-navigation");
 
 const screenProps = {
   navigation: {},
