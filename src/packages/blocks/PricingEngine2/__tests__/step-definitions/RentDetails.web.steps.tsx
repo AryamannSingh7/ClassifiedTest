@@ -18,7 +18,11 @@ const screenProps = {
   id: "ViewMyRents",
   location: jest.fn(),
   history: jest.fn(),
-  match: jest.fn(),
+  match: {
+    params:{
+      id:1
+    }
+  },
   t:jest.fn()
 };
 
@@ -60,5 +64,7 @@ defineFeature(feature, (test) => {
       expect(RentDetailsWrapper).toBeTruthy();
       expect(RentDetailsWrapper).toMatchSnapshot();
     });
+
+
   });
 });

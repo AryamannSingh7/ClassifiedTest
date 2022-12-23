@@ -18,12 +18,46 @@ const screenProps = {
   id: "ViewMyRents",
   location: jest.fn(),
   history: jest.fn(),
-  match: jest.fn()
+  match: {
+    params:{
+      id:1
+    }
+  },
+  t:jest.fn()
 };
+
+const ViewRentsMockData = {
+  data:[
+    {
+      "id": "15",
+      "type": "rent_payment_month",
+      "attributes": {
+        "amount": 400,
+        "month": "June",
+        "payment_type": "partial_payment",
+        "year": null,
+        "building_management_id": 6,
+        "apartment_management_id": 182,
+        "building_name": "Rang Rash",
+        "unit_no": "A-101",
+        "status": "partially_paid",
+        "partial_payment": null,
+        "tenant_name": "newTenant"
+      }
+    }
+  ]
+}
 
 const feature = loadFeature(
     "./__tests__/features/ViewMyRents-scenario.web.feature"
 );
+
+jest.mock("react-i18next", () => ({
+  withTranslation: () => (Component: any) => {
+    Component.defaultProps = { ...Component.defaultProps, t: () => "" };
+    return Component;
+  },
+}));
 
 defineFeature(feature, (test) => {
   beforeEach(() => {
@@ -50,5 +84,14 @@ defineFeature(feature, (test) => {
       expect(ViewMyRentsWrapper).toBeTruthy();
       expect(ViewMyRentsWrapper).toMatchSnapshot();
     });
+
+    then("Should load the Rent List", async () => {
+      let buildingListDropdown = new Message(getName(MessageEnum.RestAPIResponceMessage));
+      buildingListDropdown.addData(getName(MessageEnum.RestAPIResponceDataMessage), buildingListDropdown);
+      buildingListDropdown.addData(getName(MessageEnum.RestAPIResponceSuccessMessage), ViewRentsMockData);
+      instance.getRentBuildingListId = buildingListDropdown;
+      runEngine.sendMessage("Bulding List", buildingListDropdown);
+    });
+
   });
 });

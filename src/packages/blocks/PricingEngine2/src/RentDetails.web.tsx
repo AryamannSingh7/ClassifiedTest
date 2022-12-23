@@ -28,7 +28,7 @@ class ReceiptDetails extends RentDetailsController{
                 <Grid container style={{ margin: '1rem', width: '90%' }} >
                   <Grid item xs={12} style={{ display:"flex", alignItems:"center", gap:"1rem",justifyContent:"space-between"}} >
                       <Box style={{ display:"flex", alignItems:"center", gap:"1rem"}}>
-                          <ArrowBackIcon onClick={() => window.history.back()} />
+                          <ArrowBackIcon className="backButtonRegisterRent" onClick={() => window.history.back()} />
                           <p style={{ fontSize: '1.2rem', fontWeight: 600 }}>
                               {t("Rent Invoice")} : Month Date
                           </p>

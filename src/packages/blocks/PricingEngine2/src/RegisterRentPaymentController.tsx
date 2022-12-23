@@ -146,6 +146,7 @@ export default class CoverImageController extends BlockComponent<
       method: "GET",
       endPoint: `/bx_block_rent_payment/buildings`,
     });
+    return true
   };
 
   getRentUnitList = async (id:any) => {
@@ -155,6 +156,7 @@ export default class CoverImageController extends BlockComponent<
       method: "GET",
       endPoint: `/bx_block_rent_payment/apartments/${id}`,
     });
+    return true
   };
 
   createPayment = () => {
@@ -202,14 +204,6 @@ export default class CoverImageController extends BlockComponent<
     body && requestMessage.addData(getName(MessageEnum.RestAPIRequestBodyMessage), body);
     runEngine.sendMessage(requestMessage.id, requestMessage);
     return requestMessage.messageId;
-  };
-  
-  handleClick = (event:any) => {
-    this.setState({anchorEl:event.currentTarget })
-  };
-
-  handleClose = () => {
-    this.setState({anchorEl:null})
   };
 }
 

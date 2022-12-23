@@ -28,30 +28,30 @@ const screenProps = {
 };
 const buildingListMockData = {
   "data": [
-  {
-    "id": "6",
-    "type": "rent_payment_building_management",
-    "attributes": {
-      "name": "Rang Rash",
-      "description": null,
-      "per_floor_unit": 4,
-      "generation_methods": "A-101, A-102, A-103",
-      "building_area": "100000",
-      "society_management": {
-        "id": 8,
+    {
+      "id": "6",
+      "type": "rent_payment_building_management",
+      "attributes": {
         "name": "Rang Rash",
-        "description": "",
-        "created_at": "2022-09-22T11:36:04.071Z",
-        "updated_at": "2022-09-22T11:36:04.071Z",
-        "complex_area": "1000",
-        "maintenance_per_square_feet": 10
-      },
-      "city": null,
-      "lat": null,
-      "long": null
+        "description": null,
+        "per_floor_unit": 4,
+        "generation_methods": "A-101, A-102, A-103",
+        "building_area": "100000",
+        "society_management": {
+          "id": 8,
+          "name": "Rang Rash",
+          "description": "",
+          "created_at": "2022-09-22T11:36:04.071Z",
+          "updated_at": "2022-09-22T11:36:04.071Z",
+          "complex_area": "1000",
+          "maintenance_per_square_feet": 10
+        },
+        "city": null,
+        "lat": null,
+        "long": null
+      }
     }
-  }
-]
+  ]
 }
 const feature = loadFeature(
     "./__tests__/features/RentPayment-scenario.web.feature"
