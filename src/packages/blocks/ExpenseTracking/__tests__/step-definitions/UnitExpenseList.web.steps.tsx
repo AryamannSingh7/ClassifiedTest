@@ -165,8 +165,8 @@ defineFeature(feature, (test) => {
       expenseList.addData(getName(MessageEnum.RestAPIResponceSuccessMessage), myExpenseList);
       instance.GetAllExpenseListCallId = expenseList;
       runEngine.sendMessage("Expense List", expenseList);
-      // expect(instance.state.expenseList.length).toBeGreaterThan(0);
-      // expect(instance.state.expenseList.length).not.toEqual(0);
+      expect(instance.state.expenseList.length).toBeGreaterThan(0);
+      expect(instance.state.expenseList.length).not.toEqual(0);
     });
 
     then("Should go to Expense Detail page and Edit page", async () => {
@@ -203,7 +203,7 @@ defineFeature(feature, (test) => {
     });
 
     then("Should show category list in filter", async () => {
-      // expect(instance.state.expenseCategoryList.length).toBeGreaterThan(0);
+      expect(instance.state.expenseCategoryList.length).toBeGreaterThan(0);
     });
 
     then("Should Clear the applied filter", async () => {
