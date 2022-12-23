@@ -23,7 +23,7 @@ import GenerateBudgetReportController, {
 } from "./GenerateBudgetReportController";
 import ChairmanSidebar from "../../dashboard/src/ChairmanSidebar.web";
 import DashboardHeader from "../../dashboard/src/DashboardHeader.web";
-import TextEditor from "./TextEditorGenerateReport.web";
+import TextEditor from "../../Polling/src/TextEditorSurvey.web";
 import Backdrop from "@material-ui/core/Backdrop";
 import { withRouter } from 'react-router';
 import { withTranslation } from 'react-i18next';
@@ -39,20 +39,18 @@ class CreateSurveys extends GenerateBudgetReportController {
     const {t} = this.props
     return ( 
       <>
-    <Box style={{background: "#E5ECFF"}}>
-        <DashboardHeader {...this.props}/>
-      
-        <Box style={{display: "flex"}}>
-            
-            <Grid item xs={3} md={3} sm={3} className="SideBar">
+    <Box className="GenerateBudgetReport" style={{background: "#E5ECFF"}}>
+        <DashboardHeader {...this.props} />
+        <Box style={{display: "flex"}} className="GenerateBudgetReport">
+            <Grid item xs={3} md={3} sm={3} className="SideBar GenerateBudgetReport">
                 <ChairmanSidebar {...this.props}/>
             </Grid>
 
-            <Grid xs={9} md={9} sm={9} spacing={4} style={{paddingTop: 35}}>
-                <Container>
-                    <Box className="navigation">
+            <Grid xs={9} md={9} sm={9} spacing={4} style={{paddingTop: 35}} className="GenerateBudgetReport">
+                <Container className="GenerateBudgetReport">
+                    <Box className="navigation GenerateBudgetReport" >
                         <Box>
-                            <Typography variant="body1" >
+                            <Typography variant="body1" className="GenerateBudgetReport" >
                                 {t("Documents & Reports")} / {t("Reports")} / {t("Budget Reports")} /{" "}
                                 <Box component="span" style={{color: "blue"}}>{t("Generate Budget Report")}</Box>
                             </Typography>
@@ -133,15 +131,15 @@ class CreateSurveys extends GenerateBudgetReportController {
                             }
                             <Grid  item sm={12} md={12} xs={12} style={{marginTop:"50px"}}>
                                 {/*@ts-ignore*/}
-                                <Button onClick={this.addQuestionFields} fullWidth size="large" colo="primary" variant="outlined" style={{borderRadius:"8px",border:" 1px dashed #2b6fed",color:"#2b6fed",fontWeight:"bold"}}>+ {t("Add Another Budget Item")}</Button>
+                                <Button className="GenerateBudgetReport" onClick={this.addQuestionFields} fullWidth size="large" colo="primary" variant="outlined" style={{borderRadius:"8px",border:" 1px dashed #2b6fed",color:"#2b6fed",fontWeight:"bold"}}>+ {t("Add Another Budget Item")}</Button>
                             </Grid>
-                            <Grid  item sm={12} md={12} xs={12}>
-                                <Box className="BottomButtonSurvey">
-                                    <Box className="Previewbtn">
-                                        <AudienceButton onClick={this.handlePriviewData} variant="contained" color="primary">{t("PREVIEW")}</AudienceButton>
+                            <Grid  item sm={12} md={12} xs={12} className="GenerateBudgetReport">
+                                <Box className="BottomButtonSurvey GenerateBudgetReport">
+                                    <Box className="Previewbtn GenerateBudgetReport">
+                                        <PreviewReportButton className="GenerateBudgetReport" onClick={this.handlePriviewData} variant="contained" color="primary">{t("PREVIEW")}</PreviewReportButton>
                                     </Box>
-                                    <Box className="Publishbtn">
-                                        <PublishButton onClick={this.handleSurveyDataSubmit} disabled={this.state.loading} type="submit" variant="outlined" color="primary">{this.state.loading && <CircularProgress color="inherit" size={20}/> } {" "}{t("PUBLISH")}</PublishButton>
+                                    <Box className="Publishbtn GenerateBudgetReport">
+                                        <PublishBudgetButton className="GenerateBudgetReport" disabled={this.state.loading} type="submit" variant="outlined" color="primary">{this.state.loading && <CircularProgress color="inherit" size={20}/> } {" "}{t("PUBLISH")}</PublishBudgetButton>
                                     </Box>
                                 </Box>
                             </Grid>
@@ -169,8 +167,8 @@ class CreateSurveys extends GenerateBudgetReportController {
                             </Typography>
                             <Box style={{display:'flex',justifyContent:'flex-end',marginTop:"15px"}}>
                                 {/*@ts-ignore*/}
-                                <AudienceButton variant="outlined" style={{marginRight:"10px"}} onClick={this.closeDeleteModal}>{t("Cancel")}</AudienceButton>
-                                <PublishButton variant="contained" onClick={this.deleteAudience} >{t("Confirm")}</PublishButton>
+                                <PreviewReportButton variant="outlined" style={{marginRight:"10px"}} onClick={this.closeDeleteModal}>{t("Cancel")}</PreviewReportButton>
+                                <PublishBudgetButton variant="contained" onClick={this.deleteAudience} >{t("Confirm")}</PublishBudgetButton>
                             </Box>
                         </Box>
                     </Fade>
@@ -183,17 +181,9 @@ class CreateSurveys extends GenerateBudgetReportController {
   }
 }
 
-export default withTranslation()(withRouter(CreateSurveys)); 
+export default withTranslation()(withRouter(CreateSurveys));
 
-const dashBoard = {
-    SideBar: {
-        background: "#f9f6f6",
-        position:"relative",
-        paddingBottom: 150,
-    },
-}
-
-const AudienceButton = withStyles((theme) => ({
+const PreviewReportButton = withStyles((theme) => ({
     root: {
         color: "white",
         backgroundColor: "#2b6fed",
@@ -205,7 +195,7 @@ const AudienceButton = withStyles((theme) => ({
     },
 }))(Button);
 
-const PublishButton = withStyles((theme) => ({
+const PublishBudgetButton = withStyles((theme) => ({
     root: {
         color: "#2b6fed",
         backgroundColor: "white",

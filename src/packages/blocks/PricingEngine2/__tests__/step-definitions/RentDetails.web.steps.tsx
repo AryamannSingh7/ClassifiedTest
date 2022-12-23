@@ -58,6 +58,5 @@ defineFeature(feature, (test) => {
       expect(RentDetailsWrapper).toMatchSnapshot();
     });
 
-
   });
 });
