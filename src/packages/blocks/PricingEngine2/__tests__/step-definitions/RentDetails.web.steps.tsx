@@ -2,16 +2,9 @@ import { defineFeature, loadFeature } from "jest-cucumber";
 import { mount } from "enzyme";
 import {BrowserRouter} from "react-router-dom"
 import * as helpers from "../../../../framework/src/Helpers";
-import { runEngine } from "../../../../framework/src/RunEngine";
-import { Message } from "../../../../framework/src/Message";
-
-import MessageEnum, {
-  getName,
-} from "../../../../framework/src/Messages/MessageEnum";
 // @ts-ignore
 import React from "react";
 import RentDetails from "../../src/RentDetails.web";
-const navigation = require("react-navigation");
 
 const screenProps = {
   navigation: {},
