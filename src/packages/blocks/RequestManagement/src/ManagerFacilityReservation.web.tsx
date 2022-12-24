@@ -200,7 +200,7 @@ class ManagerFacilityReservation extends FacilityManagerContorller {
   }
 }
 
-const dashBoard: any = {
+export const dashBoard: any = {
   navigation: {
     display: "flex",
     justifyContent: "space-between",

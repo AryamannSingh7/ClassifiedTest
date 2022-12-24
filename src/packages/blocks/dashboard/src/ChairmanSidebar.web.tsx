@@ -396,10 +396,6 @@ class ChairmanSidebar extends DashboardController {
     );
   }
 }
-
-//@ts-ignore
-export default withTranslation()(withStyles(dashBoard)(withRouter(ChairmanSidebar)));
-
 const dashBoard = {
   PremimumPlan: {
     background: "#ff8100",
@@ -420,5 +416,9 @@ const dashBoard = {
     cursor: "pointer",
   },
 };
+//@ts-ignore
+export default withTranslation()(withStyles(dashBoard)(withRouter(ChairmanSidebar)));
+
+
 
 // Customizable Area End

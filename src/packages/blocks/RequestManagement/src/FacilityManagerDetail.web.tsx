@@ -66,12 +66,12 @@ class FacilityManagerDetail extends FacilityManagerContorller {
               {/* Chairman Sidebar -- */}
               <ChairmanSidebar {...this.props} />
             </Grid>
-            <Grid xs={9} md={9} sm={9} spacing={4} style={{ paddingTop: 35 }}>
+            <Grid item xs={9} md={9} sm={9} spacing={4} style={{ paddingTop: 35 }}>
               <Container>
                 <Box className={classes.navigation}>
                   <Box>
                     <Typography variant="body1" >
-                      My Dashboard / General Dashboard / Facility Reservation /<Box component="span" style={{ color: "blue" }}> Facility Reservation Details</Box>
+                    {t("My Dashboard")} / General Dashboard / Facility Reservation /<Box component="span" style={{ color: "blue" }}> Facility Reservation Details</Box>
                     </Typography>
                     <Typography variant="h5" className={classes.subHeading}>Facility Reservation Details</Typography>
                   </Box>
@@ -327,7 +327,7 @@ class FacilityManagerDetail extends FacilityManagerContorller {
   }
 }
 
-const dashBoard: any = {
+export const dashBoard: any = {
   navigation: {
     display: "flex",
     justifyContent: "space-between",

@@ -48,7 +48,7 @@ class FacilityReservation extends FacilityReservationController {
               <Box className="content-block">
                 <Box className="content-header">
                   <Box className="left-block blocks">
-                    <Box className="backIcons" onClick={this.redirectToDashboard}><KeyboardBackspaceIcon /></Box>
+                    <Box className="backIcons" id="backIcons" onClick={this.redirectToDashboard}><KeyboardBackspaceIcon /></Box>
                     <h4>Facility Reservation</h4>
                   </Box>
                 </Box>
