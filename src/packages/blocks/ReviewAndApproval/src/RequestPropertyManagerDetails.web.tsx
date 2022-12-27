@@ -5,7 +5,6 @@ import KeyboardBackspaceIcon from "@material-ui/icons/KeyboardBackspace";
 import RequestPropertyManagerDetailsController, { Props } from "./RequestPropertyManagerDetailsController.web";
 import { BuildingLogo, BlueManagerIcon, BlueCompanyIcon, BluePhoneIcon, BlueEmailIcon } from "./assets";
 import { withTranslation } from "react-i18next";
-import "../../../web/src/i18n.js";
 import { PropertyManagerStyleWeb } from "./PropertyManagerStyle.web";
 import Loader from "../../../components/src/Loader.web";
 
@@ -15,8 +14,7 @@ class RequestPropertyManagerDetails extends RequestPropertyManagerDetailsControl
   }
 
   render() {
-    const { classes } = this.props;
-    const { t }: any = this.props;
+    const { t, classes } = this.props;
 
     return (
       <>
@@ -95,9 +93,7 @@ class RequestPropertyManagerDetails extends RequestPropertyManagerDetailsControl
                                 </h4>
                                 <Box className="right-box-item">
                                   <Link
-                                    href={`https://maps.google.com/?q=${this.state.propertyDetails.lat},${
-                                      this.state.propertyDetails.long
-                                    }`}
+                                    href={`https://maps.google.com/?q=${this.state.propertyDetails.lat},${this.state.propertyDetails.long}`}
                                     target="_blank"
                                   >
                                     <span>{t("See building on map")}</span>
