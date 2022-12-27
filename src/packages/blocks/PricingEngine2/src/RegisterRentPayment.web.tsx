@@ -50,7 +50,7 @@ class RegisterRentPayment extends RegisterRentPaymentController{
                 <Grid container style={{ margin: '1rem',  width: '90%' }} >
                   <Grid item xs={12} style={{ display:"flex", alignItems:"center", gap:"1rem",justifyContent:"space-between"}} >
                       <Box style={{ display:"flex", alignItems:"center", gap:"1rem"}}>
-                          <ArrowBackIcon onClick={() => window.history.back()} />
+                          <ArrowBackIcon className="backButtonRegisterRent" onClick={() => window.history.back()} />
                           <p style={{ fontSize: '1.2rem', fontWeight: 600 }}>
                               {t("Register Rent Payments")}
                           </p>
@@ -63,7 +63,7 @@ class RegisterRentPayment extends RegisterRentPaymentController{
                             <Select
                                 fullWidth
                                 disableUnderline
-                                className="selectBuildingBoxRent"
+                                className="selectBuildingBoxRent rentMonthDropdown"
                                 native
                                 style={{backgroundColor:"#F9F9F9",borderRadius:"100px",height:"60px",border:"1px solid #f0f0f0"}}
                                 value={this.state.selectedMonth}
@@ -97,7 +97,7 @@ class RegisterRentPayment extends RegisterRentPaymentController{
                             <Select
                                 fullWidth
                                 disableUnderline
-                                className="selectBuildingBoxRent"
+                                className="selectBuildingBoxRent rentBuildingDropdown"
                                 native
                                 style={{backgroundColor:"#F9F9F9",borderRadius:"100px",height:"60px",border:"1px solid #f0f0f0"}}
                                 value={this.state.selectedBuilding}
