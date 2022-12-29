@@ -174,7 +174,7 @@ class FacilityManagerDetail extends FacilityManagerContorller {
                        {/* danger button */}
                        {attributes?.status === 'Pending' ? 
                        <>
-                       <Button variant="outlined"
+                       <Button variant="outlined" 
                        onClick={() => this.setState({ showDialog: true })}
                      >REJECT</Button>
                      <Button variant="contained"
@@ -231,11 +231,11 @@ class FacilityManagerDetail extends FacilityManagerContorller {
                       </Box>
                     </Box>
                     <Box className="customButton">
-                      <Button variant="outlined"
+                      <Button variant="outlined" id="showDialog-Cancel"
                         onClick={() => { this.setState({ showDialog: false, addNote: null }) }}
                       >Cancel
                       </Button>
-                      <Button variant="contained" onClick={() => this.rejectedOrCompleted("Rejected")}>Confirm</Button>
+                      <Button variant="contained" id="showDialog-Confirm" onClick={() => this.rejectedOrCompleted("Rejected")}>Confirm</Button>
                     </Box>
                   </Box>
                 </Box>
@@ -277,11 +277,11 @@ class FacilityManagerDetail extends FacilityManagerContorller {
                       </Box>
                     </Box>
                     <Box className="customButton">
-                      <Button variant="outlined"
+                      <Button variant="outlined" id = 'ignoreShowDialogCancel'
                         onClick={() => { this.setState({ ignoreShowDialog: false, addNote: null }) }}
                       >Cancel
                       </Button>
-                      <Button variant="contained" onClick={() => this.rejectedOrCompleted("Cancel")}>Confirm</Button>
+                      <Button variant="contained" id = 'ignoreShowDialogConfirm' onClick={() => this.rejectedOrCompleted("Cancel")}>Confirm</Button>
                     </Box>
                   </Box>
                 </Box>
@@ -315,8 +315,8 @@ class FacilityManagerDetail extends FacilityManagerContorller {
                     <h3>Approve Reservation Request</h3>
                     <p className="lead"> Are you sure you want to approve reservation request?</p>
                     <Box className="diloag-btn customButton">
-                      <Button variant="outlined" onClick={() => { this.setState({ statusShowDialog: false }) }}>Close</Button>
-                      <Button variant="contained" onClick={() => this.rejectedOrCompleted("Upcoming")}>Confirm</Button>
+                      <Button variant="outlined" id = 'statusShowDialogClose' onClick={() => { this.setState({ statusShowDialog: false }) }}>Close</Button>
+                      <Button variant="contained" id = 'statusShowDialogConfirm' onClick={() => this.rejectedOrCompleted("Upcoming")}>Confirm</Button>
                     </Box>
                   </Box>
                 </Box>

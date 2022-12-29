@@ -8,3 +8,5 @@ Feature: FacilityReservation
         Then Should facility have five Card 
         Then Should open Facility when click on card
         Then Should go to create facility pages when click on book facility button
+        Then Should load the facility ReservationList count
+        Then should check componentDidMount

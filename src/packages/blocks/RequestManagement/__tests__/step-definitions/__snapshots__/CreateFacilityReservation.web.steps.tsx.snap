@@ -3797,29 +3797,6 @@ exports[`CreateFacilityReservation User navigates to CreateFacilityReservation 1
                                           </div>
                                         </ForwardRef(Grid)>
                                       </WithStyles(ForwardRef(Grid))>
-                                      <Styled(MuiBox)
-                                        className="reservationDec"
-                                      >
-                                        <div
-                                          className="MuiBox-root MuiBox-root-17 reservationDec"
-                                        >
-                                          <h5>
-                                            Description:
-                                          </h5>
-                                          <p>
-                                            You can use garden for kids party, family gathering, building event etc. You are not allowed to have meals in the garden.
-                                          </p>
-                                          <br />
-                                           
-                                          <p>
-                                            You will be charged 
-                                            <span>
-                                              SR 50 per hour
-                                            </span>
-                                             for garden facility.
-                                          </p>
-                                        </div>
-                                      </Styled(MuiBox)>
                                     </div>
                                   </ForwardRef(Grid)>
                                 </WithStyles(ForwardRef(Grid))>
@@ -3827,7 +3804,7 @@ exports[`CreateFacilityReservation User navigates to CreateFacilityReservation 1
                                   className="customButton"
                                 >
                                   <div
-                                    className="MuiBox-root MuiBox-root-18 customButton"
+                                    className="MuiBox-root MuiBox-root-17 customButton"
                                   >
                                     <WithStyles(ForwardRef(Button))
                                       type="submit"
@@ -4101,7 +4078,7 @@ exports[`CreateFacilityReservation User navigates to CreateFacilityReservation 1
                     }
                   >
                     <div
-                      className="MuiBox-root MuiBox-root-19 right-block"
+                      className="MuiBox-root MuiBox-root-18 right-block"
                     >
                       <img
                         alt=""

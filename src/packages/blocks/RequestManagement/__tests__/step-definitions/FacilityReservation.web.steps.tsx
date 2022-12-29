@@ -46,6 +46,14 @@ defineFeature(feature, (test) => {
     jest.spyOn(helpers, "getOS").mockImplementation(() => "web");
   });
 
+  const facilityReservationCountMockData = {
+    "facility_reservations_count": "015",
+    "total_upcoming_count": "00",
+    "total_pending_count": "02",
+    "total_completed_count": "06",
+    "total_cancelled_count": "04",
+    "total_rejected_count": "02"
+}
   test("User navigates to FacilityReservation", ({given,when,then}) => {
     let FacilityReservationMountWrapper: any;
     let instance: any;
@@ -107,6 +115,23 @@ defineFeature(feature, (test) => {
         expect(button).toHaveBeenCalled();
       
       });
+
+      then("Should load the facility ReservationList count", async () => {
+        localStorage.setItem("facilityReservationId",'59');
+        let facilityReservationCount = new Message(getName(MessageEnum.RestAPIResponceMessage));
+        facilityReservationCount.addData(getName(MessageEnum.RestAPIResponceDataMessage), facilityReservationCount);
+        facilityReservationCount.addData(getName(MessageEnum.RestAPIResponceSuccessMessage), facilityReservationCountMockData);
+        instance.getFacilityReservationDetailsByIdApiCallId = facilityReservationCount;
+        runEngine.sendMessage("facility Reservation count", facilityReservationCount);
+      });
+    
+      then("should check componentDidMount", () => {
+        //@ts-ignore
+        jest.spyOn(instance, 'getFacilityReservationCount'); // You spy on the getFacilityReservationCount
+        instance.componentDidMount();
+        expect(instance.getFacilityReservationCount).toHaveBeenCalledTimes(1)
+     });
+     
       
   });
 });

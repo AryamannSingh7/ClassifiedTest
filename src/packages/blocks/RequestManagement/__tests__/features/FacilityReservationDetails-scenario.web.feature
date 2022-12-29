@@ -9,4 +9,5 @@ Feature: FacilityReservationDetails
         Then should check componentDidMount
         Then Should delete the facility Reservation details
         Then Should cancel delete the facility Reservation details
-        Then I can go back to Create Facility Reservation page
+        Then Should load the Upcoming facility ReservationList Details
+        Then Should cancel update the facility Reservation details
