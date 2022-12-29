@@ -54,6 +54,11 @@ export interface S {
   showDialog:any;
   deleteShowDialog:any;
   facilityCount:any;
+  areaReserve : any,
+  areaReserveName:any,
+  areaReserveDetail:any,
+  reservationFees:any,
+  currency:any
   // Customizable Area End
 }
 
@@ -147,6 +152,11 @@ export default class FacilityReservationController extends BlockComponent<
       showDialog:false,
       deleteShowDialog:false,
       facilityCount:{},
+      areaReserve : " ",
+      areaReserveName:"",
+      areaReserveDetail:"",
+      reservationFees:"",
+      currency:""
       // Customizable Area End
     };
 
@@ -612,6 +622,18 @@ clear= () => {
   localStorage.clear()
   //@ts-ignore
   this.props.history.push("/");
+}
+
+onChange = (e :any)=>{
+  if(e.target.name === 'areaReserve'){
+    const array = e.target?.value?.split(","); 
+    const details = array [1]
+    const name = array[2]
+    const reservation_fee = array[3]
+    const currency = array[4]
+    
+    this.setState({ areaReserve:e.target?.value , areaReserveName : name , areaReserveDetail:details , reservationFees:reservation_fee,currency:currency})
+  }
 }
 
 getFacilityReservationDetails= (idOrName :any) => {

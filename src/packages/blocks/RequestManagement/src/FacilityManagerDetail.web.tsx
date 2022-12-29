@@ -108,7 +108,7 @@ class FacilityManagerDetail extends FacilityManagerContorller {
                           <Typography className="title-span" component="span">
                             Unit Number:
                           </Typography>
-                          <h4>{attributes?.email}</h4>
+                          <h4>{attributes?.unit_number}</h4>
                         </Box>
                         <Box className="card-rows">
                           <Typography className="title-span" component="span">
@@ -128,12 +128,16 @@ class FacilityManagerDetail extends FacilityManagerContorller {
                               </Typography>
                               <h4>{attributes?.rent} </h4>
                             </Box>
-                            <Box className="card-rows">
+                            {
+                              attributes?.status === "Completed" ?
+                              <Box className="card-rows">
                               <Typography className="title-span" component="span">
                                 Paid On:
                               </Typography>
                               <h4>{attributes?.paid_on}</h4>
-                            </Box>
+                            </Box>:null
+                            }
+                            
                       </Box>
                       {/* {
                         attributes?.attachments.length !== 0 ?
@@ -253,7 +257,7 @@ class FacilityManagerDetail extends FacilityManagerContorller {
                 <Box className="provider-dialouge-body classified-dialouge-body desktop-ui">
                   <Box className="dialouge-header">
                     <DialogTitle className="alert-dialog-title" id="alert-dialog-title">
-                      Cancel Reservation sdss
+                      Cancel Reservation
                     </DialogTitle>
                     <Button>
                       <img src={Close_Icon} className="close-icon" onClick={() => { this.setState({ ignoreShowDialog: false, addNote: null }) }} />
