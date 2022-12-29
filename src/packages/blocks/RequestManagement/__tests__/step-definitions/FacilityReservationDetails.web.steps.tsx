@@ -46,6 +46,52 @@ defineFeature(feature, (test) => {
     jest.spyOn(helpers, "getOS").mockImplementation(() => "web");
   });
 
+  const facilityReservationDetailsMockData = { "data": {
+    "id": "50",
+    "type": "facility_reservation",
+    "attributes": {
+        "date": "08-Dec-2022",
+        "status": "Completed",
+        "note": null,
+        "description": null,
+        "account_id": 283,
+        "paid_on": "08-12-2022",
+        "rent": 700,
+        "Owner_name": "Akash",
+        "start_time": "08:30",
+        "end_time": "09:50",
+        "unit_number": null,
+        "building": {
+            "id": 4,
+            "name": "test building2",
+            "society_management_id": 6,
+            "description": null,
+            "created_at": "2022-08-31T11:45:30.819Z",
+            "updated_at": "2022-09-02T14:41:47.572Z",
+            "per_floor_unit": 3,
+            "generation_methods": "A-101, A-102, A-103",
+            "number_of_floor": 6,
+            "building_area": "2500 sq. ft.",
+            "account_id": null,
+            "lat": null,
+            "long": null,
+            "city": null
+        },
+        "common_area": {
+            "id": 19,
+            "name": "Swimmingpool",
+            "society_management_id": 6,
+            "created_at": "2022-11-29T00:04:46.859Z",
+            "updated_at": "2022-11-29T00:04:46.859Z",
+            "details": "",
+            "total_area": "",
+            "currency_id": 3,
+            "reservation_fee": 700
+        }
+    }
+}
+  }
+
   test("User navigates to FacilityReservationDetails", ({given,when,then}) => {
     let FacilityReservationMountWrapper: any;
     let instance: any;
@@ -70,6 +116,55 @@ defineFeature(feature, (test) => {
         // FacilityReservationMountWrapper.find("#backIcons").at(1).simulate('click')
         // expect(instance.redirectToDashboard).toHaveBeenCalled()
       });
+
+      then("Should load the facility ReservationList Details", async () => {
+        localStorage.setItem("facilityReservationId",'50');
+        let facilityReservationDetails = new Message(getName(MessageEnum.RestAPIResponceMessage));
+        facilityReservationDetails.addData(getName(MessageEnum.RestAPIResponceDataMessage), facilityReservationDetails);
+        facilityReservationDetails.addData(getName(MessageEnum.RestAPIResponceSuccessMessage), facilityReservationDetailsMockData);
+        instance.getFacilityReservationDetailsByIdApiCallId = facilityReservationDetails;
+        runEngine.sendMessage("facility Reservation Details", facilityReservationDetails);
+      });
     
+      then("should check componentDidMount", () => {
+        localStorage.setItem("facilityReservationId",'50');
+        //@ts-ignore
+        jest.spyOn(instance, 'getFacilityReservationDetailsById'); // You spy on the getFacilityReservationDetailsById
+        instance.componentDidMount();
+        expect(instance.getFacilityReservationDetailsById).toHaveBeenCalledTimes(1)
+     });
+     
+     then("Should delete the facility Reservation details", async () => {
+      instance.setState({ deleteShowDialog: true });
+      FacilityReservationMountWrapper.update()
+
+      const deleteButton = jest.spyOn(FacilityReservationMountWrapper.find(Button).at(0).props(), "onClick");
+      FacilityReservationMountWrapper.find(Button).at(0).props().onClick();
+      expect(deleteButton).toHaveBeenCalled();
+
+      let deleteExpense = new Message(getName(MessageEnum.RestAPIResponceMessage));
+      deleteExpense.addData(getName(MessageEnum.RestAPIResponceDataMessage), deleteExpense);
+      deleteExpense.addData(getName(MessageEnum.RestAPIResponceSuccessMessage), facilityReservationDetailsMockData);
+      instance.DeleteExpenseCallId = deleteExpense;
+      runEngine.sendMessage("facility Reservation details Delete", deleteExpense);
+    });
+
+    then("Should cancel delete the facility Reservation details", async () => {
+      instance.setState({ deleteShowDialog: true });
+      FacilityReservationMountWrapper.update();
+
+      const closeDialogButton = jest.spyOn(FacilityReservationMountWrapper.find(".delete-btn").at(0).props(), "onClick");
+      FacilityReservationMountWrapper.find(".delete-btn").at(0).props().onClick();
+      expect(instance.state.deleteShowDialog).toEqual(false);
+      expect(closeDialogButton).toHaveBeenCalled();
+    });
+
+    then("I can go back to Create Facility Reservation page", async () => {
+      const backButtonSpy = jest.spyOn(FacilityReservationMountWrapper.find(Button).at(0).props(), "onClick");
+     console.log("backButtonSpy ==============>",FacilityReservationMountWrapper.find(Button).at(0).debug())
+      FacilityReservationMountWrapper.find(Button).at(0).props().onClick();
+      expect(backButtonSpy).toHaveBeenCalled();
+    });
+     
   });
 });
