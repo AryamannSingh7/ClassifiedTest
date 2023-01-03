@@ -510,7 +510,7 @@ exports[`MyExpenseList Filter on My Unit Expense List 1`] = `
     }
   >
     <div
-      className="MuiBox-root MuiBox-root-31 height overflowY & .top-bar & .top-bar .left-icon & .top-bar .left-icon span & .top-bar .right-icon & .top-bar .right-icon img & .right-image & a & .tenant-list-box & .tenant-list-box .upload-button & .tenant-list-box .upload-button .MuiGrid-root & .tenant-list-box .upload-button button & .tenant-list-box .tenant-list & .tenant-list-box .tenant & .tenant-list-box .tenant .header & .tenant-list-box .tenant .info span & .tenant-list-box .tenant .info p & .tenant-list-box .tenant .expense-details p"
+      className="MuiBox-root MuiBox-root-29 height overflowY & .top-bar & .top-bar .left-icon & .top-bar .left-icon span & .top-bar .right-icon & .top-bar .right-icon img & .right-image & a & .tenant-list-box & .tenant-list-box .upload-button & .tenant-list-box .upload-button .MuiGrid-root & .tenant-list-box .upload-button button & .tenant-list-box .tenant-list & .tenant-list-box .tenant & .tenant-list-box .tenant .header & .tenant-list-box .tenant .info span & .tenant-list-box .tenant .info p & .tenant-list-box .tenant .expense-details p"
       style={
         Object {
           "background": "#F4F7FF",
@@ -757,7 +757,7 @@ exports[`MyExpenseList Filter on My Unit Expense List 1`] = `
                     className="faq-step"
                   >
                     <div
-                      className="MuiBox-root MuiBox-root-32 faq-step"
+                      className="MuiBox-root MuiBox-root-30 faq-step"
                     >
                       <Styled(MuiBox)
                         className="top-bar"
@@ -769,13 +769,13 @@ exports[`MyExpenseList Filter on My Unit Expense List 1`] = `
                         }
                       >
                         <div
-                          className="MuiBox-root MuiBox-root-33 top-bar"
+                          className="MuiBox-root MuiBox-root-31 top-bar"
                         >
                           <Styled(MuiBox)
                             className="left-icon"
                           >
                             <div
-                              className="MuiBox-root MuiBox-root-34 left-icon"
+                              className="MuiBox-root MuiBox-root-32 left-icon"
                             >
                               <WithStyles(ForwardRef(IconButton))
                                 onClick={[Function]}
@@ -1034,13 +1034,13 @@ exports[`MyExpenseList Filter on My Unit Expense List 1`] = `
                               className="tenant-list-box"
                             >
                               <div
-                                className="MuiBox-root MuiBox-root-35 tenant-list-box"
+                                className="MuiBox-root MuiBox-root-33 tenant-list-box"
                               >
                                 <Styled(MuiBox)
                                   className="tenant-list"
                                 >
                                   <div
-                                    className="MuiBox-root MuiBox-root-36 tenant-list"
+                                    className="MuiBox-root MuiBox-root-34 tenant-list"
                                   >
                                     <WithStyles(ForwardRef(Grid))
                                       container={true}
@@ -1348,7 +1348,7 @@ exports[`MyExpenseList Filter on My Unit Expense List 1`] = `
                                   className="upload-button"
                                 >
                                   <div
-                                    className="MuiBox-root MuiBox-root-37 upload-button"
+                                    className="MuiBox-root MuiBox-root-35 upload-button"
                                   >
                                     <WithStyles(ForwardRef(Grid))
                                       container={true}
@@ -1853,7 +1853,7 @@ exports[`MyExpenseList Filter on My Unit Expense List 1`] = `
                       }
                     >
                       <div
-                        className="MuiBox-root MuiBox-root-38 right-block right-image"
+                        className="MuiBox-root MuiBox-root-36 right-block right-image"
                       >
                         <img
                           alt=""
