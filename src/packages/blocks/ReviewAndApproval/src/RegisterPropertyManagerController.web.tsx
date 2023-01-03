@@ -14,6 +14,7 @@ export interface Props {
   id: string;
   // Customizable Area Start
   classes: any;
+  t: any;
   // Customizable Area End
 }
 
@@ -670,40 +671,21 @@ export default class RegisterPropertyManagerController extends BlockComponent<Pr
   };
 
   registerPropertyManagerFormSchema: any = Yup.object().shape({
-    companyName: Yup.string()
-      .required("Required")
-      .matches(/\S/, "Required"),
-    managerName: Yup.string()
-      .required("Required")
-      .matches(/\S/, "Required"),
-    email: Yup.string()
-      .required("Required")
-      .matches(/\S/, "Required")
-      .email("Please enter valid email"),
+    companyName: Yup.string().required("Required").matches(/\S/, "Required"),
+    managerName: Yup.string().required("Required").matches(/\S/, "Required"),
+    email: Yup.string().required("Required").matches(/\S/, "Required").email("Please enter valid email"),
     mobileNumber: Yup.string()
       .required("Required")
       .matches(/\S/, "Required")
       .matches(/^[0-9]{6,10}$/, { message: "Please enter valid number" }),
-    idType: Yup.string()
-      .required("Required")
-      .matches(/\S/, "Required"),
-    idNumber: Yup.string()
-      .required("Required")
-      .matches(/\S/, "Required")
-      .nullable(),
-    idDate: Yup.string()
-      .required("Required")
-      .matches(/\S/, "Required")
-      .nullable(),
-    idCardFile: Yup.array()
-      .min(1, "Required")
-      .nullable(),
+    idType: Yup.string().required("Required").matches(/\S/, "Required"),
+    idNumber: Yup.string().required("Required").matches(/\S/, "Required").nullable(),
+    idDate: Yup.string().required("Required").matches(/\S/, "Required").nullable(),
+    idCardFile: Yup.array().min(1, "Required").nullable(),
   });
 
   registerPropertyFormSchema: any = Yup.object().shape({
-    buildingId: Yup.string()
-      .required("Required")
-      .matches(/\S/, "Required"),
+    buildingId: Yup.string().required("Required").matches(/\S/, "Required"),
     unitId: Yup.string()
       .required("Required")
       .matches(/\S/, "Required")
@@ -713,18 +695,10 @@ export default class RegisterPropertyManagerController extends BlockComponent<Pr
         }
         return true;
       }),
-    startDate: Yup.string()
-      .required("Required")
-      .matches(/\S/, "Required"),
-    endDate: Yup.string()
-      .required("Required")
-      .matches(/\S/, "Required"),
-    feeType: Yup.string()
-      .required("Required")
-      .matches(/\S/, "Required"),
-    rent: Yup.string()
-      .required("Required")
-      .matches(/\S/, "Required"),
+    startDate: Yup.string().required("Required").matches(/\S/, "Required"),
+    endDate: Yup.string().required("Required").matches(/\S/, "Required"),
+    feeType: Yup.string().required("Required").matches(/\S/, "Required"),
+    rent: Yup.string().required("Required").matches(/\S/, "Required"),
   });
 
   handleOpenAddPropertyModal = () => {

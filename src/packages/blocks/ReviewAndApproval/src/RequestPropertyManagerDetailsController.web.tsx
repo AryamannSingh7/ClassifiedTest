@@ -12,6 +12,7 @@ export interface Props {
   id: string;
   // Customizable Area Start
   classes: any;
+  t: (label: string) => string;
   // Customizable Area End
 }
 
@@ -21,7 +22,6 @@ interface S {
 
   propertyId: string;
   propertyDetails: PropertyDetails;
-
   // Customizable Area End
 }
 

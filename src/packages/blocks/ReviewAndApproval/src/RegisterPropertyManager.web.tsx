@@ -1,5 +1,5 @@
 // Customizable Area Start
-import React, { useRef } from "react";
+import React from "react";
 import {
   Button,
   Container,
@@ -38,7 +38,6 @@ import {
 } from "./assets";
 import { Formik, Form } from "formik";
 import { withTranslation } from "react-i18next";
-import "../../../web/src/i18n.js";
 import Loader from "../../../components/src/Loader.web";
 import { PropertyManagerStyleWeb } from "./PropertyManagerStyle.web";
 import RegisterPropertyManagerController, { Props } from "./RegisterPropertyManagerController.web";
@@ -69,8 +68,7 @@ class RegisterPropertyManager extends RegisterPropertyManagerController {
   }
 
   render() {
-    const { classes } = this.props;
-    const { t }: any = this.props;
+    const { classes, t } = this.props;
 
     return (
       <>
@@ -105,7 +103,7 @@ class RegisterPropertyManager extends RegisterPropertyManagerController {
                     >
                       {({ values, errors, touched, handleChange, handleBlur, handleSubmit, setFieldValue }) => {
                         return (
-                          <Form onSubmit={handleSubmit} translate="true">
+                          <Form onSubmit={handleSubmit} translate="yes">
                             <Box className="select-input-box">
                               <FormControl fullWidth>
                                 <Input
@@ -175,9 +173,7 @@ class RegisterPropertyManager extends RegisterPropertyManagerController {
                                       return (
                                         <MenuItem key={country.dial_code} value={country.dial_code}>
                                           <img
-                                            src={`https://cdn.jsdelivr.net/npm/country-flag-emoji-json@2.0.0/dist/images/${
-                                              country.code
-                                            }.svg`}
+                                            src={`https://cdn.jsdelivr.net/npm/country-flag-emoji-json@2.0.0/dist/images/${country.code}.svg`}
                                             width="15"
                                             height="15"
                                             style={{ marginRight: "5px" }}
@@ -216,8 +212,9 @@ class RegisterPropertyManager extends RegisterPropertyManagerController {
                                       </h4>
                                       <Box className="box-icons">
                                         <img
+                                          className="edit-property-icon"
                                           src={EditIcon}
-                                          alt=""
+                                          alt="edit"
                                           onClick={() => {
                                             this.setState({ propertyId: index + "", propertyForm: property }, () => {
                                               this.handleOpenAddPropertyModal();
@@ -225,8 +222,9 @@ class RegisterPropertyManager extends RegisterPropertyManagerController {
                                           }}
                                         />
                                         <img
+                                          className="delete-property-icon"
                                           src={DeleteIcon}
-                                          alt=""
+                                          alt="delete"
                                           onClick={() => {
                                             const newPropertyList = this.state.propertyList.filter(
                                               (property: any, id: number) => id !== index
@@ -399,7 +397,7 @@ class RegisterPropertyManager extends RegisterPropertyManagerController {
           >
             {({ values, errors, touched, handleChange, handleBlur, handleSubmit, setFieldValue }) => {
               return (
-                <Form onSubmit={handleSubmit} translate="true">
+                <Form onSubmit={handleSubmit} translate="yes">
                   <Box>
                     {this.state.propertyId ? <h4>{t("Edit Property")}</h4> : <h4>{t("Add Another Property")}</h4>}
                     <FormControl fullWidth>
