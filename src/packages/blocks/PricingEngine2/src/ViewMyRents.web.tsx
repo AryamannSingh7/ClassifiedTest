@@ -31,7 +31,7 @@ class ViewMyRents extends ViewMyInvoicesController{
                       <Box style={{ display:"flex", alignItems:"center", gap:"1rem"}}>
                           <ArrowBackIcon onClick={() => window.history.back()} />
                           <p style={{ fontSize: '1.2rem', fontWeight: 600 }}>
-                             Building / Unit name
+                              {this.state.mainBuildingName} / {this.state.mainUnitName}
                           </p>
                       </Box>
                       <Box>
@@ -74,14 +74,35 @@ class ViewMyRents extends ViewMyInvoicesController{
                                         >
                                             <Box style={{minWidth:"100%"}}>
                                                 <Grid container spacing={1} onClick={()=>this.props.history.push(`/RentDetails/${item.id}`)}>
-                                                    <Grid xs={12}>
+                                                    <Grid item xs={12}>
                                                         <Box style={{display:"flex",alignItems:"center",justifyContent:"space-between"}}>
                                                             <Typography variant={"subtitle2"}>
                                                                 {item?.attributes?.month} {item?.attributes?.year}
                                                             </Typography>
-                                                            <Typography variant="subtitle2" className="paymentStatusRed">
-                                                                Due
-                                                            </Typography>
+                                                            {
+                                                                item.attributes.status === "due" &&
+                                                                <Typography variant="subtitle2" className="paymentStatusRed">
+                                                                    Due
+                                                                </Typography>
+                                                            }
+                                                            {
+                                                                item.attributes.status === "partially_paid" &&
+                                                                <Typography variant="subtitle2" className="paymentStatusYellow">
+                                                                    Partially Paid
+                                                                </Typography>
+                                                            }
+                                                            {
+                                                                item.attributes.status === "fully_paid" &&
+                                                                <Typography variant="subtitle2" className="paymentStatusGreen">
+                                                                    Received
+                                                                </Typography>
+                                                            }
+                                                            {
+                                                                item.attributes.status === "overdue" &&
+                                                                <Typography variant="subtitle2" className="paymentStatusOrange">
+                                                                    Overdue
+                                                                </Typography>
+                                                            }
                                                         </Box>
                                                     </Grid>
                                                     <Grid item xs={6} style={{marginTop:"15px"}}>
@@ -117,14 +138,21 @@ class ViewMyRents extends ViewMyInvoicesController{
                                                         </Typography>
                                                     </Grid>
                                                 </Grid>
-                                                <Grid container spacing={2} style={{marginTop:"10px"}}>
-                                                    <Grid item xs={6} >
-                                                        <PartialButton fullWidth onClick={() => this.handlePaymentClick(item,true)}>Partial Payment</PartialButton>
+                                                {
+                                                    item.attributes.status !== "fully_paid" &&
+                                                    <Grid container spacing={2} style={{marginTop: "10px"}}>
+                                                        <Grid item xs={6}>
+                                                            <PartialButton fullWidth
+                                                                           onClick={() => this.handlePaymentClick(item, true)}>Partial
+                                                                Payment</PartialButton>
+                                                        </Grid>
+                                                        <Grid item xs={6}>
+                                                            <FullButton fullWidth
+                                                                        onClick={() => this.handlePaymentClick(item, false)}>Full
+                                                                Payment</FullButton>
+                                                        </Grid>
                                                     </Grid>
-                                                    <Grid item xs={6} >
-                                                        <FullButton fullWidth onClick={() => this.handlePaymentClick(item,false)}>Full Payment</FullButton>
-                                                    </Grid>
-                                                </Grid>
+                                                }
                                             </Box>
                                         </Box>
                                     </Grid>
@@ -249,6 +277,5 @@ const FullButton = withStyles((theme) => ({
         height:"35px",
     },
 }))(Button);
-
 
 // Customizable Area End

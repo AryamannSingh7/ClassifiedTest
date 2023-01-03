@@ -35,6 +35,8 @@ interface S {
   unitName:any;
   tenantName:any;
   partialPaymentError:any;
+  mainBuildingName:any;
+  mainUnitName:any;
 }
 
 interface SS {
@@ -79,7 +81,9 @@ export default class CoverImageController extends BlockComponent<
       buildingName:"",
       unitName:"",
       tenantName:"",
-      partialPaymentError:""
+      partialPaymentError:"",
+      mainBuildingName:"",
+      mainUnitName:"",
     };
 
     this.emailReg = new RegExp("");
@@ -188,7 +192,9 @@ export default class CoverImageController extends BlockComponent<
         console.log(responseJson,errorReponse)
         if(responseJson.hasOwnProperty("data")){
           this.setState({
-            invoiceListing:responseJson.data
+            invoiceListing:responseJson.data,
+            mainBuildingName:responseJson?.data[0]?.attributes?.building_name || "",
+            mainUnitName:responseJson?.data[0]?.attributes?.unit_no || "",
           })
         }
       }
@@ -200,7 +206,6 @@ export default class CoverImageController extends BlockComponent<
       }
     }
   }
-
   fullPaymentResponse = (responseJson:any) => {
     if(responseJson.hasOwnProperty("data")){
       this.setState({

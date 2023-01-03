@@ -5,7 +5,6 @@ import KeyboardBackspaceIcon from "@material-ui/icons/KeyboardBackspace";
 import PropertyManagerRequestController, { Props } from "./PropertyManagerRequestController.web";
 import { BuildingLogo } from "./assets";
 import { withTranslation } from "react-i18next";
-import "../../../web/src/i18n.js";
 import { PropertyManagerStyleWeb } from "./PropertyManagerStyle.web";
 import Loader from "../../../components/src/Loader.web";
 
@@ -15,8 +14,7 @@ class PropertyManagerRequest extends PropertyManagerRequestController {
   }
 
   render() {
-    const { classes } = this.props;
-    const { t }: any = this.props;
+    const { t, classes }: any = this.props;
 
     return (
       <>

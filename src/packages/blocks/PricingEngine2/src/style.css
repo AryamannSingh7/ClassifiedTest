@@ -40,6 +40,20 @@
     font-weight: 800 !important;
 }
 
+.paymentStatusYellow{
+    background: #edbe2b2e;
+    padding: 2px 5px;
+    font-size: 12px !important;
+    border-radius: 30px;
+    color: #CFA115;
+    display: initial;
+    min-height: 20px;
+    text-transform: capitalize;
+    min-width: 70px;
+    text-align: center;
+    font-weight: 800 !important;
+}
+
 .shareIcon {
     display: flex;
     justify-content: center;

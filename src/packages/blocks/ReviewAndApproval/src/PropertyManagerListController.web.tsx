@@ -13,6 +13,7 @@ export interface Props {
   id: string;
   // Customizable Area Start
   classes: any;
+  t: (label: string) => string;
   // Customizable Area End
 }
 
@@ -198,6 +199,26 @@ export default class PropertyManagerListController extends BlockComponent<Props,
 
     runEngine.sendMessage(apiRequest.id, apiRequest);
     return true;
+  };
+
+  handleNavigationToDetails = (managerId: any) => {
+    this.props.navigation.navigate("PropertyManagerDetails", {
+      id: managerId,
+    });
+  };
+
+  handleNavigationToEdit = (managerId: any) => {
+    this.props.navigation.navigate("EditPropertyManager", {
+      id: managerId,
+    });
+  };
+
+  handleDeletePropertyManager = (managerId: any) => {
+    this.setState({ loading: true }, () => this.deletePropertyManager(managerId));
+  };
+
+  handleSort = (sortString: any) => {
+    this.setState({ sort: sortString });
   };
   // Customizable Area End
 }
