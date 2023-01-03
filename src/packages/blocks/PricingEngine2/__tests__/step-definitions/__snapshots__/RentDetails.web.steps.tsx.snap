@@ -5,7 +5,13 @@ exports[`RentPayment User navigates to ViewMyRents 1`] = `
   history={[MockFunction]}
   id="ViewMyRents"
   location={[MockFunction]}
-  match={[MockFunction]}
+  match={
+    Object {
+      "params": Object {
+        "id": 1,
+      },
+    }
+  }
   navigation={Object {}}
   t={
     [MockFunction] {
@@ -504,12 +510,15 @@ exports[`RentPayment User navigates to ViewMyRents 1`] = `
                         }
                       >
                         <ForwardRef(ArrowBackIcon)
+                          className="backButtonRegisterRent"
                           onClick={[Function]}
                         >
                           <WithStyles(ForwardRef(SvgIcon))
+                            className="backButtonRegisterRent"
                             onClick={[Function]}
                           >
                             <ForwardRef(SvgIcon)
+                              className="backButtonRegisterRent"
                               classes={
                                 Object {
                                   "colorAction": "MuiSvgIcon-colorAction",
@@ -527,7 +536,7 @@ exports[`RentPayment User navigates to ViewMyRents 1`] = `
                             >
                               <svg
                                 aria-hidden={true}
-                                className="MuiSvgIcon-root"
+                                className="MuiSvgIcon-root backButtonRegisterRent"
                                 focusable="false"
                                 onClick={[Function]}
                                 viewBox="0 0 24 24"

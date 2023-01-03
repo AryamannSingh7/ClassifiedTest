@@ -11,12 +11,11 @@ import MessageEnum, {
 // @ts-ignore
 import React from "react";
 import RentUnitLists from "../../src/RentUnitLists.web";
-import RentPayments from "../../src/RentPayments.web";
 const navigation = require("react-navigation");
 
 const screenProps = {
   navigation: {},
-  id: "RentPayments",
+  id: "RentUnitLists",
   location: jest.fn(),
   history: {
     push:jest.fn(),

@@ -2083,19 +2083,19 @@ const routeMap = {
     exact: true
   },
 
-  // GenerateBudgetReport:{
-  //   component: GenerateBudgetReport,
-  //   path: '/GenerateBudgetReport',
-  //   roles: [ROLE.MANAGER],
-  //   exact: true
-  // },
+  GenerateBudgetReport:{
+    component: GenerateBudgetReport,
+    path: '/GenerateBudgetReport',
+    roles: [ROLE.MANAGER],
+    exact: true
+  },
 
-  // GenerateBudgetReportPreview:{
-  //   component: GenerateBudgetReportPreview,
-  //   path: '/GenerateBudgetReportPreview',
-  //   roles: [ROLE.MANAGER],
-  //   exact: true
-  // },
+  GenerateBudgetReportPreview:{
+    component: GenerateBudgetReportPreview,
+    path: '/GenerateBudgetReportPreview',
+    roles: [ROLE.MANAGER],
+    exact: true
+  },
 
   ExpenseReport: {
     component: ExpenseReport,
