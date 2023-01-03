@@ -1,6 +1,6 @@
 import React from "react";
 import { withTranslation } from "react-i18next";
-import UnitTotalExpenseController, { IExpense, IExpenseCategory, Props } from "./UnitTotalExpenseController.web";
+import UnitTotalExpenseController, { Props } from "./UnitTotalExpenseController.web";
 import {
   Box,
   Button,
@@ -23,6 +23,7 @@ import { TotalExpenseStyle } from "./TotalExpenseStyle.web";
 import CircleUnchecked from "@material-ui/icons/RadioButtonUnchecked";
 import CircleCheckedFilled from "@material-ui/icons/CheckCircle";
 import moment from "moment";
+import { IExpense, IExpenseCategory } from "../../../../framework/src/Interfaces/IExpenseReport.web";
 
 class UnitTotalExpense extends UnitTotalExpenseController {
   constructor(props: Props) {
@@ -31,8 +32,6 @@ class UnitTotalExpense extends UnitTotalExpenseController {
 
   render() {
     const { t, classes }: any = this.props;
-
-    console.log(this.state);
 
     return (
       <>
@@ -61,7 +60,7 @@ class UnitTotalExpense extends UnitTotalExpenseController {
                       <Grid container spacing={2}>
                         <Grid item xs={6}>
                           <Input
-                            value=""
+                            value={this.state.startDate}
                             name="date"
                             className="date-box"
                             placeholder={t("Start Date")}
@@ -72,17 +71,20 @@ class UnitTotalExpense extends UnitTotalExpenseController {
                                 <img src={ExpenseDateIcon} alt="" />
                               </InputAdornment>
                             }
+                            onChange={(e: any) => this.setState({ startDate: e.target.value })}
                           />
                         </Grid>
                         <Grid item xs={6}>
                           <Box className="input-date-box">
                             <input
-                              value=""
+                              value={this.state.endDate}
                               name="date"
                               className="select-input input"
                               placeholder={t("End Date")}
                               type="text"
                               onFocus={(e: any) => (e.target.type = "date")}
+                              min={this.state.startDate}
+                              onChange={(e: any) => this.setState({ endDate: e.target.value })}
                             />
                             <img src={ExpenseDateIcon} alt="" />
                           </Box>
@@ -108,9 +110,7 @@ class UnitTotalExpense extends UnitTotalExpenseController {
                                         <Grid item xs={6}>
                                           <Box className="unit-expense-card-box">
                                             <span>Cost</span>
-                                            <p>{`${expense.attributes.address.currency} ${
-                                              expense.attributes.expense_amount
-                                            }`}</p>
+                                            <p>{`${expense.attributes.address.currency} ${expense.attributes.expense_amount}`}</p>
                                           </Box>
                                         </Grid>
                                         <Grid item xs={6}>

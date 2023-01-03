@@ -4,11 +4,7 @@ import { BlockComponent } from "../../../../framework/src/BlockComponent";
 import MessageEnum, { getName } from "../../../../framework/src/Messages/MessageEnum";
 import { runEngine } from "../../../../framework/src/RunEngine";
 import { ApiCatchErrorResponse, ApiErrorResponse } from "../../../../components/src/APIErrorResponse";
-
-export interface IExpenseCategory {
-  id: number;
-  title: string;
-}
+import { IExpense, IExpenseCategory } from "../../../../framework/src/Interfaces/IExpenseReport.web";
 
 interface IResponseExpenseCategoryList {
   expense_category: IExpenseCategory[];
@@ -16,35 +12,6 @@ interface IResponseExpenseCategoryList {
 
 interface IResponseExpenseList {
   data: IExpense[];
-}
-
-export interface IExpense {
-  id: string;
-  type: string;
-  attributes: {
-    id: number;
-    expense_date: string;
-    expense_amount: number;
-    issue_title: string;
-    expense_category_id: number;
-    address: {
-      currency: string;
-    };
-    building_management: {
-      id: number;
-      name: string;
-    };
-    apartment_management: {
-      id: number;
-      apartment_name: string;
-    };
-    resolved_by: string;
-    expense_category: {
-      id: number;
-      title: string;
-    };
-    summary: string;
-  };
 }
 
 export const configJSON = require("../config");
@@ -70,6 +37,9 @@ interface S {
 
   categoryList: number[];
   filterCategoryList: number[];
+
+  startDate: string;
+  endDate: string;
 }
 
 interface SS {
@@ -103,6 +73,9 @@ export default class UnitTotalExpenseController extends BlockComponent<Props, S,
 
       categoryList: [],
       filterCategoryList: [],
+
+      startDate: "",
+      endDate: "",
     };
     runEngine.attachBuildingBlock(this as IBlock, this.subScribedMessages);
   }
@@ -158,13 +131,21 @@ export default class UnitTotalExpenseController extends BlockComponent<Props, S,
   }
 
   async componentDidUpdate(prevProps: Readonly<Props>, prevState: Readonly<S>): Promise<void> {
-    if (JSON.stringify(prevState.filterCategoryList) !== JSON.stringify(this.state.filterCategoryList)) {
+    if (
+      JSON.stringify(prevState.filterCategoryList) !== JSON.stringify(this.state.filterCategoryList) ||
+      prevState.startDate !== this.state.startDate ||
+      prevState.endDate !== this.state.endDate
+    ) {
       this.getAllExpenseList();
     }
   }
 
   getAllExpenseList = () => {
-    const { filterCategoryList } = this.state;
+    const { filterCategoryList, startDate, endDate } = this.state;
+    let dateFilterString: string = "";
+    if (startDate && endDate) {
+      dateFilterString = `&start_date=${startDate}&end_date=${endDate}`;
+    }
 
     const header = {
       "Content-Type": configJSON.ApiContentType,
@@ -179,7 +160,9 @@ export default class UnitTotalExpenseController extends BlockComponent<Props, S,
       getName(MessageEnum.RestAPIResponceEndPointMessage),
       `bx_block_expensetracking/expenses/unit_expense?apartment_management_id=${
         this.state.unitId
-      }&expense_category_id=${filterCategoryList.length > 0 ? JSON.stringify(filterCategoryList) : ""}`
+      }&expense_category_id=${
+        filterCategoryList.length > 0 ? JSON.stringify(filterCategoryList) : ""
+      }${dateFilterString}`
     );
 
     apiRequest.addData(getName(MessageEnum.RestAPIRequestHeaderMessage), JSON.stringify(header));

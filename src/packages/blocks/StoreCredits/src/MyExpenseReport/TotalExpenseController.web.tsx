@@ -6,29 +6,7 @@ import { runEngine } from "../../../../framework/src/RunEngine";
 
 // Customizable Area Start
 import { ApiCatchErrorResponse, ApiErrorResponse } from "../../../../components/src/APIErrorResponse";
-
-export interface ICategoryExpense {
-  currency: string;
-  expenses: number;
-  title: string;
-}
-
-export interface ICityExpense {
-  city_name: string;
-  currency: string;
-  expenses: number;
-  society_management_id: number;
-  society_management_name: string;
-}
-
-export interface IUnitExpense {
-  building_id: number;
-  building_name: string;
-  currency: string;
-  expenses: number;
-  id: number;
-  unit_name: string;
-}
+import { ICategoryExpense, ICityExpense, IUnitExpense } from "../../../../framework/src/Interfaces/IExpenseReport.web";
 // Customizable Area End
 
 export const configJSON = require("../config");

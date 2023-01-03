@@ -1,97 +1,18 @@
 import { defineFeature, loadFeature } from "jest-cucumber";
 import { mount } from "enzyme";
-import React, { Component } from "react";
+import React from "react";
 import UnitTotalExpense from "../../src/MyExpenseReport/UnitTotalExpense.web";
 import { TotalExpenseStyle } from "../../src/MyExpenseReport/TotalExpenseStyle.web";
 import { Button, Checkbox, Drawer, IconButton } from "@material-ui/core";
 import { Message } from "../../../../framework/src/Message";
 import MessageEnum, { getName } from "../../../../framework/src/Messages/MessageEnum";
 import { runEngine } from "../../../../framework/src/RunEngine";
+import { componentProps } from "../../../../components/src/TestCase/ComponentProps.web";
+import { expenseCategoryMockData, myExpenseListMockData, unitDetailsMockData } from "../../../../components/src/TestCase/ExpenseReportMockData.web";
 
-const UnitTotalExpenseProps = {
-  navigation: {
-    getParam: jest.fn(),
-    goBack: jest.fn(),
-    navigate: jest.fn(),
-  },
-  id: "UnitTotalExpense",
-  classes: TotalExpenseStyle,
-};
-
-const expenseCategories = {
-  expense_category: [
-    {
-      id: 1,
-      title: "Plumbing",
-    },
-    {
-      id: 2,
-      title: "Electricity",
-    },
-  ],
-};
-
-const myExpenseList = {
-  data: [
-    {
-      id: "7",
-      attributes: {
-        id: 7,
-        expense_date: "2022-12-01",
-        expense_amount: "$ 120",
-        issue_title: "Issue: Plumbing",
-        expense_category_id: 5,
-        address: {
-          currency: "SR",
-        },
-        building_management: {
-          id: 3,
-          name: "First Building",
-        },
-        apartment_management: {
-          id: 94,
-          apartment_name: "301",
-        },
-        society_management: {
-          id: 5,
-          name: "New Society",
-        },
-        resolved_by: "John Doe",
-        summary: "Issue: Plumbing ",
-        expense_category: {
-          id: 5,
-          title: "Renovation",
-        },
-      },
-    },
-  ],
-};
-
-const selectedUnitDetails = {
-  data: {
-    id: "94",
-    attributes: {
-      apartment_name: "301",
-      building_management: {
-        id: 3,
-        name: "First Building",
-      },
-    },
-  },
-};
+const UnitTotalExpenseProps = componentProps("UnitTotalExpense", TotalExpenseStyle);
 
 const feature = loadFeature("./__tests__/features/UnitTotalExpense.web.feature");
-
-jest.mock("@material-ui/core/styles", () => ({
-  withStyles: (styles: any) => (component: Component) => component,
-}));
-
-jest.mock("react-i18next", () => ({
-  withTranslation: () => (Component: any) => {
-    Component.defaultProps = { ...Component.defaultProps, t: () => "" };
-    return Component;
-  },
-}));
 
 defineFeature(feature, (test) => {
   beforeEach(() => {
@@ -131,7 +52,9 @@ defineFeature(feature, (test) => {
     then("Should load the expense category list", async () => {
       let expenseCategoryList = new Message(getName(MessageEnum.RestAPIResponceMessage));
       expenseCategoryList.addData(getName(MessageEnum.RestAPIResponceDataMessage), expenseCategoryList);
-      expenseCategoryList.addData(getName(MessageEnum.RestAPIResponceSuccessMessage), expenseCategories);
+      expenseCategoryList.addData(getName(MessageEnum.RestAPIResponceSuccessMessage), {
+        expense_category: expenseCategoryMockData
+      });
       instance.GetAllExpenseCategoryListCallId = expenseCategoryList;
       runEngine.sendMessage("Expense Category List", expenseCategoryList);
       expect(instance.state.expenseCategoryList.length).toBeGreaterThan(0);
@@ -140,7 +63,9 @@ defineFeature(feature, (test) => {
     then("Should load the unit details", async () => {
       let unitDetails = new Message(getName(MessageEnum.RestAPIResponceMessage));
       unitDetails.addData(getName(MessageEnum.RestAPIResponceDataMessage), unitDetails);
-      unitDetails.addData(getName(MessageEnum.RestAPIResponceSuccessMessage), selectedUnitDetails);
+      unitDetails.addData(getName(MessageEnum.RestAPIResponceSuccessMessage), {
+        data: unitDetailsMockData
+      });
       instance.GetUnitDetailsCallId = unitDetails;
       runEngine.sendMessage("Unit Details", unitDetails);
     });
@@ -148,7 +73,9 @@ defineFeature(feature, (test) => {
     then("Should load the unit expense list", async () => {
       let expenseList = new Message(getName(MessageEnum.RestAPIResponceMessage));
       expenseList.addData(getName(MessageEnum.RestAPIResponceDataMessage), expenseList);
-      expenseList.addData(getName(MessageEnum.RestAPIResponceSuccessMessage), myExpenseList);
+      expenseList.addData(getName(MessageEnum.RestAPIResponceSuccessMessage), {
+        data: myExpenseListMockData,
+      });
       instance.GetAllExpenseListCallId = expenseList;
       runEngine.sendMessage("Expense List", expenseList);
       expect(instance.state.expenseList.length).toBeGreaterThan(0);

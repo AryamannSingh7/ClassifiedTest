@@ -1,11 +1,6 @@
 import React from "react";
 import { withTranslation } from "react-i18next";
-import TotalExpenseController, {
-  ICategoryExpense,
-  ICityExpense,
-  IUnitExpense,
-  Props,
-} from "./TotalExpenseController.web";
+import TotalExpenseController, { Props } from "./TotalExpenseController.web";
 import { Box, Card, Container, Grid, IconButton, Link, MenuItem, withStyles } from "@material-ui/core";
 import KeyboardBackspaceIcon from "@material-ui/icons/KeyboardBackspace";
 import { ExpenseIcon, FilterIcon } from "../assets";
@@ -13,6 +8,7 @@ import SidebarImageComponent from "../../../../components/src/OwnerSidebarImage.
 import { TotalExpenseStyle } from "./TotalExpenseStyle.web";
 import { Menu } from "@szhsin/react-menu";
 import ExpenseCard from "../../../../components/src/ExpenseCard";
+import { ICategoryExpense, ICityExpense, IUnitExpense } from "../../../../framework/src/Interfaces/IExpenseReport.web";
 
 class TotalExpense extends TotalExpenseController {
   constructor(props: Props) {
@@ -21,8 +17,6 @@ class TotalExpense extends TotalExpenseController {
 
   render() {
     const { t, classes } = this.props;
-
-    console.log(this.state);
 
     return (
       <>
@@ -101,9 +95,9 @@ class TotalExpense extends TotalExpenseController {
                             <Card className="expense-card">{t("No Expense Available")}</Card>
                           </Grid>
                         )}
-                        {this.state.categoryWiseExpense.map((expense: ICategoryExpense, index: number) => {
+                        {this.state.categoryWiseExpense.map((expense: ICategoryExpense) => {
                           return (
-                            <Grid item xs={6} key={index}>
+                            <Grid item xs={6} key={expense.title}>
                               <ExpenseCard
                                 heading={expense.title}
                                 title="Total Expenses"
@@ -125,9 +119,9 @@ class TotalExpense extends TotalExpenseController {
                             <Card className="expense-card">{t("No Expense Available")}</Card>
                           </Grid>
                         )}
-                        {this.state.unitWiseExpense.map((expense: IUnitExpense, index: number) => {
+                        {this.state.unitWiseExpense.map((expense: IUnitExpense) => {
                           return (
-                            <Grid item xs={6} key={index}>
+                            <Grid item xs={6} key={expense.id}>
                               <Link href={`/TotalExpense/${expense.id}`}>
                                 <ExpenseCard
                                   heading={`Unit ${expense.unit_name} Building ${expense.building_name}`}
@@ -153,7 +147,7 @@ class TotalExpense extends TotalExpenseController {
                         )}
                         {this.state.cityWiseExpense.map((expense: ICityExpense, index: number) => {
                           return (
-                            <Grid item xs={6} key={index}>
+                            <Grid item xs={6} key={expense.city_name}>
                               <ExpenseCard
                                 heading={expense.city_name}
                                 title="Total Expenses"
