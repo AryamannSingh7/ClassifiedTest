@@ -59,10 +59,6 @@ defineFeature(feature, (test) => {
         const backButtonSpy = jest.spyOn(FacilityReservationMountWrapper.find(".backIcons").at(0).props(), "onClick");
         FacilityReservationMountWrapper.find(".backIcons").at(0).props().onClick();
         expect(backButtonSpy).toHaveBeenCalled();
-        // jest.spyOn(instance,"redirectToDashboard")
-        // expect(FacilityReservationMountWrapper.find("#backIcons").length).toEqual(2)
-        // FacilityReservationMountWrapper.find("#backIcons").at(1).simulate('click')
-        // expect(instance.redirectToDashboard).toHaveBeenCalled()
       });
     
   });
