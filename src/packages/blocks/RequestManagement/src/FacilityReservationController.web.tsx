@@ -314,7 +314,8 @@ export default class FacilityReservationController extends BlockComponent<
           if (responseJson && responseJson?.data ) {
           console.log("getFacilityReservationDetailsByIdApiCallId ========================>",responseJson)
           this.setState({getFacilityReservationDetails :responseJson?.data})
-          console.log("responseJson getFacilityReservationDetails========================>",this.state?.getFacilityReservationDetails)
+          const attributes = this.state?.getFacilityReservationDetails?.attributes;
+          this.setState({ areaReserveName : attributes?.common_area?.name , areaReserveDetail:attributes?.common_area?.details , reservationFees:attributes?.common_area?.reservation_fee,currency:attributes?.common_area?.currency?.currency})
           this.setState({loading: false})
           } else if (responseJson?.errors) {
             let error = responseJson.errors[0] as string;
@@ -625,6 +626,7 @@ clear= () => {
 }
 
 onChange = (e :any)=>{
+  console.log("onChange==================>",e.target?.value)
   if(e.target.name === 'areaReserve'){
     const array = e.target?.value?.split(","); 
     const details = array [1]
@@ -701,10 +703,11 @@ CreateFacilityReservation = async(val :any) => {
      const header = {
       token :localStorage.getItem("userToken")
     };
-    console.log("values create==================>",val );
+    const array = val?.areaReserve?.split(","); 
+    const id = array [0]
     const formData = new FormData();
    formData.append('facility_reservation[building_management_id]',val?.buildingName);
-   formData.append('facility_reservation[common_area_id]',val?.areaReserve);
+   formData.append('facility_reservation[common_area_id]',id);
    formData.append('facility_reservation[date]', val?.date);
    formData.append('facility_reservation[time_from]', val?.timeFrom);
    formData.append('facility_reservation[time_to]', val?.timeTo);
@@ -754,10 +757,13 @@ CreateFacilityReservation = async(val :any) => {
        const header = {
         token :localStorage.getItem("userToken")
       };
-      console.log("values create==================>",val );
+      const array = val?.areaReserve?.split(","); 
+      const id = array [0]
+
       const formData = new FormData();
+      
      formData.append('facility_reservation[building_management_id]',val?.buildingName);
-     formData.append('facility_reservation[common_area_id]',val?.areaReserve);
+     formData.append('facility_reservation[common_area_id]',id);
      formData.append('facility_reservation[date]', val?.date);
      formData.append('facility_reservation[time_from]', val?.timeFrom);
      formData.append('facility_reservation[time_to]', val?.timeTo);

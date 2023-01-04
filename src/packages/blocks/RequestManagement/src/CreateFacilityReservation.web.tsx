@@ -86,7 +86,7 @@ class CreateFacilityReservation extends FacilityReservationController {
                 <Box className="content-block-wrapper common-incident-block desktop-ui create-reservation-wrapper">
                   <Formik
                     initialValues={{
-                      areaReserve: attributes?.common_area?.id || " ",
+                      areaReserve: FacilityId ?`${attributes?.common_area?.id},${attributes?.common_area?.details},${attributes?.common_area?.name},${attributes?.common_area?.reservation_fee},${attributes?.common_area?.currency?.currency}`: " ",
                       buildingName: attributes?.building?.id || " ",
                       date: moment(attributes?.date, 'DD-MMM-YYYY').format('YYYY-MM-DD') || "",
                       timeFrom: attributes?.start_time || "",
@@ -151,9 +151,10 @@ class CreateFacilityReservation extends FacilityReservationController {
                               id="demo-simple-select-outlined"
                               style={{ paddingLeft: 50 }}
                               onChange={(e) => {
-                                this.onChange(e)
+                                this.onChange(e) ;
+                                setFieldValue("areaReserve", e.target.value)
                               }}
-                              value={this.state?.areaReserve}
+                              value={values.areaReserve}
                             >
                               <MenuItem disabled value=" ">
                                 Area to Reserve
