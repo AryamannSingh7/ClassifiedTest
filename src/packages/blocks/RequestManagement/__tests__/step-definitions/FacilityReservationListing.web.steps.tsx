@@ -161,27 +161,7 @@ const  facilityReservationListPreviousMockData = {data : [
         FacilityReservationMountWrapper.find(".backIcons").at(0).props().onClick();
         expect(backButtonSpy).toHaveBeenCalled();
       });
-      // then("Should I am able to click on asc or dec menu button", async () => {
-      //   const backButtonSpy = jest.spyOn(FacilityReservationMountWrapper.find(Button).at(0).props(), "onClick");
-      //   FacilityReservationMountWrapper.find(Button).at(0).props().onClick();
-      //   expect(backButtonSpy).toHaveBeenCalled();
-      // });
-      // then("Should I am able to click on close menu button", async () => {
-      //   const backButtonSpy = jest.spyOn(FacilityReservationMountWrapper.find(Menu).at(0).props(), "onClose");
-      //   FacilityReservationMountWrapper.find(Menu).at(0).props().onClick();
-      //   expect(backButtonSpy).toHaveBeenCalled();
-      // });
-      // then("Should I am able to click on dec menu button", async () => {
-      //   const backButtonSpy = jest.spyOn(FacilityReservationMountWrapper.find(MenuItem).at(1).props(), "onClick");
-      //   FacilityReservationMountWrapper.find(Menu).at(1).props().onClick();
-      //   expect(backButtonSpy).toHaveBeenCalled();
-      // });
-      // then("Should I am able to click on asc menu button", async () => {
-      //   const backButtonSpy = jest.spyOn(FacilityReservationMountWrapper.find(MenuItem).at(0).props(), "onClick");
-      //   FacilityReservationMountWrapper.find(Menu).at(0).props().onClick();
-      //   expect(backButtonSpy).toHaveBeenCalled();
-      // });
-      then("Should load the facility ReservationList List", async () => {
+       then("Should load the facility ReservationList List", async () => {
         let facilityReservationList = new Message(getName(MessageEnum.RestAPIResponceMessage));
         facilityReservationList.addData(getName(MessageEnum.RestAPIResponceDataMessage), facilityReservationList);
         facilityReservationList.addData(getName(MessageEnum.RestAPIResponceSuccessMessage), facilityReservationListMockData);
