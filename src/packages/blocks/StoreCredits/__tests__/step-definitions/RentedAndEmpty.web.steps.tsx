@@ -3,29 +3,15 @@ import { mount } from "enzyme";
 import React, { Component } from "react";
 import RentedAndEmpty from "../../src/MyExpenseReport/RentedAndEmpty.web";
 import { TotalExpenseStyle } from "../../src/MyExpenseReport/TotalExpenseStyle.web";
+import { Message } from "../../../../framework/src/Message";
+import MessageEnum, { getName } from "../../../../framework/src/Messages/MessageEnum";
+import { runEngine } from "../../../../framework/src/RunEngine";
+import { componentProps } from "../../../../components/src/TestCase/ComponentProps.web";
+import { rentAndEmptyUnitListMockData } from "../../../../components/src/TestCase/ExpenseReportMockData.web";
 
-const RentedAndEmptyProps = {
-  navigation: {
-    getParam: jest.fn(),
-    goBack: jest.fn(),
-    navigate: jest.fn(),
-  },
-  id: "RentedAndEmpty",
-  classes: TotalExpenseStyle,
-};
+const RentedAndEmptyProps = componentProps("RentedAndEmpty", TotalExpenseStyle);
 
 const feature = loadFeature("./__tests__/features/RentedAndEmpty.web.feature");
-
-jest.mock("@material-ui/core/styles", () => ({
-  withStyles: (styles: any) => (component: Component) => component,
-}));
-
-jest.mock("react-i18next", () => ({
-  withTranslation: () => (Component: any) => {
-    Component.defaultProps = { ...Component.defaultProps, t: () => "" };
-    return Component;
-  },
-}));
 
 defineFeature(feature, (test) => {
   beforeEach(() => {
@@ -42,11 +28,18 @@ defineFeature(feature, (test) => {
 
     when("I navigate to the RentedAndEmpty", () => {
       instance = RentedAndEmptyMountWrapper.instance();
-      console.log(instance);
     });
 
     then("RentedAndEmpty will load with out errors", async () => {
       expect(RentedAndEmptyMountWrapper).toMatchSnapshot();
+    });
+
+    then("Should load rent and empty unit data", async () => {
+      let rentAndEmptyUnit = new Message(getName(MessageEnum.RestAPIResponceMessage));
+      rentAndEmptyUnit.addData(getName(MessageEnum.RestAPIResponceDataMessage), rentAndEmptyUnit);
+      rentAndEmptyUnit.addData(getName(MessageEnum.RestAPIResponceSuccessMessage), rentAndEmptyUnitListMockData);
+      instance.RentAndCollectedCallId = rentAndEmptyUnit;
+      runEngine.sendMessage("Rent And Empty", rentAndEmptyUnit);
     });
   });
 });

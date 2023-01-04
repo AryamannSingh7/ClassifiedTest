@@ -7,6 +7,7 @@ import { runEngine } from "../../../../framework/src/RunEngine";
 // Customizable Area Start
 import { ApiCatchErrorResponse, ApiErrorResponse } from "../../../../components/src/APIErrorResponse";
 import { ICategoryExpense, ICityExpense, IUnitExpense } from "../../../../framework/src/Interfaces/IExpenseReport.web";
+import moment from "moment";
 // Customizable Area End
 
 export const configJSON = require("../config");
@@ -32,6 +33,9 @@ interface S {
   categoryWiseExpense: ICategoryExpense[];
   cityWiseExpense: ICityExpense[];
   unitWiseExpense: IUnitExpense[];
+
+  yearList: number[];
+  selectedYear: number;
   // Customizable Area End
 }
 
@@ -44,6 +48,7 @@ interface SS {
 export default class TotalExpenseController extends BlockComponent<Props, S, SS> {
   // Customizable Area Start
   ExpenseReportCallId: string = "";
+  LastYearsListCallId: string = "";
   // Customizable Area End
 
   constructor(props: Props) {
@@ -62,6 +67,9 @@ export default class TotalExpenseController extends BlockComponent<Props, S, SS>
       categoryWiseExpense: [],
       cityWiseExpense: [],
       unitWiseExpense: [],
+
+      yearList: [],
+      selectedYear: moment().year(),
       // Customizable Area End
     };
     runEngine.attachBuildingBlock(this as IBlock, this.subScribedMessages);
@@ -84,17 +92,13 @@ export default class TotalExpenseController extends BlockComponent<Props, S, SS>
         // Get All Expense List - API Response
         case this.ExpenseReportCallId:
           this.setState({ loading: false }, () => {
-            if (responseJson && responseJson.data) {
-              this.setState({
-                totalExpense: responseJson.data.attributes.total_expense,
-                categoryWiseExpense: responseJson.data.attributes.category_wise_expense,
-                cityWiseExpense: responseJson.data.attributes.city_wise_expenses,
-                unitWiseExpense: responseJson.data.attributes.unit_wise_expense,
-              });
-            }
+            this.handleExpenseReportResponse(responseJson);
           });
           break;
-        case "":
+        case this.LastYearsListCallId:
+          if (responseJson && responseJson.year) {
+            this.setState({ yearList: responseJson.year });
+          }
           break;
         default:
           break;
@@ -113,6 +117,7 @@ export default class TotalExpenseController extends BlockComponent<Props, S, SS>
   // Customizable Area Start
   async componentDidMount(): Promise<void> {
     this.getExpenseReport();
+    this.getLastYearsList();
   }
 
   getExpenseReport = () => {
@@ -128,6 +133,40 @@ export default class TotalExpenseController extends BlockComponent<Props, S, SS>
     apiRequest.addData(
       getName(MessageEnum.RestAPIResponceEndPointMessage),
       `bx_block_expense_report/expense_reports?year=2022`
+    );
+
+    apiRequest.addData(getName(MessageEnum.RestAPIRequestHeaderMessage), JSON.stringify(header));
+
+    apiRequest.addData(getName(MessageEnum.RestAPIRequestMethodMessage), configJSON.apiMethodTypeGet);
+
+    runEngine.sendMessage(apiRequest.id, apiRequest);
+    return true;
+  };
+
+  handleExpenseReportResponse = (responseJson: any) => {
+    if (responseJson && responseJson.data) {
+      this.setState({
+        totalExpense: responseJson.data.attributes.total_expense,
+        categoryWiseExpense: responseJson.data.attributes.category_wise_expense,
+        cityWiseExpense: responseJson.data.attributes.city_wise_expenses,
+        unitWiseExpense: responseJson.data.attributes.unit_wise_expense,
+      });
+    }
+  };
+
+  getLastYearsList = () => {
+    const header = {
+      "Content-Type": configJSON.ApiContentType,
+      token: localStorage.getItem("userToken"),
+    };
+
+    const apiRequest = new Message(getName(MessageEnum.RestAPIRequestMessage));
+
+    this.LastYearsListCallId = apiRequest.messageId;
+
+    apiRequest.addData(
+      getName(MessageEnum.RestAPIResponceEndPointMessage),
+      `bx_block_expense_report/expense_reports/year_list`
     );
 
     apiRequest.addData(getName(MessageEnum.RestAPIRequestHeaderMessage), JSON.stringify(header));

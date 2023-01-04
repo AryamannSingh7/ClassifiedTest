@@ -1454,6 +1454,7 @@ exports[`UnitTotalExpense User navigates to UnitTotalExpense 1`] = `
                                                 <WithStyles(ForwardRef(Input))
                                                   className="date-box"
                                                   name="date"
+                                                  onChange={[Function]}
                                                   onFocus={[Function]}
                                                   placeholder=""
                                                   startAdornment={
@@ -1494,6 +1495,7 @@ exports[`UnitTotalExpense User navigates to UnitTotalExpense 1`] = `
                                                       }
                                                     }
                                                     name="date"
+                                                    onChange={[Function]}
                                                     onFocus={[Function]}
                                                     placeholder=""
                                                     startAdornment={
@@ -1537,6 +1539,7 @@ exports[`UnitTotalExpense User navigates to UnitTotalExpense 1`] = `
                                                       inputComponent="input"
                                                       multiline={false}
                                                       name="date"
+                                                      onChange={[Function]}
                                                       onFocus={[Function]}
                                                       placeholder=""
                                                       startAdornment={
@@ -1584,6 +1587,7 @@ exports[`UnitTotalExpense User navigates to UnitTotalExpense 1`] = `
                                                         inputComponent="input"
                                                         multiline={false}
                                                         name="date"
+                                                        onChange={[Function]}
                                                         onFocus={[Function]}
                                                         placeholder=""
                                                         startAdornment={
@@ -1783,7 +1787,9 @@ exports[`UnitTotalExpense User navigates to UnitTotalExpense 1`] = `
                                                   >
                                                     <input
                                                       className="select-input input"
+                                                      min=""
                                                       name="date"
+                                                      onChange={[Function]}
                                                       onFocus={[Function]}
                                                       placeholder=""
                                                       type="text"

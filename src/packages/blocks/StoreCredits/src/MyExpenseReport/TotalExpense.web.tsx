@@ -54,13 +54,19 @@ class TotalExpense extends TotalExpenseController {
                         <Grid item xs={12}>
                           <Box className="heading">
                             <h4>2021 Expense Report</h4>
-                            <select name="" id="">
-                              <option value="">2021</option>
-                              <option value="">2022</option>
-                              <option value="">2023</option>
-                              <option value="">2024</option>
-                              <option value="">2025</option>
-                              <option value="">2026</option>
+                            <select
+                              name="year"
+                              id="year"
+                              value={this.state.selectedYear}
+                              onChange={(e: any) => this.setState({ selectedYear: e.target.value })}
+                            >
+                              {this.state.yearList.map((year: number) => {
+                                return (
+                                  <option value={year} key={year}>
+                                    {year}
+                                  </option>
+                                );
+                              })}
                             </select>
                           </Box>
                         </Grid>

@@ -55,4 +55,12 @@ export interface IExpenseCategory {
   id: number;
   title: string;
 }
+
+export interface ICityWiseRentedEmpty {
+  city_name: string;
+  society_management_id: number;
+  society_management_name: string;
+  rented: number;
+  empty: number;
+}
 // Customizable Area End

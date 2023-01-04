@@ -1,7 +1,7 @@
 import React from "react";
 import { withTranslation } from "react-i18next";
 import RentedAndEmptyController, { Props } from "./RentedAndEmptyController.web";
-import { Box, Container, Grid, IconButton, Link, withStyles } from "@material-ui/core";
+import { Box, Card, Container, Grid, IconButton, Link, withStyles } from "@material-ui/core";
 import KeyboardBackspaceIcon from "@material-ui/icons/KeyboardBackspace";
 import SidebarImageComponent from "../../../../components/src/OwnerSidebarImage.web";
 import { TotalExpenseStyle } from "./TotalExpenseStyle.web";
@@ -35,26 +35,27 @@ class RentedAndEmpty extends RentedAndEmptyController {
                   <Box className="tenant-list-box">
                     <Box className="tenant-list total-expense">
                       <Grid container spacing={2}>
-                        <Grid item xs={12}>
-                          <RentedVsEmptyUnitCard
-                            heading="Green Villa Park, Dubai"
-                            titleOne="Rented"
-                            valueOne="06"
-                            titleTwo="Empty"
-                            valueTwo="00"
-                            status=""
-                          />
-                        </Grid>
-                        <Grid item xs={12}>
-                          <RentedVsEmptyUnitCard
-                            heading="Vincent Park, New York"
-                            titleOne="Rented"
-                            valueOne="06"
-                            titleTwo="Empty"
-                            valueTwo="00"
-                            status=""
-                          />
-                        </Grid>
+                        {this.state.unitData.length === 0 && (
+                          <Grid item xs={12}>
+                            <Card className="rented-empty-card">{t("No data available")}</Card>
+                          </Grid>
+                        )}
+                        {this.state.unitData.map((unit: any) => {
+                          return (
+                            <Grid item xs={12} key={unit.id}>
+                              <RentedVsEmptyUnitCard
+                                heading={`${unit.attributes.building_management.name}, ${
+                                  unit.attributes.society_management.name
+                                }, ${unit.attributes.address[0].city}`}
+                                titleOne={t("Unit Number")}
+                                valueOne={unit.attributes.apartment_name}
+                                titleTwo={t("Floor Number")}
+                                valueTwo="00"
+                                status=""
+                              />
+                            </Grid>
+                          );
+                        })}
                       </Grid>
                     </Box>
                   </Box>

@@ -4,3 +4,4 @@ Feature: RentedVsEmpty
         Given I am a User loading RentedVsEmpty
         When I navigate to the RentedVsEmpty
         Then RentedVsEmpty will load with out errors
+        Then Should load rent vs empty unit data

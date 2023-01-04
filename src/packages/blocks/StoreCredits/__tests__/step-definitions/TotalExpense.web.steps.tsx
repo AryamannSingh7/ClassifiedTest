@@ -7,7 +7,10 @@ import { Message } from "../../../../framework/src/Message";
 import MessageEnum, { getName } from "../../../../framework/src/Messages/MessageEnum";
 import { runEngine } from "../../../../framework/src/RunEngine";
 import { componentProps } from "../../../../components/src/TestCase/ComponentProps.web";
-import { expenseDetailsMockData } from "../../../../components/src/TestCase/ExpenseReportMockData.web";
+import {
+  expenseDetailsMockData,
+  yearListMockData,
+} from "../../../../components/src/TestCase/ExpenseReportMockData.web";
 
 const TotalExpenseProps = componentProps("TotalExpense", TotalExpenseStyle);
 
@@ -40,6 +43,20 @@ defineFeature(feature, (test) => {
       expenseDetails.addData(getName(MessageEnum.RestAPIResponceSuccessMessage), { data: expenseDetailsMockData });
       instance.ExpenseReportCallId = expenseDetails;
       runEngine.sendMessage("Expense Details", expenseDetails);
+    });
+
+    then("Should load year list", async () => {
+      let yearList = new Message(getName(MessageEnum.RestAPIResponceMessage));
+      yearList.addData(getName(MessageEnum.RestAPIResponceDataMessage), yearList);
+      yearList.addData(getName(MessageEnum.RestAPIResponceSuccessMessage), yearListMockData);
+      instance.LastYearsListCallId = yearList;
+      runEngine.sendMessage("Year list", yearList);
+    });
+
+    then("Should change the year for filter by year", async () => {
+      const selectYearSpy = jest.spyOn(TotalExpenseMountWrapper.find("select").at(0).props(), "onChange");
+      TotalExpenseMountWrapper.find("select").at(0).props().onChange({ target: { value: "2022" } });
+      expect(selectYearSpy).toHaveBeenCalled();
     });
   });
 });

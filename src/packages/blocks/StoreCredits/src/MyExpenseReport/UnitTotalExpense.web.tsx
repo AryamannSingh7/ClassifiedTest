@@ -109,43 +109,45 @@ class UnitTotalExpense extends UnitTotalExpenseController {
                                       <Grid container spacing={2}>
                                         <Grid item xs={6}>
                                           <Box className="unit-expense-card-box">
-                                            <span>Cost</span>
-                                            <p>{`${expense.attributes.address.currency} ${expense.attributes.expense_amount}`}</p>
+                                            <span>{t("Cost")}</span>
+                                            <p>{`${expense.attributes.address.currency} ${
+                                              expense.attributes.expense_amount
+                                            }`}</p>
                                           </Box>
                                         </Grid>
                                         <Grid item xs={6}>
                                           <Box className="unit-expense-card-box">
-                                            <span>Issue</span>
+                                            <span>{t("Issue")}</span>
                                             <p>{expense.attributes.issue_title}</p>
                                           </Box>
                                         </Grid>
                                         <Grid item xs={6}>
                                           <Box className="unit-expense-card-box">
-                                            <span>Category</span>
+                                            <span>{t("Category")}</span>
                                             <p>{expense.attributes.expense_category.title}</p>
                                           </Box>
                                         </Grid>
                                         <Grid item xs={6}>
                                           <Box className="unit-expense-card-box">
-                                            <span>Building Name</span>
+                                            <span>{t("Building Name")}</span>
                                             <p>{expense.attributes.building_management.name}</p>
                                           </Box>
                                         </Grid>
                                         <Grid item xs={6}>
                                           <Box className="unit-expense-card-box">
-                                            <span>Unit Number</span>
+                                            <span>{t("Unit Number")}</span>
                                             <p>{expense.attributes.apartment_management.apartment_name}</p>
                                           </Box>
                                         </Grid>
                                         <Grid item xs={6}>
                                           <Box className="unit-expense-card-box">
-                                            <span>Resolved By</span>
+                                            <span>{t("Resolved By")}</span>
                                             <p>{expense.attributes.resolved_by}</p>
                                           </Box>
                                         </Grid>
                                         <Grid item xs={12}>
                                           <Box className="unit-expense-card-box">
-                                            <span>Summary</span>
+                                            <span>{t("Summary")}</span>
                                             <p>{expense.attributes.summary}</p>
                                           </Box>
                                         </Grid>

@@ -1526,40 +1526,11 @@ exports[`TotalExpense User navigates to TotalExpense 1`] = `
                                                       2021 Expense Report
                                                     </h4>
                                                     <select
-                                                      id=""
-                                                      name=""
-                                                    >
-                                                      <option
-                                                        value=""
-                                                      >
-                                                        2021
-                                                      </option>
-                                                      <option
-                                                        value=""
-                                                      >
-                                                        2022
-                                                      </option>
-                                                      <option
-                                                        value=""
-                                                      >
-                                                        2023
-                                                      </option>
-                                                      <option
-                                                        value=""
-                                                      >
-                                                        2024
-                                                      </option>
-                                                      <option
-                                                        value=""
-                                                      >
-                                                        2025
-                                                      </option>
-                                                      <option
-                                                        value=""
-                                                      >
-                                                        2026
-                                                      </option>
-                                                    </select>
+                                                      id="year"
+                                                      name="year"
+                                                      onChange={[Function]}
+                                                      value={2023}
+                                                    />
                                                   </div>
                                                 </Styled(MuiBox)>
                                               </div>

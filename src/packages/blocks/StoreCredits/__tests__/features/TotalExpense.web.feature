@@ -5,3 +5,5 @@ Feature: TotalExpense
         When I navigate to the TotalExpense
         Then TotalExpense will load with out errors
         Then Should load the total expense, unit wise, city wise and category wise expense
+        Then Should load year list
+        Then Should change the year for filter by year
