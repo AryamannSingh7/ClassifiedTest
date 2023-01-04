@@ -115,8 +115,8 @@ export default class ChairmanAccountLoginController extends BlockComponent<
       phone: "",
       userType:'',
       loading: false,
-      userTypeData:null
-
+      userTypeData:null,
+      showError:false,
       // Customizable Area End
     };
 
@@ -199,16 +199,7 @@ export default class ChairmanAccountLoginController extends BlockComponent<
             localStorage.setItem("language", "en");
             i18next.changeLanguage("en");
             this.getRegistrationRequest();
-             this.setState({loading: false})
-            // if(localStorage.getItem("userType") === "Owner"){
-            //   this.props.history.push("/OwnerDashboard")
-            //   this.setState({loading: false})
-            // }else{
-            //   this.props.history.push("/DashboardGeneral")
-            // //window.location.replace("/RegistrationRequest");
-            // this.setState({loading: false})
-            // }
-
+            this.setState({loading: false})
           } else if (responseJson?.errors) {
             let error = Object.values(responseJson.errors[0])[0] as string;
             this.setState({ error });
@@ -247,7 +238,6 @@ export default class ChairmanAccountLoginController extends BlockComponent<
             this.setState({ error: responseJson?.error || "Something went wrong!" });
 
           }
-          // this.parseApiCatchErrorResponse(this.state.error);
           this.showError()
           this.setState({loading: false})
         }
@@ -262,15 +252,12 @@ export default class ChairmanAccountLoginController extends BlockComponent<
             this.setState({ error: responseJson?.error || "Something went wrong!" });
           }
           this.setState({loading: false,showDialog:false})
-          // this.parseApiCatchErrorResponse(this.state.error);
           this.showError()
-          // this.setState({error:null})
         }
         else if (apiRequestCallId === this.getUserTypeApiCallId) {
           if (responseJson && responseJson?.data ) {
           console.log("responseJson?.data========================>",responseJson?.data.roles)
           this.setState({userTypeData :responseJson?.data.roles})
-        //   console.log("userTypeData========================>",this.state.userTypeData[0].name)
           this.setState({loading: false})
           } else if (responseJson?.errors) {
             let error = Object.values(responseJson.errors[0])[0] as string;
@@ -278,7 +265,6 @@ export default class ChairmanAccountLoginController extends BlockComponent<
           } else {
             this.setState({ error: responseJson?.error || "Something went wrong!" });
           }
-          // this.parseApiCatchErrorResponse(this.state.error);
           this.showError()
           this.setState({loading: false})
         }
