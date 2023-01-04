@@ -49,7 +49,7 @@ defineFeature(feature, (test) => {
       });
   
       when("I navigate to the CreateFacilityReservation", () => {
-        instance = FacilityReservationMountWrapper.instance();
+        //instance = FacilityReservationMountWrapper.instance();
       });
   
       then("CreateFacilityReservation will load with out errors", async () => {

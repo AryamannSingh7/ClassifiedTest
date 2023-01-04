@@ -73,10 +73,6 @@ defineFeature(feature, (test) => {
         const backButtonSpy = jest.spyOn(FacilityReservationMountWrapper.find("#backIcons").at(0).props(), "onClick");
         FacilityReservationMountWrapper.find("#backIcons").at(0).props().onClick();
         expect(backButtonSpy).toHaveBeenCalled();
-        // jest.spyOn(instance,"redirectToDashboard")
-        // expect(FacilityReservationMountWrapper.find("#backIcons").length).toEqual(2)
-        // FacilityReservationMountWrapper.find("#backIcons").at(1).simulate('click')
-        // expect(instance.redirectToDashboard).toHaveBeenCalled()
       });
       then("Should facility have five Card", async () => {
         //@ts-ignore
@@ -109,7 +105,6 @@ defineFeature(feature, (test) => {
       });
       then("Should go to create facility pages when click on book facility button", async () => {
         //@ts-ignore
-        //expect(FacilityReservationMountWrapper.find(Button).length).toEqual(4)
         const button = jest.spyOn(FacilityReservationMountWrapper.find(Button).at(5).props(), "onClick");
         FacilityReservationMountWrapper.find(Button).at(5).props().onClick();
         expect(button).toHaveBeenCalled();

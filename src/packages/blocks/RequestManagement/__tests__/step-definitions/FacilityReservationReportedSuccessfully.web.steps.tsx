@@ -4,6 +4,7 @@ import React, { Component } from "react";
 import { BrowserRouter as Router } from "react-router-dom"
 import * as helpers from "../../../../framework/src/Helpers";
 import FacilityReservation from "../../src/FacilityReservationReportedSuccessfully.web";
+import { Button } from "@material-ui/core";
 const navigation = require("react-navigation");
 
 const screenProps = {
@@ -42,20 +43,19 @@ defineFeature(feature, (test) => {
 
   test("User navigates to FacilityReservationReportedSuccessfully", ({given,when,then}) => {
     let FacilityReservationMountWrapper: any;
-    let instance: any;
+   // let instance: any;
     given("I am a User loading FacilityReservationReportedSuccessfully", () => {
       //@ts-ignore
         FacilityReservationMountWrapper = mount(<FacilityReservation.WrappedComponent {...screenProps} />,{ wrappingComponent: Router });
       });
   
       when("I navigate to the FacilityReservationReportedSuccessfully", () => {
-        instance = FacilityReservationMountWrapper.instance();
+        //instance = FacilityReservationMountWrapper.instance();
       });
   
       then("FacilityReservationReportedSuccessfully will load with out errors", async () => {
         expect(FacilityReservationMountWrapper).toMatchSnapshot();
       });
-    
     
   });
 });
