@@ -21,7 +21,6 @@ export interface Props {
 interface S {
   // Customizable Area Start
   isShareModalOpen: boolean;
-
   shareUrl: string;
 
   documentType: string;
@@ -47,7 +46,6 @@ export default class BuildingDocumentListController extends BlockComponent<Props
 
     this.state = {
       isShareModalOpen: false,
-
       shareUrl: "",
 
       documentType: "",
@@ -59,51 +57,36 @@ export default class BuildingDocumentListController extends BlockComponent<Props
   }
 
   async receive(from: string, message: Message) {
+    runEngine.debugLog("Message Recived", message);
+
     // Customizable Area Start
-    // Get Document
-    if (
-      getName(MessageEnum.RestAPIResponceMessage) === message.id &&
-      this.DocumentsCallId !== null &&
-      this.DocumentsCallId === message.getData(getName(MessageEnum.RestAPIResponceDataMessage))
-    ) {
-      this.DocumentsCallId = null;
+    if (getName(MessageEnum.RestAPIResponceMessage) === message.id) {
+      let responseJson = message.getData(getName(MessageEnum.RestAPIResponceSuccessMessage));
+      let errorResponse = message.getData(getName(MessageEnum.RestAPIResponceErrorMessage));
 
-      var responseJson = message.getData(getName(MessageEnum.RestAPIResponceSuccessMessage));
+      const apiRequestCallId = message.getData(getName(MessageEnum.RestAPIResponceDataMessage));
 
-      if (responseJson.data) {
-        this.setState({
-          ...this.state,
-          documentsList: responseJson.data,
-        });
+      switch (apiRequestCallId) {
+        case this.DocumentsCallId:
+          if (responseJson.data) {
+            this.setState({
+              ...this.state,
+              documentsList: responseJson.data,
+            });
+          }
+          break;
+        case this.ResolutionsCallId:
+          if (responseJson.code === 200) {
+            this.setState({
+              ...this.state,
+              documentsList: responseJson.resolution.data,
+            });
+          }
+          break;
+        default:
+          break;
       }
 
-      var errorResponse = message.getData(getName(MessageEnum.RestAPIResponceErrorMessage));
-      if (responseJson && responseJson.meta && responseJson.meta.token) {
-        runEngine.unSubscribeFromMessages(this, this.subScribedMessages);
-      } else {
-        ApiErrorResponse(responseJson);
-      }
-      ApiCatchErrorResponse(errorResponse);
-    }
-
-    // Get Resolutions
-    if (
-      getName(MessageEnum.RestAPIResponceMessage) === message.id &&
-      this.ResolutionsCallId !== null &&
-      this.ResolutionsCallId === message.getData(getName(MessageEnum.RestAPIResponceDataMessage))
-    ) {
-      this.ResolutionsCallId = null;
-
-      var responseJson = message.getData(getName(MessageEnum.RestAPIResponceSuccessMessage));
-
-      if (responseJson.code === 200) {
-        this.setState({
-          ...this.state,
-          documentsList: responseJson.resolution.data,
-        });
-      }
-
-      var errorResponse = message.getData(getName(MessageEnum.RestAPIResponceErrorMessage));
       if (responseJson && responseJson.meta && responseJson.meta.token) {
         runEngine.unSubscribeFromMessages(this, this.subScribedMessages);
       } else {
@@ -150,7 +133,7 @@ export default class BuildingDocumentListController extends BlockComponent<Props
     this.DocumentsCallId = apiRequest.messageId;
 
     const society_id = localStorage.getItem("society_id");
-    var APIEndpoint: string = "";
+    let APIEndpoint: string = "";
     if (documentType === "policy") {
       APIEndpoint = `society_managements/${society_id}/bx_block_my_document/policy_document`;
     } else if (documentType === "guidelines") {

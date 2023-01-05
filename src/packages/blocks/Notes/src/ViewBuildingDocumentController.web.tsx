@@ -67,57 +67,26 @@ export default class ViewBuildingDocumentController extends BlockComponent<Props
   }
 
   async receive(from: string, message: Message) {
+    runEngine.debugLog("Message Recived", message);
+
     // Customizable Area Start
-    // Get Document
-    if (
-      getName(MessageEnum.RestAPIResponceMessage) === message.id &&
-      this.GetDocumentCallId !== null &&
-      this.GetDocumentCallId === message.getData(getName(MessageEnum.RestAPIResponceDataMessage))
-    ) {
-      this.GetDocumentCallId = null;
+    if (getName(MessageEnum.RestAPIResponceMessage) === message.id) {
+      let responseJson = message.getData(getName(MessageEnum.RestAPIResponceSuccessMessage));
+      let errorResponse = message.getData(getName(MessageEnum.RestAPIResponceErrorMessage));
 
-      var responseJson = message.getData(getName(MessageEnum.RestAPIResponceSuccessMessage));
+      const apiRequestCallId = message.getData(getName(MessageEnum.RestAPIResponceDataMessage));
 
-      if (responseJson.data) {
-        this.setState({
-          ...this.state,
-          document: responseJson.data,
-          documentTitle: responseJson.data.attributes.title,
-          documentUrl: responseJson.data.attributes.images[0].url,
-          documentDownloadUrl: responseJson.data.attributes.images[0].download_url,
-        });
+      switch (apiRequestCallId) {
+        case this.GetDocumentCallId:
+          this.handleGetDocumentResponse(responseJson);
+          break;
+        case this.GetResolutionCallId:
+          this.handleGetResolutionResponse(responseJson);
+          break;
+        default:
+          break;
       }
 
-      var errorResponse = message.getData(getName(MessageEnum.RestAPIResponceErrorMessage));
-      if (responseJson && responseJson.meta && responseJson.meta.token) {
-        runEngine.unSubscribeFromMessages(this, this.subScribedMessages);
-      } else {
-        ApiErrorResponse(responseJson);
-      }
-      ApiCatchErrorResponse(errorResponse);
-    }
-
-    // Get Resolution
-    if (
-      getName(MessageEnum.RestAPIResponceMessage) === message.id &&
-      this.GetResolutionCallId !== null &&
-      this.GetResolutionCallId === message.getData(getName(MessageEnum.RestAPIResponceDataMessage))
-    ) {
-      this.GetResolutionCallId = null;
-
-      var responseJson = message.getData(getName(MessageEnum.RestAPIResponceSuccessMessage));
-
-      if (responseJson.code === 200) {
-        this.setState({
-          ...this.state,
-          document: responseJson.resolution.data,
-          documentTitle: responseJson.resolution.data.attributes.title,
-          documentUrl: responseJson.resolution.data.attributes.meeting_mins_pdf.url,
-          documentDownloadUrl: responseJson.resolution.data.attributes.meeting_mins_pdf.url,
-        });
-      }
-
-      var errorResponse = message.getData(getName(MessageEnum.RestAPIResponceErrorMessage));
       if (responseJson && responseJson.meta && responseJson.meta.token) {
         runEngine.unSubscribeFromMessages(this, this.subScribedMessages);
       } else {
@@ -178,6 +147,18 @@ export default class ViewBuildingDocumentController extends BlockComponent<Props
     return true;
   };
 
+  handleGetDocumentResponse = (responseJson: any) => {
+    if (responseJson && responseJson.data) {
+      this.setState({
+        ...this.state,
+        document: responseJson.data,
+        documentTitle: responseJson.data.attributes.title,
+        documentUrl: responseJson.data.attributes.images[0].url,
+        documentDownloadUrl: responseJson.data.attributes.images[0].download_url,
+      });
+    }
+  }
+
   // Get Resolution API
   getResolution = () => {
     const header = {
@@ -202,6 +183,18 @@ export default class ViewBuildingDocumentController extends BlockComponent<Props
     runEngine.sendMessage(apiRequest.id, apiRequest);
     return true;
   };
+
+  handleGetResolutionResponse = (responseJson: any) => {
+    if (responseJson.code === 200) {
+      this.setState({
+        ...this.state,
+        document: responseJson.resolution.data,
+        documentTitle: responseJson.resolution.data.attributes.title,
+        documentUrl: responseJson.resolution.data.attributes.meeting_mins_pdf.url,
+        documentDownloadUrl: responseJson.resolution.data.attributes.meeting_mins_pdf.url,
+      });
+    }
+  }
 
   // Handle State
   handleShareModal = () => {
