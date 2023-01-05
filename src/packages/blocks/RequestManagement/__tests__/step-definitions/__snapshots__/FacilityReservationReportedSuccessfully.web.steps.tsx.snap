@@ -1,0 +1,28 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`FacilityReservationReportedSuccessfully User navigates to FacilityReservationReportedSuccessfully 1`] = `
+<FacilityReservationReportedSuccessfully
+  history={
+    Object {
+      "push": [MockFunction] {
+        "calls": Array [
+          Array [
+            "/FacilityReservationListing",
+          ],
+        ],
+        "results": Array [
+          Object {
+            "type": "return",
+            "value": undefined,
+          },
+        ],
+      },
+    }
+  }
+  id="FacilityReservationReportedSuccessfully"
+  location={[MockFunction]}
+  match={[MockFunction]}
+  navigation={Object {}}
+  t={[MockFunction]}
+/>
+`;

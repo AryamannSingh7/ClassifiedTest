@@ -42,11 +42,6 @@ import {
   InfoIcon,
   CROSS,
   DeleteIcon2
-  // User_Icon,
-  // Calender_Icon,
-  // Info_Icon,
-  // Clipboard_Icon,
-  // Close_Icon
 }
   from "../src/assets";
 class FacilityReservationDetails extends FacilityReservationController {
@@ -63,7 +58,6 @@ class FacilityReservationDetails extends FacilityReservationController {
   }
 
   render() {
-    //console.log("getFacilityReservationDetails===========>",this.state?.getFacilityReservationDetails)
     const { navigation } = this.props;
     const reservation = localStorage.getItem("idOrName");
     const id = this.state?.getFacilityReservationDetails?.id;
@@ -204,7 +198,7 @@ class FacilityReservationDetails extends FacilityReservationController {
               </Box>
               <Box className="diloag-content classified-content diloag-management-content">
                 <img src={InfoIcon} className="lock-logo" alt="Lock_Icon" />
-                <h3>Cancel Reservation sd</h3>
+                <h3>Cancel Reservation</h3>
                 <p className="lead">Are you sure you want to cancel this reservation? If you proceed your reservation will be deleted and the manager will be notified</p>
                 <Box className="diloag-btn customButton">
                   <Button variant="outlined" onClick={() => { this.cancelUpcomingFacilityReservation(id, "Cancel") }}>Yes, CANCEL</Button>
