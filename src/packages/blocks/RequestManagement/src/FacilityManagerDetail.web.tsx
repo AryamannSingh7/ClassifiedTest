@@ -66,12 +66,12 @@ class FacilityManagerDetail extends FacilityManagerContorller {
               {/* Chairman Sidebar -- */}
               <ChairmanSidebar {...this.props} />
             </Grid>
-            <Grid xs={9} md={9} sm={9} spacing={4} style={{ paddingTop: 35 }}>
+            <Grid item xs={9} md={9} sm={9} spacing={4} style={{ paddingTop: 35 }}>
               <Container>
                 <Box className={classes.navigation}>
                   <Box>
                     <Typography variant="body1" >
-                      My Dashboard / General Dashboard / Facility Reservation /<Box component="span" style={{ color: "blue" }}> Facility Reservation Details</Box>
+                    {t("My Dashboard")} / General Dashboard / Facility Reservation /<Box component="span" style={{ color: "blue" }}> Facility Reservation Details</Box>
                     </Typography>
                     <Typography variant="h5" className={classes.subHeading}>Facility Reservation Details</Typography>
                   </Box>
@@ -108,7 +108,7 @@ class FacilityManagerDetail extends FacilityManagerContorller {
                           <Typography className="title-span" component="span">
                             Unit Number:
                           </Typography>
-                          <h4>{attributes?.email}</h4>
+                          <h4>{attributes?.unit_number}</h4>
                         </Box>
                         <Box className="card-rows">
                           <Typography className="title-span" component="span">
@@ -128,12 +128,16 @@ class FacilityManagerDetail extends FacilityManagerContorller {
                               </Typography>
                               <h4>{attributes?.rent} </h4>
                             </Box>
-                            <Box className="card-rows">
+                            {
+                              attributes?.status === "Completed" ?
+                              <Box className="card-rows">
                               <Typography className="title-span" component="span">
                                 Paid On:
                               </Typography>
                               <h4>{attributes?.paid_on}</h4>
-                            </Box>
+                            </Box>:null
+                            }
+                            
                       </Box>
                       {/* {
                         attributes?.attachments.length !== 0 ?
@@ -170,7 +174,7 @@ class FacilityManagerDetail extends FacilityManagerContorller {
                        {/* danger button */}
                        {attributes?.status === 'Pending' ? 
                        <>
-                       <Button variant="outlined"
+                       <Button variant="outlined" 
                        onClick={() => this.setState({ showDialog: true })}
                      >REJECT</Button>
                      <Button variant="contained"
@@ -227,11 +231,11 @@ class FacilityManagerDetail extends FacilityManagerContorller {
                       </Box>
                     </Box>
                     <Box className="customButton">
-                      <Button variant="outlined"
+                      <Button variant="outlined" id="showDialog-Cancel"
                         onClick={() => { this.setState({ showDialog: false, addNote: null }) }}
                       >Cancel
                       </Button>
-                      <Button variant="contained" onClick={() => this.rejectedOrCompleted("Rejected")}>Confirm</Button>
+                      <Button variant="contained" id="showDialog-Confirm" onClick={() => this.rejectedOrCompleted("Rejected")}>Confirm</Button>
                     </Box>
                   </Box>
                 </Box>
@@ -253,7 +257,7 @@ class FacilityManagerDetail extends FacilityManagerContorller {
                 <Box className="provider-dialouge-body classified-dialouge-body desktop-ui">
                   <Box className="dialouge-header">
                     <DialogTitle className="alert-dialog-title" id="alert-dialog-title">
-                      Cancel Reservation sdss
+                      Cancel Reservation
                     </DialogTitle>
                     <Button>
                       <img src={Close_Icon} className="close-icon" onClick={() => { this.setState({ ignoreShowDialog: false, addNote: null }) }} />
@@ -273,11 +277,11 @@ class FacilityManagerDetail extends FacilityManagerContorller {
                       </Box>
                     </Box>
                     <Box className="customButton">
-                      <Button variant="outlined"
+                      <Button variant="outlined" id = 'ignoreShowDialogCancel'
                         onClick={() => { this.setState({ ignoreShowDialog: false, addNote: null }) }}
                       >Cancel
                       </Button>
-                      <Button variant="contained" onClick={() => this.rejectedOrCompleted("Cancel")}>Confirm</Button>
+                      <Button variant="contained" id = 'ignoreShowDialogConfirm' onClick={() => this.rejectedOrCompleted("Cancel")}>Confirm</Button>
                     </Box>
                   </Box>
                 </Box>
@@ -311,8 +315,8 @@ class FacilityManagerDetail extends FacilityManagerContorller {
                     <h3>Approve Reservation Request</h3>
                     <p className="lead"> Are you sure you want to approve reservation request?</p>
                     <Box className="diloag-btn customButton">
-                      <Button variant="outlined" onClick={() => { this.setState({ statusShowDialog: false }) }}>Close</Button>
-                      <Button variant="contained" onClick={() => this.rejectedOrCompleted("Upcoming")}>Confirm</Button>
+                      <Button variant="outlined" id = 'statusShowDialogClose' onClick={() => { this.setState({ statusShowDialog: false }) }}>Close</Button>
+                      <Button variant="contained" id = 'statusShowDialogConfirm' onClick={() => this.rejectedOrCompleted("Upcoming")}>Confirm</Button>
                     </Box>
                   </Box>
                 </Box>
@@ -327,7 +331,7 @@ class FacilityManagerDetail extends FacilityManagerContorller {
   }
 }
 
-const dashBoard: any = {
+export const dashBoard: any = {
   navigation: {
     display: "flex",
     justifyContent: "space-between",
