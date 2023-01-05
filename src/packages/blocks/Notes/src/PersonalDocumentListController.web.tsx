@@ -27,7 +27,6 @@ interface S {
   isShareModalOpen: boolean;
 
   shareUrl: string;
-  shareQuote: string;
 
   selectedDocumentId: string;
 
@@ -62,7 +61,6 @@ export default class PersonalDocumentListController extends BlockComponent<Props
       isShareModalOpen: false,
 
       shareUrl: "",
-      shareQuote: "",
 
       selectedDocumentId: "",
 
@@ -176,15 +174,9 @@ export default class PersonalDocumentListController extends BlockComponent<Props
   // Customizable Area Start
   async componentDidMount(): Promise<void> {
     const document_name = this.props.navigation.getParam("name");
-    this.setState(
-      {
-        ...this.state,
-        documentType: document_name.toLowerCase(),
-      },
-      () => {
-        this.getDocuments();
-      }
-    );
+    this.setState({ documentType: document_name.toLowerCase() }, () => {
+      this.getDocuments();
+    });
   }
 
   // Get Documents API

@@ -31,28 +31,10 @@ import ChairmanSidebarWeb from "../../dashboard/src/ChairmanSidebar.web";
 import { Document, UploadImage, DeleteImage, ShareImage, DownloadImage, PdfImage } from "./assets";
 import { Menu } from "@szhsin/react-menu";
 import "@szhsin/react-menu/dist/core.css";
-import {
-  EmailShareButton,
-  FacebookShareButton,
-  LinkedinShareButton,
-  RedditShareButton,
-  TelegramShareButton,
-  TumblrShareButton,
-  TwitterShareButton,
-  WhatsappShareButton,
-  EmailIcon,
-  FacebookIcon,
-  LinkedinIcon,
-  RedditIcon,
-  TelegramIcon,
-  TumblrIcon,
-  TwitterIcon,
-  WhatsappIcon,
-} from "react-share";
 import moment from "moment";
 import { Formik, Form } from "formik";
 import { withTranslation } from "react-i18next";
-import "../../../web/src/i18n.js";
+import ShareDocumentModal from "../../../components/src/DocumentComponent/ShareModal.web";
 
 class DocumentListChairman extends DocumentListChairmanController {
   constructor(props: Props) {
@@ -60,12 +42,7 @@ class DocumentListChairman extends DocumentListChairmanController {
   }
 
   render() {
-    const { t }: any = this.props;
-    const { classes } = this.props;
-
-    const sharePopupWidth = 500;
-    const sharePopupHeight = 700;
-    const shareTitle = "TI 1 Final Leap";
+    const { t, classes }: any = this.props;
 
     window.addEventListener("pageshow", (event) => {
       const historyTraversal =
@@ -89,150 +66,41 @@ class DocumentListChairman extends DocumentListChairmanController {
 
             <Grid item xs={9} md={9} sm={9} style={{ paddingTop: 35 }}>
               <Container>
-                {this.state.docName.toLowerCase() !== "resolutions" &&
-                this.state.docName.toLowerCase() !== "policy" &&
-                this.state.docName.toLowerCase() !== "guidelines" &&
-                this.state.docName.toLowerCase() !== "roles" &&
-                this.state.docName.toLowerCase() !== "building-plans" ? (
-                  <p>{t("Wrong url")}</p>
-                ) : (
-                  <Box>
-                    <Box className="navigation">
-                      <Box>
-                        <Typography variant="body1">
-                          {t("Documents")} /{" "}
-                          <Box component="span" style={{ color: "blue" }}>
-                            {t(this.state.docName)}
-                          </Box>
-                        </Typography>
-                        <Box className="top-heading">
-                          <Typography variant="h5" className="sub-heading">
-                            {t(this.state.docName)}
-                          </Typography>
-                          {this.state.docName.toLowerCase() === "resolutions" ? (
-                            <Button onClick={() => this.handleAddResolutionsModal()}>{t("Add New Resolution")}</Button>
-                          ) : (
-                            <Button onClick={() => this.handleAddDocumentModal()}>{t("Upload Documents")}</Button>
-                          )}
+                <Box>
+                  <Box className="navigation">
+                    <Box>
+                      <Typography variant="body1">
+                        {t("Documents")} /{" "}
+                        <Box component="span" style={{ color: "blue" }}>
+                          {t(this.state.docName)}
                         </Box>
+                      </Typography>
+                      <Box className="top-heading">
+                        <Typography variant="h5" className="sub-heading">
+                          {t(this.state.docName)}
+                        </Typography>
+                        {this.state.docName.toLowerCase() === "resolutions" ? (
+                          <Button onClick={() => this.handleAddResolutionsModal()}>{t("Add New Resolution")}</Button>
+                        ) : (
+                          <Button onClick={() => this.handleAddDocumentModal()}>{t("Upload Documents")}</Button>
+                        )}
                       </Box>
                     </Box>
-                    <Box
-                      className={`document-box ${
-                        this.state.docName.toLowerCase() === "resolutions" ? "resolutions" : ""
-                      }`}
-                    >
-                      {this.state.docName.toLowerCase() === "resolutions" ? (
-                        <Grid container spacing={2}>
-                          {this.state.resolutionList.length === 0 && <span>{"No Resolution Available!!"}</span>}
-                          {this.state.resolutionList.map((resolution: any) => {
-                            return (
-                              <Grid item xs={12} md={6} lg={4} key={resolution.id}>
-                                <Card className="card-item">
-                                  <div className="heading">
-                                    <h4>{resolution.attributes.title}</h4>
-                                    <div className="menu">
-                                      <Menu
-                                        menuButton={
-                                          <IconButton>
-                                            <MoreVertIcon />
-                                          </IconButton>
-                                        }
-                                      >
-                                        <MenuItem>
-                                          <Link href={resolution.attributes.meeting_mins_pdf.url} target="_blank">
-                                            {t("Download")}
-                                          </Link>
-                                        </MenuItem>
-                                        <MenuItem
-                                          onClick={() => {
-                                            this.setState({ ...this.state, selectedDocumentId: resolution.id }, () => {
-                                              this.handleDeleteDocumentModal();
-                                            });
-                                          }}
-                                        >
-                                          {t("Delete")}
-                                        </MenuItem>
-                                        <MenuItem
-                                          onClick={() => {
-                                            this.setState(
-                                              {
-                                                ...this.state,
-                                                shareUrl: resolution.attributes.meeting_mins_pdf.url,
-                                                shareQuote: resolution.attributes.title,
-                                              },
-                                              () => {
-                                                this.handleShareModal();
-                                              }
-                                            );
-                                          }}
-                                        >
-                                          {t("Share")}
-                                        </MenuItem>
-                                      </Menu>
-                                    </div>
-                                  </div>
-                                  <div className="res-info">
-                                    <div className="info-item">
-                                      <p>{t("Date & Time")}</p>
-                                      <span>
-                                        {moment(resolution.attributes.created_at).format("DD-MMM-YYYY HH:mm")}
-                                      </span>
-                                    </div>
-                                    <div className="info-item">
-                                      <p>{t("Building")}</p>
-                                      <span>{resolution.attributes.buidling_name}</span>
-                                    </div>
-                                  </div>
-                                  <div className="item">
-                                    <div className="item-title">
-                                      <img src={PdfImage} />
-                                      <h6>
-                                        Meeting Minute{" "}
-                                        {moment(resolution.attributes.meeting_date_time, "DD-MM-YYYY HH:mm").format(
-                                          "DD-MMM-YYYY"
-                                        )}
-                                      </h6>
-                                    </div>
-                                    <div className="icons">
-                                      <img
-                                        src={ShareImage}
-                                        onClick={() => {
-                                          this.setState(
-                                            {
-                                              ...this.state,
-                                              shareUrl: resolution.attributes.meeting_mins_pdf.url,
-                                              shareQuote: resolution.attributes.meeting.title,
-                                            },
-                                            () => {
-                                              this.handleShareModal();
-                                            }
-                                          );
-                                        }}
-                                      />
-                                      <Link href={resolution.attributes.meeting_mins_pdf.url} target="_blank">
-                                        <img src={DownloadImage} />
-                                      </Link>
-                                    </div>
-                                  </div>
-                                </Card>
-                              </Grid>
-                            );
-                          })}
-                        </Grid>
-                      ) : (
-                        <Grid container spacing={2}>
-                          {this.state.documentList.length === 0 && <span>{t("No Document Available!!")}</span>}
-                          {this.state.documentList.map((document: any) => {
-                            return (
-                              <Grid item xs={12} md={12} lg={12}>
-                                <Box className="item">
-                                  <Link href={`/DocumentChairman/${this.state.docName}/${document.id}/view`}>
-                                    <div className="heading">
-                                      <img src={Document} />
-                                      <h4>{document.attributes.images[0].file_name}</h4>
-                                    </div>
-                                  </Link>
+                  </Box>
+                  <Box
+                    className={`document-box ${
+                      this.state.docName.toLowerCase() === "resolutions" ? "resolutions" : ""
+                    }`}
+                  >
+                    {this.state.docName.toLowerCase() === "resolutions" ? (
+                      <Grid container spacing={2}>
+                        {this.state.resolutionList.length === 0 && <span>{"No Resolution Available!!"}</span>}
+                        {this.state.resolutionList.map((resolution: any) => {
+                          return (
+                            <Grid item xs={12} md={6} lg={4} key={resolution.id}>
+                              <Card className="card-item">
+                                <div className="heading">
+                                  <h4>{resolution.attributes.title}</h4>
                                   <div className="menu">
                                     <Menu
                                       menuButton={
@@ -242,13 +110,19 @@ class DocumentListChairman extends DocumentListChairmanController {
                                       }
                                     >
                                       <MenuItem>
-                                        <Link href={document.attributes.images[0].download_url} target="_blank">
+                                        <Link
+                                          href={
+                                            resolution.attributes.meeting_mins_pdf &&
+                                            resolution.attributes.meeting_mins_pdf.url
+                                          }
+                                          target="_blank"
+                                        >
                                           {t("Download")}
                                         </Link>
                                       </MenuItem>
                                       <MenuItem
                                         onClick={() => {
-                                          this.setState({ ...this.state, selectedDocumentId: document.id }, () => {
+                                          this.setState({ ...this.state, selectedDocumentId: resolution.id }, () => {
                                             this.handleDeleteDocumentModal();
                                           });
                                         }}
@@ -256,32 +130,124 @@ class DocumentListChairman extends DocumentListChairmanController {
                                         {t("Delete")}
                                       </MenuItem>
                                       <MenuItem
-                                        onClick={() => {
-                                          this.setState(
-                                            {
-                                              ...this.state,
-                                              shareUrl: document.attributes.images[0].url,
-                                              shareQuote: document.attributes.title,
-                                            },
-                                            () => {
-                                              this.handleShareModal();
-                                            }
-                                          );
-                                        }}
+                                        onClick={() =>
+                                          this.handleOpenShareModal(
+                                            resolution.attributes.meeting_mins_pdf &&
+                                              resolution.attributes.meeting_mins_pdf.url
+                                          )
+                                        }
                                       >
                                         {t("Share")}
                                       </MenuItem>
                                     </Menu>
                                   </div>
-                                </Box>
-                              </Grid>
-                            );
-                          })}
-                        </Grid>
-                      )}
-                    </Box>
+                                </div>
+                                <div className="res-info">
+                                  <div className="info-item">
+                                    <p>{t("Date & Time")}</p>
+                                    <span>{moment(resolution.attributes.created_at).format("DD-MMM-YYYY HH:mm")}</span>
+                                  </div>
+                                  <div className="info-item">
+                                    <p>{t("Building")}</p>
+                                    <span>{resolution.attributes.buidling_name}</span>
+                                  </div>
+                                </div>
+                                <div className="item">
+                                  <div className="item-title">
+                                    <img src={PdfImage} />
+                                    <h6>
+                                      Meeting Minute{" "}
+                                      {moment(resolution.attributes.meeting_date_time, "DD-MM-YYYY HH:mm").format(
+                                        "DD-MMM-YYYY"
+                                      )}
+                                    </h6>
+                                  </div>
+                                  <div className="icons">
+                                    <img
+                                      src={ShareImage}
+                                      onClick={() =>
+                                        this.handleOpenShareModal(
+                                          resolution.attributes.meeting_mins_pdf &&
+                                            resolution.attributes.meeting_mins_pdf.url
+                                        )
+                                      }
+                                    />
+                                    <Link
+                                      href={
+                                        resolution.attributes.meeting_mins_pdf &&
+                                        resolution.attributes.meeting_mins_pdf.url
+                                      }
+                                      target="_blank"
+                                    >
+                                      <img src={DownloadImage} />
+                                    </Link>
+                                  </div>
+                                </div>
+                              </Card>
+                            </Grid>
+                          );
+                        })}
+                      </Grid>
+                    ) : (
+                      <Grid container spacing={2}>
+                        {this.state.documentList.length === 0 && <span>{t("No Document Available!!")}</span>}
+                        {this.state.documentList.map((document: any) => {
+                          return (
+                            <Grid item xs={12} md={12} lg={12}>
+                              <Box className="item">
+                                <Link href={`/DocumentChairman/${this.state.docName}/${document.id}/view`}>
+                                  <div className="heading">
+                                    <img src={Document} />
+                                    <h4>{document.attributes.title}</h4>
+                                  </div>
+                                </Link>
+                                <div className="menu">
+                                  <Menu
+                                    menuButton={
+                                      <IconButton>
+                                        <MoreVertIcon />
+                                      </IconButton>
+                                    }
+                                  >
+                                    <MenuItem>
+                                      <Link href={document.attributes.images[0].download_url} target="_blank">
+                                        {t("Download")}
+                                      </Link>
+                                    </MenuItem>
+                                    <MenuItem
+                                      onClick={() => {
+                                        this.setState({ ...this.state, selectedDocumentId: document.id }, () => {
+                                          this.handleDeleteDocumentModal();
+                                        });
+                                      }}
+                                    >
+                                      {t("Delete")}
+                                    </MenuItem>
+                                    <MenuItem
+                                      onClick={() => {
+                                        this.setState(
+                                          {
+                                            ...this.state,
+                                            shareUrl: document.attributes.images[0].url,
+                                          },
+                                          () => {
+                                            this.handleShareModal();
+                                          }
+                                        );
+                                      }}
+                                    >
+                                      {t("Share")}
+                                    </MenuItem>
+                                  </Menu>
+                                </div>
+                              </Box>
+                            </Grid>
+                          );
+                        })}
+                      </Grid>
+                    )}
                   </Box>
-                )}
+                </Box>
               </Container>
             </Grid>
           </Box>
@@ -308,6 +274,7 @@ class DocumentListChairman extends DocumentListChairmanController {
             onSubmit={(values, { resetForm }) => {
               this.setState({ ...this.state, title: values.title.trim(), file: values.file }, () => {
                 this.createDocument();
+                this.handleAddDocumentModal();
                 resetForm();
               });
             }}
@@ -330,32 +297,42 @@ class DocumentListChairman extends DocumentListChairmanController {
                       />
                       {errors.title && touched.title && <small className="error">{errors.title}</small>}
                     </FormControl>
-                    <FormControl fullWidth>
-                      <div
-                        className="image-box"
-                        onClick={() => {
-                          this.upload.click();
-                        }}
-                      >
-                        <img src={UploadImage} />
-                        <Typography variant="body1">{t("Upload File")}</Typography>
-                      </div>
-                      <input
-                        id="myInput"
-                        type="file"
-                        ref={(ref: any) => (this.upload = ref)}
-                        style={{ display: "none" }}
-                        accept=".pdf"
-                        onChange={(e: any) => {
-                          setFieldValue("file", e.currentTarget.files[0]);
-                        }}
-                        onBlur={handleBlur}
-                        name="file"
-                      />
-                      {values.file && <span className="file-name">{values.file.name}</span>}
-                      {errors.file && touched.file && <small className="error">{errors.file}</small>}
-                      <span />
-                    </FormControl>
+                    {values.file ? (
+                      <Box className="modal-document-box">
+                        <Box className="left-side-document">
+                          <img src={PdfImage} alt="pdf-img" />
+                          <p>{values.file.name}</p>
+                        </Box>
+                        <Box className="right-side-document">
+                          <CloseIcon onClick={() => setFieldValue("file", null)} />
+                        </Box>
+                      </Box>
+                    ) : (
+                      <FormControl fullWidth>
+                        <div
+                          className="image-box"
+                          onClick={() => {
+                            this.upload.click();
+                          }}
+                        >
+                          <img src={UploadImage} />
+                          <Typography variant="body1">{t("Upload File")}</Typography>
+                        </div>
+                        <input
+                          id="myInput"
+                          type="file"
+                          ref={(ref: any) => (this.upload = ref)}
+                          style={{ display: "none" }}
+                          accept=".pdf"
+                          onChange={(e: any) => {
+                            setFieldValue("file", e.currentTarget.files[0]);
+                          }}
+                          onBlur={handleBlur}
+                          name="file"
+                        />
+                        {errors.file && touched.file && <small className="error">{errors.file}</small>}
+                      </FormControl>
+                    )}
                   </DialogContent>
                   <DialogActions className="dialog-button-group">
                     <Button onClick={() => this.handleAddDocumentModal()} className="cancel-button">
@@ -434,26 +411,37 @@ class DocumentListChairman extends DocumentListChairmanController {
                 <span className="error">{t("Maximum length of title should be 100 character")}</span>
               )}
             </FormControl>
-            <FormControl fullWidth>
-              <div
-                className="image-box"
-                onClick={() => {
-                  this.upload.click();
-                }}
-              >
-                <img src={UploadImage} />
-                <Typography variant="body1">{t("Upload file")}</Typography>
-              </div>
-              <input
-                id="myInput"
-                type="file"
-                ref={(ref: any) => (this.upload = ref)}
-                style={{ display: "none" }}
-                onChange={this.onChangeFile.bind(this)}
-                accept=".pdf"
-              />
-              {this.state.file && <span className="file-name">{this.state.file.name}</span>}
-            </FormControl>
+            {this.state.file ? (
+              <Box className="modal-document-box">
+                <Box className="left-side-document">
+                  <img src={PdfImage} alt="pdf-img" />
+                  <p>{this.state.file.name}</p>
+                </Box>
+                <Box className="right-side-document">
+                  <CloseIcon onClick={() => this.setState({ file: null })} />
+                </Box>
+              </Box>
+            ) : (
+              <FormControl fullWidth>
+                <div
+                  className="image-box"
+                  onClick={() => {
+                    this.upload.click();
+                  }}
+                >
+                  <img src={UploadImage} />
+                  <Typography variant="body1">{t("Upload file")}</Typography>
+                </div>
+                <input
+                  id="myInput"
+                  type="file"
+                  ref={(ref: any) => (this.upload = ref)}
+                  style={{ display: "none" }}
+                  onChange={this.onChangeFile.bind(this)}
+                  accept=".pdf"
+                />
+              </FormControl>
+            )}
             {this.state.selectedMeeting ? (
               <div className="change-meeting">
                 <span>{this.state.selectedMeeting && this.state.selectedMeeting.attributes.title}</span>
@@ -559,96 +547,12 @@ class DocumentListChairman extends DocumentListChairmanController {
           </DialogActions>
         </Dialog>
 
-        <Dialog
-          fullWidth
-          onClose={() => this.handleShareModal()}
-          open={this.state.isShareModalOpen}
-          className="select-meeting"
-        >
-          <MuiDialogTitle disableTypography className="dialog-heading">
-            <Typography variant="h6">{t("Share")}</Typography>
-            <IconButton onClick={() => this.handleShareModal()}>
-              <CloseIcon />
-            </IconButton>
-          </MuiDialogTitle>
-          <DialogContent>
-            <div className="share-box">
-              <FacebookShareButton
-                url={this.state.shareUrl}
-                title={shareTitle}
-                windowWidth={sharePopupWidth}
-                windowHeight={sharePopupHeight}
-                // @ts-ignore
-                children={<FacebookIcon />}
-                translate
-              />
-              <TwitterShareButton
-                url={this.state.shareUrl}
-                title={shareTitle}
-                windowWidth={sharePopupWidth}
-                windowHeight={sharePopupHeight}
-                // @ts-ignore
-                children={<TwitterIcon />}
-                translate
-              />
-              <WhatsappShareButton
-                url={this.state.shareUrl}
-                title={shareTitle}
-                windowWidth={sharePopupWidth}
-                windowHeight={sharePopupHeight}
-                separator=":: "
-                // @ts-ignore
-                children={<WhatsappIcon />}
-                translate
-              />
-              <LinkedinShareButton
-                url={this.state.shareUrl}
-                title={shareTitle}
-                windowWidth={sharePopupWidth}
-                windowHeight={sharePopupHeight}
-                // @ts-ignore
-                children={<LinkedinIcon />}
-                translate
-              />
-              <EmailShareButton
-                url={this.state.shareUrl}
-                title={shareTitle}
-                windowWidth={sharePopupWidth}
-                windowHeight={sharePopupHeight}
-                // @ts-ignore
-                children={<EmailIcon />}
-                translate
-              />
-              <RedditShareButton
-                url={this.state.shareUrl}
-                title={shareTitle}
-                windowWidth={sharePopupWidth}
-                windowHeight={sharePopupHeight}
-                // @ts-ignore
-                children={<RedditIcon />}
-                translate
-              />
-              <TelegramShareButton
-                url={this.state.shareUrl}
-                title={shareTitle}
-                windowWidth={sharePopupWidth}
-                windowHeight={sharePopupHeight}
-                // @ts-ignore
-                children={<TelegramIcon />}
-                translate
-              />
-              <TumblrShareButton
-                url={this.state.shareUrl}
-                title={shareTitle}
-                windowWidth={sharePopupWidth}
-                windowHeight={sharePopupHeight}
-                // @ts-ignore
-                children={<TumblrIcon />}
-                translate
-              />
-            </div>
-          </DialogContent>
-        </Dialog>
+        <ShareDocumentModal
+          isOpen={this.state.isShareModalOpen}
+          handleClose={this.handleShareModal}
+          heading={t("Share")}
+          documentURL={this.state.shareUrl}
+        />
       </>
     );
   }

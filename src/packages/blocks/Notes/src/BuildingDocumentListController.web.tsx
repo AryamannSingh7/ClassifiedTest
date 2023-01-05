@@ -23,7 +23,6 @@ interface S {
   isShareModalOpen: boolean;
 
   shareUrl: string;
-  shareQuote: string;
 
   documentType: string;
 
@@ -50,7 +49,6 @@ export default class BuildingDocumentListController extends BlockComponent<Props
       isShareModalOpen: false,
 
       shareUrl: "",
-      shareQuote: "",
 
       documentType: "",
 

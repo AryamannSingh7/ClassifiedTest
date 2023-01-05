@@ -21,7 +21,6 @@ export interface Props {
 
 interface S {
   // Customizable Area Start
-
   docName: string;
 
   isAddDocumentModalOpen: boolean;
@@ -41,7 +40,6 @@ interface S {
   selectedMeeting: any;
 
   shareUrl: string;
-  shareQuote: string;
   // Customizable Area End
 }
 
@@ -86,7 +84,6 @@ export default class DocumentListChairmanController extends BlockComponent<Props
       selectedMeeting: null,
 
       shareUrl: "",
-      shareQuote: "",
     };
     // Customizable Area End
     runEngine.attachBuildingBlock(this as IBlock, this.subScribedMessages);
@@ -131,15 +128,10 @@ export default class DocumentListChairmanController extends BlockComponent<Props
       var responseJson = message.getData(getName(MessageEnum.RestAPIResponceSuccessMessage));
 
       if (responseJson.data) {
-        this.setState(
-          {
-            ...this.state,
-            documentList: [...this.state.documentList, responseJson.data],
-          },
-          () => {
-            this.handleAddDocumentModal();
-          }
-        );
+        this.setState({
+          ...this.state,
+          documentList: [...this.state.documentList, responseJson.data],
+        });
       }
 
       var errorResponse = message.getData(getName(MessageEnum.RestAPIResponceErrorMessage));
@@ -584,10 +576,14 @@ export default class DocumentListChairmanController extends BlockComponent<Props
   };
 
   handleShareModal = () => {
-    this.setState({
-      ...this.state,
-      isShareModalOpen: !this.state.isShareModalOpen,
+    this.setState({ isShareModalOpen: !this.state.isShareModalOpen });
+  };
+
+  handleOpenShareModal = (url: string) => {
+    this.setState({ shareUrl: url }, () => {
+      this.handleShareModal();
     });
   };
+
   // Customizable Area End
 }

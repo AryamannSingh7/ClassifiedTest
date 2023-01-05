@@ -16,35 +16,17 @@ import {
   DialogActions,
 } from "@material-ui/core";
 import { Menu } from "@szhsin/react-menu";
-import "@szhsin/react-menu/dist/core.css";
 import MoreVertIcon from "@material-ui/icons/MoreVert";
 import CloseIcon from "@material-ui/icons/Close";
 import MuiDialogTitle from "@material-ui/core/DialogTitle";
 import KeyboardBackspaceIcon from "@material-ui/icons/KeyboardBackspace";
 import PersonalDocumentListController, { Props } from "./PersonalDocumentListController.web";
 import { DocumentReportStyleWeb } from "./DocumentReportStyle.web";
-import { BuildingLogo, UploadImage, DeleteImage, NoPdf, PdfImage } from "./assets";
-import {
-  EmailShareButton,
-  FacebookShareButton,
-  LinkedinShareButton,
-  RedditShareButton,
-  TelegramShareButton,
-  TumblrShareButton,
-  TwitterShareButton,
-  WhatsappShareButton,
-  EmailIcon,
-  FacebookIcon,
-  LinkedinIcon,
-  RedditIcon,
-  TelegramIcon,
-  TumblrIcon,
-  TwitterIcon,
-  WhatsappIcon,
-} from "react-share";
+import { UploadImage, DeleteImage, NoPdf, PdfImage } from "./assets";
 import moment from "moment";
 import { withTranslation } from "react-i18next";
-import "../../../web/src/i18n.js";
+import ShareDocumentModal from "../../../components/src/DocumentComponent/ShareModal.web";
+import SidebarImageComponent from "../../../components/src/OwnerSidebarImage.web";
 
 class PersonalDocumentList extends PersonalDocumentListController {
   constructor(props: Props) {
@@ -52,143 +34,112 @@ class PersonalDocumentList extends PersonalDocumentListController {
   }
 
   render() {
-    const { classes } = this.props;
-    const { t }: any = this.props;
-
-    const sharePopupWidth = 500;
-    const sharePopupHeight = 700;
-    const shareTitle = "TI 1 Final Leap";
+    const { t, classes }: any = this.props;
 
     return (
       <>
         <Box className={classes.personalDocument} style={{ background: "#F8F9FE", height: "100vh" }}>
           <Grid container>
             <Grid item xs={12} md={7}>
-              {this.state.documentType !== "rent-contract" &&
-              this.state.documentType !== "unit-plan" &&
-              this.state.documentType !== "other-documents" ? (
-                <p>{t("Wrong url")}</p>
-              ) : (
-                <>
-                  <Box display={{ xs: "flex", md: "flex" }} className="menu">
-                    <Link href="/PersonalDocument">
-                      <IconButton>
-                        <KeyboardBackspaceIcon />
-                      </IconButton>
-                    </Link>{" "}
-                    {this.state.documentType === "rent-contract" && `${t("Rent Contract")}`}
-                    {this.state.documentType === "unit-plan" && `${t("Unit Plan")}`}
-                    {this.state.documentType === "other-documents" && `${t("Other Documents")}`}
-                  </Box>
-                  <Container className="content-area document-box list">
-                    <div className="personal-documents">
-                      {this.state.documentsList.length === 0 && (
-                        <div className="empty-list">
-                          <div className="content-box">
-                            <img src={NoPdf} />
-                            <h3>{t("No Document Found")}</h3>
-                            <p>
-                              {t("Looks like you haven't uploaded any documents! you can upload")}{" "}
-                              {this.state.documentType === "rent-contract" && `${t("rent contract")}`}
-                              {this.state.documentType === "unit-plan" && `${t("unit plan")}`}
-                              {this.state.documentType === "other-documents" && `${t("other documents")}`}{" "}
-                              {t("by tapping on below  button.")}
-                            </p>
-                          </div>
-                        </div>
-                      )}
-                      <Grid container spacing={2}>
-                        {this.state.documentsList.map((document: any) => {
-                          return (
-                            <Grid item xs={12} md={12} lg={12} key={document.id}>
-                              <Box className="item document">
-                                <Link href={`/PersonalDocument/${this.state.documentType}/${document.id}/view`}>
-                                  <div className="left-side">
-                                    <div className="image">
-                                      <img src={PdfImage} />
-                                    </div>
-                                    <div className="info">
-                                      <h4>{document.attributes.title}</h4>
-                                      <div className="more-info">
-                                        {/* <p>
-                                          <span>55</span>pages
-                                        </p> */}
-                                        <p>
-                                          <span>{document.attributes.images[0].file_size}</span>
-                                          MB
-                                        </p>
-                                        <p>{moment(document.attributes.created_at).format("DD/MM/YYYY")}</p>
-                                      </div>
-                                    </div>
-                                  </div>
-                                </Link>
-                                <div className="right-menu">
-                                  <Menu
-                                    menuButton={
-                                      <IconButton>
-                                        <MoreVertIcon />
-                                      </IconButton>
-                                    }
-                                  >
-                                    <MenuItem>
-                                      <Link href={document.attributes.images[0].download_url} target="_blank">
-                                        {t("Download")}
-                                      </Link>
-                                    </MenuItem>
-                                    <MenuItem
-                                      onClick={() => {
-                                        this.setState(
-                                          {
-                                            ...this.state,
-                                            selectedDocumentId: document.id,
-                                          },
-                                          () => {
-                                            this.handleDeleteDocumentModal();
-                                          }
-                                        );
-                                      }}
-                                    >
-                                      {t("Delete")}
-                                    </MenuItem>
-                                    <MenuItem
-                                      onClick={() => {
-                                        this.setState(
-                                          {
-                                            ...this.state,
-                                            shareUrl: document.attributes.images[0].url,
-                                            shareQuote: document.attributes.title,
-                                          },
-                                          () => {
-                                            this.handleShareModal();
-                                          }
-                                        );
-                                      }}
-                                    >
-                                      {t("Share")}
-                                    </MenuItem>
-                                  </Menu>
+              <Box display={{ xs: "flex", md: "flex" }} className="menu">
+                <Link href="/PersonalDocument">
+                  <IconButton>
+                    <KeyboardBackspaceIcon />
+                  </IconButton>
+                </Link>{" "}
+                {this.state.documentType === "rent-contract" && `${t("Rent Contract")}`}
+                {this.state.documentType === "unit-plan" && `${t("Unit Plan")}`}
+                {this.state.documentType === "other-documents" && `${t("Other Documents")}`}
+              </Box>
+              <Container className="content-area document-box list">
+                <div className="personal-documents">
+                  {this.state.documentsList.length === 0 && (
+                    <div className="empty-list">
+                      <div className="content-box">
+                        <img src={NoPdf} />
+                        <h3>{t("No Document Found")}</h3>
+                        <p>
+                          {t("Looks like you haven't uploaded any documents! you can upload")}{" "}
+                          {this.state.documentType === "rent-contract" && `${t("rent contract")}`}
+                          {this.state.documentType === "unit-plan" && `${t("unit plan")}`}
+                          {this.state.documentType === "other-documents" && `${t("other documents")}`}{" "}
+                          {t("by tapping on below  button.")}
+                        </p>
+                      </div>
+                    </div>
+                  )}
+                  <Grid container spacing={2}>
+                    {this.state.documentsList.map((document: any) => {
+                      return (
+                        <Grid item xs={12} md={12} lg={12} key={document.id}>
+                          <Box className="item document">
+                            <Link href={`/PersonalDocument/${this.state.documentType}/${document.id}/view`}>
+                              <div className="left-side">
+                                <div className="image">
+                                  <img src={PdfImage} />
                                 </div>
-                              </Box>
-                            </Grid>
-                          );
-                        })}
-                      </Grid>
-                    </div>
-                    <div className="upload-button">
-                      <Grid container>
-                        <Grid item xs={12} md={12}>
-                          <Button onClick={() => this.handleAddDocumentModal()}>{t("Upload Document")}</Button>
+                                <div className="info">
+                                  <h4>{document.attributes.title}</h4>
+                                  <div className="more-info">
+                                    <p>
+                                      <span>{document.attributes.images[0].file_size}</span>
+                                      MB
+                                    </p>
+                                    <p>{moment(document.attributes.created_at).format("DD/MM/YYYY")}</p>
+                                  </div>
+                                </div>
+                              </div>
+                            </Link>
+                            <div className="right-menu">
+                              <Menu
+                                menuButton={
+                                  <IconButton>
+                                    <MoreVertIcon />
+                                  </IconButton>
+                                }
+                              >
+                                <MenuItem>
+                                  <Link href={document.attributes.images[0].download_url} target="_blank">
+                                    {t("Download")}
+                                  </Link>
+                                </MenuItem>
+                                <MenuItem
+                                  onClick={() => {
+                                    this.setState({ selectedDocumentId: document.id }, () => {
+                                      this.handleDeleteDocumentModal();
+                                    });
+                                  }}
+                                >
+                                  {t("Delete")}
+                                </MenuItem>
+                                <MenuItem
+                                  onClick={() => {
+                                    this.setState({ shareUrl: document.attributes.images[0].url }, () => {
+                                      this.handleShareModal();
+                                    });
+                                  }}
+                                >
+                                  {t("Share")}
+                                </MenuItem>
+                              </Menu>
+                            </div>
+                          </Box>
                         </Grid>
-                      </Grid>
-                    </div>
-                  </Container>
-                </>
-              )}
+                      );
+                    })}
+                  </Grid>
+                </div>
+                <div className="upload-button">
+                  <Grid container>
+                    <Grid item xs={12} md={12}>
+                      <Button onClick={() => this.handleAddDocumentModal()}>{t("Upload Document")}</Button>
+                    </Grid>
+                  </Grid>
+                </div>
+              </Container>
             </Grid>
             <Grid item xs={12} md={5}>
-              <Box className="right-block right-image" display={{ xs: "none", md: "flex" }}>
-                <img src={BuildingLogo.default} className="building-logo" alt="" />
-              </Box>
+              <SidebarImageComponent />
             </Grid>
           </Grid>
         </Box>
@@ -225,27 +176,37 @@ class PersonalDocumentList extends PersonalDocumentListController {
                 <span className="error">{t("Maximum length of title should be 100 character")}</span>
               )}
             </FormControl>
-            <FormControl fullWidth>
-              <div
-                className="image-box"
-                onClick={() => {
-                  this.upload.click();
-                }}
-              >
-                <img src={UploadImage} />
-                <Typography variant="body1">{t("Upload file")}</Typography>
-              </div>
-              <input
-                id="myInput"
-                type="file"
-                ref={(ref: any) => (this.upload = ref)}
-                style={{ display: "none" }}
-                onChange={this.onChangeFile.bind(this)}
-                accept=".pdf"
-              />
-              {this.state.file && <span className="file-name">{this.state.file.name}</span>}
-              <span />
-            </FormControl>
+            {this.state.file ? (
+              <Box className="modal-document-box">
+                <Box className="left-side-document">
+                  <img src={PdfImage} alt="pdf-img" />
+                  <p>{this.state.file.name}</p>
+                </Box>
+                <Box className="right-side-document">
+                  <CloseIcon onClick={() => this.setState({ file: null })} />
+                </Box>
+              </Box>
+            ) : (
+              <FormControl fullWidth>
+                <div
+                  className="image-box"
+                  onClick={() => {
+                    this.upload.click();
+                  }}
+                >
+                  <img src={UploadImage} />
+                  <Typography variant="body1">{t("Upload file")}</Typography>
+                </div>
+                <input
+                  id="myInput"
+                  type="file"
+                  ref={(ref: any) => (this.upload = ref)}
+                  style={{ display: "none" }}
+                  onChange={this.onChangeFile.bind(this)}
+                  accept=".pdf"
+                />
+              </FormControl>
+            )}
           </DialogContent>
           <DialogActions className="dialog-button-group">
             <Button onClick={() => this.handleAddDocumentModal()} className="cancel-button">
@@ -288,109 +249,19 @@ class PersonalDocumentList extends PersonalDocumentListController {
                 {t("from this app? Once deleted you won't be able to view deleted contract again.")}
               </Typography>
               <DialogActions className="dialog-button-group">
-                <Button
-                  onClick={() => {
-                    this.deletePersonalDocument();
-                  }}
-                >
-                  {t("Yes Delete")}
-                </Button>
+                <Button onClick={() => this.deletePersonalDocument()}>{t("Yes Delete")}</Button>
                 <Button onClick={() => this.handleDeleteDocumentModal()}>{t("No, Don't Delete")}</Button>
               </DialogActions>
             </Box>
           </DialogContent>
         </Dialog>
 
-        <Dialog
-          fullWidth
-          onClose={() => this.handleShareModal()}
-          open={this.state.isShareModalOpen}
-          className="select-meeting"
-        >
-          <MuiDialogTitle disableTypography className="dialog-heading">
-            <Typography variant="h6">{t("Share")}</Typography>
-            <IconButton onClick={() => this.handleShareModal()}>
-              <CloseIcon />
-            </IconButton>
-          </MuiDialogTitle>
-          <DialogContent>
-            <div className="share-box">
-              <FacebookShareButton
-                url={this.state.shareUrl}
-                title={shareTitle}
-                windowWidth={sharePopupWidth}
-                windowHeight={sharePopupHeight}
-                // @ts-ignore
-                children={<FacebookIcon />}
-                translate
-              />
-              <TwitterShareButton
-                url={this.state.shareUrl}
-                title={shareTitle}
-                windowWidth={sharePopupWidth}
-                windowHeight={sharePopupHeight}
-                // @ts-ignore
-                children={<TwitterIcon />}
-                translate
-              />
-              <WhatsappShareButton
-                url={this.state.shareUrl}
-                title={shareTitle}
-                windowWidth={sharePopupWidth}
-                windowHeight={sharePopupHeight}
-                separator=":: "
-                // @ts-ignore
-                children={<WhatsappIcon />}
-                translate
-              />
-              <LinkedinShareButton
-                url={this.state.shareUrl}
-                title={shareTitle}
-                windowWidth={sharePopupWidth}
-                windowHeight={sharePopupHeight}
-                // @ts-ignore
-                children={<LinkedinIcon />}
-                translate
-              />
-              <EmailShareButton
-                url={this.state.shareUrl}
-                title={shareTitle}
-                windowWidth={sharePopupWidth}
-                windowHeight={sharePopupHeight}
-                // @ts-ignore
-                children={<EmailIcon />}
-                translate
-              />
-              <RedditShareButton
-                url={this.state.shareUrl}
-                title={shareTitle}
-                windowWidth={sharePopupWidth}
-                windowHeight={sharePopupHeight}
-                // @ts-ignore
-                children={<RedditIcon />}
-                translate
-              />
-              <TelegramShareButton
-                url={this.state.shareUrl}
-                title={shareTitle}
-                windowWidth={sharePopupWidth}
-                windowHeight={sharePopupHeight}
-                // @ts-ignore
-                children={<TelegramIcon />}
-                translate
-              />
-              <TumblrShareButton
-                url={this.state.shareUrl}
-                title={shareTitle}
-                windowWidth={sharePopupWidth}
-                windowHeight={sharePopupHeight}
-                // @ts-ignore
-                children={<TumblrIcon />}
-                translate
-              />
-            </div>
-          </DialogContent>
-        </Dialog>
+        <ShareDocumentModal
+          isOpen={this.state.isShareModalOpen}
+          handleClose={this.handleShareModal}
+          heading={t("Share")}
+          documentURL={this.state.shareUrl}
+        />
       </>
     );
   }
