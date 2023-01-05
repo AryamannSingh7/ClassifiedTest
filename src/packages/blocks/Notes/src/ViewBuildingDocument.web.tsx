@@ -1,44 +1,14 @@
 // Customizable Area Start
 import React from "react";
-import {
-  Container,
-  IconButton,
-  Link,
-  Typography,
-  withStyles,
-  Box,
-  Grid,
-  Dialog,
-  DialogContent,
-  Card,
-} from "@material-ui/core";
-import CloseIcon from "@material-ui/icons/Close";
-import MuiDialogTitle from "@material-ui/core/DialogTitle";
+import { Container, IconButton, Link, withStyles, Box, Grid, Card } from "@material-ui/core";
 import KeyboardBackspaceIcon from "@material-ui/icons/KeyboardBackspace";
 import ViewBuildingDocumentController, { Props } from "./ViewBuildingDocumentController.web";
 import { DocumentReportStyleWeb } from "./DocumentReportStyle.web";
-import { DownloadImage, BuildingLogo, PdfImage, ShareImage } from "./assets";
-import {
-  EmailShareButton,
-  FacebookShareButton,
-  LinkedinShareButton,
-  RedditShareButton,
-  TelegramShareButton,
-  TumblrShareButton,
-  TwitterShareButton,
-  WhatsappShareButton,
-  EmailIcon,
-  FacebookIcon,
-  LinkedinIcon,
-  RedditIcon,
-  TelegramIcon,
-  TumblrIcon,
-  TwitterIcon,
-  WhatsappIcon,
-} from "react-share";
+import { DownloadImage, PdfImage, ShareImage } from "./assets";
 import moment from "moment";
 import { withTranslation } from "react-i18next";
-import "../../../web/src/i18n.js";
+import ShareDocumentModal from "../../../components/src/DocumentComponent/ShareModal.web";
+import SidebarImageComponent from "../../../components/src/OwnerSidebarImage.web";
 
 class ViewBuildingDocument extends ViewBuildingDocumentController {
   constructor(props: Props) {
@@ -46,12 +16,7 @@ class ViewBuildingDocument extends ViewBuildingDocumentController {
   }
 
   render() {
-    const { classes } = this.props;
-    const { t }: any = this.props;
-
-    const sharePopupWidth = 500;
-    const sharePopupHeight = 700;
-    const shareTitle = "TI 1 Final Leap";
+    const { t, classes }: any = this.props;
 
     return (
       <>
@@ -94,9 +59,7 @@ class ViewBuildingDocument extends ViewBuildingDocumentController {
                           onClick={() => {
                             this.setState(
                               {
-                                ...this.state,
                                 shareUrl: this.state.document && this.state.document.attributes.meeting_mins_pdf.url,
-                                shareQuote: this.state.document && this.state.document.attributes.meeting.title,
                               },
                               () => {
                                 this.handleShareModal();
@@ -135,103 +98,17 @@ class ViewBuildingDocument extends ViewBuildingDocumentController {
               </Container>
             </Grid>
             <Grid item xs={12} md={5}>
-              <Box className="right-block right-image" display={{ xs: "none", md: "flex" }}>
-                <img src={BuildingLogo.default} className="building-logo" alt="" />
-              </Box>
+              <SidebarImageComponent />
             </Grid>
           </Grid>
         </Box>
 
-        <Dialog
-          fullWidth
-          onClose={() => this.handleShareModal()}
-          open={this.state.isShareModalOpen}
-          className="select-meeting"
-        >
-          <MuiDialogTitle disableTypography className="dialog-heading">
-            <Typography variant="h6">{t("Share")}</Typography>
-            <IconButton onClick={() => this.handleShareModal()}>
-              <CloseIcon />
-            </IconButton>
-          </MuiDialogTitle>
-          <DialogContent>
-            <div className="share-box">
-              <FacebookShareButton
-                url={this.state.shareUrl}
-                title={shareTitle}
-                windowWidth={sharePopupWidth}
-                windowHeight={sharePopupHeight}
-                // @ts-ignore
-                children={<FacebookIcon />}
-                translate
-              />
-              <TwitterShareButton
-                url={this.state.shareUrl}
-                title={shareTitle}
-                windowWidth={sharePopupWidth}
-                windowHeight={sharePopupHeight}
-                // @ts-ignore
-                children={<TwitterIcon />}
-                translate
-              />
-              <WhatsappShareButton
-                url={this.state.shareUrl}
-                title={shareTitle}
-                windowWidth={sharePopupWidth}
-                windowHeight={sharePopupHeight}
-                separator=":: "
-                // @ts-ignore
-                children={<WhatsappIcon />}
-                translate
-              />
-              <LinkedinShareButton
-                url={this.state.shareUrl}
-                title={shareTitle}
-                windowWidth={sharePopupWidth}
-                windowHeight={sharePopupHeight}
-                // @ts-ignore
-                children={<LinkedinIcon />}
-                translate
-              />
-              <EmailShareButton
-                url={this.state.shareUrl}
-                title={shareTitle}
-                windowWidth={sharePopupWidth}
-                windowHeight={sharePopupHeight}
-                // @ts-ignore
-                children={<EmailIcon />}
-                translate
-              />
-              <RedditShareButton
-                url={this.state.shareUrl}
-                title={shareTitle}
-                windowWidth={sharePopupWidth}
-                windowHeight={sharePopupHeight}
-                // @ts-ignore
-                children={<RedditIcon />}
-                translate
-              />
-              <TelegramShareButton
-                url={this.state.shareUrl}
-                title={shareTitle}
-                windowWidth={sharePopupWidth}
-                windowHeight={sharePopupHeight}
-                // @ts-ignore
-                children={<TelegramIcon />}
-                translate
-              />
-              <TumblrShareButton
-                url={this.state.shareUrl}
-                title={shareTitle}
-                windowWidth={sharePopupWidth}
-                windowHeight={sharePopupHeight}
-                // @ts-ignore
-                children={<TumblrIcon />}
-                translate
-              />
-            </div>
-          </DialogContent>
-        </Dialog>
+        <ShareDocumentModal
+          isOpen={this.state.isShareModalOpen}
+          handleClose={this.handleShareModal}
+          heading={t("Share")}
+          documentURL={this.state.shareUrl}
+        />
       </>
     );
   }

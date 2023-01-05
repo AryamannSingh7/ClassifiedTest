@@ -3,9 +3,9 @@ import { Message } from "../../../framework/src/Message";
 import { BlockComponent } from "../../../framework/src/BlockComponent";
 import MessageEnum, { getName } from "../../../framework/src/Messages/MessageEnum";
 import { runEngine } from "../../../framework/src/RunEngine";
-import { ApiCatchErrorResponse, ApiErrorResponse } from "../../../components/src/APIErrorResponse";
 
 // Customizable Area Start
+import { ApiCatchErrorResponse, ApiErrorResponse } from "../../../components/src/APIErrorResponse";
 // Customizable Area End
 
 export const configJSON = require("./config.js");
@@ -31,7 +31,6 @@ interface S {
 
   isShareModalOpen: boolean;
   shareUrl: string;
-  shareQuote: string;
   // Customizable Area End
 }
 
@@ -62,7 +61,6 @@ export default class ViewBuildingDocumentController extends BlockComponent<Props
 
       isShareModalOpen: false,
       shareUrl: "",
-      shareQuote: "",
     };
     // Customizable Area End
     runEngine.attachBuildingBlock(this as IBlock, this.subScribedMessages);

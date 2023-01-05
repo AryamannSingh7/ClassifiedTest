@@ -4,9 +4,9 @@ import { Container, IconButton, Link, withStyles, Box, Grid } from "@material-ui
 import KeyboardBackspaceIcon from "@material-ui/icons/KeyboardBackspace";
 import ViewPersonalDocumentController, { Props } from "./ViewPersonalDocumentController.web";
 import { DocumentReportStyleWeb } from "./DocumentReportStyle.web";
-import { BuildingLogo, DownloadImage } from "./assets";
+import { DownloadImage } from "./assets";
 import { withTranslation } from "react-i18next";
-import "../../../web/src/i18n.js";
+import SidebarImageComponent from "../../../components/src/OwnerSidebarImage.web";
 
 class ViewPersonalDocument extends ViewPersonalDocumentController {
   constructor(props: Props) {
@@ -14,8 +14,7 @@ class ViewPersonalDocument extends ViewPersonalDocumentController {
   }
 
   render() {
-    const { classes } = this.props;
-    const { t }: any = this.props;
+    const { classes }: any = this.props;
 
     return (
       <>
@@ -44,9 +43,7 @@ class ViewPersonalDocument extends ViewPersonalDocumentController {
               </Container>
             </Grid>
             <Grid item xs={12} md={5}>
-              <Box className="right-block right-image" display={{ xs: "none", md: "flex" }}>
-                <img src={BuildingLogo.default} className="building-logo" alt="" />
-              </Box>
+              <SidebarImageComponent />
             </Grid>
           </Grid>
         </Box>
