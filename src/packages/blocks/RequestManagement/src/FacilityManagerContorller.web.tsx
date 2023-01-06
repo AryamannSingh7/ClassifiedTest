@@ -78,6 +78,8 @@ export interface SS {
 export interface Props extends RouteComponentProps {
   navigation: any;
   id: string;
+  classes:any;
+  t: (label: string) => string;
 }
 
 export default class FacilityManagerContorller extends BlockComponent<
