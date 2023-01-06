@@ -2,13 +2,9 @@ import React from 'react';
 import {
   Box,
   Button,
-  Link,
   Typography,
-  IconButton,
   Grid,
-  TextareaAutosize,
-  InputAdornment,
-  TextField
+  
 } from "@material-ui/core";
 
 
@@ -17,8 +13,6 @@ import KeyboardBackspaceIcon from '@material-ui/icons/KeyboardBackspace';
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import { withRouter } from 'react-router';
 import Loader from "../../../components/src/Loader.web";
-import { Input } from "react-native-elements";
-import * as Yup from "yup";
 
 import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';

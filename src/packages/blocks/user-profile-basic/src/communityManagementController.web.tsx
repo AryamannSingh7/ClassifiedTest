@@ -2069,6 +2069,41 @@ let userType=localStorage.getItem('userType')
       console.log(error);
     }
   };
+  getRequest = () => {
+
+    try {
+      const header = {
+        token: localStorage.getItem("userToken")
+      };
+
+      //const id = localStorage.getItem("userId");
+      const requestMessage = new Message(
+        getName(MessageEnum.RestAPIRequestMessage)
+      );
+      this.getInvitationAPICall = requestMessage.messageId;
+      this.setState({ loading: true });
+
+      requestMessage.addData(
+        getName(MessageEnum.RestAPIResponceEndPointMessage),
+        `https://ti1finalleap-158677-ruby.b158677.dev.eastus.az.svc.builder.cafe/bx_block_request_management/requests`
+      );
+
+      requestMessage.addData(
+        getName(MessageEnum.RestAPIRequestHeaderMessage),
+        JSON.stringify(header)
+      );
+
+      requestMessage.addData(
+        getName(MessageEnum.RestAPIRequestMethodMessage),
+        configJSON.validationApiMethodType
+      );
+
+      runEngine.sendMessage(requestMessage.id, requestMessage);
+      return true;
+    } catch (error) {
+      console.log(error);
+    }
+  };
   InvitationSchema() {
     const validations = Yup.object().shape({
       email: Yup.string()

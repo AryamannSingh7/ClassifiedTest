@@ -52,7 +52,7 @@ class Suggestion extends SuggestionController {
                   <Box className="incident-content-wrapper">
                     {
                       this.state.suggestionList.map((item:any)=>{
-                return  <Card className="incident-card facility-card card" key={item.id}>
+                return  <Card className="incident-card facility-card card" key={item.id} onClick={()=>this.openSuggestion(item)}>
                 <CardContent className="costom-card-content">
                   {/* <Typography component="h4">
                    {val?.attributes?.date}
@@ -88,7 +88,7 @@ class Suggestion extends SuggestionController {
                   </Box>
                   <Box className="customButton add-incident">
                     <Button variant="contained" onClick={() => { this.setState({ loading: true });//@ts-ignore
-                     this.props.history.push("/CreateIncident") }} >ADD NEW SUGGESTION</Button>
+                     this.props.history.push("/newsuggestion") }} >ADD NEW SUGGESTION</Button>
                   </Box>
                 </Box>
                 {/* <Box className="footer-main-block bottomBlock">

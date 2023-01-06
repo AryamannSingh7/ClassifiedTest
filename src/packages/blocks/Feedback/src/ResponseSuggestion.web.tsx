@@ -22,7 +22,7 @@ import SuggestionController,{Props} from './SuggestionController.web';
 import { Building1 } from '../../ContentManagement/src/assets';
 import { Claender } from './assets';
 
-class SuggestionDetails extends SuggestionController {
+class ResponseSuggestion extends SuggestionController {
   constructor(props: Props) {
     super(props);
   }
@@ -140,4 +140,4 @@ class SuggestionDetails extends SuggestionController {
   }
 }
 
-export default withRouter(SuggestionDetails)
+export default withRouter(ResponseSuggestion)

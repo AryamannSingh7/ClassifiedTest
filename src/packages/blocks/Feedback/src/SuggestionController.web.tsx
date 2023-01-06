@@ -743,5 +743,11 @@ createSuggtionSchema() {
 
   }
 
+  openSuggestion=(item:any)=>{
+localStorage.setItem('selectSuggestion',JSON.stringify(item))
+// @ts-ignore
+this.props.history.push('/SuggestionData')
+  }
+
   // Customizable Area End
 }

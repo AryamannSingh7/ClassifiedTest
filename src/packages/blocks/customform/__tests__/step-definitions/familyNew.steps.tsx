@@ -11,12 +11,13 @@ import MessageEnum, {
   getName
 } from "../../../../framework/src/Messages/MessageEnum";
 import React from "react";
-import FamilyList from "../../src/FamilyList.web";
+import NewFamily from "../../src/NewFamily.web";
+
 import {BrowserRouter} from "react-router-dom"
 
 const screenProps = {
   navigation: {},
-  id: "FamilyList",
+  id: "NewFamily",
   location: jest.fn(),
   history: {
     push:jest.fn(),
@@ -25,7 +26,7 @@ const screenProps = {
   // t:jest.fn()
 };
 
-const feature = loadFeature("./__tests__/features/family-scenario.feature");
+const feature = loadFeature("./__tests__/features/newfamilysce.feature");
 
 defineFeature(feature, test => {
   beforeEach(() => {
@@ -35,29 +36,45 @@ defineFeature(feature, test => {
   });
 
   test("User navigates to family", ({ given, when, then }) => {
-    let familyListBlock: any;
+    let NewFamilyBlock: any;
     // @ts-ignore
     let instance: any;
 
     given("I am a User loading family", () => {
       // @ts-ignore
-      familyListBlock = mount(<FamilyList.WrappedComponent {...screenProps} />,{ wrappingComponent: BrowserRouter });
+      NewFamilyBlock = mount(<NewFamily.WrappedComponent {...screenProps} />,{ wrappingComponent: BrowserRouter });
     });
 
     when("I navigate to the family", () => {
       // @ts-ignore
-      instance = familyListBlock.instance();
+      instance = NewFamilyBlock.instance();
     });
 
     then("family will load with out errors", () => {
-      expect(familyListBlock).toBeTruthy();
-      expect(familyListBlock).toMatchSnapshot();
+      expect(NewFamilyBlock).toBeTruthy();
+      expect(NewFamilyBlock).toMatchSnapshot();
     });
-    then("I am able to click Icon Button", () => {
-      const backButtonCheckSpy = jest.spyOn(familyListBlock.find(".backtesticon").at(0).props(), "onClick");
-      familyListBlock.find(".backtesticon").at(0).props().onClick();
-      expect(backButtonCheckSpy).toHaveBeenCalled();
-    });
+    // then("I am able to click Icon Button", () => {
+    //   const backButtonCheckSpy = jest.spyOn(NewFamilyBlock.find(".backtesticon").at(0).props(), "onClick");
+    //   NewFamilyBlock.find(".backtesticon").at(0).props().onClick();
+    //   expect(backButtonCheckSpy).toHaveBeenCalled();
+    // });
+    then("I am able to click route", () => {
+        const backButtonCheckSpy = jest.spyOn(NewFamilyBlock.find(".btn").at(0).props(), "onClick");
+        NewFamilyBlock.find(".btn").at(0).props().onClick();
+        expect(backButtonCheckSpy).toHaveBeenCalled();
+      });
+    //   then("I am able to click route1", () => {
+    //     const backButtonCheckSpy = jest.spyOn(familyListBlock.find(".diloag-wrapper").at(0).props(), "onClick");
+    //     familyListBlock.find(".diloag-wrapper").at(0).props().onClick();
+    //     expect(backButtonCheckSpy).toHaveBeenCalled();
+    //   });
+    //   then("I am able to click route2", () => {
+    //     const backButtonCheckSpy = jest.spyOn(familyListBlock.find(".customButton").at(0).props(), "onClick");
+    //     familyListBlock.find(".customButton").at(0).props().onClick();
+    //     expect(backButtonCheckSpy).toHaveBeenCalled();
+    //   });
+  
     then("Should load the Family List", async () => {
       let familyData = new Message(getName(MessageEnum.RestAPIResponceMessage));
       familyData.addData(getName(MessageEnum.RestAPIResponceDataMessage), familyData);
@@ -65,21 +82,26 @@ defineFeature(feature, test => {
       instance.getVehicleListApiCallId = familyData;
       runEngine.sendMessage("Family List", familyData);
     });
-    then("I am able to click route", () => {
-      const backButtonCheckSpy = jest.spyOn(familyListBlock.find(".btn").at(0).props(), "onClick");
-      familyListBlock.find(".btn").at(0).props().onClick();
-      expect(backButtonCheckSpy).toHaveBeenCalled();
-    });
-    then("I am able to click route1", () => {
-      const backButtonCheckSpy = jest.spyOn(familyListBlock.find(".diloag-wrapper").at(0).props(), "onClick");
-      familyListBlock.find(".diloag-wrapper").at(0).props().onClick();
-      expect(backButtonCheckSpy).toHaveBeenCalled();
-    });
-    then("I am able to click route2", () => {
-      const backButtonCheckSpy = jest.spyOn(familyListBlock.find(".customButton").at(0).props(), "onClick");
-      familyListBlock.find(".customButton").at(0).props().onClick();
-      expect(backButtonCheckSpy).toHaveBeenCalled();
-    });
+    then("should check componentDidMount", () => {
+        //@ts-ignore
+        jest.spyOn(instance, 'getRelation'); 
+        jest.spyOn(instance, 'getIdType'); // You spy on the getFacilityReservationListing
+        // You spy on the getFacilityReservationListing
+        instance.componentDidMount();
+        expect(instance.getRelation).toHaveBeenCalledTimes(1)
+        expect(instance.getIdType).toHaveBeenCalledTimes(1)
+
+     });
+     then("should check form", () => {
+        const backButtonCheckSpy = jest.spyOn(NewFamilyBlock.find("#formik").at(0).props(), "onSubmit");
+        NewFamilyBlock.find("#formik").at(0).props().onSubmit();
+        expect(backButtonCheckSpy).toHaveBeenCalled();
+      });
+      then("should check input", () => {
+        const backButtonCheckSpy = jest.spyOn(NewFamilyBlock.find("#file1").at(0).props(), "onChange");
+        NewFamilyBlock.find("#file1").at(0).props().onChange();
+        expect(backButtonCheckSpy).toHaveBeenCalled();
+      });
 
     // then("I am able to click Icon Button", () => {
     //   // @ts-ignore

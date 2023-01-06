@@ -38,7 +38,7 @@ class VeichleList extends VeichleListController {
           <Grid item xs={12} md={7} className="auth-cols" style={{ justifyContent: 'unset',}}>
               <Grid container>
                 <Grid xs={12} style={{display:'flex',alignItems:'center'}}>
-                <ArrowBackIcon onClick={this.redirectToDashboard} />
+                <ArrowBackIcon onClick={this.redirectToDashboard} className='backtesticon' />
                   <p style={{ fontWeight: 600, fontSize: '1.25rem' }}>
 
                   My Vehicles

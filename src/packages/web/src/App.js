@@ -37,6 +37,7 @@ import NewPassword from '../../blocks/forgot-password/src/NewPassword';
 import Feedback from '../../blocks/Feedback/src/Feedback';
 import SuggestionListing from '../../blocks/Feedback/src/Suggestion.web';
 import NewSuggestion from '../../blocks/Feedback/src/NewSuggestion.web';
+import SuggestionData from '../../blocks/Feedback/src/SuggestionDetails.web';
 
 
 // import Contactus from "../../blocks/contactus/src/Contactus";
@@ -1592,6 +1593,11 @@ const routeMap = {
   SuggestionDetails: {
     component: SuggestionDetails,
     path: '/SuggestionDetails',
+    exact: true
+  },
+  SuggestionData: {
+    component: SuggestionData,
+    path: '/SuggestionData',
     exact: true
   },
 
