@@ -225,6 +225,7 @@ class Announcements extends AnnouncementsController {
               >
                 <img src={UploadImage} />
                 <Typography variant="body1">{t("Upload Image (Optional)")}</Typography>
+                <Typography variant="body1" color="textSecondary">{this.state.selectedImage.name}</Typography>
               </div>
               <input
                 id="myInput"

@@ -396,7 +396,7 @@ class ChairmanSidebar extends DashboardController {
     );
   }
 }
-export const dashBoard = {
+const dashBoard = {
   PremimumPlan: {
     background: "#ff8100",
     padding: 8,
@@ -416,6 +416,10 @@ export const dashBoard = {
     cursor: "pointer",
   },
 };
+//@ts-ignore
+export default withTranslation()(withStyles(dashBoard)(withRouter(ChairmanSidebar)));
+
+
 
 //@ts-ignore
 export default withTranslation()(withStyles(dashBoard)(withRouter(ChairmanSidebar)));

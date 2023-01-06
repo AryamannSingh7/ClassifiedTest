@@ -37,7 +37,7 @@ class FacilityReservationReportedSuccessfully extends FacilityReservationControl
    console.log("id=====>",id );
     if (!id) {
       //@ts-ignore
-      this.props.history.replace("/FacilityReservationListing");
+      this.props.history.push("/FacilityReservationListing");
       return null;
     }
     return (
