@@ -33,6 +33,27 @@ class PersonalDocumentList extends PersonalDocumentListController {
     super(props);
   }
 
+  handleCheckAddDocumentValidation = () => {
+    return (
+      this.state.title.length === 0 ||
+      this.state.title.length > 100 ||
+      this.isInputOnlyWhiteSpace(this.state.title) ||
+      this.state.file === null
+    );
+  };
+
+  documentType = (t: any) => {
+    if (this.state.documentType === "rent-contract") {
+      return `${t("rent contract")}`;
+    } else if (this.state.documentType === "unit-plan") {
+      return `${t("unit plan")}`;
+    } else if (this.state.documentType === "other-documents") {
+      return `${t("other documents")}`;
+    } else {
+      return "";
+    }
+  };
+
   render() {
     const { t, classes }: any = this.props;
 
@@ -213,12 +234,7 @@ class PersonalDocumentList extends PersonalDocumentListController {
               {t("Cancel")}
             </Button>
             <Button
-              disabled={
-                this.state.title.length === 0 ||
-                this.state.title.length > 100 ||
-                this.isInputOnlyWhiteSpace(this.state.title) ||
-                this.state.file === null
-              }
+              disabled={this.handleCheckAddDocumentValidation()}
               onClick={() => this.createPersonalDocument()}
               className="add-button"
             >
@@ -237,15 +253,10 @@ class PersonalDocumentList extends PersonalDocumentListController {
             <Box textAlign="center">
               <img src={DeleteImage} alt="delete" />
               <Typography variant="h6">
-                {t("Delete uploaded")} {this.state.documentType === "rent-contract" && `${t("rent contract")}`}
-                {this.state.documentType === "unit-plan" && `${t("unit plan")}`}
-                {this.state.documentType === "other-documents" && `${t("other documents")}`}
+                {t("Delete uploaded")} {this.documentType(t)}
               </Typography>
               <Typography variant="body1">
-                {t("Are you sure want to delete uploaded")}{" "}
-                {this.state.documentType === "rent-contract" && `${t("rent contract")}`}
-                {this.state.documentType === "unit-plan" && `${t("unit plan")}`}
-                {this.state.documentType === "other-documents" && `${t("other documents")}`}{" "}
+                {t("Are you sure want to delete uploaded")} {this.documentType(t)}{" "}
                 {t("from this app? Once deleted you won't be able to view deleted contract again.")}
               </Typography>
               <DialogActions className="dialog-button-group">

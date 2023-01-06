@@ -9,10 +9,9 @@ import { Message } from "../../../../framework/src/Message";
 import MessageEnum, { getName } from "../../../../framework/src/Messages/MessageEnum";
 import { runEngine } from "../../../../framework/src/RunEngine";
 import { documentMockData, meetingMinuteMockData, resolutionMockData } from "../../../../components/src/TestCase/DocumentsMockData.web";
-import { Button, Card, Dialog, IconButton, List } from "@material-ui/core";
+import { Button, IconButton } from "@material-ui/core";
 import { Formik } from "formik";
 import CloseIcon from "@material-ui/icons/Close";
-import { CheckBox } from "@material-ui/icons";
 
 let DocumentListChairmanProps = paramComponentProps("DocumentListChairman", DocumentReportStyleWeb, "policy");
 

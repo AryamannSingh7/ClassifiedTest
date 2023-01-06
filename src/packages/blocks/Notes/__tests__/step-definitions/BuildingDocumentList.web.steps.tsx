@@ -8,7 +8,6 @@ import MessageEnum, { getName } from "../../../../framework/src/Messages/Message
 import { runEngine } from "../../../../framework/src/RunEngine";
 import { documentMockData, resolutionMockData } from "../../../../components/src/TestCase/DocumentsMockData.web";
 import { paramComponentProps } from "../../../../components/src/TestCase/ComponentProps.web";
-import { Card } from "@material-ui/core";
 
 let BuildingDocumentListProps = paramComponentProps("BuildingDocumentList", DocumentReportStyleWeb, "policy");
 
