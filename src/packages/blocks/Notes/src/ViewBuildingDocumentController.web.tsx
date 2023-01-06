@@ -157,7 +157,7 @@ export default class ViewBuildingDocumentController extends BlockComponent<Props
         documentDownloadUrl: responseJson.data.attributes.images[0].download_url,
       });
     }
-  }
+  };
 
   // Get Resolution API
   getResolution = () => {
@@ -190,11 +190,11 @@ export default class ViewBuildingDocumentController extends BlockComponent<Props
         ...this.state,
         document: responseJson.resolution.data,
         documentTitle: responseJson.resolution.data.attributes.title,
-        documentUrl: responseJson.resolution.data.attributes.meeting_mins_pdf.url,
-        documentDownloadUrl: responseJson.resolution.data.attributes.meeting_mins_pdf.url,
+        documentUrl: responseJson.resolution.data.attributes.attachments[0].url,
+        documentDownloadUrl: responseJson.resolution.data.attributes.attachments[0].url,
       });
     }
-  }
+  };
 
   // Handle State
   handleShareModal = () => {

@@ -116,15 +116,9 @@ export default class PersonalDocumentListController extends BlockComponent<Props
           (document: any) => document.id !== responseJson.data.id
         );
 
-        this.setState(
-          {
-            ...this.state,
-            documentsList: newDocumentList,
-          },
-          () => {
-            this.handleDeleteDocumentModal();
-          }
-        );
+        this.setState({
+          documentsList: newDocumentList,
+        });
       }
 
       var errorResponse = message.getData(getName(MessageEnum.RestAPIResponceErrorMessage));
@@ -147,15 +141,9 @@ export default class PersonalDocumentListController extends BlockComponent<Props
       var responseJson = message.getData(getName(MessageEnum.RestAPIResponceSuccessMessage));
 
       if (responseJson.data) {
-        this.setState(
-          {
-            ...this.state,
-            documentsList: [...this.state.documentsList, responseJson.data],
-          },
-          () => {
-            this.handleAddDocumentModal();
-          }
-        );
+        this.setState({
+          documentsList: [...this.state.documentsList, responseJson.data],
+        });
       }
 
       var errorResponse = message.getData(getName(MessageEnum.RestAPIResponceErrorMessage));
@@ -232,6 +220,8 @@ export default class PersonalDocumentListController extends BlockComponent<Props
     apiRequest.addData(getName(MessageEnum.RestAPIRequestMethodMessage), configJSON.apiMethodTypeDelete);
 
     runEngine.sendMessage(apiRequest.id, apiRequest);
+
+    this.handleDeleteDocumentModal();
     return true;
   };
 
@@ -270,6 +260,8 @@ export default class PersonalDocumentListController extends BlockComponent<Props
     apiRequest.addData(getName(MessageEnum.RestAPIRequestMethodMessage), configJSON.apiMethodTypePost);
 
     runEngine.sendMessage(apiRequest.id, apiRequest);
+
+    this.handleAddDocumentModal();
     return true;
   };
 

@@ -9,6 +9,7 @@ import moment from "moment";
 import { withTranslation } from "react-i18next";
 import SidebarImageComponent from "../../../components/src/OwnerSidebarImage.web";
 import ShareDocumentModal from "../../../components/src/DocumentComponent/ShareModal.web";
+import { toast } from "react-hot-toast";
 
 class BuildingDocumentList extends BuildingDocumentListController {
   constructor(props: Props) {
@@ -81,13 +82,24 @@ class BuildingDocumentList extends BuildingDocumentListController {
                                   <div className="icons">
                                     <img
                                       src={ShareImage}
+                                      className="share-document-image"
+                                      alt="share-document-image"
                                       onClick={() => {
-                                        this.setState({ shareUrl: document.attributes.meeting_mins_pdf.url }, () => {
-                                          this.handleShareModal();
-                                        });
+                                        if (document.attributes.meeting_mins_pdf) {
+                                          this.setState({ shareUrl: document.attributes.meeting_mins_pdf.url }, () => {
+                                            this.handleShareModal();
+                                          });
+                                        } else {
+                                          toast.error("No meeting minute available");
+                                        }
                                       }}
                                     />
-                                    <Link href={document.attributes.meeting_mins_pdf.url} target="_blank">
+                                    <Link
+                                      href={
+                                        document.attributes.meeting_mins_pdf && document.attributes.meeting_mins_pdf.url
+                                      }
+                                      target="_blank"
+                                    >
                                       <img src={DownloadImage} />
                                     </Link>
                                   </div>

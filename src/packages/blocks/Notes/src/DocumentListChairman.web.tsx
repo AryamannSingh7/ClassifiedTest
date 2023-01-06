@@ -41,10 +41,28 @@ class DocumentListChairman extends DocumentListChairmanController {
     super(props);
   }
 
+  headerButton = (documentPage: any, t: any) => {
+    if (documentPage === "resolutions") {
+      return <Button onClick={() => this.handleAddResolutionsModal()}>{t("Add New Resolution")}</Button>;
+    } else {
+      return <Button onClick={() => this.handleAddDocumentModal()}>{t("Upload Documents")}</Button>;
+    }
+  };
+
+  documentClass = (documentPage: any) => {
+    return documentPage === "resolutions" ? "resolutions" : "";
+  };
+
+  handleError = (errors: any, touched: any) => {
+    if (errors && touched) {
+      return <small className="error">{errors.title}</small>;
+    }
+  };
+
   render() {
     const { t, classes }: any = this.props;
 
-    window.addEventListener("pageshow", (event) => {
+    window.addEventListener("pageshow", (event: any) => {
       const historyTraversal =
         event.persisted || (typeof window.performance != "undefined" && window.performance.navigation.type === 2);
 
@@ -79,19 +97,11 @@ class DocumentListChairman extends DocumentListChairmanController {
                         <Typography variant="h5" className="sub-heading">
                           {t(this.state.docName)}
                         </Typography>
-                        {this.state.docName.toLowerCase() === "resolutions" ? (
-                          <Button onClick={() => this.handleAddResolutionsModal()}>{t("Add New Resolution")}</Button>
-                        ) : (
-                          <Button onClick={() => this.handleAddDocumentModal()}>{t("Upload Documents")}</Button>
-                        )}
+                        {this.headerButton(this.state.docName.toLowerCase(), t)}
                       </Box>
                     </Box>
                   </Box>
-                  <Box
-                    className={`document-box ${
-                      this.state.docName.toLowerCase() === "resolutions" ? "resolutions" : ""
-                    }`}
-                  >
+                  <Box className={`document-box ${this.documentClass(this.state.docName.toLowerCase())}`}>
                     {this.state.docName.toLowerCase() === "resolutions" ? (
                       <Grid container spacing={2}>
                         {this.state.resolutionList.length === 0 && <span>{"No Resolution Available!!"}</span>}
@@ -112,8 +122,8 @@ class DocumentListChairman extends DocumentListChairmanController {
                                       <MenuItem>
                                         <Link
                                           href={
-                                            resolution.attributes.meeting_mins_pdf &&
-                                            resolution.attributes.meeting_mins_pdf.url
+                                            resolution.attributes.attachments &&
+                                            resolution.attributes.attachments[0].url
                                           }
                                           target="_blank"
                                         >
@@ -132,8 +142,8 @@ class DocumentListChairman extends DocumentListChairmanController {
                                       <MenuItem
                                         onClick={() =>
                                           this.handleOpenShareModal(
-                                            resolution.attributes.meeting_mins_pdf &&
-                                              resolution.attributes.meeting_mins_pdf.url
+                                            resolution.attributes.attachments &&
+                                            resolution.attributes.attachments[0].url
                                           )
                                         }
                                       >
@@ -168,7 +178,7 @@ class DocumentListChairman extends DocumentListChairmanController {
                                       onClick={() =>
                                         this.handleOpenShareModal(
                                           resolution.attributes.meeting_mins_pdf &&
-                                            resolution.attributes.meeting_mins_pdf.url
+                                          resolution.attributes.meeting_mins_pdf.url
                                         )
                                       }
                                     />
@@ -227,7 +237,6 @@ class DocumentListChairman extends DocumentListChairmanController {
                                       onClick={() => {
                                         this.setState(
                                           {
-                                            ...this.state,
                                             shareUrl: document.attributes.images[0].url,
                                           },
                                           () => {
@@ -295,7 +304,7 @@ class DocumentListChairman extends DocumentListChairmanController {
                           marginTop: "0",
                         }}
                       />
-                      {errors.title && touched.title && <small className="error">{errors.title}</small>}
+                      {this.handleError(errors.title, touched.title)}
                     </FormControl>
                     {values.file ? (
                       <Box className="modal-document-box">
@@ -330,7 +339,7 @@ class DocumentListChairman extends DocumentListChairmanController {
                           onBlur={handleBlur}
                           name="file"
                         />
-                        {errors.file && touched.file && <small className="error">{errors.file}</small>}
+                        {this.handleError(errors.file, touched.file)}
                       </FormControl>
                     )}
                   </DialogContent>
@@ -505,7 +514,7 @@ class DocumentListChairman extends DocumentListChairmanController {
                         tabIndex={-1}
                         disableRipple
                         checked={this.state.selectedMeeting && this.state.selectedMeeting.id === meeting.id}
-                        onChange={(e) => {
+                        onChange={(e: any) => {
                           if (e.target.checked) {
                             this.setState({
                               ...this.state,

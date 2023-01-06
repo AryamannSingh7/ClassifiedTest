@@ -156,15 +156,7 @@ export default class DocumentListChairmanController extends BlockComponent<Props
       if (responseJson.data) {
         const newDocumentList = this.state.documentList.filter((document: any) => document.id !== responseJson.data.id);
 
-        this.setState(
-          {
-            ...this.state,
-            documentList: newDocumentList,
-          },
-          () => {
-            this.handleDeleteDocumentModal();
-          }
-        );
+        this.setState({ documentList: newDocumentList });
       }
 
       var errorResponse = message.getData(getName(MessageEnum.RestAPIResponceErrorMessage));
@@ -510,6 +502,7 @@ export default class DocumentListChairmanController extends BlockComponent<Props
     apiRequest.addData(getName(MessageEnum.RestAPIRequestMethodMessage), configJSON.apiMethodTypeDelete);
 
     runEngine.sendMessage(apiRequest.id, apiRequest);
+    this.handleDeleteDocumentModal();
     return true;
   };
 

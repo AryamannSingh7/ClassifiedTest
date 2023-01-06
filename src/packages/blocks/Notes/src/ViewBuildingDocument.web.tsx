@@ -9,6 +9,7 @@ import moment from "moment";
 import { withTranslation } from "react-i18next";
 import ShareDocumentModal from "../../../components/src/DocumentComponent/ShareModal.web";
 import SidebarImageComponent from "../../../components/src/OwnerSidebarImage.web";
+import { toast } from "react-hot-toast";
 
 class ViewBuildingDocument extends ViewBuildingDocumentController {
   constructor(props: Props) {
@@ -40,35 +41,36 @@ class ViewBuildingDocument extends ViewBuildingDocumentController {
                 <div className="document-view">
                   <iframe src={this.state.documentUrl} />
                 </div>
-                {this.state.documentType.toLowerCase() === "resolutions" && (
+                {this.state.documentType.toLowerCase() === "resolutions" && this.state.document && (
                   <>
                     <div className="meeting-item view">
                       <div className="item-title">
                         <img src={PdfImage} />
                         <h6>
                           Meeting Minute{" "}
-                          {moment(
-                            this.state.document && this.state.document.attributes.meeting_date_time,
-                            "DD-MM-YYYY HH:mm"
-                          ).format("DD-MMM-YYYY HH:mm")}
+                          {moment(this.state.document.attributes.meeting_date_time, "DD-MM-YYYY HH:mm").format(
+                            "DD-MMM-YYYY HH:mm"
+                          )}
                         </h6>
                       </div>
                       <div className="icons">
                         <img
                           src={ShareImage}
                           onClick={() => {
-                            this.setState(
-                              {
-                                shareUrl: this.state.document && this.state.document.attributes.meeting_mins_pdf.url,
-                              },
-                              () => {
+                            if (this.state.document.attributes.meeting_mins_pdf) {
+                              this.setState({ shareUrl: this.state.document.attributes.meeting_mins_pdf.url }, () => {
                                 this.handleShareModal();
-                              }
-                            );
+                              });
+                            } else {
+                              toast.error("No meeting minute available");
+                            }
                           }}
                         />
                         <Link
-                          href={this.state.document && this.state.document.attributes.meeting_mins_pdf.url}
+                          href={
+                            this.state.document.attributes.meeting_mins_pdf &&
+                            this.state.document.attributes.meeting_mins_pdf.url
+                          }
                           target="_blank"
                         >
                           <img src={DownloadImage} />
@@ -80,17 +82,16 @@ class ViewBuildingDocument extends ViewBuildingDocumentController {
                       <Card className="card">
                         <p>{t("Date & Time")}:</p>
                         <span>
-                          {moment(
-                            this.state.document && this.state.document.attributes.meeting_date_time,
-                            "DD-MM-YYYY HH:mm"
-                          ).format("DD-MMM-YYYY HH:mm")}
+                          {moment(this.state.document.attributes.meeting_date_time, "DD-MM-YYYY HH:mm").format(
+                            "DD-MMM-YYYY HH:mm"
+                          )}
                         </span>
                         <p>{t("Place")}:</p>
-                        <span>{this.state.document && this.state.document.attributes.meeting.place}</span>
+                        <span>{this.state.document.attributes.meeting.place}</span>
                         <p>{t("Building")}:</p>
-                        <span>{this.state.document && this.state.document.attributes.buidling_name}</span>
+                        <span>{this.state.document.attributes.buidling_name}</span>
                         <p>{t("Agenda")}:</p>
-                        <span>{this.state.document && this.state.document.attributes.meeting.agenda}</span>
+                        <span>{this.state.document.attributes.meeting.agenda}</span>
                       </Card>
                     </div>
                   </>

@@ -6,8 +6,9 @@ import BuildingDocumentListWeb from "../../src/BuildingDocumentList.web";
 import { Message } from "../../../../framework/src/Message";
 import MessageEnum, { getName } from "../../../../framework/src/Messages/MessageEnum";
 import { runEngine } from "../../../../framework/src/RunEngine";
-import { documentMockData } from "../../../../components/src/TestCase/DocumentsMockData.web";
+import { documentMockData, resolutionMockData } from "../../../../components/src/TestCase/DocumentsMockData.web";
 import { paramComponentProps } from "../../../../components/src/TestCase/ComponentProps.web";
+import { Card } from "@material-ui/core";
 
 let BuildingDocumentListProps = paramComponentProps("BuildingDocumentList", DocumentReportStyleWeb, "policy");
 
@@ -45,7 +46,16 @@ defineFeature(feature, (test) => {
     then("Should load the resolution list", async () => {
       BuildingDocumentListProps = paramComponentProps("BuildingDocumentList", DocumentReportStyleWeb, "resolutions");
       BuildingDocumentListMountWrapper = mount(<BuildingDocumentListWeb {...BuildingDocumentListProps} />);
+      instance.setState({ documentType: "resolutions" });
       BuildingDocumentListMountWrapper.update();
+
+      let resolutionList = new Message(getName(MessageEnum.RestAPIResponceMessage));
+      resolutionList.addData(getName(MessageEnum.RestAPIResponceDataMessage), resolutionList);
+      resolutionList.addData(getName(MessageEnum.RestAPIResponceSuccessMessage), {
+        code: 200, resolution: { data: [resolutionMockData], }
+      });
+      instance.ResolutionsCallId = resolutionList;
+      runEngine.sendMessage("Document List", resolutionList);
     });
   });
 });
