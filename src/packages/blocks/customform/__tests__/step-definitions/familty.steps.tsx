@@ -1,12 +1,10 @@
 import { defineFeature, loadFeature } from "jest-cucumber";
-import { mount, shallow, ShallowWrapper } from "enzyme";
+import { mount} from "enzyme";
 
 import * as helpers from "../../../../framework/src/Helpers";
 import { runEngine } from "../../../../framework/src/RunEngine";
 import { Message } from "../../../../framework/src/Message";
-import {
-IconButton
-} from "@material-ui/core";
+
 import MessageEnum, {
   getName
 } from "../../../../framework/src/Messages/MessageEnum";
@@ -22,7 +20,7 @@ const screenProps = {
     push:jest.fn(),
   },
   match: jest.fn(),
-  // t:jest.fn()
+  
 };
 
 const feature = loadFeature("./__tests__/features/family-scenario.feature");
@@ -81,23 +79,7 @@ defineFeature(feature, test => {
       expect(backButtonCheckSpy).toHaveBeenCalled();
     });
 
-    // then("I am able to click Icon Button", () => {
-    //   // @ts-ignore
-    //   // event?.currentTarget=jest.fn()
-    //   instance.setState({
-    //     allVehcile:data.data
-    //   })
-    //   familyListBlock.update()
-    //   console.log('instance====',familyListBlock)
-    //   const iconButtonCheckSpy = jest.spyOn(familyListBlock.find(IconButton).at(0).props(), "onClick");
-    //   familyListBlock.find(IconButton).at(0).props().onClick();
-    //   expect(iconButtonCheckSpy).toHaveBeenCalled();
-    //   // expect(familyListBlock.getElementsByClassName('iconBtntest').length).toBe(1);
-
-    // });
     
-
-      ///
 
   });
 });

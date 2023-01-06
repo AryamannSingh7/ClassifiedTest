@@ -1,12 +1,11 @@
 import { defineFeature, loadFeature } from "jest-cucumber";
-import { mount, shallow, ShallowWrapper } from "enzyme";
+import { mount} from "enzyme";
 
 import * as helpers from "../../../../framework/src/Helpers";
 import { runEngine } from "../../../../framework/src/RunEngine";
 import { Message } from "../../../../framework/src/Message";
 import {
-IconButton
-} from "@material-ui/core";
+
 import MessageEnum, {
   getName
 } from "../../../../framework/src/Messages/MessageEnum";
@@ -111,16 +110,6 @@ defineFeature(feature, test => {
         NewFamilyBlock.find(".btn").at(0).props().onClick();
         expect(backButtonCheckSpy).toHaveBeenCalled();
       });
-    //   then("I am able to click route1", () => {
-    //     const backButtonCheckSpy = jest.spyOn(familyListBlock.find(".diloag-wrapper").at(0).props(), "onClick");
-    //     familyListBlock.find(".diloag-wrapper").at(0).props().onClick();
-    //     expect(backButtonCheckSpy).toHaveBeenCalled();
-    //   });
-    //   then("I am able to click route2", () => {
-    //     const backButtonCheckSpy = jest.spyOn(familyListBlock.find(".customButton").at(0).props(), "onClick");
-    //     familyListBlock.find(".customButton").at(0).props().onClick();
-    //     expect(backButtonCheckSpy).toHaveBeenCalled();
-    //   });
   
     then("Should load the Family List", async () => {
       let familyData = new Message(getName(MessageEnum.RestAPIResponceMessage));
@@ -145,30 +134,7 @@ defineFeature(feature, test => {
         NewFamilyBlock.find("#formik").at(0).props().onSubmit();
         expect(backButtonCheckSpy).toHaveBeenCalled();
       });
-    //   then("should check input", () => {
-    //     const backButtonCheckSpy = jest.spyOn(NewFamilyBlock.find("#file1").at(0).props(), "onChange");
-    //     NewFamilyBlock.find("#file1").at(0).props().onChange();
-    //     expect(backButtonCheckSpy).toHaveBeenCalled();
-    //   });
-
-    // then("I am able to click Icon Button", () => {
-    //   // @ts-ignore
-    //   // event?.currentTarget=jest.fn()
-    //   instance.setState({
-    //     allVehcile:data.data
-    //   })
-    //   familyListBlock.update()
-    //   console.log('instance====',familyListBlock)
-    //   const iconButtonCheckSpy = jest.spyOn(familyListBlock.find(IconButton).at(0).props(), "onClick");
-    //   familyListBlock.find(IconButton).at(0).props().onClick();
-    //   expect(iconButtonCheckSpy).toHaveBeenCalled();
-    //   // expect(familyListBlock.getElementsByClassName('iconBtntest').length).toBe(1);
-
-    // });
-    
-
-      ///
-
+  
   });
 });
 

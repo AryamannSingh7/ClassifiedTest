@@ -3,9 +3,6 @@ import React from 'react';
 import {
   Box,
   Button,
-  Card,
-  CardActions,
-  CardContent,
   Grid,
   Typography,
 } from "@material-ui/core";
@@ -26,9 +23,7 @@ class SuggestionDetails extends SuggestionController {
   constructor(props: Props) {
     super(props);
   }
-//   componentDidMount():any {
-//      this.getSuggtionListing()
-//   }
+
   render() {
     const data:any = JSON.parse(localStorage.getItem('selectSuggestion')!)
    console.log(data)

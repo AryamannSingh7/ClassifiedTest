@@ -1,12 +1,10 @@
 import { defineFeature, loadFeature } from "jest-cucumber";
-import { mount, shallow, ShallowWrapper } from "enzyme";
+import { mount } from "enzyme";
 
 import * as helpers from "../../../../framework/src/Helpers";
 import { runEngine } from "../../../../framework/src/RunEngine";
 import { Message } from "../../../../framework/src/Message";
-import {
-IconButton
-} from "@material-ui/core";
+
 import MessageEnum, {
   getName
 } from "../../../../framework/src/Messages/MessageEnum";
@@ -65,16 +63,7 @@ defineFeature(feature, test => {
         VeichleListBlock.find(".btn").at(0).props().onClick();
         expect(backButtonCheckSpy).toHaveBeenCalled();
       });
-    //   then("I am able to click route2", () => {
-    //     const backButtonCheckSpy = jest.spyOn(VeichleListBlock.find(".card").at(0).props(), "onClick");
-    //     VeichleListBlock.find(".card").at(0).props().onClick();
-    //     expect(backButtonCheckSpy).toHaveBeenCalled();
-    //   });
-    //   then("I am able to click route2", () => {
-    //     const backButtonCheckSpy = jest.spyOn(familyListBlock.find(".customButton").at(0).props(), "onClick");
-    //     familyListBlock.find(".customButton").at(0).props().onClick();
-    //     expect(backButtonCheckSpy).toHaveBeenCalled();
-    //   });
+    
   
     then("Should load the Family List", async () => {
       let familyData = new Message(getName(MessageEnum.RestAPIResponceMessage));
@@ -84,34 +73,7 @@ defineFeature(feature, test => {
       runEngine.sendMessage("Family List", familyData);
     });
 
-    //  then("should check form", () => {
-    //     const backButtonCheckSpy = jest.spyOn(VeichleListBlock.find("#formik").at(0).props(), "onSubmit");
-    //     VeichleListBlock.find("#formik").at(0).props().onSubmit();
-    //     expect(backButtonCheckSpy).toHaveBeenCalled();
-    //   });
-    //   then("should check input", () => {
-    //     const backButtonCheckSpy = jest.spyOn(NewFamilyBlock.find("#file1").at(0).props(), "onChange");
-    //     NewFamilyBlock.find("#file1").at(0).props().onChange();
-    //     expect(backButtonCheckSpy).toHaveBeenCalled();
-    //   });
-
-    // then("I am able to click route2", () => {
-    //   // @ts-ignore
-    //   // event?.currentTarget=jest.fn()
-    //   instance.setState({
-    //     allVehcile:data.data
-    //   })
-    //   VeichleListBlock.update()
-    //   console.log('instance====',VeichleListBlock)
-    //   const iconButtonCheckSpy = jest.spyOn(VeichleListBlock.find('.card').at(0).props(), "onClick");
-    //   VeichleListBlock.find('.card').at(0).props().onClick();
-    //   expect(iconButtonCheckSpy).toHaveBeenCalled();
-    //   // expect(familyListBlock.getElementsByClassName('iconBtntest').length).toBe(1);
-
-    // });
     
-
-      ///
 
   });
 });

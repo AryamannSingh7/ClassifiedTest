@@ -353,10 +353,7 @@ this.setState({loading:false,showDialog:false})
         } else if (apiRequestCallId === this.createRequestApiCallId) {
           if (!responseJson.errors) {
             console.log(responseJson)
-            // localStorage.setItem('res_token', responseJson.meta.token)
-            // localStorage.setItem('res_user', responseJson.data.attributes)
-            // localStorage.setItem('res_user_id', responseJson.data.id)
-            // this.props.history.push('/selecttype')
+           
             //@ts-ignore
             //@ts-nocheck
 
@@ -2076,7 +2073,7 @@ let userType=localStorage.getItem('userType')
         token: localStorage.getItem("userToken")
       };
 
-      //const id = localStorage.getItem("userId");
+      
       const requestMessage = new Message(
         getName(MessageEnum.RestAPIRequestMessage)
       );

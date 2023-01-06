@@ -12,9 +12,7 @@ class SuggestionDetails extends SuggestionsController {
     super(props);
   }
 
-  async componentDidMount(): Promise<void> {
-  }
-
+ 
   render() {
     const { classes } = this.props;
     const item:any=JSON.parse(localStorage.getItem('selectSuggestion')!)
