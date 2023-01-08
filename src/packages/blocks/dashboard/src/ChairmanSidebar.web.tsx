@@ -422,7 +422,7 @@ export default withTranslation()(withStyles(dashBoard)(withRouter(ChairmanSideba
 
 
 //@ts-ignore
-export default withTranslation()(withStyles(dashBoard)(withRouter(ChairmanSidebar)));
+// export default withTranslation()(withStyles(dashBoard)(withRouter(ChairmanSidebar)));
 
 
 // Customizable Area End

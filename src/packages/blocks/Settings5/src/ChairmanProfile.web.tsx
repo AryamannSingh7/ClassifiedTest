@@ -124,10 +124,10 @@ class ChairmanProfile extends ProfileController {
                           className="profile"
                         />
                         <Typography variant="h6" className="sub-heading">
-                        {profileData?.attributes?.full_name.name || 'N/A'}
+                        {profileData?.attributes?.full_name.name}
                         </Typography>
 
-                        <p> {profileData?.attributes?.apartment_number?.apartment_number && 'Unit - '}{profileData?.attributes?.apartment_number?.apartment_number || 'N/A'}</p>
+                        <p> {profileData?.attributes?.apartment_number?.apartment_number && 'Unit - '}{profileData?.attributes?.apartment_number?.apartment_number}</p>
                         <Box className="icons">
                           <img src={ChatIcon} alt="chat" />
                           <img src={CallIcon} alt="phone" onClick={() => document.location.href = `tel:${profileData?.attributes?.full_phone_number?.full_phone_number}`}/>
@@ -140,18 +140,18 @@ class ChairmanProfile extends ProfileController {
                           <Grid item xs={12}>
                             <span>About</span>
                             <p>
-                            {profileData?.attributes?.bio?.bio || 'N/A'}
+                            {profileData?.attributes?.bio?.bio}
                             </p>
                           </Grid>
                         </Grid>
                         <Grid container className="info">
                           <Grid item xs={3}>
                             <span>Gender</span>
-                            <p>{profileData?.attributes?.gender?.gender || 'N/A'}</p>
+                            <p>{profileData?.attributes?.gender?.gender}</p>
                           </Grid>
                           <Grid item xs={3}>
                             <span>DOB</span>
-                            <p> {profileData?.attributes?.date_of_birth?.date_of_birth || 'N/A'}</p>
+                            <p> {profileData?.attributes?.date_of_birth?.date_of_birth}</p>
                           </Grid>
                           <Grid item xs={6}>
                             <span>Hobbies</span>
