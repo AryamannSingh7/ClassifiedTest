@@ -54,22 +54,22 @@ class ChairmanProfile extends ProfileController {
         // this.getVehicle()
     
       }
-      checkNosocialMedia(profileData:any){
+  //     checkNosocialMedia(profileData:any){
      
       
 
-        if(!profileData?.attributes?.website[0].twitter_link){
-          if(!profileData?.attributes?.website[1].instagram_link){
-            if(!profileData?.attributes?.website[2].fb_link){
-              if(!profileData?.attributes?.website[3].snapchat_link){
-  return 'No social media handle'
-              }
-            }
+  //       if(!profileData?.attributes?.website[0].twitter_link){
+  //         if(!profileData?.attributes?.website[1].instagram_link){
+  //           if(!profileData?.attributes?.website[2].fb_link){
+  //             if(!profileData?.attributes?.website[3].snapchat_link){
+  // return 'No social media handle'
+  //             }
+  //           }
   
-          }
-        }
+  //         }
+  //       }
   
-      }
+  //     }
   render() {
      //@ts-ignore
             //@ts-nocheck
