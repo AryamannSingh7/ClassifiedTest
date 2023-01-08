@@ -258,7 +258,7 @@ const profileData = JSON.parse(localStorage.getItem('profileData') ||'{}')
         this.verifyOTPRes(responseJson)
         }
          else if (apiRequestCallId === this.getInvitationCountApiCallId) {
-          this.getInvitationRes(responseJson)
+          this.getInvitationCountRes(responseJson)
 
         } else if (apiRequestCallId === this.createInvitationAPICallId) {
           this.createInvitationRes(responseJson)
@@ -267,72 +267,20 @@ const profileData = JSON.parse(localStorage.getItem('profileData') ||'{}')
           this.updateChairmenProfileRes(responseJson)
        
         } else if (apiRequestCallId === this.createRequestApiCallId) {
-          if (!responseJson.errors) {
-            console.log(responseJson)
-           
-            //@ts-ignore
-            //@ts-nocheck
-
-            this.props.history.push('/RegistrationRequestsignup')
-            //@ts-ignore
-            //@ts-nocheck
-            this.setState({ showDialog: false })
-
-
-          } else {
-            //Check Error Response
-            this.parseApiErrorResponse(responseJson);
-          }
-
-          this.parseApiCatchErrorResponse(errorReponse);
-        } if (apiRequestCallId === this.getProfileDataAPiCallId) {
-          if (!responseJson.errors) {
-            console.log(responseJson)
-            //@ts-ignore
-            //@ts-nocheck
-           this.setState({allProfile:responseJson,loading:false,allProfileKeys:Object.keys(responseJson)},()=>console.log(this.state.allProfileKeys))
-
-          } else {
-            //Check Error Response
-            this.parseApiErrorResponse(responseJson);
-          }
-
-          this.parseApiCatchErrorResponse(errorReponse);
-        }   else if(apiRequestCallId === this.createChatRoomAPIId){
-          if(responseJson.hasOwnProperty("data")){
-            localStorage.setItem('selectedChat',JSON.stringify(responseJson.data))
-            
-            this.props.history.push({
-              pathname: '/chairmanchat',
-              state: { data: responseJson.data }
-            })
-          }else{
-            
-          }
-        } else if (apiRequestCallId === this.getInvitationAPICall) {
-          if (!responseJson.errors) {
-this.setState({allInvitation:responseJson.member_invitations.data,loading:false})
-
-
-          } else {
-            //Check Error Response
-            this.parseApiErrorResponse(responseJson);
-          }
-
-          this.parseApiCatchErrorResponse(errorReponse);
-        } else if (apiRequestCallId === this.changeUserTypeApiCallId) {
-          if (!responseJson.errors) {
-            //@ts-ignore
-            //@ts-nocheck
-            this.setState({ loading: false })
-            //@ts-ignore
-            //@ts-nocheck
-            this.props.history.push('/addressfill')
-
-
-          } 
-
+          this.createRequestRes(responseJson)
         
+        } if (apiRequestCallId === this.getProfileDataAPiCallId) {
+          this.getProfileDataRes(responseJson)
+         
+        }   else if(apiRequestCallId === this.createChatRoomAPIId){
+          this.createChatRoomRes(responseJson)
+       
+        } else if (apiRequestCallId === this.getInvitationAPICall) {
+          this.getInvitationRes(responseJson)
+         
+        } else if (apiRequestCallId === this.changeUserTypeApiCallId) {
+          this.changeUserTypeRes(responseJson)
+      
         } else if (apiRequestCallId === this.acceptInvitationAPICallId) {
           if (!responseJson.errors) {
             console.log("user data===============>",responseJson.data)
@@ -444,7 +392,7 @@ this.setState({allInvitation:responseJson.member_invitations.data,loading:false}
     this.setState({ loading: false })
 
   }
-  getInvitationRes(responseJson:any){
+  getInvitationCountRes(responseJson:any){
     if (!responseJson.errors) {
       console.log(responseJson)
       this.setState({ invitatonCount:responseJson,loading: false })
@@ -494,6 +442,79 @@ this.setState({loading:false,showDialog:false})
     }
 
     this.parseApiCatchErrorResponse(errorReponse);
+  }
+  createRequestRes(responseJson:any){
+    if (!responseJson.errors) {
+      console.log(responseJson)
+     
+      //@ts-ignore
+      //@ts-nocheck
+
+      this.props.history.push('/RegistrationRequestsignup')
+      //@ts-ignore
+      //@ts-nocheck
+      this.setState({ showDialog: false })
+
+
+    } else {
+      //Check Error Response
+      this.parseApiErrorResponse(responseJson);
+    }
+
+    this.parseApiCatchErrorResponse(errorReponse);
+
+  }
+  getProfileDataRes(responseJson:any){
+    if (!responseJson.errors) {
+      console.log(responseJson)
+      //@ts-ignore
+      //@ts-nocheck
+     this.setState({allProfile:responseJson,loading:false,allProfileKeys:Object.keys(responseJson)},()=>console.log(this.state.allProfileKeys))
+
+    } else {
+      //Check Error Response
+      this.parseApiErrorResponse(responseJson);
+    }
+
+    this.parseApiCatchErrorResponse(errorReponse);
+  }
+  createChatRoomRes(responseJson:any){
+    if(responseJson.hasOwnProperty("data")){
+      localStorage.setItem('selectedChat',JSON.stringify(responseJson.data))
+      
+      this.props.history.push({
+        pathname: '/chairmanchat',
+        state: { data: responseJson.data }
+      })
+    }else{
+      
+    }
+  }
+  getInvitationRes(responseJson:any){
+    if (!responseJson.errors) {
+      this.setState({allInvitation:responseJson.member_invitations.data,loading:false})
+      
+      
+                } else {
+                  //Check Error Response
+                  this.parseApiErrorResponse(responseJson);
+                }
+      
+                this.parseApiCatchErrorResponse(errorReponse);
+  }
+  changeUserTypeRes(responseJson:any){
+    if (!responseJson.errors) {
+      //@ts-ignore
+      //@ts-nocheck
+      this.setState({ loading: false })
+      //@ts-ignore
+      //@ts-nocheck
+      this.props.history.push('/addressfill')
+
+
+    } 
+
+  
   }
   goToPrivacyPolicy() {
     const msg: Message = new Message(
