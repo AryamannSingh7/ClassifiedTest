@@ -40,6 +40,7 @@ interface S {
   categoryError:any;
   announcementList:any;
   searchKey:any;
+  blobImage:any
   // Customizable Area End
 }
 
@@ -81,6 +82,7 @@ export default class AnnouncementsController extends BlockComponent<Props, S, SS
       categoryError:"",
       announcementList:[],
       searchKey:"",
+      blobImage:null
     };
     // Customizable Area End
     runEngine.attachBuildingBlock(this as IBlock, this.subScribedMessages);
@@ -235,9 +237,11 @@ export default class AnnouncementsController extends BlockComponent<Props, S, SS
     event.stopPropagation();
     event.preventDefault();
     let file = event.target.files[0];
+
     this.setState({
-      selectedImage:file
-    })
+      selectedImage:file,
+      blobImage:URL.createObjectURL(file)
+    },()=>console.log(this.state.selectedImage))
   };
 
   onGetBuildingList = async () => {
