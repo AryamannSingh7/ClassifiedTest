@@ -414,12 +414,9 @@ this.setState({allInvitation:responseJson.member_invitations.data,loading:false}
             this.props.history.push('/addressfill')
 
 
-          } else {
-            //Check Error Response
-            this.parseApiErrorResponse(responseJson);
-          }
+          } 
 
-          // this.parseApiCatchErrorResponse(errorReponse);
+        
         } else if (apiRequestCallId === this.acceptInvitationAPICallId) {
           if (!responseJson.errors) {
             console.log("user data===============>",responseJson.data)

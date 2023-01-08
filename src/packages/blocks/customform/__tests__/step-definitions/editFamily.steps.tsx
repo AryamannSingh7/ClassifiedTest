@@ -98,11 +98,7 @@ defineFeature(feature, test => {
       expect(NewFamilyBlock).toBeTruthy();
       expect(NewFamilyBlock).toMatchSnapshot();
     });
-    // then("I am able to click Icon Button", () => {
-    //   const backButtonCheckSpy = jest.spyOn(NewFamilyBlock.find(".backtesticon").at(0).props(), "onClick");
-    //   NewFamilyBlock.find(".backtesticon").at(0).props().onClick();
-    //   expect(backButtonCheckSpy).toHaveBeenCalled();
-    // });
+  
     then("I am able to click route", () => {
         const backButtonCheckSpy = jest.spyOn(NewFamilyBlock.find(".btn").at(0).props(), "onClick");
         NewFamilyBlock.find(".btn").at(0).props().onClick();
