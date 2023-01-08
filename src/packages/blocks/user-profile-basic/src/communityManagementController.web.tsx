@@ -255,79 +255,17 @@ const profileData = JSON.parse(localStorage.getItem('profileData') ||'{}')
 
   
        if (apiRequestCallId === this.verifyOtpApiCallId) {
-          if (!responseJson.errors) {
-            console.log(responseJson)
-               //@ts-ignore
-            //@ts-nocheck
-            let profileData:any = JSON.parse(localStorage.getItem('profileData'))
-            if(profileData){
-
-              profileData.attributes.full_phone_number.phone_number = responseJson.phone_number
-              profileData.attributes.full_phone_number.country_code = responseJson.country_code
-              localStorage.setItem('profileData',JSON.stringify(profileData))
-            }
-            this.setState({ selectCode: responseJson.country_code })
-            this.setState({ selectCode3: responseJson.country_code })
-
-            location.reload();
-
-          } else if (responseJson?.errors) {
-            let error = responseJson.errors[0];
-            this.setState({ error });
-          } else {
-            this.setState({ error: responseJson?.error || "Something went wrong!" });
-            this.parseApiCatchErrorResponse(this.state.error);
-          }
-          this.setState({ loading: false })
-
-        } else if (apiRequestCallId === this.getInvitationCountApiCallId) {
-          if (!responseJson.errors) {
-            console.log(responseJson)
-            this.setState({ invitatonCount:responseJson,loading: false })
-          } 
-          else if (responseJson?.errors) {
-
-            let error = responseJson.errors;
-            this.setState({ error },()=>console.log(this.state.error));
-            ApiCatchErrorResponse(error)
-            // this.parseApiCatchErrorResponse(this.state.error);
-            // this.parseApiCatchErrorResponse(errorReponse);
-          } else {
-            this.setState({ error: responseJson?.error || "Something went wrong!" });
-            this.parseApiCatchErrorResponse(this.state.error);
-            this.parseApiCatchErrorResponse(errorReponse);
-          }
-          this.setState({ loading: false })
+        this.verifyOTPRes(responseJson)
+        }
+         else if (apiRequestCallId === this.getInvitationCountApiCallId) {
+          this.getInvitationRes(responseJson)
 
         } else if (apiRequestCallId === this.createInvitationAPICallId) {
-          if (!responseJson.errors) {
-            console.log(responseJson)
-this.setState({loading:false,setOpen:false,setDeleteRequest:false},()=>this.getCount())
-            //@ts-ignore
-            //@ts-nocheck
-
-            
-
-          } else {
-            //Check Error Response
-            this.parseApiErrorResponse(responseJson);
-          }
-
-          this.parseApiCatchErrorResponse(errorReponse);
+          this.createInvitationRes(responseJson)
+       
         }else if (apiRequestCallId === this.updateChairmenProfileAPiId) {
-          if (!responseJson.errors) {
-            console.log(responseJson)
-            this.getProfile()
-this.setState({loading:false,showDialog:false})
-          
-
-
-          } else {
-            //Check Error Response
-            this.parseApiErrorResponse(responseJson);
-          }
-
-          this.parseApiCatchErrorResponse(errorReponse);
+          this.updateChairmenProfileRes(responseJson)
+       
         } else if (apiRequestCallId === this.createRequestApiCallId) {
           if (!responseJson.errors) {
             console.log(responseJson)
@@ -475,36 +413,88 @@ this.setState({allInvitation:responseJson.member_invitations.data,loading:false}
         }
     
     }
-
-    if (getName(MessageEnum.NavigationPayLoadMessage) === message.id) {
-      const otpAuthTkn = message.getData(
-        getName(MessageEnum.AuthTokenDataMessage)
-      );
-      if (otpAuthTkn && otpAuthTkn.length > 0) {
-        this.setState({ otpAuthToken: otpAuthTkn });
-        runEngine.debugLog("otpAuthTkn", this.state.otpAuthToken);
-        runEngine.unSubscribeFromMessages(this as IBlock, [message.id]);
-      }
-    }
-
-    if (getName(MessageEnum.CountryCodeMessage) === message.id) {
-      var selectedCode = message.getData(
-        getName(MessageEnum.CountyCodeDataMessage)
-      );
-
-      if (selectedCode !== undefined) {
-        this.setState({
-          countryCodeSelected:
-            selectedCode.indexOf("+") > 0
-              ? selectedCode.split("+")[1]
-              : selectedCode
-        });
-      }
-    }
     // Customizable Area End
   }
 
   // Customizable Area Start
+  verifyOTPRes(responseJson:any){
+    if (!responseJson.errors) {
+      console.log(responseJson)
+         //@ts-ignore
+      //@ts-nocheck
+      let profileData:any = JSON.parse(localStorage.getItem('profileData'))
+      if(profileData){
+
+        profileData.attributes.full_phone_number.phone_number = responseJson.phone_number
+        profileData.attributes.full_phone_number.country_code = responseJson.country_code
+        localStorage.setItem('profileData',JSON.stringify(profileData))
+      }
+      this.setState({ selectCode: responseJson.country_code })
+      this.setState({ selectCode3: responseJson.country_code })
+
+      location.reload();
+
+    } else if (responseJson?.errors) {
+      let error = responseJson.errors[0];
+      this.setState({ error });
+    } else {
+      this.setState({ error: responseJson?.error || "Something went wrong!" });
+      this.parseApiCatchErrorResponse(this.state.error);
+    }
+    this.setState({ loading: false })
+
+  }
+  getInvitationRes(responseJson:any){
+    if (!responseJson.errors) {
+      console.log(responseJson)
+      this.setState({ invitatonCount:responseJson,loading: false })
+    } 
+    else if (responseJson?.errors) {
+
+      let error = responseJson.errors;
+      this.setState({ error },()=>console.log(this.state.error));
+      ApiCatchErrorResponse(error)
+      // this.parseApiCatchErrorResponse(this.state.error);
+      // this.parseApiCatchErrorResponse(errorReponse);
+    } else {
+      this.setState({ error: responseJson?.error || "Something went wrong!" });
+      this.parseApiCatchErrorResponse(this.state.error);
+      this.parseApiCatchErrorResponse(errorReponse);
+    }
+    this.setState({ loading: false })
+
+  }
+  createInvitationRes(responseJson:any){
+    if (!responseJson.errors) {
+      console.log(responseJson)
+this.setState({loading:false,setOpen:false,setDeleteRequest:false},()=>this.getCount())
+      //@ts-ignore
+      //@ts-nocheck
+
+      
+
+    } else {
+      //Check Error Response
+      this.parseApiErrorResponse(responseJson);
+    }
+
+    this.parseApiCatchErrorResponse(errorReponse);
+  }
+  updateChairmenProfileRes(responseJson:any){
+    if (!responseJson.errors) {
+      console.log(responseJson)
+      this.getProfile()
+this.setState({loading:false,showDialog:false})
+    
+
+
+    } else {
+      //Check Error Response
+      this.parseApiErrorResponse(responseJson);
+    }
+
+    this.parseApiCatchErrorResponse(errorReponse);
+  }
   goToPrivacyPolicy() {
     const msg: Message = new Message(
       getName(MessageEnum.NavigationPrivacyPolicyMessage)
