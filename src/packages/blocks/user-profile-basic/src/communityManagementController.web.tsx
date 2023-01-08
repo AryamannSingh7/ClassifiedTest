@@ -269,7 +269,7 @@ const profileData = JSON.parse(localStorage.getItem('profileData') ||'{}')
         } else if (apiRequestCallId === this.createRequestApiCallId) {
           this.createRequestRes(responseJson)
         
-        } if (apiRequestCallId === this.getProfileDataAPiCallId) {
+        }else if (apiRequestCallId === this.getProfileDataAPiCallId) {
           this.getProfileDataRes(responseJson)
          
         }   else if(apiRequestCallId === this.createChatRoomAPIId){
@@ -297,7 +297,7 @@ const profileData = JSON.parse(localStorage.getItem('profileData') ||'{}')
           this.getBuildingRes(responseJson)
        
         } 
-        else if (apiRequestCallId === this.getUnitApiCallId) {
+        else (apiRequestCallId === this.getUnitApiCallId) {
           this.getUnitApiRes(responseJson)
           
         }
