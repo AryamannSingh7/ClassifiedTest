@@ -296,7 +296,7 @@ const profileData = JSON.parse(localStorage.getItem('profileData') ||'{}')
         } else if (apiRequestCallId === this.getBuildingApiCallId) {
           this.getBuildingRes(responseJson)
        
-        } 
+        }  
         else (apiRequestCallId === this.getUnitApiCallId) {
           this.getUnitApiRes(responseJson)
           
