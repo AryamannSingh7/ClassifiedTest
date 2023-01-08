@@ -3,14 +3,13 @@ import { mount } from "enzyme";
 import React, { Component } from "react";
 import { BrowserRouter as Router } from "react-router-dom"
 import * as helpers from "../../../../framework/src/Helpers";
-import { Button, Card, Grid, IconButton } from "@material-ui/core";
+import {Card} from "@material-ui/core";
 import { runEngine } from "../../../../framework/src/RunEngine";
 import { Message } from "../../../../framework/src/Message"
 import MessageEnum, {
   getName,
 } from "../../../../framework/src/Messages/MessageEnum";
-import {dashBoard}  from "../../src/ManagerFacilityReservation.web";
-import FacilityReservation from "../../src/ManagerFacilityReservation.web";
+import FacilityReservation ,{dashBoard} from "../../src/ManagerFacilityReservation.web";
 const navigation = require("react-navigation");
 
 const screenProps = {

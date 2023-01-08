@@ -3,7 +3,7 @@ import { mount } from "enzyme";
 import React, { Component } from "react";
 import { BrowserRouter as Router } from "react-router-dom"
 import * as helpers from "../../../../framework/src/Helpers";
-import { Button, Card, IconButton } from "@material-ui/core";
+import { Button } from "@material-ui/core";
 import { runEngine } from "../../../../framework/src/RunEngine";
 import { Message } from "../../../../framework/src/Message"
 import MessageEnum, {
@@ -45,52 +45,6 @@ defineFeature(feature, (test) => {
     jest.doMock("react-native", () => ({ Platform: { OS: "web" } }));
     jest.spyOn(helpers, "getOS").mockImplementation(() => "web");
   });
-
-  const facilityReservationDetailsMockData = { "data": {
-    "id": "50",
-    "type": "facility_reservation",
-    "attributes": {
-        "date": "08-Dec-2022",
-        "status": "Completed",
-        "note": null,
-        "description": null,
-        "account_id": 283,
-        "paid_on": "08-12-2022",
-        "rent": 700,
-        "Owner_name": "Akash",
-        "start_time": "08:30",
-        "end_time": "09:50",
-        "unit_number": null,
-        "building": {
-            "id": 4,
-            "name": "test building2",
-            "society_management_id": 6,
-            "description": null,
-            "created_at": "2022-08-31T11:45:30.819Z",
-            "updated_at": "2022-09-02T14:41:47.572Z",
-            "per_floor_unit": 3,
-            "generation_methods": "A-101, A-102, A-103",
-            "number_of_floor": 6,
-            "building_area": "2500 sq. ft.",
-            "account_id": null,
-            "lat": null,
-            "long": null,
-            "city": null
-        },
-        "common_area": {
-            "id": 19,
-            "name": "Swimmingpool",
-            "society_management_id": 6,
-            "created_at": "2022-11-29T00:04:46.859Z",
-            "updated_at": "2022-11-29T00:04:46.859Z",
-            "details": "",
-            "total_area": "",
-            "currency_id": 3,
-            "reservation_fee": 700
-        }
-    }
-}
-  }
 
   const facilityReservationDetailsUpcomingMockData = { "data": 
   {
@@ -208,10 +162,6 @@ defineFeature(feature, (test) => {
         const backButtonSpy = jest.spyOn(FacilityReservationMountWrapper.find(".backIcons").at(0).props(), "onClick");
         FacilityReservationMountWrapper.find(".backIcons").at(0).props().onClick();
         expect(backButtonSpy).toHaveBeenCalled();
-        // jest.spyOn(instance,"redirectToDashboard")
-        // expect(FacilityReservationMountWrapper.find("#backIcons").length).toEqual(2)
-        // FacilityReservationMountWrapper.find("#backIcons").at(1).simulate('click')
-        // expect(instance.redirectToDashboard).toHaveBeenCalled()
       });
 
       then("Should load the facility ReservationList Details", async () => {

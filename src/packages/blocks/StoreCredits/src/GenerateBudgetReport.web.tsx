@@ -63,7 +63,7 @@ class CreateSurveys extends GenerateBudgetReportController {
                                 <Box className="createPSCards">
                                     <TextField label={t("Enter budget year")} variant="outlined"
                                     name="title"
-                                    id="SurveyQuestion"
+                                    id="BudgetReportYear"
                                     value={this.state.budgetYear}
                                     onChange={(e)=> this.setState({budgetYear:e.target.value})}
                                     inputProps={{
@@ -86,7 +86,7 @@ class CreateSurveys extends GenerateBudgetReportController {
                                                                     inputProps={{
                                                                         maxLength: 255
                                                                     }}
-                                                                    id="SurveyQuestion"
+                                                                    id="CategoryItem"
                                                                     value={item.budgetCategory}
                                                                     onChange={(e)=>this.handleBudgetCategory(key,e)}
                                                                     required fullWidth style={{marginTop:20,borderRadius:"10px"}}
