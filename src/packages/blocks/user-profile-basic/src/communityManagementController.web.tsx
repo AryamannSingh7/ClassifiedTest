@@ -284,29 +284,33 @@ const profileData = JSON.parse(localStorage.getItem('profileData') ||'{}')
         } else if (apiRequestCallId === this.acceptInvitationAPICallId) {
           this.acceptInvitationRes(responseJson)
          
-        } else if (apiRequestCallId === this.getUserTypeAPICall) {
-          this.getUserTypeRes(responseJson)
-         
-        } else if (apiRequestCallId === this.getComplexApiCallId) {
-          this.getComplexApiRes(responseJson)
-          
-        } else if (apiRequestCallId === this.getCityApiCallId) {
-          this.getCityRes(responseJson)
-         
-        } else if (apiRequestCallId === this.getBuildingApiCallId) {
-          this.getBuildingRes(responseJson)
-       
-        }  
-        else {
-          this.getUnitApiRes(responseJson)
-          
-        }
+        } 
+        this.receive2(apiRequestCallId,responseJson)
     
     }
     // Customizable Area End
   }
 
   // Customizable Area Start
+  receive2(apiRequestCallId:any ,responseJson:any){
+   if (apiRequestCallId === this.getUserTypeAPICall) {
+      this.getUserTypeRes(responseJson)
+     
+    } else if (apiRequestCallId === this.getComplexApiCallId) {
+      this.getComplexApiRes(responseJson)
+      
+    } else if (apiRequestCallId === this.getCityApiCallId) {
+      this.getCityRes(responseJson)
+     
+    } else if (apiRequestCallId === this.getBuildingApiCallId) {
+      this.getBuildingRes(responseJson)
+   
+    }  
+    else if (apiRequestCallId === this.getUnitApiCallId) {
+      this.getUnitApiRes(responseJson)
+      
+    }
+  }
   verifyOTPRes(responseJson:any){
     if (!responseJson.errors) {
       console.log(responseJson)
