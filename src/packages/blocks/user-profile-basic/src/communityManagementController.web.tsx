@@ -489,7 +489,7 @@ this.setState({allInvitation:responseJson.member_invitations.data,loading:false}
             //@ts-ignore
             //@ts-nocheck
 
-            this.setState({ allUnit: responseJson.apartment_managements.data }, () => console.log(this.state.allUnit[0]))
+            this.setState({ allUnit: responseJson.apartment_managements.data })
           } else {
             //Check Error Response
             this.parseApiErrorResponse(responseJson);
