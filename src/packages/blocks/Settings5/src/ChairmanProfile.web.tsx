@@ -118,40 +118,42 @@ class ChairmanProfile extends ProfileController {
                   <Card className="profile-details-box">
                     <Grid container>
                       <Grid item xs={3} className="left-side" style={{padding:20}}>
-                        <img
+                        {/* <img
                           src={profileData?.attributes?.profile_pic?.url||AvatarIcon.default}
                           alt="avatar"
                           className="profile"
                         />
                         <Typography variant="h6" className="sub-heading">
-                        {profileData?.attributes?.full_name.name}
+                        {profileData?.attributes?.full_name.name || 'N/A'}
                         </Typography>
 
-                        <p> {profileData?.attributes?.apartment_number?.apartment_number && 'Unit - '}{profileData?.attributes?.apartment_number?.apartment_number}</p>
+                        <p> {profileData?.attributes?.apartment_number?.apartment_number && 'Unit - '}{profileData?.attributes?.apartment_number?.apartment_number || 'N/A'}</p>
                         <Box className="icons">
                           <img src={ChatIcon} alt="chat" />
                           <img src={CallIcon} alt="phone" onClick={() => document.location.href = `tel:${profileData?.attributes?.full_phone_number?.full_phone_number}`}/>
                           <img src={EmailIcon} alt="email" onClick={() => document.location.href = `mailto:${profileData?.attributes?.email?.email}`}/>
-                        </Box>
+                        </Box> */}
+                        <SectionOne profileData={profileData}/>
                       </Grid>
                       <Grid item xs={1} className="border" />
                       <Grid item xs={8} className="right-side" style={{padding:20}}>
-                        <Grid container className="about">
+                        <SectionTwo profileData={profileData}/>
+                        {/* <Grid container className="about">
                           <Grid item xs={12}>
                             <span>About</span>
                             <p>
-                            {profileData?.attributes?.bio?.bio}
+                            {profileData?.attributes?.bio?.bio || 'N/A'}
                             </p>
                           </Grid>
                         </Grid>
                         <Grid container className="info">
                           <Grid item xs={3}>
                             <span>Gender</span>
-                            <p>{profileData?.attributes?.gender?.gender}</p>
+                            <p>{profileData?.attributes?.gender?.gender || 'N/A'}</p>
                           </Grid>
                           <Grid item xs={3}>
                             <span>DOB</span>
-                            <p> {profileData?.attributes?.date_of_birth?.date_of_birth}</p>
+                            <p> {profileData?.attributes?.date_of_birth?.date_of_birth || 'N/A'}</p>
                           </Grid>
                           <Grid item xs={6}>
                             <span>Hobbies</span>
@@ -207,7 +209,7 @@ class ChairmanProfile extends ProfileController {
                              
                             </Box>
                           </Grid>
-                        </Grid>
+                        </Grid> */}
                       </Grid>
                     </Grid>
                   </Card>
@@ -1033,3 +1035,116 @@ class ChairmanProfile extends ProfileController {
 export default withStyles(ProfileStyleWeb)(ChairmanProfile);
 // Customizable Area End
  
+
+const SectionOne=(profileData:any)=>{
+  return <>
+   <img
+                          src={profileData?.attributes?.profile_pic?.url||AvatarIcon.default}
+                          alt="avatar"
+                          className="profile"
+                        />
+                        <Typography variant="h6" className="sub-heading">
+                        {profileData?.attributes?.full_name.name || 'N/A'}
+                        </Typography>
+
+                        <p> {profileData?.attributes?.apartment_number?.apartment_number && 'Unit - '}{profileData?.attributes?.apartment_number?.apartment_number || 'N/A'}</p>
+                        <Box className="icons">
+                          <img src={ChatIcon} alt="chat" />
+                          <img src={CallIcon} alt="phone" onClick={() => document.location.href = `tel:${profileData?.attributes?.full_phone_number?.full_phone_number}`}/>
+                          <img src={EmailIcon} alt="email" onClick={() => document.location.href = `mailto:${profileData?.attributes?.email?.email}`}/>
+                        </Box>
+  </>
+}
+
+const SectionTwo=(profileData:any)=>{
+ const checkNosocialMedia=(profileData:any)=>{
+     
+      
+
+    if(!profileData?.attributes?.website[0].twitter_link){
+      if(!profileData?.attributes?.website[1].instagram_link){
+        if(!profileData?.attributes?.website[2].fb_link){
+          if(!profileData?.attributes?.website[3].snapchat_link){
+return 'No social media handle'
+          }
+        }
+
+      }
+    }
+
+  }
+  return <>
+   <Grid container className="about">
+                          <Grid item xs={12}>
+                            <span>About</span>
+                            <p>
+                            {profileData?.attributes?.bio?.bio || 'N/A'}
+                            </p>
+                          </Grid>
+                        </Grid>
+                        <Grid container className="info">
+                          <Grid item xs={3}>
+                            <span>Gender</span>
+                            <p>{profileData?.attributes?.gender?.gender || 'N/A'}</p>
+                          </Grid>
+                          <Grid item xs={3}>
+                            <span>DOB</span>
+                            <p> {profileData?.attributes?.date_of_birth?.date_of_birth || 'N/A'}</p>
+                          </Grid>
+                          <Grid item xs={6}>
+                            <span>Hobbies</span>
+                            <Box className="hobbies">
+                            {
+              profileData?.attributes?.hobbies?.hobbies && <>
+
+      
+                    {
+                      profileData?.attributes?.hobbies?.hobbies.map((item:any) => <>
+                        <span>
+                          {item}
+                        </span>
+                      </>)
+  }
+              </>
+}
+                              
+                            </Box>
+                          </Grid>
+                        </Grid>
+                        <Grid container className="social">
+                          <Grid item xs={12}>
+                            <span>Social Media</span>
+                            <Box className="icons">
+                            {
+                    profileData?.attributes?.website[0].twitter_link &&
+                     <Button href={profileData?.attributes?.website[0].twitter_link} target="_blank">
+                      <img src={TwitterIcon} alt="phone" />
+                    </Button>
+                  }
+                  {
+                    profileData?.attributes?.website[1].instagram_link && <Button href={profileData?.attributes?.website[1].instagram_link} target="_blank">
+                     <img src={InstagramIcon} alt="chat" />
+                    </Button>
+                  }
+                  {
+                    profileData?.attributes?.website[2].fb_link && <Button href={profileData?.attributes?.website[2].fb_link} target="_blank">
+                     <img src={FacebookIcon} alt="chat" />
+                    </Button>
+                  }
+                  {
+                    profileData?.attributes?.website[3].snapchat_link && <Button href={profileData?.attributes?.website[3].snapchat_link} target="_blank">
+                      <img src={SnapchatIcon} alt="email" />
+                    </Button>
+                  }
+                  {
+                    checkNosocialMedia(profileData)
+  
+                    
+                  }
+                 
+                             
+                            </Box>
+                          </Grid>
+                        </Grid>
+  </>
+}

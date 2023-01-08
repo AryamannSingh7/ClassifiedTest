@@ -419,7 +419,7 @@ this.setState({allInvitation:responseJson.member_invitations.data,loading:false}
             this.parseApiErrorResponse(responseJson);
           }
 
-          this.parseApiCatchErrorResponse(errorReponse);
+          // this.parseApiCatchErrorResponse(errorReponse);
         } else if (apiRequestCallId === this.acceptInvitationAPICallId) {
           if (!responseJson.errors) {
             console.log("user data===============>",responseJson.data)
