@@ -344,8 +344,7 @@ const profileData = JSON.parse(localStorage.getItem('profileData') ||'{}')
       let error = responseJson.errors;
       this.setState({ error },()=>console.log(this.state.error));
       ApiCatchErrorResponse(error)
-      // this.parseApiCatchErrorResponse(this.state.error);
-      // this.parseApiCatchErrorResponse(errorReponse);
+    
     } else {
       this.setState({ error: responseJson?.error || "Something went wrong!" });
       this.parseApiCatchErrorResponse(this.state.error);
