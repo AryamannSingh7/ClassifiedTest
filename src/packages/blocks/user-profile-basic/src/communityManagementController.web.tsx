@@ -282,82 +282,24 @@ const profileData = JSON.parse(localStorage.getItem('profileData') ||'{}')
           this.changeUserTypeRes(responseJson)
       
         } else if (apiRequestCallId === this.acceptInvitationAPICallId) {
-          if (!responseJson.errors) {
-            console.log("user data===============>",responseJson.data)
-
-            
-            this.setState({ loading: false,setAcceptOpen:'',setRejectOpen:false })
-            this.getInvitation()
-
-          } else {
-            //Check Error Response
-            this.parseApiErrorResponse(responseJson);
-          }
-
-          this.parseApiCatchErrorResponse(errorReponse);
+          this.acceptInvitationRes(responseJson)
+         
         } else if (apiRequestCallId === this.getUserTypeAPICall) {
-          if (!responseJson.errors) {
-            console.log("user data===============>",responseJson.data.roles)
-            this.setState({ allUserType: responseJson.data.roles}, () => console.log(this.state.allUserType))
-            this.setState({ loading: false })
-
-          } else {
-            //Check Error Response
-            this.parseApiErrorResponse(responseJson);
-          }
-
-          this.parseApiCatchErrorResponse(errorReponse);
+          this.getUserTypeRes(responseJson)
+         
         } else if (apiRequestCallId === this.getComplexApiCallId) {
-          if (!responseJson.errors) {
-            console.log(responseJson)
-            //@ts-ignore
-            //@ts-nocheck
-            let temp = []
-            responseJson.data.housing_complexes.map((item: any) =>
-              temp.push({ value: item.id, label: item.name })
-            )
-            // @ts-ignore
-            this.setState({ allComplex: temp }, () => console.log(this.state.allComplex))
-          } else {
-            //Check Error Response
-            this.parseApiErrorResponse(responseJson);
-          }
-
-          this.parseApiCatchErrorResponse(errorReponse);
+          this.getComplexApiRes(responseJson)
+          
         } else if (apiRequestCallId === this.getCityApiCallId) {
-          if (!responseJson.errors) {
-            console.log(responseJson)
-            this.setState({ allCity: responseJson.data.cities })
-          } else {
-            //Check Error Response
-            this.parseApiErrorResponse(responseJson);
-          }
-
-          this.parseApiCatchErrorResponse(errorReponse);
+          this.getCityRes(responseJson)
+         
         } else if (apiRequestCallId === this.getBuildingApiCallId) {
-          if (!responseJson.errors) {
-            console.log(responseJson)
-            this.setState({ allBuilding: responseJson.data.buildings },()=>console.log(this.state.allBuilding))
-          } else {
-            //Check Error Response
-            this.parseApiErrorResponse(responseJson);
-          }
-
-          this.parseApiCatchErrorResponse(errorReponse);
+          this.getBuildingRes(responseJson)
+       
         } 
         else if (apiRequestCallId === this.getUnitApiCallId) {
-          if (!responseJson.errors) {
-            console.log(responseJson)
-            //@ts-ignore
-            //@ts-nocheck
-
-            this.setState({ allUnit: responseJson.apartment_managements.data })
-          } else {
-            //Check Error Response
-            this.parseApiErrorResponse(responseJson);
-          }
-
-          this.parseApiCatchErrorResponse(errorReponse);
+          this.getUnitApiRes(responseJson)
+          
         }
     
     }
@@ -486,9 +428,8 @@ this.setState({loading:false,showDialog:false})
         pathname: '/chairmanchat',
         state: { data: responseJson.data }
       })
-    }else{
-      
     }
+    
   }
   getInvitationRes(responseJson:any){
     if (!responseJson.errors) {
@@ -515,6 +456,88 @@ this.setState({loading:false,showDialog:false})
     } 
 
   
+  }
+  acceptInvitationRes(responseJson:any){
+    if (!responseJson.errors) {
+      console.log("user data===============>",responseJson.data)
+
+      
+      this.setState({ loading: false,setAcceptOpen:'',setRejectOpen:false })
+      this.getInvitation()
+
+    } else {
+      //Check Error Response
+      this.parseApiErrorResponse(responseJson);
+    }
+
+    this.parseApiCatchErrorResponse(errorReponse);
+  }
+  getUserTypeRes(responseJson:any){
+    if (!responseJson.errors) {
+      console.log("user data===============>",responseJson.data.roles)
+      this.setState({ allUserType: responseJson.data.roles}, () => console.log(this.state.allUserType))
+      this.setState({ loading: false })
+
+    } else {
+      //Check Error Response
+      this.parseApiErrorResponse(responseJson);
+    }
+
+    this.parseApiCatchErrorResponse(errorReponse);
+  }
+  getCityRes(responseJson:any){
+    if (!responseJson.errors) {
+      console.log(responseJson)
+      this.setState({ allCity: responseJson.data.cities })
+    } else {
+      //Check Error Response
+      this.parseApiErrorResponse(responseJson);
+    }
+
+    this.parseApiCatchErrorResponse(errorReponse);
+  }
+  getBuildingRes(responseJson:any){
+    if (!responseJson.errors) {
+      console.log(responseJson)
+      this.setState({ allBuilding: responseJson.data.buildings },()=>console.log(this.state.allBuilding))
+    } else {
+      //Check Error Response
+      this.parseApiErrorResponse(responseJson);
+    }
+
+    this.parseApiCatchErrorResponse(errorReponse);
+  }
+  getComplexApiRes(responseJson:any){
+    if (!responseJson.errors) {
+      console.log(responseJson)
+      //@ts-ignore
+      //@ts-nocheck
+      let temp = []
+      responseJson.data.housing_complexes.map((item: any) =>
+        temp.push({ value: item.id, label: item.name })
+      )
+      // @ts-ignore
+      this.setState({ allComplex: temp }, () => console.log(this.state.allComplex))
+    } else {
+      //Check Error Response
+      this.parseApiErrorResponse(responseJson);
+    }
+
+    this.parseApiCatchErrorResponse(errorReponse);
+  }
+  getUnitApiRes(responseJson:any){
+    if (!responseJson.errors) {
+      console.log(responseJson)
+      //@ts-ignore
+      //@ts-nocheck
+
+      this.setState({ allUnit: responseJson.apartment_managements.data })
+    } else {
+      //Check Error Response
+      this.parseApiErrorResponse(responseJson);
+    }
+
+    this.parseApiCatchErrorResponse(errorReponse);
   }
   goToPrivacyPolicy() {
     const msg: Message = new Message(
