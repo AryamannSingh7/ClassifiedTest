@@ -34,7 +34,6 @@ class FacilityReservationReportedSuccessfully extends FacilityReservationControl
    const { navigation } = this.props;
    //@ts-ignore
    const id = this.props.history?.location?.id
-   console.log("id=====>",id );
     if (!id) {
       //@ts-ignore
       this.props.history.push("/FacilityReservationListing");
