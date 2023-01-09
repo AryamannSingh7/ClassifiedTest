@@ -255,63 +255,63 @@ const profileData = JSON.parse(localStorage.getItem('profileData') ||'{}')
 
   
        if (apiRequestCallId === this.verifyOtpApiCallId) {
-        this.verifyOTPRes(responseJson)
+        this.verifyOTPRes(responseJson,errorReponse)
         }
          else if (apiRequestCallId === this.getInvitationCountApiCallId) {
-          this.getInvitationCountRes(responseJson)
+          this.getInvitationCountRes(responseJson,errorReponse)
 
         } else if (apiRequestCallId === this.createInvitationAPICallId) {
-          this.createInvitationRes(responseJson)
+          this.createInvitationRes(responseJson,errorReponse)
        
         }else if (apiRequestCallId === this.updateChairmenProfileAPiId) {
-          this.updateChairmenProfileRes(responseJson)
+          this.updateChairmenProfileRes(responseJson,errorReponse)
        
         } else if (apiRequestCallId === this.createRequestApiCallId) {
-          this.createRequestRes(responseJson)
+          this.createRequestRes(responseJson,errorReponse)
         
         }else if (apiRequestCallId === this.getProfileDataAPiCallId) {
-          this.getProfileDataRes(responseJson)
+          this.getProfileDataRes(responseJson,errorReponse)
          
         }   else if(apiRequestCallId === this.createChatRoomAPIId){
           this.createChatRoomRes(responseJson)
        
         } else if (apiRequestCallId === this.getInvitationAPICall) {
-          this.getInvitationRes(responseJson)
+          this.getInvitationRes(responseJson,errorReponse)
          
         } else if (apiRequestCallId === this.changeUserTypeApiCallId) {
           this.changeUserTypeRes(responseJson)
       
         } else if (apiRequestCallId === this.acceptInvitationAPICallId) {
-          this.acceptInvitationRes(responseJson)
+          this.acceptInvitationRes(responseJson,errorReponse)
          
         } 
-        this.receive2(apiRequestCallId,responseJson)
+        this.receive2(apiRequestCallId,responseJson,errorReponse)
     
     }
     // Customizable Area End
   }
 
   // Customizable Area Start
-  receive2(apiRequestCallId:any ,responseJson:any){
+  receive2(apiRequestCallId:any ,responseJson:any,errorReponse:any){
    if (apiRequestCallId === this.getUserTypeAPICall) {
-      this.getUserTypeRes(responseJson)
+      this.getUserTypeRes(responseJson,errorReponse)
      
     } else if (apiRequestCallId === this.getComplexApiCallId) {
-      this.getComplexApiRes(responseJson)
+      this.getComplexApiRes(responseJson,errorReponse)
       
     } else if (apiRequestCallId === this.getCityApiCallId) {
-      this.getCityRes(responseJson)
+      this.getCityRes(responseJson,errorReponse)
      
     } else if (apiRequestCallId === this.getBuildingApiCallId) {
-      this.getBuildingRes(responseJson)
+      this.getBuildingRes(responseJson,errorReponse)
    
     }  
     else if (apiRequestCallId === this.getUnitApiCallId) {
-      this.getUnitApiRes(responseJson)
+      this.getUnitApiRes(responseJson,errorReponse)
       
     }
   }
-  verifyOTPRes(responseJson:any){
+  verifyOTPRes(responseJson:any,errorReponse:any){
     if (!responseJson.errors) {
       console.log(responseJson)
          //@ts-ignore
@@ -338,7 +338,7 @@ const profileData = JSON.parse(localStorage.getItem('profileData') ||'{}')
     this.setState({ loading: false })
 
   }
-  getInvitationCountRes(responseJson:any){
+  getInvitationCountRes(responseJson:any,errorReponse:any){
     if (!responseJson.errors) {
       console.log(responseJson)
       this.setState({ invitatonCount:responseJson,loading: false })
@@ -357,7 +357,7 @@ const profileData = JSON.parse(localStorage.getItem('profileData') ||'{}')
     this.setState({ loading: false })
 
   }
-  createInvitationRes(responseJson:any){
+  createInvitationRes(responseJson:any,errorReponse:any){
     if (!responseJson.errors) {
       console.log(responseJson)
 this.setState({loading:false,setOpen:false,setDeleteRequest:false},()=>this.getCount())
@@ -373,7 +373,7 @@ this.setState({loading:false,setOpen:false,setDeleteRequest:false},()=>this.getC
 
     this.parseApiCatchErrorResponse(errorReponse);
   }
-  updateChairmenProfileRes(responseJson:any){
+  updateChairmenProfileRes(responseJson:any,errorReponse:any){
     if (!responseJson.errors) {
       console.log(responseJson)
       this.getProfile()
@@ -388,7 +388,7 @@ this.setState({loading:false,showDialog:false})
 
     this.parseApiCatchErrorResponse(errorReponse);
   }
-  createRequestRes(responseJson:any){
+  createRequestRes(responseJson:any,errorReponse:any){
     if (!responseJson.errors) {
       console.log(responseJson)
      
@@ -409,7 +409,7 @@ this.setState({loading:false,showDialog:false})
     this.parseApiCatchErrorResponse(errorReponse);
 
   }
-  getProfileDataRes(responseJson:any){
+  getProfileDataRes(responseJson:any,errorReponse:any){
     if (!responseJson.errors) {
       console.log(responseJson)
       //@ts-ignore
@@ -434,7 +434,7 @@ this.setState({loading:false,showDialog:false})
     }
     
   }
-  getInvitationRes(responseJson:any){
+  getInvitationRes(responseJson:any,errorReponse:any){
     if (!responseJson.errors) {
       this.setState({allInvitation:responseJson.member_invitations.data,loading:false})
       
@@ -460,7 +460,7 @@ this.setState({loading:false,showDialog:false})
 
   
   }
-  acceptInvitationRes(responseJson:any){
+  acceptInvitationRes(responseJson:any,errorReponse:any){
     if (!responseJson.errors) {
       console.log("user data===============>",responseJson.data)
 
@@ -475,7 +475,7 @@ this.setState({loading:false,showDialog:false})
 
     this.parseApiCatchErrorResponse(errorReponse);
   }
-  getUserTypeRes(responseJson:any){
+  getUserTypeRes(responseJson:any,errorReponse:any){
     if (!responseJson.errors) {
       console.log("user data===============>",responseJson.data.roles)
       this.setState({ allUserType: responseJson.data.roles}, () => console.log(this.state.allUserType))
@@ -488,7 +488,7 @@ this.setState({loading:false,showDialog:false})
 
     this.parseApiCatchErrorResponse(errorReponse);
   }
-  getCityRes(responseJson:any){
+  getCityRes(responseJson:any,errorReponse:any){
     if (!responseJson.errors) {
       console.log(responseJson)
       this.setState({ allCity: responseJson.data.cities })
@@ -499,7 +499,7 @@ this.setState({loading:false,showDialog:false})
 
     this.parseApiCatchErrorResponse(errorReponse);
   }
-  getBuildingRes(responseJson:any){
+  getBuildingRes(responseJson:any,errorReponse:any){
     if (!responseJson.errors) {
       console.log(responseJson)
       this.setState({ allBuilding: responseJson.data.buildings },()=>console.log(this.state.allBuilding))
@@ -510,7 +510,7 @@ this.setState({loading:false,showDialog:false})
 
     this.parseApiCatchErrorResponse(errorReponse);
   }
-  getComplexApiRes(responseJson:any){
+  getComplexApiRes(responseJson:any,errorReponse:any){
     if (!responseJson.errors) {
       console.log(responseJson)
       //@ts-ignore
@@ -528,7 +528,7 @@ this.setState({loading:false,showDialog:false})
 
     this.parseApiCatchErrorResponse(errorReponse);
   }
-  getUnitApiRes(responseJson:any){
+  getUnitApiRes(responseJson:any,errorReponse:any){
     if (!responseJson.errors) {
       console.log(responseJson)
       //@ts-ignore

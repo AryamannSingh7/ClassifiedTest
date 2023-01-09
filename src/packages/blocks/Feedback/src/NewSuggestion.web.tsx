@@ -59,6 +59,8 @@ class Suggestion extends SuggestionController {
                     {({ values, touched, errors, isValid, setFieldError, setFieldValue, handleChange }) => (
                       <Form translate="yes" className="commonForm CreateClassifiedFrm">
                         <h5 className="frm-title incident-preview-title"></h5>
+                        <Box className='formGroup'>
+
                         <Box
                             className="formInputGrp"
                           >
@@ -99,12 +101,13 @@ class Suggestion extends SuggestionController {
                               labelId="demo-simple-select-outlined-label"
                               id="demo-simple-select-outlined"
                               style={{ paddingLeft: 50 }}
+                              placeholder='Suggestion is related to'
                               onChange={(e) => {
-                                (e.target.value != " ") && setFieldValue("relatedTo", e.target.value)
+                                (e.target.value != "") && setFieldValue("relatedTo", e.target.value)
                               }}
                               value={values.relatedTo}
                             >
-                              <MenuItem disabled value=" ">
+                              <MenuItem disabled value="">
                               Suggestion is related to
                               </MenuItem>
                               {
@@ -146,8 +149,9 @@ class Suggestion extends SuggestionController {
                             </Typography>
                           ) : null}
                         
-                        <Box className="customButton">
+                        <Box className="customButton" style={{marginTop:'29rem'}}>
                           <Button variant="contained" type="submit">submit</Button>
+                        </Box>
                         </Box>
                       </Form>
                     )}

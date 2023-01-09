@@ -38,6 +38,8 @@ import Feedback from '../../blocks/Feedback/src/Feedback';
 import SuggestionListing from '../../blocks/Feedback/src/Suggestion.web';
 import NewSuggestion from '../../blocks/Feedback/src/NewSuggestion.web';
 import SuggestionData from '../../blocks/Feedback/src/SuggestionDetails.web';
+import NewRequestSuggestion from '../../blocks/Feedback/src/newRequest.web';
+
 
 
 // import Contactus from "../../blocks/contactus/src/Contactus";
@@ -531,6 +533,11 @@ const routeMap = {
   SuggestionListing: {
     component: SuggestionListing,
     path: '/SuggestionListing',
+    exact: true
+  },
+  NewRequestSuggestion: {
+    component: NewRequestSuggestion,
+    path: '/NewRequestSuggestion',
     exact: true
   },
   NewSuggestion: {
