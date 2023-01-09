@@ -14,7 +14,6 @@ import Loader from "../../../components/src/Loader.web";
 //Customizable Area End
 
 //resorces
-// import { Building_Logo, Tick_Circle_Icon, Building1 } from "../src/assets";
 import SuggestionController,{Props} from "./SuggestionController.web";
 import { Building1, Building_Logo, Tick_Circle_Icon } from "../../ContentManagement/src/assets";
 
@@ -24,7 +23,7 @@ class NewRequestSuggestion extends SuggestionController {
   }
 
   render() {
-   const { navigation } = this.props;
+
    //@ts-ignore
    const id = this.props.history?.location?.id
    console.log("id=====>",id );
@@ -39,7 +38,7 @@ class NewRequestSuggestion extends SuggestionController {
           <Grid container spacing={2} className="auth-container">
             <Grid item xs={12} md={7} className="auth-cols">
               <Box className="content-block">
-                {/* <Box className="backIcon" onClick={() => window.history.back()}><KeyboardBackspaceIcon /></Box> */}
+        
                 <Box className="logo-block common-top-padding" display={{ xs: 'none', md: 'flex' }}>
                   <Link href="/EmailAccountLogin">
                     <img src={Building_Logo.default} className="head-logo" alt="" />
@@ -64,10 +63,7 @@ Your ticket id for sent suggestion is 1234567890. </p>
                   </Box>
                 </Box>
                 {/* desktop footer block */}
-                {/* <Box className="bottomBlock common-bottom-padding" display={{ xs: 'none', md: 'flex' }}>
-                  <h6 className="bottom-text">POWERED BY</h6>
-                  <img src={Tenant_Logo.default} className="tenant-logo" alt="" />
-                </Box> */}
+              
               </Box>
             </Grid>
             <Grid item xs={12} md={5} className="auth-cols">
