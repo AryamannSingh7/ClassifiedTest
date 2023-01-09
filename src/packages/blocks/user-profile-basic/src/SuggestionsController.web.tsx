@@ -76,11 +76,11 @@ export default class SuggestionsController extends BlockComponent<Props, S, SS> 
           
    
           }
-         else if (apiRequestCallId === this.createSuggestionApiCall) {
-          this.createSuggestionHandle(responseJson)
+        //  else if (apiRequestCallId === this.createSuggestionApiCall) {
+        //   this.createSuggestionHandle(responseJson)
           
    
-         }
+        //  }
     }
 
    

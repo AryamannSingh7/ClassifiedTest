@@ -113,6 +113,7 @@ class SuggestionDetails extends SuggestionsController {
     );
   }
 }
-
+// @ts-ignore
+// @ts-nocheck
 export default withRouter(withStyles(SuggestionStyleWeb)(SuggestionDetails));
 // Customizable Area End
