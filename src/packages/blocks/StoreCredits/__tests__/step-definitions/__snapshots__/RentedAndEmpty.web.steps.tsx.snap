@@ -288,7 +288,10 @@ exports[`RentedAndEmpty User navigates to RentedAndEmpty 1`] = `
       },
     }
   }
+  history={[MockFunction]}
   id="RentedAndEmpty"
+  location={[MockFunction]}
+  match={[MockFunction]}
   navigation={
     Object {
       "getParam": [MockFunction] {

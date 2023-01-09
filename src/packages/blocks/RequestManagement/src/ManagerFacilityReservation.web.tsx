@@ -153,7 +153,7 @@ class ManagerFacilityReservation extends FacilityManagerContorller {
                   {
                      this.state?.facilityListing?.length !== 0 ? 
                     this.state?.facilityListing?.map((val: any, index: any) => (
-                      <Grid item sm={6} lg={4} key={index} onClick={() => this.getFacilityDetails(val.id)}>
+                      <Grid item sm={6} lg={4} key={index} id ={"card1"}onClick={() => this.getFacilityDetails(val.id)}>
                           <Card className="management-card card" key={index}>
                           <CardContent className="costom-card-content">
                             <Box className="customButton">
@@ -200,7 +200,7 @@ class ManagerFacilityReservation extends FacilityManagerContorller {
   }
 }
 
-const dashBoard: any = {
+export const dashBoard: any = {
   navigation: {
     display: "flex",
     justifyContent: "space-between",

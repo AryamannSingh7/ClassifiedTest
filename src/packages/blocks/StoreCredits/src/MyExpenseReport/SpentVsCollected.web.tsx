@@ -1,13 +1,15 @@
 import React from "react";
 import { withTranslation } from "react-i18next";
 import SpentVsCollectedController, { Props } from "./SpentVsCollectedController.web";
-import { Box, Button, Card, Container, Grid, IconButton, Link, withStyles } from "@material-ui/core";
+import { Box, Button, Card, Container, Grid, IconButton, Link, withStyles, MenuItem } from "@material-ui/core";
 import KeyboardBackspaceIcon from "@material-ui/icons/KeyboardBackspace";
 import { DashboardVs, FilterIcon } from "../assets";
 import SidebarImageComponent from "../../../../components/src/OwnerSidebarImage.web";
 import { TotalExpenseStyle } from "./TotalExpenseStyle.web";
 import { Menu } from "@szhsin/react-menu";
 import UnitCard from "../../../../components/src/ExpenseCard/UnitCard.web";
+import Loader from "../../../../components/src/Loader.web";
+import { handleFilterValue, handleSelectFilterList } from "./FilterComponent.web";
 
 class SpentVsCollected extends SpentVsCollectedController {
   constructor(props: Props) {
@@ -19,6 +21,8 @@ class SpentVsCollected extends SpentVsCollectedController {
 
     return (
       <>
+        <Loader loading={this.state.loading} />
+
         <Box style={{ background: "#F4F7FF" }} className={classes.totalExpense}>
           <Grid container>
             <Grid item xs={12} md={7}>
@@ -39,7 +43,11 @@ class SpentVsCollected extends SpentVsCollectedController {
                           <img src={FilterIcon} alt="filter" />
                         </IconButton>
                       }
-                    />
+                    >
+                      <MenuItem onClick={() => this.handleYearFilter()}>{t("Yearly")}</MenuItem>
+                      <MenuItem onClick={() => this.handleQuarterFilter()}>{t("Quarterly")}</MenuItem>
+                      <MenuItem onClick={() => this.handleMonthFilter()}>{t("Monthly")}</MenuItem>
+                    </Menu>
                   </Box>
                 </Box>
                 <Container>
@@ -52,16 +60,18 @@ class SpentVsCollected extends SpentVsCollectedController {
                             <select
                               name="year"
                               id="year"
-                              value={this.state.selectedYear}
-                              onChange={(e: any) => this.setState({ selectedYear: e.target.value })}
+                              value={handleFilterValue(this.state)}
+                              onChange={(e: any) => {
+                                if (this.state.selectedFilter === "year") {
+                                  this.setState({ loading: true, selectedYear: e.target.value });
+                                } else if (this.state.selectedFilter === "quarter") {
+                                  this.setState({ loading: true, selectedQuarter: e.target.value });
+                                } else {
+                                  this.setState({ loading: true, selectedMonth: e.target.value });
+                                }
+                              }}
                             >
-                              {this.state.yearList.map((year: number) => {
-                                return (
-                                  <option value={year} key={year}>
-                                    {year}
-                                  </option>
-                                );
-                              })}
+                              {handleSelectFilterList(this.state)}
                             </select>
                           </Box>
                         </Grid>
@@ -72,7 +82,7 @@ class SpentVsCollected extends SpentVsCollectedController {
                                 <h4 className="heading">{t("Spent Amount")}</h4>
                                 <div className="state">
                                   <p>{t("Collected")}</p>
-                                  <Button className="yellow">{this.state.spentAmount}</Button>
+                                  <Button className="yellow">{this.validateCurrency(this.state.spentAmount)}</Button>
                                 </div>
                               </div>
                               <div className="center-content">
@@ -89,7 +99,9 @@ class SpentVsCollected extends SpentVsCollectedController {
                                 <h4 className="heading">{t("Collected Amount")}</h4>
                                 <div className="state">
                                   <p>{t("Due")}</p>
-                                  <Button className="yellow">{this.state.collectedAmount}</Button>
+                                  <Button className="yellow">
+                                    {this.validateCurrency(this.state.collectedAmount)}
+                                  </Button>
                                 </div>
                               </div>
                             </div>
@@ -114,9 +126,9 @@ class SpentVsCollected extends SpentVsCollectedController {
                               <UnitCard
                                 heading={`Unit ${unit.unit_name} Buliding ${unit.building_name}`}
                                 titleOne={t("Spent")}
-                                valueOne={unit.spent_amount}
+                                valueOne={this.validateCurrency(unit.spent_amount)}
                                 titleTwo={t("Collected")}
-                                valueTwo={unit.collectd_amount}
+                                valueTwo={this.validateCurrency(unit.collectd_amount)}
                               />
                             </Grid>
                           );
@@ -140,9 +152,9 @@ class SpentVsCollected extends SpentVsCollectedController {
                               <UnitCard
                                 heading={city.city}
                                 titleOne={t("Spent")}
-                                valueOne={city.spent_amount}
+                                valueOne={this.validateCurrency(city.spent_amount)}
                                 titleTwo={t("Collected")}
-                                valueTwo={city.collectd_amount}
+                                valueTwo={this.validateCurrency(city.collectd_amount)}
                               />
                             </Grid>
                           );

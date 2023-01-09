@@ -6,9 +6,11 @@ import KeyboardBackspaceIcon from "@material-ui/icons/KeyboardBackspace";
 import { ExpenseIcon, FilterIcon } from "../assets";
 import SidebarImageComponent from "../../../../components/src/OwnerSidebarImage.web";
 import { TotalExpenseStyle } from "./TotalExpenseStyle.web";
+import { handleFilterValue, handleSelectFilterList } from "./FilterComponent.web";
 import { Menu } from "@szhsin/react-menu";
 import ExpenseCard from "../../../../components/src/ExpenseCard";
 import { ICategoryExpense, ICityExpense, IUnitExpense } from "../../../../framework/src/Interfaces/IExpenseReport.web";
+import Loader from "../../../../components/src/Loader.web";
 
 class TotalExpense extends TotalExpenseController {
   constructor(props: Props) {
@@ -20,6 +22,8 @@ class TotalExpense extends TotalExpenseController {
 
     return (
       <>
+        <Loader loading={this.state.loading} />
+
         <Box style={{ background: "#F4F7FF" }} className={classes.totalExpense}>
           <Grid container>
             <Grid item xs={12} md={7}>
@@ -41,9 +45,9 @@ class TotalExpense extends TotalExpenseController {
                         </IconButton>
                       }
                     >
-                      <MenuItem>{t("Yearly")}</MenuItem>
-                      <MenuItem>{t("Quarterly")}</MenuItem>
-                      <MenuItem>{t("Monthly")}</MenuItem>
+                      <MenuItem onClick={() => this.handleYearFilter()}>{t("Yearly")}</MenuItem>
+                      <MenuItem onClick={() => this.handleQuarterFilter()}>{t("Quarterly")}</MenuItem>
+                      <MenuItem onClick={() => this.handleMonthFilter()}>{t("Monthly")}</MenuItem>
                     </Menu>
                   </Box>
                 </Box>
@@ -53,20 +57,24 @@ class TotalExpense extends TotalExpenseController {
                       <Grid container spacing={2}>
                         <Grid item xs={12}>
                           <Box className="heading">
-                            <h4>2021 Expense Report</h4>
+                            <h4>
+                              {this.state.selectedYear} {t("Expense Report")}
+                            </h4>
                             <select
                               name="year"
                               id="year"
-                              value={this.state.selectedYear}
-                              onChange={(e: any) => this.setState({ selectedYear: e.target.value })}
+                              value={handleFilterValue(this.state)}
+                              onChange={(e: any) => {
+                                if (this.state.selectedFilter === "year") {
+                                  this.setState({ loading: true, selectedYear: e.target.value });
+                                } else if (this.state.selectedFilter === "quarter") {
+                                  this.setState({ loading: true, selectedQuarter: e.target.value });
+                                } else {
+                                  this.setState({ loading: true, selectedMonth: e.target.value });
+                                }
+                              }}
                             >
-                              {this.state.yearList.map((year: number) => {
-                                return (
-                                  <option value={year} key={year}>
-                                    {year}
-                                  </option>
-                                );
-                              })}
+                              {handleSelectFilterList(this.state)}
                             </select>
                           </Box>
                         </Grid>

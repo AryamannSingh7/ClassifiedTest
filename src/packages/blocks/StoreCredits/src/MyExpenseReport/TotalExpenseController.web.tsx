@@ -34,8 +34,13 @@ interface S {
   cityWiseExpense: ICityExpense[];
   unitWiseExpense: IUnitExpense[];
 
+  selectedFilter: string;
   yearList: number[];
+  quarterList: any[];
+  monthList: number[];
   selectedYear: number;
+  selectedQuarter: number;
+  selectedMonth: number;
   // Customizable Area End
 }
 
@@ -68,8 +73,18 @@ export default class TotalExpenseController extends BlockComponent<Props, S, SS>
       cityWiseExpense: [],
       unitWiseExpense: [],
 
+      selectedFilter: "year",
       yearList: [],
+      quarterList: [
+        { key: "Quarter 1", value: 1 },
+        { key: "Quarter 2", value: 2 },
+        { key: "Quarter 3", value: 3 },
+        { key: "Quarter 4", value: 4 },
+      ],
+      monthList: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
       selectedYear: moment().year(),
+      selectedQuarter: 0,
+      selectedMonth: 0,
       // Customizable Area End
     };
     runEngine.attachBuildingBlock(this as IBlock, this.subScribedMessages);
@@ -120,7 +135,27 @@ export default class TotalExpenseController extends BlockComponent<Props, S, SS>
     this.getLastYearsList();
   }
 
+  async componentDidUpdate(prevProps: any, prevState: any): Promise<void> {
+    if (
+      prevState.selectedYear !== this.state.selectedYear ||
+      prevState.selectedQuarter !== this.state.selectedQuarter ||
+      prevState.selectedMonth !== this.state.selectedMonth
+    ) {
+      this.getExpenseReport();
+    }
+  }
+
   getExpenseReport = () => {
+    const { selectedFilter, selectedYear, selectedQuarter, selectedMonth } = this.state;
+    let filter = "";
+    if (selectedFilter === "year") {
+      filter = `year=${selectedYear}`;
+    } else if (selectedFilter === "month") {
+      filter = `month=${selectedMonth}`;
+    } else {
+      filter = `quarter=${selectedQuarter}`;
+    }
+
     const header = {
       "Content-Type": configJSON.ApiContentType,
       token: localStorage.getItem("userToken"),
@@ -132,7 +167,7 @@ export default class TotalExpenseController extends BlockComponent<Props, S, SS>
 
     apiRequest.addData(
       getName(MessageEnum.RestAPIResponceEndPointMessage),
-      `bx_block_expense_report/expense_reports?year=2022`
+      `bx_block_expense_report/expense_reports?${filter}`
     );
 
     apiRequest.addData(getName(MessageEnum.RestAPIRequestHeaderMessage), JSON.stringify(header));
@@ -182,6 +217,40 @@ export default class TotalExpenseController extends BlockComponent<Props, S, SS>
       return expense;
     } else {
       return currency + " " + expense;
+    }
+  };
+
+  handleYearFilter = () => {
+    if (this.state.selectedFilter !== "year") {
+      if (this.state.selectedYear !== moment().year()) {
+        this.setState({ selectedFilter: "year", selectedYear: moment().year(), loading: true });
+      } else {
+        this.setState({ selectedFilter: "year" });
+      }
+    }
+  };
+
+  handleQuarterFilter = () => {
+    if (this.state.selectedFilter !== "quarter") {
+      this.setState({
+        loading: true,
+        selectedFilter: "quarter",
+        selectedYear: moment().year(),
+        selectedQuarter: 1,
+        selectedMonth: 0,
+      });
+    }
+  };
+
+  handleMonthFilter = () => {
+    if (this.state.selectedFilter !== "month") {
+      this.setState({
+        loading: true,
+        selectedFilter: "month",
+        selectedYear: moment().year(),
+        selectedMonth: 1,
+        selectedQuarter: 0,
+      });
     }
   };
   // Customizable Area End

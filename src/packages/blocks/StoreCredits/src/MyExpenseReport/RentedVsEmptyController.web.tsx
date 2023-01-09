@@ -65,15 +65,7 @@ export default class RentedVsEmptyController extends BlockComponent<Props, S, SS
 
       switch (apiRequestCallId) {
         case this.RentVsEmptyCallId:
-          if (responseJson && responseJson.data) {
-            const rentVsEmpty = responseJson.data.attributes.rented_vs_empty_unit;
-            const cityWiseData = responseJson.data.attributes.city_wise_rented_vs_empty_unit;
-            this.setState({
-              rentedUnit: rentVsEmpty ? rentVsEmpty.rented : "N/A",
-              emptyUnit: rentVsEmpty ? rentVsEmpty.empty : "N/A",
-              cityWiseRentedVsEmpty: cityWiseData,
-            });
-          }
+          this.handleGetRentVsEmptyDataResponse(responseJson);
           break;
         case "":
           break;
@@ -118,5 +110,17 @@ export default class RentedVsEmptyController extends BlockComponent<Props, S, SS
     runEngine.sendMessage(apiRequest.id, apiRequest);
     return true;
   };
+
+  handleGetRentVsEmptyDataResponse = (responseJson: any) => {
+    if (responseJson && responseJson.data) {
+      const rentVsEmpty = responseJson.data.attributes.rented_vs_empty_unit;
+      const cityWiseData = responseJson.data.attributes.city_wise_rented_vs_empty_unit;
+      this.setState({
+        rentedUnit: rentVsEmpty ? rentVsEmpty.rented : "N/A",
+        emptyUnit: rentVsEmpty ? rentVsEmpty.empty : "N/A",
+        cityWiseRentedVsEmpty: cityWiseData,
+      });
+    }
+  }
   // Customizable Area End
 }

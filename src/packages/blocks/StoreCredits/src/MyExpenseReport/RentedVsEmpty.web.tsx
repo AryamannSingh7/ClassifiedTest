@@ -87,13 +87,15 @@ class RentedVsEmpty extends RentedVsEmptyController {
                         {this.state.cityWiseRentedVsEmpty.map((city: ICityWiseRentedEmpty) => {
                           return (
                             <Grid item xs={12} key={city.city_name}>
-                              <UnitCard
-                                heading={city.city_name}
-                                titleOne={t("Rented")}
-                                valueOne={city.rented}
-                                titleTwo={t("Empty")}
-                                valueTwo={city.empty}
-                              />
+                              <Link href={`/RentedVsEmpty/City/${city.city_name}`}>
+                                <UnitCard
+                                  heading={city.city_name}
+                                  titleOne={t("Rented")}
+                                  valueOne={city.rented}
+                                  titleTwo={t("Empty")}
+                                  valueTwo={city.empty}
+                                />
+                              </Link>
                             </Grid>
                           );
                         })}

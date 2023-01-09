@@ -288,7 +288,10 @@ exports[`UnitTotalExpense User navigates to UnitTotalExpense 1`] = `
       },
     }
   }
+  history={[MockFunction]}
   id="UnitTotalExpense"
+  location={[MockFunction]}
+  match={[MockFunction]}
   navigation={
     Object {
       "getParam": [MockFunction] {

@@ -1,13 +1,15 @@
 import React from "react";
 import { withTranslation } from "react-i18next";
 import CollectedVsDueController, { Props } from "./CollectedVsDueController.web";
-import { Box, Button, Card, Container, Grid, IconButton, Link, withStyles } from "@material-ui/core";
+import { Box, Button, Card, Container, Grid, IconButton, Link, withStyles, MenuItem } from "@material-ui/core";
 import KeyboardBackspaceIcon from "@material-ui/icons/KeyboardBackspace";
 import { DashboardVs, FilterIcon } from "../assets";
 import SidebarImageComponent from "../../../../components/src/OwnerSidebarImage.web";
 import { TotalExpenseStyle } from "./TotalExpenseStyle.web";
 import { Menu } from "@szhsin/react-menu";
 import UnitCard from "../../../../components/src/ExpenseCard/UnitCard.web";
+import Loader from "../../../../components/src/Loader.web";
+import { handleFilterValue, handleSelectFilterList } from "./FilterComponent.web";
 
 class CollectedVsDue extends CollectedVsDueController {
   constructor(props: Props) {
@@ -19,6 +21,8 @@ class CollectedVsDue extends CollectedVsDueController {
 
     return (
       <>
+        <Loader loading={this.state.loading} />
+
         <Box style={{ background: "#F4F7FF" }} className={classes.totalExpense}>
           <Grid container>
             <Grid item xs={12} md={7}>
@@ -39,7 +43,11 @@ class CollectedVsDue extends CollectedVsDueController {
                           <img src={FilterIcon} alt="filter" />
                         </IconButton>
                       }
-                    />
+                    >
+                      <MenuItem onClick={() => this.handleYearFilter()}>{t("Yearly")}</MenuItem>
+                      <MenuItem onClick={() => this.handleQuarterFilter()}>{t("Quarterly")}</MenuItem>
+                      <MenuItem onClick={() => this.handleMonthFilter()}>{t("Monthly")}</MenuItem>
+                    </Menu>
                   </Box>
                 </Box>
                 <Container>
@@ -52,16 +60,18 @@ class CollectedVsDue extends CollectedVsDueController {
                             <select
                               name="year"
                               id="year"
-                              value={this.state.selectedYear}
-                              onChange={(e: any) => this.setState({ selectedYear: e.target.value })}
+                              value={handleFilterValue(this.state)}
+                              onChange={(e: any) => {
+                                if (this.state.selectedFilter === "year") {
+                                  this.setState({ loading: true, selectedYear: e.target.value });
+                                } else if (this.state.selectedFilter === "quarter") {
+                                  this.setState({ loading: true, selectedQuarter: e.target.value });
+                                } else {
+                                  this.setState({ loading: true, selectedMonth: e.target.value });
+                                }
+                              }}
                             >
-                              {this.state.yearList.map((year: number) => {
-                                return (
-                                  <option value={year} key={year}>
-                                    {year}
-                                  </option>
-                                );
-                              })}
+                              {handleSelectFilterList(this.state)}
                             </select>
                           </Box>
                         </Grid>
@@ -72,7 +82,9 @@ class CollectedVsDue extends CollectedVsDueController {
                                 <h4 className="heading">{t("Rent Amount Collected")}</h4>
                                 <div className="state">
                                   <p>{t("Collected")}</p>
-                                  <Button className="yellow">{this.state.collectedAmount}</Button>
+                                  <Button className="yellow">
+                                    {this.validateCurrency(this.state.collectedAmount)}
+                                  </Button>
                                 </div>
                               </div>
                               <div className="center-content">
@@ -89,7 +101,7 @@ class CollectedVsDue extends CollectedVsDueController {
                                 <h4 className="heading">{t("Rent Amount Due")}</h4>
                                 <div className="state">
                                   <p>{t("Due")}</p>
-                                  <Button className="yellow">{this.state.dueAmount}</Button>
+                                  <Button className="yellow">{this.validateCurrency(this.state.dueAmount)}</Button>
                                 </div>
                               </div>
                             </div>
@@ -114,9 +126,9 @@ class CollectedVsDue extends CollectedVsDueController {
                               <UnitCard
                                 heading={`Unit ${unit.unit_name} Buliding ${unit.building_name}`}
                                 titleOne={t("Collected")}
-                                valueOne={unit.rented_amount_collectd}
+                                valueOne={this.validateCurrency(unit.rented_amount_collectd)}
                                 titleTwo={t("Due")}
-                                valueTwo={unit.rented_amount_due}
+                                valueTwo={this.validateCurrency(unit.rented_amount_due)}
                               />
                             </Grid>
                           );
@@ -140,9 +152,9 @@ class CollectedVsDue extends CollectedVsDueController {
                               <UnitCard
                                 heading={city.city}
                                 titleOne={t("Collected")}
-                                valueOne={city.rented_amount_collectd}
+                                valueOne={this.validateCurrency(city.rented_amount_collectd)}
                                 titleTwo={t("Due")}
-                                valueTwo={city.rented_amount_due}
+                                valueTwo={this.validateCurrency(city.rented_amount_due)}
                               />
                             </Grid>
                           );

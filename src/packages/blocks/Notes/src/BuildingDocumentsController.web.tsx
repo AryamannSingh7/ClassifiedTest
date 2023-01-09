@@ -3,10 +3,10 @@ import { Message } from "../../../framework/src/Message";
 import { BlockComponent } from "../../../framework/src/BlockComponent";
 import MessageEnum, { getName } from "../../../framework/src/Messages/MessageEnum";
 import { runEngine } from "../../../framework/src/RunEngine";
-import { ApiCatchErrorResponse, ApiErrorResponse } from "../../../components/src/APIErrorResponse";
-import { ROLE } from "../../../framework/src/Enum";
 
 // Customizable Area Start
+import { ApiCatchErrorResponse, ApiErrorResponse } from "../../../components/src/APIErrorResponse";
+import { ROLE } from "../../../framework/src/Enum";
 // Customizable Area End
 
 export const configJSON = require("./config.js");
@@ -63,7 +63,7 @@ export default class BuildingDocumentController extends BlockComponent<Props, S,
     ) {
       this.GetDocumentCountCallId = null;
 
-      var responseJson = message.getData(getName(MessageEnum.RestAPIResponceSuccessMessage));
+      const responseJson = message.getData(getName(MessageEnum.RestAPIResponceSuccessMessage));
 
       if (responseJson.data) {
         this.setState({
@@ -76,7 +76,7 @@ export default class BuildingDocumentController extends BlockComponent<Props, S,
         });
       }
 
-      var errorResponse = message.getData(getName(MessageEnum.RestAPIResponceErrorMessage));
+      const errorResponse = message.getData(getName(MessageEnum.RestAPIResponceErrorMessage));
       if (responseJson && responseJson.meta && responseJson.meta.token) {
         runEngine.unSubscribeFromMessages(this, this.subScribedMessages);
       } else {

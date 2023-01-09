@@ -1,31 +1,17 @@
 import { defineFeature, loadFeature } from "jest-cucumber";
 import { mount } from "enzyme";
-import React, { Component } from "react";
+import React from "react";
 import CityWiseRentedVsEmpty from "../../src/MyExpenseReport/CityWiseRentedVsEmpty.web";
 import { TotalExpenseStyle } from "../../src/MyExpenseReport/TotalExpenseStyle.web";
+import { componentProps } from "../../../../components/src/TestCase/ComponentProps.web";
+import { Message } from "../../../../framework/src/Message";
+import MessageEnum, { getName } from "../../../../framework/src/Messages/MessageEnum";
+import { runEngine } from "../../../../framework/src/RunEngine";
+import { rentAndEmptyUnitListMockData } from "../../../../components/src/TestCase/ExpenseReportMockData.web";
 
-const CityWiseRentedVsEmptyProps = {
-  navigation: {
-    getParam: jest.fn(),
-    goBack: jest.fn(),
-    navigate: jest.fn(),
-  },
-  id: "CityWiseRentedVsEmpty",
-  classes: TotalExpenseStyle,
-};
+const CityWiseRentedVsEmptyProps = componentProps("CityWiseRentedVsEmpty", TotalExpenseStyle);
 
 const feature = loadFeature("./__tests__/features/CityWiseRentedVsEmpty.web.feature");
-
-jest.mock("@material-ui/core/styles", () => ({
-  withStyles: (styles: any) => (component: Component) => component,
-}));
-
-jest.mock("react-i18next", () => ({
-  withTranslation: () => (Component: any) => {
-    Component.defaultProps = { ...Component.defaultProps, t: () => "" };
-    return Component;
-  },
-}));
 
 defineFeature(feature, (test) => {
   beforeEach(() => {
@@ -42,11 +28,18 @@ defineFeature(feature, (test) => {
 
     when("I navigate to the CityWiseRentedVsEmpty", () => {
       instance = CityWiseRentedVsEmptyMountWrapper.instance();
-      console.log(instance);
     });
 
     then("CityWiseRentedVsEmpty will load with out errors", async () => {
       expect(CityWiseRentedVsEmptyMountWrapper).toMatchSnapshot();
+    });
+
+    then("Should load city wise unit data", async () => {
+      let cityWiseUnit = new Message(getName(MessageEnum.RestAPIResponceMessage));
+      cityWiseUnit.addData(getName(MessageEnum.RestAPIResponceDataMessage), cityWiseUnit);
+      cityWiseUnit.addData(getName(MessageEnum.RestAPIResponceSuccessMessage), rentAndEmptyUnitListMockData);
+      instance.UnitDataByCityCallId = cityWiseUnit;
+      runEngine.sendMessage("City Wise Unit", cityWiseUnit);
     });
   });
 });

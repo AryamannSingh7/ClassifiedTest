@@ -1,6 +1,6 @@
 import { defineFeature, loadFeature } from "jest-cucumber";
 import { mount } from "enzyme";
-import React, { Component } from "react";
+import React from "react";
 import RentedAndEmpty from "../../src/MyExpenseReport/RentedAndEmpty.web";
 import { TotalExpenseStyle } from "../../src/MyExpenseReport/TotalExpenseStyle.web";
 import { Message } from "../../../../framework/src/Message";
