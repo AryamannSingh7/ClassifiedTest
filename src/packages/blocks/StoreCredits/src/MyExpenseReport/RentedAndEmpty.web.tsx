@@ -50,7 +50,7 @@ class RentedAndEmpty extends RentedAndEmptyController {
                                 titleOne={t("Unit Number")}
                                 valueOne={unit.attributes.apartment_name}
                                 titleTwo={t("Floor Number")}
-                                valueTwo="00"
+                                valueTwo={unit.attributes.floor_number}
                                 status=""
                               />
                             </Grid>

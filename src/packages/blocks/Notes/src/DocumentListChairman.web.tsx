@@ -59,9 +59,7 @@ class DocumentListChairman extends DocumentListChairmanController {
     }
   };
 
-  render() {
-    const { t, classes }: any = this.props;
-
+  reloadPage = () => {
     window.addEventListener("pageshow", (event: any) => {
       const historyTraversal =
         event.persisted || (typeof window.performance != "undefined" && window.performance.navigation.type === 2);
@@ -70,6 +68,211 @@ class DocumentListChairman extends DocumentListChairmanController {
         window.location.reload();
       }
     });
+  };
+
+  resolutionList = (t: any) => {
+    if (this.state.resolutionList.length === 0) {
+      return (
+        <>
+          <span>{"No Resolution Available!!"}</span>
+        </>
+      );
+    } else {
+      return this.state.resolutionList.map((resolution: any) => {
+        return (
+          <Grid item xs={12} md={6} lg={4} key={resolution.id}>
+            <Card className="card-item">
+              <div className="heading">
+                <h4>{resolution.attributes.title}</h4>
+                <div className="menu">
+                  <Menu
+                    menuButton={
+                      <IconButton>
+                        <MoreVertIcon />
+                      </IconButton>
+                    }
+                  >
+                    <MenuItem>
+                      <Link
+                        href={resolution.attributes.attachments && resolution.attributes.attachments[0].url}
+                        target="_blank"
+                      >
+                        {t("Download")}
+                      </Link>
+                    </MenuItem>
+                    <MenuItem
+                      onClick={() => {
+                        this.setState({ ...this.state, selectedDocumentId: resolution.id }, () => {
+                          this.handleDeleteDocumentModal();
+                        });
+                      }}
+                    >
+                      {t("Delete")}
+                    </MenuItem>
+                    <MenuItem
+                      onClick={() =>
+                        this.handleOpenShareModal(
+                          resolution.attributes.attachments && resolution.attributes.attachments[0].url
+                        )
+                      }
+                    >
+                      {t("Share")}
+                    </MenuItem>
+                  </Menu>
+                </div>
+              </div>
+              <div className="res-info">
+                <div className="info-item">
+                  <p>{t("Date & Time")}</p>
+                  <span>{moment(resolution.attributes.created_at).format("DD-MMM-YYYY HH:mm")}</span>
+                </div>
+                <div className="info-item">
+                  <p>{t("Building")}</p>
+                  <span>{resolution.attributes.buidling_name}</span>
+                </div>
+              </div>
+              <div className="item">
+                <div className="item-title">
+                  <img src={PdfImage} />
+                  <h6>
+                    Meeting Minute{" "}
+                    {moment(resolution.attributes.meeting_date_time, "DD-MM-YYYY HH:mm").format("DD-MMM-YYYY")}
+                  </h6>
+                </div>
+                <div className="icons">
+                  <img
+                    src={ShareImage}
+                    onClick={() =>
+                      this.handleOpenShareModal(
+                        resolution.attributes.meeting_mins_pdf && resolution.attributes.meeting_mins_pdf.url
+                      )
+                    }
+                  />
+                  <Link
+                    href={resolution.attributes.meeting_mins_pdf && resolution.attributes.meeting_mins_pdf.url}
+                    target="_blank"
+                  >
+                    <img src={DownloadImage} />
+                  </Link>
+                </div>
+              </div>
+            </Card>
+          </Grid>
+        );
+      });
+    }
+  };
+
+  documentList = (t: any) => {
+    if (this.state.documentList.length === 0) {
+      return (
+        <>
+          <span>{t("No Document Available!!")}</span>
+        </>
+      );
+    } else {
+      return this.state.documentList.map((document: any) => {
+        return (
+          <Grid item xs={12} md={12} lg={12}>
+            <Box className="item">
+              <Link href={`/DocumentChairman/${this.state.docName}/${document.id}/view`}>
+                <div className="heading">
+                  <img src={Document} />
+                  <h4>{document.attributes.title}</h4>
+                </div>
+              </Link>
+              <div className="menu">
+                <Menu
+                  menuButton={
+                    <IconButton>
+                      <MoreVertIcon />
+                    </IconButton>
+                  }
+                >
+                  <MenuItem>
+                    <Link href={document.attributes.images[0].download_url} target="_blank">
+                      {t("Download")}
+                    </Link>
+                  </MenuItem>
+                  <MenuItem
+                    onClick={() => {
+                      this.setState({ ...this.state, selectedDocumentId: document.id }, () => {
+                        this.handleDeleteDocumentModal();
+                      });
+                    }}
+                  >
+                    {t("Delete")}
+                  </MenuItem>
+                  <MenuItem
+                    onClick={() => {
+                      this.setState({ shareUrl: document.attributes.images[0].url }, () => {
+                        this.handleShareModal();
+                      });
+                    }}
+                  >
+                    {t("Share")}
+                  </MenuItem>
+                </Menu>
+              </div>
+            </Box>
+          </Grid>
+        );
+      });
+    }
+  };
+
+  meetingList = (t: any) => {
+    if (this.state.meetingsList.length === 0) {
+      return (
+        <>
+          <span>{t("No Meetings Available!!")}</span>
+        </>
+      );
+    } else {
+      return this.state.meetingsList.map((meeting: any) => {
+        return (
+          <ListItem key={meeting.id}>
+            <ListItemIcon>
+              <Checkbox
+                edge="start"
+                tabIndex={-1}
+                disableRipple
+                checked={this.state.selectedMeeting && this.state.selectedMeeting.id === meeting.id}
+                onChange={(e: any) => {
+                  if (e.target.checked) {
+                    this.setState({ selectedMeeting: meeting });
+                  } else {
+                    this.setState({ selectedMeeting: null });
+                  }
+                }}
+              />
+            </ListItemIcon>
+            <ListItemText primary={meeting.attributes.title} />
+            <ListItemText primary={meeting.attributes.agenda} />
+            <ListItemText primary={meeting.attributes.meeting_date_time} />
+          </ListItem>
+        );
+      });
+    }
+  };
+
+  isResolutionSubmitButtonDisabled = () => {
+    return (
+      !this.state.selectedMeeting ||
+      this.state.title.length === 0 ||
+      this.state.title.length > 100 ||
+      this.isInputOnlyWhiteSpace(this.state.title) ||
+      this.state.file === null
+    );
+  };
+
+  showMeetingTitle = () => {
+    return this.state.selectedMeeting && this.state.selectedMeeting.attributes.title;
+  };
+
+  render() {
+    const { t, classes }: any = this.props;
+    this.reloadPage();
 
     return (
       <>
@@ -104,155 +307,11 @@ class DocumentListChairman extends DocumentListChairmanController {
                   <Box className={`document-box ${this.documentClass(this.state.docName.toLowerCase())}`}>
                     {this.state.docName.toLowerCase() === "resolutions" ? (
                       <Grid container spacing={2}>
-                        {this.state.resolutionList.length === 0 && <span>{"No Resolution Available!!"}</span>}
-                        {this.state.resolutionList.map((resolution: any) => {
-                          return (
-                            <Grid item xs={12} md={6} lg={4} key={resolution.id}>
-                              <Card className="card-item">
-                                <div className="heading">
-                                  <h4>{resolution.attributes.title}</h4>
-                                  <div className="menu">
-                                    <Menu
-                                      menuButton={
-                                        <IconButton>
-                                          <MoreVertIcon />
-                                        </IconButton>
-                                      }
-                                    >
-                                      <MenuItem>
-                                        <Link
-                                          href={
-                                            resolution.attributes.attachments &&
-                                            resolution.attributes.attachments[0].url
-                                          }
-                                          target="_blank"
-                                        >
-                                          {t("Download")}
-                                        </Link>
-                                      </MenuItem>
-                                      <MenuItem
-                                        onClick={() => {
-                                          this.setState({ ...this.state, selectedDocumentId: resolution.id }, () => {
-                                            this.handleDeleteDocumentModal();
-                                          });
-                                        }}
-                                      >
-                                        {t("Delete")}
-                                      </MenuItem>
-                                      <MenuItem
-                                        onClick={() =>
-                                          this.handleOpenShareModal(
-                                            resolution.attributes.attachments &&
-                                            resolution.attributes.attachments[0].url
-                                          )
-                                        }
-                                      >
-                                        {t("Share")}
-                                      </MenuItem>
-                                    </Menu>
-                                  </div>
-                                </div>
-                                <div className="res-info">
-                                  <div className="info-item">
-                                    <p>{t("Date & Time")}</p>
-                                    <span>{moment(resolution.attributes.created_at).format("DD-MMM-YYYY HH:mm")}</span>
-                                  </div>
-                                  <div className="info-item">
-                                    <p>{t("Building")}</p>
-                                    <span>{resolution.attributes.buidling_name}</span>
-                                  </div>
-                                </div>
-                                <div className="item">
-                                  <div className="item-title">
-                                    <img src={PdfImage} />
-                                    <h6>
-                                      Meeting Minute{" "}
-                                      {moment(resolution.attributes.meeting_date_time, "DD-MM-YYYY HH:mm").format(
-                                        "DD-MMM-YYYY"
-                                      )}
-                                    </h6>
-                                  </div>
-                                  <div className="icons">
-                                    <img
-                                      src={ShareImage}
-                                      onClick={() =>
-                                        this.handleOpenShareModal(
-                                          resolution.attributes.meeting_mins_pdf &&
-                                          resolution.attributes.meeting_mins_pdf.url
-                                        )
-                                      }
-                                    />
-                                    <Link
-                                      href={
-                                        resolution.attributes.meeting_mins_pdf &&
-                                        resolution.attributes.meeting_mins_pdf.url
-                                      }
-                                      target="_blank"
-                                    >
-                                      <img src={DownloadImage} />
-                                    </Link>
-                                  </div>
-                                </div>
-                              </Card>
-                            </Grid>
-                          );
-                        })}
+                        {this.resolutionList(t)}
                       </Grid>
                     ) : (
                       <Grid container spacing={2}>
-                        {this.state.documentList.length === 0 && <span>{t("No Document Available!!")}</span>}
-                        {this.state.documentList.map((document: any) => {
-                          return (
-                            <Grid item xs={12} md={12} lg={12}>
-                              <Box className="item">
-                                <Link href={`/DocumentChairman/${this.state.docName}/${document.id}/view`}>
-                                  <div className="heading">
-                                    <img src={Document} />
-                                    <h4>{document.attributes.title}</h4>
-                                  </div>
-                                </Link>
-                                <div className="menu">
-                                  <Menu
-                                    menuButton={
-                                      <IconButton>
-                                        <MoreVertIcon />
-                                      </IconButton>
-                                    }
-                                  >
-                                    <MenuItem>
-                                      <Link href={document.attributes.images[0].download_url} target="_blank">
-                                        {t("Download")}
-                                      </Link>
-                                    </MenuItem>
-                                    <MenuItem
-                                      onClick={() => {
-                                        this.setState({ ...this.state, selectedDocumentId: document.id }, () => {
-                                          this.handleDeleteDocumentModal();
-                                        });
-                                      }}
-                                    >
-                                      {t("Delete")}
-                                    </MenuItem>
-                                    <MenuItem
-                                      onClick={() => {
-                                        this.setState(
-                                          {
-                                            shareUrl: document.attributes.images[0].url,
-                                          },
-                                          () => {
-                                            this.handleShareModal();
-                                          }
-                                        );
-                                      }}
-                                    >
-                                      {t("Share")}
-                                    </MenuItem>
-                                  </Menu>
-                                </div>
-                              </Box>
-                            </Grid>
-                          );
-                        })}
+                        {this.documentList(t)}
                       </Grid>
                     )}
                   </Box>
@@ -469,13 +528,7 @@ class DocumentListChairman extends DocumentListChairmanController {
             <Button
               className="add-button"
               onClick={() => this.createResolution()}
-              disabled={
-                !this.state.selectedMeeting ||
-                this.state.title.length === 0 ||
-                this.state.title.length > 100 ||
-                this.isInputOnlyWhiteSpace(this.state.title) ||
-                this.state.file === null
-              }
+              disabled={this.isResolutionSubmitButtonDisabled()}
             >
               {t("Create")}
             </Button>
@@ -504,42 +557,12 @@ class DocumentListChairman extends DocumentListChairmanController {
                 <ListItemText primary={t("Agenda")} />
                 <ListItemText primary={t("Date & Time")} />
               </ListItem>
-              {this.state.meetingsList.length === 0 && <span>{t("No Meetings Available!!")}</span>}
-              {this.state.meetingsList.map((meeting: any) => {
-                return (
-                  <ListItem key={meeting.id}>
-                    <ListItemIcon>
-                      <Checkbox
-                        edge="start"
-                        tabIndex={-1}
-                        disableRipple
-                        checked={this.state.selectedMeeting && this.state.selectedMeeting.id === meeting.id}
-                        onChange={(e: any) => {
-                          if (e.target.checked) {
-                            this.setState({
-                              ...this.state,
-                              selectedMeeting: meeting,
-                            });
-                          } else {
-                            this.setState({
-                              ...this.state,
-                              selectedMeeting: null,
-                            });
-                          }
-                        }}
-                      />
-                    </ListItemIcon>
-                    <ListItemText primary={meeting.attributes.title} />
-                    <ListItemText primary={meeting.attributes.agenda} />
-                    <ListItemText primary={meeting.attributes.meeting_date_time} />
-                  </ListItem>
-                );
-              })}
+              {this.meetingList(t)}
             </List>
           </DialogContent>
           <DialogActions className="dialog-button-group">
             <div className="selected-meeting">
-              <h4>{this.state.selectedMeeting && this.state.selectedMeeting.attributes.title}</h4>
+              <h4>{this.showMeetingTitle()}</h4>
             </div>
             <div className="button-group">
               <Button className="cancel-button" onClick={() => this.handleSelectMeetingModal()}>

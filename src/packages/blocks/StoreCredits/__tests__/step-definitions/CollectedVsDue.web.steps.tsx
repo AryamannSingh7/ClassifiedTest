@@ -51,9 +51,31 @@ defineFeature(feature, (test) => {
     });
 
     then("Should change the year for filter by year", async () => {
+      instance.handleYearFilter();
+
       const selectYearSpy = jest.spyOn(CollectedVsDueMountWrapper.find("select").at(0).props(), "onChange");
       CollectedVsDueMountWrapper.find("select").at(0).props().onChange({ target: { value: "2022" } });
       expect(selectYearSpy).toHaveBeenCalled();
+    });
+
+    then("Should change the year for filter by quarter", async () => {
+      instance.handleQuarterFilter();
+      instance.setState({ selectedFilter: "quarter" });
+      CollectedVsDueMountWrapper.update();
+
+      const selectQuarterSpy = jest.spyOn(CollectedVsDueMountWrapper.find("select").at(0).props(), "onChange");
+      CollectedVsDueMountWrapper.find("select").at(0).props().onChange({ target: { value: "2022" } });
+      expect(selectQuarterSpy).toHaveBeenCalled();
+    });
+
+    then("Should change the year for filter by month", async () => {
+      instance.handleMonthFilter();
+      instance.setState({ selectedFilter: "month" });
+      CollectedVsDueMountWrapper.update();
+
+      const selectMonthSpy = jest.spyOn(CollectedVsDueMountWrapper.find("select").at(0).props(), "onChange");
+      CollectedVsDueMountWrapper.find("select").at(0).props().onChange({ target: { value: "2022" } });
+      expect(selectMonthSpy).toHaveBeenCalled();
     });
   });
 });

@@ -25,11 +25,18 @@ interface S {
   collectedAmount: string;
   spentAmount: string;
 
+  selectedFilter: string;
   yearList: number[];
+  quarterList: any[];
+  monthList: number[];
   selectedYear: number;
+  selectedQuarter: number;
+  selectedMonth: number;
 
   unitWiseData: any[];
   cityWiseData: any[];
+
+  currency: string;
 }
 
 interface SS {
@@ -54,14 +61,26 @@ export default class SpentVsCollectedController extends BlockComponent<Props, S,
     this.state = {
       loading: false,
 
-      yearList: [],
-      selectedYear: moment().year(),
-
       collectedAmount: "",
       spentAmount: "",
 
       unitWiseData: [],
       cityWiseData: [],
+
+      currency: "",
+
+      selectedFilter: "year",
+      yearList: [],
+      quarterList: [
+        { key: "Quarter 1", value: 1 },
+        { key: "Quarter 2", value: 2 },
+        { key: "Quarter 3", value: 3 },
+        { key: "Quarter 4", value: 4 },
+      ],
+      monthList: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+      selectedYear: moment().year(),
+      selectedQuarter: 0,
+      selectedMonth: 0,
     };
     runEngine.attachBuildingBlock(this as IBlock, this.subScribedMessages);
   }
@@ -108,7 +127,27 @@ export default class SpentVsCollectedController extends BlockComponent<Props, S,
     this.getLastYearsList();
   }
 
+  async componentDidUpdate(prevProps: any, prevState: any): Promise<void> {
+    if (
+      prevState.selectedYear !== this.state.selectedYear ||
+      prevState.selectedQuarter !== this.state.selectedQuarter ||
+      prevState.selectedMonth !== this.state.selectedMonth
+    ) {
+      this.getCollectedVsSpentData();
+    }
+  }
+
   getCollectedVsSpentData = () => {
+    const { selectedFilter, selectedYear, selectedQuarter, selectedMonth } = this.state;
+    let filter = "";
+    if (selectedFilter === "year") {
+      filter = `year=${selectedYear}`;
+    } else if (selectedFilter === "month") {
+      filter = `month=${selectedMonth}`;
+    } else {
+      filter = `quarter=${selectedQuarter}`;
+    }
+
     const header = {
       "Content-Type": configJSON.ApiContentType,
       token: localStorage.getItem("userToken"),
@@ -120,7 +159,7 @@ export default class SpentVsCollectedController extends BlockComponent<Props, S,
 
     apiRequest.addData(
       getName(MessageEnum.RestAPIResponceEndPointMessage),
-      `bx_block_expense_report/expense_reports/spent_index`
+      `bx_block_expense_report/expense_reports/spent_index?${filter}`
     );
 
     apiRequest.addData(getName(MessageEnum.RestAPIRequestHeaderMessage), JSON.stringify(header));
@@ -136,6 +175,7 @@ export default class SpentVsCollectedController extends BlockComponent<Props, S,
       const collectVsSpent = responseJson.data.attributes.spent_amount_vs_collectd;
 
       this.setState({
+        currency: responseJson.data.attributes.currency,
         collectedAmount: collectVsSpent ? collectVsSpent.collectd_amount : "N/A",
         spentAmount: collectVsSpent ? collectVsSpent.spent_amount : "N/A",
         unitWiseData: responseJson.data.attributes.unit_wise_spent_amount_vs_collectd,
@@ -165,6 +205,42 @@ export default class SpentVsCollectedController extends BlockComponent<Props, S,
 
     runEngine.sendMessage(apiRequest.id, apiRequest);
     return true;
+  };
+
+  handleYearFilter = () => {
+    if (this.state.selectedFilter !== "year") {
+      this.setState({ selectedFilter: "year", selectedYear: moment().year(), loading: true });
+    }
+  };
+
+  handleQuarterFilter = () => {
+    if (this.state.selectedFilter !== "quarter") {
+      this.setState({
+        loading: true,
+        selectedFilter: "quarter",
+        selectedYear: moment().year(),
+        selectedQuarter: 1,
+      });
+    }
+  };
+
+  handleMonthFilter = () => {
+    if (this.state.selectedFilter !== "month") {
+      this.setState({
+        loading: true,
+        selectedFilter: "month",
+        selectedYear: moment().year(),
+        selectedMonth: 1,
+      });
+    }
+  };
+
+  validateCurrency = (expense: any) => {
+    if (!expense || expense === 0) {
+      return expense || 0;
+    } else {
+      return this.state.currency + " " + expense;
+    }
   };
   // Customizable Area End
 }

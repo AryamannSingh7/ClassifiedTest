@@ -288,7 +288,10 @@ exports[`CollectedVsDue User navigates to CollectedVsDue 1`] = `
       },
     }
   }
+  history={[MockFunction]}
   id="CollectedVsDue"
+  location={[MockFunction]}
+  match={[MockFunction]}
   navigation={
     Object {
       "getParam": [MockFunction],
@@ -298,6 +301,143 @@ exports[`CollectedVsDue User navigates to CollectedVsDue 1`] = `
   }
   t={[Function]}
 >
+  <Loader
+    loading={false}
+  >
+    <WithStyles(ForwardRef(Backdrop))
+      onClick={[Function]}
+      open={false}
+      style={
+        Object {
+          "color": "#ffffff",
+          "zIndex": 9999,
+        }
+      }
+    >
+      <ForwardRef(Backdrop)
+        classes={
+          Object {
+            "invisible": "MuiBackdrop-invisible",
+            "root": "MuiBackdrop-root",
+          }
+        }
+        onClick={[Function]}
+        open={false}
+        style={
+          Object {
+            "color": "#ffffff",
+            "zIndex": 9999,
+          }
+        }
+      >
+        <ForwardRef(Fade)
+          in={false}
+          onClick={[Function]}
+          style={
+            Object {
+              "color": "#ffffff",
+              "zIndex": 9999,
+            }
+          }
+        >
+          <Transition
+            appear={true}
+            enter={true}
+            exit={true}
+            in={false}
+            mountOnEnter={false}
+            onClick={[Function]}
+            onEnter={[Function]}
+            onEntered={[Function]}
+            onEntering={[Function]}
+            onExit={[Function]}
+            onExited={[Function]}
+            onExiting={[Function]}
+            timeout={
+              Object {
+                "enter": 225,
+                "exit": 195,
+              }
+            }
+            unmountOnExit={false}
+          >
+            <div
+              aria-hidden={true}
+              className="MuiBackdrop-root"
+              onClick={[Function]}
+              style={
+                Object {
+                  "color": "#ffffff",
+                  "opacity": 0,
+                  "visibility": "hidden",
+                  "zIndex": 9999,
+                }
+              }
+            >
+              <WithStyles(ForwardRef(CircularProgress))
+                style={
+                  Object {
+                    "color": "#2c6fed",
+                  }
+                }
+              >
+                <ForwardRef(CircularProgress)
+                  classes={
+                    Object {
+                      "circle": "MuiCircularProgress-circle",
+                      "circleDeterminate": "MuiCircularProgress-circleDeterminate",
+                      "circleDisableShrink": "MuiCircularProgress-circleDisableShrink",
+                      "circleIndeterminate": "MuiCircularProgress-circleIndeterminate",
+                      "circleStatic": "MuiCircularProgress-circleStatic",
+                      "colorPrimary": "MuiCircularProgress-colorPrimary",
+                      "colorSecondary": "MuiCircularProgress-colorSecondary",
+                      "determinate": "MuiCircularProgress-determinate",
+                      "indeterminate": "MuiCircularProgress-indeterminate",
+                      "root": "MuiCircularProgress-root",
+                      "static": "MuiCircularProgress-static",
+                      "svg": "MuiCircularProgress-svg",
+                    }
+                  }
+                  style={
+                    Object {
+                      "color": "#2c6fed",
+                    }
+                  }
+                >
+                  <div
+                    className="MuiCircularProgress-root MuiCircularProgress-colorPrimary MuiCircularProgress-indeterminate"
+                    role="progressbar"
+                    style={
+                      Object {
+                        "color": "#2c6fed",
+                        "height": 40,
+                        "width": 40,
+                      }
+                    }
+                  >
+                    <svg
+                      className="MuiCircularProgress-svg"
+                      viewBox="22 22 44 44"
+                    >
+                      <circle
+                        className="MuiCircularProgress-circle MuiCircularProgress-circleIndeterminate"
+                        cx={44}
+                        cy={44}
+                        fill="none"
+                        r={20.2}
+                        strokeWidth={3.6}
+                        style={Object {}}
+                      />
+                    </svg>
+                  </div>
+                </ForwardRef(CircularProgress)>
+              </WithStyles(ForwardRef(CircularProgress))>
+            </div>
+          </Transition>
+        </ForwardRef(Fade)>
+      </ForwardRef(Backdrop)>
+    </WithStyles(ForwardRef(Backdrop))>
+  </Loader>
   <Styled(MuiBox)
     className={
       Object {
@@ -1800,7 +1940,9 @@ exports[`CollectedVsDue User navigates to CollectedVsDue 1`] = `
                                                                         >
                                                                           <span
                                                                             className="MuiButton-label"
-                                                                          />
+                                                                          >
+                                                                            0
+                                                                          </span>
                                                                           <WithStyles(memo)
                                                                             center={false}
                                                                           >
@@ -1956,7 +2098,9 @@ exports[`CollectedVsDue User navigates to CollectedVsDue 1`] = `
                                                                         >
                                                                           <span
                                                                             className="MuiButton-label"
-                                                                          />
+                                                                          >
+                                                                            0
+                                                                          </span>
                                                                           <WithStyles(memo)
                                                                             center={false}
                                                                           >
