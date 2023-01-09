@@ -1671,7 +1671,7 @@ this.setState({loading:true})
         .positive("Negative numbers are not allowed.")
         .integer("Number can't contain a decimal.")
         .min(10000000, "Minimum 8 digits are required.")
-        .max(99999999999, "Maximum 11 digits are allowed."),
+        .max(999999999, "Maximum 9 digits are allowed."),
       email: Yup.string().required(`This field is required`).trim(),
       DOB: Yup.date().required(`This field is required`),
       hobbies: Yup.string().required(`This field is required`).nullable(),

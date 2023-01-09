@@ -45,8 +45,8 @@ class EditFamily extends FamilyController {
         <Grid container spacing={2} className="auth-container">
           <Grid item xs={12} md={7} className="auth-cols" style={{ justifyContent: 'unset' }}>
             <Grid container>
-              <Grid xs={12} style={{ display: 'flex', alignItems: 'center' }}>
-                <ArrowBackIcon onClick={() => window.history.back()} />
+              <Grid item xs={12} style={{ display: 'flex', alignItems: 'center' }}>
+                <ArrowBackIcon onClick={() => window.history.back()} className='btn' />
                 <p style={{ fontWeight: 600, fontSize: '1.25rem' }}>
 
                   Family Members
@@ -65,6 +65,7 @@ class EditFamily extends FamilyController {
                   }}
                     validationSchema={this.addVehicleSchema()}
                     validateOnMount={true}
+                    id="formik"
                     onSubmit={(values) => { this.updateVehicle(values) }}
                   >
                     {({ values,
