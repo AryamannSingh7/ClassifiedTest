@@ -5,7 +5,6 @@ import MessageEnum, { getName } from "../../../framework/src/Messages/MessageEnu
 import { runEngine } from "../../../framework/src/RunEngine";
 
 // Customizable Area Start
-import { ApiCatchErrorResponse, ApiErrorResponse } from "../../../components/src/APIErrorResponse";
 // Customizable Area End
 
 export const configJSON = require("./config.js");
@@ -37,6 +36,7 @@ interface SS {
 export default class SuggestionsController extends BlockComponent<Props, S, SS> {
   getSuggestionListingApiCallId: any;
   createSuggestionApiCall:any;
+  updateSuggestionApiCall:any
 
   constructor(props: Props) {
     super(props);
@@ -76,11 +76,11 @@ export default class SuggestionsController extends BlockComponent<Props, S, SS> 
           
    
           }
-        //  else if (apiRequestCallId === this.createSuggestionApiCall) {
-        //   this.createSuggestionHandle(responseJson)
+         else if (apiRequestCallId === this.createSuggestionApiCall) {
+          this.createSuggestionHandle(responseJson)
           
    
-        //  }
+         }
     }
 
    
@@ -110,6 +110,8 @@ export default class SuggestionsController extends BlockComponent<Props, S, SS> 
       console.log("getIncidentListingApiCallId ========================>",responseJson)
       // this.setState({suggestionList :responseJson?.data})
       this.setState({loading: false})
+      // @ts-ignore
+      this.props.history.push('/Suggestions')
       } else if (responseJson?.errors) {
         let error = Object.values(responseJson.errors[0])[0] as string;
         this.setState({ error });
@@ -157,7 +159,8 @@ export default class SuggestionsController extends BlockComponent<Props, S, SS> 
     }
   };
 
-  openSuggestion=(item:any)=>{
+  openSuggestion(item:any){
+    console.log(this.props)
     localStorage.setItem('selectSuggestion',JSON.stringify(item))
     // @ts-ignore
     this.props.history.push('/SuggestionDetails')
@@ -206,6 +209,42 @@ export default class SuggestionsController extends BlockComponent<Props, S, SS> 
           console.log(error);
         }
     
+      }
+      searchSuggestion=(value:any)=>{
+        try {
+          const header = {
+            "Content-Type": configJSON.validationApiContentType,
+            token :localStorage.getItem("userToken")
+          };
+    
+          const requestMessage = new Message(
+            getName(MessageEnum.RestAPIRequestMessage)
+          );
+          this.getSuggestionListingApiCallId = requestMessage.messageId;
+          this.setState({ loading: true });
+    
+         const  getSortByOrStatus = `bx_block_suggestion/suggestions?search_term=${value}`
+    
+          requestMessage.addData(
+            getName(MessageEnum.RestAPIResponceEndPointMessage),
+            getSortByOrStatus
+          );
+    
+          requestMessage.addData(
+            getName(MessageEnum.RestAPIRequestHeaderMessage),
+            JSON.stringify(header)
+          );
+    
+          requestMessage.addData(
+            getName(MessageEnum.RestAPIRequestMethodMessage),
+            configJSON.validationApiMethodType
+          );
+    
+          runEngine.sendMessage(requestMessage.id, requestMessage);
+          return true;
+        } catch (error) {
+          console.log(error);
+        }
       }
   // Customizable Area End
 }

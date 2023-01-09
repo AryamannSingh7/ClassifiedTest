@@ -745,6 +745,7 @@ createSuggtionSchema() {
   }
 
   openSuggestion=(item:any)=>{
+    console.log(this.props)
 localStorage.setItem('selectSuggestion',JSON.stringify(item))
 // @ts-ignore
 this.props.history.push('/SuggestionData')

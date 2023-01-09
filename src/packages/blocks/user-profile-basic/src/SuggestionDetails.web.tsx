@@ -6,7 +6,7 @@ import DashboardHeader from "../../dashboard/src/DashboardHeader.web";
 import ChairmanSidebarWeb from "../../dashboard/src/ChairmanSidebar.web";
 import { SuggestionStyleWeb } from "./SuggestionStyle.web";
 import { avatarIcon, calenderIcon, phone } from "./assets";
-
+import { withRouter } from 'react-router';
 class SuggestionDetails extends SuggestionsController {
   constructor(props: Props) {
     super(props);
@@ -114,5 +114,5 @@ class SuggestionDetails extends SuggestionsController {
   }
 }
 
-export default withStyles(SuggestionStyleWeb)(SuggestionDetails);
+export default withRouter(withStyles(SuggestionStyleWeb)(SuggestionDetails));
 // Customizable Area End

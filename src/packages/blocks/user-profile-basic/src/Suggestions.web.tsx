@@ -14,6 +14,7 @@ import {
   InputBase,
   Divider,
 } from "@material-ui/core";
+import { withRouter } from 'react-router';
 import SuggestionsController, { Props } from "./SuggestionsController.web";
 import DashboardHeader from "../../dashboard/src/DashboardHeader.web";
 import ChairmanSidebarWeb from "../../dashboard/src/ChairmanSidebar.web";
@@ -70,14 +71,14 @@ class Suggestions extends SuggestionsController {
                           <option>Building</option>
                           <option>Building</option>
                         </select>
-                        <select value="">
+                        {/* <select value="">
                           <option disabled value="">
                             Sort By
                           </option>
                           <option>Building</option>
                           <option>Building</option>
                           <option>Building</option>
-                        </select>
+                        </select> */}
                       </Box>
                     </Box>
                   </Box>
@@ -88,7 +89,7 @@ class Suggestions extends SuggestionsController {
                       <h3>Suggestion</h3>
                       <div className="search-box">
                         <SearchIcon />
-                        <InputBase placeholder="Search" className="search" />
+                        <InputBase placeholder="Search" className="search" onChange={(e)=>this.searchSuggestion(e.target.value)} />
                       </div>
                     </Box>
                     <Divider />
@@ -135,5 +136,5 @@ class Suggestions extends SuggestionsController {
   }
 }
 
-export default withStyles(SuggestionStyleWeb)(Suggestions);
+export default withRouter(withStyles(SuggestionStyleWeb)(Suggestions));
 // Customizable Area End
