@@ -4,6 +4,11 @@ import { BlockComponent } from "../../../../framework/src/BlockComponent";
 import MessageEnum, { getName } from "../../../../framework/src/Messages/MessageEnum";
 import { runEngine } from "../../../../framework/src/RunEngine";
 
+// Customizable Area Start
+import moment from "moment";
+import { ApiCatchErrorResponse, ApiErrorResponse } from "../../../../components/src/APIErrorResponse";
+// Customizable Area End
+
 export const configJSON = require("../config");
 
 export interface Props {
@@ -14,7 +19,18 @@ export interface Props {
   // Customizable Area End
 }
 
-interface S {}
+interface S {
+  loading: boolean;
+
+  collectedAmount: string;
+  spentAmount: string;
+
+  yearList: number[];
+  selectedYear: number;
+
+  unitWiseData: any[];
+  cityWiseData: any[];
+}
 
 interface SS {
   id: any;
@@ -23,6 +39,11 @@ interface SS {
 }
 
 export default class SpentVsCollectedController extends BlockComponent<Props, S, SS> {
+  // Customizable Area Start
+  CollectedVsSpentCallId: string = "";
+  LastYearsListCallId: string = "";
+  // Customizable Area End
+
   constructor(props: Props) {
     super(props);
     this.receive = this.receive.bind(this);
@@ -30,13 +51,120 @@ export default class SpentVsCollectedController extends BlockComponent<Props, S,
     // Customizable Area Start
     this.subScribedMessages = [getName(MessageEnum.RestAPIResponceMessage), getName(MessageEnum.RestAPIRequestMessage)];
 
-    this.state = {};
+    this.state = {
+      loading: false,
+
+      yearList: [],
+      selectedYear: moment().year(),
+
+      collectedAmount: "",
+      spentAmount: "",
+
+      unitWiseData: [],
+      cityWiseData: [],
+    };
     runEngine.attachBuildingBlock(this as IBlock, this.subScribedMessages);
   }
 
   async receive(from: string, message: Message) {
+    runEngine.debugLog("Message Recived", message);
+
+    // Customizable Area Start
     if (getName(MessageEnum.RestAPIResponceMessage) === message.id) {
-      console.log("receive");
+      let responseJson = message.getData(getName(MessageEnum.RestAPIResponceSuccessMessage));
+      let errorResponse = message.getData(getName(MessageEnum.RestAPIResponceErrorMessage));
+
+      const apiRequestCallId = message.getData(getName(MessageEnum.RestAPIResponceDataMessage));
+
+      switch (apiRequestCallId) {
+        // Get All Expense List - API Response
+        case this.CollectedVsSpentCallId:
+          this.setState({ loading: false }, () => {
+            this.handleCollectedVsDueResponse(responseJson);
+          });
+          break;
+        case this.LastYearsListCallId:
+          if (responseJson && responseJson.year) {
+            this.setState({ yearList: responseJson.year });
+          }
+          break;
+        default:
+          break;
+      }
+
+      if (responseJson && responseJson.meta && responseJson.meta.token) {
+        runEngine.unSubscribeFromMessages(this, this.subScribedMessages);
+      } else {
+        ApiErrorResponse(responseJson);
+      }
+      ApiCatchErrorResponse(errorResponse);
     }
+    // Customizable Area End
   }
+
+  // Customizable Area Start
+  async componentDidMount(): Promise<void> {
+    this.getCollectedVsSpentData();
+    this.getLastYearsList();
+  }
+
+  getCollectedVsSpentData = () => {
+    const header = {
+      "Content-Type": configJSON.ApiContentType,
+      token: localStorage.getItem("userToken"),
+    };
+
+    const apiRequest = new Message(getName(MessageEnum.RestAPIRequestMessage));
+
+    this.CollectedVsSpentCallId = apiRequest.messageId;
+
+    apiRequest.addData(
+      getName(MessageEnum.RestAPIResponceEndPointMessage),
+      `bx_block_expense_report/expense_reports/spent_index`
+    );
+
+    apiRequest.addData(getName(MessageEnum.RestAPIRequestHeaderMessage), JSON.stringify(header));
+
+    apiRequest.addData(getName(MessageEnum.RestAPIRequestMethodMessage), configJSON.apiMethodTypeGet);
+
+    runEngine.sendMessage(apiRequest.id, apiRequest);
+    return true;
+  };
+
+  handleCollectedVsDueResponse = (responseJson: any) => {
+    if (responseJson && responseJson.data) {
+      const collectVsSpent = responseJson.data.attributes.spent_amount_vs_collectd;
+
+      this.setState({
+        collectedAmount: collectVsSpent ? collectVsSpent.collectd_amount : "N/A",
+        spentAmount: collectVsSpent ? collectVsSpent.spent_amount : "N/A",
+        unitWiseData: responseJson.data.attributes.unit_wise_spent_amount_vs_collectd,
+        cityWiseData: responseJson.data.attributes.city_wise_spent_amount_vs_collectd,
+      });
+    }
+  };
+
+  getLastYearsList = () => {
+    const header = {
+      "Content-Type": configJSON.ApiContentType,
+      token: localStorage.getItem("userToken"),
+    };
+
+    const apiRequest = new Message(getName(MessageEnum.RestAPIRequestMessage));
+
+    this.LastYearsListCallId = apiRequest.messageId;
+
+    apiRequest.addData(
+      getName(MessageEnum.RestAPIResponceEndPointMessage),
+      `bx_block_expense_report/expense_reports/year_list`
+    );
+
+    apiRequest.addData(getName(MessageEnum.RestAPIRequestHeaderMessage), JSON.stringify(header));
+
+    apiRequest.addData(getName(MessageEnum.RestAPIRequestMethodMessage), configJSON.apiMethodTypeGet);
+
+    runEngine.sendMessage(apiRequest.id, apiRequest);
+    return true;
+  };
+  // Customizable Area End
 }

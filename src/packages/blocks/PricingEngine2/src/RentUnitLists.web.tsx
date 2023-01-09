@@ -27,9 +27,9 @@ class RentUnitLists extends RentUnitListController{
                 <Grid container style={{ margin: '1rem', width: '90%' }} >
                   <Grid item xs={12} style={{ display:"flex", alignItems:"center", gap:"1rem",justifyContent:"space-between"}} >
                       <Box style={{ display:"flex", alignItems:"center", gap:"1rem"}}>
-                          <ArrowBackIcon onClick={() => window.history.back( )} />
+                          <ArrowBackIcon className="rentUnitBackBtn" onClick={() => window.history.back( )} />
                           <p style={{ fontSize: '1.2rem', fontWeight: 600 }}>
-                              Building Name
+                              {this.state.buildingName}
                           </p>
                       </Box>
                   </Grid>
@@ -39,9 +39,10 @@ class RentUnitLists extends RentUnitListController{
                         {
                             this.state.UnitListing.map((item:any,key:any)=> {
                                 return(
-                                    <Grid item xs={12}>
+                                    <Grid item xs={12} key={key}>
                                     <Box
                                         display="flex"
+                                        className="rentUnitListBox"
                                         justifyContent='space-between'
                                         alignItems="center"
                                         borderRadius="15px"
@@ -68,7 +69,7 @@ class RentUnitLists extends RentUnitListController{
                         }
                     </Grid>
                      <Box style={{width:"90%",marginBottom:"50px",marginTop:"10px"}}>
-                        <CloseButton variant="contained" fullWidth size="large" onClick={()=> this.props.history.push("/AddRentPayment")}>
+                        <CloseButton className="RegisterRentPayment" variant="contained" fullWidth size="large" onClick={()=> this.props.history.push("/AddRentPayment")}>
                             {t("Register Rent Payment")}
                         </CloseButton>
                     </Box>

@@ -48,14 +48,20 @@ class SpentVsCollected extends SpentVsCollectedController {
                       <Grid container spacing={2}>
                         <Grid item xs={12}>
                           <Box className="heading">
-                            <h4>Spent vs collected amount</h4>
-                            <select name="" id="">
-                              <option value="">2021</option>
-                              <option value="">2022</option>
-                              <option value="">2023</option>
-                              <option value="">2024</option>
-                              <option value="">2025</option>
-                              <option value="">2026</option>
+                            <h4>{t("Spent vs collected amount")}</h4>
+                            <select
+                              name="year"
+                              id="year"
+                              value={this.state.selectedYear}
+                              onChange={(e: any) => this.setState({ selectedYear: e.target.value })}
+                            >
+                              {this.state.yearList.map((year: number) => {
+                                return (
+                                  <option value={year} key={year}>
+                                    {year}
+                                  </option>
+                                );
+                              })}
                             </select>
                           </Box>
                         </Grid>
@@ -66,7 +72,7 @@ class SpentVsCollected extends SpentVsCollectedController {
                                 <h4 className="heading">{t("Spent Amount")}</h4>
                                 <div className="state">
                                   <p>{t("Collected")}</p>
-                                  <Button className="yellow">75</Button>
+                                  <Button className="yellow">{this.state.spentAmount}</Button>
                                 </div>
                               </div>
                               <div className="center-content">
@@ -83,7 +89,7 @@ class SpentVsCollected extends SpentVsCollectedController {
                                 <h4 className="heading">{t("Collected Amount")}</h4>
                                 <div className="state">
                                   <p>{t("Due")}</p>
-                                  <Button className="yellow">SR 75</Button>
+                                  <Button className="yellow">{this.state.collectedAmount}</Button>
                                 </div>
                               </div>
                             </div>
@@ -94,53 +100,53 @@ class SpentVsCollected extends SpentVsCollectedController {
                       <Grid container spacing={2}>
                         <Grid item xs={12}>
                           <Box className="heading">
-                            <h4>Unitwise spent vs collected report</h4>
+                            <h4>{t("Unitwise spent vs collected report")}</h4>
                           </Box>
                         </Grid>
-                        <Grid item xs={12}>
-                          <UnitCard
-                            heading="Unit 202 Buliding 5"
-                            titleOne="Spent"
-                            valueOne="SR 06"
-                            titleTwo="Collected"
-                            valueTwo="00"
-                          />
-                        </Grid>
-                        <Grid item xs={12}>
-                          <UnitCard
-                            heading="Unit 202 Buliding 5"
-                            titleOne="Spent"
-                            valueOne="SR 06"
-                            titleTwo="Collected"
-                            valueTwo="00"
-                          />
-                        </Grid>
+                        {this.state.unitWiseData.length === 0 && (
+                          <Grid item xs={12}>
+                            <Card className="rented-empty-card">{t("No unit data available")}</Card>
+                          </Grid>
+                        )}
+                        {this.state.unitWiseData.map((unit: any) => {
+                          return (
+                            <Grid item xs={12} key={unit.id}>
+                              <UnitCard
+                                heading={`Unit ${unit.unit_name} Buliding ${unit.building_name}`}
+                                titleOne={t("Spent")}
+                                valueOne={unit.spent_amount}
+                                titleTwo={t("Collected")}
+                                valueTwo={unit.collectd_amount}
+                              />
+                            </Grid>
+                          );
+                        })}
                       </Grid>
                       <br />
                       <Grid container spacing={2}>
                         <Grid item xs={12}>
                           <Box className="heading">
-                            <h4>Citywise spent vs collected report</h4>
+                            <h4>{t("Citywise spent vs collected report")}</h4>
                           </Box>
                         </Grid>
-                        <Grid item xs={12}>
-                          <UnitCard
-                            heading="Dubai"
-                            titleOne="Spent"
-                            valueOne="SR 06"
-                            titleTwo="Collected"
-                            valueTwo="00"
-                          />
-                        </Grid>
-                        <Grid item xs={12}>
-                          <UnitCard
-                            heading="London"
-                            titleOne="Spent"
-                            valueOne="SR 06"
-                            titleTwo="Collected"
-                            valueTwo="00"
-                          />
-                        </Grid>
+                        {this.state.cityWiseData.length === 0 && (
+                          <Grid item xs={12}>
+                            <Card className="rented-empty-card">{t("No city data available")}</Card>
+                          </Grid>
+                        )}
+                        {this.state.cityWiseData.map((city: any) => {
+                          return (
+                            <Grid item xs={12} key={city.city}>
+                              <UnitCard
+                                heading={city.city}
+                                titleOne={t("Spent")}
+                                valueOne={city.spent_amount}
+                                titleTwo={t("Collected")}
+                                valueTwo={city.collectd_amount}
+                              />
+                            </Grid>
+                          );
+                        })}
                       </Grid>
                     </Box>
                   </Box>

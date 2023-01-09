@@ -322,6 +322,8 @@ import RentDetails from '../../blocks/PricingEngine2/src/RentDetails.web';
 import AddRentPayment from '../../blocks/PricingEngine2/src/RegisterRentPayment.web';
 
 // Reports
+import GenerateBudgetReport from '../../blocks/StoreCredits/src/GenerateBudgetReport.web';
+import GenerateBudgetReportPreview from '../../blocks/StoreCredits/src/BudgetReportPreview.web';
 import ReportDashboard from '../../blocks/StoreCredits/src/ReportDashboard.web';
 import BudgetReport from '../../blocks/StoreCredits/src/BudgetReport.web';
 import BudgetReportDetails from '../../blocks/StoreCredits/src/BudgetReportDetails.web';
@@ -369,6 +371,8 @@ import AddExpenseSuccess from '../../blocks/ExpenseTracking/src/AddExpenseSucces
 import TotalExpense from '../../blocks/StoreCredits/src/MyExpenseReport/TotalExpense.web';
 import UnitTotalExpense from '../../blocks/StoreCredits/src/MyExpenseReport/UnitTotalExpense.web';
 import RentedVsEmpty from '../../blocks/StoreCredits/src/MyExpenseReport/RentedVsEmpty.web';
+import RentedAndEmpty from '../../blocks/StoreCredits/src/MyExpenseReport/RentedAndEmpty.web';
+import CityWiseRentedVsEmpty from '../../blocks/StoreCredits/src/MyExpenseReport/CityWiseRentedVsEmpty.web';
 import CollectedVsDue from '../../blocks/StoreCredits/src/MyExpenseReport/CollectedVsDue.web';
 import SpentVsCollected from '../../blocks/StoreCredits/src/MyExpenseReport/SpentVsCollected.web';
 
@@ -2074,19 +2078,19 @@ const routeMap = {
     exact: true
   },
 
-  // GenerateBudgetReport:{
-  //   component: GenerateBudgetReport,
-  //   path: '/GenerateBudgetReport',
-  //   roles: [ROLE.MANAGER],
-  //   exact: true
-  // },
+  GenerateBudgetReport: {
+    component: GenerateBudgetReport,
+    path: '/GenerateBudgetReport',
+    roles: [ROLE.MANAGER],
+    exact: true
+  },
 
-  // GenerateBudgetReportPreview:{
-  //   component: GenerateBudgetReportPreview,
-  //   path: '/GenerateBudgetReportPreview',
-  //   roles: [ROLE.MANAGER],
-  //   exact: true
-  // },
+  GenerateBudgetReportPreview: {
+    component: GenerateBudgetReportPreview,
+    path: '/GenerateBudgetReportPreview',
+    roles: [ROLE.MANAGER],
+    exact: true
+  },
 
   ExpenseReport: {
     component: ExpenseReport,
@@ -2203,6 +2207,18 @@ const routeMap = {
   RentedVsEmpty: {
     component: RentedVsEmpty,
     path: '/RentedVsEmpty',
+    roles: [ROLE.OWNER, ROLE.OWNER_RESIDENT],
+    exact: true
+  },
+  RentedAndEmpty: {
+    component: RentedAndEmpty,
+    path: '/RentedVsEmpty/:id',
+    roles: [ROLE.OWNER, ROLE.OWNER_RESIDENT],
+    exact: true
+  },
+  CityWiseRentedVsEmpty: {
+    component: CityWiseRentedVsEmpty,
+    path: '/RentedVsEmpty/City/:id',
     roles: [ROLE.OWNER, ROLE.OWNER_RESIDENT],
     exact: true
   },
