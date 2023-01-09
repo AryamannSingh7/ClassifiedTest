@@ -6,6 +6,7 @@ import KeyboardBackspaceIcon from "@material-ui/icons/KeyboardBackspace";
 import { ExpenseIcon, FilterIcon } from "../assets";
 import SidebarImageComponent from "../../../../components/src/OwnerSidebarImage.web";
 import { TotalExpenseStyle } from "./TotalExpenseStyle.web";
+import { handleFilterValue, handleSelectFilterList } from "./FilterComponent.web";
 import { Menu } from "@szhsin/react-menu";
 import ExpenseCard from "../../../../components/src/ExpenseCard";
 import { ICategoryExpense, ICityExpense, IUnitExpense } from "../../../../framework/src/Interfaces/IExpenseReport.web";
@@ -15,44 +16,6 @@ class TotalExpense extends TotalExpenseController {
   constructor(props: Props) {
     super(props);
   }
-
-  handleSelectFilterList = () => {
-    if (this.state.selectedFilter === "year") {
-      return this.state.yearList.map((year: number) => {
-        return (
-          <option value={year} key={year}>
-            {year}
-          </option>
-        );
-      });
-    } else if (this.state.selectedFilter === "quarter") {
-      return this.state.quarterList.map((quarter: any) => {
-        return (
-          <option value={quarter.value} key={quarter.value}>
-            {quarter.key}
-          </option>
-        );
-      });
-    } else {
-      return this.state.monthList.map((month: number) => {
-        return (
-          <option value={month} key={month}>
-            {month}
-          </option>
-        );
-      });
-    }
-  };
-
-  handleFilterValue = () => {
-    if (this.state.selectedFilter === "year") {
-      return this.state.selectedYear;
-    } else if (this.state.selectedFilter === "quarter") {
-      return this.state.selectedQuarter;
-    } else {
-      return this.state.selectedMonth;
-    }
-  };
 
   render() {
     const { t, classes } = this.props;
@@ -100,7 +63,7 @@ class TotalExpense extends TotalExpenseController {
                             <select
                               name="year"
                               id="year"
-                              value={this.handleFilterValue()}
+                              value={handleFilterValue(this.state)}
                               onChange={(e: any) => {
                                 if (this.state.selectedFilter === "year") {
                                   this.setState({ loading: true, selectedYear: e.target.value });
@@ -111,7 +74,7 @@ class TotalExpense extends TotalExpenseController {
                                 }
                               }}
                             >
-                              {this.handleSelectFilterList()}
+                              {handleSelectFilterList(this.state)}
                             </select>
                           </Box>
                         </Grid>

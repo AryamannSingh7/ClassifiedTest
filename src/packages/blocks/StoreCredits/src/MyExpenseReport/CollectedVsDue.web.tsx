@@ -9,49 +9,12 @@ import { TotalExpenseStyle } from "./TotalExpenseStyle.web";
 import { Menu } from "@szhsin/react-menu";
 import UnitCard from "../../../../components/src/ExpenseCard/UnitCard.web";
 import Loader from "../../../../components/src/Loader.web";
+import { handleFilterValue, handleSelectFilterList } from "./FilterComponent.web";
 
 class CollectedVsDue extends CollectedVsDueController {
   constructor(props: Props) {
     super(props);
   }
-
-  handleSelectFilterList = () => {
-    if (this.state.selectedFilter === "year") {
-      return this.state.yearList.map((year: number) => {
-        return (
-          <option value={year} key={year}>
-            {year}
-          </option>
-        );
-      });
-    } else if (this.state.selectedFilter === "quarter") {
-      return this.state.quarterList.map((quarter: any) => {
-        return (
-          <option value={quarter.value} key={quarter.value}>
-            {quarter.key}
-          </option>
-        );
-      });
-    } else {
-      return this.state.monthList.map((month: number) => {
-        return (
-          <option value={month} key={month}>
-            {month}
-          </option>
-        );
-      });
-    }
-  };
-
-  handleFilterValue = () => {
-    if (this.state.selectedFilter === "year") {
-      return this.state.selectedYear;
-    } else if (this.state.selectedFilter === "quarter") {
-      return this.state.selectedQuarter;
-    } else {
-      return this.state.selectedMonth;
-    }
-  };
 
   render() {
     const { t, classes }: any = this.props;
@@ -97,7 +60,7 @@ class CollectedVsDue extends CollectedVsDueController {
                             <select
                               name="year"
                               id="year"
-                              value={this.handleFilterValue()}
+                              value={handleFilterValue(this.state)}
                               onChange={(e: any) => {
                                 if (this.state.selectedFilter === "year") {
                                   this.setState({ loading: true, selectedYear: e.target.value });
@@ -108,7 +71,7 @@ class CollectedVsDue extends CollectedVsDueController {
                                 }
                               }}
                             >
-                              {this.handleSelectFilterList()}
+                              {handleSelectFilterList(this.state)}
                             </select>
                           </Box>
                         </Grid>

@@ -209,7 +209,11 @@ export default class SpentVsCollectedController extends BlockComponent<Props, S,
 
   handleYearFilter = () => {
     if (this.state.selectedFilter !== "year") {
-      this.setState({ selectedFilter: "year", selectedYear: moment().year(), loading: true });
+      if (this.state.selectedYear !== moment().year()) {
+        this.setState({ selectedFilter: "year", selectedYear: moment().year(), loading: true });
+      } else {
+        this.setState({ selectedFilter: "year" });
+      }
     }
   };
 
@@ -220,6 +224,7 @@ export default class SpentVsCollectedController extends BlockComponent<Props, S,
         selectedFilter: "quarter",
         selectedYear: moment().year(),
         selectedQuarter: 1,
+        selectedMonth: 0,
       });
     }
   };
@@ -231,6 +236,7 @@ export default class SpentVsCollectedController extends BlockComponent<Props, S,
         selectedFilter: "month",
         selectedYear: moment().year(),
         selectedMonth: 1,
+        selectedQuarter: 0,
       });
     }
   };
