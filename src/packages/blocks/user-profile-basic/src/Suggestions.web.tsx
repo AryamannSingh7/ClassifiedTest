@@ -26,7 +26,10 @@ class Suggestions extends SuggestionsController {
     super(props);
   }
 
-  async componentDidMount(): Promise<void> {}
+  async componentDidMount(): Promise<void> {
+    this.getSuggtionListing()
+
+  }
 
   render() {
     const { classes } = this.props;
@@ -102,28 +105,23 @@ class Suggestions extends SuggestionsController {
                         </TableRow>
                       </TableHead>
                       <TableBody>
-                        <TableRow>
-                          <TableCell>1</TableCell>
-                          <TableCell className="ellipse">Suggestion Title</TableCell>
-                          <TableCell>Building</TableCell>
-                          <TableCell>Unit Number</TableCell>
-                          <TableCell>Sent By</TableCell>
-                          <TableCell>Date</TableCell>
+                        {
+                          this.state.suggestionList.map((item:any,index:any)=>(
+
+                        <TableRow onClick={()=>this.openSuggestion(item)}>
+                          <TableCell>{index+1}</TableCell>
+                          <TableCell className="ellipse">{item?.attributes?.title}</TableCell>
+                          <TableCell>{item?.attributes?.building_management?.building_name}</TableCell>
+                          <TableCell>0</TableCell>
+                          <TableCell>{item?.attributes?.sent_by?.name || 'N/A'}</TableCell>
+                          <TableCell>{item?.attributes?.date}</TableCell>
                           <TableCell>
-                            <span className="green-span">1 Response</span>
+                            <span className={item?.attributes?.response.length>0?"green-span":"red-span"}>{item?.attributes?.response.length} Response</span>
                           </TableCell>
                         </TableRow>
-                        <TableRow>
-                          <TableCell>2</TableCell>
-                          <TableCell className="ellipse">Suggestion Title</TableCell>
-                          <TableCell>Building</TableCell>
-                          <TableCell>Unit Number</TableCell>
-                          <TableCell>Sent By</TableCell>
-                          <TableCell>Date</TableCell>
-                          <TableCell>
-                            <span className="red-span">0 Response</span>
-                          </TableCell>
-                        </TableRow>
+                          ))
+}
+                      
                       </TableBody>
                     </Table>
                   </Grid>

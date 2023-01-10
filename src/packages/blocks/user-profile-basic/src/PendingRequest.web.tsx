@@ -97,7 +97,7 @@ class PendingRequest extends CommunityUserProfileController {
     super(props);
   }
   async componentDidMount() {
-  this.getInvitation()
+  this.getRequest()
  
  
        }
