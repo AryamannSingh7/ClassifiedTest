@@ -63,14 +63,14 @@ class Suggestions extends SuggestionsController {
                         Suggestion
                       </Typography>
                       <Box className="filter">
-                        <select value="">
+                        {/* <select value="">
                           <option disabled value="">
                             Building
                           </option>
                           <option>Building</option>
                           <option>Building</option>
                           <option>Building</option>
-                        </select>
+                        </select> */}
                         {/* <select value="">
                           <option disabled value="">
                             Sort By

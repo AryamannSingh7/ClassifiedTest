@@ -94,14 +94,17 @@ class SuggestionDetails extends SuggestionsController {
                   <Box className="responses-box">
                     {
                       item?.attributes?.response.length>0 && 
-                    <Card>
+                      item?.attributes?.response.map((data:any)=><>
+                       <Card>
                       <Box className="response">
                         <p>
-                          Response By: <span>Ali Khan</span>
+                          Response By: <span>{item?.attributes?.sent_by?.name || 'N/A'}</span>
                         </p>
-                        <pre>Hi Ali! Your Suggestion sounds good. Thanks for the suggestion.</pre>
+                        <pre>{data}</pre>
                       </Box>
                     </Card>
+                      </>)
+                   
                     }
                   </Box>
                 </Box>
