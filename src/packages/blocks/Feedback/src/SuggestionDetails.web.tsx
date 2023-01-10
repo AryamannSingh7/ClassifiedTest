@@ -44,7 +44,7 @@ class SuggestionDetails extends SuggestionController {
 
                   </Box>
                 </Box>
-                <Box className="content-block-wrapper common-incident-block" style={{display:'flex',flexDirection:'column',justifyContent:'space-between',height:'95%'}}>
+                <Box className="content-block-wrapper common-incident-block" style={{display:'flex',flexDirection:'column',justifyContent:'space-between',height:'95%',background:'#F8F9FE'}}>
                   <Box style={{paddingTop:'5rem'}}>
 
                     <Box style={{display:'flex',justifyContent:'space-between'}}>
@@ -117,7 +117,7 @@ class SuggestionDetails extends SuggestionController {
                   {data?.attributes?.response.length>0 ?
                   
                     <Button variant="contained" onClick={() => { this.setState({ loading: true });//@ts-ignore
-                    this.props.history.push("/newsuggestion") }} >VIEW RESPONSE</Button>
+                    this.props.history.push("/ResponseSuggestion") }} >VIEW RESPONSE</Button>
                     :
                     <Button variant="contained" onClick={() => { this.setState({ loading: true });//@ts-ignore
                     window.history.back() }} >Close</Button>

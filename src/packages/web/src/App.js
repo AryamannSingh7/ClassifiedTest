@@ -39,6 +39,8 @@ import SuggestionListing from '../../blocks/Feedback/src/Suggestion.web';
 import NewSuggestion from '../../blocks/Feedback/src/NewSuggestion.web';
 import SuggestionData from '../../blocks/Feedback/src/SuggestionDetails.web';
 import NewRequestSuggestion from '../../blocks/Feedback/src/newRequest.web';
+import ResponseSuggestion from '../../blocks/Feedback/src/ResponseSuggestion.web';
+
 
 
 
@@ -533,6 +535,11 @@ const routeMap = {
   SuggestionListing: {
     component: SuggestionListing,
     path: '/SuggestionListing',
+    exact: true
+  },
+  ResponseSuggestion: {
+    component: ResponseSuggestion,
+    path: '/ResponseSuggestion',
     exact: true
   },
   NewRequestSuggestion: {
