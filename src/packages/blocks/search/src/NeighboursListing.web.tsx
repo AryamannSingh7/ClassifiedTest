@@ -56,6 +56,7 @@ class NeighboursListing extends NeighboursController {
 
   render() {
     const { navigation } = this.props;
+    console.log("==================>",this.state?.buildingListing[0]?.id)
     return (
       <>
         <Box className="login-wrapper incident-wrapper neighbour-listing-wrapper">
@@ -104,10 +105,10 @@ class NeighboursListing extends NeighboursController {
                             labelId="demo-simple-select-outlined-label"
                             id="demo-simple-select-outlined"
                             onChange={(e) => { this.onChange(e) }}
-                            value={this.state?.myApartment}
+                            value={this.state?.buildingListing?.length === 1 ? this.state?.buildingListing[0]?.id : this.state?.myApartment}
                           >
                              <MenuItem disabled value=" ">
-                              Select Park
+                              Select Building
                             </MenuItem>
                             {
                               this.state?.buildingListing?.map((val:any, index : any) => (

@@ -244,9 +244,7 @@ class CreateFacilityReservation extends FacilityReservationController {
                          FacilityId ?<Button variant="contained" type="submit">update request</Button>: <Button variant="contained" type="submit">Submit</Button>
                        }
                         </Box>
-                         {JSON.stringify(errors, null, 2)} 
-                         {JSON.stringify(values, null, 2)}
-
+                        
                       </Form>
                     )}
                   </Formik>
