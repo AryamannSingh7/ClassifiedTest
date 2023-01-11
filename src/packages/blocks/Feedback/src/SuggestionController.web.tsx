@@ -156,7 +156,8 @@ export default class SuggestionController extends BlockComponent<
     if (responseJson?.data ) {
       console.log("createData ========================>",responseJson)
      //@ts-ignore
-  this.props.history.push("/SuggestionListing");
+  //    localStorage.setItem('selectSuggestion',responseJson)
+  this.props.history.push("/NewRequestSuggestion");
       this.setState({loading: false})
       } else if (responseJson?.errors) {
         let error = Object.values(responseJson.errors[0])[0] as string;
@@ -744,6 +745,7 @@ createSuggtionSchema() {
   }
 
   openSuggestion=(item:any)=>{
+    console.log(this.props)
 localStorage.setItem('selectSuggestion',JSON.stringify(item))
 // @ts-ignore
 this.props.history.push('/SuggestionData')
