@@ -170,7 +170,7 @@ export default class InboxController extends BlockComponent<Props, S, SS> {
         
 
          if (apiRequestCallId === this.getInboxApiCallId) {
-          this.getSingleInboxRes(responseJson,errorReponse)
+          this.getInboxRes(responseJson,errorReponse)
           
         } if (apiRequestCallId === this.chatSettingApiCallId) {
           if (!responseJson.errors) {
@@ -208,7 +208,7 @@ export default class InboxController extends BlockComponent<Props, S, SS> {
   }
 
   // Customizable Area Start
-  getSingleInboxRes(responseJson:any,errorReponse:any){
+  getInboxRes(responseJson:any,errorReponse:any){
     if (!responseJson.errors) {
            
       if (responseJson.data) {
