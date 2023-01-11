@@ -166,16 +166,17 @@ export default class InboxController extends BlockComponent<Props, S, SS> {
 
 
 
-      if (apiRequestCallId && responseJson) {
-        
+
 
          if (apiRequestCallId === this.getInboxApiCallId) {
           this.getInboxRes(responseJson,errorReponse)
           
-        } if (apiRequestCallId === this.chatSettingApiCallId) {
+        } 
+        if (apiRequestCallId === this.chatSettingApiCallId) {
           this.chatSettingRes(responseJson,errorReponse)
   
-        } if (apiRequestCallId === this.getProfileDataAPiCallId) {
+        } 
+        if (apiRequestCallId === this.getProfileDataAPiCallId) {
           this.getProfileDataRes(responseJson,errorReponse)
       
         }
@@ -192,7 +193,7 @@ export default class InboxController extends BlockComponent<Props, S, SS> {
          
         }
         
-      }
+     
     }
     // Customizable Area End
   }
@@ -203,7 +204,7 @@ export default class InboxController extends BlockComponent<Props, S, SS> {
       console.log(responseJson)
       if (responseJson) {
         window.location.reload();
-        // this.setState({ allInbox: responseJson.data }, () => console.log(this.state.allInbox))
+     
       }
     } else {
       //Check Error Response
@@ -256,9 +257,7 @@ this.setState({ singleChatRoom: responseJson.data[0].attributes.messages, select
   getCreateMessages(responseJson:any,errorReponse:any){
     if (!responseJson.errors) {
       this.getSingleInbox()
-      // let tempArray = this.state.singleChatRoom[Object.keys(this.state.singleChatRoom)[Object.keys(obj).length - 1]]
-
-      // tempArray.push(responseJson.data)
+     
       this.setState({  newMessage: '' });
     } else {
       //Check Error Response
