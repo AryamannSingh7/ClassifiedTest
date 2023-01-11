@@ -1,12 +1,10 @@
 // Customizable Area Start
-import React, { useRef } from "react";
+import React from "react";
 import { Button, Container, IconButton, withStyles, Box, Grid } from "@material-ui/core";
-import { Link } from "react-router-dom";
 import KeyboardBackspaceIcon from "@material-ui/icons/KeyboardBackspace";
 import { BuildingImage, UnitRegisterCompleteIcon } from "./assets";
 import RegisterUnitController, { Props } from "./RegisterUnitController.web";
 import { withTranslation } from "react-i18next";
-import "../../../web/src/i18n.js";
 import { MyUnitStyle } from "./MyUnitStyle.web";
 
 class RegisterMyUnitSuccess extends RegisterUnitController {

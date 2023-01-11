@@ -28,3 +28,4 @@ export const manageLogo = require("../../StoreCredits/assets/manageLogo.png");
 export const GroupLogo = require("../../StoreCredits/assets/groupLogo.png");
 export const PdfIcon = require("../assets/pdf.png");
 export const DownloadIcon = require("../assets/download.png");
+export const DownArrowIcon = require("../assets/down-arrow.png");

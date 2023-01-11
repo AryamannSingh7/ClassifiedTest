@@ -4,7 +4,6 @@ import "../../dashboard/src/Dashboard.web.css";
 import Box from "@material-ui/core/Box";
 import OwnerBuildingsController, { Props } from "./OwnerBuildingsController.web";
 import { withTranslation } from "react-i18next";
-import "../../../web/src/i18n.js";
 import "./style.css";
 import { Document, BuildingLogo, ManagementChat, ManagementPhone, ManagementEmail } from "./assets";
 import { BuildingApartmentStyle } from "./BuildingApartmentStyle.web";
@@ -50,8 +49,7 @@ class OwnerBuildings extends OwnerBuildingsController {
   }
 
   render() {
-    const { t }: any = this.props;
-    const { classes } = this.props;
+    const { t, classes }: any = this.props;
 
     return (
       <>
@@ -80,9 +78,8 @@ class OwnerBuildings extends OwnerBuildingsController {
                         <Box className="heading">
                           <h4>{t("About")}</h4>
                           <Link
-                            href={`https://maps.google.com/?q=${this.state.buildingData.lat},${
-                              this.state.buildingData.long
-                            }`}
+                            href={`https://maps.google.com/?q=${this.state.buildingData.lat},${this.state.buildingData.long
+                              }`}
                             target="_blank"
                           >
                             <span>{t("See building on map")}</span>
@@ -132,20 +129,6 @@ class OwnerBuildings extends OwnerBuildingsController {
                         <Grid item xs={12}>
                           <Card className="team-member-box">{t("Coming soon")}</Card>
                         </Grid>
-                        {/* <Grid item xs={6}>
-                          <Card className="team-member-box">
-                            <img src={BuildingLogo.default} alt="" />
-                            <h4>Ali Khan</h4>
-                            <p>Manager</p>
-                            <Box className="icons">
-                              <img src={ManagementChat} alt="" />
-                              <div />
-                              <img src={ManagementPhone} alt="" />
-                              <div />
-                              <img src={ManagementEmail} alt="" />
-                            </Box>
-                          </Card>
-                        </Grid> */}
                       </Grid>
                     </Box>
 

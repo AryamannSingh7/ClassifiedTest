@@ -1,0 +1,2395 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`PersonalDocuments User navigates to PersonalDocuments 1`] = `
+<PersonalDocument
+  classes={
+    Object {
+      "buildingDocument": Object {
+        "& .content-area": Object {
+          "height": "85vh",
+          "overflowX": "hidden",
+          "overflowY": "auto",
+        },
+        "& .document .left-side": Object {
+          "alignItems": "center",
+          "display": "flex",
+        },
+        "& .document .left-side h4": Object {
+          "textTransform": "capitalize",
+          "wordBreak": "break-all",
+        },
+        "& .document .left-side img": Object {
+          "marginRight": "10px",
+          "width": "35px",
+        },
+        "& .document-box .card-item": Object {
+          "boxShadow": "none",
+          "padding": "10px 20px 20px",
+        },
+        "& .document-box .card-item .heading": Object {
+          "alignItems": "center",
+          "display": "flex",
+          "justifyContent": "space-between",
+          "marginBottom": "10px",
+          "textTransform": "capitalize",
+          "wordBreak": "break-all",
+        },
+        "& .document-box .card-item .item-title h6": Object {
+          "fontSize": "14px",
+          "fontWeight": "600",
+          "lineHeight": "18px",
+          "marginLeft": "5px",
+          "textTransform": "capitalize",
+        },
+        "& .document-box .card-item .res-info": Object {
+          "display": "flex",
+          "marginBottom": "10px",
+          "width": "100%",
+        },
+        "& .document-box .card-item .res-info .info-item": Object {
+          "width": "50%",
+        },
+        "& .document-box .card-item .res-info p": Object {
+          "color": "darkgray",
+        },
+        "& .document-box .card-item .res-info span": Object {
+          "color": "black",
+        },
+        "& .document-box .item": Object {
+          "alignItems": "center",
+          "background": "white",
+          "borderRadius": 10,
+          "display": "flex",
+          "flexDirection": "row",
+          "justifyContent": "space-between",
+          "minHeight": "34px",
+          "padding": 15,
+        },
+        "& .document-box .item .heading": Object {
+          "alignItems": "center",
+          "display": "flex",
+          "flexDirection": "row",
+        },
+        "& .document-box .item .heading h4": Object {
+          "fontSize": "16px",
+          "fontWeight": "600",
+          "marginLeft": "10px",
+          "textTransform": "capitalize",
+          "wordBreak": "break-all",
+        },
+        "& .document-box .item button.color-btn": Object {
+          "background": "#FEF9F3",
+          "borderRadius": "25px",
+          "color": "#FD9048",
+          "fontWeight": "600",
+          "minWidth": "60px",
+          "padding": "5px 11px",
+        },
+        "& .document-box .meeting-item": Object {
+          "alignItems": "center",
+          "border": "2px solid lightgray",
+          "borderRadius": 10,
+          "display": "flex",
+          "flexDirection": "row",
+          "justifyContent": "space-between",
+          "minHeight": "34px",
+          "padding": 15,
+        },
+        "& .document-box .meeting-item .icons img": Object {
+          "cursor": "pointer",
+          "margin": "0 5px",
+          "width": "20px",
+        },
+        "& .document-box .meeting-item .item-title,& .document-box .meeting-item .icons": Object {
+          "alignItems": "center",
+          "display": "flex",
+          "flexDirection": "row",
+        },
+        "& .document-box.resolution-box": Object {
+          "background": "#F8F9FE",
+        },
+        "& .document-view iframe": Object {
+          "border": "0",
+          "height": "95%",
+          "width": "100%",
+        },
+        "& .list .personal-documents .empty-list": Object {
+          "background": "white",
+          "height": "calc(100% - 40px)",
+        },
+        "& .list .personal-documents .empty-list .content-box": Object {
+          "alignItems": "center",
+          "display": "flex",
+          "flexDirection": "column",
+          "height": "100%",
+          "justifyContent": "center",
+          "padding": "20px",
+          "textAlign": "center",
+        },
+        "& .meeting-details": Object {},
+        "& .meeting-details .card": Object {
+          "marginBottom": "10px",
+          "marginTop": "10px",
+          "padding": "15px",
+        },
+        "& .meeting-details p": Object {
+          "color": "darkgray",
+          "paddingTop": "5px",
+        },
+        "& .meeting-details p:first-child": Object {
+          "paddingTop": "0",
+        },
+        "& .meeting-details span": Object {
+          "color": "black",
+        },
+        "& .menu": Object {
+          "alignItems": "center",
+          "background": "#FFFFFF",
+          "cursor": "pointer",
+          "display": "flex",
+          "fontWeight": "600",
+          "marginBottom": "18px",
+          "padding": "10px 20px",
+          "textTransform": "capitalize",
+        },
+        "& .menu .name": Object {
+          "alignItems": "center",
+          "display": "flex",
+          "maxWidth": "95%",
+        },
+        "& .menu span": Object {
+          "overflow": "hidden",
+          "textOverflow": "ellipsis",
+          "whiteSpace": "nowrap",
+        },
+        "& .menu.building-document-menu": Object {
+          "justifyContent": "space-between",
+        },
+        "& .right-image": Object {
+          "padding": "25px 60px",
+        },
+        "& .view": Object {
+          "marginBottom": "15px",
+          "marginTop": "15px",
+        },
+        "& .view .item-title h6": Object {
+          "fontWeight": "600",
+          "lineHeight": "18px",
+          "marginLeft": "10px",
+        },
+        "& a": Object {
+          "textDecoration": "none !important",
+        },
+      },
+      "documentChairman": Object {
+        "& .document-box": Object {
+          "background": "#FFF",
+          "borderRadius": 5,
+          "marginBottom": 20,
+          "padding": 20,
+        },
+        "& .document-box .card-item": Object {
+          "boxShadow": "none",
+          "padding": "10px 18px 18px",
+        },
+        "& .document-box .card-item .heading": Object {
+          "alignItems": "center",
+          "display": "flex",
+          "justifyContent": "space-between",
+          "marginBottom": "10px",
+          "textTransform": "capitalize",
+        },
+        "& .document-box .card-item .heading h4": Object {
+          "wordBreak": "break-all",
+        },
+        "& .document-box .card-item .item .icons img": Object {
+          "cursor": "pointer",
+          "margin": "0 5px",
+          "width": "20px",
+        },
+        "& .document-box .card-item .item .item-title,& .document-box .card-item .item .icons": Object {
+          "alignItems": "center",
+          "display": "flex",
+          "flexDirection": "row",
+        },
+        "& .document-box .card-item .item-title h6": Object {
+          "fontSize": "14px",
+          "fontWeight": "600",
+          "marginLeft": "5px",
+          "textTransform": "capitalize",
+        },
+        "& .document-box .card-item .res-info": Object {
+          "display": "flex",
+          "width": "100%",
+        },
+        "& .document-box .card-item .res-info .info-item": Object {
+          "width": "50%",
+        },
+        "& .document-box .card-item .res-info p": Object {
+          "color": "darkgray",
+        },
+        "& .document-box .card-item .res-info span": Object {
+          "color": "black",
+        },
+        "& .document-box .item": Object {
+          "alignItems": "center",
+          "border": "2px solid lightgray",
+          "borderRadius": 10,
+          "display": "flex",
+          "flexDirection": "row",
+          "justifyContent": "space-between",
+          "minHeight": "34px",
+          "padding": 12,
+        },
+        "& .document-box .item .heading": Object {
+          "alignItems": "center",
+          "display": "flex",
+          "flexDirection": "row",
+        },
+        "& .document-box .item .heading h4": Object {
+          "fontSize": "16px",
+          "fontWeight": "600",
+          "marginLeft": "10px",
+          "wordBreak": "break-all",
+        },
+        "& .document-box .item button.color-btn": Object {
+          "background": "#FEF9F3",
+          "borderRadius": "25px",
+          "color": "#FD9048",
+          "fontWeight": "600",
+          "minWidth": "60px",
+          "padding": "5px 11px",
+        },
+        "& .document-box a, & .navigation a": Object {
+          "textDecoration": "none !important",
+        },
+        "& .document-box iframe": Object {
+          "border": "0",
+          "height": "80vh",
+          "width": "100%",
+        },
+        "& .document-box.resolutions": Object {
+          "background": "#F4F7FF",
+          "borderRadius": 5,
+          "marginBottom": 20,
+          "marginTop": 10,
+          "padding": 0,
+        },
+        "& .document-box.resolutions .item": Object {
+          "marginTop": "15px",
+          "minHeight": "20px",
+        },
+        "& .navigation": Object {
+          "display": "flex",
+          "justifyContent": "space-between",
+          "marginBottom": "20px",
+        },
+        "& .navigation .sub-heading": Object {
+          "fontWeight": 600,
+          "marginRight": "15px",
+          "wordBreak": "break-all",
+        },
+        "& .navigation .top-heading": Object {
+          "alignItems": "center",
+          "display": "flex",
+          "flexDirection": "row",
+          "justifyContent": "space-between",
+          "marginBottom": 0,
+          "marginTop": 10,
+          "width": "100%",
+        },
+        "& .navigation > .MuiBox-root": Object {
+          "width": "100%",
+        },
+        "& .navigation button": Object {
+          "background": "#2b6fed",
+          "borderRadius": "8px",
+          "color": "#FFF",
+          "fontWeight": "bold",
+          "padding": "10px",
+          "width": "220px",
+        },
+        "& .szh-menu-container ul li a": Object {
+          "color": "black",
+          "fontFamily": "\\"Roboto\\", \\"Helvetica\\", \\"Arial\\", sans-serif",
+          "textDecoration": "none",
+        },
+      },
+      "personalDocument": Object {
+        "& .content-area": Object {
+          "height": "85vh",
+          "overflowX": "hidden",
+          "overflowY": "auto",
+        },
+        "& .document .left-side": Object {
+          "alignItems": "center",
+          "display": "flex",
+        },
+        "& .document .left-side .info .more-info": Object {
+          "alignItems": "center",
+          "display": "flex",
+        },
+        "& .document .left-side .info .more-info p": Object {
+          "marginRight": "10px",
+        },
+        "& .document .left-side .info .more-info span": Object {
+          "color": "orange",
+          "marginRight": "5px",
+        },
+        "& .document .left-side h4": Object {
+          "display": "block",
+          "textTransform": "capitalize",
+          "wordBreak": "break-all",
+        },
+        "& .document .left-side img": Object {
+          "marginRight": "10px",
+          "width": "45px",
+        },
+        "& .document-box .item": Object {
+          "alignItems": "center",
+          "background": "white",
+          "borderRadius": 10,
+          "display": "flex",
+          "flexDirection": "row",
+          "justifyContent": "space-between",
+          "minHeight": "34px",
+          "padding": 15,
+        },
+        "& .document-box .item .heading": Object {
+          "alignItems": "center",
+          "display": "flex",
+          "flexDirection": "row",
+        },
+        "& .document-box .item .heading h4": Object {
+          "fontSize": "16px",
+          "fontWeight": "600",
+          "marginLeft": "10px",
+          "textTransform": "capitalize",
+          "wordBreak": "break-all",
+        },
+        "& .document-box .item button.color-btn": Object {
+          "background": "#FEF9F3",
+          "borderRadius": "25px",
+          "color": "#FD9048",
+          "fontWeight": "600",
+          "minWidth": "60px",
+          "padding": "5px 11px",
+        },
+        "& .document-view": Object {
+          "background": "white",
+          "padding": "15px",
+        },
+        "& .document-view iframe": Object {
+          "border": "0",
+          "height": "95%",
+          "width": "100%",
+        },
+        "& .list": Object {
+          "position": "relative",
+          "width": "100%",
+        },
+        "& .list .personal-documents": Object {
+          "minHeight": "calc(100% - 70px)",
+        },
+        "& .list .personal-documents .content-box h3": Object {
+          "fontWeight": "600",
+          "marginBottom": "15px",
+        },
+        "& .list .personal-documents .empty-list": Object {
+          "background": "white",
+          "height": "calc(100% - 70px)",
+        },
+        "& .list .personal-documents .empty-list .content-box": Object {
+          "alignItems": "center",
+          "display": "flex",
+          "flexDirection": "column",
+          "height": "100%",
+          "justifyContent": "center",
+          "padding": "20px",
+          "textAlign": "center",
+        },
+        "& .list .personal-documents .empty-list .content-box img": Object {
+          "marginBottom": "20px",
+        },
+        "& .list > .MuiGrid-root": Object {
+          "alignContent": "flex-start",
+        },
+        "& .menu": Object {
+          "alignItems": "center",
+          "background": "#FFFFFF",
+          "cursor": "pointer",
+          "display": "flex",
+          "fontWeight": "600",
+          "marginBottom": "18px",
+          "padding": "10px 20px",
+        },
+        "& .menu.personal-document-menu": Object {
+          "justifyContent": "space-between",
+          "textTransform": "capitalize",
+        },
+        "& .menu.personal-document-menu .name": Object {
+          "alignItems": "center",
+          "display": "flex",
+          "maxWidth": "95%",
+        },
+        "& .menu.personal-document-menu span": Object {
+          "overflow": "hidden",
+          "textOverflow": "ellipsis",
+          "whiteSpace": "nowrap",
+        },
+        "& .right-image": Object {
+          "padding": "25px 60px",
+        },
+        "& .szh-menu-container ul li a": Object {
+          "color": "black",
+          "fontFamily": "\\"Roboto\\", \\"Helvetica\\", \\"Arial\\", sans-serif",
+          "textDecoration": "none",
+        },
+        "& .upload-button": Object {
+          "alignItems": "center",
+          "bottom": 0,
+          "display": "flex",
+          "justifyContent": "center",
+          "left": 0,
+          "padding": "10px 0",
+          "position": "sticky",
+          "right": 0,
+        },
+        "& .upload-button .MuiGrid-container": Object {
+          "width": "fit-content",
+        },
+        "& .upload-button button": Object {
+          "background": "#2b6fec",
+          "borderRadius": "25px",
+          "color": "white",
+          "padding": "12px 50px",
+        },
+        "& a": Object {
+          "textDecoration": "none !important",
+        },
+      },
+    }
+  }
+  history={[MockFunction]}
+  id="PersonalDocuments"
+  location={[MockFunction]}
+  match={[MockFunction]}
+  navigation={
+    Object {
+      "getParam": [MockFunction],
+      "goBack": [MockFunction],
+      "navigate": [MockFunction],
+    }
+  }
+  t={[Function]}
+>
+  <Styled(MuiBox)
+    className={
+      Object {
+        "& .content-area": Object {
+          "height": "85vh",
+          "overflowX": "hidden",
+          "overflowY": "auto",
+        },
+        "& .document .left-side": Object {
+          "alignItems": "center",
+          "display": "flex",
+        },
+        "& .document .left-side .info .more-info": Object {
+          "alignItems": "center",
+          "display": "flex",
+        },
+        "& .document .left-side .info .more-info p": Object {
+          "marginRight": "10px",
+        },
+        "& .document .left-side .info .more-info span": Object {
+          "color": "orange",
+          "marginRight": "5px",
+        },
+        "& .document .left-side h4": Object {
+          "display": "block",
+          "textTransform": "capitalize",
+          "wordBreak": "break-all",
+        },
+        "& .document .left-side img": Object {
+          "marginRight": "10px",
+          "width": "45px",
+        },
+        "& .document-box .item": Object {
+          "alignItems": "center",
+          "background": "white",
+          "borderRadius": 10,
+          "display": "flex",
+          "flexDirection": "row",
+          "justifyContent": "space-between",
+          "minHeight": "34px",
+          "padding": 15,
+        },
+        "& .document-box .item .heading": Object {
+          "alignItems": "center",
+          "display": "flex",
+          "flexDirection": "row",
+        },
+        "& .document-box .item .heading h4": Object {
+          "fontSize": "16px",
+          "fontWeight": "600",
+          "marginLeft": "10px",
+          "textTransform": "capitalize",
+          "wordBreak": "break-all",
+        },
+        "& .document-box .item button.color-btn": Object {
+          "background": "#FEF9F3",
+          "borderRadius": "25px",
+          "color": "#FD9048",
+          "fontWeight": "600",
+          "minWidth": "60px",
+          "padding": "5px 11px",
+        },
+        "& .document-view": Object {
+          "background": "white",
+          "padding": "15px",
+        },
+        "& .document-view iframe": Object {
+          "border": "0",
+          "height": "95%",
+          "width": "100%",
+        },
+        "& .list": Object {
+          "position": "relative",
+          "width": "100%",
+        },
+        "& .list .personal-documents": Object {
+          "minHeight": "calc(100% - 70px)",
+        },
+        "& .list .personal-documents .content-box h3": Object {
+          "fontWeight": "600",
+          "marginBottom": "15px",
+        },
+        "& .list .personal-documents .empty-list": Object {
+          "background": "white",
+          "height": "calc(100% - 70px)",
+        },
+        "& .list .personal-documents .empty-list .content-box": Object {
+          "alignItems": "center",
+          "display": "flex",
+          "flexDirection": "column",
+          "height": "100%",
+          "justifyContent": "center",
+          "padding": "20px",
+          "textAlign": "center",
+        },
+        "& .list .personal-documents .empty-list .content-box img": Object {
+          "marginBottom": "20px",
+        },
+        "& .list > .MuiGrid-root": Object {
+          "alignContent": "flex-start",
+        },
+        "& .menu": Object {
+          "alignItems": "center",
+          "background": "#FFFFFF",
+          "cursor": "pointer",
+          "display": "flex",
+          "fontWeight": "600",
+          "marginBottom": "18px",
+          "padding": "10px 20px",
+        },
+        "& .menu.personal-document-menu": Object {
+          "justifyContent": "space-between",
+          "textTransform": "capitalize",
+        },
+        "& .menu.personal-document-menu .name": Object {
+          "alignItems": "center",
+          "display": "flex",
+          "maxWidth": "95%",
+        },
+        "& .menu.personal-document-menu span": Object {
+          "overflow": "hidden",
+          "textOverflow": "ellipsis",
+          "whiteSpace": "nowrap",
+        },
+        "& .right-image": Object {
+          "padding": "25px 60px",
+        },
+        "& .szh-menu-container ul li a": Object {
+          "color": "black",
+          "fontFamily": "\\"Roboto\\", \\"Helvetica\\", \\"Arial\\", sans-serif",
+          "textDecoration": "none",
+        },
+        "& .upload-button": Object {
+          "alignItems": "center",
+          "bottom": 0,
+          "display": "flex",
+          "justifyContent": "center",
+          "left": 0,
+          "padding": "10px 0",
+          "position": "sticky",
+          "right": 0,
+        },
+        "& .upload-button .MuiGrid-container": Object {
+          "width": "fit-content",
+        },
+        "& .upload-button button": Object {
+          "background": "#2b6fec",
+          "borderRadius": "25px",
+          "color": "white",
+          "padding": "12px 50px",
+        },
+        "& a": Object {
+          "textDecoration": "none !important",
+        },
+      }
+    }
+    style={
+      Object {
+        "background": "#F8F9FE",
+        "height": "100vh",
+      }
+    }
+  >
+    <div
+      className="MuiBox-root MuiBox-root-1 & .menu & .menu.personal-document-menu & .menu.personal-document-menu .name & .menu.personal-document-menu span & .right-image & .content-area & .document-box .item & .document-box .item .heading & .document-box .item .heading h4 & .document-box .item button.color-btn & a & .szh-menu-container ul li a & .document .left-side & .document .left-side h4 & .document .left-side img & .document .left-side .info .more-info & .document .left-side .info .more-info span & .document .left-side .info .more-info p & .upload-button & .upload-button button & .upload-button .MuiGrid-container & .list & .list > .MuiGrid-root & .list .personal-documents & .list .personal-documents .empty-list & .list .personal-documents .empty-list .content-box & .list .personal-documents .empty-list .content-box img & .list .personal-documents .content-box h3 & .document-view & .document-view iframe"
+      style={
+        Object {
+          "background": "#F8F9FE",
+          "height": "100vh",
+        }
+      }
+    >
+      <WithStyles(ForwardRef(Grid))
+        container={true}
+      >
+        <ForwardRef(Grid)
+          classes={
+            Object {
+              "align-content-xs-center": "MuiGrid-align-content-xs-center",
+              "align-content-xs-flex-end": "MuiGrid-align-content-xs-flex-end",
+              "align-content-xs-flex-start": "MuiGrid-align-content-xs-flex-start",
+              "align-content-xs-space-around": "MuiGrid-align-content-xs-space-around",
+              "align-content-xs-space-between": "MuiGrid-align-content-xs-space-between",
+              "align-items-xs-baseline": "MuiGrid-align-items-xs-baseline",
+              "align-items-xs-center": "MuiGrid-align-items-xs-center",
+              "align-items-xs-flex-end": "MuiGrid-align-items-xs-flex-end",
+              "align-items-xs-flex-start": "MuiGrid-align-items-xs-flex-start",
+              "container": "MuiGrid-container",
+              "direction-xs-column": "MuiGrid-direction-xs-column",
+              "direction-xs-column-reverse": "MuiGrid-direction-xs-column-reverse",
+              "direction-xs-row-reverse": "MuiGrid-direction-xs-row-reverse",
+              "grid-lg-1": "MuiGrid-grid-lg-1",
+              "grid-lg-10": "MuiGrid-grid-lg-10",
+              "grid-lg-11": "MuiGrid-grid-lg-11",
+              "grid-lg-12": "MuiGrid-grid-lg-12",
+              "grid-lg-2": "MuiGrid-grid-lg-2",
+              "grid-lg-3": "MuiGrid-grid-lg-3",
+              "grid-lg-4": "MuiGrid-grid-lg-4",
+              "grid-lg-5": "MuiGrid-grid-lg-5",
+              "grid-lg-6": "MuiGrid-grid-lg-6",
+              "grid-lg-7": "MuiGrid-grid-lg-7",
+              "grid-lg-8": "MuiGrid-grid-lg-8",
+              "grid-lg-9": "MuiGrid-grid-lg-9",
+              "grid-lg-auto": "MuiGrid-grid-lg-auto",
+              "grid-lg-true": "MuiGrid-grid-lg-true",
+              "grid-md-1": "MuiGrid-grid-md-1",
+              "grid-md-10": "MuiGrid-grid-md-10",
+              "grid-md-11": "MuiGrid-grid-md-11",
+              "grid-md-12": "MuiGrid-grid-md-12",
+              "grid-md-2": "MuiGrid-grid-md-2",
+              "grid-md-3": "MuiGrid-grid-md-3",
+              "grid-md-4": "MuiGrid-grid-md-4",
+              "grid-md-5": "MuiGrid-grid-md-5",
+              "grid-md-6": "MuiGrid-grid-md-6",
+              "grid-md-7": "MuiGrid-grid-md-7",
+              "grid-md-8": "MuiGrid-grid-md-8",
+              "grid-md-9": "MuiGrid-grid-md-9",
+              "grid-md-auto": "MuiGrid-grid-md-auto",
+              "grid-md-true": "MuiGrid-grid-md-true",
+              "grid-sm-1": "MuiGrid-grid-sm-1",
+              "grid-sm-10": "MuiGrid-grid-sm-10",
+              "grid-sm-11": "MuiGrid-grid-sm-11",
+              "grid-sm-12": "MuiGrid-grid-sm-12",
+              "grid-sm-2": "MuiGrid-grid-sm-2",
+              "grid-sm-3": "MuiGrid-grid-sm-3",
+              "grid-sm-4": "MuiGrid-grid-sm-4",
+              "grid-sm-5": "MuiGrid-grid-sm-5",
+              "grid-sm-6": "MuiGrid-grid-sm-6",
+              "grid-sm-7": "MuiGrid-grid-sm-7",
+              "grid-sm-8": "MuiGrid-grid-sm-8",
+              "grid-sm-9": "MuiGrid-grid-sm-9",
+              "grid-sm-auto": "MuiGrid-grid-sm-auto",
+              "grid-sm-true": "MuiGrid-grid-sm-true",
+              "grid-xl-1": "MuiGrid-grid-xl-1",
+              "grid-xl-10": "MuiGrid-grid-xl-10",
+              "grid-xl-11": "MuiGrid-grid-xl-11",
+              "grid-xl-12": "MuiGrid-grid-xl-12",
+              "grid-xl-2": "MuiGrid-grid-xl-2",
+              "grid-xl-3": "MuiGrid-grid-xl-3",
+              "grid-xl-4": "MuiGrid-grid-xl-4",
+              "grid-xl-5": "MuiGrid-grid-xl-5",
+              "grid-xl-6": "MuiGrid-grid-xl-6",
+              "grid-xl-7": "MuiGrid-grid-xl-7",
+              "grid-xl-8": "MuiGrid-grid-xl-8",
+              "grid-xl-9": "MuiGrid-grid-xl-9",
+              "grid-xl-auto": "MuiGrid-grid-xl-auto",
+              "grid-xl-true": "MuiGrid-grid-xl-true",
+              "grid-xs-1": "MuiGrid-grid-xs-1",
+              "grid-xs-10": "MuiGrid-grid-xs-10",
+              "grid-xs-11": "MuiGrid-grid-xs-11",
+              "grid-xs-12": "MuiGrid-grid-xs-12",
+              "grid-xs-2": "MuiGrid-grid-xs-2",
+              "grid-xs-3": "MuiGrid-grid-xs-3",
+              "grid-xs-4": "MuiGrid-grid-xs-4",
+              "grid-xs-5": "MuiGrid-grid-xs-5",
+              "grid-xs-6": "MuiGrid-grid-xs-6",
+              "grid-xs-7": "MuiGrid-grid-xs-7",
+              "grid-xs-8": "MuiGrid-grid-xs-8",
+              "grid-xs-9": "MuiGrid-grid-xs-9",
+              "grid-xs-auto": "MuiGrid-grid-xs-auto",
+              "grid-xs-true": "MuiGrid-grid-xs-true",
+              "item": "MuiGrid-item",
+              "justify-content-xs-center": "MuiGrid-justify-content-xs-center",
+              "justify-content-xs-flex-end": "MuiGrid-justify-content-xs-flex-end",
+              "justify-content-xs-space-around": "MuiGrid-justify-content-xs-space-around",
+              "justify-content-xs-space-between": "MuiGrid-justify-content-xs-space-between",
+              "justify-content-xs-space-evenly": "MuiGrid-justify-content-xs-space-evenly",
+              "root": "MuiGrid-root",
+              "spacing-xs-1": "MuiGrid-spacing-xs-1",
+              "spacing-xs-10": "MuiGrid-spacing-xs-10",
+              "spacing-xs-2": "MuiGrid-spacing-xs-2",
+              "spacing-xs-3": "MuiGrid-spacing-xs-3",
+              "spacing-xs-4": "MuiGrid-spacing-xs-4",
+              "spacing-xs-5": "MuiGrid-spacing-xs-5",
+              "spacing-xs-6": "MuiGrid-spacing-xs-6",
+              "spacing-xs-7": "MuiGrid-spacing-xs-7",
+              "spacing-xs-8": "MuiGrid-spacing-xs-8",
+              "spacing-xs-9": "MuiGrid-spacing-xs-9",
+              "wrap-xs-nowrap": "MuiGrid-wrap-xs-nowrap",
+              "wrap-xs-wrap-reverse": "MuiGrid-wrap-xs-wrap-reverse",
+              "zeroMinWidth": "MuiGrid-zeroMinWidth",
+            }
+          }
+          container={true}
+        >
+          <div
+            className="MuiGrid-root MuiGrid-container"
+          >
+            <WithStyles(ForwardRef(Grid))
+              item={true}
+              md={7}
+              xs={12}
+            >
+              <ForwardRef(Grid)
+                classes={
+                  Object {
+                    "align-content-xs-center": "MuiGrid-align-content-xs-center",
+                    "align-content-xs-flex-end": "MuiGrid-align-content-xs-flex-end",
+                    "align-content-xs-flex-start": "MuiGrid-align-content-xs-flex-start",
+                    "align-content-xs-space-around": "MuiGrid-align-content-xs-space-around",
+                    "align-content-xs-space-between": "MuiGrid-align-content-xs-space-between",
+                    "align-items-xs-baseline": "MuiGrid-align-items-xs-baseline",
+                    "align-items-xs-center": "MuiGrid-align-items-xs-center",
+                    "align-items-xs-flex-end": "MuiGrid-align-items-xs-flex-end",
+                    "align-items-xs-flex-start": "MuiGrid-align-items-xs-flex-start",
+                    "container": "MuiGrid-container",
+                    "direction-xs-column": "MuiGrid-direction-xs-column",
+                    "direction-xs-column-reverse": "MuiGrid-direction-xs-column-reverse",
+                    "direction-xs-row-reverse": "MuiGrid-direction-xs-row-reverse",
+                    "grid-lg-1": "MuiGrid-grid-lg-1",
+                    "grid-lg-10": "MuiGrid-grid-lg-10",
+                    "grid-lg-11": "MuiGrid-grid-lg-11",
+                    "grid-lg-12": "MuiGrid-grid-lg-12",
+                    "grid-lg-2": "MuiGrid-grid-lg-2",
+                    "grid-lg-3": "MuiGrid-grid-lg-3",
+                    "grid-lg-4": "MuiGrid-grid-lg-4",
+                    "grid-lg-5": "MuiGrid-grid-lg-5",
+                    "grid-lg-6": "MuiGrid-grid-lg-6",
+                    "grid-lg-7": "MuiGrid-grid-lg-7",
+                    "grid-lg-8": "MuiGrid-grid-lg-8",
+                    "grid-lg-9": "MuiGrid-grid-lg-9",
+                    "grid-lg-auto": "MuiGrid-grid-lg-auto",
+                    "grid-lg-true": "MuiGrid-grid-lg-true",
+                    "grid-md-1": "MuiGrid-grid-md-1",
+                    "grid-md-10": "MuiGrid-grid-md-10",
+                    "grid-md-11": "MuiGrid-grid-md-11",
+                    "grid-md-12": "MuiGrid-grid-md-12",
+                    "grid-md-2": "MuiGrid-grid-md-2",
+                    "grid-md-3": "MuiGrid-grid-md-3",
+                    "grid-md-4": "MuiGrid-grid-md-4",
+                    "grid-md-5": "MuiGrid-grid-md-5",
+                    "grid-md-6": "MuiGrid-grid-md-6",
+                    "grid-md-7": "MuiGrid-grid-md-7",
+                    "grid-md-8": "MuiGrid-grid-md-8",
+                    "grid-md-9": "MuiGrid-grid-md-9",
+                    "grid-md-auto": "MuiGrid-grid-md-auto",
+                    "grid-md-true": "MuiGrid-grid-md-true",
+                    "grid-sm-1": "MuiGrid-grid-sm-1",
+                    "grid-sm-10": "MuiGrid-grid-sm-10",
+                    "grid-sm-11": "MuiGrid-grid-sm-11",
+                    "grid-sm-12": "MuiGrid-grid-sm-12",
+                    "grid-sm-2": "MuiGrid-grid-sm-2",
+                    "grid-sm-3": "MuiGrid-grid-sm-3",
+                    "grid-sm-4": "MuiGrid-grid-sm-4",
+                    "grid-sm-5": "MuiGrid-grid-sm-5",
+                    "grid-sm-6": "MuiGrid-grid-sm-6",
+                    "grid-sm-7": "MuiGrid-grid-sm-7",
+                    "grid-sm-8": "MuiGrid-grid-sm-8",
+                    "grid-sm-9": "MuiGrid-grid-sm-9",
+                    "grid-sm-auto": "MuiGrid-grid-sm-auto",
+                    "grid-sm-true": "MuiGrid-grid-sm-true",
+                    "grid-xl-1": "MuiGrid-grid-xl-1",
+                    "grid-xl-10": "MuiGrid-grid-xl-10",
+                    "grid-xl-11": "MuiGrid-grid-xl-11",
+                    "grid-xl-12": "MuiGrid-grid-xl-12",
+                    "grid-xl-2": "MuiGrid-grid-xl-2",
+                    "grid-xl-3": "MuiGrid-grid-xl-3",
+                    "grid-xl-4": "MuiGrid-grid-xl-4",
+                    "grid-xl-5": "MuiGrid-grid-xl-5",
+                    "grid-xl-6": "MuiGrid-grid-xl-6",
+                    "grid-xl-7": "MuiGrid-grid-xl-7",
+                    "grid-xl-8": "MuiGrid-grid-xl-8",
+                    "grid-xl-9": "MuiGrid-grid-xl-9",
+                    "grid-xl-auto": "MuiGrid-grid-xl-auto",
+                    "grid-xl-true": "MuiGrid-grid-xl-true",
+                    "grid-xs-1": "MuiGrid-grid-xs-1",
+                    "grid-xs-10": "MuiGrid-grid-xs-10",
+                    "grid-xs-11": "MuiGrid-grid-xs-11",
+                    "grid-xs-12": "MuiGrid-grid-xs-12",
+                    "grid-xs-2": "MuiGrid-grid-xs-2",
+                    "grid-xs-3": "MuiGrid-grid-xs-3",
+                    "grid-xs-4": "MuiGrid-grid-xs-4",
+                    "grid-xs-5": "MuiGrid-grid-xs-5",
+                    "grid-xs-6": "MuiGrid-grid-xs-6",
+                    "grid-xs-7": "MuiGrid-grid-xs-7",
+                    "grid-xs-8": "MuiGrid-grid-xs-8",
+                    "grid-xs-9": "MuiGrid-grid-xs-9",
+                    "grid-xs-auto": "MuiGrid-grid-xs-auto",
+                    "grid-xs-true": "MuiGrid-grid-xs-true",
+                    "item": "MuiGrid-item",
+                    "justify-content-xs-center": "MuiGrid-justify-content-xs-center",
+                    "justify-content-xs-flex-end": "MuiGrid-justify-content-xs-flex-end",
+                    "justify-content-xs-space-around": "MuiGrid-justify-content-xs-space-around",
+                    "justify-content-xs-space-between": "MuiGrid-justify-content-xs-space-between",
+                    "justify-content-xs-space-evenly": "MuiGrid-justify-content-xs-space-evenly",
+                    "root": "MuiGrid-root",
+                    "spacing-xs-1": "MuiGrid-spacing-xs-1",
+                    "spacing-xs-10": "MuiGrid-spacing-xs-10",
+                    "spacing-xs-2": "MuiGrid-spacing-xs-2",
+                    "spacing-xs-3": "MuiGrid-spacing-xs-3",
+                    "spacing-xs-4": "MuiGrid-spacing-xs-4",
+                    "spacing-xs-5": "MuiGrid-spacing-xs-5",
+                    "spacing-xs-6": "MuiGrid-spacing-xs-6",
+                    "spacing-xs-7": "MuiGrid-spacing-xs-7",
+                    "spacing-xs-8": "MuiGrid-spacing-xs-8",
+                    "spacing-xs-9": "MuiGrid-spacing-xs-9",
+                    "wrap-xs-nowrap": "MuiGrid-wrap-xs-nowrap",
+                    "wrap-xs-wrap-reverse": "MuiGrid-wrap-xs-wrap-reverse",
+                    "zeroMinWidth": "MuiGrid-zeroMinWidth",
+                  }
+                }
+                item={true}
+                md={7}
+                xs={12}
+              >
+                <div
+                  className="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12 MuiGrid-grid-md-7"
+                >
+                  <Styled(MuiBox)
+                    className="menu"
+                    display={
+                      Object {
+                        "md": "flex",
+                        "xs": "flex",
+                      }
+                    }
+                  >
+                    <div
+                      className="MuiBox-root MuiBox-root-2 menu"
+                    >
+                      <WithStyles(ForwardRef(IconButton))
+                        onClick={[Function]}
+                      >
+                        <ForwardRef(IconButton)
+                          classes={
+                            Object {
+                              "colorInherit": "MuiIconButton-colorInherit",
+                              "colorPrimary": "MuiIconButton-colorPrimary",
+                              "colorSecondary": "MuiIconButton-colorSecondary",
+                              "disabled": "Mui-disabled",
+                              "edgeEnd": "MuiIconButton-edgeEnd",
+                              "edgeStart": "MuiIconButton-edgeStart",
+                              "label": "MuiIconButton-label",
+                              "root": "MuiIconButton-root",
+                              "sizeSmall": "MuiIconButton-sizeSmall",
+                            }
+                          }
+                          onClick={[Function]}
+                        >
+                          <WithStyles(ForwardRef(ButtonBase))
+                            centerRipple={true}
+                            className="MuiIconButton-root"
+                            disabled={false}
+                            focusRipple={true}
+                            onClick={[Function]}
+                          >
+                            <ForwardRef(ButtonBase)
+                              centerRipple={true}
+                              className="MuiIconButton-root"
+                              classes={
+                                Object {
+                                  "disabled": "Mui-disabled",
+                                  "focusVisible": "Mui-focusVisible",
+                                  "root": "MuiButtonBase-root",
+                                }
+                              }
+                              disabled={false}
+                              focusRipple={true}
+                              onClick={[Function]}
+                            >
+                              <button
+                                className="MuiButtonBase-root MuiIconButton-root"
+                                disabled={false}
+                                onBlur={[Function]}
+                                onClick={[Function]}
+                                onDragLeave={[Function]}
+                                onFocus={[Function]}
+                                onKeyDown={[Function]}
+                                onKeyUp={[Function]}
+                                onMouseDown={[Function]}
+                                onMouseLeave={[Function]}
+                                onMouseUp={[Function]}
+                                onTouchEnd={[Function]}
+                                onTouchMove={[Function]}
+                                onTouchStart={[Function]}
+                                tabIndex={0}
+                                type="button"
+                              >
+                                <span
+                                  className="MuiIconButton-label"
+                                >
+                                  <ForwardRef(KeyboardBackspaceIcon)>
+                                    <WithStyles(ForwardRef(SvgIcon))>
+                                      <ForwardRef(SvgIcon)
+                                        classes={
+                                          Object {
+                                            "colorAction": "MuiSvgIcon-colorAction",
+                                            "colorDisabled": "MuiSvgIcon-colorDisabled",
+                                            "colorError": "MuiSvgIcon-colorError",
+                                            "colorPrimary": "MuiSvgIcon-colorPrimary",
+                                            "colorSecondary": "MuiSvgIcon-colorSecondary",
+                                            "fontSizeInherit": "MuiSvgIcon-fontSizeInherit",
+                                            "fontSizeLarge": "MuiSvgIcon-fontSizeLarge",
+                                            "fontSizeSmall": "MuiSvgIcon-fontSizeSmall",
+                                            "root": "MuiSvgIcon-root",
+                                          }
+                                        }
+                                      >
+                                        <svg
+                                          aria-hidden={true}
+                                          className="MuiSvgIcon-root"
+                                          focusable="false"
+                                          viewBox="0 0 24 24"
+                                        >
+                                          <path
+                                            d="M21 11H6.83l3.58-3.59L9 6l-6 6 6 6 1.41-1.41L6.83 13H21z"
+                                          />
+                                        </svg>
+                                      </ForwardRef(SvgIcon)>
+                                    </WithStyles(ForwardRef(SvgIcon))>
+                                  </ForwardRef(KeyboardBackspaceIcon)>
+                                </span>
+                                <WithStyles(memo)
+                                  center={true}
+                                >
+                                  <ForwardRef(TouchRipple)
+                                    center={true}
+                                    classes={
+                                      Object {
+                                        "child": "MuiTouchRipple-child",
+                                        "childLeaving": "MuiTouchRipple-childLeaving",
+                                        "childPulsate": "MuiTouchRipple-childPulsate",
+                                        "ripple": "MuiTouchRipple-ripple",
+                                        "ripplePulsate": "MuiTouchRipple-ripplePulsate",
+                                        "rippleVisible": "MuiTouchRipple-rippleVisible",
+                                        "root": "MuiTouchRipple-root",
+                                      }
+                                    }
+                                  >
+                                    <span
+                                      className="MuiTouchRipple-root"
+                                    >
+                                      <TransitionGroup
+                                        childFactory={[Function]}
+                                        component={null}
+                                        exit={true}
+                                      />
+                                    </span>
+                                  </ForwardRef(TouchRipple)>
+                                </WithStyles(memo)>
+                              </button>
+                            </ForwardRef(ButtonBase)>
+                          </WithStyles(ForwardRef(ButtonBase))>
+                        </ForwardRef(IconButton)>
+                      </WithStyles(ForwardRef(IconButton))>
+                    </div>
+                  </Styled(MuiBox)>
+                  <WithStyles(ForwardRef(Container))
+                    className="content-area document-box"
+                  >
+                    <ForwardRef(Container)
+                      className="content-area document-box"
+                      classes={
+                        Object {
+                          "disableGutters": "MuiContainer-disableGutters",
+                          "fixed": "MuiContainer-fixed",
+                          "maxWidthLg": "MuiContainer-maxWidthLg",
+                          "maxWidthMd": "MuiContainer-maxWidthMd",
+                          "maxWidthSm": "MuiContainer-maxWidthSm",
+                          "maxWidthXl": "MuiContainer-maxWidthXl",
+                          "maxWidthXs": "MuiContainer-maxWidthXs",
+                          "root": "MuiContainer-root",
+                        }
+                      }
+                    >
+                      <div
+                        className="MuiContainer-root content-area document-box MuiContainer-maxWidthLg"
+                      >
+                        <WithStyles(ForwardRef(Grid))
+                          container={true}
+                          spacing={2}
+                        >
+                          <ForwardRef(Grid)
+                            classes={
+                              Object {
+                                "align-content-xs-center": "MuiGrid-align-content-xs-center",
+                                "align-content-xs-flex-end": "MuiGrid-align-content-xs-flex-end",
+                                "align-content-xs-flex-start": "MuiGrid-align-content-xs-flex-start",
+                                "align-content-xs-space-around": "MuiGrid-align-content-xs-space-around",
+                                "align-content-xs-space-between": "MuiGrid-align-content-xs-space-between",
+                                "align-items-xs-baseline": "MuiGrid-align-items-xs-baseline",
+                                "align-items-xs-center": "MuiGrid-align-items-xs-center",
+                                "align-items-xs-flex-end": "MuiGrid-align-items-xs-flex-end",
+                                "align-items-xs-flex-start": "MuiGrid-align-items-xs-flex-start",
+                                "container": "MuiGrid-container",
+                                "direction-xs-column": "MuiGrid-direction-xs-column",
+                                "direction-xs-column-reverse": "MuiGrid-direction-xs-column-reverse",
+                                "direction-xs-row-reverse": "MuiGrid-direction-xs-row-reverse",
+                                "grid-lg-1": "MuiGrid-grid-lg-1",
+                                "grid-lg-10": "MuiGrid-grid-lg-10",
+                                "grid-lg-11": "MuiGrid-grid-lg-11",
+                                "grid-lg-12": "MuiGrid-grid-lg-12",
+                                "grid-lg-2": "MuiGrid-grid-lg-2",
+                                "grid-lg-3": "MuiGrid-grid-lg-3",
+                                "grid-lg-4": "MuiGrid-grid-lg-4",
+                                "grid-lg-5": "MuiGrid-grid-lg-5",
+                                "grid-lg-6": "MuiGrid-grid-lg-6",
+                                "grid-lg-7": "MuiGrid-grid-lg-7",
+                                "grid-lg-8": "MuiGrid-grid-lg-8",
+                                "grid-lg-9": "MuiGrid-grid-lg-9",
+                                "grid-lg-auto": "MuiGrid-grid-lg-auto",
+                                "grid-lg-true": "MuiGrid-grid-lg-true",
+                                "grid-md-1": "MuiGrid-grid-md-1",
+                                "grid-md-10": "MuiGrid-grid-md-10",
+                                "grid-md-11": "MuiGrid-grid-md-11",
+                                "grid-md-12": "MuiGrid-grid-md-12",
+                                "grid-md-2": "MuiGrid-grid-md-2",
+                                "grid-md-3": "MuiGrid-grid-md-3",
+                                "grid-md-4": "MuiGrid-grid-md-4",
+                                "grid-md-5": "MuiGrid-grid-md-5",
+                                "grid-md-6": "MuiGrid-grid-md-6",
+                                "grid-md-7": "MuiGrid-grid-md-7",
+                                "grid-md-8": "MuiGrid-grid-md-8",
+                                "grid-md-9": "MuiGrid-grid-md-9",
+                                "grid-md-auto": "MuiGrid-grid-md-auto",
+                                "grid-md-true": "MuiGrid-grid-md-true",
+                                "grid-sm-1": "MuiGrid-grid-sm-1",
+                                "grid-sm-10": "MuiGrid-grid-sm-10",
+                                "grid-sm-11": "MuiGrid-grid-sm-11",
+                                "grid-sm-12": "MuiGrid-grid-sm-12",
+                                "grid-sm-2": "MuiGrid-grid-sm-2",
+                                "grid-sm-3": "MuiGrid-grid-sm-3",
+                                "grid-sm-4": "MuiGrid-grid-sm-4",
+                                "grid-sm-5": "MuiGrid-grid-sm-5",
+                                "grid-sm-6": "MuiGrid-grid-sm-6",
+                                "grid-sm-7": "MuiGrid-grid-sm-7",
+                                "grid-sm-8": "MuiGrid-grid-sm-8",
+                                "grid-sm-9": "MuiGrid-grid-sm-9",
+                                "grid-sm-auto": "MuiGrid-grid-sm-auto",
+                                "grid-sm-true": "MuiGrid-grid-sm-true",
+                                "grid-xl-1": "MuiGrid-grid-xl-1",
+                                "grid-xl-10": "MuiGrid-grid-xl-10",
+                                "grid-xl-11": "MuiGrid-grid-xl-11",
+                                "grid-xl-12": "MuiGrid-grid-xl-12",
+                                "grid-xl-2": "MuiGrid-grid-xl-2",
+                                "grid-xl-3": "MuiGrid-grid-xl-3",
+                                "grid-xl-4": "MuiGrid-grid-xl-4",
+                                "grid-xl-5": "MuiGrid-grid-xl-5",
+                                "grid-xl-6": "MuiGrid-grid-xl-6",
+                                "grid-xl-7": "MuiGrid-grid-xl-7",
+                                "grid-xl-8": "MuiGrid-grid-xl-8",
+                                "grid-xl-9": "MuiGrid-grid-xl-9",
+                                "grid-xl-auto": "MuiGrid-grid-xl-auto",
+                                "grid-xl-true": "MuiGrid-grid-xl-true",
+                                "grid-xs-1": "MuiGrid-grid-xs-1",
+                                "grid-xs-10": "MuiGrid-grid-xs-10",
+                                "grid-xs-11": "MuiGrid-grid-xs-11",
+                                "grid-xs-12": "MuiGrid-grid-xs-12",
+                                "grid-xs-2": "MuiGrid-grid-xs-2",
+                                "grid-xs-3": "MuiGrid-grid-xs-3",
+                                "grid-xs-4": "MuiGrid-grid-xs-4",
+                                "grid-xs-5": "MuiGrid-grid-xs-5",
+                                "grid-xs-6": "MuiGrid-grid-xs-6",
+                                "grid-xs-7": "MuiGrid-grid-xs-7",
+                                "grid-xs-8": "MuiGrid-grid-xs-8",
+                                "grid-xs-9": "MuiGrid-grid-xs-9",
+                                "grid-xs-auto": "MuiGrid-grid-xs-auto",
+                                "grid-xs-true": "MuiGrid-grid-xs-true",
+                                "item": "MuiGrid-item",
+                                "justify-content-xs-center": "MuiGrid-justify-content-xs-center",
+                                "justify-content-xs-flex-end": "MuiGrid-justify-content-xs-flex-end",
+                                "justify-content-xs-space-around": "MuiGrid-justify-content-xs-space-around",
+                                "justify-content-xs-space-between": "MuiGrid-justify-content-xs-space-between",
+                                "justify-content-xs-space-evenly": "MuiGrid-justify-content-xs-space-evenly",
+                                "root": "MuiGrid-root",
+                                "spacing-xs-1": "MuiGrid-spacing-xs-1",
+                                "spacing-xs-10": "MuiGrid-spacing-xs-10",
+                                "spacing-xs-2": "MuiGrid-spacing-xs-2",
+                                "spacing-xs-3": "MuiGrid-spacing-xs-3",
+                                "spacing-xs-4": "MuiGrid-spacing-xs-4",
+                                "spacing-xs-5": "MuiGrid-spacing-xs-5",
+                                "spacing-xs-6": "MuiGrid-spacing-xs-6",
+                                "spacing-xs-7": "MuiGrid-spacing-xs-7",
+                                "spacing-xs-8": "MuiGrid-spacing-xs-8",
+                                "spacing-xs-9": "MuiGrid-spacing-xs-9",
+                                "wrap-xs-nowrap": "MuiGrid-wrap-xs-nowrap",
+                                "wrap-xs-wrap-reverse": "MuiGrid-wrap-xs-wrap-reverse",
+                                "zeroMinWidth": "MuiGrid-zeroMinWidth",
+                              }
+                            }
+                            container={true}
+                            spacing={2}
+                          >
+                            <div
+                              className="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-2"
+                            >
+                              <WithStyles(ForwardRef(Grid))
+                                item={true}
+                                lg={12}
+                                md={12}
+                                xs={12}
+                              >
+                                <ForwardRef(Grid)
+                                  classes={
+                                    Object {
+                                      "align-content-xs-center": "MuiGrid-align-content-xs-center",
+                                      "align-content-xs-flex-end": "MuiGrid-align-content-xs-flex-end",
+                                      "align-content-xs-flex-start": "MuiGrid-align-content-xs-flex-start",
+                                      "align-content-xs-space-around": "MuiGrid-align-content-xs-space-around",
+                                      "align-content-xs-space-between": "MuiGrid-align-content-xs-space-between",
+                                      "align-items-xs-baseline": "MuiGrid-align-items-xs-baseline",
+                                      "align-items-xs-center": "MuiGrid-align-items-xs-center",
+                                      "align-items-xs-flex-end": "MuiGrid-align-items-xs-flex-end",
+                                      "align-items-xs-flex-start": "MuiGrid-align-items-xs-flex-start",
+                                      "container": "MuiGrid-container",
+                                      "direction-xs-column": "MuiGrid-direction-xs-column",
+                                      "direction-xs-column-reverse": "MuiGrid-direction-xs-column-reverse",
+                                      "direction-xs-row-reverse": "MuiGrid-direction-xs-row-reverse",
+                                      "grid-lg-1": "MuiGrid-grid-lg-1",
+                                      "grid-lg-10": "MuiGrid-grid-lg-10",
+                                      "grid-lg-11": "MuiGrid-grid-lg-11",
+                                      "grid-lg-12": "MuiGrid-grid-lg-12",
+                                      "grid-lg-2": "MuiGrid-grid-lg-2",
+                                      "grid-lg-3": "MuiGrid-grid-lg-3",
+                                      "grid-lg-4": "MuiGrid-grid-lg-4",
+                                      "grid-lg-5": "MuiGrid-grid-lg-5",
+                                      "grid-lg-6": "MuiGrid-grid-lg-6",
+                                      "grid-lg-7": "MuiGrid-grid-lg-7",
+                                      "grid-lg-8": "MuiGrid-grid-lg-8",
+                                      "grid-lg-9": "MuiGrid-grid-lg-9",
+                                      "grid-lg-auto": "MuiGrid-grid-lg-auto",
+                                      "grid-lg-true": "MuiGrid-grid-lg-true",
+                                      "grid-md-1": "MuiGrid-grid-md-1",
+                                      "grid-md-10": "MuiGrid-grid-md-10",
+                                      "grid-md-11": "MuiGrid-grid-md-11",
+                                      "grid-md-12": "MuiGrid-grid-md-12",
+                                      "grid-md-2": "MuiGrid-grid-md-2",
+                                      "grid-md-3": "MuiGrid-grid-md-3",
+                                      "grid-md-4": "MuiGrid-grid-md-4",
+                                      "grid-md-5": "MuiGrid-grid-md-5",
+                                      "grid-md-6": "MuiGrid-grid-md-6",
+                                      "grid-md-7": "MuiGrid-grid-md-7",
+                                      "grid-md-8": "MuiGrid-grid-md-8",
+                                      "grid-md-9": "MuiGrid-grid-md-9",
+                                      "grid-md-auto": "MuiGrid-grid-md-auto",
+                                      "grid-md-true": "MuiGrid-grid-md-true",
+                                      "grid-sm-1": "MuiGrid-grid-sm-1",
+                                      "grid-sm-10": "MuiGrid-grid-sm-10",
+                                      "grid-sm-11": "MuiGrid-grid-sm-11",
+                                      "grid-sm-12": "MuiGrid-grid-sm-12",
+                                      "grid-sm-2": "MuiGrid-grid-sm-2",
+                                      "grid-sm-3": "MuiGrid-grid-sm-3",
+                                      "grid-sm-4": "MuiGrid-grid-sm-4",
+                                      "grid-sm-5": "MuiGrid-grid-sm-5",
+                                      "grid-sm-6": "MuiGrid-grid-sm-6",
+                                      "grid-sm-7": "MuiGrid-grid-sm-7",
+                                      "grid-sm-8": "MuiGrid-grid-sm-8",
+                                      "grid-sm-9": "MuiGrid-grid-sm-9",
+                                      "grid-sm-auto": "MuiGrid-grid-sm-auto",
+                                      "grid-sm-true": "MuiGrid-grid-sm-true",
+                                      "grid-xl-1": "MuiGrid-grid-xl-1",
+                                      "grid-xl-10": "MuiGrid-grid-xl-10",
+                                      "grid-xl-11": "MuiGrid-grid-xl-11",
+                                      "grid-xl-12": "MuiGrid-grid-xl-12",
+                                      "grid-xl-2": "MuiGrid-grid-xl-2",
+                                      "grid-xl-3": "MuiGrid-grid-xl-3",
+                                      "grid-xl-4": "MuiGrid-grid-xl-4",
+                                      "grid-xl-5": "MuiGrid-grid-xl-5",
+                                      "grid-xl-6": "MuiGrid-grid-xl-6",
+                                      "grid-xl-7": "MuiGrid-grid-xl-7",
+                                      "grid-xl-8": "MuiGrid-grid-xl-8",
+                                      "grid-xl-9": "MuiGrid-grid-xl-9",
+                                      "grid-xl-auto": "MuiGrid-grid-xl-auto",
+                                      "grid-xl-true": "MuiGrid-grid-xl-true",
+                                      "grid-xs-1": "MuiGrid-grid-xs-1",
+                                      "grid-xs-10": "MuiGrid-grid-xs-10",
+                                      "grid-xs-11": "MuiGrid-grid-xs-11",
+                                      "grid-xs-12": "MuiGrid-grid-xs-12",
+                                      "grid-xs-2": "MuiGrid-grid-xs-2",
+                                      "grid-xs-3": "MuiGrid-grid-xs-3",
+                                      "grid-xs-4": "MuiGrid-grid-xs-4",
+                                      "grid-xs-5": "MuiGrid-grid-xs-5",
+                                      "grid-xs-6": "MuiGrid-grid-xs-6",
+                                      "grid-xs-7": "MuiGrid-grid-xs-7",
+                                      "grid-xs-8": "MuiGrid-grid-xs-8",
+                                      "grid-xs-9": "MuiGrid-grid-xs-9",
+                                      "grid-xs-auto": "MuiGrid-grid-xs-auto",
+                                      "grid-xs-true": "MuiGrid-grid-xs-true",
+                                      "item": "MuiGrid-item",
+                                      "justify-content-xs-center": "MuiGrid-justify-content-xs-center",
+                                      "justify-content-xs-flex-end": "MuiGrid-justify-content-xs-flex-end",
+                                      "justify-content-xs-space-around": "MuiGrid-justify-content-xs-space-around",
+                                      "justify-content-xs-space-between": "MuiGrid-justify-content-xs-space-between",
+                                      "justify-content-xs-space-evenly": "MuiGrid-justify-content-xs-space-evenly",
+                                      "root": "MuiGrid-root",
+                                      "spacing-xs-1": "MuiGrid-spacing-xs-1",
+                                      "spacing-xs-10": "MuiGrid-spacing-xs-10",
+                                      "spacing-xs-2": "MuiGrid-spacing-xs-2",
+                                      "spacing-xs-3": "MuiGrid-spacing-xs-3",
+                                      "spacing-xs-4": "MuiGrid-spacing-xs-4",
+                                      "spacing-xs-5": "MuiGrid-spacing-xs-5",
+                                      "spacing-xs-6": "MuiGrid-spacing-xs-6",
+                                      "spacing-xs-7": "MuiGrid-spacing-xs-7",
+                                      "spacing-xs-8": "MuiGrid-spacing-xs-8",
+                                      "spacing-xs-9": "MuiGrid-spacing-xs-9",
+                                      "wrap-xs-nowrap": "MuiGrid-wrap-xs-nowrap",
+                                      "wrap-xs-wrap-reverse": "MuiGrid-wrap-xs-wrap-reverse",
+                                      "zeroMinWidth": "MuiGrid-zeroMinWidth",
+                                    }
+                                  }
+                                  item={true}
+                                  lg={12}
+                                  md={12}
+                                  xs={12}
+                                >
+                                  <div
+                                    className="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12 MuiGrid-grid-md-12 MuiGrid-grid-lg-12"
+                                  >
+                                    <WithStyles(ForwardRef(Link))
+                                      href="/PersonalDocument/Rent-Contract"
+                                    >
+                                      <ForwardRef(Link)
+                                        classes={
+                                          Object {
+                                            "button": "MuiLink-button",
+                                            "focusVisible": "Mui-focusVisible",
+                                            "root": "MuiLink-root",
+                                            "underlineAlways": "MuiLink-underlineAlways",
+                                            "underlineHover": "MuiLink-underlineHover",
+                                            "underlineNone": "MuiLink-underlineNone",
+                                          }
+                                        }
+                                        href="/PersonalDocument/Rent-Contract"
+                                      >
+                                        <WithStyles(ForwardRef(Typography))
+                                          className="MuiLink-root MuiLink-underlineHover"
+                                          color="primary"
+                                          component="a"
+                                          href="/PersonalDocument/Rent-Contract"
+                                          onBlur={[Function]}
+                                          onFocus={[Function]}
+                                          variant="inherit"
+                                        >
+                                          <ForwardRef(Typography)
+                                            className="MuiLink-root MuiLink-underlineHover"
+                                            classes={
+                                              Object {
+                                                "alignCenter": "MuiTypography-alignCenter",
+                                                "alignJustify": "MuiTypography-alignJustify",
+                                                "alignLeft": "MuiTypography-alignLeft",
+                                                "alignRight": "MuiTypography-alignRight",
+                                                "body1": "MuiTypography-body1",
+                                                "body2": "MuiTypography-body2",
+                                                "button": "MuiTypography-button",
+                                                "caption": "MuiTypography-caption",
+                                                "colorError": "MuiTypography-colorError",
+                                                "colorInherit": "MuiTypography-colorInherit",
+                                                "colorPrimary": "MuiTypography-colorPrimary",
+                                                "colorSecondary": "MuiTypography-colorSecondary",
+                                                "colorTextPrimary": "MuiTypography-colorTextPrimary",
+                                                "colorTextSecondary": "MuiTypography-colorTextSecondary",
+                                                "displayBlock": "MuiTypography-displayBlock",
+                                                "displayInline": "MuiTypography-displayInline",
+                                                "gutterBottom": "MuiTypography-gutterBottom",
+                                                "h1": "MuiTypography-h1",
+                                                "h2": "MuiTypography-h2",
+                                                "h3": "MuiTypography-h3",
+                                                "h4": "MuiTypography-h4",
+                                                "h5": "MuiTypography-h5",
+                                                "h6": "MuiTypography-h6",
+                                                "noWrap": "MuiTypography-noWrap",
+                                                "overline": "MuiTypography-overline",
+                                                "paragraph": "MuiTypography-paragraph",
+                                                "root": "MuiTypography-root",
+                                                "srOnly": "MuiTypography-srOnly",
+                                                "subtitle1": "MuiTypography-subtitle1",
+                                                "subtitle2": "MuiTypography-subtitle2",
+                                              }
+                                            }
+                                            color="primary"
+                                            component="a"
+                                            href="/PersonalDocument/Rent-Contract"
+                                            onBlur={[Function]}
+                                            onFocus={[Function]}
+                                            variant="inherit"
+                                          >
+                                            <a
+                                              className="MuiTypography-root MuiLink-root MuiLink-underlineHover MuiTypography-colorPrimary"
+                                              href="/PersonalDocument/Rent-Contract"
+                                              onBlur={[Function]}
+                                              onFocus={[Function]}
+                                            >
+                                              <CategoryBox
+                                                heading=""
+                                                image={
+                                                  Object {
+                                                    "testUri": "../../../packages/blocks/Notes/assets/document.png",
+                                                  }
+                                                }
+                                                value={0}
+                                              >
+                                                <Styled(MuiBox)
+                                                  className="item"
+                                                >
+                                                  <div
+                                                    className="MuiBox-root MuiBox-root-3 item"
+                                                  >
+                                                    <div
+                                                      className="heading"
+                                                    >
+                                                      <img
+                                                        src={
+                                                          Object {
+                                                            "testUri": "../../../packages/blocks/Notes/assets/document.png",
+                                                          }
+                                                        }
+                                                      />
+                                                      <h4 />
+                                                    </div>
+                                                    <div>
+                                                      <WithStyles(ForwardRef(IconButton))>
+                                                        <ForwardRef(IconButton)
+                                                          classes={
+                                                            Object {
+                                                              "colorInherit": "MuiIconButton-colorInherit",
+                                                              "colorPrimary": "MuiIconButton-colorPrimary",
+                                                              "colorSecondary": "MuiIconButton-colorSecondary",
+                                                              "disabled": "Mui-disabled",
+                                                              "edgeEnd": "MuiIconButton-edgeEnd",
+                                                              "edgeStart": "MuiIconButton-edgeStart",
+                                                              "label": "MuiIconButton-label",
+                                                              "root": "MuiIconButton-root",
+                                                              "sizeSmall": "MuiIconButton-sizeSmall",
+                                                            }
+                                                          }
+                                                        >
+                                                          <WithStyles(ForwardRef(ButtonBase))
+                                                            centerRipple={true}
+                                                            className="MuiIconButton-root"
+                                                            disabled={false}
+                                                            focusRipple={true}
+                                                          >
+                                                            <ForwardRef(ButtonBase)
+                                                              centerRipple={true}
+                                                              className="MuiIconButton-root"
+                                                              classes={
+                                                                Object {
+                                                                  "disabled": "Mui-disabled",
+                                                                  "focusVisible": "Mui-focusVisible",
+                                                                  "root": "MuiButtonBase-root",
+                                                                }
+                                                              }
+                                                              disabled={false}
+                                                              focusRipple={true}
+                                                            >
+                                                              <button
+                                                                className="MuiButtonBase-root MuiIconButton-root"
+                                                                disabled={false}
+                                                                onBlur={[Function]}
+                                                                onDragLeave={[Function]}
+                                                                onFocus={[Function]}
+                                                                onKeyDown={[Function]}
+                                                                onKeyUp={[Function]}
+                                                                onMouseDown={[Function]}
+                                                                onMouseLeave={[Function]}
+                                                                onMouseUp={[Function]}
+                                                                onTouchEnd={[Function]}
+                                                                onTouchMove={[Function]}
+                                                                onTouchStart={[Function]}
+                                                                tabIndex={0}
+                                                                type="button"
+                                                              >
+                                                                <span
+                                                                  className="MuiIconButton-label"
+                                                                >
+                                                                  <ForwardRef(ChevronRightIcon)>
+                                                                    <WithStyles(ForwardRef(SvgIcon))>
+                                                                      <ForwardRef(SvgIcon)
+                                                                        classes={
+                                                                          Object {
+                                                                            "colorAction": "MuiSvgIcon-colorAction",
+                                                                            "colorDisabled": "MuiSvgIcon-colorDisabled",
+                                                                            "colorError": "MuiSvgIcon-colorError",
+                                                                            "colorPrimary": "MuiSvgIcon-colorPrimary",
+                                                                            "colorSecondary": "MuiSvgIcon-colorSecondary",
+                                                                            "fontSizeInherit": "MuiSvgIcon-fontSizeInherit",
+                                                                            "fontSizeLarge": "MuiSvgIcon-fontSizeLarge",
+                                                                            "fontSizeSmall": "MuiSvgIcon-fontSizeSmall",
+                                                                            "root": "MuiSvgIcon-root",
+                                                                          }
+                                                                        }
+                                                                      >
+                                                                        <svg
+                                                                          aria-hidden={true}
+                                                                          className="MuiSvgIcon-root"
+                                                                          focusable="false"
+                                                                          viewBox="0 0 24 24"
+                                                                        >
+                                                                          <path
+                                                                            d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"
+                                                                          />
+                                                                        </svg>
+                                                                      </ForwardRef(SvgIcon)>
+                                                                    </WithStyles(ForwardRef(SvgIcon))>
+                                                                  </ForwardRef(ChevronRightIcon)>
+                                                                </span>
+                                                                <WithStyles(memo)
+                                                                  center={true}
+                                                                >
+                                                                  <ForwardRef(TouchRipple)
+                                                                    center={true}
+                                                                    classes={
+                                                                      Object {
+                                                                        "child": "MuiTouchRipple-child",
+                                                                        "childLeaving": "MuiTouchRipple-childLeaving",
+                                                                        "childPulsate": "MuiTouchRipple-childPulsate",
+                                                                        "ripple": "MuiTouchRipple-ripple",
+                                                                        "ripplePulsate": "MuiTouchRipple-ripplePulsate",
+                                                                        "rippleVisible": "MuiTouchRipple-rippleVisible",
+                                                                        "root": "MuiTouchRipple-root",
+                                                                      }
+                                                                    }
+                                                                  >
+                                                                    <span
+                                                                      className="MuiTouchRipple-root"
+                                                                    >
+                                                                      <TransitionGroup
+                                                                        childFactory={[Function]}
+                                                                        component={null}
+                                                                        exit={true}
+                                                                      />
+                                                                    </span>
+                                                                  </ForwardRef(TouchRipple)>
+                                                                </WithStyles(memo)>
+                                                              </button>
+                                                            </ForwardRef(ButtonBase)>
+                                                          </WithStyles(ForwardRef(ButtonBase))>
+                                                        </ForwardRef(IconButton)>
+                                                      </WithStyles(ForwardRef(IconButton))>
+                                                    </div>
+                                                  </div>
+                                                </Styled(MuiBox)>
+                                              </CategoryBox>
+                                            </a>
+                                          </ForwardRef(Typography)>
+                                        </WithStyles(ForwardRef(Typography))>
+                                      </ForwardRef(Link)>
+                                    </WithStyles(ForwardRef(Link))>
+                                  </div>
+                                </ForwardRef(Grid)>
+                              </WithStyles(ForwardRef(Grid))>
+                              <WithStyles(ForwardRef(Grid))
+                                item={true}
+                                lg={12}
+                                md={12}
+                                xs={12}
+                              >
+                                <ForwardRef(Grid)
+                                  classes={
+                                    Object {
+                                      "align-content-xs-center": "MuiGrid-align-content-xs-center",
+                                      "align-content-xs-flex-end": "MuiGrid-align-content-xs-flex-end",
+                                      "align-content-xs-flex-start": "MuiGrid-align-content-xs-flex-start",
+                                      "align-content-xs-space-around": "MuiGrid-align-content-xs-space-around",
+                                      "align-content-xs-space-between": "MuiGrid-align-content-xs-space-between",
+                                      "align-items-xs-baseline": "MuiGrid-align-items-xs-baseline",
+                                      "align-items-xs-center": "MuiGrid-align-items-xs-center",
+                                      "align-items-xs-flex-end": "MuiGrid-align-items-xs-flex-end",
+                                      "align-items-xs-flex-start": "MuiGrid-align-items-xs-flex-start",
+                                      "container": "MuiGrid-container",
+                                      "direction-xs-column": "MuiGrid-direction-xs-column",
+                                      "direction-xs-column-reverse": "MuiGrid-direction-xs-column-reverse",
+                                      "direction-xs-row-reverse": "MuiGrid-direction-xs-row-reverse",
+                                      "grid-lg-1": "MuiGrid-grid-lg-1",
+                                      "grid-lg-10": "MuiGrid-grid-lg-10",
+                                      "grid-lg-11": "MuiGrid-grid-lg-11",
+                                      "grid-lg-12": "MuiGrid-grid-lg-12",
+                                      "grid-lg-2": "MuiGrid-grid-lg-2",
+                                      "grid-lg-3": "MuiGrid-grid-lg-3",
+                                      "grid-lg-4": "MuiGrid-grid-lg-4",
+                                      "grid-lg-5": "MuiGrid-grid-lg-5",
+                                      "grid-lg-6": "MuiGrid-grid-lg-6",
+                                      "grid-lg-7": "MuiGrid-grid-lg-7",
+                                      "grid-lg-8": "MuiGrid-grid-lg-8",
+                                      "grid-lg-9": "MuiGrid-grid-lg-9",
+                                      "grid-lg-auto": "MuiGrid-grid-lg-auto",
+                                      "grid-lg-true": "MuiGrid-grid-lg-true",
+                                      "grid-md-1": "MuiGrid-grid-md-1",
+                                      "grid-md-10": "MuiGrid-grid-md-10",
+                                      "grid-md-11": "MuiGrid-grid-md-11",
+                                      "grid-md-12": "MuiGrid-grid-md-12",
+                                      "grid-md-2": "MuiGrid-grid-md-2",
+                                      "grid-md-3": "MuiGrid-grid-md-3",
+                                      "grid-md-4": "MuiGrid-grid-md-4",
+                                      "grid-md-5": "MuiGrid-grid-md-5",
+                                      "grid-md-6": "MuiGrid-grid-md-6",
+                                      "grid-md-7": "MuiGrid-grid-md-7",
+                                      "grid-md-8": "MuiGrid-grid-md-8",
+                                      "grid-md-9": "MuiGrid-grid-md-9",
+                                      "grid-md-auto": "MuiGrid-grid-md-auto",
+                                      "grid-md-true": "MuiGrid-grid-md-true",
+                                      "grid-sm-1": "MuiGrid-grid-sm-1",
+                                      "grid-sm-10": "MuiGrid-grid-sm-10",
+                                      "grid-sm-11": "MuiGrid-grid-sm-11",
+                                      "grid-sm-12": "MuiGrid-grid-sm-12",
+                                      "grid-sm-2": "MuiGrid-grid-sm-2",
+                                      "grid-sm-3": "MuiGrid-grid-sm-3",
+                                      "grid-sm-4": "MuiGrid-grid-sm-4",
+                                      "grid-sm-5": "MuiGrid-grid-sm-5",
+                                      "grid-sm-6": "MuiGrid-grid-sm-6",
+                                      "grid-sm-7": "MuiGrid-grid-sm-7",
+                                      "grid-sm-8": "MuiGrid-grid-sm-8",
+                                      "grid-sm-9": "MuiGrid-grid-sm-9",
+                                      "grid-sm-auto": "MuiGrid-grid-sm-auto",
+                                      "grid-sm-true": "MuiGrid-grid-sm-true",
+                                      "grid-xl-1": "MuiGrid-grid-xl-1",
+                                      "grid-xl-10": "MuiGrid-grid-xl-10",
+                                      "grid-xl-11": "MuiGrid-grid-xl-11",
+                                      "grid-xl-12": "MuiGrid-grid-xl-12",
+                                      "grid-xl-2": "MuiGrid-grid-xl-2",
+                                      "grid-xl-3": "MuiGrid-grid-xl-3",
+                                      "grid-xl-4": "MuiGrid-grid-xl-4",
+                                      "grid-xl-5": "MuiGrid-grid-xl-5",
+                                      "grid-xl-6": "MuiGrid-grid-xl-6",
+                                      "grid-xl-7": "MuiGrid-grid-xl-7",
+                                      "grid-xl-8": "MuiGrid-grid-xl-8",
+                                      "grid-xl-9": "MuiGrid-grid-xl-9",
+                                      "grid-xl-auto": "MuiGrid-grid-xl-auto",
+                                      "grid-xl-true": "MuiGrid-grid-xl-true",
+                                      "grid-xs-1": "MuiGrid-grid-xs-1",
+                                      "grid-xs-10": "MuiGrid-grid-xs-10",
+                                      "grid-xs-11": "MuiGrid-grid-xs-11",
+                                      "grid-xs-12": "MuiGrid-grid-xs-12",
+                                      "grid-xs-2": "MuiGrid-grid-xs-2",
+                                      "grid-xs-3": "MuiGrid-grid-xs-3",
+                                      "grid-xs-4": "MuiGrid-grid-xs-4",
+                                      "grid-xs-5": "MuiGrid-grid-xs-5",
+                                      "grid-xs-6": "MuiGrid-grid-xs-6",
+                                      "grid-xs-7": "MuiGrid-grid-xs-7",
+                                      "grid-xs-8": "MuiGrid-grid-xs-8",
+                                      "grid-xs-9": "MuiGrid-grid-xs-9",
+                                      "grid-xs-auto": "MuiGrid-grid-xs-auto",
+                                      "grid-xs-true": "MuiGrid-grid-xs-true",
+                                      "item": "MuiGrid-item",
+                                      "justify-content-xs-center": "MuiGrid-justify-content-xs-center",
+                                      "justify-content-xs-flex-end": "MuiGrid-justify-content-xs-flex-end",
+                                      "justify-content-xs-space-around": "MuiGrid-justify-content-xs-space-around",
+                                      "justify-content-xs-space-between": "MuiGrid-justify-content-xs-space-between",
+                                      "justify-content-xs-space-evenly": "MuiGrid-justify-content-xs-space-evenly",
+                                      "root": "MuiGrid-root",
+                                      "spacing-xs-1": "MuiGrid-spacing-xs-1",
+                                      "spacing-xs-10": "MuiGrid-spacing-xs-10",
+                                      "spacing-xs-2": "MuiGrid-spacing-xs-2",
+                                      "spacing-xs-3": "MuiGrid-spacing-xs-3",
+                                      "spacing-xs-4": "MuiGrid-spacing-xs-4",
+                                      "spacing-xs-5": "MuiGrid-spacing-xs-5",
+                                      "spacing-xs-6": "MuiGrid-spacing-xs-6",
+                                      "spacing-xs-7": "MuiGrid-spacing-xs-7",
+                                      "spacing-xs-8": "MuiGrid-spacing-xs-8",
+                                      "spacing-xs-9": "MuiGrid-spacing-xs-9",
+                                      "wrap-xs-nowrap": "MuiGrid-wrap-xs-nowrap",
+                                      "wrap-xs-wrap-reverse": "MuiGrid-wrap-xs-wrap-reverse",
+                                      "zeroMinWidth": "MuiGrid-zeroMinWidth",
+                                    }
+                                  }
+                                  item={true}
+                                  lg={12}
+                                  md={12}
+                                  xs={12}
+                                >
+                                  <div
+                                    className="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12 MuiGrid-grid-md-12 MuiGrid-grid-lg-12"
+                                  >
+                                    <WithStyles(ForwardRef(Link))
+                                      href="/PersonalDocument/Unit-Plan"
+                                    >
+                                      <ForwardRef(Link)
+                                        classes={
+                                          Object {
+                                            "button": "MuiLink-button",
+                                            "focusVisible": "Mui-focusVisible",
+                                            "root": "MuiLink-root",
+                                            "underlineAlways": "MuiLink-underlineAlways",
+                                            "underlineHover": "MuiLink-underlineHover",
+                                            "underlineNone": "MuiLink-underlineNone",
+                                          }
+                                        }
+                                        href="/PersonalDocument/Unit-Plan"
+                                      >
+                                        <WithStyles(ForwardRef(Typography))
+                                          className="MuiLink-root MuiLink-underlineHover"
+                                          color="primary"
+                                          component="a"
+                                          href="/PersonalDocument/Unit-Plan"
+                                          onBlur={[Function]}
+                                          onFocus={[Function]}
+                                          variant="inherit"
+                                        >
+                                          <ForwardRef(Typography)
+                                            className="MuiLink-root MuiLink-underlineHover"
+                                            classes={
+                                              Object {
+                                                "alignCenter": "MuiTypography-alignCenter",
+                                                "alignJustify": "MuiTypography-alignJustify",
+                                                "alignLeft": "MuiTypography-alignLeft",
+                                                "alignRight": "MuiTypography-alignRight",
+                                                "body1": "MuiTypography-body1",
+                                                "body2": "MuiTypography-body2",
+                                                "button": "MuiTypography-button",
+                                                "caption": "MuiTypography-caption",
+                                                "colorError": "MuiTypography-colorError",
+                                                "colorInherit": "MuiTypography-colorInherit",
+                                                "colorPrimary": "MuiTypography-colorPrimary",
+                                                "colorSecondary": "MuiTypography-colorSecondary",
+                                                "colorTextPrimary": "MuiTypography-colorTextPrimary",
+                                                "colorTextSecondary": "MuiTypography-colorTextSecondary",
+                                                "displayBlock": "MuiTypography-displayBlock",
+                                                "displayInline": "MuiTypography-displayInline",
+                                                "gutterBottom": "MuiTypography-gutterBottom",
+                                                "h1": "MuiTypography-h1",
+                                                "h2": "MuiTypography-h2",
+                                                "h3": "MuiTypography-h3",
+                                                "h4": "MuiTypography-h4",
+                                                "h5": "MuiTypography-h5",
+                                                "h6": "MuiTypography-h6",
+                                                "noWrap": "MuiTypography-noWrap",
+                                                "overline": "MuiTypography-overline",
+                                                "paragraph": "MuiTypography-paragraph",
+                                                "root": "MuiTypography-root",
+                                                "srOnly": "MuiTypography-srOnly",
+                                                "subtitle1": "MuiTypography-subtitle1",
+                                                "subtitle2": "MuiTypography-subtitle2",
+                                              }
+                                            }
+                                            color="primary"
+                                            component="a"
+                                            href="/PersonalDocument/Unit-Plan"
+                                            onBlur={[Function]}
+                                            onFocus={[Function]}
+                                            variant="inherit"
+                                          >
+                                            <a
+                                              className="MuiTypography-root MuiLink-root MuiLink-underlineHover MuiTypography-colorPrimary"
+                                              href="/PersonalDocument/Unit-Plan"
+                                              onBlur={[Function]}
+                                              onFocus={[Function]}
+                                            >
+                                              <CategoryBox
+                                                heading=""
+                                                image={
+                                                  Object {
+                                                    "testUri": "../../../packages/blocks/Notes/assets/document.png",
+                                                  }
+                                                }
+                                                value={0}
+                                              >
+                                                <Styled(MuiBox)
+                                                  className="item"
+                                                >
+                                                  <div
+                                                    className="MuiBox-root MuiBox-root-4 item"
+                                                  >
+                                                    <div
+                                                      className="heading"
+                                                    >
+                                                      <img
+                                                        src={
+                                                          Object {
+                                                            "testUri": "../../../packages/blocks/Notes/assets/document.png",
+                                                          }
+                                                        }
+                                                      />
+                                                      <h4 />
+                                                    </div>
+                                                    <div>
+                                                      <WithStyles(ForwardRef(IconButton))>
+                                                        <ForwardRef(IconButton)
+                                                          classes={
+                                                            Object {
+                                                              "colorInherit": "MuiIconButton-colorInherit",
+                                                              "colorPrimary": "MuiIconButton-colorPrimary",
+                                                              "colorSecondary": "MuiIconButton-colorSecondary",
+                                                              "disabled": "Mui-disabled",
+                                                              "edgeEnd": "MuiIconButton-edgeEnd",
+                                                              "edgeStart": "MuiIconButton-edgeStart",
+                                                              "label": "MuiIconButton-label",
+                                                              "root": "MuiIconButton-root",
+                                                              "sizeSmall": "MuiIconButton-sizeSmall",
+                                                            }
+                                                          }
+                                                        >
+                                                          <WithStyles(ForwardRef(ButtonBase))
+                                                            centerRipple={true}
+                                                            className="MuiIconButton-root"
+                                                            disabled={false}
+                                                            focusRipple={true}
+                                                          >
+                                                            <ForwardRef(ButtonBase)
+                                                              centerRipple={true}
+                                                              className="MuiIconButton-root"
+                                                              classes={
+                                                                Object {
+                                                                  "disabled": "Mui-disabled",
+                                                                  "focusVisible": "Mui-focusVisible",
+                                                                  "root": "MuiButtonBase-root",
+                                                                }
+                                                              }
+                                                              disabled={false}
+                                                              focusRipple={true}
+                                                            >
+                                                              <button
+                                                                className="MuiButtonBase-root MuiIconButton-root"
+                                                                disabled={false}
+                                                                onBlur={[Function]}
+                                                                onDragLeave={[Function]}
+                                                                onFocus={[Function]}
+                                                                onKeyDown={[Function]}
+                                                                onKeyUp={[Function]}
+                                                                onMouseDown={[Function]}
+                                                                onMouseLeave={[Function]}
+                                                                onMouseUp={[Function]}
+                                                                onTouchEnd={[Function]}
+                                                                onTouchMove={[Function]}
+                                                                onTouchStart={[Function]}
+                                                                tabIndex={0}
+                                                                type="button"
+                                                              >
+                                                                <span
+                                                                  className="MuiIconButton-label"
+                                                                >
+                                                                  <ForwardRef(ChevronRightIcon)>
+                                                                    <WithStyles(ForwardRef(SvgIcon))>
+                                                                      <ForwardRef(SvgIcon)
+                                                                        classes={
+                                                                          Object {
+                                                                            "colorAction": "MuiSvgIcon-colorAction",
+                                                                            "colorDisabled": "MuiSvgIcon-colorDisabled",
+                                                                            "colorError": "MuiSvgIcon-colorError",
+                                                                            "colorPrimary": "MuiSvgIcon-colorPrimary",
+                                                                            "colorSecondary": "MuiSvgIcon-colorSecondary",
+                                                                            "fontSizeInherit": "MuiSvgIcon-fontSizeInherit",
+                                                                            "fontSizeLarge": "MuiSvgIcon-fontSizeLarge",
+                                                                            "fontSizeSmall": "MuiSvgIcon-fontSizeSmall",
+                                                                            "root": "MuiSvgIcon-root",
+                                                                          }
+                                                                        }
+                                                                      >
+                                                                        <svg
+                                                                          aria-hidden={true}
+                                                                          className="MuiSvgIcon-root"
+                                                                          focusable="false"
+                                                                          viewBox="0 0 24 24"
+                                                                        >
+                                                                          <path
+                                                                            d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"
+                                                                          />
+                                                                        </svg>
+                                                                      </ForwardRef(SvgIcon)>
+                                                                    </WithStyles(ForwardRef(SvgIcon))>
+                                                                  </ForwardRef(ChevronRightIcon)>
+                                                                </span>
+                                                                <WithStyles(memo)
+                                                                  center={true}
+                                                                >
+                                                                  <ForwardRef(TouchRipple)
+                                                                    center={true}
+                                                                    classes={
+                                                                      Object {
+                                                                        "child": "MuiTouchRipple-child",
+                                                                        "childLeaving": "MuiTouchRipple-childLeaving",
+                                                                        "childPulsate": "MuiTouchRipple-childPulsate",
+                                                                        "ripple": "MuiTouchRipple-ripple",
+                                                                        "ripplePulsate": "MuiTouchRipple-ripplePulsate",
+                                                                        "rippleVisible": "MuiTouchRipple-rippleVisible",
+                                                                        "root": "MuiTouchRipple-root",
+                                                                      }
+                                                                    }
+                                                                  >
+                                                                    <span
+                                                                      className="MuiTouchRipple-root"
+                                                                    >
+                                                                      <TransitionGroup
+                                                                        childFactory={[Function]}
+                                                                        component={null}
+                                                                        exit={true}
+                                                                      />
+                                                                    </span>
+                                                                  </ForwardRef(TouchRipple)>
+                                                                </WithStyles(memo)>
+                                                              </button>
+                                                            </ForwardRef(ButtonBase)>
+                                                          </WithStyles(ForwardRef(ButtonBase))>
+                                                        </ForwardRef(IconButton)>
+                                                      </WithStyles(ForwardRef(IconButton))>
+                                                    </div>
+                                                  </div>
+                                                </Styled(MuiBox)>
+                                              </CategoryBox>
+                                            </a>
+                                          </ForwardRef(Typography)>
+                                        </WithStyles(ForwardRef(Typography))>
+                                      </ForwardRef(Link)>
+                                    </WithStyles(ForwardRef(Link))>
+                                  </div>
+                                </ForwardRef(Grid)>
+                              </WithStyles(ForwardRef(Grid))>
+                              <WithStyles(ForwardRef(Grid))
+                                item={true}
+                                lg={12}
+                                md={12}
+                                xs={12}
+                              >
+                                <ForwardRef(Grid)
+                                  classes={
+                                    Object {
+                                      "align-content-xs-center": "MuiGrid-align-content-xs-center",
+                                      "align-content-xs-flex-end": "MuiGrid-align-content-xs-flex-end",
+                                      "align-content-xs-flex-start": "MuiGrid-align-content-xs-flex-start",
+                                      "align-content-xs-space-around": "MuiGrid-align-content-xs-space-around",
+                                      "align-content-xs-space-between": "MuiGrid-align-content-xs-space-between",
+                                      "align-items-xs-baseline": "MuiGrid-align-items-xs-baseline",
+                                      "align-items-xs-center": "MuiGrid-align-items-xs-center",
+                                      "align-items-xs-flex-end": "MuiGrid-align-items-xs-flex-end",
+                                      "align-items-xs-flex-start": "MuiGrid-align-items-xs-flex-start",
+                                      "container": "MuiGrid-container",
+                                      "direction-xs-column": "MuiGrid-direction-xs-column",
+                                      "direction-xs-column-reverse": "MuiGrid-direction-xs-column-reverse",
+                                      "direction-xs-row-reverse": "MuiGrid-direction-xs-row-reverse",
+                                      "grid-lg-1": "MuiGrid-grid-lg-1",
+                                      "grid-lg-10": "MuiGrid-grid-lg-10",
+                                      "grid-lg-11": "MuiGrid-grid-lg-11",
+                                      "grid-lg-12": "MuiGrid-grid-lg-12",
+                                      "grid-lg-2": "MuiGrid-grid-lg-2",
+                                      "grid-lg-3": "MuiGrid-grid-lg-3",
+                                      "grid-lg-4": "MuiGrid-grid-lg-4",
+                                      "grid-lg-5": "MuiGrid-grid-lg-5",
+                                      "grid-lg-6": "MuiGrid-grid-lg-6",
+                                      "grid-lg-7": "MuiGrid-grid-lg-7",
+                                      "grid-lg-8": "MuiGrid-grid-lg-8",
+                                      "grid-lg-9": "MuiGrid-grid-lg-9",
+                                      "grid-lg-auto": "MuiGrid-grid-lg-auto",
+                                      "grid-lg-true": "MuiGrid-grid-lg-true",
+                                      "grid-md-1": "MuiGrid-grid-md-1",
+                                      "grid-md-10": "MuiGrid-grid-md-10",
+                                      "grid-md-11": "MuiGrid-grid-md-11",
+                                      "grid-md-12": "MuiGrid-grid-md-12",
+                                      "grid-md-2": "MuiGrid-grid-md-2",
+                                      "grid-md-3": "MuiGrid-grid-md-3",
+                                      "grid-md-4": "MuiGrid-grid-md-4",
+                                      "grid-md-5": "MuiGrid-grid-md-5",
+                                      "grid-md-6": "MuiGrid-grid-md-6",
+                                      "grid-md-7": "MuiGrid-grid-md-7",
+                                      "grid-md-8": "MuiGrid-grid-md-8",
+                                      "grid-md-9": "MuiGrid-grid-md-9",
+                                      "grid-md-auto": "MuiGrid-grid-md-auto",
+                                      "grid-md-true": "MuiGrid-grid-md-true",
+                                      "grid-sm-1": "MuiGrid-grid-sm-1",
+                                      "grid-sm-10": "MuiGrid-grid-sm-10",
+                                      "grid-sm-11": "MuiGrid-grid-sm-11",
+                                      "grid-sm-12": "MuiGrid-grid-sm-12",
+                                      "grid-sm-2": "MuiGrid-grid-sm-2",
+                                      "grid-sm-3": "MuiGrid-grid-sm-3",
+                                      "grid-sm-4": "MuiGrid-grid-sm-4",
+                                      "grid-sm-5": "MuiGrid-grid-sm-5",
+                                      "grid-sm-6": "MuiGrid-grid-sm-6",
+                                      "grid-sm-7": "MuiGrid-grid-sm-7",
+                                      "grid-sm-8": "MuiGrid-grid-sm-8",
+                                      "grid-sm-9": "MuiGrid-grid-sm-9",
+                                      "grid-sm-auto": "MuiGrid-grid-sm-auto",
+                                      "grid-sm-true": "MuiGrid-grid-sm-true",
+                                      "grid-xl-1": "MuiGrid-grid-xl-1",
+                                      "grid-xl-10": "MuiGrid-grid-xl-10",
+                                      "grid-xl-11": "MuiGrid-grid-xl-11",
+                                      "grid-xl-12": "MuiGrid-grid-xl-12",
+                                      "grid-xl-2": "MuiGrid-grid-xl-2",
+                                      "grid-xl-3": "MuiGrid-grid-xl-3",
+                                      "grid-xl-4": "MuiGrid-grid-xl-4",
+                                      "grid-xl-5": "MuiGrid-grid-xl-5",
+                                      "grid-xl-6": "MuiGrid-grid-xl-6",
+                                      "grid-xl-7": "MuiGrid-grid-xl-7",
+                                      "grid-xl-8": "MuiGrid-grid-xl-8",
+                                      "grid-xl-9": "MuiGrid-grid-xl-9",
+                                      "grid-xl-auto": "MuiGrid-grid-xl-auto",
+                                      "grid-xl-true": "MuiGrid-grid-xl-true",
+                                      "grid-xs-1": "MuiGrid-grid-xs-1",
+                                      "grid-xs-10": "MuiGrid-grid-xs-10",
+                                      "grid-xs-11": "MuiGrid-grid-xs-11",
+                                      "grid-xs-12": "MuiGrid-grid-xs-12",
+                                      "grid-xs-2": "MuiGrid-grid-xs-2",
+                                      "grid-xs-3": "MuiGrid-grid-xs-3",
+                                      "grid-xs-4": "MuiGrid-grid-xs-4",
+                                      "grid-xs-5": "MuiGrid-grid-xs-5",
+                                      "grid-xs-6": "MuiGrid-grid-xs-6",
+                                      "grid-xs-7": "MuiGrid-grid-xs-7",
+                                      "grid-xs-8": "MuiGrid-grid-xs-8",
+                                      "grid-xs-9": "MuiGrid-grid-xs-9",
+                                      "grid-xs-auto": "MuiGrid-grid-xs-auto",
+                                      "grid-xs-true": "MuiGrid-grid-xs-true",
+                                      "item": "MuiGrid-item",
+                                      "justify-content-xs-center": "MuiGrid-justify-content-xs-center",
+                                      "justify-content-xs-flex-end": "MuiGrid-justify-content-xs-flex-end",
+                                      "justify-content-xs-space-around": "MuiGrid-justify-content-xs-space-around",
+                                      "justify-content-xs-space-between": "MuiGrid-justify-content-xs-space-between",
+                                      "justify-content-xs-space-evenly": "MuiGrid-justify-content-xs-space-evenly",
+                                      "root": "MuiGrid-root",
+                                      "spacing-xs-1": "MuiGrid-spacing-xs-1",
+                                      "spacing-xs-10": "MuiGrid-spacing-xs-10",
+                                      "spacing-xs-2": "MuiGrid-spacing-xs-2",
+                                      "spacing-xs-3": "MuiGrid-spacing-xs-3",
+                                      "spacing-xs-4": "MuiGrid-spacing-xs-4",
+                                      "spacing-xs-5": "MuiGrid-spacing-xs-5",
+                                      "spacing-xs-6": "MuiGrid-spacing-xs-6",
+                                      "spacing-xs-7": "MuiGrid-spacing-xs-7",
+                                      "spacing-xs-8": "MuiGrid-spacing-xs-8",
+                                      "spacing-xs-9": "MuiGrid-spacing-xs-9",
+                                      "wrap-xs-nowrap": "MuiGrid-wrap-xs-nowrap",
+                                      "wrap-xs-wrap-reverse": "MuiGrid-wrap-xs-wrap-reverse",
+                                      "zeroMinWidth": "MuiGrid-zeroMinWidth",
+                                    }
+                                  }
+                                  item={true}
+                                  lg={12}
+                                  md={12}
+                                  xs={12}
+                                >
+                                  <div
+                                    className="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12 MuiGrid-grid-md-12 MuiGrid-grid-lg-12"
+                                  >
+                                    <WithStyles(ForwardRef(Link))
+                                      href="/PersonalDocument/Other-Documents"
+                                    >
+                                      <ForwardRef(Link)
+                                        classes={
+                                          Object {
+                                            "button": "MuiLink-button",
+                                            "focusVisible": "Mui-focusVisible",
+                                            "root": "MuiLink-root",
+                                            "underlineAlways": "MuiLink-underlineAlways",
+                                            "underlineHover": "MuiLink-underlineHover",
+                                            "underlineNone": "MuiLink-underlineNone",
+                                          }
+                                        }
+                                        href="/PersonalDocument/Other-Documents"
+                                      >
+                                        <WithStyles(ForwardRef(Typography))
+                                          className="MuiLink-root MuiLink-underlineHover"
+                                          color="primary"
+                                          component="a"
+                                          href="/PersonalDocument/Other-Documents"
+                                          onBlur={[Function]}
+                                          onFocus={[Function]}
+                                          variant="inherit"
+                                        >
+                                          <ForwardRef(Typography)
+                                            className="MuiLink-root MuiLink-underlineHover"
+                                            classes={
+                                              Object {
+                                                "alignCenter": "MuiTypography-alignCenter",
+                                                "alignJustify": "MuiTypography-alignJustify",
+                                                "alignLeft": "MuiTypography-alignLeft",
+                                                "alignRight": "MuiTypography-alignRight",
+                                                "body1": "MuiTypography-body1",
+                                                "body2": "MuiTypography-body2",
+                                                "button": "MuiTypography-button",
+                                                "caption": "MuiTypography-caption",
+                                                "colorError": "MuiTypography-colorError",
+                                                "colorInherit": "MuiTypography-colorInherit",
+                                                "colorPrimary": "MuiTypography-colorPrimary",
+                                                "colorSecondary": "MuiTypography-colorSecondary",
+                                                "colorTextPrimary": "MuiTypography-colorTextPrimary",
+                                                "colorTextSecondary": "MuiTypography-colorTextSecondary",
+                                                "displayBlock": "MuiTypography-displayBlock",
+                                                "displayInline": "MuiTypography-displayInline",
+                                                "gutterBottom": "MuiTypography-gutterBottom",
+                                                "h1": "MuiTypography-h1",
+                                                "h2": "MuiTypography-h2",
+                                                "h3": "MuiTypography-h3",
+                                                "h4": "MuiTypography-h4",
+                                                "h5": "MuiTypography-h5",
+                                                "h6": "MuiTypography-h6",
+                                                "noWrap": "MuiTypography-noWrap",
+                                                "overline": "MuiTypography-overline",
+                                                "paragraph": "MuiTypography-paragraph",
+                                                "root": "MuiTypography-root",
+                                                "srOnly": "MuiTypography-srOnly",
+                                                "subtitle1": "MuiTypography-subtitle1",
+                                                "subtitle2": "MuiTypography-subtitle2",
+                                              }
+                                            }
+                                            color="primary"
+                                            component="a"
+                                            href="/PersonalDocument/Other-Documents"
+                                            onBlur={[Function]}
+                                            onFocus={[Function]}
+                                            variant="inherit"
+                                          >
+                                            <a
+                                              className="MuiTypography-root MuiLink-root MuiLink-underlineHover MuiTypography-colorPrimary"
+                                              href="/PersonalDocument/Other-Documents"
+                                              onBlur={[Function]}
+                                              onFocus={[Function]}
+                                            >
+                                              <CategoryBox
+                                                heading=""
+                                                image={
+                                                  Object {
+                                                    "testUri": "../../../packages/blocks/Notes/assets/document.png",
+                                                  }
+                                                }
+                                                value={0}
+                                              >
+                                                <Styled(MuiBox)
+                                                  className="item"
+                                                >
+                                                  <div
+                                                    className="MuiBox-root MuiBox-root-5 item"
+                                                  >
+                                                    <div
+                                                      className="heading"
+                                                    >
+                                                      <img
+                                                        src={
+                                                          Object {
+                                                            "testUri": "../../../packages/blocks/Notes/assets/document.png",
+                                                          }
+                                                        }
+                                                      />
+                                                      <h4 />
+                                                    </div>
+                                                    <div>
+                                                      <WithStyles(ForwardRef(IconButton))>
+                                                        <ForwardRef(IconButton)
+                                                          classes={
+                                                            Object {
+                                                              "colorInherit": "MuiIconButton-colorInherit",
+                                                              "colorPrimary": "MuiIconButton-colorPrimary",
+                                                              "colorSecondary": "MuiIconButton-colorSecondary",
+                                                              "disabled": "Mui-disabled",
+                                                              "edgeEnd": "MuiIconButton-edgeEnd",
+                                                              "edgeStart": "MuiIconButton-edgeStart",
+                                                              "label": "MuiIconButton-label",
+                                                              "root": "MuiIconButton-root",
+                                                              "sizeSmall": "MuiIconButton-sizeSmall",
+                                                            }
+                                                          }
+                                                        >
+                                                          <WithStyles(ForwardRef(ButtonBase))
+                                                            centerRipple={true}
+                                                            className="MuiIconButton-root"
+                                                            disabled={false}
+                                                            focusRipple={true}
+                                                          >
+                                                            <ForwardRef(ButtonBase)
+                                                              centerRipple={true}
+                                                              className="MuiIconButton-root"
+                                                              classes={
+                                                                Object {
+                                                                  "disabled": "Mui-disabled",
+                                                                  "focusVisible": "Mui-focusVisible",
+                                                                  "root": "MuiButtonBase-root",
+                                                                }
+                                                              }
+                                                              disabled={false}
+                                                              focusRipple={true}
+                                                            >
+                                                              <button
+                                                                className="MuiButtonBase-root MuiIconButton-root"
+                                                                disabled={false}
+                                                                onBlur={[Function]}
+                                                                onDragLeave={[Function]}
+                                                                onFocus={[Function]}
+                                                                onKeyDown={[Function]}
+                                                                onKeyUp={[Function]}
+                                                                onMouseDown={[Function]}
+                                                                onMouseLeave={[Function]}
+                                                                onMouseUp={[Function]}
+                                                                onTouchEnd={[Function]}
+                                                                onTouchMove={[Function]}
+                                                                onTouchStart={[Function]}
+                                                                tabIndex={0}
+                                                                type="button"
+                                                              >
+                                                                <span
+                                                                  className="MuiIconButton-label"
+                                                                >
+                                                                  <ForwardRef(ChevronRightIcon)>
+                                                                    <WithStyles(ForwardRef(SvgIcon))>
+                                                                      <ForwardRef(SvgIcon)
+                                                                        classes={
+                                                                          Object {
+                                                                            "colorAction": "MuiSvgIcon-colorAction",
+                                                                            "colorDisabled": "MuiSvgIcon-colorDisabled",
+                                                                            "colorError": "MuiSvgIcon-colorError",
+                                                                            "colorPrimary": "MuiSvgIcon-colorPrimary",
+                                                                            "colorSecondary": "MuiSvgIcon-colorSecondary",
+                                                                            "fontSizeInherit": "MuiSvgIcon-fontSizeInherit",
+                                                                            "fontSizeLarge": "MuiSvgIcon-fontSizeLarge",
+                                                                            "fontSizeSmall": "MuiSvgIcon-fontSizeSmall",
+                                                                            "root": "MuiSvgIcon-root",
+                                                                          }
+                                                                        }
+                                                                      >
+                                                                        <svg
+                                                                          aria-hidden={true}
+                                                                          className="MuiSvgIcon-root"
+                                                                          focusable="false"
+                                                                          viewBox="0 0 24 24"
+                                                                        >
+                                                                          <path
+                                                                            d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"
+                                                                          />
+                                                                        </svg>
+                                                                      </ForwardRef(SvgIcon)>
+                                                                    </WithStyles(ForwardRef(SvgIcon))>
+                                                                  </ForwardRef(ChevronRightIcon)>
+                                                                </span>
+                                                                <WithStyles(memo)
+                                                                  center={true}
+                                                                >
+                                                                  <ForwardRef(TouchRipple)
+                                                                    center={true}
+                                                                    classes={
+                                                                      Object {
+                                                                        "child": "MuiTouchRipple-child",
+                                                                        "childLeaving": "MuiTouchRipple-childLeaving",
+                                                                        "childPulsate": "MuiTouchRipple-childPulsate",
+                                                                        "ripple": "MuiTouchRipple-ripple",
+                                                                        "ripplePulsate": "MuiTouchRipple-ripplePulsate",
+                                                                        "rippleVisible": "MuiTouchRipple-rippleVisible",
+                                                                        "root": "MuiTouchRipple-root",
+                                                                      }
+                                                                    }
+                                                                  >
+                                                                    <span
+                                                                      className="MuiTouchRipple-root"
+                                                                    >
+                                                                      <TransitionGroup
+                                                                        childFactory={[Function]}
+                                                                        component={null}
+                                                                        exit={true}
+                                                                      />
+                                                                    </span>
+                                                                  </ForwardRef(TouchRipple)>
+                                                                </WithStyles(memo)>
+                                                              </button>
+                                                            </ForwardRef(ButtonBase)>
+                                                          </WithStyles(ForwardRef(ButtonBase))>
+                                                        </ForwardRef(IconButton)>
+                                                      </WithStyles(ForwardRef(IconButton))>
+                                                    </div>
+                                                  </div>
+                                                </Styled(MuiBox)>
+                                              </CategoryBox>
+                                            </a>
+                                          </ForwardRef(Typography)>
+                                        </WithStyles(ForwardRef(Typography))>
+                                      </ForwardRef(Link)>
+                                    </WithStyles(ForwardRef(Link))>
+                                  </div>
+                                </ForwardRef(Grid)>
+                              </WithStyles(ForwardRef(Grid))>
+                            </div>
+                          </ForwardRef(Grid)>
+                        </WithStyles(ForwardRef(Grid))>
+                      </div>
+                    </ForwardRef(Container)>
+                  </WithStyles(ForwardRef(Container))>
+                </div>
+              </ForwardRef(Grid)>
+            </WithStyles(ForwardRef(Grid))>
+            <WithStyles(ForwardRef(Grid))
+              item={true}
+              md={5}
+              xs={12}
+            >
+              <ForwardRef(Grid)
+                classes={
+                  Object {
+                    "align-content-xs-center": "MuiGrid-align-content-xs-center",
+                    "align-content-xs-flex-end": "MuiGrid-align-content-xs-flex-end",
+                    "align-content-xs-flex-start": "MuiGrid-align-content-xs-flex-start",
+                    "align-content-xs-space-around": "MuiGrid-align-content-xs-space-around",
+                    "align-content-xs-space-between": "MuiGrid-align-content-xs-space-between",
+                    "align-items-xs-baseline": "MuiGrid-align-items-xs-baseline",
+                    "align-items-xs-center": "MuiGrid-align-items-xs-center",
+                    "align-items-xs-flex-end": "MuiGrid-align-items-xs-flex-end",
+                    "align-items-xs-flex-start": "MuiGrid-align-items-xs-flex-start",
+                    "container": "MuiGrid-container",
+                    "direction-xs-column": "MuiGrid-direction-xs-column",
+                    "direction-xs-column-reverse": "MuiGrid-direction-xs-column-reverse",
+                    "direction-xs-row-reverse": "MuiGrid-direction-xs-row-reverse",
+                    "grid-lg-1": "MuiGrid-grid-lg-1",
+                    "grid-lg-10": "MuiGrid-grid-lg-10",
+                    "grid-lg-11": "MuiGrid-grid-lg-11",
+                    "grid-lg-12": "MuiGrid-grid-lg-12",
+                    "grid-lg-2": "MuiGrid-grid-lg-2",
+                    "grid-lg-3": "MuiGrid-grid-lg-3",
+                    "grid-lg-4": "MuiGrid-grid-lg-4",
+                    "grid-lg-5": "MuiGrid-grid-lg-5",
+                    "grid-lg-6": "MuiGrid-grid-lg-6",
+                    "grid-lg-7": "MuiGrid-grid-lg-7",
+                    "grid-lg-8": "MuiGrid-grid-lg-8",
+                    "grid-lg-9": "MuiGrid-grid-lg-9",
+                    "grid-lg-auto": "MuiGrid-grid-lg-auto",
+                    "grid-lg-true": "MuiGrid-grid-lg-true",
+                    "grid-md-1": "MuiGrid-grid-md-1",
+                    "grid-md-10": "MuiGrid-grid-md-10",
+                    "grid-md-11": "MuiGrid-grid-md-11",
+                    "grid-md-12": "MuiGrid-grid-md-12",
+                    "grid-md-2": "MuiGrid-grid-md-2",
+                    "grid-md-3": "MuiGrid-grid-md-3",
+                    "grid-md-4": "MuiGrid-grid-md-4",
+                    "grid-md-5": "MuiGrid-grid-md-5",
+                    "grid-md-6": "MuiGrid-grid-md-6",
+                    "grid-md-7": "MuiGrid-grid-md-7",
+                    "grid-md-8": "MuiGrid-grid-md-8",
+                    "grid-md-9": "MuiGrid-grid-md-9",
+                    "grid-md-auto": "MuiGrid-grid-md-auto",
+                    "grid-md-true": "MuiGrid-grid-md-true",
+                    "grid-sm-1": "MuiGrid-grid-sm-1",
+                    "grid-sm-10": "MuiGrid-grid-sm-10",
+                    "grid-sm-11": "MuiGrid-grid-sm-11",
+                    "grid-sm-12": "MuiGrid-grid-sm-12",
+                    "grid-sm-2": "MuiGrid-grid-sm-2",
+                    "grid-sm-3": "MuiGrid-grid-sm-3",
+                    "grid-sm-4": "MuiGrid-grid-sm-4",
+                    "grid-sm-5": "MuiGrid-grid-sm-5",
+                    "grid-sm-6": "MuiGrid-grid-sm-6",
+                    "grid-sm-7": "MuiGrid-grid-sm-7",
+                    "grid-sm-8": "MuiGrid-grid-sm-8",
+                    "grid-sm-9": "MuiGrid-grid-sm-9",
+                    "grid-sm-auto": "MuiGrid-grid-sm-auto",
+                    "grid-sm-true": "MuiGrid-grid-sm-true",
+                    "grid-xl-1": "MuiGrid-grid-xl-1",
+                    "grid-xl-10": "MuiGrid-grid-xl-10",
+                    "grid-xl-11": "MuiGrid-grid-xl-11",
+                    "grid-xl-12": "MuiGrid-grid-xl-12",
+                    "grid-xl-2": "MuiGrid-grid-xl-2",
+                    "grid-xl-3": "MuiGrid-grid-xl-3",
+                    "grid-xl-4": "MuiGrid-grid-xl-4",
+                    "grid-xl-5": "MuiGrid-grid-xl-5",
+                    "grid-xl-6": "MuiGrid-grid-xl-6",
+                    "grid-xl-7": "MuiGrid-grid-xl-7",
+                    "grid-xl-8": "MuiGrid-grid-xl-8",
+                    "grid-xl-9": "MuiGrid-grid-xl-9",
+                    "grid-xl-auto": "MuiGrid-grid-xl-auto",
+                    "grid-xl-true": "MuiGrid-grid-xl-true",
+                    "grid-xs-1": "MuiGrid-grid-xs-1",
+                    "grid-xs-10": "MuiGrid-grid-xs-10",
+                    "grid-xs-11": "MuiGrid-grid-xs-11",
+                    "grid-xs-12": "MuiGrid-grid-xs-12",
+                    "grid-xs-2": "MuiGrid-grid-xs-2",
+                    "grid-xs-3": "MuiGrid-grid-xs-3",
+                    "grid-xs-4": "MuiGrid-grid-xs-4",
+                    "grid-xs-5": "MuiGrid-grid-xs-5",
+                    "grid-xs-6": "MuiGrid-grid-xs-6",
+                    "grid-xs-7": "MuiGrid-grid-xs-7",
+                    "grid-xs-8": "MuiGrid-grid-xs-8",
+                    "grid-xs-9": "MuiGrid-grid-xs-9",
+                    "grid-xs-auto": "MuiGrid-grid-xs-auto",
+                    "grid-xs-true": "MuiGrid-grid-xs-true",
+                    "item": "MuiGrid-item",
+                    "justify-content-xs-center": "MuiGrid-justify-content-xs-center",
+                    "justify-content-xs-flex-end": "MuiGrid-justify-content-xs-flex-end",
+                    "justify-content-xs-space-around": "MuiGrid-justify-content-xs-space-around",
+                    "justify-content-xs-space-between": "MuiGrid-justify-content-xs-space-between",
+                    "justify-content-xs-space-evenly": "MuiGrid-justify-content-xs-space-evenly",
+                    "root": "MuiGrid-root",
+                    "spacing-xs-1": "MuiGrid-spacing-xs-1",
+                    "spacing-xs-10": "MuiGrid-spacing-xs-10",
+                    "spacing-xs-2": "MuiGrid-spacing-xs-2",
+                    "spacing-xs-3": "MuiGrid-spacing-xs-3",
+                    "spacing-xs-4": "MuiGrid-spacing-xs-4",
+                    "spacing-xs-5": "MuiGrid-spacing-xs-5",
+                    "spacing-xs-6": "MuiGrid-spacing-xs-6",
+                    "spacing-xs-7": "MuiGrid-spacing-xs-7",
+                    "spacing-xs-8": "MuiGrid-spacing-xs-8",
+                    "spacing-xs-9": "MuiGrid-spacing-xs-9",
+                    "wrap-xs-nowrap": "MuiGrid-wrap-xs-nowrap",
+                    "wrap-xs-wrap-reverse": "MuiGrid-wrap-xs-wrap-reverse",
+                    "zeroMinWidth": "MuiGrid-zeroMinWidth",
+                  }
+                }
+                item={true}
+                md={5}
+                xs={12}
+              >
+                <div
+                  className="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12 MuiGrid-grid-md-5"
+                >
+                  <SidebarImageComponent>
+                    <Styled(MuiBox)
+                      className="right-block right-image"
+                      display={
+                        Object {
+                          "md": "flex",
+                          "xs": "none",
+                        }
+                      }
+                    >
+                      <div
+                        className="MuiBox-root MuiBox-root-6 right-block right-image"
+                      >
+                        <img
+                          alt=""
+                          className="building-logo"
+                        />
+                      </div>
+                    </Styled(MuiBox)>
+                  </SidebarImageComponent>
+                </div>
+              </ForwardRef(Grid)>
+            </WithStyles(ForwardRef(Grid))>
+          </div>
+        </ForwardRef(Grid)>
+      </WithStyles(ForwardRef(Grid))>
+    </div>
+  </Styled(MuiBox)>
+</PersonalDocument>
+`;
