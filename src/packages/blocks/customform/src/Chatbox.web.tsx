@@ -32,7 +32,7 @@ import { Formik, Form, Field } from "formik";
 import AttachFileIcon from '@material-ui/icons/AttachFile';
 import InboxController,{Props} from "./inboxController.web";
 import '../assets/css/style.scss'
-import { info, Send } from "./assets";
+import { DoubleTick, info, Send } from "./assets";
 import { NoProfile_Img } from "../../user-profile-basic/src/assets";
 
 class ChatBox extends InboxController {
@@ -230,9 +230,15 @@ console.log(moment( myDate ).calendar())
                                   color: "#081F32",
                                   fontWeight: 500,
                                   fontSize: 14,
-                                  wordBreak: 'break-all'
+                                  wordBreak: 'break-all',
+                                  display:'flex',
+                                  alignItems:'center'
                                 }}
                               >
+                                 {message.message.account_id == currentAccountId &&  <div style={{position:'relative',marginRight:'0.25rem'}}>
+                                <img src={DoubleTick}/> 
+                                <img src={DoubleTick} style={{position:'absolute',left:'-4px'}}/> 
+                                </div>}
                                     {message.message.message}
                               </Typography>
 

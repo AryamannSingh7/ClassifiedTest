@@ -49,7 +49,7 @@ import { dailCode } from "../../email-account-registration/src/code";
 import ChipInput from "material-ui-chip-input";
 import OtpInput from "react-otp-input";
 import InboxWeb from "./Inbox.web";
-import { Building1, info, NoChat, Search, Send } from "./assets";
+import { Building1, DoubleTick, info, NoChat, Search, Send } from "./assets";
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 import Menu from '@material-ui/core/Menu';
 import InboxController,{Props} from "./inboxController.web";
@@ -59,6 +59,7 @@ import AttachFileIcon from '@material-ui/icons/AttachFile';
 
 import '../assets/css/style.scss'
 import { withTranslation } from "react-i18next";
+import { Claender } from "../../Feedback/src/assets";
 class ChairmanChat extends InboxController {
   constructor(props: Props) {
     super(props);
@@ -479,10 +480,16 @@ const currentAccountId = localStorage.getItem('userId')
                                   color: "#081F32",
                                   fontWeight: 500,
                                   fontSize: 14,
-                                  wordBreak: 'break-all'
+                                  wordBreak: 'break-all',
+                                  display:'flex',
+                                  alignItems:'center'
                                 }}
                               >
-                                    {message.message.message}
+                              {message.message.account_id == currentAccountId &&  <div style={{position:'relative',marginRight:'0.25rem'}}>
+                                <img src={DoubleTick}/> 
+                                <img src={DoubleTick} style={{position:'absolute',left:'-4px'}}/> 
+                                </div>}
+                                 {message.message.message}
                               </Typography>
 
                             </>
