@@ -683,10 +683,16 @@ const DialogBox=(props:any)=>{
   const checkPrime=()=>{
     
    return   props.allInbox[0]?.attributes?.chat_with_account?.id == localStorage.getItem('userId')  ? 
-      (props.allInbox[0]?.attributes?.chat_with_account?.attributes?.disable_chat ? ' Enable Chat' :' Disable Chat')
+      check2()
       :
-      props.allInbox[0]?.attributes?.chatable?.attributes?.disable_chat ?' Enable Chat' :' Disable Chat'
+      check3()
      
+  }
+  const check2=()=>{
+return props.allInbox[0]?.attributes?.chat_with_account?.attributes?.disable_chat ? ' Enable Chat' :' Disable Chat'
+  }
+  const check3=()=>{
+return props.allInbox[0]?.attributes?.chatable?.attributes?.disable_chat ?' Enable Chat' :' Disable Chat'
   }
   return(
     <>
