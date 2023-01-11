@@ -17,8 +17,8 @@ export const FaqChairmanStyleWeb: any = {
     "& .contact-us-form .title-input": {
       borderRadius: 8,
       border: "1px solid #ced4da",
-      fontSize: 16,
-      padding: "15px 26px 15px 12px",
+      fontSize: 15,
+      padding: "16px 26px 16px 15px",
       outline: "none",
       background: "#F9F9F9",
     },
@@ -46,16 +46,16 @@ export const FaqChairmanStyleWeb: any = {
     "& .contact-us-form .select-input": {
       borderRadius: 8,
       border: "1px solid #ced4da",
-      fontSize: 16,
-      padding: "15px 26px 15px 12px",
+      fontSize: 15,
+      padding: "16px 26px 16px 15px",
       background: "#F9F9F9",
       color: "black",
     },
     "& .contact-us-form .textarea-input": {
       borderRadius: 8,
       border: "1px solid #ced4da",
-      fontSize: 16,
-      padding: "10px 26px 10px 12px",
+      fontSize: 15,
+      padding: "16px 26px 16px 15px",
       height: "150px",
       outline: "none",
       background: "#F9F9F9",
@@ -68,6 +68,22 @@ export const FaqChairmanStyleWeb: any = {
       background: "#2B6FEC",
       padding: "10px",
       fontWeight: "600",
+    },
+    "& .MuiTypography-body1": {
+      fontSize: 15,
+      lineHeight: "25px"
+    },
+    "& .contact-us-form ::placeholder": {
+      color: "#212121 !important",
+      opacity: "1",
+    },
+    "& .contact-us-form :-ms-input-placeholder": {
+      color: "#212121 !important",
+      opacity: "1",
+    },
+    "& .contact-us-form ::-ms-input-placeholder": {
+      color: "#212121 !important",
+      opacity: "1",
     },
   },
   subscriptionDetails: {

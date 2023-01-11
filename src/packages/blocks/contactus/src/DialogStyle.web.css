@@ -26,6 +26,27 @@
   -o-border-radius: 5px;
 }
 
+.modal-document-box {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 20px;
+  padding: 12px 15px;
+  border: 1px solid lightgray;
+  border-radius: 5px;
+  background: #efefef;
+}
+
+.modal-document-box .left-side-document {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.modal-document-box .right-side-document {
+  cursor: pointer;
+}
+
 .dialog-heading {
   display: flex;
   justify-content: space-between;
