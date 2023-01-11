@@ -154,7 +154,7 @@ class CreateFacilityReservation extends FacilityReservationController {
                                 this.onChange(e) ;
                                 setFieldValue("areaReserve", e.target.value)
                               }}
-                              value={this.state?.areaReserve}
+                              value={values.areaReserve}
                             >
                               <MenuItem disabled value=" ">
                                 Area to Reserve
@@ -244,9 +244,7 @@ class CreateFacilityReservation extends FacilityReservationController {
                          FacilityId ?<Button variant="contained" type="submit">update request</Button>: <Button variant="contained" type="submit">Submit</Button>
                        }
                         </Box>
-                         {JSON.stringify(errors, null, 2)} 
-                         {JSON.stringify(values, null, 2)}
-
+                        
                       </Form>
                     )}
                   </Formik>
