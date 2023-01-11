@@ -173,18 +173,8 @@ export default class InboxController extends BlockComponent<Props, S, SS> {
           this.getInboxRes(responseJson,errorReponse)
           
         } if (apiRequestCallId === this.chatSettingApiCallId) {
-          if (!responseJson.errors) {
-            console.log(responseJson)
-            if (responseJson) {
-              window.location.reload();
-              // this.setState({ allInbox: responseJson.data }, () => console.log(this.state.allInbox))
-            }
-          } else {
-            //Check Error Response
-            // this.parseApiErrorResponse(responseJson);
-          }
-
-          this.parseApiCatchErrorResponse(errorReponse);
+          this.chatSettingRes(responseJson,errorReponse)
+  
         } if (apiRequestCallId === this.getProfileDataAPiCallId) {
           this.getProfileDataRes(responseJson,errorReponse)
       
@@ -208,6 +198,20 @@ export default class InboxController extends BlockComponent<Props, S, SS> {
   }
 
   // Customizable Area Start
+  chatSettingRes(responseJson:any,errorReponse:any){
+    if (!responseJson.errors) {
+      console.log(responseJson)
+      if (responseJson) {
+        window.location.reload();
+        // this.setState({ allInbox: responseJson.data }, () => console.log(this.state.allInbox))
+      }
+    } else {
+      //Check Error Response
+      // this.parseApiErrorResponse(responseJson);
+    }
+
+    this.parseApiCatchErrorResponse(errorReponse);
+  }
   getInboxRes(responseJson:any,errorReponse:any){
     if (!responseJson.errors) {
            

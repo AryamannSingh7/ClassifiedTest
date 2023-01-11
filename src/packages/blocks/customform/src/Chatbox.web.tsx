@@ -432,9 +432,9 @@ export default withRouter(ChatBox as React.ComponentType<any>)
 const MessageSection=(props:any)=>{
   return(<>
   <Grid item xs={12}
-                      style={{display:'flex',alignItems:'flex-start',gap:'0.5rem'}}
+                     
                       // @ts-ignore
-                          style={props.message.message.account_id == props.currentAccountId ? { 'display': 'flex', 'justifyContent': 'end', alignItems: 'center' } : { 'display': 'flex', 'justifyContent': 'start', alignItems: 'center' }}
+                          style={props.message.message.account_id == props.currentAccountId ? { 'display': 'flex', 'justifyContent': 'end', alignItems: 'center',gap:'0.5rem' } : { 'display': 'flex', 'justifyContent': 'start', alignItems: 'center',gap:'0.5rem' }}
                       >
 {
   props.message.message.account_id != props.currentAccountId  ?  <img src={props.item?.attributes?.chat_with_account?.id != localStorage.getItem('userId') ?props.item?.attributes?.chat_with_account?.attributes?.profile_pic?.url || NoProfile_Img:props.item?.attributes?.chatable?.attributes?.profile_pic?.url || NoProfile_Img } alt='profile-pic' width='50' height='50' style={{borderRadius:20,marginRight:5}}/> :null

@@ -824,9 +824,9 @@ const SendMessage=(props:any)=>{
 const MessageSection=(props:any)=>{
   return(<>
   <Grid item xs={12}
-                      style={{display:'flex',alignItems:'flex-start',gap:'0.5rem'}}
+                      
                       // @ts-ignore
-                          style={props.message.message.account_id == props.currentAccountId ? { 'display': 'flex', 'justifyContent': 'end', alignItems: 'center' } : { 'display': 'flex', 'justifyContent': 'start', alignItems: 'center' }}
+                          style={props.message.message.account_id == props.currentAccountId ? { 'display': 'flex', 'justifyContent': 'end', alignItems: 'center',gap:'0.5rem' } : { 'display': 'flex', 'justifyContent': 'start', alignItems: 'center',gap:'0.5rem' }}
                       >
 {
   props.message.message.account_id != props.currentAccountId  ?  <img src={props.message.message.profile_pic.url} alt='profile-pic' width='50' height='50' style={{borderRadius:20,marginRight:5}}/> :null
