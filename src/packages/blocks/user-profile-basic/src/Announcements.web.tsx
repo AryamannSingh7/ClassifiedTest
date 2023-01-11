@@ -118,6 +118,7 @@ class Announcements extends AnnouncementsController {
                           <MenuItem value="announcement_by">{t("Announcement By")}</MenuItem>
                           <MenuItem value="announcement_on">{t("Announcement Date")}</MenuItem>
                           <MenuItem value="title">{t("Title")}</MenuItem>
+                          <MenuItem value="building">{t("Building Name")}</MenuItem>
                         </Select>
                       </Box>
                     </Box>
@@ -129,6 +130,7 @@ class Announcements extends AnnouncementsController {
                           <TableCell>{t("Title")}</TableCell>
                           <TableCell>{t("Announced On")}</TableCell>
                           <TableCell>{t("Category")}</TableCell>
+                          <TableCell>{t("Building / Complex Name")}</TableCell>
                           <TableCell>{t("Announcement By")}</TableCell>
                         </TableRow>
                       </TableHead>
@@ -142,6 +144,7 @@ class Announcements extends AnnouncementsController {
                                     <TableCell className="ellipse">{item.attributes.title}</TableCell>
                                     <TableCell>{moment(item.attributes.announcement_on,'DD/MM/YYYY').format("MMMM DD,YYYY")}</TableCell>
                                     <TableCell>{item.attributes.announcement_category}</TableCell>
+                                    <TableCell>{item.attributes?.building_name !== null ? item.attributes?.building_name : item.attributes?.society_management?.name }</TableCell>
                                     <TableCell>{item.attributes.announcement_by}</TableCell>
                                   </TableRow>
                               )
