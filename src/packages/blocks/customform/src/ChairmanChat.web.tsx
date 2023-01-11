@@ -1,5 +1,5 @@
 // Customizable Area Start
-import React from "react";
+import React, { useRef } from "react";
 import {
   Container,
   Typography,
@@ -63,7 +63,7 @@ class ChairmanChat extends InboxController {
   constructor(props: Props) {
     super(props);
     const messagesEndRef = React.createRef()
-    this.handleClick1 = this.handleClick1.bind(this);
+    // this.handleClick1 = this.handleClick1.bind(this);
   }
 
   async componentDidMount() {
@@ -100,8 +100,7 @@ if(window.history?.state?.state?.data){
 
   let date = new Date(value[value.length-1].message.created_at)
 
-  let d = date.getHours();
-  let m = date.getMinutes();
+  
 
   return this.dateToFromNowDaily(value[value.length-1].message.created_at)
   // return `${d}:${m < 9 ? `0` + m : m} (${moment(value[value.length-1].message.created_at).format("DD MMM YYYY")})`
@@ -122,25 +121,7 @@ if(window.history?.state?.state?.data){
     return `${d}:${m < 9 ? `0` + m : m}`
 
   }
-  handleClick1(e:any) {
 
-    //@ts-ignore
-//@ts-nocheck
-    this.refs.fileUploader.click();
-  }
-
-  handleFile2(file:any) {
-    //@ts-ignore
-//@ts-nocheck
-if (file && !['image/png', 'image/jpeg', 'image/jpg',].includes(file.type)) {
-  return alert('Only png and jpeg are supported.')
-}
-else{
-
-  this.setState({ selectedMedia: { url: URL.createObjectURL(file), mimetype: file.type }, accept: true, file: file },)
-}
-
-  }
 
   // Customizable Area Start
   // Customizable Area End
@@ -527,64 +508,7 @@ this.setState({ selectedMedia: message.message.images[0] })}} src={message.messa
               ))}
             </List>
 
-{
-  item?.attributes?.chatable?.attributes?.disable_chat || item?.attributes?.chat_with_account?.attributes?.disable_chat  ?  <>
-
-  <div style={{display:'flex',justifyContent:'center',alignItems:'center',gap:'0.5rem',background:'#E7E1E1',borderRadius:'6px',boxShadow:'0px 4px 14px #f4f6fb',padding:'0.75rem'}}>
-  <img src={info} width='20' height='20'/>
-  <p>
-
-  {item?.attributes?.chatable?.attributes?.disable_chat? item?.attributes?.chatable?.attributes?.full_name:item?.attributes?.chat_with_account?.attributes?.full_name} has disabled his chat. You won’t be able to send him message unit he enables it.
-  </p>
-  </div>
-  
-  </>:
-
-
-            <Grid container style={{ padding: "20px", display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-
-              <Grid item xs={10} style={{ display: 'flex', alignItems: 'center' }}>
-
-                <input
-                disabled={!this.state.selectedChatRoom}
-                  onKeyPress={event => {
-                    if (event.key === 'Enter') {
-                      this.createMessages()
-                    }
-                  }}
-
-                  onChange={(e) => this.CreateNewMessage(e)} type="" style={{ border: '1px solid #EDEDED', color: '#726363', borderRadius: 15, padding: 10, width: '100%' }} placeholder="Type your message" value={this.state.newMessage}/>
-                {// @ts-ignore
-// @ts-nocheck
-<AttachFileIcon onClick={this.handleClick1} for="BtnBrowseHidden" style={{ cursor: 'pointer' }} />}
-                <input
-                disabled={!this.state.selectedChatRoom}
-
-                  id="BtnBrowseHidden"
-                  type="file"
-                  onChange={(e: any) =>
-                    this.handleFile2(
-                      e.target.files[0]
-                    )
-                  }
-                  style={{
-                    position: "absolute",
-                    height: "10px",
-                    width: "10px",
-                    zIndex: 2,
-                    cursor: "pointer",
-                    opacity: 0
-                  }}
-                  ref="fileUploader"
-                  accept="image/png, image/jpeg, image/jpg,.pdf"
-                />
-              </Grid>
-              <img src={Send} style={{ cursor: 'pointer',borderRadius:'20px',padding:'1rem',background:'#2B6FED' }} onClick={()=>this.createMessages()}/> 
-              {/* <SendIcon style={{ cursor: 'pointer' }} onClick={()=>this.createMessages()} /> */}
-
-            </Grid>
-
-}
+<SendMessage newMessage={this.state.newMessage} selectedChatRoom={this.state.selectedChatRoom} handleFile2={this.handleFile2} createMessages={this.createMessages} CreateNewMessage={this.CreateNewMessage} />
 
           </Grid>
         </Grid>
@@ -929,4 +853,73 @@ const ChatRoomSection=(props:any)=>{
            </Box>
     </>
   )
+}
+
+const SendMessage=(props:any)=>{
+  const inputRef = useRef(null);
+  return(<>
+  {
+  props?.item?.attributes?.chatable?.attributes?.disable_chat || props?.item?.attributes?.chat_with_account?.attributes?.disable_chat  ?  <>
+
+  <div style={{display:'flex',justifyContent:'center',alignItems:'center',gap:'0.5rem',background:'#E7E1E1',borderRadius:'6px',boxShadow:'0px 4px 14px #f4f6fb',padding:'0.75rem'}}>
+  <img src={info} width='20' height='20'/>
+  <p>
+
+  {props?.item?.attributes?.chatable?.attributes?.disable_chat? props?.item?.attributes?.chatable?.attributes?.full_name:props?.item?.attributes?.chat_with_account?.attributes?.full_name} has disabled his chat. You won’t be able to send him message unit he enables it.
+  </p>
+  </div>
+  
+  </>:
+
+
+            <Grid container style={{ padding: "20px", display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+
+              <Grid item xs={10} style={{ display: 'flex', alignItems: 'center' }}>
+
+                <input
+                disabled={!props.selectedChatRoom}
+                  onKeyPress={event => {
+                    if (event.key === 'Enter') {
+                      props.createMessages()
+                    }
+                  }}
+
+                  onChange={(e) =>  props.CreateNewMessage(e)} type="" style={{ border: '1px solid #EDEDED', color: '#726363', borderRadius: 15, padding: 10, width: '100%' }} placeholder="Type your message" value={props.newMessage}/>
+                {// @ts-ignore
+// @ts-nocheck
+<AttachFileIcon
+ onClick={() => {
+  // @ts-ignore
+  // @ts-nocheck
+                 inputRef.current.click();
+              }} 
+              for="BtnBrowseHidden" style={{ cursor: 'pointer' }} />}
+                <input
+                disabled={!props.selectedChatRoom}
+                ref={inputRef}
+                  id="BtnBrowseHidden"
+                  type="file"
+                  onChange={(e: any) =>
+                    props?.handleFile2(
+                      e.target.files[0]
+                    )
+                  }
+                  style={{
+                    position: "absolute",
+                    height: "10px",
+                    width: "10px",
+                    zIndex: 2,
+                    cursor: "pointer",
+                    opacity: 0
+                  }}
+                  accept="image/png, image/jpeg, image/jpg,.pdf"
+                />
+              </Grid>
+              <img src={Send} style={{ cursor: 'pointer',borderRadius:'20px',padding:'1rem',background:'#2B6FED' }} onClick={()=>props.createMessages()}/> 
+              {/* <SendIcon style={{ cursor: 'pointer' }} onClick={()=>this.createMessages()} /> */}
+
+            </Grid>
+
+}
+  </>)
 }

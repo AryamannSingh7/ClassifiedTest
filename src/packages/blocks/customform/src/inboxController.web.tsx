@@ -96,6 +96,9 @@ export default class InboxController extends BlockComponent<Props, S, SS> {
     this.receive = this.receive.bind(this);
 
     // Customizable Area Start
+    this.CreateNewMessage = this.CreateNewMessage.bind(this)
+    this.handleFile2 = this.handleFile2.bind(this)
+
     this.subScribedMessages = [
       getName(MessageEnum.RestAPIRequestMessage),
       getName(MessageEnum.RestAPIResponceMessage),
@@ -1127,6 +1130,25 @@ export default class InboxController extends BlockComponent<Props, S, SS> {
       //     this.disablechat()
       //   }
       // }
+    //   handleClick1(e:any) {
+
+    //     //@ts-ignore
+    // //@ts-nocheck
+    // React.forwardRef().fileUploader.click();
+    //   }
+    
+      handleFile2(file:any) {
+        //@ts-ignore
+    //@ts-nocheck
+    if (file && !['image/png', 'image/jpeg', 'image/jpg',].includes(file.type)) {
+      return alert('Only png and jpeg are supported.')
+    }
+    else{
+    
+      this.setState({ selectedMedia: { url: URL.createObjectURL(file), mimetype: file.type }, accept: true, file: file },)
+    }
+    
+      }
 
   // Customizable Area End
 }
