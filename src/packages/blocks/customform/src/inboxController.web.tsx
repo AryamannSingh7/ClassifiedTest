@@ -197,78 +197,79 @@ export default class InboxController extends BlockComponent<Props, S, SS> {
 
           this.parseApiCatchErrorResponse(errorReponse);
         } if (apiRequestCallId === this.getProfileDataAPiCallId) {
-          if (!responseJson.errors) {
-            console.log(responseJson)
-            this.setState({ profileData: responseJson.data,loading:false }, () => console.log(this.state.profileData))
-          } else {
-            //Check Error Response
-            // this.parseApiErrorResponse(responseJson);
-          }
-
-          this.parseApiCatchErrorResponse(errorReponse);
+          this.getProfileDataRes(responseJson,errorReponse)
+      
         }
         if (apiRequestCallId === this.getCreateMessagesApiCallId) {
-          if (!responseJson.errors) {
-            this.getSingleInbox()
-            // let tempArray = this.state.singleChatRoom[Object.keys(this.state.singleChatRoom)[Object.keys(obj).length - 1]]
-
-            // tempArray.push(responseJson.data)
-            this.setState({  newMessage: '' });
-          } else {
-            //Check Error Response
-            // this.parseApiErrorResponse(responseJson);
-          }
-
-          this.parseApiCatchErrorResponse(errorReponse);
+          this.getCreateMessages(responseJson,errorReponse)
+          
         }
         if (apiRequestCallId === this.getSingleInboxApiCallId) {
-          if (!responseJson.errors) {
-            console.log(responseJson.data)
-            this.setState({ singleChatRoom: responseJson.data[0].attributes.messages })
-    this.setState({ singleChatRoom: responseJson.data[0].attributes.messages, selectedChatRoomId: responseJson.data[0].id, allInboxKey: Object.keys(responseJson.data[0].attributes.messages) }, () => console.log("djhjskjhdksj",this.state.allInboxKey))
-
-            localStorage.setItem('selectedChat', JSON.stringify(responseJson.data[0]))
-            this.forceUpdate()
-          } else {
-            //Check Error Response
-            this.parseApiErrorResponse(responseJson);
-          }
-
-          this.parseApiCatchErrorResponse(errorReponse);
+          this.getSingleInboxRes(responseJson,errorReponse)
+          
         }
         if (apiRequestCallId === this.markUnreadAPIcallId) {
-          if (!responseJson.errors) {
-            
-            this.forceUpdate()
-          } else {
-            //Check Error Response
-            this.parseApiErrorResponse(responseJson);
-          }
-
-          this.parseApiCatchErrorResponse(errorReponse);
+          this.markUnreadRes(responseJson,errorReponse)
+         
         }
-        if (apiRequestCallId === this.updateVehicleApiCallId) {
-          if (!responseJson.errors) {
-            console.log(responseJson)
-            //@ts-ignore
-            //@ts-nocheck
-            localStorage.removeItem('selectCar')
-            this.props.history.push('/familylist')
-          } else {
-            //Check Error Response
-            this.parseApiErrorResponse(responseJson);
-          }
-
-          this.parseApiCatchErrorResponse(errorReponse);
-        }
+        
       }
     }
     // Customizable Area End
   }
 
   // Customizable Area Start
+  markUnreadRes(responseJson:any,errorReponse:any){
+    if (!responseJson.errors) {
+            
+      this.forceUpdate()
+    } else {
+      //Check Error Response
+      this.parseApiErrorResponse(responseJson);
+    }
 
+    this.parseApiCatchErrorResponse(errorReponse);
+  }
+  getSingleInboxRes(responseJson:any,errorReponse:any){
+    if (!responseJson.errors) {
+      console.log(responseJson.data)
+      this.setState({ singleChatRoom: responseJson.data[0].attributes.messages })
+this.setState({ singleChatRoom: responseJson.data[0].attributes.messages, selectedChatRoomId: responseJson.data[0].id, allInboxKey: Object.keys(responseJson.data[0].attributes.messages) }, () => console.log("djhjskjhdksj",this.state.allInboxKey))
 
+      localStorage.setItem('selectedChat', JSON.stringify(responseJson.data[0]))
+      this.forceUpdate()
+    } else {
+      //Check Error Response
+      this.parseApiErrorResponse(responseJson);
+    }
+
+    this.parseApiCatchErrorResponse(errorReponse);
+  }
+  getCreateMessages(responseJson:any,errorReponse:any){
+    if (!responseJson.errors) {
+      this.getSingleInbox()
+      // let tempArray = this.state.singleChatRoom[Object.keys(this.state.singleChatRoom)[Object.keys(obj).length - 1]]
+
+      // tempArray.push(responseJson.data)
+      this.setState({  newMessage: '' });
+    } else {
+      //Check Error Response
+      // this.parseApiErrorResponse(responseJson);
+    }
+
+    this.parseApiCatchErrorResponse(errorReponse);
+  }
+  getProfileDataRes(responseJson:any,errorReponse:any){
+    if (!responseJson.errors) {
+      console.log(responseJson)
+      this.setState({ profileData: responseJson.data,loading:false }, () => console.log(this.state.profileData))
+    } else {
+      //Check Error Response
+      // this.parseApiErrorResponse(responseJson);
+    }
+
+    this.parseApiCatchErrorResponse(errorReponse);
+  }
   getToken = () => {
     const msg: Message = new Message(
       getName(MessageEnum.SessionRequestMessage)
@@ -957,17 +958,7 @@ export default class InboxController extends BlockComponent<Props, S, SS> {
         this.setState({singleChatRoom: window.history?.state?.state?.data.attributes.messages ,selectedChatRoom:window.history?.state?.state?.data,allInboxKey: Object.keys(window.history?.state?.state?.data.attributes.messages)},()=>console.log('mystate',this.state))
       }
 
-      // enableDisableChat=()=>{
-      //   if(value){
-      //     this.disablechat()
-      //   }
-      // }
-    //   handleClick1(e:any) {
-
-    //     //@ts-ignore
-    // //@ts-nocheck
-    // React.forwardRef().fileUploader.click();
-    //   }
+     
     
       handleFile2(file:any) {
         //@ts-ignore
