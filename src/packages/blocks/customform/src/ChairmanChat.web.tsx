@@ -528,13 +528,13 @@ this.setState({ selectedMedia: message.message.images[0] })}} src={message.messa
             </List>
 
 {
-  item?.attributes?.chatable?.attributes?.disable_chat ? <>
+  item?.attributes?.chatable?.attributes?.disable_chat || item?.attributes?.chat_with_account?.attributes?.disable_chat  ?  <>
 
   <div style={{display:'flex',justifyContent:'center',alignItems:'center',gap:'0.5rem',background:'#E7E1E1',borderRadius:'6px',boxShadow:'0px 4px 14px #f4f6fb',padding:'0.75rem'}}>
   <img src={info} width='20' height='20'/>
   <p>
 
-  {item?.attributes?.chatable?.attributes?.full_name} has disabled his chat. You won’t be able to send him message unit he enables it.
+  {item?.attributes?.chatable?.attributes?.disable_chat? item?.attributes?.chatable?.attributes?.full_name:item?.attributes?.chat_with_account?.attributes?.full_name} has disabled his chat. You won’t be able to send him message unit he enables it.
   </p>
   </div>
   
@@ -866,7 +866,10 @@ const DialogBox=(props:any)=>{
 
               <p style={{ fontWeight: 800, fontSize: '1.5rem', textAlign: 'center' }}>
                {
-                props.allInbox[0]?.attributes?.chatable?.attributes?.disable_chat ? 'Enable Chat' :'Disable Chat'
+                props.allInbox[0]?.attributes?.chat_with_account?.id == localStorage.getItem('userId')  ? 
+                props.allInbox[0]?.attributes?.chat_with_account?.attributes?.disable_chat ?' Enable Chat' :' Disable Chat'
+                :
+                props.allInbox[0]?.attributes?.chatable?.attributes?.disable_chat ?' Enable Chat' :' Disable Chat'
                }  Functionality?
 
               </p>
@@ -876,7 +879,10 @@ const DialogBox=(props:any)=>{
             <Grid xs={12} style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', marginBottom: 10 }}>
               <p style={{ fontWeight: 400, fontSize: '0.8rem', textAlign: 'center' }}>
                 Are you sure want to {
-                props.allInbox[0]?.attributes?.chatable?.attributes?.disable_chat ? 'Enable Chat' :'Disable Chat'
+                props.allInbox[0]?.attributes?.chat_with_account?.id == localStorage.getItem('userId')  ? 
+                props.allInbox[0]?.attributes?.chat_with_account?.attributes?.disable_chat ?' Enable Chat' :' Disable Chat'
+                :
+                props.allInbox[0]?.attributes?.chatable?.attributes?.disable_chat ?' Enable Chat' :' Disable Chat'
                } functionality? No one will be able to send you any messages while it is disabled.
               </p>
             </Grid>
@@ -886,15 +892,21 @@ const DialogBox=(props:any)=>{
               <Button variant="contained" onClick={() => props.disableChat()} style={{width:'12rem'}}  >
                 Yes
                 {
-                  props.allInbox[0]?.attributes?.chatable?.attributes?.disable_chat ? ' Enable' :' Disable'
-                }
+                props.allInbox[0]?.attributes?.chat_with_account?.id == localStorage.getItem('userId')  ? 
+                props.allInbox[0]?.attributes?.chat_with_account?.attributes?.disable_chat ?' Enable Chat' :' Disable Chat'
+                :
+                props.allInbox[0]?.attributes?.chatable?.attributes?.disable_chat ?' Enable Chat' :' Disable Chat'
+               }
                  
               </Button>
               <Button variant='text' onClick={props.onClickHandle} style={{width:'fit-content',border:'1px solid #668DE7',color:'#668DE7'}} >
                 No, don’t
                 {
-                  props.allInbox[0]?.attributes?.chatable?.attributes?.disable_chat ? ' Enable' :' Disable'
-                }
+                props.allInbox[0]?.attributes?.chat_with_account?.id == localStorage.getItem('userId')  ? 
+                props.allInbox[0]?.attributes?.chat_with_account?.attributes?.disable_chat ?' Enable Chat' :' Disable Chat'
+                :
+                props.allInbox[0]?.attributes?.chatable?.attributes?.disable_chat ?' Enable Chat' :' Disable Chat'
+               }
               </Button>
             </DialogActions>
           </Box>

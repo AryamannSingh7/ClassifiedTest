@@ -253,7 +253,8 @@ export default class InboxController extends BlockComponent<Props, S, SS> {
            
             if (responseJson.data) {
 
-              this.setState({ allInbox: responseJson.data,loading:false,switchVaule: responseJson.data[0]?.attributes?.chatable?.attributes?.disable_chat})
+              this.setState({ allInbox: responseJson.data,loading:false,switchVaule: responseJson.data[0]?.attributes?.chat_with_account?.id == localStorage.getItem('userId') ?responseJson.data[0]?.attributes?.chat_with_account?.attributes?.disable_chat : responseJson.data[0]?.attributes?.attributes?.chatable?.attributes?.disable_chat})
+              console.log(responseJson.data[0]?.attributes?.chat_with_account?.id == localStorage.getItem('userId') ?responseJson.data[0]?.attributes?.chat_with_account?.attributes?.disable_chat : responseJson.data[0]?.attributes?.attributes?.chatable?.attributes?.disable_chat)
             }
           } else {
             //Check Error Response
@@ -1017,7 +1018,12 @@ export default class InboxController extends BlockComponent<Props, S, SS> {
       getName(MessageEnum.RestAPIRequestMessage)
     );
     this.chatSettingApiCallId = requestMessage.messageId;
-    let value = this.state.allInbox[0]?.attributes?.chatable?.attributes?.disable_chat 
+    let value =   
+      this.state.allInbox[0]?.attributes?.chat_with_account?.id == localStorage.getItem('userId')  ? 
+      this.state.allInbox[0]?.attributes?.chat_with_account?.attributes?.disable_chat
+      :
+      this.state.allInbox[0]?.attributes?.chatable?.attributes?.disable_chat
+     
 
 
     requestMessage.addData(
