@@ -137,7 +137,7 @@ export default class CoverImageController extends BlockComponent<
   visitorAddSchema() {
     const validations = Yup.object().shape({
       // @ts-ignore
-      visitorName: Yup.string().required(`Visitor Name is required`).trim().matches("^[a-zA-Z\-]+$","Only characters are allowed in name"),
+      visitorName: Yup.string().required(`Visitor Name is required`).trim().matches(/^[A-Za-z\s]*$/,"Only characters are allowed in name"),
       phone: Yup.number()
           .typeError("Only numbers are allowed.")
           .required("Mobile number is required.")
