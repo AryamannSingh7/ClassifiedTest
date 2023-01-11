@@ -170,19 +170,8 @@ export default class InboxController extends BlockComponent<Props, S, SS> {
         
 
          if (apiRequestCallId === this.getInboxApiCallId) {
-          if (!responseJson.errors) {
-           
-            if (responseJson.data) {
-
-              this.setState({ allInbox: responseJson.data,loading:false,switchVaule: responseJson.data[0]?.attributes?.chat_with_account?.id == localStorage.getItem('userId') ?responseJson.data[0]?.attributes?.chat_with_account?.attributes?.disable_chat : responseJson.data[0]?.attributes?.attributes?.chatable?.attributes?.disable_chat})
-              console.log(responseJson.data[0]?.attributes?.chat_with_account?.id == localStorage.getItem('userId') ?responseJson.data[0]?.attributes?.chat_with_account?.attributes?.disable_chat : responseJson.data[0]?.attributes?.attributes?.chatable?.attributes?.disable_chat)
-            }
-          } else {
-            //Check Error Response
-            // this.parseApiErrorResponse(responseJson);
-          }
-
-          this.parseApiCatchErrorResponse(errorReponse);
+          this.getSingleInboxRes(responseJson,errorReponse)
+          
         } if (apiRequestCallId === this.chatSettingApiCallId) {
           if (!responseJson.errors) {
             console.log(responseJson)
@@ -219,6 +208,21 @@ export default class InboxController extends BlockComponent<Props, S, SS> {
   }
 
   // Customizable Area Start
+  getSingleInboxRes(responseJson:any,errorReponse:any){
+    if (!responseJson.errors) {
+           
+      if (responseJson.data) {
+
+        this.setState({ allInbox: responseJson.data,loading:false,switchVaule: responseJson.data[0]?.attributes?.chat_with_account?.id == localStorage.getItem('userId') ?responseJson.data[0]?.attributes?.chat_with_account?.attributes?.disable_chat : responseJson.data[0]?.attributes?.attributes?.chatable?.attributes?.disable_chat})
+        console.log(responseJson.data[0]?.attributes?.chat_with_account?.id == localStorage.getItem('userId') ?responseJson.data[0]?.attributes?.chat_with_account?.attributes?.disable_chat : responseJson.data[0]?.attributes?.attributes?.chatable?.attributes?.disable_chat)
+      }
+    } else {
+      //Check Error Response
+      // this.parseApiErrorResponse(responseJson);
+    }
+
+    this.parseApiCatchErrorResponse(errorReponse);
+  }
   markUnreadRes(responseJson:any,errorReponse:any){
     if (!responseJson.errors) {
             
