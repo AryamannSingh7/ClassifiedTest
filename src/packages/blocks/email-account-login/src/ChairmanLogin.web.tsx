@@ -150,7 +150,7 @@ class ChairmanLogin extends ChairmanAccountLoginController {
                                 ))
                               }
 
-                            </Select>
+                            </Select> 
                             <ErrorMessage className="text-error" component="Typography" name="userType" />
                           </FormControl>
                         </Box>
