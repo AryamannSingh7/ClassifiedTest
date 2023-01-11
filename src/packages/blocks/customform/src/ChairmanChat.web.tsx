@@ -59,11 +59,12 @@ import AttachFileIcon from '@material-ui/icons/AttachFile';
 
 import '../assets/css/style.scss'
 import { withTranslation } from "react-i18next";
+import { checkPrime } from "crypto";
 class ChairmanChat extends InboxController {
   constructor(props: Props) {
     super(props);
     const messagesEndRef = React.createRef()
-    // this.handleClick1 = this.handleClick1.bind(this);
+   
   }
 
   async componentDidMount() {
@@ -402,104 +403,9 @@ const currentAccountId = localStorage.getItem('userId')
 
                   <ListItem key={i}>
                     <Grid container>
-                      <Grid item xs={12}
-                      style={{display:'flex',alignItems:'flex-start',gap:'0.5rem'}}
-                      // @ts-ignore
-                          style={message.message.account_id == currentAccountId ? { 'display': 'flex', 'justifyContent': 'end', alignItems: 'center' } : { 'display': 'flex', 'justifyContent': 'start', alignItems: 'center' }}
-                      >
-{
-  message.message.account_id != currentAccountId  ?  <img src={message.message.profile_pic.url} alt='profile-pic' width='50' height='50' style={{borderRadius:20,marginRight:5}}/> :null
-}
-
-
-{/* <img src=""/> */}
-
-
-                      <Box style={{background:'#f6f6f6',borderRadius:'6px',padding:'0.5rem',borderTopRightRadius:0}}>
-
-
-                        <Typography
-                          style={{
-                            color: "#081F32",
-                            fontFamily: "Poppins",
-                            fontWeight: 500,
-                            fontSize: 14,
-                            marginLeft: 5
-                          }}
-                        align={
-                          message.message.account_id == currentAccountId
-                            ? "right"
-                            : "left"
-                        }
-                        >
-
-                        </Typography>
-
-
-                        {
-                              message.message.message.length > 45 ?
-                            <>
-                              <Typography
-                                style={{
-                                  color: "#081F32",
-                                  fontWeight: 500,
-                                  fontSize: 14,
-                                  wordBreak: 'break-all'
-                                }}
-                                align='left'
-                              >
-                                    {message.message.message}
-                              </Typography>
-
-
-                            </>
-
-                            :
-
-                            <>
-                              <Typography
-                                style={{
-                                  color: "#081F32",
-                                  fontWeight: 500,
-                                  fontSize: 14,
-                                  wordBreak: 'break-all',
-                                  display:'flex',
-                                  alignItems:'center'
-                                }}
-                              >
-                              {message.message.account_id == currentAccountId &&  <div style={{position:'relative',marginRight:'0.25rem'}}>
-                                <img src={DoubleTick}/> 
-                                <img src={DoubleTick} style={{position:'absolute',left:'-4px'}}/> 
-                                </div>}
-                                 {message.message.message}
-                              </Typography>
-
-                            </>
-                        }
-
-
-
-                      {
-                              message?.message?.images.length !=0 ?
-                          <Grid item xs={12}
-                          >
-
-                                  <img style={{ 'cursor': 'pointer' }} onClick={() => {//@ts-ignore
+                      <MessageSection handleClick={() => {//@ts-ignore
 //@ts-nocheck
-this.setState({ selectedMedia: message.message.images[0] })}} src={message.message.images[0].url} width="75" height="75" />
-                          </Grid>
-                          :
-                          null
-
-                      }
-
-                        <ListItemText
-                        
-                        style={ message.message.account_id == currentAccountId?{textAlign:"right"}:{textAlign:"left"}}
-                              secondary={this.displaytime2(message.message.created_at)}
-                        />
-                     </Box>
-                      </Grid>
+this.setState({ selectedMedia: message.message.images[0] })}}  message={message} displaytime2={this.displaytime2} currentAccountId={currentAccountId} />
                     </Grid>
                   </ListItem>
                   </>)
@@ -716,20 +622,19 @@ function displaytime(obj:any) {
 
 let date = new Date(value[value.length-1].message.created_at)
 
-let d = date.getHours();
-let m = date.getMinutes();
 
-return dateToFromNowDaily(value[value.length-1].message.created_at)
-// return `${d}:${m < 9 ? `0` + m : m} (${moment(value[value.length-1].message.created_at).format("DD MMM YYYY")})`
+
+return dateToFromNowDaily1(value[value.length-1].message.created_at)
+
 }else{
 return ''
 }
 
 }
-const dateToFromNowDaily=( myDate:any )=> {
+const dateToFromNowDaily1=( myDate:any )=> {
 
   // get from-now for this date
-  var fromNow = moment.utc( myDate ).fromNow();
+  let fromNow = moment.utc( myDate ).fromNow();
 
   // ensure the date is displayed with today and yesterday
   return moment( myDate ).calendar( null, {
@@ -777,6 +682,14 @@ const dateToFromNowDaily=( myDate:any )=> {
 }
 
 const DialogBox=(props:any)=>{
+  const checkPrime=()=>{
+    
+   return   props.allInbox[0]?.attributes?.chat_with_account?.id == localStorage.getItem('userId')  ? 
+      props.allInbox[0]?.attributes?.chat_with_account?.attributes?.disable_chat ? ' Enable Chat' :' Disable Chat'
+      :
+      props.allInbox[0]?.attributes?.chatable?.attributes?.disable_chat ?' Enable Chat' :' Disable Chat'
+     
+  }
   return(
     <>
       <Grid container>
@@ -789,12 +702,7 @@ const DialogBox=(props:any)=>{
             <Grid xs={12} style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', marginBottom: 10 }}>
 
               <p style={{ fontWeight: 800, fontSize: '1.5rem', textAlign: 'center' }}>
-               {
-                props.allInbox[0]?.attributes?.chat_with_account?.id == localStorage.getItem('userId')  ? 
-                props.allInbox[0]?.attributes?.chat_with_account?.attributes?.disable_chat ?' Enable Chat' :' Disable Chat'
-                :
-                props.allInbox[0]?.attributes?.chatable?.attributes?.disable_chat ?' Enable Chat' :' Disable Chat'
-               }  Functionality?
+             {checkPrime()}  Functionality?
 
               </p>
             </Grid>
@@ -802,12 +710,7 @@ const DialogBox=(props:any)=>{
           <Grid container>
             <Grid xs={12} style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', marginBottom: 10 }}>
               <p style={{ fontWeight: 400, fontSize: '0.8rem', textAlign: 'center' }}>
-                Are you sure want to {
-                props.allInbox[0]?.attributes?.chat_with_account?.id == localStorage.getItem('userId')  ? 
-                props.allInbox[0]?.attributes?.chat_with_account?.attributes?.disable_chat ?' Enable Chat' :' Disable Chat'
-                :
-                props.allInbox[0]?.attributes?.chatable?.attributes?.disable_chat ?' Enable Chat' :' Disable Chat'
-               } functionality? No one will be able to send you any messages while it is disabled.
+                Are you sure want to  {checkPrime()} functionality? No one will be able to send you any messages while it is disabled.
               </p>
             </Grid>
           </Grid>
@@ -815,22 +718,12 @@ const DialogBox=(props:any)=>{
             <DialogActions className="customButton" style={{display:'flex',gap:'1rem',justifyContent:'center',flexDirection:'row-reverse'}}>
               <Button variant="contained" onClick={() => props.disableChat()} style={{width:'12rem'}}  >
                 Yes
-                {
-                props.allInbox[0]?.attributes?.chat_with_account?.id == localStorage.getItem('userId')  ? 
-                props.allInbox[0]?.attributes?.chat_with_account?.attributes?.disable_chat ?' Enable Chat' :' Disable Chat'
-                :
-                props.allInbox[0]?.attributes?.chatable?.attributes?.disable_chat ?' Enable Chat' :' Disable Chat'
-               }
+                {checkPrime()}
                  
               </Button>
               <Button variant='text' onClick={props.onClickHandle} style={{width:'fit-content',border:'1px solid #668DE7',color:'#668DE7'}} >
                 No, don’t
-                {
-                props.allInbox[0]?.attributes?.chat_with_account?.id == localStorage.getItem('userId')  ? 
-                props.allInbox[0]?.attributes?.chat_with_account?.attributes?.disable_chat ?' Enable Chat' :' Disable Chat'
-                :
-                props.allInbox[0]?.attributes?.chatable?.attributes?.disable_chat ?' Enable Chat' :' Disable Chat'
-               }
+                {checkPrime()}
               </Button>
             </DialogActions>
           </Box>
@@ -921,5 +814,106 @@ const SendMessage=(props:any)=>{
             </Grid>
 
 }
+  </>)
+}
+
+const MessageSection=(props:any)=>{
+  return(<>
+  <Grid item xs={12}
+                      style={{display:'flex',alignItems:'flex-start',gap:'0.5rem'}}
+                      // @ts-ignore
+                          style={props.message.message.account_id == props.currentAccountId ? { 'display': 'flex', 'justifyContent': 'end', alignItems: 'center' } : { 'display': 'flex', 'justifyContent': 'start', alignItems: 'center' }}
+                      >
+{
+  props.message.message.account_id != props.currentAccountId  ?  <img src={props.message.message.profile_pic.url} alt='profile-pic' width='50' height='50' style={{borderRadius:20,marginRight:5}}/> :null
+}
+
+
+{/* <img src=""/> */}
+
+
+                      <Box style={{background:'#f6f6f6',borderRadius:'6px',padding:'0.5rem',borderTopRightRadius:0}}>
+
+
+                        <Typography
+                          style={{
+                            color: "#081F32",
+                            fontFamily: "Poppins",
+                            fontWeight: 500,
+                            fontSize: 14,
+                            marginLeft: 5
+                          }}
+                        align={
+                          props.message.message.account_id == props.currentAccountId
+                            ? "right"
+                            : "left"
+                        }
+                        >
+
+                        </Typography>
+
+
+                        {
+                              props.message.message.message.length > 45 ?
+                            <>
+                              <Typography
+                                style={{
+                                  color: "#081F32",
+                                  fontWeight: 500,
+                                  fontSize: 14,
+                                  wordBreak: 'break-all'
+                                }}
+                                align='left'
+                              >
+                                    {props.message.message.message}
+                              </Typography>
+
+
+                            </>
+
+                            :
+
+                            <>
+                              <Typography
+                                style={{
+                                  color: "#081F32",
+                                  fontWeight: 500,
+                                  fontSize: 14,
+                                  wordBreak: 'break-all',
+                                  display:'flex',
+                                  alignItems:'center'
+                                }}
+                              >
+                              {props.message.message.account_id == props.currentAccountId &&  <div style={{position:'relative',marginRight:'0.25rem'}}>
+                                <img src={DoubleTick}/> 
+                                <img src={DoubleTick} style={{position:'absolute',left:'-4px'}}/> 
+                                </div>}
+                                 {props.message.message.message}
+                              </Typography>
+
+                            </>
+                        }
+
+
+
+                      {
+                              props.message?.message?.images.length !=0 ?
+                          <Grid item xs={12}
+                          >
+
+                                  <img style={{ 'cursor': 'pointer' }} onClick={props.handleClick} src={props.message.message.images[0].url} width="75" height="75" />
+                          </Grid>
+                          :
+                          null
+
+                      }
+
+                        <ListItemText
+                        
+                        style={ props.message.message.account_id == props.currentAccountId?{textAlign:"right"}:{textAlign:"left"}}
+                              secondary={props.displaytime2(props.message.message.created_at)}
+                        />
+                     </Box>
+                      </Grid>
   </>)
 }
