@@ -24,14 +24,11 @@ import {
 } from "@material-ui/core";
 import "../../dashboard/src/Dashboard.web.css";
 import Box from "@material-ui/core/Box";
-//@ts-ignore
-import Pagination from "@material-ui/lab/Pagination";
 import Grid from "@material-ui/core/Grid";
 import SharedAreaController, { Props } from "./SharedAreaController.web";
 import DashboardHeader from "../../dashboard/src/DashboardHeader.web";
 import ChairmanSidebar from "../../dashboard/src/ChairmanSidebar.web";
 import { withTranslation } from "react-i18next";
-import "../../../web/src/i18n.js";
 import "./style.css";
 //@ts-ignore
 import Slider from "react-slick";
@@ -57,8 +54,7 @@ class SharedArea extends SharedAreaController {
   }
 
   render() {
-    const { t }: any = this.props;
-    const { classes } = this.props;
+    const { t, classes }: any = this.props;
 
     return (
       <>
@@ -115,7 +111,7 @@ class SharedArea extends SharedAreaController {
                           <Slider ref={(c: any) => (this.slider = c)} {...settings}>
                             {this.state.sharedAreaData.photos.map((image: any, index: number) => {
                               return (
-                                <div onClick={() => this.setState({ imageBox: true, photoIndex: index })} key={index}>
+                                <div className="slider-image-box" onClick={() => this.setState({ imageBox: true, photoIndex: index })} key={index}>
                                   <img src={image.url} alt="" />
                                 </div>
                               );
@@ -147,7 +143,7 @@ class SharedArea extends SharedAreaController {
                     prevSrc={
                       this.state.sharedAreaData.photos[
                         (this.state.photoIndex + this.state.sharedAreaData.photos.length - 1) %
-                          this.state.sharedAreaData.photos.length
+                        this.state.sharedAreaData.photos.length
                       ].url
                     }
                     onCloseRequest={() => this.setState({ imageBox: false })}
@@ -178,7 +174,7 @@ class SharedArea extends SharedAreaController {
                         </p>
                         <p>
                           {t("Reservation fees")}:{" "}
-                          <span>{this.state.sharedAreaData.reservationFee || "-"} per hour</span>
+                          <span>{this.state.sharedAreaData.currency}{" "}{this.state.sharedAreaData.reservationFee || "-"} {t("per hour")}</span>
                         </p>
                       </Box>
                       {this.state.sharedAreaData.floorPlan && (
@@ -264,7 +260,7 @@ class SharedArea extends SharedAreaController {
           </Box>
         </Box>
 
-        <Dialog className="edit-profile" open={this.state.setComplexEditOpen} scroll="paper" fullWidth maxWidth="md">
+        <Dialog className="edit-profile edit-share-area-modal" open={this.state.setComplexEditOpen} scroll="paper" fullWidth maxWidth="md">
           <MuiDialogTitle disableTypography className="dialog-heading">
             <Typography variant="h6">{t("Edit Details")}</Typography>
             <IconButton onClick={() => this.handleSharedAreaEditModal()}>
@@ -383,6 +379,7 @@ class SharedArea extends SharedAreaController {
                             ref={(ref: any) => (this.uploadFile = ref)}
                             style={{ display: "none" }}
                             accept=".pdf"
+                            className="floor-plan-pdf"
                             onChange={(e: any) => {
                               const file = e.target.files[0];
                               setFieldValue("floorPlan", file);
