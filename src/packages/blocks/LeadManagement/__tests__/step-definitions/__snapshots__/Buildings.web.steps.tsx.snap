@@ -12824,7 +12824,7 @@ exports[`Buildings User navigates to Buildings 1`] = `
                                               >
                                                 <p />
                                                 <h2>
-                                                  -
+                                                   
                                                 </h2>
                                               </div>
                                             </ForwardRef(Paper)>

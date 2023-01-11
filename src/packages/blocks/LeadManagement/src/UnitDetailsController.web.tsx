@@ -61,6 +61,7 @@ interface UnitData {
   city: string;
   floor: string;
   size: string;
+  measurement: string;
   configuration: string;
   purchasePrice: string;
   purchaseDate: string;
@@ -144,6 +145,7 @@ export default class UnitDetailsController extends BlockComponent<Props, S, SS> 
         city: "",
         floor: "",
         size: "",
+        measurement: "",
         configuration: "",
         purchasePrice: "",
         purchaseDate: "",
@@ -215,6 +217,7 @@ export default class UnitDetailsController extends BlockComponent<Props, S, SS> 
             city: responseJson.data.attributes.city,
             floor: responseJson.data.attributes.floor_number,
             size: responseJson.data.attributes.size,
+            measurement: responseJson.data.attributes.society_management.measurement_unit,
             configuration: responseJson.data.attributes.configuration,
             purchasePrice: responseJson.data.attributes.purchase_price,
             purchaseDate: responseJson.data.attributes.purchase_date,
@@ -542,7 +545,8 @@ export default class UnitDetailsController extends BlockComponent<Props, S, SS> 
   editUnitDetailValidation = Yup.object().shape({
     size: Yup.string()
       .required("Required")
-      .matches(/\S/, "Required"),
+      .matches(/\S/, "Required")
+      .matches(/^\d+$/, "Only digit allowed"),
     configuration: Yup.string()
       .required("Required")
       .matches(/\S/, "Required"),

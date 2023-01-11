@@ -44,6 +44,7 @@ interface BuildingData {
   photos: any[];
   aboutBuilding: string;
   buildingArea: string;
+  measurement: string;
   totalFloor: string;
   totalUnit: string;
   sharedAreaList: any[];
@@ -141,6 +142,7 @@ export default class BuildingsController extends BlockComponent<Props, S, SS> {
         photos: [],
         aboutBuilding: "",
         buildingArea: "",
+        measurement: "",
         totalFloor: "",
         totalUnit: "",
         sharedAreaList: [],
@@ -219,6 +221,7 @@ export default class BuildingsController extends BlockComponent<Props, S, SS> {
             sharedAreaList: responseJson.data.attributes.shared_area,
             lat: responseJson.data.attributes.lat,
             long: responseJson.data.attributes.long,
+            measurement: responseJson.data.attributes.society_management.measurement_unit,
           },
         });
       }
@@ -320,7 +323,8 @@ export default class BuildingsController extends BlockComponent<Props, S, SS> {
 
     apiRequest.addData(
       getName(MessageEnum.RestAPIResponceEndPointMessage),
-      `bx_block_settings/apartment_managements/apartment_list?building_management_id=${this.state.buildingId
+      `bx_block_settings/apartment_managements/apartment_list?building_management_id=${
+        this.state.buildingId
       }&per_page=5&page=${page}&status=${status === "-" ? "" : status}`
     );
 
@@ -422,7 +426,7 @@ export default class BuildingsController extends BlockComponent<Props, S, SS> {
 
     runEngine.sendMessage(apiRequest.id, apiRequest);
     return true;
-  }
+  };
 
   // Handle State
   slider: any;
@@ -483,7 +487,8 @@ export default class BuildingsController extends BlockComponent<Props, S, SS> {
       .matches(/\S/, "Required"),
     buildingArea: Yup.string()
       .required("Required")
-      .matches(/\S/, "Required"),
+      .matches(/\S/, "Required")
+      .matches(/^\d+$/, "Only digit allowed"),
     photos: Yup.array().min(1, "Required"),
   });
 
@@ -521,6 +526,6 @@ export default class BuildingsController extends BlockComponent<Props, S, SS> {
         this.handleEditBuildingModal();
       }
     );
-  }
+  };
   // Customizable Area End
 }

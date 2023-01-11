@@ -280,7 +280,9 @@ class Complex extends ComplexController {
                     <Grid item sm={4}>
                       <Card>
                         <p>{t("Complex Area")}</p>
-                        <h2>{this.state.complexData.complexArea + " " + this.state.complexData.measurement}</h2>
+                        <h2>
+                          {this.state.complexData.complexArea || ""} {this.state.complexData.measurement || " "}
+                        </h2>
                       </Card>
                     </Grid>
                     <Grid item sm={4}>

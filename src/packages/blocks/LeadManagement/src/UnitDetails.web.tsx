@@ -76,7 +76,7 @@ const settings = {
   swipeToSlide: true,
 };
 
-const LocationPin = ({ }: any) => <img src={mapLocation} />;
+const LocationPin = ({  }: any) => <img src={mapLocation} />;
 
 class UnitDetails extends UnitDetailsController {
   constructor(props: Props) {
@@ -184,7 +184,9 @@ class UnitDetails extends UnitDetailsController {
                           <img src={size} style={dashBoard.locationIcon} />
                           <Box className="location-info">
                             <p>{t("Size")}</p>
-                            <h4>{this.state.unitData.size || "-"}</h4>
+                            <h4>
+                              {this.state.unitData.size || ""} {this.state.unitData.measurement || ""}
+                            </h4>
                           </Box>
                         </Card>
                       </Grid>
@@ -561,7 +563,10 @@ class UnitDetails extends UnitDetailsController {
                         <Slider ref={(c: any) => (this.slider = c)} {...settings}>
                           {this.state.unitData.photos.map((image: any, index: number) => {
                             return (
-                              <div className="slider-image" onClick={() => this.setState({ imageBox: true, photoIndex: index })}>
+                              <div
+                                className="slider-image"
+                                onClick={() => this.setState({ imageBox: true, photoIndex: index })}
+                              >
                                 <img src={image.url} alt="" />
                               </div>
                             );
@@ -590,7 +595,7 @@ class UnitDetails extends UnitDetailsController {
                     prevSrc={
                       this.state.unitData.photos[
                         (this.state.photoIndex + this.state.unitData.photos.length - 1) %
-                        this.state.unitData.photos.length
+                          this.state.unitData.photos.length
                       ].url
                     }
                     onCloseRequest={() => this.setState({ imageBox: false })}
@@ -796,7 +801,13 @@ class UnitDetails extends UnitDetailsController {
         </Dialog>
 
         {/* Google Map */}
-        <Dialog className="edit-profile unit-map-modal" open={this.state.isOpenMapModalOpen} scroll="paper" fullWidth maxWidth="sm">
+        <Dialog
+          className="edit-profile unit-map-modal"
+          open={this.state.isOpenMapModalOpen}
+          scroll="paper"
+          fullWidth
+          maxWidth="sm"
+        >
           <MuiDialogTitle disableTypography className="dialog-heading">
             <Typography variant="h6">{t("Location")}</Typography>
             <IconButton onClick={() => this.handleMapModal()}>

@@ -92,7 +92,7 @@ const settings = {
   swipeToSlide: true,
 };
 
-const LocationPin = ({ }: any) => <img src={mapLocation} />;
+const LocationPin = ({  }: any) => <img src={mapLocation} />;
 
 class Buildings extends BuildingsController {
   constructor(props: Props) {
@@ -103,7 +103,11 @@ class Buildings extends BuildingsController {
     const { t, classes }: any = this.props;
 
     var searchData = this.state.unitList.filter((item: any) => {
-      if (this.state.dataSearch === "" || (this.state.dataSearch !== "" && item.attributes.apartment_name.toLowerCase().includes(this.state.dataSearch.toLowerCase()))) {
+      if (
+        this.state.dataSearch === "" ||
+        (this.state.dataSearch !== "" &&
+          item.attributes.apartment_name.toLowerCase().includes(this.state.dataSearch.toLowerCase()))
+      ) {
         return item;
       }
     });
@@ -174,7 +178,11 @@ class Buildings extends BuildingsController {
                           <Slider ref={(c: any) => (this.slider = c)} {...settings}>
                             {this.state.buildingData.photos.map((image: any, index: number) => {
                               return (
-                                <div className="slider-image-box" onClick={() => this.setState({ imageBox: true, photoIndex: index })} key={index}>
+                                <div
+                                  className="slider-image-box"
+                                  onClick={() => this.setState({ imageBox: true, photoIndex: index })}
+                                  key={index}
+                                >
                                   <img src={image.url} alt="" />
                                 </div>
                               );
@@ -206,7 +214,7 @@ class Buildings extends BuildingsController {
                     prevSrc={
                       this.state.buildingData.photos[
                         (this.state.photoIndex + this.state.buildingData.photos.length - 1) %
-                        this.state.buildingData.photos.length
+                          this.state.buildingData.photos.length
                       ].url
                     }
                     onCloseRequest={() => this.setState({ imageBox: false })}
@@ -237,7 +245,9 @@ class Buildings extends BuildingsController {
                     <Grid item sm={4}>
                       <Card>
                         <p>{t("Building Area")}</p>
-                        <h2>{this.state.buildingData.buildingArea || "-"}</h2>
+                        <h2>
+                          {this.state.buildingData.buildingArea || ""} {this.state.buildingData.measurement || ""}
+                        </h2>
                       </Card>
                     </Grid>
                     <Grid item sm={4}>
@@ -517,7 +527,9 @@ class Buildings extends BuildingsController {
                   <DialogContent dividers>
                     <Box className="profile-picture">
                       <img src={values.displayLogo} alt="profile" className="picture building" />
-                      <p className="logo-text" onClick={() => this.uploadLogo.click()}>{t("Change Logo")}</p>
+                      <p className="logo-text" onClick={() => this.uploadLogo.click()}>
+                        {t("Change Logo")}
+                      </p>
                       <input
                         type="file"
                         ref={(ref: any) => (this.uploadLogo = ref)}
@@ -704,7 +716,13 @@ class Buildings extends BuildingsController {
           </Formik>
         </Dialog>
 
-        <Dialog className="edit-profile chairman-map-modal" open={this.state.isOpenMapModalOpen} scroll="paper" fullWidth maxWidth="sm">
+        <Dialog
+          className="edit-profile chairman-map-modal"
+          open={this.state.isOpenMapModalOpen}
+          scroll="paper"
+          fullWidth
+          maxWidth="sm"
+        >
           <MuiDialogTitle disableTypography className="dialog-heading">
             <Typography variant="h6">{t("Location")}</Typography>
             <IconButton onClick={() => this.handleMapModal()}>
