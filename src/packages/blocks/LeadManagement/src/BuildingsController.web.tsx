@@ -44,6 +44,7 @@ interface BuildingData {
   photos: any[];
   aboutBuilding: string;
   buildingArea: string;
+  measurement: string;
   totalFloor: string;
   totalUnit: string;
   sharedAreaList: any[];
@@ -141,6 +142,7 @@ export default class BuildingsController extends BlockComponent<Props, S, SS> {
         photos: [],
         aboutBuilding: "",
         buildingArea: "",
+        measurement: "",
         totalFloor: "",
         totalUnit: "",
         sharedAreaList: [],
@@ -219,6 +221,7 @@ export default class BuildingsController extends BlockComponent<Props, S, SS> {
             sharedAreaList: responseJson.data.attributes.shared_area,
             lat: responseJson.data.attributes.lat,
             long: responseJson.data.attributes.long,
+            measurement: responseJson.data.attributes.society_management.measurement_unit,
           },
         });
       }
@@ -398,6 +401,10 @@ export default class BuildingsController extends BlockComponent<Props, S, SS> {
       data.append("building_management[photos][]", this.dataURLtoFile(image));
     });
 
+    this.handleAPICallEditBuilding(data);
+  };
+
+  handleAPICallEditBuilding = (data: any) => {
     const header = {
       token: localStorage.getItem("userToken"),
     };
@@ -480,7 +487,8 @@ export default class BuildingsController extends BlockComponent<Props, S, SS> {
       .matches(/\S/, "Required"),
     buildingArea: Yup.string()
       .required("Required")
-      .matches(/\S/, "Required"),
+      .matches(/\S/, "Required")
+      .matches(/^\d+$/, "Only digit allowed"),
     photos: Yup.array().min(1, "Required"),
   });
 
@@ -495,6 +503,10 @@ export default class BuildingsController extends BlockComponent<Props, S, SS> {
     });
     let photos = await Promise.allSettled(imageUrlPromise);
 
+    this.handleOpenEditBuildingState(photos);
+  };
+
+  handleOpenEditBuildingState = (photos: any) => {
     this.setState(
       {
         loading: false,

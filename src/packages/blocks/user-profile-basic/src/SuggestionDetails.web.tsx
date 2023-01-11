@@ -6,18 +6,18 @@ import DashboardHeader from "../../dashboard/src/DashboardHeader.web";
 import ChairmanSidebarWeb from "../../dashboard/src/ChairmanSidebar.web";
 import { SuggestionStyleWeb } from "./SuggestionStyle.web";
 import { avatarIcon, calenderIcon, phone } from "./assets";
-
+import { withRouter } from 'react-router';
 class SuggestionDetails extends SuggestionsController {
   constructor(props: Props) {
     super(props);
   }
 
-  async componentDidMount(): Promise<void> {}
-
+ 
   render() {
     const { classes } = this.props;
+    const item:any=JSON.parse(localStorage.getItem('selectSuggestion')!)
 
-    console.log(this.state);
+
 
     return (
       <>
@@ -50,36 +50,36 @@ class SuggestionDetails extends SuggestionsController {
                     <Card>
                       <Box className="heading">
                         <p>
-                          Suggestion is related to: <span>Management Fee</span>
+                          Suggestion is related to: <span>{item?.attributes?.suggestion_related?.related_to}</span>
                         </p>
-                        <span className="green-span">1 Response</span>
+                        <span className={item?.attributes?.response.length>0?"green-span":"red-span"}>{item?.attributes?.response.length} Response</span>
                       </Box>
                       <p>Description</p>
                       <p>
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Odio aliquid sint non numquam repellat
-                        quos, at culpa inventore dicta totam dolore asperiores molestias accusamus, dolorum, saepe
-                        assumenda natus nobis sequi.
+                      {
+                        item?.attributes?.description
+                      }
                       </p>
                       <Box className="suggestion-info">
                         <Box className="info">
                           <img src={phone} />
                           <Box>
                             <p className="heading">Building</p>
-                            <p>Building Name</p>
+                            <p>{item?.attributes?.building_management?.building_name}</p>
                           </Box>
                         </Box>
                         <Box className="info">
                           <img src={avatarIcon} />
                           <Box>
                             <p className="heading">Sent By</p>
-                            <p>Mr. Ali Khan</p>
+                            <p>{item?.attributes?.sent_by?.name || 'N/A'}</p>
                           </Box>
                         </Box>
                         <Box className="info">
                           <img src={calenderIcon} />
                           <Box>
                             <p className="heading">Sent On</p>
-                            <p>11-11-1111 11:11</p>
+                            <p>{item?.attributes?.date}</p>
                           </Box>
                         </Box>
                       </Box>
@@ -87,19 +87,25 @@ class SuggestionDetails extends SuggestionsController {
                   </Box>
                   <Box className="response-input">
                     <Card>
-                      <TextareaAutosize minRows={3} placeholder="Your Response" />
-                      <Button>Submit</Button>
+                      <TextareaAutosize minRows={3} placeholder="Your Response" value={this.state.reposne} onChange={(e)=>this.setState({reposne:e.target.value})}/>
+                      <Button onClick={()=>this.addResponse(item)}>Submit</Button>
                     </Card>
                   </Box>
                   <Box className="responses-box">
-                    <Card>
+                    {
+                      item?.attributes?.response.length>0 && 
+                      item?.attributes?.response.map((data:any)=><>
+                       <Card>
                       <Box className="response">
                         <p>
-                          Response By: <span>Ali Khan</span>
+                          Response By: <span>{item?.attributes?.sent_by?.name || 'N/A'}</span>
                         </p>
-                        <pre>Hi Ali! Your Suggestion sounds good. Thanks for the suggestion.</pre>
+                        <pre>{data}</pre>
                       </Box>
                     </Card>
+                      </>)
+                   
+                    }
                   </Box>
                 </Box>
               </Container>
@@ -110,6 +116,7 @@ class SuggestionDetails extends SuggestionsController {
     );
   }
 }
-
-export default withStyles(SuggestionStyleWeb)(SuggestionDetails);
+// @ts-ignore
+// @ts-nocheck
+export default withRouter(withStyles(SuggestionStyleWeb)(SuggestionDetails));
 // Customizable Area End

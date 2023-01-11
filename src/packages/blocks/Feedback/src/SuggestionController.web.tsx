@@ -23,6 +23,7 @@ export interface S {
   suggestionList:any
   loading:boolean
   error: string | null;
+  realtedData:any
   // Customizable Area End
 }
 
@@ -50,7 +51,8 @@ export default class SuggestionController extends BlockComponent<
   getCommonAreaApiCallId : any ;
   getIncidentRelatedApiCallId:any;
   getMyApartmentListApiCallId:any;
-  createChatRoomAPIId:any;
+  getRelatedToDataAPICallId:any;
+  createSuggestionApiCall:any
   imgPasswordVisible: any;
   imgPasswordInVisible: any;
 
@@ -85,6 +87,7 @@ export default class SuggestionController extends BlockComponent<
       suggestionList:[],
       loading:false,
       error: null,
+      realtedData:[]
       // Customizable Area End
     };
 
@@ -111,23 +114,20 @@ export default class SuggestionController extends BlockComponent<
       if (apiRequestCallId && responseJson) {
         
     
-         if (apiRequestCallId === this.getSuggestionListingApiCallId) {
-          if (responseJson?.data ) {
-          console.log("getIncidentListingApiCallId ========================>",responseJson)
-          this.setState({suggestionList :responseJson?.data})
-          this.setState({loading: false})
-          } else if (responseJson?.errors) {
-            let error = Object.values(responseJson.errors[0])[0] as string;
-            this.setState({ error });
-          } else {
-            this.setState({ error: responseJson?.error || "Something went wrong!" });
-          }
-          this.parseApiCatchErrorResponse(this.state.error);
-          this.setState({loading: false , error:null})
+        if (apiRequestCallId === this.getSuggestionListingApiCallId) {
+          this.getSuggestionListData(responseJson)
+         
         }
-       
-
-      }
+        else if (apiRequestCallId === this.getRelatedToDataAPICallId) {
+          this.getRealtedData(responseJson)
+          
+   
+         }
+         else if (apiRequestCallId === this.createSuggestionApiCall) {
+          this.createSuggestionHandle(responseJson)
+          
+   
+         }
     }
 
    
@@ -135,8 +135,56 @@ export default class SuggestionController extends BlockComponent<
   
     // Customizable Area End
   }
+}
 
   // Customizable Area Start
+  getSuggestionListData(responseJson:any){
+    if (responseJson?.data ) {
+      console.log("getIncidentListingApiCallId ========================>",responseJson)
+      this.setState({suggestionList :responseJson?.data})
+      this.setState({loading: false})
+      } else if (responseJson?.errors) {
+        let error = Object.values(responseJson.errors[0])[0] as string;
+        this.setState({ error });
+      } else {
+        this.setState({ error: responseJson?.error || "Something went wrong!" });
+      }
+      this.parseApiCatchErrorResponse(this.state.error);
+      this.setState({loading: false , error:null})
+  }
+  createSuggestionHandle(responseJson:any){
+    if (responseJson?.data ) {
+      console.log("createData ========================>",responseJson)
+     //@ts-ignore
+  //    localStorage.setItem('selectSuggestion',responseJson)
+  this.props.history.push("/NewRequestSuggestion");
+      this.setState({loading: false})
+      } else if (responseJson?.errors) {
+        let error = Object.values(responseJson.errors[0])[0] as string;
+        this.setState({ error });
+      } else {
+        this.setState({ error: responseJson?.error || "Something went wrong!" });
+      }
+      this.parseApiCatchErrorResponse(this.state.error);
+      this.setState({loading: false , error:null})
+    
+  }
+  getRealtedData(responseJson:any){
+    if (responseJson?.data ) {
+      console.log("getrealtedData ========================>",responseJson)
+      this.setState({realtedData :responseJson?.data},()=>this.state.realtedData)
+      this.setState({loading: false})
+      } else if (responseJson?.errors) {
+        let error = Object.values(responseJson.errors[0])[0] as string;
+        this.setState({ error });
+      } else {
+        this.setState({ error: responseJson?.error || "Something went wrong!" });
+      }
+      this.parseApiCatchErrorResponse(this.state.error);
+      this.setState({loading: false , error:null})
+    
+  
+  }
   goToPrivacyPolicy() {
     const msg: Message = new Message(
       getName(MessageEnum.NavigationPrivacyPolicyMessage)
@@ -586,29 +634,27 @@ confirmOrRejectIncident =(id : any,val : any)=>{
 
   
 
-createIncidentSchema() {
+createSuggtionSchema() {
     const validations = Yup.object().shape({
-      commonArea: Yup.string().required(`This field is required`).trim(),
-      incidentRelated: Yup.string().required(`This field is required`).trim(),
-      incidentTitle: Yup.string().required(`This field is required`).max(50, "Too Long!"),
+      title: Yup.string().required(`This field is required`).trim(),
+      relatedTo: Yup.string().required(`This field is required`).trim(),
       description: Yup.string().required(`This field is required`).max(200, "Too Long!"),
-      myApartment:Yup.string().required(`This field is required`).trim(),
-     
+
     });
 
     return validations ;
   }
-  createChatRoom = async (id: any) => {
+  getRealtedToData = async () => {
 
     try {
       const requestMessage = new Message(
         getName(MessageEnum.RestAPIRequestMessage)
       );
-      this.createChatRoomAPIId = requestMessage.messageId;
+      this.getRelatedToDataAPICallId = requestMessage.messageId;
 
       requestMessage.addData(
         getName(MessageEnum.RestAPIResponceEndPointMessage),
-        `bx_block_chat/chats`
+        `bx_block_suggestion/suggestions/suggestion_related_list `
       );
 
       const header = {
@@ -620,22 +666,11 @@ createIncidentSchema() {
         JSON.stringify(header)
       );
 
-      const formData = new FormData();
-      formData.append("chat[chatable_type]", 'BxBlockCustomForm::Incident');
-      // @ts-ignore
-      formData.append("chat[chatable_id]", this.props.history.location?.id);
-
-
-
-      requestMessage.addData(
-        getName(MessageEnum.RestAPIRequestBodyMessage),
-        formData
-      );
 
 
       requestMessage.addData(
         getName(MessageEnum.RestAPIRequestMethodMessage),
-        'POST'
+        'GET'
       );
 
       runEngine.sendMessage(requestMessage.id, requestMessage);
@@ -658,6 +693,62 @@ createIncidentSchema() {
       this.props.history.push('/residentDashboard')
     }
 
+  }
+  createSuggestion=(values:any)=>{
+    console.log(values)
+    try {
+      const requestMessage = new Message(
+        getName(MessageEnum.RestAPIRequestMessage)
+      );
+      const httpBody={
+        "title": values.title,
+	"description": values.description,
+	"account_id": localStorage.getItem('userId'),
+	"building_management_id": 4,
+	"suggestion_related_id": values.relatedTo
+
+      }
+      this.createSuggestionApiCall = requestMessage.messageId;
+
+      requestMessage.addData(
+        getName(MessageEnum.RestAPIResponceEndPointMessage),
+        `bx_block_suggestion/suggestions`
+      );
+
+      const header = {
+        token: localStorage.getItem("userToken"),
+        "content-type":'application/json'
+      };
+
+      requestMessage.addData(
+        getName(MessageEnum.RestAPIRequestHeaderMessage),
+        JSON.stringify(header)
+      );
+      requestMessage.addData(
+        getName(MessageEnum.RestAPIRequestBodyMessage),
+        JSON.stringify(httpBody)
+      );
+
+
+      requestMessage.addData(
+        getName(MessageEnum.RestAPIRequestMethodMessage),
+        'POST'
+      );
+
+      runEngine.sendMessage(requestMessage.id, requestMessage);
+
+      return true;
+    } catch (error) {
+      console.log(error);
+    }
+
+  }
+
+  openSuggestion=(item:any)=>{
+    console.log(this.props)
+localStorage.setItem('selectSuggestion',JSON.stringify(item))
+// @ts-ignore
+this.props.history.push('/SuggestionData')
   }
 
   // Customizable Area End

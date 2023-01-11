@@ -48,7 +48,7 @@ class FacilityReservationListing extends FacilityReservationController {
   render() {
     const { navigation } = this.props;
     const reservation = localStorage.getItem("idOrName");
-    console.log("this.props?.history.location?.reservation==========>", this.state?.facilityReservationListing)
+   // console.log("this.props?.history.location?.reservation==========>", this.state?.facilityReservationListing)
     let facilityReservationListing: any;
 
     if (reservation === "Previous") {
@@ -57,7 +57,7 @@ class FacilityReservationListing extends FacilityReservationController {
     else {
       facilityReservationListing = this.state?.facilityReservationListing?.filter((val: any) => val?.attributes?.status === reservation)
     }
-    console.log("ressklt facilityReservationListing==========>", facilityReservationListing)
+  //  console.log("ressklt facilityReservationListing==========>", facilityReservationListing)
     return (
       <>
         <Box className="login-wrapper incident-wrapper">

@@ -3,7 +3,7 @@ import React from "react";
 import "./Dashboard.web.css";
 import { communityManagement, meetings, myTeam, TenantLogo } from "./assets";
 import "../../../web/src/assets/css/style.scss";
-import { Typography, Link, withStyles } from "@material-ui/core";
+import { Typography, withStyles } from "@material-ui/core";
 import Box from "@material-ui/core/Box";
 import Accordion from "@material-ui/core/Accordion";
 import AccordionDetails from "@material-ui/core/AccordionDetails";
@@ -13,24 +13,18 @@ import ArrowForwardIosOutlinedIcon from "@material-ui/icons/ArrowForwardIosOutli
 import { withRouter } from "react-router-dom";
 import DashboardController, { Props } from "./DashboardController.web";
 import { withTranslation } from "react-i18next";
-import "../../../web/src/i18n.js";
-import i18next from "i18next";
 
 class ChairmanSidebar extends DashboardController {
   constructor(props: Props) {
     super(props);
   }
 
-    async componentDidMount() {
+  async componentDidMount() {
+    this.getUnreadCount();
+  }
 
-      this.getUnreadCount()
-  
-    }
   render() {
     const { t }: any = this.props;
-    const { classes }: any = this.props;
-
-   
 
     return (
       <>
@@ -51,7 +45,7 @@ class ChairmanSidebar extends DashboardController {
 
             <AccordionDetails onClick={() => this.props.navigation.navigate("DashboardGeneral")}>
               <Typography variant="body2" className="cursor-pointer">
-                General Dashboard
+                {t("General Dashboard")}
               </Typography>
             </AccordionDetails>
             <AccordionDetails
@@ -75,10 +69,10 @@ class ChairmanSidebar extends DashboardController {
               </Typography>
             </AccordionDetails>
             <AccordionDetails
-                onClick={() => {
-                  //@ts-ignore
-                  this.props.history.push("/VisitorList");
-                }}
+              onClick={() => {
+                //@ts-ignore
+                this.props.history.push("/VisitorList");
+              }}
             >
               <Typography variant="body2" className="cursor-pointer">
                 {t("Visitors Dashboard")}
@@ -91,7 +85,7 @@ class ChairmanSidebar extends DashboardController {
               }}
             >
               <Typography variant="body2" className="cursor-pointer">
-                Budget Dashboard
+                {t("Budget Dashboard")}
               </Typography>
             </AccordionDetails>
             <AccordionDetails
@@ -101,7 +95,7 @@ class ChairmanSidebar extends DashboardController {
               }}
             >
               <Typography variant="body2" className="cursor-pointer">
-                Action Assigned to me
+                {t("Action Assigned to me")}
               </Typography>
             </AccordionDetails>
           </Accordion>
@@ -208,7 +202,7 @@ class ChairmanSidebar extends DashboardController {
                 this.props.history.push("/CharmainInvoices");
               }}
             >
-              <Typography variant="body2">Invoices</Typography>
+              <Typography variant="body2">{t("Invoices")}</Typography>
             </AccordionDetails>
             <AccordionDetails
               onClick={() => {
@@ -216,7 +210,7 @@ class ChairmanSidebar extends DashboardController {
                 this.props.history.push("/CharmainReceipts");
               }}
             >
-              <Typography variant="body2">Receipts</Typography>
+              <Typography variant="body2">{t("Receipts")}</Typography>
             </AccordionDetails>
             <AccordionDetails
               onClick={() => {
@@ -224,7 +218,7 @@ class ChairmanSidebar extends DashboardController {
                 this.props.history.push("/DashboardBudget");
               }}
             >
-              <Typography variant="body2">Payment History</Typography>
+              <Typography variant="body2">{t("Payment History")}</Typography>
             </AccordionDetails>
           </Accordion>
           {/* Buildings & Apartments */}
@@ -358,12 +352,12 @@ class ChairmanSidebar extends DashboardController {
                 this.props.history.push("/IncidentManagement");
               }}
             >
-              <Typography className="SingleLinkSize">Incident Management</Typography>
+              <Typography className="SingleLinkSize">{t("Incident Management")}</Typography>
             </div>
           </Box>
 
-           {/* Facility Reservation */}
-           <Box className="SingleLink">
+          {/* Facility Reservation */}
+          <Box className="SingleLink">
             <Typography className="SingleLinkSize">
               <DashboardOutlinedIcon />
             </Typography>
@@ -373,7 +367,7 @@ class ChairmanSidebar extends DashboardController {
                 this.props.history.push("/ManagerFacilityReservation");
               }}
             >
-              <Typography className="SingleLinkSize">Facility Reservation</Typography>
+              <Typography className="SingleLinkSize">{t("Facility Reservation")}</Typography>
             </div>
           </Box>
         </Box>
@@ -386,7 +380,7 @@ class ChairmanSidebar extends DashboardController {
               </Box>
               {t("Plan")}
             </Typography>
-            <Typography style={{ fontSize: 12, marginTop: 10 }}>Expires in 125 days</Typography>
+            <Typography style={{ fontSize: 12, marginTop: 10 }}>{t("Expires in")} 125 {t("days")}</Typography>
           </Box>
           <Box>
             <img src={TenantLogo.default} alt="TenantLogo" width={110} />
@@ -396,9 +390,6 @@ class ChairmanSidebar extends DashboardController {
     );
   }
 }
-
-//@ts-ignore
-export default withTranslation()(withStyles(dashBoard)(withRouter(ChairmanSidebar)));
 
 const dashBoard = {
   PremimumPlan: {
@@ -421,4 +412,6 @@ const dashBoard = {
   },
 };
 
+//@ts-ignore
+export default withTranslation()(withStyles(dashBoard)(withRouter(ChairmanSidebar)));
 // Customizable Area End

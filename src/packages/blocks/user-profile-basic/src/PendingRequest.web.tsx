@@ -97,7 +97,7 @@ class PendingRequest extends CommunityUserProfileController {
     super(props);
   }
   async componentDidMount() {
-  this.getInvitation()
+  this.getRequest()
  
  
        }
@@ -131,7 +131,7 @@ class PendingRequest extends CommunityUserProfileController {
                       <>
                       {this.state.allInvitation.map((item:any, index:any) => {
                        
-                       return  ( item.attributes.status=='Pending' &&  <div key={index}>
+                       return  (  <div key={index}>
                           <Card style={dashBoard.cardStyle}>
                             <CardActionArea>
                               <CardMedia
@@ -144,13 +144,13 @@ class PendingRequest extends CommunityUserProfileController {
                               <CardContent style={{padding:"0px 16px 16px 16px"}}>
                               <Typography variant="h6"
                               //@ts-ignore 
-                              style={dashBoard.unitno}>{item?.attributes?.apartment_management?.apartment_name || 'N/A'}</Typography>
+                              style={dashBoard.unitno}>{item?.attributes?.unit_number || 'N/A'}</Typography>
                               <Typography variant="h6" style={{textAlign:"center", marginTop:"5px"}}>{item.attributes.full_name}</Typography>
                               <div style={{textAlign:"center",marginTop:"5px"}}>
                                 {/* <Typography variant="h6" style={dashBoard.userType}>{item.userType}</Typography> */}
                               </div>
-                              <Typography variant="subtitle1" style={{textAlign:"center", marginTop:"5px"}}>{item.attributes.phone_number}</Typography>
-                              <Typography variant="subtitle1" style={{textAlign:"center", marginTop:"5px"}}>{item.attributes.email_address}</Typography>
+                              <Typography variant="subtitle1" style={{textAlign:"center", marginTop:"5px"}}>{item.attributes?.phone}</Typography>
+                              <Typography variant="subtitle1" style={{textAlign:"center", marginTop:"5px"}}>{item.attributes?.email}</Typography>
                               <Grid container spacing={3} style={{marginTop:"5px"}}>
                                 <Grid item xs={12} sm={6}>
                                     <Button variant="outlined" style={{width:"100%", color:"#2B6FED", border:"1px solid #2B6FED", fontWeight:600}} onClick={()=>this.handleRejectOpen(item)}>

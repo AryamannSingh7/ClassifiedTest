@@ -7,6 +7,7 @@ import { DashboardVs } from "../assets";
 import SidebarImageComponent from "../../../../components/src/OwnerSidebarImage.web";
 import { TotalExpenseStyle } from "./TotalExpenseStyle.web";
 import UnitCard from "../../../../components/src/ExpenseCard/UnitCard.web";
+import { ICityWiseRentedEmpty } from "../../../../framework/src/Interfaces/IExpenseReport.web";
 
 class RentedVsEmpty extends RentedVsEmptyController {
   constructor(props: Props) {
@@ -39,13 +40,15 @@ class RentedVsEmpty extends RentedVsEmptyController {
                         <Grid item xs={12}>
                           <Card className="big-box">
                             <div className="content-box">
-                              <div className="left-content">
-                                <h4 className="heading">{t("Rented")}</h4>
-                                <div className="state">
-                                  <p>{t("Rented")}</p>
-                                  <Button className="yellow">75</Button>
+                              <Link href="/RentedVsEmpty/Rented">
+                                <div className="left-content">
+                                  <h4 className="heading">{t("Rented")}</h4>
+                                  <div className="state">
+                                    <p>{t("Rented")}</p>
+                                    <Button className="yellow">{this.state.rentedUnit}</Button>
+                                  </div>
                                 </div>
-                              </div>
+                              </Link>
                               <div className="center-content">
                                 <div className="image">
                                   <img src={DashboardVs} alt="keyhand" />
@@ -56,13 +59,15 @@ class RentedVsEmpty extends RentedVsEmptyController {
                                 </div>
                                 <div className="vertical-line" />
                               </div>
-                              <div className="right-content">
-                                <h4 className="heading">{t("Empty Units")}</h4>
-                                <div className="state">
-                                  <p>{t("Empty")}</p>
-                                  <Button className="yellow">SR 75</Button>
+                              <Link href="/RentedVsEmpty/Empty">
+                                <div className="right-content">
+                                  <h4 className="heading">{t("Empty Units")}</h4>
+                                  <div className="state">
+                                    <p>{t("Empty")}</p>
+                                    <Button className="yellow">{this.state.emptyUnit}</Button>
+                                  </div>
                                 </div>
-                              </div>
+                              </Link>
                             </div>
                           </Card>
                         </Grid>
@@ -71,15 +76,29 @@ class RentedVsEmpty extends RentedVsEmptyController {
                       <Grid container spacing={2}>
                         <Grid item xs={12}>
                           <Box className="heading">
-                            <h4>Citywise Rented vs Empty Units</h4>
+                            <h4>{t("Citywise Rented vs Empty Units")}</h4>
                           </Box>
                         </Grid>
-                        <Grid item xs={12}>
-                          <UnitCard heading="Dubai" titleOne="Rented" valueOne="06" titleTwo="Empty" valueTwo="00" />
-                        </Grid>
-                        <Grid item xs={12}>
-                          <UnitCard heading="London" titleOne="Rented" valueOne="06" titleTwo="Empty" valueTwo="00" />
-                        </Grid>
+                        {this.state.cityWiseRentedVsEmpty.length === 0 && (
+                          <Grid item xs={12}>
+                            <Card className="rented-empty-card">{t("City data not available")}</Card>
+                          </Grid>
+                        )}
+                        {this.state.cityWiseRentedVsEmpty.map((city: ICityWiseRentedEmpty) => {
+                          return (
+                            <Grid item xs={12} key={city.city_name}>
+                              <Link href={`/RentedVsEmpty/City/${city.city_name}`}>
+                                <UnitCard
+                                  heading={city.city_name}
+                                  titleOne={t("Rented")}
+                                  valueOne={city.rented}
+                                  titleTwo={t("Empty")}
+                                  valueTwo={city.empty}
+                                />
+                              </Link>
+                            </Grid>
+                          );
+                        })}
                       </Grid>
                     </Box>
                   </Box>

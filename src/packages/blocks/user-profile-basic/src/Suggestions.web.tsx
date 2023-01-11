@@ -14,6 +14,7 @@ import {
   InputBase,
   Divider,
 } from "@material-ui/core";
+import { withRouter } from 'react-router';
 import SuggestionsController, { Props } from "./SuggestionsController.web";
 import DashboardHeader from "../../dashboard/src/DashboardHeader.web";
 import ChairmanSidebarWeb from "../../dashboard/src/ChairmanSidebar.web";
@@ -26,7 +27,10 @@ class Suggestions extends SuggestionsController {
     super(props);
   }
 
-  async componentDidMount(): Promise<void> {}
+  async componentDidMount(): Promise<void> {
+    this.getSuggtionListing()
+
+  }
 
   render() {
     const { classes } = this.props;
@@ -59,22 +63,22 @@ class Suggestions extends SuggestionsController {
                         Suggestion
                       </Typography>
                       <Box className="filter">
-                        <select value="">
+                        {/* <select value="">
                           <option disabled value="">
                             Building
                           </option>
                           <option>Building</option>
                           <option>Building</option>
                           <option>Building</option>
-                        </select>
-                        <select value="">
+                        </select> */}
+                        {/* <select value="">
                           <option disabled value="">
                             Sort By
                           </option>
                           <option>Building</option>
                           <option>Building</option>
                           <option>Building</option>
-                        </select>
+                        </select> */}
                       </Box>
                     </Box>
                   </Box>
@@ -85,7 +89,7 @@ class Suggestions extends SuggestionsController {
                       <h3>Suggestion</h3>
                       <div className="search-box">
                         <SearchIcon />
-                        <InputBase placeholder="Search" className="search" />
+                        <InputBase placeholder="Search" className="search" onChange={(e)=>this.searchSuggestion(e.target.value)} />
                       </div>
                     </Box>
                     <Divider />
@@ -102,28 +106,23 @@ class Suggestions extends SuggestionsController {
                         </TableRow>
                       </TableHead>
                       <TableBody>
-                        <TableRow>
-                          <TableCell>1</TableCell>
-                          <TableCell className="ellipse">Suggestion Title</TableCell>
-                          <TableCell>Building</TableCell>
-                          <TableCell>Unit Number</TableCell>
-                          <TableCell>Sent By</TableCell>
-                          <TableCell>Date</TableCell>
+                        {
+                          this.state.suggestionList.map((item:any,index:any)=>(
+
+                        <TableRow onClick={()=>this.openSuggestion(item)}>
+                          <TableCell>{index+1}</TableCell>
+                          <TableCell className="ellipse">{item?.attributes?.title}</TableCell>
+                          <TableCell>{item?.attributes?.building_management?.building_name}</TableCell>
+                          <TableCell>0</TableCell>
+                          <TableCell>{item?.attributes?.sent_by?.name || 'N/A'}</TableCell>
+                          <TableCell>{item?.attributes?.date}</TableCell>
                           <TableCell>
-                            <span className="green-span">1 Response</span>
+                            <span className={item?.attributes?.response.length>0?"green-span":"red-span"}>{item?.attributes?.response.length} Response</span>
                           </TableCell>
                         </TableRow>
-                        <TableRow>
-                          <TableCell>2</TableCell>
-                          <TableCell className="ellipse">Suggestion Title</TableCell>
-                          <TableCell>Building</TableCell>
-                          <TableCell>Unit Number</TableCell>
-                          <TableCell>Sent By</TableCell>
-                          <TableCell>Date</TableCell>
-                          <TableCell>
-                            <span className="red-span">0 Response</span>
-                          </TableCell>
-                        </TableRow>
+                          ))
+}
+                      
                       </TableBody>
                     </Table>
                   </Grid>
@@ -136,6 +135,7 @@ class Suggestions extends SuggestionsController {
     );
   }
 }
-
-export default withStyles(SuggestionStyleWeb)(Suggestions);
+// @ts-ignore
+// @ts-nocheck
+export default withRouter(withStyles(SuggestionStyleWeb)(Suggestions));
 // Customizable Area End

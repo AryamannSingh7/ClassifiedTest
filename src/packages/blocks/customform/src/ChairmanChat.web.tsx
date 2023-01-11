@@ -31,6 +31,7 @@ import {
   Switch,
   styled,
 } from "@material-ui/core";
+import { withRouter } from 'react-router';
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import MuiDialogTitle from "@material-ui/core/DialogTitle";
 import CloseIcon from "@material-ui/icons/Close";
@@ -57,6 +58,7 @@ import moment from "moment";
 import AttachFileIcon from '@material-ui/icons/AttachFile';
 
 import '../assets/css/style.scss'
+import { withTranslation } from "react-i18next";
 class ChairmanChat extends InboxController {
   constructor(props: Props) {
     super(props);
@@ -703,7 +705,9 @@ this.setState({ selectedMedia: message.message.images[0] })}} src={message.messa
   }
 }
 
-export default ChairmanChat;
+// export default ChairmanChat;
+// export default withRouter(ChairmanChat)
+export default withTranslation()(withRouter(ChairmanChat));
 // Customizable Area End
  
 

@@ -18,17 +18,17 @@ import {
   InputLabel,
   DialogActions,
   Input,
+  Box,
+  Grid,
+  Select,
+  MenuItem,
 } from "@material-ui/core";
 import SearchOutlinedIcon from "@material-ui/icons/SearchOutlined";
 import "../../dashboard/src/Dashboard.web.css";
-import Box from "@material-ui/core/Box";
-import Grid from "@material-ui/core/Grid";
-import MoreVertIcon from "@material-ui/icons/MoreVert";
 import ComplexController, { Props } from "./ComplexController.web";
 import DashboardHeader from "../../dashboard/src/DashboardHeader.web";
 import ChairmanSidebar from "../../dashboard/src/ChairmanSidebar.web";
 import { withTranslation } from "react-i18next";
-import "../../../web/src/i18n.js";
 import "./style.css";
 //@ts-ignore
 import Slider from "react-slick";
@@ -90,14 +90,16 @@ class Complex extends ComplexController {
   }
 
   render() {
-    const { t }: any = this.props;
-    const { classes } = this.props;
-    const userType  = localStorage.getItem("selectUserType");
+    const { t, classes }: any = this.props;
 
-    var searchData = this.state.complexData.buildingList.filter((building: any) => {
-      if (this.state.dataSearch === "") {
-        return building;
-      } else if (building.building_name.toLowerCase().includes(this.state.dataSearch.toLowerCase())) {
+    const userType = localStorage.getItem("selectUserType");
+
+    let searchData = this.state.complexData.buildingList.filter((building: any) => {
+      if (
+        this.state.dataSearch === "" ||
+        (this.state.dataSearch !== "" &&
+          building.building_name.toLowerCase().includes(this.state.dataSearch.toLowerCase()))
+      ) {
         return building;
       }
     });
@@ -112,11 +114,7 @@ class Complex extends ComplexController {
           <Box style={{ display: "flex" }}>
             <Grid item xs={3} md={3} sm={3} className="SideBar">
               {/* Chairman Sidebar -- */}
-              {  userType === "Visitors" ? 
-                            <VisitorsSidebar {...this.props} />
-                            :
-                            <ChairmanSidebar {...this.props} /> 
-                           }
+              {userType === "Visitors" ? <VisitorsSidebar {...this.props} /> : <ChairmanSidebar {...this.props} />}
             </Grid>
             <Grid xs={9} md={9} sm={9} spacing={4} style={{ paddingTop: 35 }}>
               <Container>
@@ -138,21 +136,18 @@ class Complex extends ComplexController {
                         {t("Complex")}
                       </Typography>
                     </Grid>
-                    {  userType === "Visitors" ? 
-                            null
-                            :
-                            <Grid item xs={12} sm={2}>
-                            <Button
-                              className="edit-button"
-                              variant="contained"
-                              color="primary"
-                              onClick={() => this.openEditBuildingModal()}
-                            >
-                              {t("Edit Details")}
-                            </Button>
-                          </Grid>
-                           }
-                   
+                    {userType === "Visitors" ? null : (
+                      <Grid item xs={12} sm={2}>
+                        <Button
+                          className="edit-button"
+                          variant="contained"
+                          color="primary"
+                          onClick={() => this.openEditBuildingModal()}
+                        >
+                          {t("Edit Details")}
+                        </Button>
+                      </Grid>
+                    )}
                   </Grid>
                 </Box>
 
@@ -177,7 +172,11 @@ class Complex extends ComplexController {
                           <Slider ref={(c: any) => (this.slider = c)} {...settings}>
                             {this.state.complexData.photos.map((image: any, index: number) => {
                               return (
-                                <div key={index} onClick={() => this.setState({ imageBox: true, photoIndex: index })}>
+                                <div
+                                  className="slider-image-box"
+                                  key={index}
+                                  onClick={() => this.setState({ imageBox: true, photoIndex: index })}
+                                >
                                   <img src={image.url} alt="" />
                                 </div>
                               );
@@ -281,7 +280,9 @@ class Complex extends ComplexController {
                     <Grid item sm={4}>
                       <Card>
                         <p>{t("Complex Area")}</p>
-                        <h2>{this.state.complexData.complexArea || "-"}</h2>
+                        <h2>
+                          {this.state.complexData.complexArea || ""} {this.state.complexData.measurement || " "}
+                        </h2>
                       </Card>
                     </Grid>
                     <Grid item sm={4}>
@@ -404,14 +405,11 @@ class Complex extends ComplexController {
                               return (
                                 <Grid item xs={12} md={6} lg={4} key={sharedArea.id}>
                                   <Box
-                                    className="item"
+                                    className="item shared-area-item"
                                     style={dashBoard.cursorPointer}
                                     onClick={() => this.props.navigation.navigate("SharedArea", { id: sharedArea.id })}
                                   >
-                                    <div
-                                      className="heading"
-                                      onClick={() => this.props.navigation.navigate("SharedArea")}
-                                    >
+                                    <div className="heading">
                                       <img src={Document} />
                                       <h4>{sharedArea.name}</h4>
                                     </div>
@@ -431,7 +429,7 @@ class Complex extends ComplexController {
         </Box>
 
         <Dialog
-          className="edit-profile"
+          className="edit-profile edit-complex-details"
           open={this.state.isEditBuildingModalOpen}
           scroll="paper"
           fullWidth
@@ -458,7 +456,9 @@ class Complex extends ComplexController {
                   <DialogContent dividers>
                     <Box className="profile-picture">
                       <img src={values.displayLogo} alt="profile" className="picture building" />
-                      <p onClick={() => this.uploadLogo.click()}>{t("Change Logo")}</p>
+                      <p className="logo-text" onClick={() => this.uploadLogo.click()}>
+                        {t("Change Logo")}
+                      </p>
                       <input
                         type="file"
                         ref={(ref: any) => (this.uploadLogo = ref)}
@@ -562,6 +562,66 @@ class Complex extends ComplexController {
                         )}
                       </Grid>
                       <Grid item md={6}>
+                        <InputLabel>{t("Area Measurement")}</InputLabel>
+                        <Box className="measurement-box">
+                          <img src={sizebw} alt="" />
+                          <Select
+                            className="select-with-icon"
+                            fullWidth
+                            value={values.measurement}
+                            onChange={handleChange}
+                            onBlur={handleBlur}
+                            name="measurement"
+                          >
+                            <MenuItem value="" disabled>
+                              {t("Area Measurement")}
+                            </MenuItem>
+                            <MenuItem value="sqfeet">{t("Sq ft")}</MenuItem>
+                            <MenuItem value="sqmeter">{t("Sq m")}</MenuItem>
+                          </Select>
+                        </Box>
+                        {errors.measurement && touched.measurement && (
+                          <small className="error">{t(errors.measurement)}</small>
+                        )}
+                      </Grid>
+
+                      <Grid item md={6}>
+                        <InputLabel>{t("Latitude")}</InputLabel>
+                        <Input
+                          className="input-with-icon"
+                          fullWidth
+                          placeholder={t("Latitude")}
+                          value={values.lat}
+                          onChange={handleChange}
+                          onBlur={handleBlur}
+                          name="lat"
+                          startAdornment={
+                            <InputAdornment position="start">
+                              <img src={sizebw} alt="icon" />
+                            </InputAdornment>
+                          }
+                        />
+                        {errors.lat && touched.lat && <small className="error">{t(errors.lat)}</small>}
+                      </Grid>
+                      <Grid item md={6}>
+                        <InputLabel>{t("Longitude")}</InputLabel>
+                        <Input
+                          className="input-with-icon"
+                          fullWidth
+                          placeholder={t("Longitude")}
+                          value={values.long}
+                          onChange={handleChange}
+                          onBlur={handleBlur}
+                          name="long"
+                          startAdornment={
+                            <InputAdornment position="start">
+                              <img src={sizebw} alt="icon" />
+                            </InputAdornment>
+                          }
+                        />
+                        {errors.long && touched.long && <small className="error">{t(errors.long)}</small>}
+                      </Grid>
+                      <Grid item md={6}>
                         <InputLabel>{t("Total Buildings")}</InputLabel>
                         <Input
                           className="input-with-icon"
@@ -576,7 +636,7 @@ class Complex extends ComplexController {
                           readOnly
                         />
                       </Grid>
-                      <Grid item md={12}>
+                      <Grid item md={6}>
                         <InputLabel>{t("Total Units")}</InputLabel>
                         <Input
                           className="input-with-icon"
@@ -607,7 +667,13 @@ class Complex extends ComplexController {
           </Formik>
         </Dialog>
 
-        <Dialog className="edit-profile" open={this.state.isOpenMapModalOpen} scroll="paper" fullWidth maxWidth="sm">
+        <Dialog
+          className="edit-profile chairman-map-modal"
+          open={this.state.isOpenMapModalOpen}
+          scroll="paper"
+          fullWidth
+          maxWidth="sm"
+        >
           <MuiDialogTitle disableTypography className="dialog-heading">
             <Typography variant="h6">{t("Location")}</Typography>
             <IconButton onClick={() => this.handleMapModal()}>

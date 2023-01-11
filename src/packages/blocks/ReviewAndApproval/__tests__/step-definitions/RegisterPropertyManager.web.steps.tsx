@@ -14,9 +14,9 @@ import {
   unitListMockData,
   idTypeListMockData,
   complexDetailsMockData,
-  localStorageMock,
 } from "../../../../components/src/TestCase/PropertyManagerMockData.web";
 import { componentProps } from "../../../../components/src/TestCase/ComponentProps.web";
+import { localStorageMock } from "../../../../components/src/TestCase/LocalStorageMock.web";
 
 const RegisterPropertyManagerProps = componentProps("RegisterPropertyManager", PropertyManagerStyleWeb);
 

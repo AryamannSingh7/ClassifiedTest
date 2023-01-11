@@ -451,6 +451,14 @@ export const BuildingApartmentStyle: any = {
       color: "#2B6FED",
       fontWeight: 600,
     },
+    "& .related-people .user-details .roles-box": {
+      display: "flex",
+      flexDirection: "row",
+      flexWrap: "wrap",
+      justifyContent: "center",
+      alignItems: "center",
+      gap: "5px",
+    },
     "& .related-people .user-details .icons": {
       marginTop: "10px",
       display: "flex",
