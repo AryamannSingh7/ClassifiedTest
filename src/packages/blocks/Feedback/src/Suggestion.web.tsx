@@ -39,7 +39,7 @@ class Suggestion extends SuggestionController {
                 <Box className="content-header">
                   <Box className="left-block blocks">
                     <Box className="backIcons" onClick={() => this.redirectToDashboard()}><KeyboardBackspaceIcon /></Box>
-                    <h4>Incidents</h4>
+                    <h4>My Suggestions</h4>
                   </Box>
                   <Box className="incident-right-block blocks">
                    
@@ -48,7 +48,7 @@ class Suggestion extends SuggestionController {
 
                   </Box>
                 </Box>
-                <Box className="content-block-wrapper common-incident-block">
+                <Box className="content-block-wrapper common-incident-block" style={{background:'#F8F9FE'}}>
                   <Box className="incident-content-wrapper">
                     {
                       this.state.suggestionList.map((item:any)=>{
@@ -72,11 +72,11 @@ class Suggestion extends SuggestionController {
                   
                   <hr />
                   <CardActions className="card-footer">
-                    <Typography className="sub-title h5-title" component="h5">
-                  <img src={Claender}/>   26/2/12
+                    <Typography className="sub-title h5-title" component="h5" style={{display:'flex',gap:'0.5rem'}}>
+                  <img src={Claender}/>   {item?.attributes?.sent_on}
                     </Typography>
                     <Box className="customButton">
-                      <Button variant="contained" className="contain blue" type="submit" >1 Response</Button>
+                      <Button variant="contained" className="contain blue" type="submit" >{item?.attributes?.response.length>0 ? '1':'0'} Response</Button>
                     </Box>
                     {/* <Button className="success">Resolved</Button> */}
                   </CardActions>
