@@ -59,7 +59,6 @@ import AttachFileIcon from '@material-ui/icons/AttachFile';
 
 import '../assets/css/style.scss'
 import { withTranslation } from "react-i18next";
-import { checkPrime } from "crypto";
 class ChairmanChat extends InboxController {
   constructor(props: Props) {
     super(props);
@@ -620,7 +619,6 @@ function displaytime(obj:any) {
   if(value){
 
 
-let date = new Date(value[value.length-1].message.created_at)
 
 
 
@@ -685,7 +683,7 @@ const DialogBox=(props:any)=>{
   const checkPrime=()=>{
     
    return   props.allInbox[0]?.attributes?.chat_with_account?.id == localStorage.getItem('userId')  ? 
-      props.allInbox[0]?.attributes?.chat_with_account?.attributes?.disable_chat ? ' Enable Chat' :' Disable Chat'
+      (props.allInbox[0]?.attributes?.chat_with_account?.attributes?.disable_chat ? ' Enable Chat' :' Disable Chat')
       :
       props.allInbox[0]?.attributes?.chatable?.attributes?.disable_chat ?' Enable Chat' :' Disable Chat'
      
