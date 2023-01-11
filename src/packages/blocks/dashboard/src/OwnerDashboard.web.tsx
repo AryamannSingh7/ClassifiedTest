@@ -6,7 +6,6 @@ import {
   withStyles,
   Container,
   Link,
-  Card,
   Typography,
   IconButton,
   MenuItem,
@@ -36,7 +35,6 @@ import {
   SidebarLogoutDialog,
   DashboardUnit,
   DashboardExpense,
-  DashboardVs,
   DashboardTenant,
   DashboardContract,
   DashboardMeeting,
@@ -58,8 +56,8 @@ import {
 } from "./assets";
 import { DashboardStyleWeb } from "./DashboardStyle.web";
 import DashboardCard from "../../../components/src/DashboardCard";
+import DashboardBigCard from "../../../components/src/DashboardCard/DashboardBigCard.web";
 import { withTranslation } from "react-i18next";
-import "../../../web/src/i18n.js";
 import i18next from "i18next";
 import CloseIcon from "@material-ui/icons/Close";
 import ArrowForwardIosOutlinedIcon from "@material-ui/icons/ArrowForwardIosOutlined";
@@ -248,7 +246,7 @@ class OwnerDashboard extends DashboardController {
                                     manager: request.attributes.property_manager.name,
                                     building: request.attributes.building_management.name,
                                     unit: request.attributes.apartment_management.data.attributes.apartment_name,
-                                    company:  request.attributes.property_manager.company_name,
+                                    company: request.attributes.property_manager.company_name,
                                   },
                                 },
                                 () => {
@@ -288,94 +286,40 @@ class OwnerDashboard extends DashboardController {
                     </Link>
                   </Grid>
                   <Grid item xs={12} sm={12}>
-                    <Card className="big-box">
-                      <div className="content-box">
-                        <div className="left-content">
-                          <h4 className="heading">{t("Rented")}</h4>
-                          <div className="state">
-                            <p>{t("Rented")}</p>
-                            <Button className="yellow">75</Button>
-                          </div>
-                        </div>
-                        <div className="center-content">
-                          <div className="image">
-                            <img src={DashboardVs} alt="keyhand" />
-                          </div>
-                          <div className="vertical-line" />
-                          <div className="image text">
-                            <h4>VS</h4>
-                          </div>
-                          <div className="vertical-line" />
-                        </div>
-                        <div className="right-content">
-                          <h4 className="heading">{t("Empty Units")}</h4>
-                          <div className="state">
-                            <p>{t("Empty")}</p>
-                            <Button className="yellow">SR 75</Button>
-                          </div>
-                        </div>
-                      </div>
-                    </Card>
+                    <Link href="/RentedVsEmpty">
+                      <DashboardBigCard
+                        FHeader={t("Rented")}
+                        fTitle={t("Rented")}
+                        fValue={75}
+                        sHeader={t("Empty Units")}
+                        sTitle={t("Empty")}
+                        sValue={"SR 75"}
+                      />
+                    </Link>
                   </Grid>
                   <Grid item xs={12} sm={12}>
-                    <Card className="big-box">
-                      <div className="content-box">
-                        <div className="left-content">
-                          <h4 className="heading">{t("Rent Amount Collected")}</h4>
-                          <div className="state">
-                            <p>{t("Collected")}</p>
-                            <Button className="yellow">75</Button>
-                          </div>
-                        </div>
-                        <div className="center-content">
-                          <div className="image">
-                            <img src={DashboardVs} alt="keyhand" />
-                          </div>
-                          <div className="vertical-line" />
-                          <div className="image text">
-                            <h4>VS</h4>
-                          </div>
-                          <div className="vertical-line" />
-                        </div>
-                        <div className="right-content">
-                          <h4 className="heading">{t("Rent Amount Due")}</h4>
-                          <div className="state">
-                            <p>{t("Due")}</p>
-                            <Button className="yellow">SR 75</Button>
-                          </div>
-                        </div>
-                      </div>
-                    </Card>
+                    <Link href="/CollectedVsDue">
+                      <DashboardBigCard
+                        FHeader={t("Rent Amount Collected")}
+                        fTitle={t("Collected")}
+                        fValue={75}
+                        sHeader={t("Rent Amount Due")}
+                        sTitle={t("Due")}
+                        sValue={"SR 75"}
+                      />
+                    </Link>
                   </Grid>
                   <Grid item xs={12} sm={12}>
-                    <Card className="big-box">
-                      <div className="content-box">
-                        <div className="left-content">
-                          <h4 className="heading">{t("Spent Amount")}</h4>
-                          <div className="state">
-                            <p>{t("Collected")}</p>
-                            <Button className="yellow">75</Button>
-                          </div>
-                        </div>
-                        <div className="center-content">
-                          <div className="image">
-                            <img src={DashboardVs} alt="keyhand" />
-                          </div>
-                          <div className="vertical-line" />
-                          <div className="image text">
-                            <h4>VS</h4>
-                          </div>
-                          <div className="vertical-line" />
-                        </div>
-                        <div className="right-content">
-                          <h4 className="heading">{t("Collected Amount")}</h4>
-                          <div className="state">
-                            <p>{t("Due")}</p>
-                            <Button className="yellow">SR 75</Button>
-                          </div>
-                        </div>
-                      </div>
-                    </Card>
+                    <Link href="/SpentVsCollected">
+                      <DashboardBigCard
+                        FHeader={t("Spent Amount")}
+                        fTitle={t("Collected")}
+                        fValue={75}
+                        sHeader={t("Collected Amount")}
+                        sTitle={t("Due")}
+                        sValue={"SR 75"}
+                      />
+                    </Link>
                   </Grid>
                 </Grid>
                 <Grid container spacing={1} style={{ marginTop: 15 }}>
@@ -559,7 +503,12 @@ class OwnerDashboard extends DashboardController {
                   </Grid>
                   <Grid item xs={6} sm={6}>
                     <Link href="/FacilityReservation">
-                      <DashboardCard image={keyhand} heading={t("Facility Reservation ")} title={t("Facility Listing")} value="75" />
+                      <DashboardCard
+                        image={keyhand}
+                        heading={t("Facility Reservation ")}
+                        title={t("Facility Listing")}
+                        value="75"
+                      />
                     </Link>
                   </Grid>
                   <Grid item xs={6} sm={6}>

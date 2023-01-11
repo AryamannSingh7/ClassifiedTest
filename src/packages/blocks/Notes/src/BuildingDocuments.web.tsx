@@ -1,13 +1,13 @@
 // Customizable Area Start
 import React from "react";
-import { Button, Container, IconButton, Link, withStyles, Box, Grid } from "@material-ui/core";
+import { Container, IconButton, Link, withStyles, Box, Grid } from "@material-ui/core";
 import KeyboardBackspaceIcon from "@material-ui/icons/KeyboardBackspace";
-import ChevronRightIcon from "@material-ui/icons/ChevronRight";
-import { BuildingLogo, Document } from "./assets";
+import { Document } from "./assets";
 import { DocumentReportStyleWeb } from "./DocumentReportStyle.web";
 import BuildingDocumentController, { Props } from "./BuildingDocumentsController.web";
 import { withTranslation } from "react-i18next";
-import "../../../web/src/i18n.js";
+import SidebarImageComponent from "../../../components/src/OwnerSidebarImage.web";
+import CategoryBox from "../../../components/src/DocumentComponent/CategoryBox.web";
 
 class BuildingDocuments extends BuildingDocumentController {
   constructor(props: Props) {
@@ -15,8 +15,7 @@ class BuildingDocuments extends BuildingDocumentController {
   }
 
   render() {
-    const { classes } = this.props;
-    const { t }: any = this.props;
+    const { classes, t }: any = this.props;
 
     return (
       <>
@@ -33,93 +32,34 @@ class BuildingDocuments extends BuildingDocumentController {
                 <Grid container spacing={2}>
                   <Grid item xs={12} md={12} lg={12}>
                     <Link href="/BuildingDocuments/Policy">
-                      <Box className="item">
-                        <div className="heading">
-                          <img src={Document} />
-                          <h4>{t("Policy")}</h4>
-                        </div>
-                        <div>
-                          {this.state.policy > 0 && <Button className="color-btn">{this.state.policy}</Button>}
-                          <IconButton>
-                            <ChevronRightIcon />
-                          </IconButton>
-                        </div>
-                      </Box>
+                      <CategoryBox image={Document} heading={t("Policy")} value={this.state.policy} />
                     </Link>
                   </Grid>
                   <Grid item xs={12} md={12} lg={12}>
                     <Link href="/BuildingDocuments/Resolutions">
-                      <Box className="item">
-                        <div className="heading">
-                          <img src={Document} />
-                          <h4>{t("Resolutions")}</h4>
-                        </div>
-                        <div>
-                          {this.state.resolution > 0 && <Button className="color-btn">{this.state.resolution}</Button>}
-                          <IconButton>
-                            <ChevronRightIcon />
-                          </IconButton>
-                        </div>
-                      </Box>
+                      <CategoryBox image={Document} heading={t("Resolutions")} value={this.state.resolution} />
                     </Link>
                   </Grid>
                   <Grid item xs={12} md={12} lg={12}>
                     <Link href="/BuildingDocuments/Roles">
-                      <Box className="item">
-                        <div className="heading">
-                          <img src={Document} />
-                          <h4>{t("Roles")}</h4>
-                        </div>
-                        <div>
-                          {this.state.roles > 0 && <Button className="color-btn">{this.state.roles}</Button>}
-                          <IconButton>
-                            <ChevronRightIcon />
-                          </IconButton>
-                        </div>
-                      </Box>
+                      <CategoryBox image={Document} heading={t("Roles")} value={this.state.roles} />
                     </Link>
                   </Grid>
                   <Grid item xs={12} md={12} lg={12}>
                     <Link href="/BuildingDocuments/Guidelines">
-                      <Box className="item">
-                        <div className="heading">
-                          <img src={Document} />
-                          <h4>{t("Guidelines")}</h4>
-                        </div>
-                        <div>
-                          {this.state.guidelines > 0 && <Button className="color-btn">{this.state.guidelines}</Button>}
-                          <IconButton>
-                            <ChevronRightIcon />
-                          </IconButton>
-                        </div>
-                      </Box>
+                      <CategoryBox image={Document} heading={t("Guidelines")} value={this.state.guidelines} />
                     </Link>
                   </Grid>
                   <Grid item xs={12} md={12} lg={12}>
                     <Link href="/BuildingDocuments/Building-Plans">
-                      <Box className="item">
-                        <div className="heading">
-                          <img src={Document} />
-                          <h4>{t("Building Plans")}</h4>
-                        </div>
-                        <div>
-                          {this.state.buildingPlans > 0 && (
-                            <Button className="color-btn">{this.state.buildingPlans}</Button>
-                          )}
-                          <IconButton>
-                            <ChevronRightIcon />
-                          </IconButton>
-                        </div>
-                      </Box>
+                      <CategoryBox image={Document} heading={t("Building Plans")} value={this.state.buildingPlans} />
                     </Link>
                   </Grid>
                 </Grid>
               </Container>
             </Grid>
             <Grid item xs={12} md={5}>
-              <Box className="right-block right-image" display={{ xs: "none", md: "flex" }}>
-                <img src={BuildingLogo.default} className="building-logo" alt="" />
-              </Box>
+              <SidebarImageComponent />
             </Grid>
           </Grid>
         </Box>
