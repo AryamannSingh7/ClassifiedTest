@@ -220,7 +220,7 @@ export default class UnitDetailsController extends BlockComponent<Props, S, SS> 
             purchaseDate: responseJson.data.attributes.purchase_date,
             currentValuation: responseJson.data.attributes.current_valuation,
             activeIncidents: responseJson.data.attributes.active_incidents.data,
-            rentHistory: responseJson.data.attributes.rent_history,
+            rentHistory: responseJson.data.attributes.rent_history.data,
             buildingName: responseJson.data.attributes.building_management.name,
             rentStatus: responseJson.data.attributes.status,
             tenantName:

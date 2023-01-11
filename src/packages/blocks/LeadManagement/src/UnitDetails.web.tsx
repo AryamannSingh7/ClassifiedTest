@@ -8,10 +8,7 @@ import {
   Card,
   CardMedia,
   MenuItem,
-  Modal,
-  Fade,
   InputLabel,
-  Backdrop,
   Divider,
   Dialog,
   IconButton,
@@ -31,7 +28,6 @@ import UnitDetailsController, { Props } from "./UnitDetailsController.web";
 import DashboardHeader from "../../dashboard/src/DashboardHeader.web";
 import ChairmanSidebar from "../../dashboard/src/ChairmanSidebar.web";
 import { withTranslation } from "react-i18next";
-import "../../../web/src/i18n.js";
 import "./style.css";
 import {
   configuration,
@@ -80,7 +76,7 @@ const settings = {
   swipeToSlide: true,
 };
 
-const LocationPin = ({  }: any) => <img src={mapLocation} />;
+const LocationPin = ({ }: any) => <img src={mapLocation} />;
 
 class UnitDetails extends UnitDetailsController {
   constructor(props: Props) {
@@ -88,8 +84,7 @@ class UnitDetails extends UnitDetailsController {
   }
 
   render() {
-    const { t }: any = this.props;
-    const { classes } = this.props;
+    const { t, classes }: any = this.props;
 
     return (
       <>
@@ -251,13 +246,20 @@ class UnitDetails extends UnitDetailsController {
                               <CardMedia
                                 component="img"
                                 height="140"
-                                image={people.account.data.attributes.profile_pic.url}
+                                image={
+                                  people.account.data.attributes.profile_pic &&
+                                  people.account.data.attributes.profile_pic.url
+                                }
                                 alt={people.account.data.attributes.full_name.name}
                                 style={dashBoard.profileImage}
                               />
                               <h4>{people.apartment_name}</h4>
                               <p>{people.account.data.attributes.full_name.name}</p>
-                              <span className="role">{people.roles[0].name}</span>
+                              <Box className="roles-box">
+                                {people.roles.map((role: any) => {
+                                  return <span className="role">{role.name}</span>;
+                                })}
+                              </Box>
                               <Box className="icons">
                                 <img src={chat} alt="" />
                                 <a href={`mailto:${people.account.data.attributes.email.email}`}>
@@ -521,22 +523,22 @@ class UnitDetails extends UnitDetailsController {
                           return (
                             <Grid item sm={6} key={rent.id}>
                               <Card>
-                                <h4>{rent.tenant_name}</h4>
+                                <h4>{rent.attributes.tenant_name}</h4>
                                 <p className="date">
-                                  {moment(rent.start_date, "YYYY-MM-DD").format("MMMM YY")} to{" "}
-                                  {moment(rent.end_date, "YYYY-MM-DD").format("MMMM YY")}
+                                  {moment(rent.attributes.start_date, "YYYY-MM-DD").format("MMMM YY")} to{" "}
+                                  {moment(rent.attributes.end_date, "YYYY-MM-DD").format("MMMM YY")}
                                 </p>
                                 <Divider />
                                 <Box className="history-info" style={{ marginTop: "8px" }}>
                                   <p>{t("Rent Amount")}</p>
                                   <p>
-                                    <span>{rent.rent_amount || 0}</span>
+                                    <span>{rent.attributes.rent_amount || 0}</span>
                                   </p>
                                 </Box>
                                 <Box className="history-info">
                                   <p>{t("Received Amount")}</p>
                                   <p>
-                                    <span>{rent.received_amount || 0}</span>
+                                    <span>{rent.attributes.received_amount || 0}</span>
                                   </p>
                                 </Box>
                               </Card>
@@ -559,7 +561,7 @@ class UnitDetails extends UnitDetailsController {
                         <Slider ref={(c: any) => (this.slider = c)} {...settings}>
                           {this.state.unitData.photos.map((image: any, index: number) => {
                             return (
-                              <div onClick={() => this.setState({ imageBox: true, photoIndex: index })}>
+                              <div className="slider-image" onClick={() => this.setState({ imageBox: true, photoIndex: index })}>
                                 <img src={image.url} alt="" />
                               </div>
                             );
@@ -588,7 +590,7 @@ class UnitDetails extends UnitDetailsController {
                     prevSrc={
                       this.state.unitData.photos[
                         (this.state.photoIndex + this.state.unitData.photos.length - 1) %
-                          this.state.unitData.photos.length
+                        this.state.unitData.photos.length
                       ].url
                     }
                     onCloseRequest={() => this.setState({ imageBox: false })}
@@ -794,7 +796,7 @@ class UnitDetails extends UnitDetailsController {
         </Dialog>
 
         {/* Google Map */}
-        <Dialog className="edit-profile" open={this.state.isOpenMapModalOpen} scroll="paper" fullWidth maxWidth="sm">
+        <Dialog className="edit-profile unit-map-modal" open={this.state.isOpenMapModalOpen} scroll="paper" fullWidth maxWidth="sm">
           <MuiDialogTitle disableTypography className="dialog-heading">
             <Typography variant="h6">{t("Location")}</Typography>
             <IconButton onClick={() => this.handleMapModal()}>
@@ -929,7 +931,7 @@ class UnitDetails extends UnitDetailsController {
 
         {/* Delete Family Member */}
         <Dialog
-          className="delete-dialog"
+          className="delete-dialog unit-delete-member-modal"
           fullWidth
           onClose={() => this.handleDeleteFamilyMemberModal()}
           open={this.state.isDeleteFamilyModalOpen}
@@ -966,7 +968,7 @@ class UnitDetails extends UnitDetailsController {
 
         {/* DeLink Related People  */}
         <Dialog
-          className="delete-dialog"
+          className="delete-dialog unit-delink-member-modal"
           fullWidth
           onClose={() => this.handleDeLinkModal()}
           open={this.state.setDeLinkOpen}
@@ -992,7 +994,7 @@ class UnitDetails extends UnitDetailsController {
 
         {/* Suspend Related People  */}
         <Dialog
-          className="delete-dialog"
+          className="delete-dialog uni-suspend-member-modal"
           fullWidth
           onClose={() => this.handleDeLinkModal()}
           open={this.state.setSuspendOpen}
