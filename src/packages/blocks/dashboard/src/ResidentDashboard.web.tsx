@@ -234,16 +234,6 @@ class ResidentDashboard extends DashboardController {
                     </Link>
                   </Grid>
                   <Grid item xs={6} sm={6}>
-                    <Link href="">
-                      <DashboardCard
-                        image={DashboardFacility}
-                        heading={t("Facility Reservation")}
-                        title={t("Scheduled")}
-                        value="75"
-                      />
-                    </Link>
-                  </Grid>
-                  <Grid item xs={6} sm={6}>
                     <Link href="/FeesAndPayment">
                       <DashboardCard
                         image={DashboardFee}
@@ -354,6 +344,16 @@ class ResidentDashboard extends DashboardController {
                         image={DashboardDocument}
                         heading={t("My Documents")}
                         title={t("Last Uploaded")}
+                        value="NA"
+                      />
+                    </Link>
+                  </Grid>
+                  <Grid item xs={6} sm={6}>
+                    <Link href="/FacilityReservation">
+                      <DashboardCard
+                        image={DashboardDocument}
+                        heading={t("Facility Reservation")}
+                        title={t("Facility Reservation")}
                         value="NA"
                       />
                     </Link>

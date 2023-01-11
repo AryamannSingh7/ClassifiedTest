@@ -7,7 +7,7 @@ import MessageEnum, {
 } from "../../../framework/src/Messages/MessageEnum";
 import { runEngine } from "../../../framework/src/RunEngine";
 
-export const configJSON = require("./config");
+export const configJSON = require("../../ExpenseTracking/src/config");
 
 export interface Props {
   navigation: any;

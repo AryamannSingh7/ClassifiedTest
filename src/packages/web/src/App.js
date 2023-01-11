@@ -36,6 +36,9 @@ import MultipleCurrencySupport from '../../blocks/multiplecurrencysupport/src/Mu
 import NewPassword from '../../blocks/forgot-password/src/NewPassword';
 import Feedback from '../../blocks/Feedback/src/Feedback';
 import SuggestionListing from '../../blocks/Feedback/src/Suggestion.web';
+import NewSuggestion from '../../blocks/Feedback/src/NewSuggestion.web';
+import SuggestionData from '../../blocks/Feedback/src/SuggestionDetails.web';
+
 
 // import Contactus from "../../blocks/contactus/src/Contactus";
 import AddContactus from '../../blocks/contactus/src/AddContactus';
@@ -322,8 +325,8 @@ import RentDetails from '../../blocks/PricingEngine2/src/RentDetails.web';
 import AddRentPayment from '../../blocks/PricingEngine2/src/RegisterRentPayment.web';
 
 // Reports
-import GenerateBudgetReport from "../../blocks/ExpenseTracking/src/GenerateBudgetReport.web"
-import GenerateBudgetReportPreview from "../../blocks/ExpenseTracking/src/BudgetReportPreview.web"
+import GenerateBudgetReport from "../../blocks/StoreCredits/src/GenerateBudgetReport.web"
+import GenerateBudgetReportPreview from "../../blocks/StoreCredits/src/BudgetReportPreview.web"
 import ReportDashboard from '../../blocks/StoreCredits/src/ReportDashboard.web';
 import BudgetReport from '../../blocks/StoreCredits/src/BudgetReport.web';
 import BudgetReportDetails from '../../blocks/StoreCredits/src/BudgetReportDetails.web';
@@ -528,6 +531,11 @@ const routeMap = {
   SuggestionListing: {
     component: SuggestionListing,
     path: '/SuggestionListing',
+    exact: true
+  },
+  NewSuggestion: {
+    component: NewSuggestion,
+    path: '/NewSuggestion',
     exact: true
   },
   ChairmanChangePassword: {
@@ -1585,6 +1593,11 @@ const routeMap = {
   SuggestionDetails: {
     component: SuggestionDetails,
     path: '/SuggestionDetails',
+    exact: true
+  },
+  SuggestionData: {
+    component: SuggestionData,
+    path: '/SuggestionData',
     exact: true
   },
 

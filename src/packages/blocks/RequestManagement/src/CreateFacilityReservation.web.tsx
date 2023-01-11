@@ -40,8 +40,6 @@ import {
   // Box_Icon,
   Building1,
   LEADING_ICON,
-  // Checkmark_Icon,
-  // Error_Icon,
   TimeIcon
 } from "../src/assets";
 import { Visibility, VisibilityOff } from "@material-ui/icons";
@@ -58,9 +56,9 @@ class CreateFacilityReservation extends FacilityReservationController {
     if (id) {
       this.getFacilityReservationDetailsById(id);
     }
-  //  else {
-  //   this.props.history.push("/FacilityReservationDetails")
-  //  }
+    //  else {
+    //   this.props.history.push("/FacilityReservationDetails")
+    //  }
     this.getMyApartmentList();
     // this.getIncidentRelated();
   }
@@ -68,9 +66,8 @@ class CreateFacilityReservation extends FacilityReservationController {
     const { navigation } = this.props;
     const id = this.state?.getFacilityReservationDetails?.id;
     const attributes = this.state?.getFacilityReservationDetails?.attributes;
-   // console.log("commonAreaData=============>", this.state?.commonAreaData)
-    console.log("attributes?.date =============>", attributes?.start_time,attributes?.end_time)
-    console.log("moment(attributes?.date,'DD-MMM-YYYY').format('YYYY-MM-DD')=============>", moment(attributes?.date, 'DD-MMM-YYYY').format('YYYY-MM-DD'))
+    //@ts-ignore
+    const FacilityId = this.props.history?.location?.id;
     return (
       <>
         <Box className="login-wrapper incident-wrapper">
@@ -80,13 +77,16 @@ class CreateFacilityReservation extends FacilityReservationController {
                 <Box className="content-header">
                   <Box className="left-block blocks">
                     <Box className="backIcons" onClick={() => window.history.back()}><KeyboardBackspaceIcon /></Box>
-                    <h4>Facility Reservation</h4>
+                    {
+                      FacilityId ? <h4>Update Facility Reservation</h4> : <h4>Facility Reservation</h4>
+                    }
+                    
                   </Box>
                 </Box>
                 <Box className="content-block-wrapper common-incident-block desktop-ui create-reservation-wrapper">
                   <Formik
                     initialValues={{
-                      areaReserve: attributes?.common_area?.id || " ",
+                      areaReserve: FacilityId ?`${attributes?.common_area?.id},${attributes?.common_area?.details},${attributes?.common_area?.name},${attributes?.common_area?.reservation_fee},${attributes?.currency?.currency}`: " ",
                       buildingName: attributes?.building?.id || " ",
                       date: moment(attributes?.date, 'DD-MMM-YYYY').format('YYYY-MM-DD') || "",
                       timeFrom: attributes?.start_time || "",
@@ -151,9 +151,10 @@ class CreateFacilityReservation extends FacilityReservationController {
                               id="demo-simple-select-outlined"
                               style={{ paddingLeft: 50 }}
                               onChange={(e) => {
-                                (e.target.value != " ") && setFieldValue("areaReserve", e.target.value)
+                                this.onChange(e) ;
+                                setFieldValue("areaReserve", e.target.value)
                               }}
-                              value={values.areaReserve}
+                              value={this.state?.areaReserve}
                             >
                               <MenuItem disabled value=" ">
                                 Area to Reserve
@@ -162,7 +163,7 @@ class CreateFacilityReservation extends FacilityReservationController {
                                 this.state?.commonAreaData?.map((val: any, index: any) => (
                                   <MenuItem
                                     key={index}
-                                    value={val?.id}
+                                    value={`${val?.id},${val?.attributes?.details},${val?.attributes?.name},${val?.attributes?.reservation_fee},${val?.attributes?.currency?.currency}`}
                                   >
                                     {val?.attributes?.name}
                                   </MenuItem>
@@ -201,7 +202,7 @@ class CreateFacilityReservation extends FacilityReservationController {
                                   }
                                   }
                                 />
-                                <ErrorMessage className="text-error" component="Typography" name="startDate" />
+                                <ErrorMessage className="text-error" component="Typography" name="date" />
                               </Box>
                             </Grid>
                           </Grid>
@@ -225,19 +226,32 @@ class CreateFacilityReservation extends FacilityReservationController {
                               <ErrorMessage className="text-error" component="Typography" name="timeTo" />
                             </Box>
                           </Grid>
-                          <Box className="reservationDec">
-                            <p>Description: You can use garden for kids party, family gathering, building event etc. You are not allowed to have meals in the garden. </p>
-                            <br></br> <p>You will be charged <span>SR 50 per hour</span> for garden facility.</p>
+                          {
+                            this.state?.areaReserveDetail ?
+                            <Box className="reservationDec">
+                            <h5>Description:</h5>
+                            <p>
+                             {this.state?.areaReserveDetail}
+                            </p>
+                            <br></br> <p>You will be charged <span>{this.state?.currency} {this.state?.reservationFees} per hour</span> for {this.state?.areaReserveName} facility.</p>
                           </Box>
+                          : null
+                          }
+                          
                         </Grid>
                         <Box className="customButton">
-                          <Button variant="contained" type="submit">submit</Button>
+                        {
+                         FacilityId ?<Button variant="contained" type="submit">update request</Button>: <Button variant="contained" type="submit">Submit</Button>
+                       }
                         </Box>
+                         {JSON.stringify(errors, null, 2)} 
+                         {JSON.stringify(values, null, 2)}
+
                       </Form>
                     )}
                   </Formik>
                 </Box>
-             
+
               </Box>
             </Grid>
             <Grid item xs={12} md={5} className="auth-cols">

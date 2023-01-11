@@ -223,8 +223,9 @@ class Announcements extends AnnouncementsController {
                   this.upload.click();
                 }}
               >
-                <img src={UploadImage} />
+                <img src={this.state.blobImage||UploadImage} style={{maxWidth:'-webkit-fill-available'}}/>
                 <Typography variant="body1">{t("Upload Image (Optional)")}</Typography>
+                <Typography variant="body1" color="textSecondary">{this.state.selectedImage.name}</Typography>
               </div>
               <input
                 id="myInput"

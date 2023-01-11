@@ -361,6 +361,21 @@ class ChairmanSidebar extends DashboardController {
               <Typography className="SingleLinkSize">Incident Management</Typography>
             </div>
           </Box>
+
+           {/* Facility Reservation */}
+           <Box className="SingleLink">
+            <Typography className="SingleLinkSize">
+              <DashboardOutlinedIcon />
+            </Typography>
+            <div
+              onClick={() => {
+                //@ts-ignore
+                this.props.history.push("/ManagerFacilityReservation");
+              }}
+            >
+              <Typography className="SingleLinkSize">Facility Reservation</Typography>
+            </div>
+          </Box>
         </Box>
 
         <Box className="SideBarBottom">
@@ -381,10 +396,6 @@ class ChairmanSidebar extends DashboardController {
     );
   }
 }
-
-//@ts-ignore
-export default withTranslation()(withStyles(dashBoard)(withRouter(ChairmanSidebar)));
-
 const dashBoard = {
   PremimumPlan: {
     background: "#ff8100",
@@ -405,5 +416,13 @@ const dashBoard = {
     cursor: "pointer",
   },
 };
+//@ts-ignore
+export default withTranslation()(withStyles(dashBoard)(withRouter(ChairmanSidebar)));
+
+
+
+//@ts-ignore
+// export default withTranslation()(withStyles(dashBoard)(withRouter(ChairmanSidebar)));
+
 
 // Customizable Area End

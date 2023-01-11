@@ -37,7 +37,6 @@ import {
 } from "./assets";
 import { Formik, Form } from "formik";
 import { withTranslation } from "react-i18next";
-import "../../../web/src/i18n.js";
 import Loader from "../../../components/src/Loader.web";
 import { PropertyManagerStyleWeb } from "./PropertyManagerStyle.web";
 import RegisterPropertyManagerController, { Props } from "./RegisterPropertyManagerController.web";
@@ -62,8 +61,7 @@ class EditPropertyManager extends RegisterPropertyManagerController {
   }
 
   render() {
-    const { classes } = this.props;
-    const { t }: any = this.props;
+    const { classes, t } = this.props;
 
     return (
       <>
@@ -99,7 +97,7 @@ class EditPropertyManager extends RegisterPropertyManagerController {
                     >
                       {({ values, errors, touched, handleChange, handleBlur, handleSubmit, setFieldValue }) => {
                         return (
-                          <Form onSubmit={handleSubmit} translate="true">
+                          <Form onSubmit={handleSubmit} translate="yes">
                             <Box className="select-input-box">
                               <FormControl fullWidth>
                                 <Input
@@ -170,9 +168,7 @@ class EditPropertyManager extends RegisterPropertyManagerController {
                                       return (
                                         <MenuItem key={country.dial_code} value={country.dial_code}>
                                           <img
-                                            src={`https://cdn.jsdelivr.net/npm/country-flag-emoji-json@2.0.0/dist/images/${
-                                              country.code
-                                            }.svg`}
+                                            src={`https://cdn.jsdelivr.net/npm/country-flag-emoji-json@2.0.0/dist/images/${country.code}.svg`}
                                             width="15"
                                             height="15"
                                             style={{ marginRight: "5px" }}
@@ -212,6 +208,7 @@ class EditPropertyManager extends RegisterPropertyManagerController {
                                       </h4>
                                       <Box className="box-icons">
                                         <img
+                                          className="edit-property-icon"
                                           src={EditIcon}
                                           alt="edit"
                                           onClick={() => {
@@ -237,6 +234,7 @@ class EditPropertyManager extends RegisterPropertyManagerController {
                                           }}
                                         />
                                         <img
+                                          className="delete-property-icon"
                                           src={DeleteIcon}
                                           alt="delete"
                                           onClick={() => {
@@ -399,7 +397,7 @@ class EditPropertyManager extends RegisterPropertyManagerController {
           >
             {({ values, errors, touched, handleChange, handleBlur, handleSubmit, setFieldValue }) => {
               return (
-                <Form onSubmit={handleSubmit} translate="true">
+                <Form onSubmit={handleSubmit} translate="yes">
                   <Box>
                     {this.state.propertyId ? <h4>{t("Edit Property")}</h4> : <h4>{t("Add Another Property")}</h4>}
                     <FormControl fullWidth>

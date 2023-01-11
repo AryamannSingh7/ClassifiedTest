@@ -54,6 +54,11 @@ export interface S {
   showDialog:any;
   deleteShowDialog:any;
   facilityCount:any;
+  areaReserve : any,
+  areaReserveName:any,
+  areaReserveDetail:any,
+  reservationFees:any,
+  currency:any
   // Customizable Area End
 }
 
@@ -147,6 +152,11 @@ export default class FacilityReservationController extends BlockComponent<
       showDialog:false,
       deleteShowDialog:false,
       facilityCount:{},
+      areaReserve : " ",
+      areaReserveName:"",
+      areaReserveDetail:"",
+      reservationFees:"",
+      currency:""
       // Customizable Area End
     };
 
@@ -304,7 +314,8 @@ export default class FacilityReservationController extends BlockComponent<
           if (responseJson && responseJson?.data ) {
           console.log("getFacilityReservationDetailsByIdApiCallId ========================>",responseJson)
           this.setState({getFacilityReservationDetails :responseJson?.data})
-          console.log("responseJson getFacilityReservationDetails========================>",this.state?.getFacilityReservationDetails)
+          const attributes = this.state?.getFacilityReservationDetails?.attributes;
+          this.setState({ areaReserveName : attributes?.common_area?.name , areaReserveDetail:attributes?.common_area?.details , reservationFees:attributes?.common_area?.reservation_fee,currency:attributes?.common_area?.currency?.currency})
           this.setState({loading: false})
           } else if (responseJson?.errors) {
             let error = responseJson.errors[0] as string;
@@ -614,6 +625,19 @@ clear= () => {
   this.props.history.push("/");
 }
 
+onChange = (e :any)=>{
+  console.log("onChange==================>",e.target?.value)
+  if(e.target.name === 'areaReserve'){
+    const array = e.target?.value?.split(","); 
+    const details = array [1]
+    const name = array[2]
+    const reservation_fee = array[3]
+    const currency = array[4]
+    
+    this.setState({ areaReserve:e.target?.value , areaReserveName : name , areaReserveDetail:details , reservationFees:reservation_fee,currency:currency})
+  }
+}
+
 getFacilityReservationDetails= (idOrName :any) => {
   if(idOrName){
     if(idOrName ==="Upcoming" || idOrName ==="Pending" || idOrName ==="Previous" || idOrName ==="Rejected" ||idOrName ==="Cancelled"){
@@ -679,10 +703,11 @@ CreateFacilityReservation = async(val :any) => {
      const header = {
       token :localStorage.getItem("userToken")
     };
-    console.log("values create==================>",val );
+    const array = val?.areaReserve?.split(","); 
+    const id = array [0]
     const formData = new FormData();
    formData.append('facility_reservation[building_management_id]',val?.buildingName);
-   formData.append('facility_reservation[common_area_id]',val?.areaReserve);
+   formData.append('facility_reservation[common_area_id]',id);
    formData.append('facility_reservation[date]', val?.date);
    formData.append('facility_reservation[time_from]', val?.timeFrom);
    formData.append('facility_reservation[time_to]', val?.timeTo);
@@ -732,10 +757,13 @@ CreateFacilityReservation = async(val :any) => {
        const header = {
         token :localStorage.getItem("userToken")
       };
-      console.log("values create==================>",val );
+      const array = val?.areaReserve?.split(","); 
+      const id = array [0]
+
       const formData = new FormData();
+      
      formData.append('facility_reservation[building_management_id]',val?.buildingName);
-     formData.append('facility_reservation[common_area_id]',val?.areaReserve);
+     formData.append('facility_reservation[common_area_id]',id);
      formData.append('facility_reservation[date]', val?.date);
      formData.append('facility_reservation[time_from]', val?.timeFrom);
      formData.append('facility_reservation[time_to]', val?.timeTo);
@@ -971,6 +999,23 @@ CreateFacilityReservation = async(val :any) => {
     this.setState({anchorEl:null,sortBy : sortBy})
   };
 
+  handleClick_1 = (event :any) => {
+    this.setState({anchorEl_1:event.currentTarget})
+  };
+   
+  handleClose_1 = (e:any, v:any) => {
+   let status : any ;
+    if(v === undefined || v === null){
+      console.log("v=========>",v)
+      status =this.state.status;
+    }
+    else {
+      status =v;
+    }
+    this.setState({anchorEl_1:null ,status :status})
+  };
+  
+  
 
   deleteFacility =(id:any)=>{
     const header = {
@@ -1056,9 +1101,13 @@ CreateFacilityReservation = async(val :any) => {
 
   CreateFacilityReservationSchema() {
     const validations = Yup.object().shape({
-      areaReserve: Yup.string().trim(),
+      areaReserve: Yup.string().required(`This field is required`).trim(),
       buildingName:Yup.string().required(`This field is required`).trim(),
-      date: Yup.date().required("Date is required"),
+      date: Yup.date()
+      .required()
+      .typeError("please enter a valid date")
+      .min(new Date(Date.now() -86400000), "Date cannot be in the past")
+      ,
       timeFrom:Yup.string().required("Start time is required"),
       timeTo:Yup.string().required("End time is required")
     .test("is-greater", "End time should be greater than Start time", function(value) {

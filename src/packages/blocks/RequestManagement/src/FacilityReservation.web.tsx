@@ -38,8 +38,7 @@ class FacilityReservation extends FacilityReservationController {
   }
   render() {
     const { navigation } = this.props;
-    console.log("getFacilityReservationCount=======>",this.state.facilityCount)
-   const {total_upcoming_count ,total_pending_count,total_completed_count,total_cancelled_count,total_rejected_count} = this.state?.facilityCount;
+    const { total_upcoming_count, total_pending_count, total_completed_count, total_cancelled_count, total_rejected_count } = this.state?.facilityCount;
     return (
       <>
         <Box className="login-wrapper incident-wrapper">
@@ -48,7 +47,7 @@ class FacilityReservation extends FacilityReservationController {
               <Box className="content-block">
                 <Box className="content-header">
                   <Box className="left-block blocks">
-                    <Box className="backIcons" onClick={this.redirectToDashboard}><KeyboardBackspaceIcon /></Box>
+                    <Box className="backIcons" id="backIcons" onClick={this.redirectToDashboard}><KeyboardBackspaceIcon /></Box>
                     <h4>Facility Reservation</h4>
                   </Box>
                 </Box>
@@ -65,12 +64,12 @@ class FacilityReservation extends FacilityReservationController {
                         </Typography>
                         <CardActions className="card-footer">
                           <Box className="customButton">
-                            <Button variant="contained" className="contain warning" >{total_upcoming_count}</Button>
+                            <Button variant="contained" className="contain warning">{total_upcoming_count}</Button>
                           </Box>
                         </CardActions>
                       </CardContent>
                     </Card>
-               
+
                     <Card className="card facilityReserve-card" onClick={() => this.getFacilityReservationDetails("Pending")}>
                       <CardContent className="costom-card-content">
                         <img src={pending} className="frm-icons" alt="House Icon" />
@@ -87,7 +86,6 @@ class FacilityReservation extends FacilityReservationController {
                         </CardActions>
                       </CardContent>
                     </Card>
-
                     <Card className="card facilityReserve-card" onClick={() => this.getFacilityReservationDetails("Previous")}>
                       <CardContent className="costom-card-content">
                         <img src={previous} className="frm-icons" alt="House Icon" />

@@ -20,7 +20,7 @@ import ChairmanSidebar from "../../dashboard/src/ChairmanSidebar.web";
 import DashboardHeader from "../../dashboard/src/DashboardHeader.web";
 import { withRouter } from 'react-router';
 import { withTranslation } from 'react-i18next';
-import '../../../web/src/i18n.js';
+import 'web/src/i18n.js';
 import {withStyles} from "@material-ui/core/styles";
 import InfoOutlinedIcon from "@material-ui/icons/InfoOutlined";
 import Tooltip from "@material-ui/core/Tooltip";
