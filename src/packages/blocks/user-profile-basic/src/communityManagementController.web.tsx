@@ -436,7 +436,7 @@ this.setState({loading:false,showDialog:false})
   }
   getInvitationRes(responseJson:any,errorReponse:any){
     if (!responseJson.errors) {
-      this.setState({allInvitation:responseJson.member_invitations.data,loading:false})
+      this.setState({allInvitation:responseJson.data,loading:false},()=>console.log(this.state.allInvitation))
       
       
                 } else {
@@ -466,7 +466,7 @@ this.setState({loading:false,showDialog:false})
 
       
       this.setState({ loading: false,setAcceptOpen:'',setRejectOpen:false })
-      this.getInvitation()
+      this.getRequest()
 
     } else {
       //Check Error Response
@@ -1587,10 +1587,12 @@ this.setState({loading:true})
     try {
       const header = {
 
-        token: localStorage.getItem("userToken")
+        token: localStorage.getItem("userToken"),
+        "content-type":'application/json'
       };
-      const formData = new FormData();
-      formData.append("member_invitation[status]", 'Accept')
+      const httpBody={
+        "status":1
+      }
       
       const requestMessage = new Message(
         getName(MessageEnum.RestAPIRequestMessage)
@@ -1600,7 +1602,7 @@ this.setState({loading:true})
 
       requestMessage.addData(
         getName(MessageEnum.RestAPIResponceEndPointMessage),
-        `bx_block_request_management/member_invitations/${id}`
+        `bx_block_request_management/requests/${id}/update_status`
       );
 
       requestMessage.addData(
@@ -1610,7 +1612,7 @@ this.setState({loading:true})
 
       requestMessage.addData(
         getName(MessageEnum.RestAPIRequestBodyMessage),
-        formData
+        JSON.stringify(httpBody)
       );
 
       requestMessage.addData(
@@ -1632,10 +1634,12 @@ this.setState({loading:true})
     try {
       const header = {
 
-        token: localStorage.getItem("userToken")
+        token: localStorage.getItem("userToken"),
+        "content-type":'application/json'
       };
-      const formData = new FormData();
-      formData.append("member_invitation[status]", 'Decline')
+      const httpBody={
+        "status":2
+      }
       
       const requestMessage = new Message(
         getName(MessageEnum.RestAPIRequestMessage)
@@ -1645,7 +1649,7 @@ this.setState({loading:true})
 
       requestMessage.addData(
         getName(MessageEnum.RestAPIResponceEndPointMessage),
-        `bx_block_request_management/member_invitations/${id}`
+        `bx_block_request_management/requests/${id}/update_status`
       );
 
       requestMessage.addData(
@@ -1655,7 +1659,7 @@ this.setState({loading:true})
 
       requestMessage.addData(
         getName(MessageEnum.RestAPIRequestBodyMessage),
-        formData
+        JSON.stringify(httpBody)
       );
 
       requestMessage.addData(
