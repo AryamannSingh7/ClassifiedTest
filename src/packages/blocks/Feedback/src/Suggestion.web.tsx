@@ -76,7 +76,7 @@ class Suggestion extends SuggestionController {
                   <img src={Claender}/>   {item?.attributes?.sent_on}
                     </Typography>
                     <Box className="customButton">
-                      <Button variant="contained" className="contain blue" type="submit" >{item?.attributes?.response.length>0 ? '1':'0'} Response</Button>
+                      <Button variant="contained" className="contain blue" type="submit" >{item?.attributes?.response.length>0 ? item?.attributes?.response.length:'0'} Response</Button>
                     </Box>
                     {/* <Button className="success">Resolved</Button> */}
                   </CardActions>

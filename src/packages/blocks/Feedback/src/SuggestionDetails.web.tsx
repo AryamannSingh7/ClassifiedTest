@@ -53,7 +53,7 @@ class SuggestionDetails extends SuggestionController {
                   Suggestion Details
                     </Typography>
                     <Box className="customButton">
-                      <Button variant="contained" className="contain blue" type="submit" >{data?.attributes?.response.length>0 ? '1':'0'} Response</Button>
+                      <Button variant="contained" className="contain blue" type="submit" >{data?.attributes?.response.length>0 ? data?.attributes?.response.length:'0'} Response</Button>
                     </Box>
                     </Box>
                     <Box>
@@ -101,7 +101,7 @@ class SuggestionDetails extends SuggestionController {
 <Typography className="sub-title h5-title" component="h5">
 <img src={Claender}/> Sent On:
 <br/>
-{data?.attributes?.sent_on}
+{data?.attributes?.sent_on} {" "} {data?.attributes?.sent_on_time}
 </Typography>
 
 

@@ -2095,7 +2095,7 @@ let userType=localStorage.getItem('userType')
 
       requestMessage.addData(
         getName(MessageEnum.RestAPIResponceEndPointMessage),
-        `https://ti1finalleap-158677-ruby.b158677.dev.eastus.az.svc.builder.cafe/bx_block_request_management/request_data`
+        `https://ti1finalleap-158677-ruby.b158677.dev.eastus.az.svc.builder.cafe/bx_block_request_management/request_data?society_management_id=6`
       );
 
       requestMessage.addData(
