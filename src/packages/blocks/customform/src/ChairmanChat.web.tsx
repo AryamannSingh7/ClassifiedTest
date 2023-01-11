@@ -49,7 +49,7 @@ import { dailCode } from "../../email-account-registration/src/code";
 import ChipInput from "material-ui-chip-input";
 import OtpInput from "react-otp-input";
 import InboxWeb from "./Inbox.web";
-import { Building1, DoubleTick, info, NoChat, Search, Send } from "./assets";
+import {  DoubleTick, info, NoChat, Send } from "./assets";
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 import Menu from '@material-ui/core/Menu';
 import InboxController,{Props} from "./inboxController.web";
@@ -59,7 +59,6 @@ import AttachFileIcon from '@material-ui/icons/AttachFile';
 
 import '../assets/css/style.scss'
 import { withTranslation } from "react-i18next";
-import { Claender } from "../../Feedback/src/assets";
 class ChairmanChat extends InboxController {
   constructor(props: Props) {
     super(props);
@@ -271,8 +270,8 @@ const currentAccountId = localStorage.getItem('userId')
 
                   <Box key={item} display='flex' style={{ gap: '1rem',maxHeight:'5rem',marginTop:'1rem',cursor:'pointer',borderBottom:'1px solid #f2f2f2' }} onClick={() => this.openChat2(item)}>
                     <img src={item?.attributes?.chat_with_account?.attributes?.profile_pic?.url ||'https://images.freeimages.com/images/large-previews/e04/yellow-frontal-with-ivy-1228121.jpg'} width='50' height='50' style={{ borderRadius: 25 }} />
-                    
-                    <Box padding='0.25rem' width='100%' >
+                    <InBoxCard item={item} displaytime={this.displaytime} getLastMessage={this.getLastMessage}/>
+                    {/* <Box padding='0.25rem' width='100%' >
                       <Box width='100%' display='flex' justifyContent='space-between' alignItems='center'>
 
                       <h5>
@@ -298,7 +297,7 @@ const currentAccountId = localStorage.getItem('userId')
                       </p>
                       }
                       </Box>
-                    </Box>
+                    </Box> */}
                   </Box>
 
               </>
@@ -328,7 +327,8 @@ const currentAccountId = localStorage.getItem('userId')
             },
           }}
         >
-          <Grid container>
+          <DialogBox allInbox={this.state.allInbox} disableChat={this.disablechat} onClickHandle={() => this.setState({ showSuccessModal: false })}/>
+          {/* <Grid container>
             <Grid xs={12} style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', marginBottom: 10 }}>
 
               <img src={NoChat} />
@@ -370,7 +370,7 @@ const currentAccountId = localStorage.getItem('userId')
                 }
               </Button>
             </DialogActions>
-          </Box>
+          </Box> */}
         </Dialog>
         < Loader loading={this.state.loading} />
       </>
@@ -382,14 +382,15 @@ const currentAccountId = localStorage.getItem('userId')
               <div style={{ padding: "0.3rem", backgroundColor: "#ffff",paddingLeft:'0.3rem',minWidth:'95%'}}>
         <Grid container>
           <Grid item xs={12} style={{ display: 'flex', justifyContent: 'space-between',paddingBottom:'1rem' }}>
-            <Box display='flex' alignItems='center' >
+            {/* <Box display='flex' alignItems='center' >
              
               <span style={{ fontWeight: 'bold',display:'flex',gap:'0.5rem',marginTop:'1rem' }}>
               {item?.attributes?.chat_with_account?.id != localStorage.getItem('userId')  ? <img src={item?.attributes?.chat_with_account?.attributes?.profile_pic?.url} width='25' height='25'/> || <img src={NoProfile_Img} width='25' height='25' />:<img src={item?.attributes?.chatable?.attributes?.profile_pic?.url} width='25' height='25'/>   || <img src={NoProfile_Img} width='25' height='25'/> }
 
                 {item?.attributes?.chat_with_account?.id != localStorage.getItem('userId') ?item?.attributes?.chat_with_account?.attributes?.full_name || 'N/A':item?.attributes?.chatable?.attributes?.full_name || 'N/A' }
               </span>
-            </Box>
+            </Box> */}
+            <ChatRoomSection item={item}/>
 
 
           </Grid>
@@ -776,3 +777,144 @@ const IOSSwitch = styled((props) => (
     }),
   },
 }));
+
+
+const InBoxCard=(props:any)=>{
+console.log(props)
+function displaytime(obj:any) {
+
+  let value = obj[Object.keys(obj)[Object.keys(obj).length - 1]]
+ 
+  //@ts-ignore
+  //@ts-nocheck
+  if(value){
+
+
+let date = new Date(value[value.length-1].message.created_at)
+
+let d = date.getHours();
+let m = date.getMinutes();
+
+return dateToFromNowDaily(value[value.length-1].message.created_at)
+// return `${d}:${m < 9 ? `0` + m : m} (${moment(value[value.length-1].message.created_at).format("DD MMM YYYY")})`
+}else{
+return ''
+}
+
+}
+const dateToFromNowDaily=( myDate:any )=> {
+
+  // get from-now for this date
+  var fromNow = moment.utc( myDate ).fromNow();
+
+  // ensure the date is displayed with today and yesterday
+  return moment( myDate ).calendar( null, {
+      // when the date is closer, specify custom values
+      lastWeek: '[Last] dddd',
+      lastDay:  '[Yesterday]',
+      sameDay:  '[Today]',
+      nextDay:  '[Tomorrow]',
+      nextWeek: 'dddd',
+      // when the date is further away, use from-now functionality             
+      sameElse: function () {
+          return "[" + fromNow + "]";
+      }
+  });
+}
+  return(
+    <Box padding='0.25rem' width='100%' >
+                      <Box width='100%' display='flex' justifyContent='space-between' alignItems='center'>
+
+                      <h5>
+                      {props?.item?.attributes?.chat_with_account?.id != localStorage.getItem('userId') ?props?.item?.attributes?.chat_with_account?.attributes?.full_name || 'N/A':props?.item?.attributes?.chatable?.attributes?.full_name || 'N/A' }
+
+                      </h5>
+                      <p>
+                       { displaytime(props?.item.attributes.messages)}
+                      </p>
+                      </Box>
+                      <Box style={{display:'flex',justifyContent:'space-between'}}>
+
+                      <p>
+
+                        {
+                          Object.keys(props?.item.attributes.messages).length !=0 && props?.getLastMessage(props?.item.attributes.messages)
+                        }
+                      </p>
+                      {
+                         props?.item?.attributes?.is_mark_unread===0 ?null :
+                      <p style={{background:'#FC8434',color:'white',borderRadius:'50%',width:'12px',height:'12px',fontSize:'12px',padding:'4px 6px 8px 6px',textAlign:'center'}}>
+                       {props?.item?.attributes?.is_mark_unread}
+                      </p>
+                      }
+                      </Box>
+                    </Box>
+  )
+}
+
+const DialogBox=(props:any)=>{
+  return(
+    <>
+      <Grid container>
+            <Grid xs={12} style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', marginBottom: 10 }}>
+
+              <img src={NoChat} />
+            </Grid>
+          </Grid>
+          <Grid container>
+            <Grid xs={12} style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', marginBottom: 10 }}>
+
+              <p style={{ fontWeight: 800, fontSize: '1.5rem', textAlign: 'center' }}>
+               {
+                props.allInbox[0]?.attributes?.chatable?.attributes?.disable_chat ? 'Enable Chat' :'Disable Chat'
+               }  Functionality?
+
+              </p>
+            </Grid>
+          </Grid>
+          <Grid container>
+            <Grid xs={12} style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', marginBottom: 10 }}>
+              <p style={{ fontWeight: 400, fontSize: '0.8rem', textAlign: 'center' }}>
+                Are you sure want to {
+                props.allInbox[0]?.attributes?.chatable?.attributes?.disable_chat ? 'Enable Chat' :'Disable Chat'
+               } functionality? No one will be able to send you any messages while it is disabled.
+              </p>
+            </Grid>
+          </Grid>
+          <Box className="dialog-footer desktop-ui">
+            <DialogActions className="customButton" style={{display:'flex',gap:'1rem',justifyContent:'center',flexDirection:'row-reverse'}}>
+              <Button variant="contained" onClick={() => props.disableChat()} style={{width:'12rem'}}  >
+                Yes
+                {
+                  props.allInbox[0]?.attributes?.chatable?.attributes?.disable_chat ? ' Enable' :' Disable'
+                }
+                 
+              </Button>
+              <Button variant='text' onClick={props.onClickHandle} style={{width:'fit-content',border:'1px solid #668DE7',color:'#668DE7'}} >
+                No, don’t
+                {
+                  props.allInbox[0]?.attributes?.chatable?.attributes?.disable_chat ? ' Enable' :' Disable'
+                }
+              </Button>
+            </DialogActions>
+          </Box>
+    </>
+  )
+}
+
+
+const ChatRoomSection=(props:any)=>{
+
+  return(
+    <>
+         <Box display='flex' alignItems='center' >
+             
+             <span style={{ fontWeight: 'bold',display:'flex',gap:'0.5rem',marginTop:'1rem' }}>
+             {props.item?.attributes?.chat_with_account?.id != localStorage.getItem('userId')  ? <img src={props.item?.attributes?.chat_with_account?.attributes?.profile_pic?.url} width='25' height='25'/> || <img src={NoProfile_Img} width='25' height='25' />:<img src={props.item?.attributes?.chatable?.attributes?.profile_pic?.url} width='25' height='25'/>   || <img src={NoProfile_Img} width='25' height='25'/> }
+
+               {props.item?.attributes?.chat_with_account?.id != localStorage.getItem('userId') ?props.item?.attributes?.chat_with_account?.attributes?.full_name || 'N/A':props.item?.attributes?.chatable?.attributes?.full_name || 'N/A' }
+             </span>
+           </Box>
+    </>
+  )
+}
