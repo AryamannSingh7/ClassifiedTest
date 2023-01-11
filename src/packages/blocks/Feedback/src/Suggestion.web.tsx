@@ -3,7 +3,11 @@ import React from 'react';
 import {
   Box,
   Button,
+  Card,
+  CardActions,
+  CardContent,
   Grid,
+  Typography,
 } from "@material-ui/core";
 
 //resources
@@ -35,7 +39,7 @@ class Suggestion extends SuggestionController {
                 <Box className="content-header">
                   <Box className="left-block blocks">
                     <Box className="backIcons" onClick={() => this.redirectToDashboard()}><KeyboardBackspaceIcon /></Box>
-                    <h4>Incidents</h4>
+                    <h4>My Suggestions</h4>
                   </Box>
                   <Box className="incident-right-block blocks">
                    
@@ -44,32 +48,47 @@ class Suggestion extends SuggestionController {
 
                   </Box>
                 </Box>
-                <Box className="content-block-wrapper common-incident-block">
+                <Box className="content-block-wrapper common-incident-block" style={{background:'#F8F9FE'}}>
                   <Box className="incident-content-wrapper">
-                  <Box className='suggestion-card'>
-                    <p>Suggestion Title</p>
-                    <br/>
-                    <p>
-                    On the contrary, description of the services detection should set clear rules  
-                    </p>
+                    {
+                      this.state.suggestionList.map((item:any)=>{
+                return  <Card className="incident-card facility-card card" key={item.id} onClick={()=>this.openSuggestion(item)}>
+                <CardContent className="costom-card-content">
+                  {/* <Typography component="h4">
+                   {val?.attributes?.date}
+                 </Typography> */}
+                  {/* <Typography component="span">
+                   Facility Reserved:
+                 </Typography> */}
+                  <Typography className="sub-title h5-title" component="h4">
+                    {item?.attributes?.title}
+                  </Typography>
+                  <Box className="card-listing-row">
+                    <Typography component="span" className="span-subtitle">
+                    {item?.attributes?.description}
+                    </Typography>
+                  
+                  </Box>
+                  
+                  <hr />
+                  <CardActions className="card-footer">
+                    <Typography className="sub-title h5-title" component="h5" style={{display:'flex',gap:'0.5rem'}}>
+                  <img src={Claender}/>   {item?.attributes?.sent_on}
+                    </Typography>
+                    <Box className="customButton">
+                      <Button variant="contained" className="contain blue" type="submit" >{item?.attributes?.response.length>0 ? item?.attributes?.response.length:'0'} Response</Button>
+                    </Box>
+                    {/* <Button className="success">Resolved</Button> */}
+                  </CardActions>
+                </CardContent>
+              </Card>
 
-                    <div style={{display:'flex',justifyContent:'space-between',alignItems:'center'}}>
-                      <div style={{display:'flex',justifyContent:'center',alignItems:'center'}}>
-<img src={Claender}/>
-                      <p>
-                      21-06-22
-                      </p>
-                      </div>
-                      <p>
-                      1 Response
-                      </p>
-                    </div>
-
-                   </Box>
+                      })
+                    }
                   </Box>
                   <Box className="customButton add-incident">
                     <Button variant="contained" onClick={() => { this.setState({ loading: true });//@ts-ignore
-                     this.props.history.push("/CreateIncident") }} >ADD NEW SUGGESTION</Button>
+                     this.props.history.push("/newsuggestion") }} >ADD NEW SUGGESTION</Button>
                   </Box>
                 </Box>
                 {/* <Box className="footer-main-block bottomBlock">

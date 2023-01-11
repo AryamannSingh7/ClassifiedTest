@@ -154,7 +154,7 @@ class CreateFacilityReservation extends FacilityReservationController {
                                 this.onChange(e) ;
                                 setFieldValue("areaReserve", e.target.value)
                               }}
-                              value={values.areaReserve}
+                              value={this.state?.areaReserve}
                             >
                               <MenuItem disabled value=" ">
                                 Area to Reserve

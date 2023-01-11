@@ -20,7 +20,7 @@ class ChairmanSidebar extends DashboardController {
   }
 
   async componentDidMount() {
-    this.getUnreadCount()
+    this.getUnreadCount();
   }
 
   render() {

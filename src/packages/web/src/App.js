@@ -36,6 +36,13 @@ import MultipleCurrencySupport from '../../blocks/multiplecurrencysupport/src/Mu
 import NewPassword from '../../blocks/forgot-password/src/NewPassword';
 import Feedback from '../../blocks/Feedback/src/Feedback';
 import SuggestionListing from '../../blocks/Feedback/src/Suggestion.web';
+import NewSuggestion from '../../blocks/Feedback/src/NewSuggestion.web';
+import SuggestionData from '../../blocks/Feedback/src/SuggestionDetails.web';
+import NewRequestSuggestion from '../../blocks/Feedback/src/newRequest.web';
+import ResponseSuggestion from '../../blocks/Feedback/src/ResponseSuggestion.web';
+
+
+
 
 // import Contactus from "../../blocks/contactus/src/Contactus";
 import AddContactus from '../../blocks/contactus/src/AddContactus';
@@ -530,6 +537,21 @@ const routeMap = {
   SuggestionListing: {
     component: SuggestionListing,
     path: '/SuggestionListing',
+    exact: true
+  },
+  ResponseSuggestion: {
+    component: ResponseSuggestion,
+    path: '/ResponseSuggestion',
+    exact: true
+  },
+  NewRequestSuggestion: {
+    component: NewRequestSuggestion,
+    path: '/NewRequestSuggestion',
+    exact: true
+  },
+  NewSuggestion: {
+    component: NewSuggestion,
+    path: '/NewSuggestion',
     exact: true
   },
   ChairmanChangePassword: {
@@ -1587,6 +1609,11 @@ const routeMap = {
   SuggestionDetails: {
     component: SuggestionDetails,
     path: '/SuggestionDetails',
+    exact: true
+  },
+  SuggestionData: {
+    component: SuggestionData,
+    path: '/SuggestionData',
     exact: true
   },
 
