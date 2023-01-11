@@ -320,8 +320,7 @@ export default class BuildingsController extends BlockComponent<Props, S, SS> {
 
     apiRequest.addData(
       getName(MessageEnum.RestAPIResponceEndPointMessage),
-      `bx_block_settings/apartment_managements/apartment_list?building_management_id=${
-        this.state.buildingId
+      `bx_block_settings/apartment_managements/apartment_list?building_management_id=${this.state.buildingId
       }&per_page=5&page=${page}&status=${status === "-" ? "" : status}`
     );
 
@@ -398,6 +397,10 @@ export default class BuildingsController extends BlockComponent<Props, S, SS> {
       data.append("building_management[photos][]", this.dataURLtoFile(image));
     });
 
+    this.handleAPICallEditBuilding(data);
+  };
+
+  handleAPICallEditBuilding = (data: any) => {
     const header = {
       token: localStorage.getItem("userToken"),
     };
@@ -419,7 +422,7 @@ export default class BuildingsController extends BlockComponent<Props, S, SS> {
 
     runEngine.sendMessage(apiRequest.id, apiRequest);
     return true;
-  };
+  }
 
   // Handle State
   slider: any;
@@ -495,6 +498,10 @@ export default class BuildingsController extends BlockComponent<Props, S, SS> {
     });
     let photos = await Promise.allSettled(imageUrlPromise);
 
+    this.handleOpenEditBuildingState(photos);
+  };
+
+  handleOpenEditBuildingState = (photos: any) => {
     this.setState(
       {
         loading: false,
@@ -514,6 +521,6 @@ export default class BuildingsController extends BlockComponent<Props, S, SS> {
         this.handleEditBuildingModal();
       }
     );
-  };
+  }
   // Customizable Area End
 }

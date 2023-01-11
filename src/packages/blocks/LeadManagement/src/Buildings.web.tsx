@@ -25,10 +25,7 @@ import {
   DialogActions,
   InputLabel,
   Input,
-  Select,
   MenuItem,
-  ListItemIcon,
-  OutlinedInput,
 } from "@material-ui/core";
 import SearchOutlinedIcon from "@material-ui/icons/SearchOutlined";
 import "../../dashboard/src/Dashboard.web.css";
@@ -40,7 +37,6 @@ import BuildingsController, { Props } from "./BuildingsController.web";
 import DashboardHeader from "../../dashboard/src/DashboardHeader.web";
 import ChairmanSidebar from "../../dashboard/src/ChairmanSidebar.web";
 import { withTranslation } from "react-i18next";
-import "../../../web/src/i18n.js";
 import "./style.css";
 import {
   upload,
@@ -96,7 +92,7 @@ const settings = {
   swipeToSlide: true,
 };
 
-const LocationPin = ({  }: any) => <img src={mapLocation} />;
+const LocationPin = ({ }: any) => <img src={mapLocation} />;
 
 class Buildings extends BuildingsController {
   constructor(props: Props) {
@@ -104,13 +100,10 @@ class Buildings extends BuildingsController {
   }
 
   render() {
-    const { t }: any = this.props;
-    const { classes } = this.props;
+    const { t, classes }: any = this.props;
 
     var searchData = this.state.unitList.filter((item: any) => {
-      if (this.state.dataSearch === "") {
-        return item;
-      } else if (item.attributes.apartment_name.toLowerCase().includes(this.state.dataSearch.toLowerCase())) {
+      if (this.state.dataSearch === "" || (this.state.dataSearch !== "" && item.attributes.apartment_name.toLowerCase().includes(this.state.dataSearch.toLowerCase()))) {
         return item;
       }
     });
@@ -181,7 +174,7 @@ class Buildings extends BuildingsController {
                           <Slider ref={(c: any) => (this.slider = c)} {...settings}>
                             {this.state.buildingData.photos.map((image: any, index: number) => {
                               return (
-                                <div onClick={() => this.setState({ imageBox: true, photoIndex: index })} key={index}>
+                                <div className="slider-image-box" onClick={() => this.setState({ imageBox: true, photoIndex: index })} key={index}>
                                   <img src={image.url} alt="" />
                                 </div>
                               );
@@ -213,7 +206,7 @@ class Buildings extends BuildingsController {
                     prevSrc={
                       this.state.buildingData.photos[
                         (this.state.photoIndex + this.state.buildingData.photos.length - 1) %
-                          this.state.buildingData.photos.length
+                        this.state.buildingData.photos.length
                       ].url
                     }
                     onCloseRequest={() => this.setState({ imageBox: false })}
@@ -497,7 +490,7 @@ class Buildings extends BuildingsController {
         </Box>
 
         <Dialog
-          className="edit-profile"
+          className="edit-profile edit-building-modal"
           open={this.state.isEditBuildingModalOpen}
           scroll="paper"
           fullWidth
@@ -524,7 +517,7 @@ class Buildings extends BuildingsController {
                   <DialogContent dividers>
                     <Box className="profile-picture">
                       <img src={values.displayLogo} alt="profile" className="picture building" />
-                      <p onClick={() => this.uploadLogo.click()}>{t("Change Logo")}</p>
+                      <p className="logo-text" onClick={() => this.uploadLogo.click()}>{t("Change Logo")}</p>
                       <input
                         type="file"
                         ref={(ref: any) => (this.uploadLogo = ref)}
@@ -564,6 +557,7 @@ class Buildings extends BuildingsController {
                                   reader.onloadend = () => {
                                     values.photos = [...values.photos, reader.result];
                                     setFieldValue("photos", values.photos);
+                                    console.log(values.photos);
                                   };
                                   reader.readAsDataURL(file);
                                 }
@@ -710,7 +704,7 @@ class Buildings extends BuildingsController {
           </Formik>
         </Dialog>
 
-        <Dialog className="edit-profile" open={this.state.isOpenMapModalOpen} scroll="paper" fullWidth maxWidth="sm">
+        <Dialog className="edit-profile chairman-map-modal" open={this.state.isOpenMapModalOpen} scroll="paper" fullWidth maxWidth="sm">
           <MuiDialogTitle disableTypography className="dialog-heading">
             <Typography variant="h6">{t("Location")}</Typography>
             <IconButton onClick={() => this.handleMapModal()}>
