@@ -206,12 +206,11 @@ class Visitors extends VisitorAddController{
                                                             setFieldValue("time", e.target.value);
                                                         }}
                                                         onBlur={handleBlur}
-                                                        placeholder={t("Select Time")}
+                                                        placeholder={t("Select Time(HH:MM)")}
                                                         name="time"
                                                         fullWidth
                                                         type={this.state.inputType2}
                                                         onFocus={()=> this.setState({inputType2:"time"})}
-
                                                     />
                                                 </div>
                                                 {errors.time && touched.time && <small className="error">{errors.time}</small>}

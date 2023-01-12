@@ -148,9 +148,9 @@ class ChairmanLogin extends ChairmanAccountLoginController {
                                     {val?.name}
                                   </MenuItem>
                                 ))
-                              }
+                              } 
 
-                            </Select>
+                            </Select> 
                             <ErrorMessage className="text-error" component="Typography" name="userType" />
                           </FormControl>
                         </Box>
