@@ -128,7 +128,7 @@ console.log(moment( myDate ).calendar())
   render() {
     //@ts-ignore
   //@ts-nocheck
-    const item =JSON.parse(localStorage.getItem('selectedChat') || {})
+    const item =JSON.parse(localStorage.getItem('selectedChat'))
     const currentAccountId = localStorage.getItem('userId')
 
 
