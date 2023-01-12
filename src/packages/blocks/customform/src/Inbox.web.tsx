@@ -150,40 +150,7 @@ console.log(moment( myDate ).calendar())
             {
               this.state.allInbox.length!=0 ?     this.state.allInbox.map(item=>
               <>
-
-
-                  <Box key={item} display='flex' style={{ gap: '1rem',maxHeight:'5rem',marginTop:'1rem',cursor:'pointer',borderBottom:'1px solid #f2f2f2' }} onClick={() => this.openChat(item)}>
-                    <img src={item?.attributes?.chat_with_account?.id != localStorage.getItem('userId') ?item?.attributes?.chat_with_account?.attributes?.profile_pic?.url || NoProfile_Img:item?.attributes?.chatable?.attributes?.profile_pic?.url || NoProfile_Img } width='50' height='50' style={{ borderRadius: 25 }} />
-                    
-                    <Box padding='0.25rem' width='100%' >
-                      <Box width='100%' display='flex' justifyContent='space-between' alignItems='center'>
-
-                      <h5>
-                      {item?.attributes?.chat_with_account?.id != localStorage.getItem('userId') ?item?.attributes?.chat_with_account?.attributes?.full_name || 'N/A':item?.attributes?.chatable?.attributes?.full_name || 'N/A' }
-
-                      </h5>
-                      <p>
-                       { this.displaytime(item.attributes.messages)}
-                      </p>
-                      </Box>
-                      <Box style={{display:'flex',justifyContent:'space-between'}}>
-
-                      <p>
-
-                        {
-                          Object.keys(item.attributes.messages).length !=0 && this.getLastMessage(item.attributes.messages)
-                        }
-                      </p>
-                      {
-                         item?.attributes?.is_mark_unread===0 ?null :
-                      <p style={{background:'#FC8434',color:'white',borderRadius:'50%',width:'12px',height:'12px',fontSize:'12px',padding:'4px 6px 8px 6px',textAlign:'center'}}>
-                       {item?.attributes?.is_mark_unread}
-                      </p>
-                      }
-                      </Box>
-                    </Box>
-                  </Box>
-
+        <ChatBox profileData={profileData}  this ={this} item= {item} /> 
               </>
               
               )
@@ -214,49 +181,7 @@ console.log(moment( myDate ).calendar())
             },
           }}
         >
-          <Grid container>
-            <Grid xs={12} style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', marginBottom: 10 }}>
-
-              <img src={NoChat} />
-            </Grid>
-          </Grid>
-          <Grid container>
-            <Grid xs={12} style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', marginBottom: 10 }}>
-
-              <p style={{ fontWeight: 600, fontSize: '1.25rem', textAlign: 'center' }}>
-               {
-                this.state.allInbox[0]?.attributes?.chatable?.attributes?.disable_chat ? 'Enable Chat' :'Disable Chat'
-               }  Functionality?
-
-              </p>
-            </Grid>
-          </Grid>
-          <Grid container>
-            <Grid xs={12} style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', marginBottom: 10 }}>
-              <p style={{ fontWeight: 400, fontSize: '0.8rem', textAlign: 'center' }}>
-                Are you sure want to {
-                this.state.allInbox[0]?.attributes?.chatable?.attributes?.disable_chat ? 'Enable Chat' :'Disable Chat'
-               } functionality? No one will be able to send you any messages while it is disabled.
-              </p>
-            </Grid>
-          </Grid>
-          <Box className="dialog-footer desktop-ui">
-            <DialogActions className="customButton">
-              <Button variant="contained" onClick={() => this.disablechat()}   >
-                Yes
-                {
-                  this.state.allInbox[0]?.attributes?.chatable?.attributes?.disable_chat ? ' Enable' :' Disable'
-                }
-                 
-              </Button>
-              <Button variant='text' onClick={() => this.setState({ showSuccessModal: false })}>
-                No, don’t
-                {
-                  this.state.allInbox[0]?.attributes?.chatable?.attributes?.disable_chat ? ' Enable' :' Disable'
-                }
-              </Button>
-            </DialogActions>
-          </Box>
+             <DialogDeatils profileData={profileData}  this ={this} disablechat= {this.disablechat} /> 
         </Dialog>
         < Loader loading={this.state.loading} />
       </>
@@ -267,4 +192,92 @@ console.log(moment( myDate ).calendar())
 //@ts-nocheck
 export default withRouter(Inbox)
 
+const ChatBox = (props:any) => {
+  const item =props?.item;
+  return(
+  <>
+    <Box key={item} display='flex' style={{ gap: '1rem',maxHeight:'5rem',marginTop:'1rem',cursor:'pointer',borderBottom:'1px solid #f2f2f2' }} onClick={() => props.this.openChat(item)}>
+                    <img src={item?.attributes?.chat_with_account?.id != localStorage.getItem('userId') ?item?.attributes?.chat_with_account?.attributes?.profile_pic?.url || NoProfile_Img:item?.attributes?.chatable?.attributes?.profile_pic?.url || NoProfile_Img } width='50' height='50' style={{ borderRadius: 25 }} />
+                    
+                    <Box padding='0.25rem' width='100%' >
+                      <Box width='100%' display='flex' justifyContent='space-between' alignItems='center'>
+
+                      <h5>
+                      {item?.attributes?.chat_with_account?.id != localStorage.getItem('userId') ?item?.attributes?.chat_with_account?.attributes?.full_name || 'N/A':item?.attributes?.chatable?.attributes?.full_name || 'N/A' }
+
+                      </h5>
+                      <p>
+                       { props.this.displaytime(item.attributes.messages)}
+                      </p>
+                      </Box>
+                      <Box style={{display:'flex',justifyContent:'space-between'}}>
+
+                      <p>
+
+                        {
+                          Object.keys(item.attributes.messages).length !=0 && props.this.getLastMessage(item.attributes.messages)
+                        }
+                      </p>
+                      {
+                         item?.attributes?.is_mark_unread===0 ?null :
+                      <p style={{background:'#FC8434',color:'white',borderRadius:'50%',width:'12px',height:'12px',fontSize:'12px',padding:'4px 6px 8px 6px',textAlign:'center'}}>
+                       {item?.attributes?.is_mark_unread}
+                      </p>
+                      }
+                      </Box>
+                    </Box>
+                  </Box>
+  </>
+  )
+}
+const DialogDeatils = (props:any) => {
+  const profileData =props?.profileData;
+  return(
+    <>
+    <Grid container>
+      <Grid xs={12} style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', marginBottom: 10 }}>
+
+        <img src={NoChat} />
+      </Grid>
+    </Grid>
+    <Grid container>
+      <Grid xs={12} style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', marginBottom: 10 }}>
+
+        <p style={{ fontWeight: 600, fontSize: '1.25rem', textAlign: 'center' }}>
+         {
+          profileData?.attributes?.disable_chat ? 'Enable Chat' :'Disable Chat'
+         }  Functionality?
+
+        </p>
+      </Grid>
+    </Grid>
+    <Grid container>
+      <Grid xs={12} style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', marginBottom: 10 }}>
+        <p style={{ fontWeight: 400, fontSize: '0.8rem', textAlign: 'center' }}>
+          Are you sure want to {
+          profileData?.attributes?.disable_chat ? 'Enable Chat' :'Disable Chat'
+         } functionality? No one will be able to send you any messages while it is disabled.
+        </p>
+      </Grid>
+    </Grid>
+    <Box className="dialog-footer desktop-ui">
+      <DialogActions className="customButton">
+        <Button variant="contained" onClick={() => props.disablechat()}   >
+          Yes
+          {
+            profileData?.attributes?.disable_chat ? ' Enable' :' Disable'
+          }
+           
+        </Button>
+        <Button variant='text' onClick={() => props.this.setState({ showSuccessModal: false })}>
+          No, don’t
+          {
+            profileData?.attributes?.disable_chat ? ' Enable' :' Disable'
+          }
+        </Button>
+      </DialogActions>
+    </Box>
+    </>
+  )
+}
 // Customizable Area End
