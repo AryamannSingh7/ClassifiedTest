@@ -225,7 +225,7 @@ console.log(moment( myDate ).calendar())
 
               <p style={{ fontWeight: 600, fontSize: '1.25rem', textAlign: 'center' }}>
                {
-                this.state.allInbox[0]?.attributes?.chatable?.attributes?.disable_chat ? 'Enable Chat' :'Disable Chat'
+                profileData?.attributes?.disable_chat ? 'Enable Chat' :'Disable Chat'
                }  Functionality?
 
               </p>
@@ -235,7 +235,7 @@ console.log(moment( myDate ).calendar())
             <Grid xs={12} style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', marginBottom: 10 }}>
               <p style={{ fontWeight: 400, fontSize: '0.8rem', textAlign: 'center' }}>
                 Are you sure want to {
-                this.state.allInbox[0]?.attributes?.chatable?.attributes?.disable_chat ? 'Enable Chat' :'Disable Chat'
+                profileData?.attributes?.disable_chat ? 'Enable Chat' :'Disable Chat'
                } functionality? No one will be able to send you any messages while it is disabled.
               </p>
             </Grid>
@@ -245,14 +245,14 @@ console.log(moment( myDate ).calendar())
               <Button variant="contained" onClick={() => this.disablechat()}   >
                 Yes
                 {
-                  this.state.allInbox[0]?.attributes?.chatable?.attributes?.disable_chat ? ' Enable' :' Disable'
+                  profileData?.attributes?.disable_chat ? ' Enable' :' Disable'
                 }
                  
               </Button>
               <Button variant='text' onClick={() => this.setState({ showSuccessModal: false })}>
                 No, don’t
                 {
-                  this.state.allInbox[0]?.attributes?.chatable?.attributes?.disable_chat ? ' Enable' :' Disable'
+                  profileData?.attributes?.disable_chat ? ' Enable' :' Disable'
                 }
               </Button>
             </DialogActions>

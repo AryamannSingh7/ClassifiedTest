@@ -182,13 +182,14 @@ this.setState({ selectedMedia: message.message.images[0] })}} />
             </List>
 
 {
-  item?.attributes?.chatable?.attributes?.disable_chat ? <>
+  item?.attributes?.chatable?.attributes?.disable_chat || item?.attributes?.chat_with_account?.attributes?.disable_chat ? <>
 
   <div style={{display:'flex',justifyContent:'center',alignItems:'center',gap:'0.5rem',background:'#E7E1E1',borderRadius:'6px',boxShadow:'0px 4px 14px #f4f6fb',padding:'0.75rem'}}>
   <img src={info} width='20' height='20'/>
   <p>
 
-  {item?.attributes?.chatable?.attributes?.full_name} has disabled his chat. You won’t be able to send him message unit he enables it.
+  {item?.attributes?.chatable?.attributes?.full_name}
+  {item?.attributes?.chatable?.attributes?.disable_chat ? item?.attributes?.chatable?.attributes?.full_name:item?.attributes?.chat_with_account?.attributes?.full_name} has disabled his chat. You won’t be able to send him message unit he enables it.
   </p>
   </div>
   
