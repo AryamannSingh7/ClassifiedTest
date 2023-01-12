@@ -226,6 +226,10 @@ class ClassifiedListing extends ClassifiedController {
                                           <Button variant="contained" className="contain danger" type="submit" >Sell</Button>
                                         </Box>
                                   }
+                                   <Box className="customButton">
+                                <Button variant="contained" className={val?.attributes?.classified_status === 'Pending Approval' ? "contain warning" : val?.attributes?.classified_status === 'Published' ? 'contain success' : 'contain danger'} type="submit">
+                                  {val?.attributes?.classified_status}</Button>
+                              </Box>
                                 </Box>
                               </CardContent>
                             </Card>
