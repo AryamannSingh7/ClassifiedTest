@@ -196,6 +196,7 @@ export default class RegisterTenantController extends BlockComponent<Props, S, S
       this.setState({ loading: false }, () => {
         if (responseJson && responseJson.data) {
           toast.success("Tenant created successfully");
+          localStorage.removeItem("isComingFromContract");
           if (this.state.isNowContract) {
             this.props.navigation.navigate("IssueLease");
           } else {
@@ -396,8 +397,10 @@ export default class RegisterTenantController extends BlockComponent<Props, S, S
 
       var responseJson = message.getData(getName(MessageEnum.RestAPIResponceSuccessMessage));
 
-      if (responseJson && responseJson.account) {
-        this.setState({ isTenant: responseJson.account });
+      if (responseJson) {
+        this.setState({ isTenant: responseJson.account !== null }, () => {
+          console.log(this.state.isTenant);
+        });
       }
 
       var errorResponse = message.getData(getName(MessageEnum.RestAPIResponceErrorMessage));
@@ -733,7 +736,7 @@ export default class RegisterTenantController extends BlockComponent<Props, S, S
       .matches(/\S/, "Required")
       .test("unit", "Already tenant available to this unit", (value: any) => {
         if (value) {
-          return this.state.isTenant === null;
+          return this.state.isTenant === false;
         }
         return true;
       }),

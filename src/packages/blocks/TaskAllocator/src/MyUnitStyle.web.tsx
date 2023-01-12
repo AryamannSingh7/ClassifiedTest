@@ -62,7 +62,7 @@ export const MyUnitStyle: any = {
       fontWeight: 600,
     },
     "& .tenant-list-box .tenant-list": {
-      height: "calc(100% - 70px)",
+      height: "calc(100% - 90px)",
       overflowX: "hidden",
     },
     "& .tenant-list-box .tenant": {
@@ -156,6 +156,7 @@ export const MyUnitStyle: any = {
       border: "1px solid #F0F0F0",
       borderRadius: "30px",
       marginTop: "18px",
+      width: "100%",
     },
     "& .issue-lease-content .MuiSelect-root": {
       background: "#F9F9F9",
@@ -307,6 +308,9 @@ export const MyUnitStyle: any = {
       "& p": {
         textAlign: "center",
       },
+      "& h4": {
+        textAlign: "center",
+      },
     },
     "& .pending-buttons": {
       display: "flex",
@@ -331,6 +335,7 @@ export const MyUnitStyle: any = {
       padding: "10px 0",
       boxShadow: "none",
       marginTop: "20px",
+      gap: "15px",
     },
     "& .next-button button": {
       minWidth: "300px",
@@ -340,9 +345,16 @@ export const MyUnitStyle: any = {
       borderRadius: "25px",
       fontWeight: 600,
     },
+    "& .edit-submit-button.next-button button": {
+      minWidth: "150px",
+    },
+    "& .edit-submit-button button.cancel": {
+      background: "white",
+      border: "1px solid #2b6fec",
+      color: "#2b6fec",
+    },
     "& .error": {
       color: "red",
-      // marginTop: "10px",
       marginLeft: "20px",
       fontSize: "14px",
     },
@@ -361,6 +373,15 @@ export const MyUnitStyle: any = {
     "& .form.issue-lease-content .next-button": {
       position: "sticky",
       bottom: 0,
+    },
+    "& .unit-box-currency": {
+      position: "relative",
+      "& .unit-box-value": {
+        position: "absolute",
+        top: "36px",
+        right: "36px",
+        fontWeight: 600,
+      },
     },
   },
   tenantDetails: {
@@ -451,13 +472,16 @@ export const MyUnitStyle: any = {
       alignItems: "flex-start",
       gap: "12px",
     },
+    "& .tenant-detail-box .detail .detail-box .info-item img": {
+      marginTop: "5px",
+    },
     "& .tenant-detail-box .detail .detail-box .info-item .item-data": {
       display: "flex",
       flexDirection: "column",
       gap: "6px",
     },
     "& .tenant-detail-box .detail .detail-box .info-item span": {
-      lineHeight: "14px",
+      lineHeight: "20px",
     },
     "& .tenant-detail-box .detail .detail-box .info-item p": {
       fontWeight: 600,

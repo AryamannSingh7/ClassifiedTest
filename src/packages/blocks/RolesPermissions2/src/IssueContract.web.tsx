@@ -13,15 +13,15 @@ import {
   ListItemIcon,
   OutlinedInput,
 } from "@material-ui/core";
-import { Menu } from "@szhsin/react-menu";
+import { Menu, MenuItem as MenuItemMenu } from "@szhsin/react-menu";
 import MoreVertIcon from "@material-ui/icons/MoreVert";
 import KeyboardBackspaceIcon from "@material-ui/icons/KeyboardBackspace";
 import IssueContractController, { Props } from "./IssueContractController.web";
 import { ContractsStyleWeb } from "./ContractsStyle.web";
 import { BuildingLogo, TemplateIcon, BuildingIcon, CubeIcon } from "./assets";
 import { withTranslation } from "react-i18next";
-import "../../../web/src/i18n.js";
 import moment from "moment";
+import SidebarImageComponent from "../../../components/src/OwnerSidebarImage.web";
 
 class IssueLease extends IssueContractController {
   constructor(props: Props) {
@@ -29,8 +29,7 @@ class IssueLease extends IssueContractController {
   }
 
   render() {
-    const { classes } = this.props;
-    const { t }: any = this.props;
+    const { t, classes }: any = this.props;
 
     return (
       <>
@@ -123,8 +122,14 @@ class IssueLease extends IssueContractController {
                           </>
                         )}
                       </Box>
-                      <Box>
-                        <Link href="/RegisterTenant">{t("Register a New Tenant")}</Link>
+                      <Box
+                        className="register-tenant-link"
+                        onClick={() => {
+                          localStorage.setItem("isComingFromContract", "IssueContract");
+                          this.props.navigation.navigate("RegisterTenant");
+                        }}
+                      >
+                        {t("Register a New Tenant")}
                       </Box>
                     </Box>
 
@@ -146,7 +151,7 @@ class IssueLease extends IssueContractController {
                                       </IconButton>
                                     }
                                   >
-                                    <MenuItem
+                                    <MenuItemMenu
                                       onClick={() =>
                                         this.props.navigation.navigate("ContractDetail", {
                                           id: this.state.contract.id,
@@ -154,8 +159,8 @@ class IssueLease extends IssueContractController {
                                       }
                                     >
                                       {t("View")}
-                                    </MenuItem>
-                                    <MenuItem>
+                                    </MenuItemMenu>
+                                    <MenuItemMenu>
                                       <Link
                                         target="_blank"
                                         href={
@@ -166,7 +171,7 @@ class IssueLease extends IssueContractController {
                                       >
                                         {t("Download")}
                                       </Link>
-                                    </MenuItem>
+                                    </MenuItemMenu>
                                   </Menu>
                                 </div>
                               </div>
@@ -249,9 +254,7 @@ class IssueLease extends IssueContractController {
               </Box>
             </Grid>
             <Grid item xs={12} md={5}>
-              <Box className="right-block right-image" display={{ xs: "none", md: "flex" }}>
-                <img src={BuildingLogo.default} className="building-logo" alt="" />
-              </Box>
+              <SidebarImageComponent />
             </Grid>
           </Grid>
         </Box>

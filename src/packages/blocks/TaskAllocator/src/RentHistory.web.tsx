@@ -30,8 +30,7 @@ class RentHistory extends RentHistoryController {
   }
 
   render() {
-    const { t }: any = this.props;
-    const { classes } = this.props;
+    const { t, classes }: any = this.props;
 
     return (
       <>
@@ -103,12 +102,22 @@ class RentHistory extends RentHistoryController {
                             </Box>
                             <Divider />
                             <Box className="info">
-                              <p>{t("Rent Amount")}</p>
-                              <span>{this.validationText(history.attributes.rent_amount)}</span>
+                              <p>{t("Rent Amount (Monthly)")}</p>
+                              <span>
+                                {(history.attributes.currency &&
+                                  this.validationText(history.attributes.currency.currency)) +
+                                  " " +
+                                  this.validationText(history.attributes.rent_amount)}
+                              </span>
                             </Box>
                             <Box className="info">
                               <p>{t("Received Amount")}</p>
-                              <span>{this.validationText(history.attributes.received_amount)}</span>
+                              <span>
+                                {(history.attributes.currency &&
+                                  this.validationText(history.attributes.currency.currency)) +
+                                  " " +
+                                  this.validationText(history.attributes.received_amount)}
+                              </span>
                             </Box>
                           </Box>
                         );
@@ -202,37 +211,43 @@ class RentHistory extends RentHistoryController {
                       </Grid>
                     </Grid>
                     <FormControl fullWidth>
-                      <Input
-                        value={values.rentAmount}
-                        onChange={handleChange}
-                        onBlur={handleBlur}
-                        name="rentAmount"
-                        className="select-input input"
-                        placeholder={t("Rent Amount")}
-                        type="text"
-                        startAdornment={
-                          <InputAdornment position="start">
-                            <img src={RentAmountHistoryIcon} alt="" />
-                          </InputAdornment>
-                        }
-                      />
+                      <Box className="unit-box-currency">
+                        <Input
+                          value={values.rentAmount}
+                          onChange={handleChange}
+                          onBlur={handleBlur}
+                          name="rentAmount"
+                          className="select-input input"
+                          placeholder={t("Rent Amount (Monthly)")}
+                          type="text"
+                          startAdornment={
+                            <InputAdornment position="start">
+                              <img src={RentAmountHistoryIcon} alt="" />
+                            </InputAdornment>
+                          }
+                        />
+                        <Box className="unit-box-value">{this.state.currency}</Box>
+                      </Box>
                       {errors.rentAmount && touched.rentAmount && <p className="error">{t(errors.rentAmount)}</p>}
                     </FormControl>
                     <FormControl fullWidth>
-                      <Input
-                        value={values.receivedAmount}
-                        onChange={handleChange}
-                        onBlur={handleBlur}
-                        name="receivedAmount"
-                        className="select-input input"
-                        placeholder={t("Received Amount")}
-                        type="text"
-                        startAdornment={
-                          <InputAdornment position="start">
-                            <img src={ReceivedIcon} alt="" />
-                          </InputAdornment>
-                        }
-                      />
+                      <Box className="unit-box-currency">
+                        <Input
+                          value={values.receivedAmount}
+                          onChange={handleChange}
+                          onBlur={handleBlur}
+                          name="receivedAmount"
+                          className="select-input input"
+                          placeholder={t("Received Amount")}
+                          type="text"
+                          startAdornment={
+                            <InputAdornment position="start">
+                              <img src={ReceivedIcon} alt="" />
+                            </InputAdornment>
+                          }
+                        />
+                        <Box className="unit-box-value">{this.state.currency}</Box>
+                      </Box>
                       {errors.receivedAmount && touched.receivedAmount && (
                         <p className="error">{t(errors.receivedAmount)}</p>
                       )}

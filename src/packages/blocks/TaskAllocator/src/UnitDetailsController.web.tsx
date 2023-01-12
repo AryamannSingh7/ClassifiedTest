@@ -27,6 +27,8 @@ interface UnitData {
   unit: string;
   floor: string;
   size: string;
+  measurement: string;
+  currency: string;
   config: string;
   purchasePrice: string;
   purchaseDate: string;
@@ -93,6 +95,8 @@ export default class UnitDetailsController extends BlockComponent<Props, S, SS> 
         unit: "",
         floor: "",
         size: "",
+        measurement: "",
+        currency: "",
         config: "",
         purchasePrice: "",
         purchaseDate: "",
@@ -241,6 +245,8 @@ export default class UnitDetailsController extends BlockComponent<Props, S, SS> 
           photos: unit.attributes.photos,
           isPendingRequest: unit.attributes.request.status === "Requested",
           requestId: unit.attributes.request.id,
+          measurement: unit.attributes.society_management.measurement_unit,
+          currency: unit.attributes.currency && unit.attributes.currency.currency,
         },
         rentDetails: {
           status: unit.attributes.status,

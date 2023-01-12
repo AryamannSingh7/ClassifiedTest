@@ -10,9 +10,8 @@ import MessageEnum, { getName } from "../../../../framework/src/Messages/Message
 import { runEngine } from "../../../../framework/src/RunEngine";
 import { buildingDocumentCountMockData } from "../../../../components/src/TestCase/DocumentsMockData.web";
 import { buildingDetailMockData, buildingUnitListMockData } from "../../../../components/src/TestCase/BuildingApartmentMockData.web";
-import { Button, IconButton, TextField } from "@material-ui/core";
+import { Button, IconButton } from "@material-ui/core";
 import Lightbox from "react-image-lightbox";
-import TabPanel from "../../../Polling/src/TabPanel.web";
 import { Formik } from "formik";
 
 const BuildingsProps = componentProps("Buildings", BuildingApartmentStyle);

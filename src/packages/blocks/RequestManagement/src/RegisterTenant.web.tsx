@@ -8,7 +8,6 @@ import {
   Grid,
   MenuItem,
   Select,
-  ListItemIcon,
   OutlinedInput,
   InputAdornment,
   Input,
@@ -39,7 +38,7 @@ import { CountryList } from "./countryList";
 import CloseIcon from "@material-ui/icons/Close";
 import Loader from "../../../components/src/Loader.web";
 import moment from "moment";
-import { Menu } from "@szhsin/react-menu";
+import { Menu, MenuItem as MenuItemMenu } from "@szhsin/react-menu";
 import MoreVertIcon from "@material-ui/icons/MoreVert";
 
 class RegisterTenant extends RegisterTenantController {
@@ -53,8 +52,7 @@ class RegisterTenant extends RegisterTenantController {
   }
 
   render() {
-    const { classes } = this.props;
-    const { t }: any = this.props;
+    const { t, classes }: any = this.props;
 
     return (
       <>
@@ -67,11 +65,18 @@ class RegisterTenant extends RegisterTenantController {
                 <Box>
                   <Box display={{ xs: "flex", md: "flex" }} className="top-bar">
                     <div className="left-icon">
-                      <Link href="/Tenants">
-                        <IconButton>
-                          <KeyboardBackspaceIcon />
-                        </IconButton>
-                      </Link>
+                      <IconButton
+                        onClick={() => {
+                          if (localStorage.getItem("isComingFromContract") === "IssueContract") {
+                            localStorage.removeItem("isComingFromContract");
+                            this.props.navigation.navigate("IssueContract");
+                          } else {
+                            this.props.navigation.navigate("TenantList");
+                          }
+                        }}
+                      >
+                        <KeyboardBackspaceIcon />
+                      </IconButton>
                       <span>{t("Register A Tenant")}</span>
                     </div>
                   </Box>
@@ -127,9 +132,7 @@ class RegisterTenant extends RegisterTenantController {
                                         {t("Type of Tenant")}
                                       </MenuItem>
                                       <MenuItem value="Individual">{t("Individual Person")}</MenuItem>
-                                      <MenuItem value="Company" disabled>
-                                        {t("Company")}
-                                      </MenuItem>
+                                      <MenuItem value="Company">{t("Company")}</MenuItem>
                                     </Select>
                                     <img src={GreyTenantType} alt="" />
                                   </Box>
@@ -494,7 +497,9 @@ class RegisterTenant extends RegisterTenantController {
                                       </IconButton>
                                     }
                                   >
-                                    <MenuItem onClick={() => this.setState({ contract: null })}>{t("Delete")}</MenuItem>
+                                    <MenuItemMenu onClick={() => this.setState({ contract: null })}>
+                                      {t("Delete")}
+                                    </MenuItemMenu>
                                   </Menu>
                                 </div>
                               </Box>

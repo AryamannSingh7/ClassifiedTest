@@ -43,6 +43,7 @@ interface S {
 
   relationList: any[];
   idProofList: any[];
+  configList: any[];
 
   familyId: string;
   familyMemberName: string;
@@ -59,6 +60,7 @@ interface UnitData {
   country: string;
   region: string;
   city: string;
+  currency: string;
   floor: string;
   size: string;
   measurement: string;
@@ -111,6 +113,7 @@ export default class UnitDetailsController extends BlockComponent<Props, S, SS> 
   DeleteFamilyMemberCallId: any;
   GetRelationListCallId: any;
   GetIDProofListCallId: any;
+  GetConfigurationListCallId: any;
 
   constructor(props: Props) {
     super(props);
@@ -143,6 +146,7 @@ export default class UnitDetailsController extends BlockComponent<Props, S, SS> 
         country: "",
         region: "",
         city: "",
+        currency: "",
         floor: "",
         size: "",
         measurement: "",
@@ -176,6 +180,7 @@ export default class UnitDetailsController extends BlockComponent<Props, S, SS> 
 
       relationList: [],
       idProofList: [],
+      configList: [],
 
       familyId: "",
       familyMemberName: "",
@@ -215,6 +220,7 @@ export default class UnitDetailsController extends BlockComponent<Props, S, SS> 
             country: responseJson.data.attributes.country,
             region: responseJson.data.attributes.region,
             city: responseJson.data.attributes.city,
+            currency: responseJson.data.attributes.currency && responseJson.data.attributes.currency.currency,
             floor: responseJson.data.attributes.floor_number,
             size: responseJson.data.attributes.size,
             measurement: responseJson.data.attributes.society_management.measurement_unit,
@@ -371,6 +377,29 @@ export default class UnitDetailsController extends BlockComponent<Props, S, SS> 
       }
       ApiCatchErrorResponse(errorResponse);
     }
+
+    // Get Config List - API Response
+    if (
+      getName(MessageEnum.RestAPIResponceMessage) === message.id &&
+      this.GetConfigurationListCallId !== null &&
+      this.GetConfigurationListCallId === message.getData(getName(MessageEnum.RestAPIResponceDataMessage))
+    ) {
+      this.GetConfigurationListCallId = null;
+
+      var responseJson = message.getData(getName(MessageEnum.RestAPIResponceSuccessMessage));
+
+      if (responseJson && responseJson.configuration) {
+        this.setState({ configList: responseJson.configuration });
+      }
+
+      var errorResponse = message.getData(getName(MessageEnum.RestAPIResponceErrorMessage));
+      if (responseJson && responseJson.meta && responseJson.meta.token) {
+        runEngine.unSubscribeFromMessages(this, this.subScribedMessages);
+      } else {
+        ApiErrorResponse(responseJson);
+      }
+      ApiCatchErrorResponse(errorResponse);
+    }
   }
 
   // Customizable Area Start
@@ -378,7 +407,7 @@ export default class UnitDetailsController extends BlockComponent<Props, S, SS> 
     const unit_id = this.props.navigation.getParam("id");
     this.setState({ unitId: unit_id }, () => {
       this.getUnitDetail();
-      // this.getFamilyList();
+      this.getConfigurationList();
       this.getRelationList();
       this.getIDProofList();
     });
@@ -398,6 +427,30 @@ export default class UnitDetailsController extends BlockComponent<Props, S, SS> 
     apiRequest.addData(
       getName(MessageEnum.RestAPIResponceEndPointMessage),
       `bx_block_settings/apartment_managements/${this.state.unitId}`
+    );
+
+    apiRequest.addData(getName(MessageEnum.RestAPIRequestHeaderMessage), JSON.stringify(header));
+
+    apiRequest.addData(getName(MessageEnum.RestAPIRequestMethodMessage), configJSON.apiMethodTypeGet);
+
+    runEngine.sendMessage(apiRequest.id, apiRequest);
+    return true;
+  };
+
+  // Get Configuration List
+  getConfigurationList = () => {
+    const header = {
+      "Content-Type": configJSON.ApiContentType,
+      token: localStorage.getItem("userToken"),
+    };
+
+    const apiRequest = new Message(getName(MessageEnum.RestAPIRequestMessage));
+
+    this.GetConfigurationListCallId = apiRequest.messageId;
+
+    apiRequest.addData(
+      getName(MessageEnum.RestAPIResponceEndPointMessage),
+      `bx_block_settings/apartment_managements/unit_configuration`
     );
 
     apiRequest.addData(getName(MessageEnum.RestAPIRequestHeaderMessage), JSON.stringify(header));
@@ -552,13 +605,15 @@ export default class UnitDetailsController extends BlockComponent<Props, S, SS> 
       .matches(/\S/, "Required"),
     purchasePrice: Yup.string()
       .required("Required")
-      .matches(/\S/, "Required"),
+      .matches(/\S/, "Required")
+      .matches(/^\d+$/, "Only digit allowed"),
     purchaseDate: Yup.string()
       .required("Required")
       .matches(/\S/, "Required"),
     currentValuation: Yup.string()
       .required("Required")
-      .matches(/\S/, "Required"),
+      .matches(/\S/, "Required")
+      .matches(/^\d+$/, "Only digit allowed"),
   });
 
   editFamilyMemberValidation = Yup.object().shape({
@@ -639,6 +694,14 @@ export default class UnitDetailsController extends BlockComponent<Props, S, SS> 
 
   handleDeleteFamilyMemberModal = () => {
     this.setState({ isDeleteFamilyModalOpen: !this.state.isDeleteFamilyModalOpen });
+  };
+
+  handleUnitText = (text: any) => {
+    if (text) {
+      return text;
+    } else {
+      return "-";
+    }
   };
   // Customizable Area End
 }

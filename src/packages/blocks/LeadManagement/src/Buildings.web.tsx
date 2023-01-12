@@ -102,7 +102,7 @@ class Buildings extends BuildingsController {
   render() {
     const { t, classes }: any = this.props;
 
-    var searchData = this.state.unitList.filter((item: any) => {
+    let searchData = this.state.unitList.filter((item: any) => {
       if (
         this.state.dataSearch === "" ||
         (this.state.dataSearch !== "" &&
@@ -563,8 +563,7 @@ class Buildings extends BuildingsController {
                               style={{ display: "none" }}
                               accept="image/*"
                               onChange={(e: any) => {
-                                for (let i = 0; i < e.target.files.length; i++) {
-                                  const file = e.target.files[i];
+                                for (let file of e.target.files) {
                                   let reader = new FileReader();
                                   reader.onloadend = () => {
                                     values.photos = [...values.photos, reader.result];
@@ -652,20 +651,23 @@ class Buildings extends BuildingsController {
                       </Grid>
                       <Grid item md={6}>
                         <InputLabel>{t("Building Area")}</InputLabel>
-                        <Input
-                          className="input-with-icon"
-                          fullWidth
-                          placeholder={t("Building Area")}
-                          startAdornment={
-                            <InputAdornment position="start">
-                              <img src={sizebw} alt="icon" />
-                            </InputAdornment>
-                          }
-                          value={values.buildingArea}
-                          onChange={handleChange}
-                          onBlur={handleBlur}
-                          name="buildingArea"
-                        />
+                        <Box className="measurement-modal-box">
+                          <Input
+                            className="input-with-icon"
+                            fullWidth
+                            placeholder={t("Building Area")}
+                            startAdornment={
+                              <InputAdornment position="start">
+                                <img src={sizebw} alt="icon" />
+                              </InputAdornment>
+                            }
+                            value={values.buildingArea}
+                            onChange={handleChange}
+                            onBlur={handleBlur}
+                            name="buildingArea"
+                          />
+                          <Box className="measurement-modal-value">{this.state.buildingData.measurement}</Box>
+                        </Box>
                         {errors.buildingArea && touched.buildingArea && (
                           <small className="error">{t(errors.buildingArea)}</small>
                         )}

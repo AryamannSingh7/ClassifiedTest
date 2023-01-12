@@ -82,8 +82,7 @@ class UnitDetails extends UnitDetailsController {
   }
 
   render() {
-    const { t }: any = this.props;
-    const { classes } = this.props;
+    const { t, classes }: any = this.props;
 
     return (
       <>
@@ -251,7 +250,11 @@ class UnitDetails extends UnitDetailsController {
                                 <img src={BlueSizeIcon} alt="" />
                                 <Box className="item-data">
                                   <span>{t("Size")}</span>
-                                  <p>{this.validationText(this.state.unitDetails.size)}</p>
+                                  <p>
+                                    {this.validationText(this.state.unitDetails.size) +
+                                      " " +
+                                      this.state.unitDetails.measurement || ""}
+                                  </p>
                                 </Box>
                               </Box>
                             </Grid>
@@ -269,7 +272,11 @@ class UnitDetails extends UnitDetailsController {
                                 <img src={BluePriceIcon} alt="" />
                                 <Box className="item-data">
                                   <span>{t("Purchase Price")}</span>
-                                  <p>{this.validationText(this.state.unitDetails.purchasePrice)}</p>
+                                  <p>
+                                    {this.state.unitDetails.currency +
+                                      " " +
+                                      this.validationText(this.state.unitDetails.purchasePrice)}
+                                  </p>
                                 </Box>
                               </Box>
                             </Grid>
@@ -293,7 +300,11 @@ class UnitDetails extends UnitDetailsController {
                                 <img src={BlueValuationIcon} alt="" />
                                 <Box className="item-data">
                                   <span>{t("Current Valuation")}</span>
-                                  <p>{this.validationText(this.state.unitDetails.valuation)}</p>
+                                  <p>
+                                    {(this.state.unitDetails.currency || "") +
+                                      " " +
+                                      this.validationText(this.state.unitDetails.valuation)}
+                                  </p>
                                 </Box>
                               </Box>
                             </Grid>
@@ -313,6 +324,8 @@ class UnitDetails extends UnitDetailsController {
                                   <p>
                                     {this.state.rentDetails.status === "No-Own"
                                       ? "Not Owned"
+                                      : this.state.rentDetails.status === "Empty"
+                                      ? "Vacant"
                                       : this.state.rentDetails.status}
                                   </p>
                                 </Box>
@@ -325,15 +338,19 @@ class UnitDetails extends UnitDetailsController {
                                     <img src={BlueTenantIcon} alt="" />
                                     <Box className="item-data">
                                       <span>{t("Tenant Name")}</span>
-                                      <Link
-                                        href={`/MyUnitDetails/${this.state.unitId}/TenantProfile/${
-                                          this.state.rentDetails.tenantId
-                                        }`}
-                                      >
-                                        <p className="tenant-link-text">
-                                          {this.validationText(this.state.rentDetails.tenantName)}
-                                        </p>
-                                      </Link>
+                                      {this.state.rentDetails.tenantName ? (
+                                        <Link
+                                          href={`/MyUnitDetails/${this.state.unitId}/TenantProfile/${
+                                            this.state.rentDetails.tenantId
+                                          }`}
+                                        >
+                                          <p className="tenant-link-text">
+                                            {this.validationText(this.state.rentDetails.tenantName)}
+                                          </p>
+                                        </Link>
+                                      ) : (
+                                        "-"
+                                      )}
                                     </Box>
                                   </Box>
                                 </Grid>
@@ -372,7 +389,12 @@ class UnitDetails extends UnitDetailsController {
                                     <img src={BlueRentIcon} alt="" />
                                     <Box className="item-data">
                                       <span>{t("Rent Charge")}</span>
-                                      <p>{this.validationText(this.state.rentDetails.charge)} / Month</p>
+                                      <p>
+                                        {(this.state.unitDetails.currency || "") +
+                                          " " +
+                                          this.validationText(this.state.rentDetails.charge)}{" "}
+                                        / Month
+                                      </p>
                                     </Box>
                                   </Box>
                                 </Grid>
@@ -409,11 +431,19 @@ class UnitDetails extends UnitDetailsController {
                               <Divider />
                               <Box className="info">
                                 <p>{t("Rent Amount")}</p>
-                                <span>{this.validationText(history.attributes.rent_amount)}</span>
+                                <span>
+                                  {(this.state.unitDetails.currency || "") +
+                                    " " +
+                                    this.validationText(history.attributes.rent_amount)}
+                                </span>
                               </Box>
                               <Box className="info">
                                 <p>{t("Received Amount")}</p>
-                                <span>{this.validationText(history.attributes.received_amount)}</span>
+                                <span>
+                                  {(this.state.unitDetails.currency || "") +
+                                    " " +
+                                    this.validationText(history.attributes.received_amount)}
+                                </span>
                               </Box>
                             </Box>
                           );
