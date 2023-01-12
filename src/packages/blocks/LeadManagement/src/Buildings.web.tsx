@@ -65,6 +65,7 @@ import { Menu } from "@szhsin/react-menu";
 import Loader from "../../../components/src/Loader.web";
 //@ts-ignore
 import GoogleMapReact from "google-map-react";
+import ChairmanCategoryBox from "../../../components/src/DocumentComponent/ChairmanCategoryBox.web";
 
 const TabPanel = (props: any) => {
   const { children, value, index, ...other } = props;
@@ -92,7 +93,7 @@ const settings = {
   swipeToSlide: true,
 };
 
-const LocationPin = ({  }: any) => <img src={mapLocation} />;
+const LocationPin = ({ lat, long }: any) => <img src={mapLocation} />;
 
 class Buildings extends BuildingsController {
   constructor(props: Props) {
@@ -163,8 +164,8 @@ class Buildings extends BuildingsController {
                       <Box className="building-info-left">
                         <img src={this.state.buildingData.logo} />
                         <Box className="building-name-country">
-                          <h4>{this.state.buildingData.buildingName || "-"}</h4>
-                          <p>{this.state.buildingData.city || "-"}</p>
+                          <h4>{this.handleValidText(this.state.buildingData.buildingName)}</h4>
+                          <p>{this.handleValidText(this.state.buildingData.city)}</p>
                         </Box>
                       </Box>
                       <Box className="building-info-right" onClick={() => this.handleMapModal()}>
@@ -236,7 +237,7 @@ class Buildings extends BuildingsController {
                 <Box className="about-building">
                   <Card>
                     <h4>{t("About Building Name")}</h4>
-                    <p>{this.state.buildingData.aboutBuilding || "-"}</p>
+                    <p>{this.handleValidText(this.state.buildingData.aboutBuilding)}</p>
                   </Card>
                 </Box>
 
@@ -246,20 +247,21 @@ class Buildings extends BuildingsController {
                       <Card>
                         <p>{t("Building Area")}</p>
                         <h2>
-                          {this.state.buildingData.buildingArea || ""} {this.state.buildingData.measurement || ""}
+                          {this.handleValidText(this.state.buildingData.buildingArea)}{" "}
+                          {this.state.buildingData.measurement || ""}
                         </h2>
                       </Card>
                     </Grid>
                     <Grid item sm={4}>
                       <Card>
                         <p>{t("Total Floors")}</p>
-                        <h2>{this.state.buildingData.totalFloor || 0}</h2>
+                        <h2>{this.handleValidText(this.state.buildingData.totalFloor)}</h2>
                       </Card>
                     </Grid>
                     <Grid item sm={4}>
                       <Card>
                         <p>{t("Total Units")}</p>
-                        <h2>{this.state.buildingData.totalUnit || 0}</h2>
+                        <h2>{this.handleValidText(this.state.buildingData.totalUnit)}</h2>
                       </Card>
                     </Grid>
                   </Grid>
@@ -290,67 +292,47 @@ class Buildings extends BuildingsController {
                           <Grid container spacing={2}>
                             <Grid item xs={12} md={6} lg={4}>
                               <Link href="/DocumentChairman/Policy">
-                                <Box className="item">
-                                  <Box className="heading">
-                                    <img src={Document} />
-                                    <h4>{t("Policy")}</h4>
-                                  </Box>
-                                  {this.state.documentCount.policy > 0 && (
-                                    <Button className="color-btn">{this.state.documentCount.policy}</Button>
-                                  )}
-                                </Box>
+                                <ChairmanCategoryBox
+                                  image={Document}
+                                  heading={t("Policy")}
+                                  value={this.state.documentCount.policy}
+                                />
                               </Link>
                             </Grid>
                             <Grid item xs={12} md={6} lg={4}>
                               <Link href="/DocumentChairman/Guidelines">
-                                <Box className="item">
-                                  <Box className="heading">
-                                    <img src={Document} />
-                                    <h4>{t("Guidelines")}</h4>
-                                  </Box>
-                                  {this.state.documentCount.guidelines > 0 && (
-                                    <Button className="color-btn">{this.state.documentCount.guidelines}</Button>
-                                  )}
-                                </Box>
+                                <ChairmanCategoryBox
+                                  image={Document}
+                                  heading={t("Guidelines")}
+                                  value={this.state.documentCount.guidelines}
+                                />
                               </Link>
                             </Grid>
                             <Grid item xs={12} md={6} lg={4}>
                               <Link href="/DocumentChairman/Roles">
-                                <Box className="item">
-                                  <Box className="heading">
-                                    <img src={Document} />
-                                    <h4>{t("Roles")}</h4>
-                                  </Box>
-                                  {this.state.documentCount.roles > 0 && (
-                                    <Button className="color-btn">{this.state.documentCount.roles}</Button>
-                                  )}
-                                </Box>
+                                <ChairmanCategoryBox
+                                  image={Document}
+                                  heading={t("Roles")}
+                                  value={this.state.documentCount.roles}
+                                />
                               </Link>
                             </Grid>
                             <Grid item xs={12} md={6} lg={4}>
                               <Link href="/DocumentChairman/Resolutions">
-                                <Box className="item">
-                                  <Box className="heading">
-                                    <img src={Document} />
-                                    <h4>{t("Resolution")}</h4>
-                                  </Box>
-                                  {this.state.documentCount.resolution > 0 && (
-                                    <Button className="color-btn">{this.state.documentCount.resolution}</Button>
-                                  )}
-                                </Box>
+                                <ChairmanCategoryBox
+                                  image={Document}
+                                  heading={t("Resolution")}
+                                  value={this.state.documentCount.resolution}
+                                />
                               </Link>
                             </Grid>
                             <Grid item xs={12} md={6} lg={4}>
                               <Link href="/DocumentChairman/Building-Plans">
-                                <Box className="item">
-                                  <Box className="heading">
-                                    <img src={Document} />
-                                    <h4>{t("Building Plans")}</h4>
-                                  </Box>
-                                  {this.state.documentCount.buildingPlans > 0 && (
-                                    <Button className="color-btn">{this.state.documentCount.buildingPlans}</Button>
-                                  )}
-                                </Box>
+                                <ChairmanCategoryBox
+                                  image={Document}
+                                  heading={t("Building Plans")}
+                                  value={this.state.documentCount.buildingPlans}
+                                />
                               </Link>
                             </Grid>
                           </Grid>

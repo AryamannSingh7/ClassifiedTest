@@ -199,58 +199,39 @@ export default class UnitDetailsController extends BlockComponent<Props, S, SS> 
 
   async receive(from: string, message: Message) {
     runEngine.debugLog("Message Recived", message);
-    // Get Unit Detail API Response
-    if (
-      getName(MessageEnum.RestAPIResponceMessage) === message.id &&
-      this.GetUnitDetailsCallId !== null &&
-      this.GetUnitDetailsCallId === message.getData(getName(MessageEnum.RestAPIResponceDataMessage))
-    ) {
-      this.GetUnitDetailsCallId = null;
 
-      var responseJson = message.getData(getName(MessageEnum.RestAPIResponceSuccessMessage));
+    // Customizable Area Start
+    if (getName(MessageEnum.RestAPIResponceMessage) === message.id) {
+      let responseJson = message.getData(getName(MessageEnum.RestAPIResponceSuccessMessage));
+      let errorResponse = message.getData(getName(MessageEnum.RestAPIResponceErrorMessage));
 
-      if (responseJson.data) {
-        this.setState({
-          unitData: {
-            unitName: responseJson.data.attributes.apartment_name,
-            complexName: responseJson.data.attributes.society_management.name,
-            photos: responseJson.data.attributes.photos,
-            lat: responseJson.data.attributes.lat,
-            long: responseJson.data.attributes.long,
-            country: responseJson.data.attributes.country,
-            region: responseJson.data.attributes.region,
-            city: responseJson.data.attributes.city,
-            currency: responseJson.data.attributes.currency && responseJson.data.attributes.currency.currency,
-            floor: responseJson.data.attributes.floor_number,
-            size: responseJson.data.attributes.size,
-            measurement: responseJson.data.attributes.society_management.measurement_unit,
-            configuration: responseJson.data.attributes.configuration,
-            purchasePrice: responseJson.data.attributes.purchase_price,
-            purchaseDate: responseJson.data.attributes.purchase_date,
-            currentValuation: responseJson.data.attributes.current_valuation,
-            activeIncidents: responseJson.data.attributes.active_incidents.data,
-            rentHistory: responseJson.data.attributes.rent_history.data,
-            buildingName: responseJson.data.attributes.building_management.name,
-            rentStatus: responseJson.data.attributes.status,
-            tenantName:
-              responseJson.data.attributes.rent_status && responseJson.data.attributes.rent_status.tenant_name,
-            rentStartDate:
-              responseJson.data.attributes.rent_status && responseJson.data.attributes.rent_status.start_date,
-            rentEndDate: responseJson.data.attributes.rent_status && responseJson.data.attributes.rent_status.end_date,
-            rentAmount:
-              responseJson.data.attributes.rent_status && responseJson.data.attributes.rent_status.rent_amount,
-            familyList: responseJson.data.attributes.family_members.data
-              ? responseJson.data.attributes.family_members.data
-              : [],
-            vehicleDetails: responseJson.data.attributes.vehicle_details.data
-              ? responseJson.data.attributes.vehicle_details.data
-              : [],
-            relatedPeople: responseJson.data.attributes.related_people,
-          },
-        });
+      const apiRequestCallId = message.getData(getName(MessageEnum.RestAPIResponceDataMessage));
+
+      switch (apiRequestCallId) {
+        case this.GetUnitDetailsCallId:
+          this.handleGetUnitDetailsResponse(responseJson);
+          break;
+        case this.EditUnitDetailCallId:
+          this.handleSaveUnitDetailsResponse(responseJson);
+          break;
+        case this.EditFamilyMemberCallId:
+          this.handleEditFamilyMemberResponse(responseJson);
+          break;
+        case this.DeleteFamilyMemberCallId:
+          this.handleDeleteFamilyMemberResponse(responseJson);
+          break;
+        case this.GetRelationListCallId:
+          this.handleGetRelationListResponse(responseJson);
+          break;
+        case this.GetIDProofListCallId:
+          this.handleGetIDProofListResponse(responseJson);
+          break;
+        case this.GetConfigurationListCallId:
+          this.handleGetConfigurationListResponse(responseJson);
+          break;
+        default:
+          break;
       }
-
-      var errorResponse = message.getData(getName(MessageEnum.RestAPIResponceErrorMessage));
       if (responseJson && responseJson.meta && responseJson.meta.token) {
         runEngine.unSubscribeFromMessages(this, this.subScribedMessages);
       } else {
@@ -258,148 +239,7 @@ export default class UnitDetailsController extends BlockComponent<Props, S, SS> 
       }
       ApiCatchErrorResponse(errorResponse);
     }
-
-    // Edit Unit Detail API Response
-    if (
-      getName(MessageEnum.RestAPIResponceMessage) === message.id &&
-      this.EditUnitDetailCallId !== null &&
-      this.EditUnitDetailCallId === message.getData(getName(MessageEnum.RestAPIResponceDataMessage))
-    ) {
-      this.EditUnitDetailCallId = null;
-
-      var responseJson = message.getData(getName(MessageEnum.RestAPIResponceSuccessMessage));
-
-      if (responseJson.data) {
-        this.getUnitDetail();
-        toast.success("Details updated successfully");
-      }
-
-      var errorResponse = message.getData(getName(MessageEnum.RestAPIResponceErrorMessage));
-      if (responseJson && responseJson.meta && responseJson.meta.token) {
-        runEngine.unSubscribeFromMessages(this, this.subScribedMessages);
-      } else {
-        ApiErrorResponse(responseJson);
-      }
-      ApiCatchErrorResponse(errorResponse);
-    }
-
-    // Edit Family Family Member API Response
-    if (
-      getName(MessageEnum.RestAPIResponceMessage) === message.id &&
-      this.EditFamilyMemberCallId !== null &&
-      this.EditFamilyMemberCallId === message.getData(getName(MessageEnum.RestAPIResponceDataMessage))
-    ) {
-      this.EditFamilyMemberCallId = null;
-
-      var responseJson = message.getData(getName(MessageEnum.RestAPIResponceSuccessMessage));
-
-      if (responseJson.data) {
-        toast.success("Details updated successfully");
-        this.getUnitDetail();
-      }
-
-      var errorResponse = message.getData(getName(MessageEnum.RestAPIResponceErrorMessage));
-      if (responseJson && responseJson.meta && responseJson.meta.token) {
-        runEngine.unSubscribeFromMessages(this, this.subScribedMessages);
-      } else {
-        ApiErrorResponse(responseJson);
-      }
-      ApiCatchErrorResponse(errorResponse);
-    }
-
-    // Delete Family Family Member API Response
-    if (
-      getName(MessageEnum.RestAPIResponceMessage) === message.id &&
-      this.DeleteFamilyMemberCallId !== null &&
-      this.DeleteFamilyMemberCallId === message.getData(getName(MessageEnum.RestAPIResponceDataMessage))
-    ) {
-      this.DeleteFamilyMemberCallId = null;
-
-      var responseJson = message.getData(getName(MessageEnum.RestAPIResponceSuccessMessage));
-
-      if (responseJson) {
-        this.handleDeleteFamilyMemberModal();
-        this.getUnitDetail();
-        toast.success("Details deleted successfully");
-      }
-
-      var errorResponse = message.getData(getName(MessageEnum.RestAPIResponceErrorMessage));
-      if (responseJson && responseJson.meta && responseJson.meta.token) {
-        runEngine.unSubscribeFromMessages(this, this.subScribedMessages);
-      } else {
-        ApiErrorResponse(responseJson);
-      }
-      ApiCatchErrorResponse(errorResponse);
-    }
-
-    // Get Relation List API Response
-    if (
-      getName(MessageEnum.RestAPIResponceMessage) === message.id &&
-      this.GetRelationListCallId !== null &&
-      this.GetRelationListCallId === message.getData(getName(MessageEnum.RestAPIResponceDataMessage))
-    ) {
-      this.GetRelationListCallId = null;
-
-      var responseJson = message.getData(getName(MessageEnum.RestAPIResponceSuccessMessage));
-
-      if (responseJson.relaions) {
-        this.setState({ relationList: responseJson.relaions });
-      }
-
-      var errorResponse = message.getData(getName(MessageEnum.RestAPIResponceErrorMessage));
-      if (responseJson && responseJson.meta && responseJson.meta.token) {
-        runEngine.unSubscribeFromMessages(this, this.subScribedMessages);
-      } else {
-        ApiErrorResponse(responseJson);
-      }
-      ApiCatchErrorResponse(errorResponse);
-    }
-
-    // Get ID Proof API Response
-    if (
-      getName(MessageEnum.RestAPIResponceMessage) === message.id &&
-      this.GetIDProofListCallId !== null &&
-      this.GetIDProofListCallId === message.getData(getName(MessageEnum.RestAPIResponceDataMessage))
-    ) {
-      this.GetIDProofListCallId = null;
-
-      var responseJson = message.getData(getName(MessageEnum.RestAPIResponceSuccessMessage));
-
-      if (responseJson.relaions) {
-        this.setState({ idProofList: responseJson.relaions });
-      }
-
-      var errorResponse = message.getData(getName(MessageEnum.RestAPIResponceErrorMessage));
-      if (responseJson && responseJson.meta && responseJson.meta.token) {
-        runEngine.unSubscribeFromMessages(this, this.subScribedMessages);
-      } else {
-        ApiErrorResponse(responseJson);
-      }
-      ApiCatchErrorResponse(errorResponse);
-    }
-
-    // Get Config List - API Response
-    if (
-      getName(MessageEnum.RestAPIResponceMessage) === message.id &&
-      this.GetConfigurationListCallId !== null &&
-      this.GetConfigurationListCallId === message.getData(getName(MessageEnum.RestAPIResponceDataMessage))
-    ) {
-      this.GetConfigurationListCallId = null;
-
-      var responseJson = message.getData(getName(MessageEnum.RestAPIResponceSuccessMessage));
-
-      if (responseJson && responseJson.configuration) {
-        this.setState({ configList: responseJson.configuration });
-      }
-
-      var errorResponse = message.getData(getName(MessageEnum.RestAPIResponceErrorMessage));
-      if (responseJson && responseJson.meta && responseJson.meta.token) {
-        runEngine.unSubscribeFromMessages(this, this.subScribedMessages);
-      } else {
-        ApiErrorResponse(responseJson);
-      }
-      ApiCatchErrorResponse(errorResponse);
-    }
+    // Customizable Area End
   }
 
   // Customizable Area Start
@@ -437,6 +277,47 @@ export default class UnitDetailsController extends BlockComponent<Props, S, SS> 
     return true;
   };
 
+  handleGetUnitDetailsResponse = (responseJson: any) => {
+    if (responseJson && responseJson.data) {
+      this.setState({
+        unitData: {
+          unitName: responseJson.data.attributes.apartment_name,
+          complexName: responseJson.data.attributes.society_management.name,
+          photos: responseJson.data.attributes.photos,
+          lat: responseJson.data.attributes.lat,
+          long: responseJson.data.attributes.long,
+          country: responseJson.data.attributes.country,
+          region: responseJson.data.attributes.region,
+          city: responseJson.data.attributes.city,
+          currency: responseJson.data.attributes.currency && responseJson.data.attributes.currency.currency,
+          floor: responseJson.data.attributes.floor_number,
+          size: responseJson.data.attributes.size,
+          measurement: responseJson.data.attributes.society_management.measurement_unit,
+          configuration: responseJson.data.attributes.configuration,
+          purchasePrice: responseJson.data.attributes.purchase_price,
+          purchaseDate: responseJson.data.attributes.purchase_date,
+          currentValuation: responseJson.data.attributes.current_valuation,
+          activeIncidents: responseJson.data.attributes.active_incidents.data,
+          rentHistory: responseJson.data.attributes.rent_history.data,
+          buildingName: responseJson.data.attributes.building_management.name,
+          rentStatus: responseJson.data.attributes.status,
+          tenantName: responseJson.data.attributes.rent_status && responseJson.data.attributes.rent_status.tenant_name,
+          rentStartDate:
+            responseJson.data.attributes.rent_status && responseJson.data.attributes.rent_status.start_date,
+          rentEndDate: responseJson.data.attributes.rent_status && responseJson.data.attributes.rent_status.end_date,
+          rentAmount: responseJson.data.attributes.rent_status && responseJson.data.attributes.rent_status.rent_amount,
+          familyList: responseJson.data.attributes.family_members.data
+            ? responseJson.data.attributes.family_members.data
+            : [],
+          vehicleDetails: responseJson.data.attributes.vehicle_details.data
+            ? responseJson.data.attributes.vehicle_details.data
+            : [],
+          relatedPeople: responseJson.data.attributes.related_people,
+        },
+      });
+    }
+  };
+
   // Get Configuration List
   getConfigurationList = () => {
     const header = {
@@ -459,6 +340,12 @@ export default class UnitDetailsController extends BlockComponent<Props, S, SS> 
 
     runEngine.sendMessage(apiRequest.id, apiRequest);
     return true;
+  };
+
+  handleGetConfigurationListResponse = (responseJson: any) => {
+    if (responseJson && responseJson.configuration) {
+      this.setState({ configList: responseJson.configuration });
+    }
   };
 
   // Edit Unit Detail API
@@ -491,6 +378,13 @@ export default class UnitDetailsController extends BlockComponent<Props, S, SS> 
 
     runEngine.sendMessage(apiRequest.id, apiRequest);
     return true;
+  };
+
+  handleSaveUnitDetailsResponse = (responseJson: any) => {
+    if (responseJson && responseJson.data) {
+      this.getUnitDetail();
+      toast.success("Details updated successfully");
+    }
   };
 
   // Edit Family Member API
@@ -528,6 +422,13 @@ export default class UnitDetailsController extends BlockComponent<Props, S, SS> 
     return true;
   };
 
+  handleEditFamilyMemberResponse = (responseJson: any) => {
+    if (responseJson && responseJson.data) {
+      toast.success("Details updated successfully");
+      this.getUnitDetail();
+    }
+  };
+
   // Delete Family Member API
   handleDeleteFamilyMember = () => {
     const header = {
@@ -552,6 +453,14 @@ export default class UnitDetailsController extends BlockComponent<Props, S, SS> 
     return true;
   };
 
+  handleDeleteFamilyMemberResponse = (responseJson: any) => {
+    if (responseJson) {
+      this.handleDeleteFamilyMemberModal();
+      this.getUnitDetail();
+      toast.success("Details deleted successfully");
+    }
+  };
+
   // Get Relation List API
   getRelationList = () => {
     const header = {
@@ -573,6 +482,12 @@ export default class UnitDetailsController extends BlockComponent<Props, S, SS> 
     return true;
   };
 
+  handleGetRelationListResponse = (responseJson: any) => {
+    if (responseJson && responseJson.relaions) {
+      this.setState({ relationList: responseJson.relaions });
+    }
+  };
+
   // Get ID Proof API
   getIDProofList = () => {
     const header = {
@@ -592,6 +507,12 @@ export default class UnitDetailsController extends BlockComponent<Props, S, SS> 
 
     runEngine.sendMessage(apiRequest.id, apiRequest);
     return true;
+  };
+
+  handleGetIDProofListResponse = (responseJson: any) => {
+    if (responseJson && responseJson.relaions) {
+      this.setState({ idProofList: responseJson.relaions });
+    }
   };
 
   // Handle State

@@ -347,7 +347,7 @@ export default class BuildingsController extends BlockComponent<Props, S, SS> {
   handleSaveBuildingDetails = (values: EditForm) => {
     this.setState({ loading: true });
 
-    var data = new FormData();
+    let data = new FormData();
     data.append("building_management[name]", values.buildingName);
     data.append("building_management[building_area]", values.buildingArea);
     data.append("building_management[description]", values.aboutBuilding);
@@ -485,6 +485,14 @@ export default class BuildingsController extends BlockComponent<Props, S, SS> {
         this.handleEditBuildingModal();
       }
     );
+  };
+
+  handleValidText = (text: any) => {
+    if (text) {
+      return text;
+    } else {
+      return "-";
+    }
   };
   // Customizable Area End
 }

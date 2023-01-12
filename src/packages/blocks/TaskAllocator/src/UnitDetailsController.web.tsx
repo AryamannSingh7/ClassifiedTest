@@ -120,74 +120,39 @@ export default class UnitDetailsController extends BlockComponent<Props, S, SS> 
   }
 
   async receive(from: string, message: Message) {
-    let responseJson: any;
-    let errorResponse: any;
-    // Get Unit Details - API Response
-    if (
-      getName(MessageEnum.RestAPIResponceMessage) === message.id &&
-      this.GetMyUnitDetailsCallId !== null &&
-      this.GetMyUnitDetailsCallId === message.getData(getName(MessageEnum.RestAPIResponceDataMessage))
-    ) {
-      this.GetMyUnitDetailsCallId = null;
+    runEngine.debugLog("Message Recived", message);
 
-      responseJson = message.getData(getName(MessageEnum.RestAPIResponceSuccessMessage));
+    // Customizable Area Start
+    if (getName(MessageEnum.RestAPIResponceMessage) === message.id) {
+      let responseJson = message.getData(getName(MessageEnum.RestAPIResponceSuccessMessage));
+      let errorResponse = message.getData(getName(MessageEnum.RestAPIResponceErrorMessage));
 
-      this.getMyUnitDetailsResponse(responseJson);
+      const apiRequestCallId = message.getData(getName(MessageEnum.RestAPIResponceDataMessage));
 
-      errorResponse = message.getData(getName(MessageEnum.RestAPIResponceErrorMessage));
+      switch (apiRequestCallId) {
+        case this.GetMyUnitDetailsCallId:
+          this.getMyUnitDetailsResponse(responseJson);
+          break;
+        case this.GetRentHistoryCallId:
+          this.getRentHistoryResponse(responseJson);
+          break;
+        case this.DeLinkUnitCallId:
+          this.deLinkUnitFromOwnerResponse(responseJson);
+          break;
+        case this.DeleteRequestUnitCallId:
+          this.deleteRequestUnitResponse(responseJson);
+          break;
+        default:
+          break;
+      }
+      if (responseJson && responseJson.meta && responseJson.meta.token) {
+        runEngine.unSubscribeFromMessages(this, this.subScribedMessages);
+      } else {
+        ApiErrorResponse(responseJson);
+      }
+      ApiCatchErrorResponse(errorResponse);
     }
-
-    // Get Rent History - API Response
-    if (
-      getName(MessageEnum.RestAPIResponceMessage) === message.id &&
-      this.GetRentHistoryCallId !== null &&
-      this.GetRentHistoryCallId === message.getData(getName(MessageEnum.RestAPIResponceDataMessage))
-    ) {
-      this.GetRentHistoryCallId = null;
-
-      responseJson = message.getData(getName(MessageEnum.RestAPIResponceSuccessMessage));
-
-      this.getRentHistoryResponse(responseJson);
-
-      errorResponse = message.getData(getName(MessageEnum.RestAPIResponceErrorMessage));
-    }
-
-    // DeLink Unit - API Response
-    if (
-      getName(MessageEnum.RestAPIResponceMessage) === message.id &&
-      this.DeLinkUnitCallId !== null &&
-      this.DeLinkUnitCallId === message.getData(getName(MessageEnum.RestAPIResponceDataMessage))
-    ) {
-      this.DeLinkUnitCallId = null;
-
-      responseJson = message.getData(getName(MessageEnum.RestAPIResponceSuccessMessage));
-
-      this.deLinkUnitFromOwnerResponse(responseJson);
-
-      errorResponse = message.getData(getName(MessageEnum.RestAPIResponceErrorMessage));
-    }
-
-    // Delete Request Unit - API Response
-    if (
-      getName(MessageEnum.RestAPIResponceMessage) === message.id &&
-      this.DeleteRequestUnitCallId !== null &&
-      this.DeleteRequestUnitCallId === message.getData(getName(MessageEnum.RestAPIResponceDataMessage))
-    ) {
-      this.DeleteRequestUnitCallId = null;
-
-      responseJson = message.getData(getName(MessageEnum.RestAPIResponceSuccessMessage));
-
-      this.deleteRequestUnitResponse(responseJson);
-
-      errorResponse = message.getData(getName(MessageEnum.RestAPIResponceErrorMessage));
-    }
-
-    if (responseJson && responseJson.meta && responseJson.meta.token) {
-      runEngine.unSubscribeFromMessages(this, this.subScribedMessages);
-    } else {
-      ApiErrorResponse(responseJson);
-    }
-    ApiCatchErrorResponse(errorResponse);
+    // Customizable Area End
   }
 
   slider: any;

@@ -3,9 +3,12 @@ import { Message } from "../../../framework/src/Message";
 import { BlockComponent } from "../../../framework/src/BlockComponent";
 import MessageEnum, { getName } from "../../../framework/src/Messages/MessageEnum";
 import { runEngine } from "../../../framework/src/RunEngine";
+
+// Customizable Area Start
 import { ApiCatchErrorResponse, ApiErrorResponse } from "../../../components/src/APIErrorResponse";
 import * as Yup from "yup";
 import toast from "react-hot-toast";
+// Customizable Area End
 
 export const configJSON = require("./config");
 
@@ -113,7 +116,7 @@ export default class RegisterTenantController extends BlockComponent<Props, S, S
   }
 
   async receive(from: string, message: Message) {
-    runEngine.debugLog("Message Recived", message);
+    runEngine.debugLog("Message Received", message);
     // Get All Building List - API Response
     if (
       getName(MessageEnum.RestAPIResponceMessage) === message.id &&
