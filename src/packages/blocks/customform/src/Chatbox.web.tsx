@@ -127,8 +127,8 @@ console.log(moment( myDate ).calendar())
 
   render() {
     //@ts-ignore
-//@ts-nocheck
-    const item =JSON.parse(localStorage.getItem('selectedChat') || {})
+  //@ts-nocheck
+    const item =JSON.parse(localStorage.getItem('selectedChat'))
     const currentAccountId = localStorage.getItem('userId')
 
 
@@ -182,14 +182,12 @@ this.setState({ selectedMedia: message.message.images[0] })}} />
             </List>
 
 {
-  item?.attributes?.chatable?.attributes?.disable_chat ? <>
+  item?.attributes?.chatable?.attributes?.disable_chat || item?.attributes?.chat_with_account?.attributes?.disable_chat ? <>
 
   <div style={{display:'flex',justifyContent:'center',alignItems:'center',gap:'0.5rem',background:'#E7E1E1',borderRadius:'6px',boxShadow:'0px 4px 14px #f4f6fb',padding:'0.75rem'}}>
   <img src={info} width='20' height='20'/>
-  <p>
-
-  {item?.attributes?.chatable?.attributes?.full_name} has disabled his chat. You won’t be able to send him message unit he enables it.
-  </p>
+ 
+  <DisplayMessage item={item}/>
   </div>
   
   </>:
@@ -525,5 +523,15 @@ const MessageSection=(props:any)=>{
                         />
                      </Box>
                       </Grid>
+  </>)
+}
+
+const DisplayMessage=(props:any)=>{
+  return(<>
+   <p>
+
+{props?.item?.attributes?.chatable?.attributes?.full_name}
+{props?.item?.attributes?.chatable?.attributes?.disable_chat ? props?.item?.attributes?.chatable?.attributes?.full_name:props?.item?.attributes?.chat_with_account?.attributes?.full_name} has disabled his chat. You won’t be able to send him message unit he enables it.
+</p>
   </>)
 }

@@ -754,15 +754,22 @@ const ChatRoomSection=(props:any)=>{
 
 const SendMessage=(props:any)=>{
   const inputRef = useRef(null);
+  console.log(props.item)
+  console.log(props)
+
+  console.log(props?.item?.attributes?.chat_with_account?.attributes?.disable_chat)
+  console.log(props?.item?.attributes?.chatable?.attributes?.disable_chat)
+  console.log(props?.item?.attributes?.chat_with_account?.attributes?.disable_chat)
+// console.log( props?.item?.attributes?.chatable?.attributes?.disable_chat || props?.item?.attributes?.chat_with_account?.attributes?.disable_chat)
   return(<>
   {
-  props?.item?.attributes?.chatable?.attributes?.disable_chat || props?.item?.attributes?.chat_with_account?.attributes?.disable_chat  ?  <>
+  props?.selectedChatRoom?.attributes?.chatable?.attributes?.disable_chat || props?.selectedChatRoom?.attributes?.chat_with_account?.attributes?.disable_chat  ?  <>
 
   <div style={{display:'flex',justifyContent:'center',alignItems:'center',gap:'0.5rem',background:'#E7E1E1',borderRadius:'6px',boxShadow:'0px 4px 14px #f4f6fb',padding:'0.75rem'}}>
   <img src={info} width='20' height='20'/>
   <p>
 
-  {props?.item?.attributes?.chatable?.attributes?.disable_chat? props?.item?.attributes?.chatable?.attributes?.full_name:props?.item?.attributes?.chat_with_account?.attributes?.full_name} has disabled his chat. You won’t be able to send him message unit he enables it.
+  {props?.selectedChatRoom?.attributes?.chatable?.attributes?.disable_chat? props?.selectedChatRoom?.attributes?.chatable?.attributes?.full_name:props?.selectedChatRoom?.attributes?.chat_with_account?.attributes?.full_name} has disabled his chat. You won’t be able to send him message unit he enables it.
   </p>
   </div>
   

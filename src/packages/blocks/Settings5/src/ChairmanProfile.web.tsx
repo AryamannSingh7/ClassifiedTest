@@ -44,6 +44,7 @@ import { dailCode } from "../../email-account-registration/src/code";
 import ChipInput from "material-ui-chip-input";
 import { AvatarIcon, CallIcon, ChatIcon, EmailIcon, FacebookIcon, InstagramIcon, SettingIcon, SnapchatIcon, TwitterIcon } from "./assets";
 import OtpInput from "react-otp-input";
+import { withRouter } from 'react-router';
 
 class ChairmanProfile extends ProfileController {
   constructor(props: Props) {
@@ -104,7 +105,7 @@ class ChairmanProfile extends ProfileController {
                     <Grid container>
                       <Grid item xs={3} className="left-side" style={{padding:20}}>
                        
-                        <SectionOne profileData={profileData}/>
+                        <SectionOne profileData={profileData} handleClick={()=>this.props.history.push('/chairmanchat')}/>
                       </Grid>
                       <Grid item xs={1} className="border" />
                       <Grid item xs={8} className="right-side" style={{padding:20}}>
@@ -920,26 +921,26 @@ class ChairmanProfile extends ProfileController {
   }
 }
 
-export default withStyles(ProfileStyleWeb)(ChairmanProfile);
+export default withRouter(withStyles(ProfileStyleWeb)(ChairmanProfile));
 // Customizable Area End
  
 
-const SectionOne=(profileData:any)=>{
+const SectionOne=(props:any)=>{
   return <>
    <img
-                          src={profileData?.attributes?.profile_pic?.url||AvatarIcon.default}
+                          src={props?.profileData?.attributes?.profile_pic?.url||AvatarIcon.default}
                           alt="avatar"
                           className="profile"
                         />
                         <Typography variant="h6" className="sub-heading">
-                        {profileData?.attributes?.full_name.name || 'N/A'}
+                        {props?.profileData?.attributes?.full_name.name || 'N/A'}
                         </Typography>
 
-                        <p> {profileData?.attributes?.apartment_number?.apartment_number && 'Unit - '}{profileData?.attributes?.apartment_number?.apartment_number || 'N/A'}</p>
+                        <p> {props?.profileData?.attributes?.apartment_number?.apartment_number && 'Unit - '}{props?.profileData?.attributes?.apartment_number?.apartment_number || 'N/A'}</p>
                         <Box className="icons">
-                          <img src={ChatIcon} alt="chat" />
-                          <img src={CallIcon} alt="phone" onClick={() => document.location.href = `tel:${profileData?.attributes?.full_phone_number?.full_phone_number}`}/>
-                          <img src={EmailIcon} alt="email" onClick={() => document.location.href = `mailto:${profileData?.attributes?.email?.email}`}/>
+                          <img src={ChatIcon} alt="chat" onClick={props.handleClick}/>
+                          <img src={CallIcon} alt="phone" onClick={() => document.location.href = `tel:${props?.profileData?.attributes?.full_phone_number?.full_phone_number}`}/>
+                          <img src={EmailIcon} alt="email" onClick={() => document.location.href = `mailto:${props?.profileData?.attributes?.email?.email}`}/>
                         </Box>
   </>
 }
