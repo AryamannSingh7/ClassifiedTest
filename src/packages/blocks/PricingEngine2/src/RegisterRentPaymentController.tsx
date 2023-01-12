@@ -32,13 +32,17 @@ interface S {
   selectedUnit:any;
   selectedMonth:any;
   partialPaymentAmount:any;
+  tenantName:any;
+  rentAmount:any;
+  partialPaidAmount:any;
+  currency:any;
 }
 
 interface SS {
   id: any;
 }
 
-export default class CoverImageController extends BlockComponent<
+export default class RegisterRentPaymentController extends BlockComponent<
   Props,
   S,
   SS
@@ -74,7 +78,11 @@ export default class CoverImageController extends BlockComponent<
       selectedBuilding:"",
       selectedUnit:"",
       selectedMonth:"",
-      partialPaymentAmount:""
+      partialPaymentAmount:"",
+      tenantName:"",
+      rentAmount:"",
+      partialPaidAmount:"",
+      currency:"",
     };
 
     this.emailReg = new RegExp("");
@@ -114,6 +122,16 @@ export default class CoverImageController extends BlockComponent<
       }
       if(this.RegisterRentPaymentId === apiRequestCallId){
         this.registerPaymentResponse(responseJson)
+      }
+      if(this.getRentDueAmountId === apiRequestCallId) {
+        if(responseJson.hasOwnProperty("data")){
+          this.setState({
+            tenantName:responseJson.data?.attributes?.tenant_name,
+            rentAmount:responseJson.data?.attributes?.amount,
+            partialPaidAmount:responseJson?.data?.attributes?.partial_payment,
+            currency:responseJson.data?.attributes.currency,
+          })
+        }
       }
     }
   }

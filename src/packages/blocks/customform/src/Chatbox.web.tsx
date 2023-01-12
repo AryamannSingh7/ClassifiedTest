@@ -32,7 +32,7 @@ import { Formik, Form, Field } from "formik";
 import AttachFileIcon from '@material-ui/icons/AttachFile';
 import InboxController,{Props} from "./inboxController.web";
 import '../assets/css/style.scss'
-import { info, Send } from "./assets";
+import { DoubleTick, info, Send } from "./assets";
 import { NoProfile_Img } from "../../user-profile-basic/src/assets";
 
 class ChatBox extends InboxController {
@@ -170,96 +170,9 @@ console.log(moment( myDate ).calendar())
 
                   <ListItem key={i}>
                     <Grid container>
-                      <Grid item xs={12}
-                      style={{display:'flex',alignItems:'flex-start',gap:'0.5rem'}}
-                      // @ts-ignore
-                          style={message.message.account_id == currentAccountId ? { 'display': 'flex', 'justifyContent': 'end', alignItems: 'center' } : { 'display': 'flex', 'justifyContent': 'start', alignItems: 'center' }}
-                      >
-{
-  message.message.account_id != currentAccountId  ?  <img src={item?.attributes?.chat_with_account?.id != localStorage.getItem('userId') ?item?.attributes?.chat_with_account?.attributes?.profile_pic?.url || NoProfile_Img:item?.attributes?.chatable?.attributes?.profile_pic?.url || NoProfile_Img } alt='profile-pic' width='50' height='50' style={{borderRadius:20,marginRight:5}}/> :null
-}
-
-
-{/* <img src=""/> */}
-
-
-                      <Box style={{background:'#f6f6f6',borderRadius:'6px',padding:'0.5rem',borderTopRightRadius:0}}>
-
-
-                        <Typography
-                          style={{
-                            color: "#081F32",
-                            fontFamily: "Poppins",
-                            fontWeight: 500,
-                            fontSize: 14,
-                            marginLeft: 5
-                          }}
-                        align={
-                          message.message.account_id == currentAccountId
-                            ? "right"
-                            : "left"
-                        }
-                        >
-
-                        </Typography>
-
-
-                        {
-                              message.message.message.length > 45 ?
-                            <>
-                              <Typography
-                                style={{
-                                  color: "#081F32",
-                                  fontWeight: 500,
-                                  fontSize: 14,
-                                  wordBreak: 'break-all'
-                                }}
-                                align='left'
-                              >
-                                    {message.message.message}
-                              </Typography>
-
-
-                            </>
-
-                            :
-
-                            <>
-                              <Typography
-                                style={{
-                                  color: "#081F32",
-                                  fontWeight: 500,
-                                  fontSize: 14,
-                                  wordBreak: 'break-all'
-                                }}
-                              >
-                                    {message.message.message}
-                              </Typography>
-
-                            </>
-                        }
-
-
-
-                      {
-                              message?.message?.images.length !=0 ?
-                          <Grid item xs={12}
-                          >
-
-                                  <img style={{ 'cursor': 'pointer' }} onClick={() => {//@ts-ignore
+                      <MessageSection message={message} currentAccountId={currentAccountId} displaytime={this.displaytime} handleClick={() => {//@ts-ignore
 //@ts-nocheck
-this.setState({ selectedMedia: message.message.images[0] })}} src={message.message.images[0].url} width="75" height="75" />
-                          </Grid>
-                          :
-                          null
-
-                      }
-
-                        <ListItemText
-                              secondary={this.displaytime(message.message.created_at)}
-                        />
-                     </Box>
-                      </Grid>
+this.setState({ selectedMedia: message.message.images[0] })}} />
                     </Grid>
                   </ListItem>
                   </>)
@@ -514,3 +427,103 @@ const styles = StyleSheet.create({
 // @ts-ignore
 // @ts-nocheck
 export default withRouter(ChatBox as React.ComponentType<any>)
+
+
+const MessageSection=(props:any)=>{
+  return(<>
+  <Grid item xs={12}
+                     
+                      // @ts-ignore
+                          style={props.message.message.account_id == props.currentAccountId ? { 'display': 'flex', 'justifyContent': 'end', alignItems: 'center',gap:'0.5rem' } : { 'display': 'flex', 'justifyContent': 'start', alignItems: 'center',gap:'0.5rem' }}
+                      >
+{
+  props.message.message.account_id != props.currentAccountId  ?  <img src={props.item?.attributes?.chat_with_account?.id != localStorage.getItem('userId') ?props.item?.attributes?.chat_with_account?.attributes?.profile_pic?.url || NoProfile_Img:props.item?.attributes?.chatable?.attributes?.profile_pic?.url || NoProfile_Img } alt='profile-pic' width='50' height='50' style={{borderRadius:20,marginRight:5}}/> :null
+}
+
+
+{/* <img src=""/> */}
+
+
+                      <Box style={{background:'#f6f6f6',borderRadius:'6px',padding:'0.5rem',borderTopRightRadius:0}}>
+
+
+                        <Typography
+                          style={{
+                            color: "#081F32",
+                            fontFamily: "Poppins",
+                            fontWeight: 500,
+                            fontSize: 14,
+                            marginLeft: 5
+                          }}
+                        align={
+                          props.message.message.account_id == props.currentAccountId
+                            ? "right"
+                            : "left"
+                        }
+                        >
+
+                        </Typography>
+
+
+                        {
+                              props.message.message.message.length > 45 ?
+                            <>
+                              <Typography
+                                style={{
+                                  color: "#081F32",
+                                  fontWeight: 500,
+                                  fontSize: 14,
+                                  wordBreak: 'break-all'
+                                }}
+                                align='left'
+                              >
+                                    {props.message.message.message}
+                              </Typography>
+
+
+                            </>
+
+                            :
+
+                            <>
+                              <Typography
+                                style={{
+                                  color: "#081F32",
+                                  fontWeight: 500,
+                                  fontSize: 14,
+                                  wordBreak: 'break-all',
+                                  display:'flex',
+                                  alignItems:'center'
+                                }}
+                              >
+                                 {props.message.message.account_id == props.currentAccountId &&  <div style={{position:'relative',marginRight:'0.25rem'}}>
+                                <img src={DoubleTick}/> 
+                                <img src={DoubleTick} style={{position:'absolute',left:'-4px'}}/> 
+                                </div>}
+                                    {props.message.message.message}
+                              </Typography>
+
+                            </>
+                        }
+
+
+
+                      {
+                              props.message?.message?.images.length !=0 ?
+                          <Grid item xs={12}
+                          >
+
+                                  <img style={{ 'cursor': 'pointer' }} onClick={props.handleClick} src={props.message.message.images[0].url} width="75" height="75" />
+                          </Grid>
+                          :
+                          null
+
+                      }
+
+                        <ListItemText
+                              secondary={props.displaytime(props.message.message.created_at)}
+                        />
+                     </Box>
+                      </Grid>
+  </>)
+}

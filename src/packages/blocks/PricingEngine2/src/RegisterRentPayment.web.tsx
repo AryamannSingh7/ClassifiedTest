@@ -156,7 +156,7 @@ class RegisterRentPayment extends RegisterRentPaymentController{
                                 {t("Tenant Name")}:
                             </Typography>
                             <Typography variant="subtitle2" color="textPrimary" style={{fontWeight:"bold",marginLeft:"5px"}}>
-                                Mr. Ali Khan
+                                {this.state.tenantName}
                             </Typography>
                         </Grid>
                         <Grid item xs={12}>
@@ -196,9 +196,17 @@ class RegisterRentPayment extends RegisterRentPaymentController{
                         }
                         <Grid item xs={12}>
                             <Typography style={{color:"#2B6FED",fontWeight:"bold"}}>
-                                {t("Rent Amount")} : SR500
+                                {t("Rent Amount")} : {this.state.currency}{this.state.rentAmount}
                             </Typography>
                         </Grid>
+                        {
+                            this.state.partialPaidAmount > 0 &&
+                            <Grid item xs={12}>
+                                <Typography style={{color:"#2B6FED",fontWeight:"bold"}}>
+                                    {t("Pending Amount")} : {this.state.currency} {(this.state.rentAmount - this.state.partialPaymentAmount).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
+                                </Typography>
+                            </Grid>
+                        }
                         {
                             this.state.paymentType === "partial" &&
                             <Grid item xs={12}>
