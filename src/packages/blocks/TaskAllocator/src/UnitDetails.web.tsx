@@ -328,7 +328,7 @@ class UnitDetails extends UnitDetailsController {
                                 <img src={BlueStatusIcon} alt="" />
                                 <Box className="item-data">
                                   <span>{t("Unit Status")}</span>
-                                  <p>{this.handleUnitStatus(status)}</p>
+                                  <p>{this.handleUnitStatus(this.state.rentDetails.status)}</p>
                                 </Box>
                               </Box>
                             </Grid>

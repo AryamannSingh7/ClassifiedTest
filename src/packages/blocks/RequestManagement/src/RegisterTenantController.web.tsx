@@ -294,7 +294,7 @@ export default class RegisterTenantController extends BlockComponent<Props, S, S
   handleSubmitRegisterTenant = (values: TenantForm, isNowContract: boolean) => {
     this.setState({ loading: true, isNowContract: isNowContract });
     const otherDocument: any = [...values.otherDocument];
-    var data = new FormData();
+    let data = new FormData();
     data.append("[tenant_resquest][name]", values.tenantName);
     data.append("[tenant_resquest][phone_number]", values.tenantCountryCode + "-" + values.tenantMobile);
     data.append("[tenant_resquest][email]", values.tenantEmail);
@@ -347,7 +347,7 @@ export default class RegisterTenantController extends BlockComponent<Props, S, S
     this.setState({ loading: true });
     const otherDocument: any = [...values.otherDocument];
 
-    var data = new FormData();
+    let data = new FormData();
     data.append("[tenant_resquest][name]", values.tenantName);
     data.append("[tenant_resquest][phone_number]", values.tenantCountryCode + "-" + values.tenantMobile);
     data.append("[tenant_resquest][id_proof_id]", values.idType);

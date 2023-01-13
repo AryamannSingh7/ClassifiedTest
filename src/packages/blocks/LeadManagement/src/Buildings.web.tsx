@@ -266,7 +266,7 @@ class Buildings extends BuildingsController {
                         <p>{t("Building Area")}</p>
                         <h2>
                           {this.handleValidText(this.state.buildingData.buildingArea)}{" "}
-                          {this.state.buildingData.measurement || ""}
+                          {this.handleValidEmptyText(this.state.buildingData.measurement)}
                         </h2>
                       </Card>
                     </Grid>
@@ -422,9 +422,7 @@ class Buildings extends BuildingsController {
                                     </TableCell>
                                     <TableCell>
                                       <span className={unit.attributes.status}>
-                                        {unit.attributes.status === "No-Own"
-                                          ? `${t("Not Owned")}`
-                                          : unit.attributes.status}
+                                        {t(this.handleStatus(unit.attributes.status))}
                                       </span>
                                     </TableCell>
                                     <TableCell>

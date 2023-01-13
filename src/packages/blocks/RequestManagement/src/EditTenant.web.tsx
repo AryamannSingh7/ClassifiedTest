@@ -8,7 +8,6 @@ import {
   Grid,
   MenuItem,
   Select,
-  ListItemIcon,
   OutlinedInput,
   InputAdornment,
   Input,
@@ -52,10 +51,7 @@ class EditTenant extends RegisterTenantController {
   }
 
   render() {
-    const { classes } = this.props;
-    const { t }: any = this.props;
-
-    console.log(this.state);
+    const { t, classes }: any = this.props;
 
     return (
       <>
@@ -370,10 +366,17 @@ class EditTenant extends RegisterTenantController {
                                   <p className="error">{t(errors.otherDocument)}</p>
                                 )}
                               </FormControl>
-
-                              <div className="next-button submit-button">
-                                <Button type="submit">{t("Save")}</Button>
-                              </div>
+                              <Box className="next-button submit-button edit-tenant-button">
+                                <Button
+                                  className="cancel"
+                                  onClick={() =>
+                                    this.props.navigation.navigate("TenantDetails", { id: this.state.tenantId })
+                                  }
+                                >
+                                  {t("Cancel")}
+                                </Button>
+                                <Button type="submit">{t("Edit")}</Button>
+                              </Box>
                             </Box>
                           </Form>
                         );

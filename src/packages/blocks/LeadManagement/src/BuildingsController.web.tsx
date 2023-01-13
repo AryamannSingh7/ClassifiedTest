@@ -494,5 +494,21 @@ export default class BuildingsController extends BlockComponent<Props, S, SS> {
       return "-";
     }
   };
+
+  handleValidEmptyText = (text: any) => {
+    if (text) {
+      return text;
+    } else {
+      return "";
+    }
+  };
+
+  handleStatus = (status: any) => {
+    if (status === "No-Own") {
+      return "Not Owned";
+    } else {
+      return status;
+    }
+  };
   // Customizable Area End
 }

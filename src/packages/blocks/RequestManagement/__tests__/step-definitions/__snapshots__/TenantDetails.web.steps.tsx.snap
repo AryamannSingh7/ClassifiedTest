@@ -46,6 +46,19 @@ exports[`TenantDetails User navigates to TenantDetails 1`] = `
         "& .divider-box .MuiDivider-root": Object {
           "width": "120px",
         },
+        "& .edit-tenant-button": Object {
+          "gap": "15px",
+        },
+        "& .edit-tenant-button .cancel": Object {
+          "background": "white",
+          "border": "1px solid #2b6fec",
+          "color": "#2b6fec",
+          "minWidth": "150px",
+        },
+        "& .edit-tenant-button button": Object {
+          "fontWeight": "600",
+          "minWidth": "150px",
+        },
         "& .error": Object {
           "color": "red",
           "fontSize": "14px",
@@ -583,7 +596,10 @@ exports[`TenantDetails User navigates to TenantDetails 1`] = `
       },
     }
   }
+  history={[MockFunction]}
   id="TenantDetails"
+  location={[MockFunction]}
+  match={[MockFunction]}
   navigation={
     Object {
       "getParam": [MockFunction] {
