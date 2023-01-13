@@ -115,7 +115,7 @@ export default class FriendListController extends BlockComponent<
     this.setState({
       selectedUser:{
         name:updatedData[0].attributes.full_name,
-        email:updatedData[0].attributes.email_address,
+        email:updatedData[0].attributes.email,
         phone:updatedData[0].attributes.phone_number,
         buildingName:updatedData[0].attributes.building_management.name,
         buildingId:updatedData[0].attributes.building_management.id,
@@ -282,7 +282,7 @@ export default class FriendListController extends BlockComponent<
             })
           }else{
             this.setState({
-              roleList:responseJson?.data?.roles,
+              roleList:responseJson?.data,
             })
           }
         }else{
