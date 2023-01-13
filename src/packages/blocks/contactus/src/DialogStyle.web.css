@@ -288,8 +288,7 @@
 .szh-menu-container ul li {
   padding: 8px 32px;
   display: block;
-  background-color: white;
-  min-height: 38px;
+  font-weight: 400;
 }
 
 .chairman-top-menu.szh-menu-container ul li {
@@ -307,6 +306,25 @@
   align-items: center !important;
   justify-content: flex-start !important;
   text-decoration: none !important;
+}
+
+.unit-box-currency,
+.measurement-modal-box {
+  position: relative;
+}
+
+.unit-box-currency .unit-box-value {
+  position: absolute;
+  top: 36px;
+  right: 36px;
+  font-weight: 600;
+}
+
+.measurement-modal-value {
+  position: absolute;
+  top: 16px;
+  right: 15px;
+  font-weight: 600;
 }
 
 .share-box {
@@ -460,6 +478,7 @@
 .rent-history-dialog .select-input.input {
   margin-top: 20px;
   background-color: #f3f3f3;
+  width: 100%;
 }
 
 .rent-history-dialog .select-box .select-input {
@@ -1246,4 +1265,27 @@
   position: absolute;
   top: 15px;
   left: 10px;
+}
+
+.edit-unit-modal-config {
+  position: relative;
+}
+
+.edit-unit-modal-config img {
+  position: absolute;
+  z-index: 999;
+  top: 18px;
+  left: 10px;
+}
+
+.edit-unit-modal-config .select-input {
+  border: 1px solid #c6c6c6;
+  border-radius: 8px;
+  background: #f9f9f9;
+  width: 100%;
+  padding-left: 22px;
+}
+
+.edit-unit-modal-config .select-input .MuiSelect-root {
+  background: #f9f9f9;
 }

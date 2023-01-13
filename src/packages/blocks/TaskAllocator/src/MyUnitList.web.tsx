@@ -12,14 +12,13 @@ import {
   Grid,
   IconButton,
   Link,
-  MenuItem,
   Typography,
   withStyles,
 } from "@material-ui/core";
 import KeyboardBackspaceIcon from "@material-ui/icons/KeyboardBackspace";
 import MoreVertIcon from "@material-ui/icons/MoreVert";
 import { BuildingImage, DeleteUnitIcon, FilterIcon } from "./assets";
-import { Menu } from "@szhsin/react-menu";
+import { Menu, MenuItem } from "@szhsin/react-menu";
 import { MyUnitStyle } from "./MyUnitStyle.web";
 import Loader from "../../../components/src/Loader.web";
 
@@ -28,9 +27,31 @@ class MyUnitList extends MyUnitListController {
     super(props);
   }
 
+  handleEmptyList = (t: any) => {
+    if (this.state.myUnitList.length === 0) {
+      return (
+        <Grid item xs={12}>
+          <Card className="tenant">
+            {this.state.filter.status === "Empty" ? (
+              <h6>{t("You don't have registered units that are vacant")}</h6>
+            ) : (
+              <h6>{t("No Unit Registered")}</h6>
+            )}
+          </Card>
+        </Grid>
+      );
+    }
+  };
+
+  handleStatus = (unit: any) => {
+    if (unit.attributes.status === "No-Own") {
+      return "Not Owned";
+    }
+    return unit.attributes.status === "Empty" ? "Vacant" : unit.attributes.status;
+  };
+
   render() {
-    const { t }: any = this.props;
-    const { classes } = this.props;
+    const { t, classes }: any = this.props;
 
     return (
       <>
@@ -61,7 +82,7 @@ class MyUnitList extends MyUnitListController {
                         {t("Rented")}
                       </MenuItem>
                       <MenuItem onClick={() => this.setState({ filter: { unitType: "", status: "Empty" } })}>
-                        {t("Empty")}
+                        {t("Vacant")}
                       </MenuItem>
                       <MenuItem onClick={() => this.setState({ filter: { unitType: "", status: "" } })}>
                         {t("All")}
@@ -73,13 +94,7 @@ class MyUnitList extends MyUnitListController {
                   <div className="tenant-list-box">
                     <div className="tenant-list">
                       <Grid container spacing={2}>
-                        {this.state.myUnitList.length === 0 && (
-                          <Grid item xs={12}>
-                            <Card className="tenant">
-                              <h6>{t("No Unit Registered")}</h6>
-                            </Card>
-                          </Grid>
-                        )}
+                        {this.handleEmptyList(t)}
                         {this.state.myUnitList.map((unit: any, index: number) => {
                           return (
                             <Grid item xs={12} key={index}>
@@ -147,7 +162,7 @@ class MyUnitList extends MyUnitListController {
                                           unit.attributes.status === "No-Own" ? "Not Owned" : unit.attributes.status
                                         }
                                       >
-                                        {t(unit.attributes.status === "No-Own" ? "Not Owned" : unit.attributes.status)}
+                                        {t(this.handleStatus(unit))}
                                       </Button>
                                     ) : (
                                       <Button className="Pending">{t("Pending")}</Button>

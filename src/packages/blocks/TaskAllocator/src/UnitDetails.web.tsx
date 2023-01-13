@@ -81,9 +81,15 @@ class UnitDetails extends UnitDetailsController {
     super(props);
   }
 
+  handleUnitStatus = (status: any) => {
+    if (status === "No-Own") {
+      return "Not Owned";
+    }
+    return status === "Empty" ? "Vacant" : status;
+  };
+
   render() {
-    const { t }: any = this.props;
-    const { classes } = this.props;
+    const { t, classes }: any = this.props;
 
     return (
       <>
@@ -251,7 +257,11 @@ class UnitDetails extends UnitDetailsController {
                                 <img src={BlueSizeIcon} alt="" />
                                 <Box className="item-data">
                                   <span>{t("Size")}</span>
-                                  <p>{this.validationText(this.state.unitDetails.size)}</p>
+                                  <p>
+                                    {this.validationText(this.state.unitDetails.size) +
+                                      " " +
+                                      this.handleEmptyText(this.state.unitDetails.measurement)}
+                                  </p>
                                 </Box>
                               </Box>
                             </Grid>
@@ -269,7 +279,11 @@ class UnitDetails extends UnitDetailsController {
                                 <img src={BluePriceIcon} alt="" />
                                 <Box className="item-data">
                                   <span>{t("Purchase Price")}</span>
-                                  <p>{this.validationText(this.state.unitDetails.purchasePrice)}</p>
+                                  <p>
+                                    {this.handleEmptyText(this.state.unitDetails.currency) +
+                                      " " +
+                                      this.validationText(this.state.unitDetails.purchasePrice)}
+                                  </p>
                                 </Box>
                               </Box>
                             </Grid>
@@ -293,7 +307,11 @@ class UnitDetails extends UnitDetailsController {
                                 <img src={BlueValuationIcon} alt="" />
                                 <Box className="item-data">
                                   <span>{t("Current Valuation")}</span>
-                                  <p>{this.validationText(this.state.unitDetails.valuation)}</p>
+                                  <p>
+                                    {this.handleEmptyText(this.state.unitDetails.currency) +
+                                      " " +
+                                      this.validationText(this.state.unitDetails.valuation)}
+                                  </p>
                                 </Box>
                               </Box>
                             </Grid>
@@ -310,11 +328,7 @@ class UnitDetails extends UnitDetailsController {
                                 <img src={BlueStatusIcon} alt="" />
                                 <Box className="item-data">
                                   <span>{t("Unit Status")}</span>
-                                  <p>
-                                    {this.state.rentDetails.status === "No-Own"
-                                      ? "Not Owned"
-                                      : this.state.rentDetails.status}
-                                  </p>
+                                  <p>{this.handleUnitStatus(this.state.rentDetails.status)}</p>
                                 </Box>
                               </Box>
                             </Grid>
@@ -372,7 +386,12 @@ class UnitDetails extends UnitDetailsController {
                                     <img src={BlueRentIcon} alt="" />
                                     <Box className="item-data">
                                       <span>{t("Rent Charge")}</span>
-                                      <p>{this.validationText(this.state.rentDetails.charge)} / Month</p>
+                                      <p>
+                                        {this.handleEmptyText(this.state.unitDetails.currency) +
+                                          " " +
+                                          this.validationText(this.state.rentDetails.charge)}{" "}
+                                        / Month
+                                      </p>
                                     </Box>
                                   </Box>
                                 </Grid>
@@ -409,11 +428,19 @@ class UnitDetails extends UnitDetailsController {
                               <Divider />
                               <Box className="info">
                                 <p>{t("Rent Amount")}</p>
-                                <span>{this.validationText(history.attributes.rent_amount)}</span>
+                                <span>
+                                  {this.handleEmptyText(this.state.unitDetails.currency) +
+                                    " " +
+                                    this.validationText(history.attributes.rent_amount)}
+                                </span>
                               </Box>
                               <Box className="info">
                                 <p>{t("Received Amount")}</p>
-                                <span>{this.validationText(history.attributes.received_amount)}</span>
+                                <span>
+                                  {this.handleEmptyText(this.state.unitDetails.currency) +
+                                    " " +
+                                    this.validationText(history.attributes.received_amount)}
+                                </span>
                               </Box>
                             </Box>
                           );

@@ -3927,15 +3927,6 @@ exports[`CreateFacilityReservation User navigates to CreateFacilityReservation 1
                                     </WithStyles(ForwardRef(Button))>
                                   </div>
                                 </Styled(MuiBox)>
-                                {}
-                                {
-  "areaReserve": " ",
-  "buildingName": " ",
-  "date": "Invalid date",
-  "timeFrom": "",
-  "timeTo": "",
-  "id": ""
-}
                               </form>
                             </Form>
                           </Formik>

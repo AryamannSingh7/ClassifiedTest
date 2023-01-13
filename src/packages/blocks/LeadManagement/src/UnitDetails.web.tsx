@@ -17,6 +17,7 @@ import {
   Grid,
   DialogActions,
   Select,
+  OutlinedInput,
 } from "@material-ui/core";
 import { Menu } from "@szhsin/react-menu";
 import "@szhsin/react-menu/dist/core.css";
@@ -69,6 +70,7 @@ import GoogleMapReact from "google-map-react";
 import MuiDialogTitle from "@material-ui/core/DialogTitle";
 import CloseIcon from "@material-ui/icons/Close";
 import moment from "moment";
+import LocationCard from "../../../components/src/ComplexAndApartment/LocationCard.web";
 
 const settings = {
   infinite: false,
@@ -82,6 +84,427 @@ class UnitDetails extends UnitDetailsController {
   constructor(props: Props) {
     super(props);
   }
+
+  buildingLocation = (t: any) => {
+    return (
+      <Box className="location-details">
+        <Box className="heading">
+          <h4>{t("Building Location Details")}</h4>
+          <Box className="heading-right">
+            <Box className="map-modal" onClick={() => this.handleMapModal()}>
+              <img src={location} alt="" />
+              <span>{t("See building on map")}</span>
+            </Box>
+          </Box>
+        </Box>
+        <Box className="location-data">
+          <Grid container spacing={2}>
+            <Grid item sm={4}>
+              <LocationCard
+                image={country}
+                style={dashBoard.locationIcon}
+                heading={t("Country")}
+                value={this.handleUnitText(this.state.unitData.country)}
+              />
+            </Grid>
+            <Grid item sm={4}>
+              <LocationCard
+                image={region}
+                style={dashBoard.locationIcon}
+                heading={t("Region")}
+                value={this.handleUnitText(this.state.unitData.region)}
+              />
+            </Grid>
+            <Grid item sm={4}>
+              <LocationCard
+                image={city}
+                style={dashBoard.locationIcon}
+                heading={t("City")}
+                value={this.handleUnitText(this.state.unitData.city)}
+              />
+            </Grid>
+          </Grid>
+        </Box>
+      </Box>
+    );
+  };
+
+  unitDetails = (t: any) => {
+    return (
+      <Box className="location-details unit-details">
+        <Box className="heading">
+          <h4>{t("Unit Details")}</h4>
+          <Box className="heading-right">
+            <Box className="edit-modal" onClick={() => this.openEditUnitModal()}>
+              <img src={pencil} />
+              <span>{t("Edit")}</span>
+            </Box>
+          </Box>
+        </Box>
+        <Box className="location-data">
+          <Grid container spacing={2}>
+            <Grid item sm={4}>
+              <LocationCard
+                image={floor}
+                style={dashBoard.locationIcon}
+                heading={t("Floor Number")}
+                value={this.handleUnitText(this.state.unitData.floor)}
+              />
+            </Grid>
+            <Grid item sm={4}>
+              <LocationCard
+                image={size}
+                style={dashBoard.locationIcon}
+                heading={t("Size")}
+                value={this.handleUnitText(this.state.unitData.size) + " " + (this.state.unitData.measurement || "")}
+              />
+            </Grid>
+            <Grid item sm={4}>
+              <LocationCard
+                image={configuration}
+                style={dashBoard.locationIcon}
+                heading={t("Configuration")}
+                value={this.handleUnitText(this.state.unitData.configuration)}
+              />
+            </Grid>
+            <Grid item sm={4}>
+              <LocationCard
+                image={purchase_price}
+                style={dashBoard.locationIcon}
+                heading={t("Purchase Price")}
+                value={
+                  (this.state.unitData.currency || "") + " " + this.handleUnitText(this.state.unitData.purchasePrice)
+                }
+              />
+            </Grid>
+            <Grid item sm={4}>
+              <LocationCard
+                image={purchase_date}
+                style={dashBoard.locationIcon}
+                heading={t("Purchase Dat")}
+                value={
+                  this.state.unitData.purchaseDate
+                    ? moment(this.state.unitData.purchaseDate).format("MMMM DD, YYYY")
+                    : "-"
+                }
+              />
+            </Grid>
+            <Grid item sm={4}>
+              <LocationCard
+                image={valuation}
+                style={dashBoard.locationIcon}
+                heading={t("Current Valuation")}
+                value={
+                  (this.state.unitData.currency || "") + " " + this.handleUnitText(this.state.unitData.currentValuation)
+                }
+              />
+            </Grid>
+          </Grid>
+        </Box>
+      </Box>
+    );
+  };
+
+  relatedPeople = (t: any) => {
+    if (this.state.unitData.relatedPeople.length > 0) {
+      return (
+        <Box className="related-people">
+          <Box className="heading">
+            <h4>{t("Related People")}</h4>
+          </Box>
+          <Grid container spacing={2}>
+            {this.state.unitData.relatedPeople.map((people: any, index: number) => {
+              return (
+                <Grid item sm={3} key={index}>
+                  <Card className="user-details">
+                    <CardMedia
+                      component="img"
+                      height="140"
+                      image={
+                        people.account.data.attributes.profile_pic && people.account.data.attributes.profile_pic.url
+                      }
+                      alt={people.account.data.attributes.full_name.name}
+                      style={dashBoard.profileImage}
+                    />
+                    <h4>{people.apartment_name}</h4>
+                    <p>{people.account.data.attributes.full_name.name}</p>
+                    <Box className="roles-box">
+                      {people.roles.map((role: any) => {
+                        return <span className="role">{role.name}</span>;
+                      })}
+                    </Box>
+                    <Box className="icons">
+                      <img src={chat} alt="" />
+                      <a href={`mailto:${people.account.data.attributes.email.email}`}>
+                        <img src={email_org} alt="" />
+                      </a>
+                      <a href={`tel:${people.account.data.attributes.full_phone_number.full_phone_number}`}>
+                        <img src={call_org} alt="" />
+                      </a>
+                    </Box>
+
+                    <Box className="user-menu">
+                      <Menu menuButton={<MoreVertIcon />}>
+                        <MenuItem onClick={this.handleDeLinkModal}>{t("Delink User")}</MenuItem>
+                        <MenuItem onClick={this.handleSuspendModal}>{t("Suspend User")}</MenuItem>
+                      </Menu>
+                    </Box>
+                  </Card>
+                </Grid>
+              );
+            })}
+          </Grid>
+        </Box>
+      );
+    }
+  };
+
+  familyList = (t: any) => {
+    if (this.state.unitData.familyList.length > 0) {
+      return (
+        <Box className="related-people family-details">
+          <Box className="heading">
+            <h4>{t("Family Members")}</h4>
+          </Box>
+          <Grid container spacing={2}>
+            {this.state.unitData.familyList.map((family: any) => {
+              return (
+                <Grid item sm={4} key={family.id}>
+                  <Card className="user-details">
+                    <Box className="heading">
+                      <h4>{family.attributes.name}</h4>
+                      <Box className="user-menu">
+                        <Menu menuButton={<MoreVertIcon />}>
+                          <MenuItem
+                            onClick={() => {
+                              this.setState({ familyId: family.id }, () => {
+                                this.openFamilyModal(family);
+                              });
+                            }}
+                          >
+                            {t("Edit")}
+                          </MenuItem>
+                          <MenuItem
+                            onClick={() => {
+                              this.setState({ familyId: family.id, familyMemberName: family.attributes.name }, () => {
+                                this.handleDeleteFamilyMemberModal();
+                              });
+                            }}
+                          >
+                            {t("Delete")}
+                          </MenuItem>
+                        </Menu>
+                      </Box>
+                    </Box>
+                    <p className="label">{t("Relation")}:</p>
+                    <Box className="user-info">
+                      <p>{family.attributes.relation.name}</p>
+                      <p>{family.attributes.id_number || ""}</p>
+                    </Box>
+                  </Card>
+                </Grid>
+              );
+            })}
+          </Grid>
+        </Box>
+      );
+    }
+  };
+
+  activeIncident = (t: any) => {
+    if (this.state.unitData.activeIncidents.length > 0) {
+      return (
+        <Box className="active-incident">
+          <Box className="heading">
+            <h4>{t("Active Incidents")}</h4>
+          </Box>
+          <Grid container spacing={4}>
+            {this.state.unitData.activeIncidents.map((incident: any) => {
+              return (
+                <Grid item sm={6} key={incident.id}>
+                  <Card className="incident-card">
+                    <Box className="heading">
+                      <h4>{incident.attributes.incident_title}</h4>
+                      <span className={incident.attributes.incident_status}>{incident.attributes.incident_status}</span>
+                    </Box>
+                    <Box className="incident-data">
+                      <p>{t("Affected Area")}:</p>
+                      <p>
+                        <span>{incident.attributes.common_area.name || "-"}</span>
+                      </p>
+                    </Box>
+                    <Box className="incident-data">
+                      <p>{t("Incident is related to")}:</p>
+                      <p>
+                        <span>{incident.attributes.incident_related.name || "-"}</span>
+                      </p>
+                    </Box>
+                    <Box className="incident-data">
+                      <p>{t("Reported on")}:</p>
+                      <p>
+                        <span>{moment(incident.reported_on).format("MMMM DD, YYYY")}</span>
+                      </p>
+                    </Box>
+                    <Box className="incident-data">
+                      <p>{t("Building")}:</p>
+                      <p>
+                        <span>{this.state.unitData.buildingName}</span>
+                      </p>
+                    </Box>
+                    <Box className="incident-data">
+                      <p>{t("Unit")}:</p>
+                      <p>
+                        <span>{this.state.unitData.unitName}</span>
+                      </p>
+                    </Box>
+                  </Card>
+                </Grid>
+              );
+            })}
+          </Grid>
+        </Box>
+      );
+    }
+  };
+
+  vehicleDetails = (t: any) => {
+    if (this.state.unitData.vehicleDetails.length > 0) {
+      return (
+        <Box className="active-incident vehicle-details">
+          <Box className="heading">
+            <h4>{t("Vehicle Details")}</h4>
+          </Box>
+          <Grid container spacing={4}>
+            {this.state.unitData.vehicleDetails.map((vehicle: any) => {
+              return (
+                <Grid item sm={6} key={vehicle.id}>
+                  <Card className="incident-card">
+                    <Box className="heading">
+                      <h4>{vehicle.attributes.model_number}</h4>
+                    </Box>
+                    <img
+                      src={vehicle.attributes.registration_card_copy && vehicle.attributes.registration_card_copy.url}
+                      alt=""
+                      style={{ marginBottom: "5px", width: "150px", height: "100px", borderRadius: "8px" }}
+                    />
+                    <Box className="incident-data">
+                      <p>{t("Owner Name")}:</p>
+                      <p>
+                        <span>{vehicle.attributes.owner_name || "-"}</span>
+                      </p>
+                    </Box>
+                    <Box className="incident-data">
+                      <p>{t("Registration Card Number")}:</p>
+                      <p>
+                        <span>{vehicle.attributes.plate_number}</span>
+                      </p>
+                    </Box>
+                    <Box className="incident-data">
+                      <p>{t("Car Details")}:</p>
+                      <p>
+                        <span>{vehicle.attributes.description || "-"}</span>
+                      </p>
+                    </Box>
+                    <Box className="incident-data">
+                      <p>{t("Building")}:</p>
+                      <p>
+                        <span>{this.state.unitData.buildingName}</span>
+                      </p>
+                    </Box>
+                    <Box className="incident-data">
+                      <p>{t("Unit")}:</p>
+                      <p>
+                        <span>{this.state.unitData.unitName}</span>
+                      </p>
+                    </Box>
+                  </Card>
+                </Grid>
+              );
+            })}
+          </Grid>
+        </Box>
+      );
+    }
+  };
+
+  rentHistory = (t: any) => {
+    if (this.state.unitData.rentHistory.length > 0) {
+      return (
+        <Box className="rent-history">
+          <Box className="heading">
+            <h4>{t("Rent History")}</h4>
+          </Box>
+          <Box className="history-data">
+            <Grid container spacing={2}>
+              {this.state.unitData.rentHistory.map((rent: any) => {
+                return (
+                  <Grid item sm={6} key={rent.id}>
+                    <Card>
+                      <h4>{rent.attributes.tenant_name}</h4>
+                      <p className="date">
+                        {moment(rent.attributes.start_date, "YYYY-MM-DD").format("MMMM YY")} to{" "}
+                        {moment(rent.attributes.end_date, "YYYY-MM-DD").format("MMMM YY")}
+                      </p>
+                      <Divider />
+                      <Box className="history-info" style={{ marginTop: "8px" }}>
+                        <p>{t("Rent Amount (Monthly)")}</p>
+                        <p>
+                          <span>
+                            {this.state.unitData.currency || ""} {rent.attributes.rent_amount || 0}
+                          </span>
+                        </p>
+                      </Box>
+                      <Box className="history-info">
+                        <p>{t("Received Amount")}</p>
+                        <p>
+                          <span>
+                            {this.state.unitData.currency || ""} {rent.attributes.received_amount || 0}
+                          </span>
+                        </p>
+                      </Box>
+                    </Card>
+                  </Grid>
+                );
+              })}
+            </Grid>
+          </Box>
+        </Box>
+      );
+    }
+  };
+
+  unitPhotos = (t: any) => {
+    if (this.state.unitData.photos.length > 0) {
+      return (
+        <Box className="building-info">
+          <Box className="heading">
+            <h4>{t("Unit Pictures")}</h4>
+          </Box>
+          <Card>
+            <Box className="building-info-bottom">
+              <Slider ref={(c: any) => (this.slider = c)} {...settings}>
+                {this.state.unitData.photos.map((image: any, index: number) => {
+                  return (
+                    <div className="slider-image" onClick={() => this.setState({ imageBox: true, photoIndex: index })}>
+                      <img src={image.url} alt="" />
+                    </div>
+                  );
+                })}
+              </Slider>
+              <Box className="slick-bottom">
+                <Box className="button prev" onClick={this.previousImage}>
+                  <img src={previousIcon} alt="" />
+                </Box>
+                <Box className="button next" onClick={this.nextImage}>
+                  <img src={nextIcon} alt="" />
+                </Box>
+              </Box>
+            </Box>
+          </Card>
+        </Box>
+      );
+    }
+  };
 
   render() {
     const { t, classes }: any = this.props;
@@ -113,345 +536,22 @@ class UnitDetails extends UnitDetailsController {
                 </Typography>
 
                 {/* Building Location Details */}
-                <Box className="location-details">
-                  <Box className="heading">
-                    <h4>{t("Building Location Details")}</h4>
-                    <Box className="heading-right">
-                      <Box className="map-modal" onClick={() => this.handleMapModal()}>
-                        <img src={location} alt="" />
-                        <span>{t("See building on map")}</span>
-                      </Box>
-                    </Box>
-                  </Box>
-                  <Box className="location-data">
-                    <Grid container spacing={2}>
-                      <Grid item sm={4}>
-                        <Card>
-                          <img src={country} style={dashBoard.locationIcon} />
-                          <Box className="location-info">
-                            <p>{t("Country")}</p>
-                            <h4>{this.state.unitData.country || "-"}</h4>
-                          </Box>
-                        </Card>
-                      </Grid>
-                      <Grid item sm={4}>
-                        <Card>
-                          <img src={region} style={dashBoard.locationIcon} />
-                          <Box className="location-info">
-                            <p>{t("Region")}</p>
-                            <h4>{this.state.unitData.region || "-"}</h4>
-                          </Box>
-                        </Card>
-                      </Grid>
-                      <Grid item sm={4}>
-                        <Card>
-                          <img src={city} style={dashBoard.locationIcon} />
-                          <Box className="location-info">
-                            <p>{t("City")}</p>
-                            <h4>{this.state.unitData.city || "-"}</h4>
-                          </Box>
-                        </Card>
-                      </Grid>
-                    </Grid>
-                  </Box>
-                </Box>
+                {this.buildingLocation(t)}
 
                 {/* Unit Details */}
-                <Box className="location-details unit-details">
-                  <Box className="heading">
-                    <h4>{t("Unit Details")}</h4>
-                    <Box className="heading-right">
-                      <Box className="edit-modal" onClick={() => this.openEditUnitModal()}>
-                        <img src={pencil} />
-                        <span>{t("Edit")}</span>
-                      </Box>
-                    </Box>
-                  </Box>
-
-                  <Box className="location-data">
-                    <Grid container spacing={2}>
-                      <Grid item sm={4}>
-                        <Card>
-                          <img src={floor} style={dashBoard.locationIcon} />
-                          <Box className="location-info">
-                            <p>{t("Floor Number")}</p>
-                            <h4>{this.state.unitData.floor || "-"}</h4>
-                          </Box>
-                        </Card>
-                      </Grid>
-                      <Grid item sm={4}>
-                        <Card>
-                          <img src={size} style={dashBoard.locationIcon} />
-                          <Box className="location-info">
-                            <p>{t("Size")}</p>
-                            <h4>
-                              {this.state.unitData.size || ""} {this.state.unitData.measurement || ""}
-                            </h4>
-                          </Box>
-                        </Card>
-                      </Grid>
-                      <Grid item sm={4}>
-                        <Card>
-                          <img src={configuration} style={dashBoard.locationIcon} />
-                          <Box className="location-info">
-                            <p>{t("Configuration")}</p>
-                            <h4>{this.state.unitData.configuration || "-"}</h4>
-                          </Box>
-                        </Card>
-                      </Grid>
-                      <Grid item sm={4}>
-                        <Card>
-                          <img src={purchase_price} style={dashBoard.locationIcon} />
-                          <Box className="location-info">
-                            <p>{t("Purchase Price")}</p>
-                            <h4>{this.state.unitData.purchasePrice || "-"}</h4>
-                          </Box>
-                        </Card>
-                      </Grid>
-                      <Grid item sm={4}>
-                        <Card>
-                          <img src={purchase_date} style={dashBoard.locationIcon} />
-                          <Box className="location-info">
-                            <p>{t("Purchase Date")}</p>
-                            <h4>
-                              {this.state.unitData.purchaseDate
-                                ? moment(this.state.unitData.purchaseDate).format("MMMM DD, YYYY")
-                                : "-"}
-                            </h4>
-                          </Box>
-                        </Card>
-                      </Grid>
-                      <Grid item sm={4}>
-                        <Card>
-                          <img src={valuation} style={dashBoard.locationIcon} />
-                          <Box className="location-info">
-                            <p>{t("Current Valuation")}</p>
-                            <h4>{this.state.unitData.currentValuation || "-"}</h4>
-                          </Box>
-                        </Card>
-                      </Grid>
-                    </Grid>
-                  </Box>
-                </Box>
+                {this.unitDetails(t)}
 
                 {/* Related People */}
-                {this.state.unitData.relatedPeople.length > 0 && (
-                  <Box className="related-people">
-                    <Box className="heading">
-                      <h4>{t("Related People")}</h4>
-                    </Box>
-                    <Grid container spacing={2}>
-                      {this.state.unitData.relatedPeople.map((people: any, index: number) => {
-                        return (
-                          <Grid item sm={3} key={index}>
-                            <Card className="user-details">
-                              <CardMedia
-                                component="img"
-                                height="140"
-                                image={
-                                  people.account.data.attributes.profile_pic &&
-                                  people.account.data.attributes.profile_pic.url
-                                }
-                                alt={people.account.data.attributes.full_name.name}
-                                style={dashBoard.profileImage}
-                              />
-                              <h4>{people.apartment_name}</h4>
-                              <p>{people.account.data.attributes.full_name.name}</p>
-                              <Box className="roles-box">
-                                {people.roles.map((role: any) => {
-                                  return <span className="role">{role.name}</span>;
-                                })}
-                              </Box>
-                              <Box className="icons">
-                                <img src={chat} alt="" />
-                                <a href={`mailto:${people.account.data.attributes.email.email}`}>
-                                  <img src={email_org} alt="" />
-                                </a>
-                                <a href={`tel:${people.account.data.attributes.full_phone_number.full_phone_number}`}>
-                                  <img src={call_org} alt="" />
-                                </a>
-                              </Box>
-
-                              <Box className="user-menu">
-                                <Menu menuButton={<MoreVertIcon />}>
-                                  <MenuItem onClick={this.handleDeLinkModal}>{t("Delink User")}</MenuItem>
-                                  <MenuItem onClick={this.handleSuspendModal}>{t("Suspend User")}</MenuItem>
-                                </Menu>
-                              </Box>
-                            </Card>
-                          </Grid>
-                        );
-                      })}
-                    </Grid>
-                  </Box>
-                )}
+                {this.relatedPeople(t)}
 
                 {/* Family Members */}
-                {this.state.unitData.familyList.length > 0 && (
-                  <Box className="related-people family-details">
-                    <Box className="heading">
-                      <h4>{t("Family Members")}</h4>
-                    </Box>
-                    <Grid container spacing={2}>
-                      {this.state.unitData.familyList.map((family: any) => {
-                        return (
-                          <Grid item sm={4} key={family.id}>
-                            <Card className="user-details">
-                              <Box className="heading">
-                                <h4>{family.attributes.name}</h4>
-                                <Box className="user-menu">
-                                  <Menu menuButton={<MoreVertIcon />}>
-                                    <MenuItem
-                                      onClick={() => {
-                                        this.setState({ familyId: family.id }, () => {
-                                          this.openFamilyModal(family);
-                                        });
-                                      }}
-                                    >
-                                      {t("Edit")}
-                                    </MenuItem>
-                                    <MenuItem
-                                      onClick={() => {
-                                        this.setState(
-                                          { familyId: family.id, familyMemberName: family.attributes.name },
-                                          () => {
-                                            this.handleDeleteFamilyMemberModal();
-                                          }
-                                        );
-                                      }}
-                                    >
-                                      {t("Delete")}
-                                    </MenuItem>
-                                  </Menu>
-                                </Box>
-                              </Box>
-                              <p className="label">{t("Relation")}:</p>
-                              <Box className="user-info">
-                                <p>{family.attributes.relation.name}</p>
-                                <p>{family.attributes.id_number || ""}</p>
-                              </Box>
-                            </Card>
-                          </Grid>
-                        );
-                      })}
-                    </Grid>
-                  </Box>
-                )}
+                {this.familyList(t)}
 
                 {/* Active Incidents */}
-                {this.state.unitData.activeIncidents.length > 0 && (
-                  <Box className="active-incident">
-                    <Box className="heading">
-                      <h4>{t("Active Incidents")}</h4>
-                    </Box>
-                    <Grid container spacing={4}>
-                      {this.state.unitData.activeIncidents.map((incident: any) => {
-                        return (
-                          <Grid item sm={6} key={incident.id}>
-                            <Card className="incident-card">
-                              <Box className="heading">
-                                <h4>{incident.attributes.incident_title}</h4>
-                                <span className={incident.attributes.incident_status}>
-                                  {incident.attributes.incident_status}
-                                </span>
-                              </Box>
-                              <Box className="incident-data">
-                                <p>{t("Affected Area")}:</p>
-                                <p>
-                                  <span>{incident.attributes.common_area.name || "-"}</span>
-                                </p>
-                              </Box>
-                              <Box className="incident-data">
-                                <p>{t("Incident is related to")}:</p>
-                                <p>
-                                  <span>{incident.attributes.incident_related.name || "-"}</span>
-                                </p>
-                              </Box>
-                              <Box className="incident-data">
-                                <p>{t("Reported on")}:</p>
-                                <p>
-                                  <span>{moment(incident.reported_on).format("MMMM DD, YYYY")}</span>
-                                </p>
-                              </Box>
-                              <Box className="incident-data">
-                                <p>{t("Building")}:</p>
-                                <p>
-                                  <span>{this.state.unitData.buildingName}</span>
-                                </p>
-                              </Box>
-                              <Box className="incident-data">
-                                <p>{t("Unit")}:</p>
-                                <p>
-                                  <span>{this.state.unitData.unitName}</span>
-                                </p>
-                              </Box>
-                            </Card>
-                          </Grid>
-                        );
-                      })}
-                    </Grid>
-                  </Box>
-                )}
+                {this.activeIncident(t)}
 
                 {/* Vehicle Details */}
-                {this.state.unitData.vehicleDetails.length > 0 && (
-                  <Box className="active-incident vehicle-details">
-                    <Box className="heading">
-                      <h4>{t("Vehicle Details")}</h4>
-                    </Box>
-                    <Grid container spacing={4}>
-                      {this.state.unitData.vehicleDetails.map((vehicle: any) => {
-                        return (
-                          <Grid item sm={6} key={vehicle.id}>
-                            <Card className="incident-card">
-                              <Box className="heading">
-                                <h4>{vehicle.attributes.model_number}</h4>
-                              </Box>
-                              <img
-                                src={
-                                  vehicle.attributes.registration_card_copy &&
-                                  vehicle.attributes.registration_card_copy.url
-                                }
-                                alt=""
-                                style={{ marginBottom: "5px", width: "150px", height: "100px", borderRadius: "8px" }}
-                              />
-                              <Box className="incident-data">
-                                <p>{t("Owner Name")}:</p>
-                                <p>
-                                  <span>{vehicle.attributes.owner_name || "-"}</span>
-                                </p>
-                              </Box>
-                              <Box className="incident-data">
-                                <p>{t("Registration Card Number")}:</p>
-                                <p>
-                                  <span>{vehicle.attributes.plate_number}</span>
-                                </p>
-                              </Box>
-                              <Box className="incident-data">
-                                <p>{t("Car Details")}:</p>
-                                <p>
-                                  <span>{vehicle.attributes.description || "-"}</span>
-                                </p>
-                              </Box>
-                              <Box className="incident-data">
-                                <p>{t("Building")}:</p>
-                                <p>
-                                  <span>{this.state.unitData.buildingName}</span>
-                                </p>
-                              </Box>
-                              <Box className="incident-data">
-                                <p>{t("Unit")}:</p>
-                                <p>
-                                  <span>{this.state.unitData.unitName}</span>
-                                </p>
-                              </Box>
-                            </Card>
-                          </Grid>
-                        );
-                      })}
-                    </Grid>
-                  </Box>
-                )}
+                {this.vehicleDetails(t)}
 
                 {/* Rent Status */}
                 <Box className="location-details unit-details rent-status">
@@ -514,76 +614,10 @@ class UnitDetails extends UnitDetailsController {
                 </Box>
 
                 {/* Rent History */}
-                {this.state.unitData.rentHistory.length > 0 && (
-                  <Box className="rent-history">
-                    <Box className="heading">
-                      <h4>{t("Rent History")}</h4>
-                    </Box>
-                    <Box className="history-data">
-                      <Grid container spacing={2}>
-                        {this.state.unitData.rentHistory.map((rent: any) => {
-                          return (
-                            <Grid item sm={6} key={rent.id}>
-                              <Card>
-                                <h4>{rent.attributes.tenant_name}</h4>
-                                <p className="date">
-                                  {moment(rent.attributes.start_date, "YYYY-MM-DD").format("MMMM YY")} to{" "}
-                                  {moment(rent.attributes.end_date, "YYYY-MM-DD").format("MMMM YY")}
-                                </p>
-                                <Divider />
-                                <Box className="history-info" style={{ marginTop: "8px" }}>
-                                  <p>{t("Rent Amount")}</p>
-                                  <p>
-                                    <span>{rent.attributes.rent_amount || 0}</span>
-                                  </p>
-                                </Box>
-                                <Box className="history-info">
-                                  <p>{t("Received Amount")}</p>
-                                  <p>
-                                    <span>{rent.attributes.received_amount || 0}</span>
-                                  </p>
-                                </Box>
-                              </Card>
-                            </Grid>
-                          );
-                        })}
-                      </Grid>
-                    </Box>
-                  </Box>
-                )}
+                {this.rentHistory(t)}
 
                 {/* Unit Pictures */}
-                {this.state.unitData.photos.length > 0 && (
-                  <Box className="building-info">
-                    <Box className="heading">
-                      <h4>{t("Unit Pictures")}</h4>
-                    </Box>
-                    <Card>
-                      <Box className="building-info-bottom">
-                        <Slider ref={(c: any) => (this.slider = c)} {...settings}>
-                          {this.state.unitData.photos.map((image: any, index: number) => {
-                            return (
-                              <div
-                                className="slider-image"
-                                onClick={() => this.setState({ imageBox: true, photoIndex: index })}
-                              >
-                                <img src={image.url} alt="" />
-                              </div>
-                            );
-                          })}
-                        </Slider>
-                        <Box className="slick-bottom">
-                          <Box className="button prev" onClick={this.previousImage}>
-                            <img src={previousIcon} alt="" />
-                          </Box>
-                          <Box className="button next" onClick={this.nextImage}>
-                            <img src={nextIcon} alt="" />
-                          </Box>
-                        </Box>
-                      </Box>
-                    </Card>
-                  </Box>
-                )}
+                {this.unitPhotos(t)}
 
                 {this.state.imageBox && this.state.unitData.photos.length > 0 && (
                   <Lightbox
@@ -687,58 +721,73 @@ class UnitDetails extends UnitDetailsController {
                       </Grid>
                       <Grid item md={6}>
                         <InputLabel>{t("Size")}</InputLabel>
-                        <Input
-                          className="input-with-icon"
-                          fullWidth
-                          placeholder={t("Size")}
-                          startAdornment={
-                            <InputAdornment position="start">
-                              <img src={sizebw} alt="icon" />
-                            </InputAdornment>
-                          }
-                          value={values.size}
-                          onChange={handleChange}
-                          onBlur={handleBlur}
-                          name="size"
-                        />
+                        <Box className="measurement-modal-box">
+                          <Input
+                            className="input-with-icon"
+                            fullWidth
+                            placeholder={t("Size")}
+                            startAdornment={
+                              <InputAdornment position="start">
+                                <img src={sizebw} alt="icon" />
+                              </InputAdornment>
+                            }
+                            value={values.size}
+                            onChange={handleChange}
+                            onBlur={handleBlur}
+                            name="size"
+                          />
+                          <Box className="measurement-modal-value">{this.state.unitData.measurement}</Box>
+                        </Box>
                         {errors.size && touched.size && <small className="error">{t(errors.size)}</small>}
                       </Grid>
                       <Grid item md={6}>
                         <InputLabel>{t("Configuration")}</InputLabel>
-                        <Input
-                          className="input-with-icon"
-                          fullWidth
-                          placeholder={t("Configuration")}
-                          startAdornment={
-                            <InputAdornment position="start">
-                              <img src={configurationbw} alt="icon" />
-                            </InputAdornment>
-                          }
-                          value={values.configuration}
-                          onChange={handleChange}
-                          onBlur={handleBlur}
-                          name="configuration"
-                        />
+                        <Box className="edit-unit-modal-config">
+                          <img src={configurationbw} alt="" />
+                          <Select
+                            value={values.configuration}
+                            onChange={handleChange}
+                            onBlur={handleBlur}
+                            name="configuration"
+                            variant="filled"
+                            className="select-input"
+                            input={<OutlinedInput />}
+                          >
+                            <MenuItem value="" disabled>
+                              {t("Configuration")}
+                            </MenuItem>
+                            {this.state.configList.map((config: any) => {
+                              return (
+                                <MenuItem value={config.title} key={config.title}>
+                                  {config.title}
+                                </MenuItem>
+                              );
+                            })}
+                          </Select>
+                        </Box>
                         {errors.configuration && touched.configuration && (
                           <small className="error">{t(errors.configuration)}</small>
                         )}
                       </Grid>
                       <Grid item md={6}>
                         <InputLabel>{t("Purchase Price")}</InputLabel>
-                        <Input
-                          className="input-with-icon"
-                          fullWidth
-                          placeholder={t("Purchase Price")}
-                          startAdornment={
-                            <InputAdornment position="start">
-                              <img src={purchase_pricebw} alt="icon" />
-                            </InputAdornment>
-                          }
-                          value={values.purchasePrice}
-                          onChange={handleChange}
-                          onBlur={handleBlur}
-                          name="purchasePrice"
-                        />
+                        <Box className="measurement-modal-box">
+                          <Input
+                            className="input-with-icon"
+                            fullWidth
+                            placeholder={t("Purchase Price")}
+                            startAdornment={
+                              <InputAdornment position="start">
+                                <img src={purchase_pricebw} alt="icon" />
+                              </InputAdornment>
+                            }
+                            value={values.purchasePrice}
+                            onChange={handleChange}
+                            onBlur={handleBlur}
+                            name="purchasePrice"
+                          />
+                          <Box className="measurement-modal-value">{this.state.unitData.currency}</Box>
+                        </Box>
                         {errors.purchasePrice && touched.purchasePrice && (
                           <small className="error">{t(errors.purchasePrice)}</small>
                         )}
@@ -766,20 +815,23 @@ class UnitDetails extends UnitDetailsController {
                       </Grid>
                       <Grid item md={6}>
                         <InputLabel>{t("Current Valuation")}</InputLabel>
-                        <Input
-                          className="input-with-icon"
-                          fullWidth
-                          placeholder={t("Current Valuation")}
-                          startAdornment={
-                            <InputAdornment position="start">
-                              <img src={valutionbw} alt="icon" />
-                            </InputAdornment>
-                          }
-                          value={values.currentValuation}
-                          onChange={handleChange}
-                          onBlur={handleBlur}
-                          name="currentValuation"
-                        />
+                        <Box className="measurement-modal-box">
+                          <Input
+                            className="input-with-icon"
+                            fullWidth
+                            placeholder={t("Current Valuation")}
+                            startAdornment={
+                              <InputAdornment position="start">
+                                <img src={valutionbw} alt="icon" />
+                              </InputAdornment>
+                            }
+                            value={values.currentValuation}
+                            onChange={handleChange}
+                            onBlur={handleBlur}
+                            name="currentValuation"
+                          />
+                          <Box className="measurement-modal-value">{this.state.unitData.currency}</Box>
+                        </Box>
                         {errors.currentValuation && touched.currentValuation && (
                           <small className="error">{t(errors.currentValuation)}</small>
                         )}
