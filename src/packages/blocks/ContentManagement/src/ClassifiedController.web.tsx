@@ -822,11 +822,12 @@ createClassified = async(classifiedFromData: any ,classifiedUserType : any) => {
       const header = {
         token :localStorage.getItem("userToken")
       };
+      const full_phone_number =`${classifiedFromData?.selectCode}${classifiedFromData?.phone}`
       console.log("updateClassified=====>",classifiedFromData)
       const formData = new FormData();
       const classifiedUserType = this.state?.getClassifiedDetails?.attributes?.classified_type
       //formData.append('classified[classified_type]', classifiedUserType);
-      formData.append('classified[full_phone_number]', classifiedFromData?.phone);
+      formData.append('classified[full_phone_number]', full_phone_number);
       formData.append('classified[email]', classifiedFromData.email);
       formData.append('classified[title]', classifiedFromData.classifiedTitle);
       formData.append('classified[description]', classifiedFromData.description);
