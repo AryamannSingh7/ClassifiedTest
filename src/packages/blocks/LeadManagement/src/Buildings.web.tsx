@@ -100,15 +100,88 @@ class Buildings extends BuildingsController {
     super(props);
   }
 
+  handleSearch = (item: any) => {
+    return (
+      this.state.dataSearch === "" ||
+      (this.state.dataSearch !== "" &&
+        item.attributes.apartment_name.toLowerCase().includes(this.state.dataSearch.toLowerCase()))
+    );
+  };
+
+  unitImageSlider = () => {
+    if (this.state.buildingData.photos.length > 0) {
+      return (
+        <>
+          <Slider ref={(c: any) => (this.slider = c)} {...settings}>
+            {this.state.buildingData.photos.map((image: any, index: number) => {
+              return (
+                <div
+                  className="slider-image-box"
+                  onClick={() => this.setState({ imageBox: true, photoIndex: index })}
+                  key={index}
+                >
+                  <img src={image.url} alt="" />
+                </div>
+              );
+            })}
+          </Slider>
+          <Box className="slick-bottom">
+            <Box className="button prev" onClick={this.previousImage}>
+              <img src={previousIcon} alt="" />
+            </Box>
+            <Box className="button next" onClick={this.nextImage}>
+              <img src={nextIcon} alt="" />
+            </Box>
+          </Box>
+        </>
+      );
+    }
+  };
+
+  unitImageModal = () => {
+    if (this.state.imageBox && this.state.buildingData.photos.length > 0) {
+      return (
+        <Lightbox
+          imagePadding={120}
+          mainSrc={this.state.buildingData.photos[this.state.photoIndex].url}
+          nextSrc={
+            this.state.buildingData.photos[(this.state.photoIndex + 1) % this.state.buildingData.photos.length].url
+          }
+          prevSrc={
+            this.state.buildingData.photos[
+              (this.state.photoIndex + this.state.buildingData.photos.length - 1) %
+                this.state.buildingData.photos.length
+            ].url
+          }
+          onCloseRequest={() => this.setState({ imageBox: false })}
+          onMovePrevRequest={() =>
+            this.setState({
+              photoIndex:
+                (this.state.photoIndex + this.state.buildingData.photos.length - 1) %
+                this.state.buildingData.photos.length,
+            })
+          }
+          onMoveNextRequest={() =>
+            this.setState({
+              photoIndex: (this.state.photoIndex + 1) % this.state.buildingData.photos.length,
+            })
+          }
+        />
+      );
+    }
+  };
+
+  handleError = (errors: any, touched: any, t: any) => {
+    if (errors && touched) {
+      return <small className="error">{t(errors)}</small>;
+    }
+  };
+
   render() {
     const { t, classes }: any = this.props;
 
     let searchData = this.state.unitList.filter((item: any) => {
-      if (
-        this.state.dataSearch === "" ||
-        (this.state.dataSearch !== "" &&
-          item.attributes.apartment_name.toLowerCase().includes(this.state.dataSearch.toLowerCase()))
-      ) {
+      if (this.handleSearch(item)) {
         return item;
       }
     });
@@ -173,66 +246,11 @@ class Buildings extends BuildingsController {
                         <span>{t("See building on map")}</span>
                       </Box>
                     </Box>
-                    <Box className="building-info-bottom">
-                      {this.state.buildingData.photos.length > 0 && (
-                        <>
-                          <Slider ref={(c: any) => (this.slider = c)} {...settings}>
-                            {this.state.buildingData.photos.map((image: any, index: number) => {
-                              return (
-                                <div
-                                  className="slider-image-box"
-                                  onClick={() => this.setState({ imageBox: true, photoIndex: index })}
-                                  key={index}
-                                >
-                                  <img src={image.url} alt="" />
-                                </div>
-                              );
-                            })}
-                          </Slider>
-                          <Box className="slick-bottom">
-                            <Box className="button prev" onClick={this.previousImage}>
-                              <img src={previousIcon} alt="" />
-                            </Box>
-                            <Box className="button next" onClick={this.nextImage}>
-                              <img src={nextIcon} alt="" />
-                            </Box>
-                          </Box>
-                        </>
-                      )}
-                    </Box>
+                    <Box className="building-info-bottom">{this.unitImageSlider()}</Box>
                   </Card>
                 </Box>
 
-                {this.state.imageBox && this.state.buildingData.photos.length > 0 && (
-                  <Lightbox
-                    imagePadding={120}
-                    mainSrc={this.state.buildingData.photos[this.state.photoIndex].url}
-                    nextSrc={
-                      this.state.buildingData.photos[
-                        (this.state.photoIndex + 1) % this.state.buildingData.photos.length
-                      ].url
-                    }
-                    prevSrc={
-                      this.state.buildingData.photos[
-                        (this.state.photoIndex + this.state.buildingData.photos.length - 1) %
-                          this.state.buildingData.photos.length
-                      ].url
-                    }
-                    onCloseRequest={() => this.setState({ imageBox: false })}
-                    onMovePrevRequest={() =>
-                      this.setState({
-                        photoIndex:
-                          (this.state.photoIndex + this.state.buildingData.photos.length - 1) %
-                          this.state.buildingData.photos.length,
-                      })
-                    }
-                    onMoveNextRequest={() =>
-                      this.setState({
-                        photoIndex: (this.state.photoIndex + 1) % this.state.buildingData.photos.length,
-                      })
-                    }
-                  />
-                )}
+                {this.unitImageModal()}
 
                 <Box className="about-building">
                   <Card>
@@ -529,7 +547,7 @@ class Buildings extends BuildingsController {
                         onBlur={handleBlur}
                         name="logo"
                       />
-                      {errors.logo && touched.logo && <small className="error">{t(errors.logo)}</small>}
+                      {this.handleError(errors.logo, touched.logo, t)}
                     </Box>
                     <Grid container spacing={2} className="edit-building">
                       <Grid item md={12}>
@@ -580,7 +598,7 @@ class Buildings extends BuildingsController {
                             );
                           })}
                         </Grid>
-                        {errors.photos && touched.photos && <small className="error">{t(errors.photos)}</small>}
+                        {this.handleError(errors.photos, touched.photos, t)}
                       </Grid>
                       <Grid item md={12}>
                         <InputLabel>{t("About Us")}</InputLabel>
@@ -592,9 +610,7 @@ class Buildings extends BuildingsController {
                           onBlur={handleBlur}
                           name="aboutBuilding"
                         />
-                        {errors.aboutBuilding && touched.aboutBuilding && (
-                          <small className="error">{t(errors.aboutBuilding)}</small>
-                        )}
+                        {this.handleError(errors.aboutBuilding, touched.aboutBuilding, t)}
                       </Grid>
                       <Grid item md={6}>
                         <InputLabel>{t("Building Name")}</InputLabel>
@@ -612,9 +628,7 @@ class Buildings extends BuildingsController {
                           onBlur={handleBlur}
                           name="buildingName"
                         />
-                        {errors.buildingName && touched.buildingName && (
-                          <small className="error">{t(errors.buildingName)}</small>
-                        )}
+                        {this.handleError(errors.buildingName, touched.buildingName, t)}
                       </Grid>
                       <Grid item md={6}>
                         <InputLabel>{t("Country")}</InputLabel>
@@ -650,9 +664,7 @@ class Buildings extends BuildingsController {
                           />
                           <Box className="measurement-modal-value">{this.state.buildingData.measurement}</Box>
                         </Box>
-                        {errors.buildingArea && touched.buildingArea && (
-                          <small className="error">{t(errors.buildingArea)}</small>
-                        )}
+                        {this.handleError(errors.buildingArea, touched.buildingArea, t)}
                       </Grid>
                       <Grid item md={6}>
                         <InputLabel>{t("Total Floors")}</InputLabel>

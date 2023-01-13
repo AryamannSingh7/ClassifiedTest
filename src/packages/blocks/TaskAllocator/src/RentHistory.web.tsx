@@ -29,6 +29,12 @@ class RentHistory extends RentHistoryController {
     super(props);
   }
 
+  handleRentHistoryError = (errors: any, touched: any, t: any) => {
+    if (errors && touched) {
+      return <small className="error">{t(errors)}</small>;
+    }
+  };
+
   render() {
     const { t, classes }: any = this.props;
 
@@ -186,7 +192,7 @@ class RentHistory extends RentHistoryController {
                             />
                             <img src={CalenderIcon} alt="" />
                           </Box>
-                          {errors.startDate && touched.startDate && <p className="error">{t(errors.startDate)}</p>}
+                          {this.handleRentHistoryError(errors.startDate, touched.startDate, t)}
                         </FormControl>
                       </Grid>
                       <Grid item xs={6}>
@@ -206,7 +212,7 @@ class RentHistory extends RentHistoryController {
                             />
                             <img src={CalenderIcon} alt="" />
                           </Box>
-                          {errors.endDate && touched.endDate && <p className="error">{t(errors.endDate)}</p>}
+                          {this.handleRentHistoryError(errors.endDate, touched.endDate, t)}
                         </FormControl>
                       </Grid>
                     </Grid>
@@ -228,7 +234,7 @@ class RentHistory extends RentHistoryController {
                         />
                         <Box className="unit-box-value">{this.state.currency}</Box>
                       </Box>
-                      {errors.rentAmount && touched.rentAmount && <p className="error">{t(errors.rentAmount)}</p>}
+                      {this.handleRentHistoryError(errors.rentAmount, touched.rentAmount, t)}
                     </FormControl>
                     <FormControl fullWidth>
                       <Box className="unit-box-currency">
@@ -248,9 +254,7 @@ class RentHistory extends RentHistoryController {
                         />
                         <Box className="unit-box-value">{this.state.currency}</Box>
                       </Box>
-                      {errors.receivedAmount && touched.receivedAmount && (
-                        <p className="error">{t(errors.receivedAmount)}</p>
-                      )}
+                      {this.handleRentHistoryError(errors.receivedAmount, touched.receivedAmount, t)}
                     </FormControl>
                     <FormControl fullWidth>
                       <Input
@@ -267,7 +271,7 @@ class RentHistory extends RentHistoryController {
                           </InputAdornment>
                         }
                       />
-                      {errors.tenantName && touched.tenantName && <p className="error">{t(errors.tenantName)}</p>}
+                      {this.handleRentHistoryError(errors.tenantName, touched.tenantName, t)}
                     </FormControl>
                   </Box>
                   <Box className="button-group">

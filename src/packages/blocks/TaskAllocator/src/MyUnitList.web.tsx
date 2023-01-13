@@ -27,6 +27,29 @@ class MyUnitList extends MyUnitListController {
     super(props);
   }
 
+  handleEmptyList = (t: any) => {
+    if (this.state.myUnitList.length === 0) {
+      return (
+        <Grid item xs={12}>
+          <Card className="tenant">
+            {this.state.filter.status === "Empty" ? (
+              <h6>{t("You don't have registered units that are vacant")}</h6>
+            ) : (
+              <h6>{t("No Unit Registered")}</h6>
+            )}
+          </Card>
+        </Grid>
+      );
+    }
+  };
+
+  handleStatus = (unit: any) => {
+    if (unit.attributes.status === "No-Own") {
+      return "Not Owned";
+    }
+    return unit.attributes.status === "Empty" ? "Vacant" : unit.attributes.status;
+  };
+
   render() {
     const { t, classes }: any = this.props;
 
@@ -71,17 +94,7 @@ class MyUnitList extends MyUnitListController {
                   <div className="tenant-list-box">
                     <div className="tenant-list">
                       <Grid container spacing={2}>
-                        {this.state.myUnitList.length === 0 && (
-                          <Grid item xs={12}>
-                            <Card className="tenant">
-                              {this.state.filter.status === "Empty" ? (
-                                <h6>{t("You don't have registered units that are vacant")}</h6>
-                              ) : (
-                                <h6>{t("No Unit Registered")}</h6>
-                              )}
-                            </Card>
-                          </Grid>
-                        )}
+                        {this.handleEmptyList(t)}
                         {this.state.myUnitList.map((unit: any, index: number) => {
                           return (
                             <Grid item xs={12} key={index}>
@@ -149,13 +162,7 @@ class MyUnitList extends MyUnitListController {
                                           unit.attributes.status === "No-Own" ? "Not Owned" : unit.attributes.status
                                         }
                                       >
-                                        {t(
-                                          unit.attributes.status === "No-Own"
-                                            ? "Not Owned"
-                                            : unit.attributes.status === "Empty"
-                                            ? "Vacant"
-                                            : unit.attributes.status
-                                        )}
+                                        {t(this.handleStatus(unit))}
                                       </Button>
                                     ) : (
                                       <Button className="Pending">{t("Pending")}</Button>

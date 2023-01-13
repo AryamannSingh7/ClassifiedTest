@@ -329,4 +329,11 @@ export default class UnitDetailsController extends BlockComponent<Props, S, SS> 
     }
     return "-";
   };
+
+  handleEmptyText = (name: any) => {
+    if (name) {
+      return name;
+    }
+    return "";
+  };
 }
