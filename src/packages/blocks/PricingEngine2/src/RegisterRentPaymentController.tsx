@@ -133,7 +133,7 @@ export default class RegisterRentPaymentController extends BlockComponent<
         if(responseJson.hasOwnProperty("data")){
           this.setState({
             tenantName:responseJson.data?.attributes?.tenant_name,
-            rentAmount:responseJson.data?.attributes?.amount,
+            rentAmount:responseJson.data?.attributes?.rent_amount,
             partialPaidAmount:responseJson?.data?.attributes?.partial_payment,
             currency:responseJson.data?.attributes.currency,
           })
