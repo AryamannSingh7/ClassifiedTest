@@ -81,6 +81,7 @@ class FacilityReservationReportedSuccessfully extends FacilityReservationControl
             </Grid>
           </Grid>
         </Box>
+        
         <Loader loading={this.state.loading} />
       </>
     )
