@@ -56,11 +56,11 @@ class RegisterMyUnit extends RegisterUnitController {
   async componentDidMount(): Promise<void> {
     this.getBuildingList();
     this.getComplexDetails();
+    this.getConfigurationList();
   }
 
   render() {
-    const { classes } = this.props;
-    const { t }: any = this.props;
+    const { t, classes }: any = this.props;
 
     return (
       <>
@@ -253,54 +253,73 @@ class RegisterMyUnit extends RegisterUnitController {
                                 {errors.unitId && touched.unitId && <p className="error">{t(errors.unitId)}</p>}
                               </FormControl>
                               <FormControl fullWidth>
-                                <Input
-                                  value={values.size}
-                                  onChange={handleChange}
-                                  onBlur={handleBlur}
-                                  name="size"
-                                  className="select-input input"
-                                  placeholder={t("Size")}
-                                  startAdornment={
-                                    <InputAdornment position="start">
-                                      <img src={SizeIcon} alt="" />
-                                    </InputAdornment>
-                                  }
-                                />
+                                <Box className="unit-box-currency">
+                                  <Input
+                                    value={values.size}
+                                    onChange={handleChange}
+                                    onBlur={handleBlur}
+                                    name="size"
+                                    className="select-input input"
+                                    placeholder={t("Size")}
+                                    startAdornment={
+                                      <InputAdornment position="start">
+                                        <img src={SizeIcon} alt="" />
+                                      </InputAdornment>
+                                    }
+                                  />
+                                  <Box className="unit-box-value">{t(values.measurement)}</Box>
+                                </Box>
+                                {errors.size && touched.size && <p className="error">{t(errors.size)}</p>}
                               </FormControl>
                               <FormControl fullWidth>
-                                <Input
-                                  value={values.config}
-                                  onChange={handleChange}
-                                  onBlur={handleBlur}
-                                  name="config"
-                                  className="select-input input"
-                                  placeholder={t("Configuration")}
-                                  startAdornment={
-                                    <InputAdornment position="start">
-                                      <img src={ConfigIcon} alt="" />
-                                    </InputAdornment>
-                                  }
-                                />
+                                <Box className="select-box">
+                                  <Select
+                                    displayEmpty
+                                    value={values.config}
+                                    onChange={handleChange}
+                                    onBlur={handleBlur}
+                                    name="config"
+                                    variant="filled"
+                                    className="select-input"
+                                    input={<OutlinedInput />}
+                                  >
+                                    <MenuItem value="" disabled>
+                                      {t("Configuration")}
+                                    </MenuItem>
+                                    {this.state.configList.map((config: any) => {
+                                      return (
+                                        <MenuItem value={config.title} key={config.title}>
+                                          {config.title}
+                                        </MenuItem>
+                                      );
+                                    })}
+                                  </Select>
+                                  <img src={ConfigIcon} alt="" />
+                                </Box>
                               </FormControl>
-                              <Grid container spacing={2}>
-                                <Grid item xs={7}>
+                              <Grid container spacing={1}>
+                                <Grid item xs={12} sm={12} md={7}>
                                   <FormControl fullWidth>
-                                    <Input
-                                      value={values.price}
-                                      onChange={handleChange}
-                                      onBlur={handleBlur}
-                                      name="price"
-                                      className="select-input input"
-                                      placeholder={t("Purchase Price")}
-                                      startAdornment={
-                                        <InputAdornment position="start">
-                                          <img src={PriceIcon} alt="" />
-                                        </InputAdornment>
-                                      }
-                                    />
+                                    <Box className="unit-box-currency">
+                                      <Input
+                                        value={values.price}
+                                        onChange={handleChange}
+                                        onBlur={handleBlur}
+                                        name="price"
+                                        className="select-input input"
+                                        placeholder={t("Purchase Price")}
+                                        startAdornment={
+                                          <InputAdornment position="start">
+                                            <img src={PriceIcon} alt="" />
+                                          </InputAdornment>
+                                        }
+                                      />
+                                      <Box className="unit-box-value">{t(this.state.currency)}</Box>
+                                    </Box>
+                                    {errors.price && touched.price && <p className="error">{t(errors.price)}</p>}
                                   </FormControl>
                                 </Grid>
-                                <Grid item xs={5}>
+                                <Grid item xs={12} sm={12} md={5}>
                                   <FormControl fullWidth>
                                     <Input
                                       value={values.date}
@@ -308,7 +327,7 @@ class RegisterMyUnit extends RegisterUnitController {
                                       onBlur={handleBlur}
                                       name="date"
                                       className="select-input input"
-                                      placeholder={t("Date")}
+                                      placeholder={t("Purchase Date")}
                                       type="text"
                                       onFocus={(e: any) => (e.target.type = "date")}
                                       startAdornment={
@@ -320,7 +339,7 @@ class RegisterMyUnit extends RegisterUnitController {
                                   </FormControl>
                                 </Grid>
                               </Grid>
-                              <h4 style={{ marginTop: "18px" }}>{t("Unit Type")}</h4>
+                              <h4 style={{ marginTop: "18px" }}>{t("Unit Status")}</h4>
                               <FormControl fullWidth>
                                 <RadioGroup
                                   name="type"
@@ -338,7 +357,7 @@ class RegisterMyUnit extends RegisterUnitController {
                                   <FormControlLabel
                                     value="Non-Rented"
                                     control={<Radio />}
-                                    label={t("Non-Rented")}
+                                    label={t("Vacant")}
                                     className="non-rented"
                                   />
                                 </RadioGroup>
@@ -370,12 +389,14 @@ class RegisterMyUnit extends RegisterUnitController {
                                         <p className="tenant-name">{rentHistory.attributes.tenant_name}</p>
                                         <Divider />
                                         <Box className="info">
-                                          <p>{t("Rent Amount")}</p>
-                                          <span>{rentHistory.attributes.rent_amount}</span>
+                                          <p>{t("Rent Amount (Monthly)")}</p>
+                                          <span>{this.state.currency + " " + rentHistory.attributes.rent_amount}</span>
                                         </Box>
                                         <Box className="info">
                                           <p>{t("Received Amount")}</p>
-                                          <span>{rentHistory.attributes.received_amount}</span>
+                                          <span>
+                                            {this.state.currency + " " + rentHistory.attributes.received_amount}
+                                          </span>
                                         </Box>
                                       </Box>
                                     );
@@ -388,37 +409,43 @@ class RegisterMyUnit extends RegisterUnitController {
                                     {t("+ Add Rent History")}
                                   </Button>
                                   <FormControl fullWidth>
-                                    <Input
-                                      value={values.income}
-                                      onChange={handleChange}
-                                      onBlur={handleBlur}
-                                      name="income"
-                                      className="select-input input"
-                                      placeholder={t("Monthly Renting Income")}
-                                      startAdornment={
-                                        <InputAdornment position="start">
-                                          <img src={RentAmountIcon} alt="" />
-                                        </InputAdornment>
-                                      }
-                                    />
+                                    <Box className="unit-box-currency">
+                                      <Input
+                                        value={values.income}
+                                        onChange={handleChange}
+                                        onBlur={handleBlur}
+                                        name="income"
+                                        className="select-input input"
+                                        placeholder={t("Monthly Renting Income")}
+                                        startAdornment={
+                                          <InputAdornment position="start">
+                                            <img src={RentAmountIcon} alt="" />
+                                          </InputAdornment>
+                                        }
+                                      />
+                                      <Box className="unit-box-value">{t(this.state.currency)}</Box>
+                                    </Box>
                                     {errors.income && touched.income && <p className="error">{t(errors.income)}</p>}
                                   </FormControl>
                                 </>
                               )}
                               <FormControl fullWidth>
-                                <Input
-                                  value={values.valuation}
-                                  onChange={handleChange}
-                                  onBlur={handleBlur}
-                                  name="valuation"
-                                  className="select-input input"
-                                  placeholder={t("Current Valuation")}
-                                  startAdornment={
-                                    <InputAdornment position="start">
-                                      <img src={ValuationIcon} alt="" />
-                                    </InputAdornment>
-                                  }
-                                />
+                                <Box className="unit-box-currency">
+                                  <Input
+                                    value={values.valuation}
+                                    onChange={handleChange}
+                                    onBlur={handleBlur}
+                                    name="valuation"
+                                    className="select-input input"
+                                    placeholder={t("Current Valuation")}
+                                    startAdornment={
+                                      <InputAdornment position="start">
+                                        <img src={ValuationIcon} alt="" />
+                                      </InputAdornment>
+                                    }
+                                  />
+                                  <Box className="unit-box-value">{t(this.state.currency)}</Box>
+                                </Box>
                                 {errors.valuation && touched.valuation && (
                                   <p className="error">{t(errors.valuation)}</p>
                                 )}
@@ -509,37 +536,43 @@ class RegisterMyUnit extends RegisterUnitController {
                       </Grid>
                     </Grid>
                     <FormControl fullWidth>
-                      <Input
-                        value={values.rentAmount}
-                        onChange={handleChange}
-                        onBlur={handleBlur}
-                        name="rentAmount"
-                        className="select-input input"
-                        placeholder={t("Rent Amount")}
-                        type="text"
-                        startAdornment={
-                          <InputAdornment position="start">
-                            <img src={RentAmountHistoryIcon} alt="" />
-                          </InputAdornment>
-                        }
-                      />
+                      <Box className="unit-box-currency">
+                        <Input
+                          value={values.rentAmount}
+                          onChange={handleChange}
+                          onBlur={handleBlur}
+                          name="rentAmount"
+                          className="select-input input"
+                          placeholder={t("Rent Amount (Monthly)")}
+                          type="text"
+                          startAdornment={
+                            <InputAdornment position="start">
+                              <img src={RentAmountHistoryIcon} alt="" />
+                            </InputAdornment>
+                          }
+                        />
+                        <Box className="unit-box-value">{this.state.currency}</Box>
+                      </Box>
                       {errors.rentAmount && touched.rentAmount && <p className="error">{t(errors.rentAmount)}</p>}
                     </FormControl>
                     <FormControl fullWidth>
-                      <Input
-                        value={values.receivedAmount}
-                        onChange={handleChange}
-                        onBlur={handleBlur}
-                        name="receivedAmount"
-                        className="select-input input"
-                        placeholder={t("Received Amount")}
-                        type="text"
-                        startAdornment={
-                          <InputAdornment position="start">
-                            <img src={ReceivedIcon} alt="" />
-                          </InputAdornment>
-                        }
-                      />
+                      <Box className="unit-box-currency">
+                        <Input
+                          value={values.receivedAmount}
+                          onChange={handleChange}
+                          onBlur={handleBlur}
+                          name="receivedAmount"
+                          className="select-input input"
+                          placeholder={t("Received Amount")}
+                          type="text"
+                          startAdornment={
+                            <InputAdornment position="start">
+                              <img src={ReceivedIcon} alt="" />
+                            </InputAdornment>
+                          }
+                        />
+                        <Box className="unit-box-value">{this.state.currency}</Box>
+                      </Box>
                       {errors.receivedAmount && touched.receivedAmount && (
                         <p className="error">{t(errors.receivedAmount)}</p>
                       )}

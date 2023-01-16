@@ -411,6 +411,19 @@ export const TenantStyle: any = {
       padding: "12px 50px",
       borderRadius: "25px",
     },
+    "& .edit-tenant-button": {
+      gap: "15px",
+    },
+    "& .edit-tenant-button button": {
+      minWidth: "150px",
+      fontWeight: "600",
+    },
+    "& .edit-tenant-button .cancel": {
+      minWidth: "150px",
+      border: "1px solid #2b6fec",
+      color: "#2b6fec",
+      background: "white",
+    },
     "& .error": {
       color: "red",
       marginTop: "2px",

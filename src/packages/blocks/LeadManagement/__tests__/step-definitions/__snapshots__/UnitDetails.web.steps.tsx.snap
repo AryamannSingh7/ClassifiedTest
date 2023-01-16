@@ -11902,87 +11902,103 @@ exports[`UnitDetails User navigates to UnitDetails 1`] = `
                                         <div
                                           className="MuiGrid-root MuiGrid-item MuiGrid-grid-sm-4"
                                         >
-                                          <WithStyles(ForwardRef(Card))>
-                                            <ForwardRef(Card)
-                                              classes={
-                                                Object {
-                                                  "root": "MuiCard-root",
-                                                }
+                                          <LocationCard
+                                            heading=""
+                                            image={
+                                              Object {
+                                                "testUri": "../../../packages/blocks/LeadManagement/assets/country.png",
                                               }
-                                            >
-                                              <WithStyles(ForwardRef(Paper))
-                                                className="MuiCard-root"
-                                                elevation={1}
-                                              >
-                                                <ForwardRef(Paper)
-                                                  className="MuiCard-root"
-                                                  classes={
-                                                    Object {
-                                                      "elevation0": "MuiPaper-elevation0",
-                                                      "elevation1": "MuiPaper-elevation1",
-                                                      "elevation10": "MuiPaper-elevation10",
-                                                      "elevation11": "MuiPaper-elevation11",
-                                                      "elevation12": "MuiPaper-elevation12",
-                                                      "elevation13": "MuiPaper-elevation13",
-                                                      "elevation14": "MuiPaper-elevation14",
-                                                      "elevation15": "MuiPaper-elevation15",
-                                                      "elevation16": "MuiPaper-elevation16",
-                                                      "elevation17": "MuiPaper-elevation17",
-                                                      "elevation18": "MuiPaper-elevation18",
-                                                      "elevation19": "MuiPaper-elevation19",
-                                                      "elevation2": "MuiPaper-elevation2",
-                                                      "elevation20": "MuiPaper-elevation20",
-                                                      "elevation21": "MuiPaper-elevation21",
-                                                      "elevation22": "MuiPaper-elevation22",
-                                                      "elevation23": "MuiPaper-elevation23",
-                                                      "elevation24": "MuiPaper-elevation24",
-                                                      "elevation3": "MuiPaper-elevation3",
-                                                      "elevation4": "MuiPaper-elevation4",
-                                                      "elevation5": "MuiPaper-elevation5",
-                                                      "elevation6": "MuiPaper-elevation6",
-                                                      "elevation7": "MuiPaper-elevation7",
-                                                      "elevation8": "MuiPaper-elevation8",
-                                                      "elevation9": "MuiPaper-elevation9",
-                                                      "outlined": "MuiPaper-outlined",
-                                                      "root": "MuiPaper-root",
-                                                      "rounded": "MuiPaper-rounded",
-                                                    }
+                                            }
+                                            style={
+                                              Object {
+                                                "height": 25,
+                                                "width": 25,
+                                              }
+                                            }
+                                            value="-"
+                                          >
+                                            <WithStyles(ForwardRef(Card))>
+                                              <ForwardRef(Card)
+                                                classes={
+                                                  Object {
+                                                    "root": "MuiCard-root",
                                                   }
+                                                }
+                                              >
+                                                <WithStyles(ForwardRef(Paper))
+                                                  className="MuiCard-root"
                                                   elevation={1}
                                                 >
-                                                  <div
-                                                    className="MuiPaper-root MuiCard-root MuiPaper-elevation1 MuiPaper-rounded"
+                                                  <ForwardRef(Paper)
+                                                    className="MuiCard-root"
+                                                    classes={
+                                                      Object {
+                                                        "elevation0": "MuiPaper-elevation0",
+                                                        "elevation1": "MuiPaper-elevation1",
+                                                        "elevation10": "MuiPaper-elevation10",
+                                                        "elevation11": "MuiPaper-elevation11",
+                                                        "elevation12": "MuiPaper-elevation12",
+                                                        "elevation13": "MuiPaper-elevation13",
+                                                        "elevation14": "MuiPaper-elevation14",
+                                                        "elevation15": "MuiPaper-elevation15",
+                                                        "elevation16": "MuiPaper-elevation16",
+                                                        "elevation17": "MuiPaper-elevation17",
+                                                        "elevation18": "MuiPaper-elevation18",
+                                                        "elevation19": "MuiPaper-elevation19",
+                                                        "elevation2": "MuiPaper-elevation2",
+                                                        "elevation20": "MuiPaper-elevation20",
+                                                        "elevation21": "MuiPaper-elevation21",
+                                                        "elevation22": "MuiPaper-elevation22",
+                                                        "elevation23": "MuiPaper-elevation23",
+                                                        "elevation24": "MuiPaper-elevation24",
+                                                        "elevation3": "MuiPaper-elevation3",
+                                                        "elevation4": "MuiPaper-elevation4",
+                                                        "elevation5": "MuiPaper-elevation5",
+                                                        "elevation6": "MuiPaper-elevation6",
+                                                        "elevation7": "MuiPaper-elevation7",
+                                                        "elevation8": "MuiPaper-elevation8",
+                                                        "elevation9": "MuiPaper-elevation9",
+                                                        "outlined": "MuiPaper-outlined",
+                                                        "root": "MuiPaper-root",
+                                                        "rounded": "MuiPaper-rounded",
+                                                      }
+                                                    }
+                                                    elevation={1}
                                                   >
-                                                    <img
-                                                      src={
-                                                        Object {
-                                                          "testUri": "../../../packages/blocks/LeadManagement/assets/country.png",
-                                                        }
-                                                      }
-                                                      style={
-                                                        Object {
-                                                          "height": 25,
-                                                          "width": 25,
-                                                        }
-                                                      }
-                                                    />
-                                                    <Styled(MuiBox)
-                                                      className="location-info"
+                                                    <div
+                                                      className="MuiPaper-root MuiCard-root MuiPaper-elevation1 MuiPaper-rounded"
                                                     >
-                                                      <div
-                                                        className="MuiBox-root MuiBox-root-25 location-info"
+                                                      <img
+                                                        src={
+                                                          Object {
+                                                            "testUri": "../../../packages/blocks/LeadManagement/assets/country.png",
+                                                          }
+                                                        }
+                                                        style={
+                                                          Object {
+                                                            "height": 25,
+                                                            "width": 25,
+                                                          }
+                                                        }
+                                                      />
+                                                      <Styled(MuiBox)
+                                                        className="location-info"
                                                       >
-                                                        <p />
-                                                        <h4>
-                                                          -
-                                                        </h4>
-                                                      </div>
-                                                    </Styled(MuiBox)>
-                                                  </div>
-                                                </ForwardRef(Paper)>
-                                              </WithStyles(ForwardRef(Paper))>
-                                            </ForwardRef(Card)>
-                                          </WithStyles(ForwardRef(Card))>
+                                                        <div
+                                                          className="MuiBox-root MuiBox-root-25 location-info"
+                                                        >
+                                                          <p />
+                                                          <h4>
+                                                            -
+                                                          </h4>
+                                                        </div>
+                                                      </Styled(MuiBox)>
+                                                    </div>
+                                                  </ForwardRef(Paper)>
+                                                </WithStyles(ForwardRef(Paper))>
+                                              </ForwardRef(Card)>
+                                            </WithStyles(ForwardRef(Card))>
+                                          </LocationCard>
                                         </div>
                                       </ForwardRef(Grid)>
                                     </WithStyles(ForwardRef(Grid))>
@@ -12104,87 +12120,103 @@ exports[`UnitDetails User navigates to UnitDetails 1`] = `
                                         <div
                                           className="MuiGrid-root MuiGrid-item MuiGrid-grid-sm-4"
                                         >
-                                          <WithStyles(ForwardRef(Card))>
-                                            <ForwardRef(Card)
-                                              classes={
-                                                Object {
-                                                  "root": "MuiCard-root",
-                                                }
+                                          <LocationCard
+                                            heading=""
+                                            image={
+                                              Object {
+                                                "testUri": "../../../packages/blocks/LeadManagement/assets/region.png",
                                               }
-                                            >
-                                              <WithStyles(ForwardRef(Paper))
-                                                className="MuiCard-root"
-                                                elevation={1}
-                                              >
-                                                <ForwardRef(Paper)
-                                                  className="MuiCard-root"
-                                                  classes={
-                                                    Object {
-                                                      "elevation0": "MuiPaper-elevation0",
-                                                      "elevation1": "MuiPaper-elevation1",
-                                                      "elevation10": "MuiPaper-elevation10",
-                                                      "elevation11": "MuiPaper-elevation11",
-                                                      "elevation12": "MuiPaper-elevation12",
-                                                      "elevation13": "MuiPaper-elevation13",
-                                                      "elevation14": "MuiPaper-elevation14",
-                                                      "elevation15": "MuiPaper-elevation15",
-                                                      "elevation16": "MuiPaper-elevation16",
-                                                      "elevation17": "MuiPaper-elevation17",
-                                                      "elevation18": "MuiPaper-elevation18",
-                                                      "elevation19": "MuiPaper-elevation19",
-                                                      "elevation2": "MuiPaper-elevation2",
-                                                      "elevation20": "MuiPaper-elevation20",
-                                                      "elevation21": "MuiPaper-elevation21",
-                                                      "elevation22": "MuiPaper-elevation22",
-                                                      "elevation23": "MuiPaper-elevation23",
-                                                      "elevation24": "MuiPaper-elevation24",
-                                                      "elevation3": "MuiPaper-elevation3",
-                                                      "elevation4": "MuiPaper-elevation4",
-                                                      "elevation5": "MuiPaper-elevation5",
-                                                      "elevation6": "MuiPaper-elevation6",
-                                                      "elevation7": "MuiPaper-elevation7",
-                                                      "elevation8": "MuiPaper-elevation8",
-                                                      "elevation9": "MuiPaper-elevation9",
-                                                      "outlined": "MuiPaper-outlined",
-                                                      "root": "MuiPaper-root",
-                                                      "rounded": "MuiPaper-rounded",
-                                                    }
+                                            }
+                                            style={
+                                              Object {
+                                                "height": 25,
+                                                "width": 25,
+                                              }
+                                            }
+                                            value="-"
+                                          >
+                                            <WithStyles(ForwardRef(Card))>
+                                              <ForwardRef(Card)
+                                                classes={
+                                                  Object {
+                                                    "root": "MuiCard-root",
                                                   }
+                                                }
+                                              >
+                                                <WithStyles(ForwardRef(Paper))
+                                                  className="MuiCard-root"
                                                   elevation={1}
                                                 >
-                                                  <div
-                                                    className="MuiPaper-root MuiCard-root MuiPaper-elevation1 MuiPaper-rounded"
+                                                  <ForwardRef(Paper)
+                                                    className="MuiCard-root"
+                                                    classes={
+                                                      Object {
+                                                        "elevation0": "MuiPaper-elevation0",
+                                                        "elevation1": "MuiPaper-elevation1",
+                                                        "elevation10": "MuiPaper-elevation10",
+                                                        "elevation11": "MuiPaper-elevation11",
+                                                        "elevation12": "MuiPaper-elevation12",
+                                                        "elevation13": "MuiPaper-elevation13",
+                                                        "elevation14": "MuiPaper-elevation14",
+                                                        "elevation15": "MuiPaper-elevation15",
+                                                        "elevation16": "MuiPaper-elevation16",
+                                                        "elevation17": "MuiPaper-elevation17",
+                                                        "elevation18": "MuiPaper-elevation18",
+                                                        "elevation19": "MuiPaper-elevation19",
+                                                        "elevation2": "MuiPaper-elevation2",
+                                                        "elevation20": "MuiPaper-elevation20",
+                                                        "elevation21": "MuiPaper-elevation21",
+                                                        "elevation22": "MuiPaper-elevation22",
+                                                        "elevation23": "MuiPaper-elevation23",
+                                                        "elevation24": "MuiPaper-elevation24",
+                                                        "elevation3": "MuiPaper-elevation3",
+                                                        "elevation4": "MuiPaper-elevation4",
+                                                        "elevation5": "MuiPaper-elevation5",
+                                                        "elevation6": "MuiPaper-elevation6",
+                                                        "elevation7": "MuiPaper-elevation7",
+                                                        "elevation8": "MuiPaper-elevation8",
+                                                        "elevation9": "MuiPaper-elevation9",
+                                                        "outlined": "MuiPaper-outlined",
+                                                        "root": "MuiPaper-root",
+                                                        "rounded": "MuiPaper-rounded",
+                                                      }
+                                                    }
+                                                    elevation={1}
                                                   >
-                                                    <img
-                                                      src={
-                                                        Object {
-                                                          "testUri": "../../../packages/blocks/LeadManagement/assets/region.png",
-                                                        }
-                                                      }
-                                                      style={
-                                                        Object {
-                                                          "height": 25,
-                                                          "width": 25,
-                                                        }
-                                                      }
-                                                    />
-                                                    <Styled(MuiBox)
-                                                      className="location-info"
+                                                    <div
+                                                      className="MuiPaper-root MuiCard-root MuiPaper-elevation1 MuiPaper-rounded"
                                                     >
-                                                      <div
-                                                        className="MuiBox-root MuiBox-root-26 location-info"
+                                                      <img
+                                                        src={
+                                                          Object {
+                                                            "testUri": "../../../packages/blocks/LeadManagement/assets/region.png",
+                                                          }
+                                                        }
+                                                        style={
+                                                          Object {
+                                                            "height": 25,
+                                                            "width": 25,
+                                                          }
+                                                        }
+                                                      />
+                                                      <Styled(MuiBox)
+                                                        className="location-info"
                                                       >
-                                                        <p />
-                                                        <h4>
-                                                          -
-                                                        </h4>
-                                                      </div>
-                                                    </Styled(MuiBox)>
-                                                  </div>
-                                                </ForwardRef(Paper)>
-                                              </WithStyles(ForwardRef(Paper))>
-                                            </ForwardRef(Card)>
-                                          </WithStyles(ForwardRef(Card))>
+                                                        <div
+                                                          className="MuiBox-root MuiBox-root-26 location-info"
+                                                        >
+                                                          <p />
+                                                          <h4>
+                                                            -
+                                                          </h4>
+                                                        </div>
+                                                      </Styled(MuiBox)>
+                                                    </div>
+                                                  </ForwardRef(Paper)>
+                                                </WithStyles(ForwardRef(Paper))>
+                                              </ForwardRef(Card)>
+                                            </WithStyles(ForwardRef(Card))>
+                                          </LocationCard>
                                         </div>
                                       </ForwardRef(Grid)>
                                     </WithStyles(ForwardRef(Grid))>
@@ -12306,87 +12338,103 @@ exports[`UnitDetails User navigates to UnitDetails 1`] = `
                                         <div
                                           className="MuiGrid-root MuiGrid-item MuiGrid-grid-sm-4"
                                         >
-                                          <WithStyles(ForwardRef(Card))>
-                                            <ForwardRef(Card)
-                                              classes={
-                                                Object {
-                                                  "root": "MuiCard-root",
-                                                }
+                                          <LocationCard
+                                            heading=""
+                                            image={
+                                              Object {
+                                                "testUri": "../../../packages/blocks/LeadManagement/assets/city.png",
                                               }
-                                            >
-                                              <WithStyles(ForwardRef(Paper))
-                                                className="MuiCard-root"
-                                                elevation={1}
-                                              >
-                                                <ForwardRef(Paper)
-                                                  className="MuiCard-root"
-                                                  classes={
-                                                    Object {
-                                                      "elevation0": "MuiPaper-elevation0",
-                                                      "elevation1": "MuiPaper-elevation1",
-                                                      "elevation10": "MuiPaper-elevation10",
-                                                      "elevation11": "MuiPaper-elevation11",
-                                                      "elevation12": "MuiPaper-elevation12",
-                                                      "elevation13": "MuiPaper-elevation13",
-                                                      "elevation14": "MuiPaper-elevation14",
-                                                      "elevation15": "MuiPaper-elevation15",
-                                                      "elevation16": "MuiPaper-elevation16",
-                                                      "elevation17": "MuiPaper-elevation17",
-                                                      "elevation18": "MuiPaper-elevation18",
-                                                      "elevation19": "MuiPaper-elevation19",
-                                                      "elevation2": "MuiPaper-elevation2",
-                                                      "elevation20": "MuiPaper-elevation20",
-                                                      "elevation21": "MuiPaper-elevation21",
-                                                      "elevation22": "MuiPaper-elevation22",
-                                                      "elevation23": "MuiPaper-elevation23",
-                                                      "elevation24": "MuiPaper-elevation24",
-                                                      "elevation3": "MuiPaper-elevation3",
-                                                      "elevation4": "MuiPaper-elevation4",
-                                                      "elevation5": "MuiPaper-elevation5",
-                                                      "elevation6": "MuiPaper-elevation6",
-                                                      "elevation7": "MuiPaper-elevation7",
-                                                      "elevation8": "MuiPaper-elevation8",
-                                                      "elevation9": "MuiPaper-elevation9",
-                                                      "outlined": "MuiPaper-outlined",
-                                                      "root": "MuiPaper-root",
-                                                      "rounded": "MuiPaper-rounded",
-                                                    }
+                                            }
+                                            style={
+                                              Object {
+                                                "height": 25,
+                                                "width": 25,
+                                              }
+                                            }
+                                            value="-"
+                                          >
+                                            <WithStyles(ForwardRef(Card))>
+                                              <ForwardRef(Card)
+                                                classes={
+                                                  Object {
+                                                    "root": "MuiCard-root",
                                                   }
+                                                }
+                                              >
+                                                <WithStyles(ForwardRef(Paper))
+                                                  className="MuiCard-root"
                                                   elevation={1}
                                                 >
-                                                  <div
-                                                    className="MuiPaper-root MuiCard-root MuiPaper-elevation1 MuiPaper-rounded"
+                                                  <ForwardRef(Paper)
+                                                    className="MuiCard-root"
+                                                    classes={
+                                                      Object {
+                                                        "elevation0": "MuiPaper-elevation0",
+                                                        "elevation1": "MuiPaper-elevation1",
+                                                        "elevation10": "MuiPaper-elevation10",
+                                                        "elevation11": "MuiPaper-elevation11",
+                                                        "elevation12": "MuiPaper-elevation12",
+                                                        "elevation13": "MuiPaper-elevation13",
+                                                        "elevation14": "MuiPaper-elevation14",
+                                                        "elevation15": "MuiPaper-elevation15",
+                                                        "elevation16": "MuiPaper-elevation16",
+                                                        "elevation17": "MuiPaper-elevation17",
+                                                        "elevation18": "MuiPaper-elevation18",
+                                                        "elevation19": "MuiPaper-elevation19",
+                                                        "elevation2": "MuiPaper-elevation2",
+                                                        "elevation20": "MuiPaper-elevation20",
+                                                        "elevation21": "MuiPaper-elevation21",
+                                                        "elevation22": "MuiPaper-elevation22",
+                                                        "elevation23": "MuiPaper-elevation23",
+                                                        "elevation24": "MuiPaper-elevation24",
+                                                        "elevation3": "MuiPaper-elevation3",
+                                                        "elevation4": "MuiPaper-elevation4",
+                                                        "elevation5": "MuiPaper-elevation5",
+                                                        "elevation6": "MuiPaper-elevation6",
+                                                        "elevation7": "MuiPaper-elevation7",
+                                                        "elevation8": "MuiPaper-elevation8",
+                                                        "elevation9": "MuiPaper-elevation9",
+                                                        "outlined": "MuiPaper-outlined",
+                                                        "root": "MuiPaper-root",
+                                                        "rounded": "MuiPaper-rounded",
+                                                      }
+                                                    }
+                                                    elevation={1}
                                                   >
-                                                    <img
-                                                      src={
-                                                        Object {
-                                                          "testUri": "../../../packages/blocks/LeadManagement/assets/city.png",
-                                                        }
-                                                      }
-                                                      style={
-                                                        Object {
-                                                          "height": 25,
-                                                          "width": 25,
-                                                        }
-                                                      }
-                                                    />
-                                                    <Styled(MuiBox)
-                                                      className="location-info"
+                                                    <div
+                                                      className="MuiPaper-root MuiCard-root MuiPaper-elevation1 MuiPaper-rounded"
                                                     >
-                                                      <div
-                                                        className="MuiBox-root MuiBox-root-27 location-info"
+                                                      <img
+                                                        src={
+                                                          Object {
+                                                            "testUri": "../../../packages/blocks/LeadManagement/assets/city.png",
+                                                          }
+                                                        }
+                                                        style={
+                                                          Object {
+                                                            "height": 25,
+                                                            "width": 25,
+                                                          }
+                                                        }
+                                                      />
+                                                      <Styled(MuiBox)
+                                                        className="location-info"
                                                       >
-                                                        <p />
-                                                        <h4>
-                                                          -
-                                                        </h4>
-                                                      </div>
-                                                    </Styled(MuiBox)>
-                                                  </div>
-                                                </ForwardRef(Paper)>
-                                              </WithStyles(ForwardRef(Paper))>
-                                            </ForwardRef(Card)>
-                                          </WithStyles(ForwardRef(Card))>
+                                                        <div
+                                                          className="MuiBox-root MuiBox-root-27 location-info"
+                                                        >
+                                                          <p />
+                                                          <h4>
+                                                            -
+                                                          </h4>
+                                                        </div>
+                                                      </Styled(MuiBox)>
+                                                    </div>
+                                                  </ForwardRef(Paper)>
+                                                </WithStyles(ForwardRef(Paper))>
+                                              </ForwardRef(Card)>
+                                            </WithStyles(ForwardRef(Card))>
+                                          </LocationCard>
                                         </div>
                                       </ForwardRef(Grid)>
                                     </WithStyles(ForwardRef(Grid))>
@@ -12680,87 +12728,103 @@ exports[`UnitDetails User navigates to UnitDetails 1`] = `
                                         <div
                                           className="MuiGrid-root MuiGrid-item MuiGrid-grid-sm-4"
                                         >
-                                          <WithStyles(ForwardRef(Card))>
-                                            <ForwardRef(Card)
-                                              classes={
-                                                Object {
-                                                  "root": "MuiCard-root",
-                                                }
+                                          <LocationCard
+                                            heading=""
+                                            image={
+                                              Object {
+                                                "testUri": "../../../packages/blocks/LeadManagement/assets/floor.png",
                                               }
-                                            >
-                                              <WithStyles(ForwardRef(Paper))
-                                                className="MuiCard-root"
-                                                elevation={1}
-                                              >
-                                                <ForwardRef(Paper)
-                                                  className="MuiCard-root"
-                                                  classes={
-                                                    Object {
-                                                      "elevation0": "MuiPaper-elevation0",
-                                                      "elevation1": "MuiPaper-elevation1",
-                                                      "elevation10": "MuiPaper-elevation10",
-                                                      "elevation11": "MuiPaper-elevation11",
-                                                      "elevation12": "MuiPaper-elevation12",
-                                                      "elevation13": "MuiPaper-elevation13",
-                                                      "elevation14": "MuiPaper-elevation14",
-                                                      "elevation15": "MuiPaper-elevation15",
-                                                      "elevation16": "MuiPaper-elevation16",
-                                                      "elevation17": "MuiPaper-elevation17",
-                                                      "elevation18": "MuiPaper-elevation18",
-                                                      "elevation19": "MuiPaper-elevation19",
-                                                      "elevation2": "MuiPaper-elevation2",
-                                                      "elevation20": "MuiPaper-elevation20",
-                                                      "elevation21": "MuiPaper-elevation21",
-                                                      "elevation22": "MuiPaper-elevation22",
-                                                      "elevation23": "MuiPaper-elevation23",
-                                                      "elevation24": "MuiPaper-elevation24",
-                                                      "elevation3": "MuiPaper-elevation3",
-                                                      "elevation4": "MuiPaper-elevation4",
-                                                      "elevation5": "MuiPaper-elevation5",
-                                                      "elevation6": "MuiPaper-elevation6",
-                                                      "elevation7": "MuiPaper-elevation7",
-                                                      "elevation8": "MuiPaper-elevation8",
-                                                      "elevation9": "MuiPaper-elevation9",
-                                                      "outlined": "MuiPaper-outlined",
-                                                      "root": "MuiPaper-root",
-                                                      "rounded": "MuiPaper-rounded",
-                                                    }
+                                            }
+                                            style={
+                                              Object {
+                                                "height": 25,
+                                                "width": 25,
+                                              }
+                                            }
+                                            value="-"
+                                          >
+                                            <WithStyles(ForwardRef(Card))>
+                                              <ForwardRef(Card)
+                                                classes={
+                                                  Object {
+                                                    "root": "MuiCard-root",
                                                   }
+                                                }
+                                              >
+                                                <WithStyles(ForwardRef(Paper))
+                                                  className="MuiCard-root"
                                                   elevation={1}
                                                 >
-                                                  <div
-                                                    className="MuiPaper-root MuiCard-root MuiPaper-elevation1 MuiPaper-rounded"
+                                                  <ForwardRef(Paper)
+                                                    className="MuiCard-root"
+                                                    classes={
+                                                      Object {
+                                                        "elevation0": "MuiPaper-elevation0",
+                                                        "elevation1": "MuiPaper-elevation1",
+                                                        "elevation10": "MuiPaper-elevation10",
+                                                        "elevation11": "MuiPaper-elevation11",
+                                                        "elevation12": "MuiPaper-elevation12",
+                                                        "elevation13": "MuiPaper-elevation13",
+                                                        "elevation14": "MuiPaper-elevation14",
+                                                        "elevation15": "MuiPaper-elevation15",
+                                                        "elevation16": "MuiPaper-elevation16",
+                                                        "elevation17": "MuiPaper-elevation17",
+                                                        "elevation18": "MuiPaper-elevation18",
+                                                        "elevation19": "MuiPaper-elevation19",
+                                                        "elevation2": "MuiPaper-elevation2",
+                                                        "elevation20": "MuiPaper-elevation20",
+                                                        "elevation21": "MuiPaper-elevation21",
+                                                        "elevation22": "MuiPaper-elevation22",
+                                                        "elevation23": "MuiPaper-elevation23",
+                                                        "elevation24": "MuiPaper-elevation24",
+                                                        "elevation3": "MuiPaper-elevation3",
+                                                        "elevation4": "MuiPaper-elevation4",
+                                                        "elevation5": "MuiPaper-elevation5",
+                                                        "elevation6": "MuiPaper-elevation6",
+                                                        "elevation7": "MuiPaper-elevation7",
+                                                        "elevation8": "MuiPaper-elevation8",
+                                                        "elevation9": "MuiPaper-elevation9",
+                                                        "outlined": "MuiPaper-outlined",
+                                                        "root": "MuiPaper-root",
+                                                        "rounded": "MuiPaper-rounded",
+                                                      }
+                                                    }
+                                                    elevation={1}
                                                   >
-                                                    <img
-                                                      src={
-                                                        Object {
-                                                          "testUri": "../../../packages/blocks/LeadManagement/assets/floor.png",
-                                                        }
-                                                      }
-                                                      style={
-                                                        Object {
-                                                          "height": 25,
-                                                          "width": 25,
-                                                        }
-                                                      }
-                                                    />
-                                                    <Styled(MuiBox)
-                                                      className="location-info"
+                                                    <div
+                                                      className="MuiPaper-root MuiCard-root MuiPaper-elevation1 MuiPaper-rounded"
                                                     >
-                                                      <div
-                                                        className="MuiBox-root MuiBox-root-33 location-info"
+                                                      <img
+                                                        src={
+                                                          Object {
+                                                            "testUri": "../../../packages/blocks/LeadManagement/assets/floor.png",
+                                                          }
+                                                        }
+                                                        style={
+                                                          Object {
+                                                            "height": 25,
+                                                            "width": 25,
+                                                          }
+                                                        }
+                                                      />
+                                                      <Styled(MuiBox)
+                                                        className="location-info"
                                                       >
-                                                        <p />
-                                                        <h4>
-                                                          -
-                                                        </h4>
-                                                      </div>
-                                                    </Styled(MuiBox)>
-                                                  </div>
-                                                </ForwardRef(Paper)>
-                                              </WithStyles(ForwardRef(Paper))>
-                                            </ForwardRef(Card)>
-                                          </WithStyles(ForwardRef(Card))>
+                                                        <div
+                                                          className="MuiBox-root MuiBox-root-33 location-info"
+                                                        >
+                                                          <p />
+                                                          <h4>
+                                                            -
+                                                          </h4>
+                                                        </div>
+                                                      </Styled(MuiBox)>
+                                                    </div>
+                                                  </ForwardRef(Paper)>
+                                                </WithStyles(ForwardRef(Paper))>
+                                              </ForwardRef(Card)>
+                                            </WithStyles(ForwardRef(Card))>
+                                          </LocationCard>
                                         </div>
                                       </ForwardRef(Grid)>
                                     </WithStyles(ForwardRef(Grid))>
@@ -12882,87 +12946,103 @@ exports[`UnitDetails User navigates to UnitDetails 1`] = `
                                         <div
                                           className="MuiGrid-root MuiGrid-item MuiGrid-grid-sm-4"
                                         >
-                                          <WithStyles(ForwardRef(Card))>
-                                            <ForwardRef(Card)
-                                              classes={
-                                                Object {
-                                                  "root": "MuiCard-root",
-                                                }
+                                          <LocationCard
+                                            heading=""
+                                            image={
+                                              Object {
+                                                "testUri": "../../../packages/blocks/LeadManagement/assets/size.png",
                                               }
-                                            >
-                                              <WithStyles(ForwardRef(Paper))
-                                                className="MuiCard-root"
-                                                elevation={1}
-                                              >
-                                                <ForwardRef(Paper)
-                                                  className="MuiCard-root"
-                                                  classes={
-                                                    Object {
-                                                      "elevation0": "MuiPaper-elevation0",
-                                                      "elevation1": "MuiPaper-elevation1",
-                                                      "elevation10": "MuiPaper-elevation10",
-                                                      "elevation11": "MuiPaper-elevation11",
-                                                      "elevation12": "MuiPaper-elevation12",
-                                                      "elevation13": "MuiPaper-elevation13",
-                                                      "elevation14": "MuiPaper-elevation14",
-                                                      "elevation15": "MuiPaper-elevation15",
-                                                      "elevation16": "MuiPaper-elevation16",
-                                                      "elevation17": "MuiPaper-elevation17",
-                                                      "elevation18": "MuiPaper-elevation18",
-                                                      "elevation19": "MuiPaper-elevation19",
-                                                      "elevation2": "MuiPaper-elevation2",
-                                                      "elevation20": "MuiPaper-elevation20",
-                                                      "elevation21": "MuiPaper-elevation21",
-                                                      "elevation22": "MuiPaper-elevation22",
-                                                      "elevation23": "MuiPaper-elevation23",
-                                                      "elevation24": "MuiPaper-elevation24",
-                                                      "elevation3": "MuiPaper-elevation3",
-                                                      "elevation4": "MuiPaper-elevation4",
-                                                      "elevation5": "MuiPaper-elevation5",
-                                                      "elevation6": "MuiPaper-elevation6",
-                                                      "elevation7": "MuiPaper-elevation7",
-                                                      "elevation8": "MuiPaper-elevation8",
-                                                      "elevation9": "MuiPaper-elevation9",
-                                                      "outlined": "MuiPaper-outlined",
-                                                      "root": "MuiPaper-root",
-                                                      "rounded": "MuiPaper-rounded",
-                                                    }
+                                            }
+                                            style={
+                                              Object {
+                                                "height": 25,
+                                                "width": 25,
+                                              }
+                                            }
+                                            value="- "
+                                          >
+                                            <WithStyles(ForwardRef(Card))>
+                                              <ForwardRef(Card)
+                                                classes={
+                                                  Object {
+                                                    "root": "MuiCard-root",
                                                   }
+                                                }
+                                              >
+                                                <WithStyles(ForwardRef(Paper))
+                                                  className="MuiCard-root"
                                                   elevation={1}
                                                 >
-                                                  <div
-                                                    className="MuiPaper-root MuiCard-root MuiPaper-elevation1 MuiPaper-rounded"
+                                                  <ForwardRef(Paper)
+                                                    className="MuiCard-root"
+                                                    classes={
+                                                      Object {
+                                                        "elevation0": "MuiPaper-elevation0",
+                                                        "elevation1": "MuiPaper-elevation1",
+                                                        "elevation10": "MuiPaper-elevation10",
+                                                        "elevation11": "MuiPaper-elevation11",
+                                                        "elevation12": "MuiPaper-elevation12",
+                                                        "elevation13": "MuiPaper-elevation13",
+                                                        "elevation14": "MuiPaper-elevation14",
+                                                        "elevation15": "MuiPaper-elevation15",
+                                                        "elevation16": "MuiPaper-elevation16",
+                                                        "elevation17": "MuiPaper-elevation17",
+                                                        "elevation18": "MuiPaper-elevation18",
+                                                        "elevation19": "MuiPaper-elevation19",
+                                                        "elevation2": "MuiPaper-elevation2",
+                                                        "elevation20": "MuiPaper-elevation20",
+                                                        "elevation21": "MuiPaper-elevation21",
+                                                        "elevation22": "MuiPaper-elevation22",
+                                                        "elevation23": "MuiPaper-elevation23",
+                                                        "elevation24": "MuiPaper-elevation24",
+                                                        "elevation3": "MuiPaper-elevation3",
+                                                        "elevation4": "MuiPaper-elevation4",
+                                                        "elevation5": "MuiPaper-elevation5",
+                                                        "elevation6": "MuiPaper-elevation6",
+                                                        "elevation7": "MuiPaper-elevation7",
+                                                        "elevation8": "MuiPaper-elevation8",
+                                                        "elevation9": "MuiPaper-elevation9",
+                                                        "outlined": "MuiPaper-outlined",
+                                                        "root": "MuiPaper-root",
+                                                        "rounded": "MuiPaper-rounded",
+                                                      }
+                                                    }
+                                                    elevation={1}
                                                   >
-                                                    <img
-                                                      src={
-                                                        Object {
-                                                          "testUri": "../../../packages/blocks/LeadManagement/assets/size.png",
-                                                        }
-                                                      }
-                                                      style={
-                                                        Object {
-                                                          "height": 25,
-                                                          "width": 25,
-                                                        }
-                                                      }
-                                                    />
-                                                    <Styled(MuiBox)
-                                                      className="location-info"
+                                                    <div
+                                                      className="MuiPaper-root MuiCard-root MuiPaper-elevation1 MuiPaper-rounded"
                                                     >
-                                                      <div
-                                                        className="MuiBox-root MuiBox-root-34 location-info"
+                                                      <img
+                                                        src={
+                                                          Object {
+                                                            "testUri": "../../../packages/blocks/LeadManagement/assets/size.png",
+                                                          }
+                                                        }
+                                                        style={
+                                                          Object {
+                                                            "height": 25,
+                                                            "width": 25,
+                                                          }
+                                                        }
+                                                      />
+                                                      <Styled(MuiBox)
+                                                        className="location-info"
                                                       >
-                                                        <p />
-                                                        <h4>
-                                                           
-                                                        </h4>
-                                                      </div>
-                                                    </Styled(MuiBox)>
-                                                  </div>
-                                                </ForwardRef(Paper)>
-                                              </WithStyles(ForwardRef(Paper))>
-                                            </ForwardRef(Card)>
-                                          </WithStyles(ForwardRef(Card))>
+                                                        <div
+                                                          className="MuiBox-root MuiBox-root-34 location-info"
+                                                        >
+                                                          <p />
+                                                          <h4>
+                                                            - 
+                                                          </h4>
+                                                        </div>
+                                                      </Styled(MuiBox)>
+                                                    </div>
+                                                  </ForwardRef(Paper)>
+                                                </WithStyles(ForwardRef(Paper))>
+                                              </ForwardRef(Card)>
+                                            </WithStyles(ForwardRef(Card))>
+                                          </LocationCard>
                                         </div>
                                       </ForwardRef(Grid)>
                                     </WithStyles(ForwardRef(Grid))>
@@ -13084,87 +13164,103 @@ exports[`UnitDetails User navigates to UnitDetails 1`] = `
                                         <div
                                           className="MuiGrid-root MuiGrid-item MuiGrid-grid-sm-4"
                                         >
-                                          <WithStyles(ForwardRef(Card))>
-                                            <ForwardRef(Card)
-                                              classes={
-                                                Object {
-                                                  "root": "MuiCard-root",
-                                                }
+                                          <LocationCard
+                                            heading=""
+                                            image={
+                                              Object {
+                                                "testUri": "../../../packages/blocks/LeadManagement/assets/configuration.png",
                                               }
-                                            >
-                                              <WithStyles(ForwardRef(Paper))
-                                                className="MuiCard-root"
-                                                elevation={1}
-                                              >
-                                                <ForwardRef(Paper)
-                                                  className="MuiCard-root"
-                                                  classes={
-                                                    Object {
-                                                      "elevation0": "MuiPaper-elevation0",
-                                                      "elevation1": "MuiPaper-elevation1",
-                                                      "elevation10": "MuiPaper-elevation10",
-                                                      "elevation11": "MuiPaper-elevation11",
-                                                      "elevation12": "MuiPaper-elevation12",
-                                                      "elevation13": "MuiPaper-elevation13",
-                                                      "elevation14": "MuiPaper-elevation14",
-                                                      "elevation15": "MuiPaper-elevation15",
-                                                      "elevation16": "MuiPaper-elevation16",
-                                                      "elevation17": "MuiPaper-elevation17",
-                                                      "elevation18": "MuiPaper-elevation18",
-                                                      "elevation19": "MuiPaper-elevation19",
-                                                      "elevation2": "MuiPaper-elevation2",
-                                                      "elevation20": "MuiPaper-elevation20",
-                                                      "elevation21": "MuiPaper-elevation21",
-                                                      "elevation22": "MuiPaper-elevation22",
-                                                      "elevation23": "MuiPaper-elevation23",
-                                                      "elevation24": "MuiPaper-elevation24",
-                                                      "elevation3": "MuiPaper-elevation3",
-                                                      "elevation4": "MuiPaper-elevation4",
-                                                      "elevation5": "MuiPaper-elevation5",
-                                                      "elevation6": "MuiPaper-elevation6",
-                                                      "elevation7": "MuiPaper-elevation7",
-                                                      "elevation8": "MuiPaper-elevation8",
-                                                      "elevation9": "MuiPaper-elevation9",
-                                                      "outlined": "MuiPaper-outlined",
-                                                      "root": "MuiPaper-root",
-                                                      "rounded": "MuiPaper-rounded",
-                                                    }
+                                            }
+                                            style={
+                                              Object {
+                                                "height": 25,
+                                                "width": 25,
+                                              }
+                                            }
+                                            value="-"
+                                          >
+                                            <WithStyles(ForwardRef(Card))>
+                                              <ForwardRef(Card)
+                                                classes={
+                                                  Object {
+                                                    "root": "MuiCard-root",
                                                   }
+                                                }
+                                              >
+                                                <WithStyles(ForwardRef(Paper))
+                                                  className="MuiCard-root"
                                                   elevation={1}
                                                 >
-                                                  <div
-                                                    className="MuiPaper-root MuiCard-root MuiPaper-elevation1 MuiPaper-rounded"
+                                                  <ForwardRef(Paper)
+                                                    className="MuiCard-root"
+                                                    classes={
+                                                      Object {
+                                                        "elevation0": "MuiPaper-elevation0",
+                                                        "elevation1": "MuiPaper-elevation1",
+                                                        "elevation10": "MuiPaper-elevation10",
+                                                        "elevation11": "MuiPaper-elevation11",
+                                                        "elevation12": "MuiPaper-elevation12",
+                                                        "elevation13": "MuiPaper-elevation13",
+                                                        "elevation14": "MuiPaper-elevation14",
+                                                        "elevation15": "MuiPaper-elevation15",
+                                                        "elevation16": "MuiPaper-elevation16",
+                                                        "elevation17": "MuiPaper-elevation17",
+                                                        "elevation18": "MuiPaper-elevation18",
+                                                        "elevation19": "MuiPaper-elevation19",
+                                                        "elevation2": "MuiPaper-elevation2",
+                                                        "elevation20": "MuiPaper-elevation20",
+                                                        "elevation21": "MuiPaper-elevation21",
+                                                        "elevation22": "MuiPaper-elevation22",
+                                                        "elevation23": "MuiPaper-elevation23",
+                                                        "elevation24": "MuiPaper-elevation24",
+                                                        "elevation3": "MuiPaper-elevation3",
+                                                        "elevation4": "MuiPaper-elevation4",
+                                                        "elevation5": "MuiPaper-elevation5",
+                                                        "elevation6": "MuiPaper-elevation6",
+                                                        "elevation7": "MuiPaper-elevation7",
+                                                        "elevation8": "MuiPaper-elevation8",
+                                                        "elevation9": "MuiPaper-elevation9",
+                                                        "outlined": "MuiPaper-outlined",
+                                                        "root": "MuiPaper-root",
+                                                        "rounded": "MuiPaper-rounded",
+                                                      }
+                                                    }
+                                                    elevation={1}
                                                   >
-                                                    <img
-                                                      src={
-                                                        Object {
-                                                          "testUri": "../../../packages/blocks/LeadManagement/assets/configuration.png",
-                                                        }
-                                                      }
-                                                      style={
-                                                        Object {
-                                                          "height": 25,
-                                                          "width": 25,
-                                                        }
-                                                      }
-                                                    />
-                                                    <Styled(MuiBox)
-                                                      className="location-info"
+                                                    <div
+                                                      className="MuiPaper-root MuiCard-root MuiPaper-elevation1 MuiPaper-rounded"
                                                     >
-                                                      <div
-                                                        className="MuiBox-root MuiBox-root-35 location-info"
+                                                      <img
+                                                        src={
+                                                          Object {
+                                                            "testUri": "../../../packages/blocks/LeadManagement/assets/configuration.png",
+                                                          }
+                                                        }
+                                                        style={
+                                                          Object {
+                                                            "height": 25,
+                                                            "width": 25,
+                                                          }
+                                                        }
+                                                      />
+                                                      <Styled(MuiBox)
+                                                        className="location-info"
                                                       >
-                                                        <p />
-                                                        <h4>
-                                                          -
-                                                        </h4>
-                                                      </div>
-                                                    </Styled(MuiBox)>
-                                                  </div>
-                                                </ForwardRef(Paper)>
-                                              </WithStyles(ForwardRef(Paper))>
-                                            </ForwardRef(Card)>
-                                          </WithStyles(ForwardRef(Card))>
+                                                        <div
+                                                          className="MuiBox-root MuiBox-root-35 location-info"
+                                                        >
+                                                          <p />
+                                                          <h4>
+                                                            -
+                                                          </h4>
+                                                        </div>
+                                                      </Styled(MuiBox)>
+                                                    </div>
+                                                  </ForwardRef(Paper)>
+                                                </WithStyles(ForwardRef(Paper))>
+                                              </ForwardRef(Card)>
+                                            </WithStyles(ForwardRef(Card))>
+                                          </LocationCard>
                                         </div>
                                       </ForwardRef(Grid)>
                                     </WithStyles(ForwardRef(Grid))>
@@ -13286,87 +13382,103 @@ exports[`UnitDetails User navigates to UnitDetails 1`] = `
                                         <div
                                           className="MuiGrid-root MuiGrid-item MuiGrid-grid-sm-4"
                                         >
-                                          <WithStyles(ForwardRef(Card))>
-                                            <ForwardRef(Card)
-                                              classes={
-                                                Object {
-                                                  "root": "MuiCard-root",
-                                                }
+                                          <LocationCard
+                                            heading=""
+                                            image={
+                                              Object {
+                                                "testUri": "../../../packages/blocks/LeadManagement/assets/purchase-price.png",
                                               }
-                                            >
-                                              <WithStyles(ForwardRef(Paper))
-                                                className="MuiCard-root"
-                                                elevation={1}
-                                              >
-                                                <ForwardRef(Paper)
-                                                  className="MuiCard-root"
-                                                  classes={
-                                                    Object {
-                                                      "elevation0": "MuiPaper-elevation0",
-                                                      "elevation1": "MuiPaper-elevation1",
-                                                      "elevation10": "MuiPaper-elevation10",
-                                                      "elevation11": "MuiPaper-elevation11",
-                                                      "elevation12": "MuiPaper-elevation12",
-                                                      "elevation13": "MuiPaper-elevation13",
-                                                      "elevation14": "MuiPaper-elevation14",
-                                                      "elevation15": "MuiPaper-elevation15",
-                                                      "elevation16": "MuiPaper-elevation16",
-                                                      "elevation17": "MuiPaper-elevation17",
-                                                      "elevation18": "MuiPaper-elevation18",
-                                                      "elevation19": "MuiPaper-elevation19",
-                                                      "elevation2": "MuiPaper-elevation2",
-                                                      "elevation20": "MuiPaper-elevation20",
-                                                      "elevation21": "MuiPaper-elevation21",
-                                                      "elevation22": "MuiPaper-elevation22",
-                                                      "elevation23": "MuiPaper-elevation23",
-                                                      "elevation24": "MuiPaper-elevation24",
-                                                      "elevation3": "MuiPaper-elevation3",
-                                                      "elevation4": "MuiPaper-elevation4",
-                                                      "elevation5": "MuiPaper-elevation5",
-                                                      "elevation6": "MuiPaper-elevation6",
-                                                      "elevation7": "MuiPaper-elevation7",
-                                                      "elevation8": "MuiPaper-elevation8",
-                                                      "elevation9": "MuiPaper-elevation9",
-                                                      "outlined": "MuiPaper-outlined",
-                                                      "root": "MuiPaper-root",
-                                                      "rounded": "MuiPaper-rounded",
-                                                    }
+                                            }
+                                            style={
+                                              Object {
+                                                "height": 25,
+                                                "width": 25,
+                                              }
+                                            }
+                                            value=" -"
+                                          >
+                                            <WithStyles(ForwardRef(Card))>
+                                              <ForwardRef(Card)
+                                                classes={
+                                                  Object {
+                                                    "root": "MuiCard-root",
                                                   }
+                                                }
+                                              >
+                                                <WithStyles(ForwardRef(Paper))
+                                                  className="MuiCard-root"
                                                   elevation={1}
                                                 >
-                                                  <div
-                                                    className="MuiPaper-root MuiCard-root MuiPaper-elevation1 MuiPaper-rounded"
+                                                  <ForwardRef(Paper)
+                                                    className="MuiCard-root"
+                                                    classes={
+                                                      Object {
+                                                        "elevation0": "MuiPaper-elevation0",
+                                                        "elevation1": "MuiPaper-elevation1",
+                                                        "elevation10": "MuiPaper-elevation10",
+                                                        "elevation11": "MuiPaper-elevation11",
+                                                        "elevation12": "MuiPaper-elevation12",
+                                                        "elevation13": "MuiPaper-elevation13",
+                                                        "elevation14": "MuiPaper-elevation14",
+                                                        "elevation15": "MuiPaper-elevation15",
+                                                        "elevation16": "MuiPaper-elevation16",
+                                                        "elevation17": "MuiPaper-elevation17",
+                                                        "elevation18": "MuiPaper-elevation18",
+                                                        "elevation19": "MuiPaper-elevation19",
+                                                        "elevation2": "MuiPaper-elevation2",
+                                                        "elevation20": "MuiPaper-elevation20",
+                                                        "elevation21": "MuiPaper-elevation21",
+                                                        "elevation22": "MuiPaper-elevation22",
+                                                        "elevation23": "MuiPaper-elevation23",
+                                                        "elevation24": "MuiPaper-elevation24",
+                                                        "elevation3": "MuiPaper-elevation3",
+                                                        "elevation4": "MuiPaper-elevation4",
+                                                        "elevation5": "MuiPaper-elevation5",
+                                                        "elevation6": "MuiPaper-elevation6",
+                                                        "elevation7": "MuiPaper-elevation7",
+                                                        "elevation8": "MuiPaper-elevation8",
+                                                        "elevation9": "MuiPaper-elevation9",
+                                                        "outlined": "MuiPaper-outlined",
+                                                        "root": "MuiPaper-root",
+                                                        "rounded": "MuiPaper-rounded",
+                                                      }
+                                                    }
+                                                    elevation={1}
                                                   >
-                                                    <img
-                                                      src={
-                                                        Object {
-                                                          "testUri": "../../../packages/blocks/LeadManagement/assets/purchase-price.png",
-                                                        }
-                                                      }
-                                                      style={
-                                                        Object {
-                                                          "height": 25,
-                                                          "width": 25,
-                                                        }
-                                                      }
-                                                    />
-                                                    <Styled(MuiBox)
-                                                      className="location-info"
+                                                    <div
+                                                      className="MuiPaper-root MuiCard-root MuiPaper-elevation1 MuiPaper-rounded"
                                                     >
-                                                      <div
-                                                        className="MuiBox-root MuiBox-root-36 location-info"
+                                                      <img
+                                                        src={
+                                                          Object {
+                                                            "testUri": "../../../packages/blocks/LeadManagement/assets/purchase-price.png",
+                                                          }
+                                                        }
+                                                        style={
+                                                          Object {
+                                                            "height": 25,
+                                                            "width": 25,
+                                                          }
+                                                        }
+                                                      />
+                                                      <Styled(MuiBox)
+                                                        className="location-info"
                                                       >
-                                                        <p />
-                                                        <h4>
-                                                          -
-                                                        </h4>
-                                                      </div>
-                                                    </Styled(MuiBox)>
-                                                  </div>
-                                                </ForwardRef(Paper)>
-                                              </WithStyles(ForwardRef(Paper))>
-                                            </ForwardRef(Card)>
-                                          </WithStyles(ForwardRef(Card))>
+                                                        <div
+                                                          className="MuiBox-root MuiBox-root-36 location-info"
+                                                        >
+                                                          <p />
+                                                          <h4>
+                                                             -
+                                                          </h4>
+                                                        </div>
+                                                      </Styled(MuiBox)>
+                                                    </div>
+                                                  </ForwardRef(Paper)>
+                                                </WithStyles(ForwardRef(Paper))>
+                                              </ForwardRef(Card)>
+                                            </WithStyles(ForwardRef(Card))>
+                                          </LocationCard>
                                         </div>
                                       </ForwardRef(Grid)>
                                     </WithStyles(ForwardRef(Grid))>
@@ -13488,87 +13600,103 @@ exports[`UnitDetails User navigates to UnitDetails 1`] = `
                                         <div
                                           className="MuiGrid-root MuiGrid-item MuiGrid-grid-sm-4"
                                         >
-                                          <WithStyles(ForwardRef(Card))>
-                                            <ForwardRef(Card)
-                                              classes={
-                                                Object {
-                                                  "root": "MuiCard-root",
-                                                }
+                                          <LocationCard
+                                            heading=""
+                                            image={
+                                              Object {
+                                                "testUri": "../../../packages/blocks/LeadManagement/assets/purchase-date.png",
                                               }
-                                            >
-                                              <WithStyles(ForwardRef(Paper))
-                                                className="MuiCard-root"
-                                                elevation={1}
-                                              >
-                                                <ForwardRef(Paper)
-                                                  className="MuiCard-root"
-                                                  classes={
-                                                    Object {
-                                                      "elevation0": "MuiPaper-elevation0",
-                                                      "elevation1": "MuiPaper-elevation1",
-                                                      "elevation10": "MuiPaper-elevation10",
-                                                      "elevation11": "MuiPaper-elevation11",
-                                                      "elevation12": "MuiPaper-elevation12",
-                                                      "elevation13": "MuiPaper-elevation13",
-                                                      "elevation14": "MuiPaper-elevation14",
-                                                      "elevation15": "MuiPaper-elevation15",
-                                                      "elevation16": "MuiPaper-elevation16",
-                                                      "elevation17": "MuiPaper-elevation17",
-                                                      "elevation18": "MuiPaper-elevation18",
-                                                      "elevation19": "MuiPaper-elevation19",
-                                                      "elevation2": "MuiPaper-elevation2",
-                                                      "elevation20": "MuiPaper-elevation20",
-                                                      "elevation21": "MuiPaper-elevation21",
-                                                      "elevation22": "MuiPaper-elevation22",
-                                                      "elevation23": "MuiPaper-elevation23",
-                                                      "elevation24": "MuiPaper-elevation24",
-                                                      "elevation3": "MuiPaper-elevation3",
-                                                      "elevation4": "MuiPaper-elevation4",
-                                                      "elevation5": "MuiPaper-elevation5",
-                                                      "elevation6": "MuiPaper-elevation6",
-                                                      "elevation7": "MuiPaper-elevation7",
-                                                      "elevation8": "MuiPaper-elevation8",
-                                                      "elevation9": "MuiPaper-elevation9",
-                                                      "outlined": "MuiPaper-outlined",
-                                                      "root": "MuiPaper-root",
-                                                      "rounded": "MuiPaper-rounded",
-                                                    }
+                                            }
+                                            style={
+                                              Object {
+                                                "height": 25,
+                                                "width": 25,
+                                              }
+                                            }
+                                            value="-"
+                                          >
+                                            <WithStyles(ForwardRef(Card))>
+                                              <ForwardRef(Card)
+                                                classes={
+                                                  Object {
+                                                    "root": "MuiCard-root",
                                                   }
+                                                }
+                                              >
+                                                <WithStyles(ForwardRef(Paper))
+                                                  className="MuiCard-root"
                                                   elevation={1}
                                                 >
-                                                  <div
-                                                    className="MuiPaper-root MuiCard-root MuiPaper-elevation1 MuiPaper-rounded"
+                                                  <ForwardRef(Paper)
+                                                    className="MuiCard-root"
+                                                    classes={
+                                                      Object {
+                                                        "elevation0": "MuiPaper-elevation0",
+                                                        "elevation1": "MuiPaper-elevation1",
+                                                        "elevation10": "MuiPaper-elevation10",
+                                                        "elevation11": "MuiPaper-elevation11",
+                                                        "elevation12": "MuiPaper-elevation12",
+                                                        "elevation13": "MuiPaper-elevation13",
+                                                        "elevation14": "MuiPaper-elevation14",
+                                                        "elevation15": "MuiPaper-elevation15",
+                                                        "elevation16": "MuiPaper-elevation16",
+                                                        "elevation17": "MuiPaper-elevation17",
+                                                        "elevation18": "MuiPaper-elevation18",
+                                                        "elevation19": "MuiPaper-elevation19",
+                                                        "elevation2": "MuiPaper-elevation2",
+                                                        "elevation20": "MuiPaper-elevation20",
+                                                        "elevation21": "MuiPaper-elevation21",
+                                                        "elevation22": "MuiPaper-elevation22",
+                                                        "elevation23": "MuiPaper-elevation23",
+                                                        "elevation24": "MuiPaper-elevation24",
+                                                        "elevation3": "MuiPaper-elevation3",
+                                                        "elevation4": "MuiPaper-elevation4",
+                                                        "elevation5": "MuiPaper-elevation5",
+                                                        "elevation6": "MuiPaper-elevation6",
+                                                        "elevation7": "MuiPaper-elevation7",
+                                                        "elevation8": "MuiPaper-elevation8",
+                                                        "elevation9": "MuiPaper-elevation9",
+                                                        "outlined": "MuiPaper-outlined",
+                                                        "root": "MuiPaper-root",
+                                                        "rounded": "MuiPaper-rounded",
+                                                      }
+                                                    }
+                                                    elevation={1}
                                                   >
-                                                    <img
-                                                      src={
-                                                        Object {
-                                                          "testUri": "../../../packages/blocks/LeadManagement/assets/purchase-date.png",
-                                                        }
-                                                      }
-                                                      style={
-                                                        Object {
-                                                          "height": 25,
-                                                          "width": 25,
-                                                        }
-                                                      }
-                                                    />
-                                                    <Styled(MuiBox)
-                                                      className="location-info"
+                                                    <div
+                                                      className="MuiPaper-root MuiCard-root MuiPaper-elevation1 MuiPaper-rounded"
                                                     >
-                                                      <div
-                                                        className="MuiBox-root MuiBox-root-37 location-info"
+                                                      <img
+                                                        src={
+                                                          Object {
+                                                            "testUri": "../../../packages/blocks/LeadManagement/assets/purchase-date.png",
+                                                          }
+                                                        }
+                                                        style={
+                                                          Object {
+                                                            "height": 25,
+                                                            "width": 25,
+                                                          }
+                                                        }
+                                                      />
+                                                      <Styled(MuiBox)
+                                                        className="location-info"
                                                       >
-                                                        <p />
-                                                        <h4>
-                                                          -
-                                                        </h4>
-                                                      </div>
-                                                    </Styled(MuiBox)>
-                                                  </div>
-                                                </ForwardRef(Paper)>
-                                              </WithStyles(ForwardRef(Paper))>
-                                            </ForwardRef(Card)>
-                                          </WithStyles(ForwardRef(Card))>
+                                                        <div
+                                                          className="MuiBox-root MuiBox-root-37 location-info"
+                                                        >
+                                                          <p />
+                                                          <h4>
+                                                            -
+                                                          </h4>
+                                                        </div>
+                                                      </Styled(MuiBox)>
+                                                    </div>
+                                                  </ForwardRef(Paper)>
+                                                </WithStyles(ForwardRef(Paper))>
+                                              </ForwardRef(Card)>
+                                            </WithStyles(ForwardRef(Card))>
+                                          </LocationCard>
                                         </div>
                                       </ForwardRef(Grid)>
                                     </WithStyles(ForwardRef(Grid))>
@@ -13690,87 +13818,103 @@ exports[`UnitDetails User navigates to UnitDetails 1`] = `
                                         <div
                                           className="MuiGrid-root MuiGrid-item MuiGrid-grid-sm-4"
                                         >
-                                          <WithStyles(ForwardRef(Card))>
-                                            <ForwardRef(Card)
-                                              classes={
-                                                Object {
-                                                  "root": "MuiCard-root",
-                                                }
+                                          <LocationCard
+                                            heading=""
+                                            image={
+                                              Object {
+                                                "testUri": "../../../packages/blocks/LeadManagement/assets/valuation.png",
                                               }
-                                            >
-                                              <WithStyles(ForwardRef(Paper))
-                                                className="MuiCard-root"
-                                                elevation={1}
-                                              >
-                                                <ForwardRef(Paper)
-                                                  className="MuiCard-root"
-                                                  classes={
-                                                    Object {
-                                                      "elevation0": "MuiPaper-elevation0",
-                                                      "elevation1": "MuiPaper-elevation1",
-                                                      "elevation10": "MuiPaper-elevation10",
-                                                      "elevation11": "MuiPaper-elevation11",
-                                                      "elevation12": "MuiPaper-elevation12",
-                                                      "elevation13": "MuiPaper-elevation13",
-                                                      "elevation14": "MuiPaper-elevation14",
-                                                      "elevation15": "MuiPaper-elevation15",
-                                                      "elevation16": "MuiPaper-elevation16",
-                                                      "elevation17": "MuiPaper-elevation17",
-                                                      "elevation18": "MuiPaper-elevation18",
-                                                      "elevation19": "MuiPaper-elevation19",
-                                                      "elevation2": "MuiPaper-elevation2",
-                                                      "elevation20": "MuiPaper-elevation20",
-                                                      "elevation21": "MuiPaper-elevation21",
-                                                      "elevation22": "MuiPaper-elevation22",
-                                                      "elevation23": "MuiPaper-elevation23",
-                                                      "elevation24": "MuiPaper-elevation24",
-                                                      "elevation3": "MuiPaper-elevation3",
-                                                      "elevation4": "MuiPaper-elevation4",
-                                                      "elevation5": "MuiPaper-elevation5",
-                                                      "elevation6": "MuiPaper-elevation6",
-                                                      "elevation7": "MuiPaper-elevation7",
-                                                      "elevation8": "MuiPaper-elevation8",
-                                                      "elevation9": "MuiPaper-elevation9",
-                                                      "outlined": "MuiPaper-outlined",
-                                                      "root": "MuiPaper-root",
-                                                      "rounded": "MuiPaper-rounded",
-                                                    }
+                                            }
+                                            style={
+                                              Object {
+                                                "height": 25,
+                                                "width": 25,
+                                              }
+                                            }
+                                            value=" -"
+                                          >
+                                            <WithStyles(ForwardRef(Card))>
+                                              <ForwardRef(Card)
+                                                classes={
+                                                  Object {
+                                                    "root": "MuiCard-root",
                                                   }
+                                                }
+                                              >
+                                                <WithStyles(ForwardRef(Paper))
+                                                  className="MuiCard-root"
                                                   elevation={1}
                                                 >
-                                                  <div
-                                                    className="MuiPaper-root MuiCard-root MuiPaper-elevation1 MuiPaper-rounded"
+                                                  <ForwardRef(Paper)
+                                                    className="MuiCard-root"
+                                                    classes={
+                                                      Object {
+                                                        "elevation0": "MuiPaper-elevation0",
+                                                        "elevation1": "MuiPaper-elevation1",
+                                                        "elevation10": "MuiPaper-elevation10",
+                                                        "elevation11": "MuiPaper-elevation11",
+                                                        "elevation12": "MuiPaper-elevation12",
+                                                        "elevation13": "MuiPaper-elevation13",
+                                                        "elevation14": "MuiPaper-elevation14",
+                                                        "elevation15": "MuiPaper-elevation15",
+                                                        "elevation16": "MuiPaper-elevation16",
+                                                        "elevation17": "MuiPaper-elevation17",
+                                                        "elevation18": "MuiPaper-elevation18",
+                                                        "elevation19": "MuiPaper-elevation19",
+                                                        "elevation2": "MuiPaper-elevation2",
+                                                        "elevation20": "MuiPaper-elevation20",
+                                                        "elevation21": "MuiPaper-elevation21",
+                                                        "elevation22": "MuiPaper-elevation22",
+                                                        "elevation23": "MuiPaper-elevation23",
+                                                        "elevation24": "MuiPaper-elevation24",
+                                                        "elevation3": "MuiPaper-elevation3",
+                                                        "elevation4": "MuiPaper-elevation4",
+                                                        "elevation5": "MuiPaper-elevation5",
+                                                        "elevation6": "MuiPaper-elevation6",
+                                                        "elevation7": "MuiPaper-elevation7",
+                                                        "elevation8": "MuiPaper-elevation8",
+                                                        "elevation9": "MuiPaper-elevation9",
+                                                        "outlined": "MuiPaper-outlined",
+                                                        "root": "MuiPaper-root",
+                                                        "rounded": "MuiPaper-rounded",
+                                                      }
+                                                    }
+                                                    elevation={1}
                                                   >
-                                                    <img
-                                                      src={
-                                                        Object {
-                                                          "testUri": "../../../packages/blocks/LeadManagement/assets/valuation.png",
-                                                        }
-                                                      }
-                                                      style={
-                                                        Object {
-                                                          "height": 25,
-                                                          "width": 25,
-                                                        }
-                                                      }
-                                                    />
-                                                    <Styled(MuiBox)
-                                                      className="location-info"
+                                                    <div
+                                                      className="MuiPaper-root MuiCard-root MuiPaper-elevation1 MuiPaper-rounded"
                                                     >
-                                                      <div
-                                                        className="MuiBox-root MuiBox-root-38 location-info"
+                                                      <img
+                                                        src={
+                                                          Object {
+                                                            "testUri": "../../../packages/blocks/LeadManagement/assets/valuation.png",
+                                                          }
+                                                        }
+                                                        style={
+                                                          Object {
+                                                            "height": 25,
+                                                            "width": 25,
+                                                          }
+                                                        }
+                                                      />
+                                                      <Styled(MuiBox)
+                                                        className="location-info"
                                                       >
-                                                        <p />
-                                                        <h4>
-                                                          -
-                                                        </h4>
-                                                      </div>
-                                                    </Styled(MuiBox)>
-                                                  </div>
-                                                </ForwardRef(Paper)>
-                                              </WithStyles(ForwardRef(Paper))>
-                                            </ForwardRef(Card)>
-                                          </WithStyles(ForwardRef(Card))>
+                                                        <div
+                                                          className="MuiBox-root MuiBox-root-38 location-info"
+                                                        >
+                                                          <p />
+                                                          <h4>
+                                                             -
+                                                          </h4>
+                                                        </div>
+                                                      </Styled(MuiBox)>
+                                                    </div>
+                                                  </ForwardRef(Paper)>
+                                                </WithStyles(ForwardRef(Paper))>
+                                              </ForwardRef(Card)>
+                                            </WithStyles(ForwardRef(Card))>
+                                          </LocationCard>
                                         </div>
                                       </ForwardRef(Grid)>
                                     </WithStyles(ForwardRef(Grid))>

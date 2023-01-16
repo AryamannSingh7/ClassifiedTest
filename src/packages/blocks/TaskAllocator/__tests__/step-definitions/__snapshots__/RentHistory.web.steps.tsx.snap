@@ -69,7 +69,7 @@ exports[`RentHistory User navigates to RentHistory 1`] = `
           "fontSize": "16px",
         },
         "& .tenant-list-box .tenant-list": Object {
-          "height": "calc(100% - 70px)",
+          "height": "calc(100% - 90px)",
           "overflowX": "hidden",
         },
         "& .tenant-list-box .upload-button": Object {
@@ -126,6 +126,14 @@ exports[`RentHistory User navigates to RentHistory 1`] = `
         },
       },
       "registerUnit": Object {
+        "& .edit-submit-button button.cancel": Object {
+          "background": "white",
+          "border": "1px solid #2b6fec",
+          "color": "#2b6fec",
+        },
+        "& .edit-submit-button.next-button button": Object {
+          "minWidth": "150px",
+        },
         "& .error": Object {
           "color": "red",
           "fontSize": "14px",
@@ -249,6 +257,7 @@ exports[`RentHistory User navigates to RentHistory 1`] = `
           "border": "1px solid #F0F0F0",
           "borderRadius": "30px",
           "marginTop": "18px",
+          "width": "100%",
         },
         "& .issue-lease-content .select-input-box .select-input .MuiListItemIcon-root": Object {
           "minWidth": "40px",
@@ -275,6 +284,7 @@ exports[`RentHistory User navigates to RentHistory 1`] = `
           "background": "white",
           "boxShadow": "none",
           "display": "flex",
+          "gap": "15px",
           "justifyContent": "center",
           "marginTop": "20px",
           "padding": "10px 0",
@@ -307,6 +317,9 @@ exports[`RentHistory User navigates to RentHistory 1`] = `
           "padding": "10px 0",
         },
         "& .pending-page": Object {
+          "& h4": Object {
+            "textAlign": "center",
+          },
           "& p": Object {
             "textAlign": "center",
           },
@@ -350,6 +363,15 @@ exports[`RentHistory User navigates to RentHistory 1`] = `
         },
         "& .top-bar .right-icon img": Object {
           "marginLeft": "15px",
+        },
+        "& .unit-box-currency": Object {
+          "& .unit-box-value": Object {
+            "fontWeight": 600,
+            "position": "absolute",
+            "right": "36px",
+            "top": "36px",
+          },
+          "position": "relative",
         },
         "& :-ms-input-placeholder": Object {
           "color": "black",
@@ -470,6 +492,9 @@ exports[`RentHistory User navigates to RentHistory 1`] = `
           "flexDirection": "column",
           "gap": "6px",
         },
+        "& .tenant-detail-box .detail .detail-box .info-item img": Object {
+          "marginTop": "5px",
+        },
         "& .tenant-detail-box .detail .detail-box .info-item p": Object {
           "fontWeight": 600,
         },
@@ -477,7 +502,7 @@ exports[`RentHistory User navigates to RentHistory 1`] = `
           "color": "#FC8434",
         },
         "& .tenant-detail-box .detail .detail-box .info-item span": Object {
-          "lineHeight": "14px",
+          "lineHeight": "20px",
         },
         "& .top-bar": Object {
           "alignItems": "center",
@@ -654,7 +679,10 @@ exports[`RentHistory User navigates to RentHistory 1`] = `
       },
     }
   }
+  history={[MockFunction]}
   id="RentHistory"
+  location={[MockFunction]}
+  match={[MockFunction]}
   navigation={
     Object {
       "getParam": [MockFunction] {
@@ -918,6 +946,9 @@ exports[`RentHistory User navigates to RentHistory 1`] = `
           "flexDirection": "column",
           "gap": "6px",
         },
+        "& .tenant-detail-box .detail .detail-box .info-item img": Object {
+          "marginTop": "5px",
+        },
         "& .tenant-detail-box .detail .detail-box .info-item p": Object {
           "fontWeight": 600,
         },
@@ -925,7 +956,7 @@ exports[`RentHistory User navigates to RentHistory 1`] = `
           "color": "#FC8434",
         },
         "& .tenant-detail-box .detail .detail-box .info-item span": Object {
-          "lineHeight": "14px",
+          "lineHeight": "20px",
         },
         "& .top-bar": Object {
           "alignItems": "center",
@@ -995,7 +1026,7 @@ exports[`RentHistory User navigates to RentHistory 1`] = `
     }
   >
     <div
-      className="MuiBox-root MuiBox-root-1 & .top-bar & .top-bar .left-icon & .top-bar .left-icon span & .top-bar .right-icon & .right-image & a & .tenant-detail-box & .upload-button & .upload-button .MuiGrid-root & .upload-button button & .tenant-detail-box .detail & .tenant-detail-box .detail .detail-box & .tenant-detail-box .detail .detail-box .info-item & .tenant-detail-box .detail .detail-box .info-item .item-data & .tenant-detail-box .detail .detail-box .info-item span & .tenant-detail-box .detail .detail-box .info-item p & .tenant-detail-box .detail .detail-box .info-item p.tenant-link-text & .rent-history-grid & .rent-history-grid .rent-history-box & .view-all-text & .rent-history-box & .images-box"
+      className="MuiBox-root MuiBox-root-1 & .top-bar & .top-bar .left-icon & .top-bar .left-icon span & .top-bar .right-icon & .right-image & a & .tenant-detail-box & .upload-button & .upload-button .MuiGrid-root & .upload-button button & .tenant-detail-box .detail & .tenant-detail-box .detail .detail-box & .tenant-detail-box .detail .detail-box .info-item & .tenant-detail-box .detail .detail-box .info-item img & .tenant-detail-box .detail .detail-box .info-item .item-data & .tenant-detail-box .detail .detail-box .info-item span & .tenant-detail-box .detail .detail-box .info-item p & .tenant-detail-box .detail .detail-box .info-item p.tenant-link-text & .rent-history-grid & .rent-history-grid .rent-history-box & .view-all-text & .rent-history-box & .images-box"
       style={
         Object {
           "background": "#F4F7FF",

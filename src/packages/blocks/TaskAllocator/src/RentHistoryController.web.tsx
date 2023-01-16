@@ -28,6 +28,8 @@ interface S {
 
   rentHistory: any[];
   rentHistoryForm: RentHistoryForm;
+
+  currency: string;
 }
 
 interface RentHistoryForm {
@@ -74,6 +76,8 @@ export default class RentHistoryController extends BlockComponent<Props, S, SS> 
         receivedAmount: "",
         tenantName: "",
       },
+
+      currency: "",
     };
     runEngine.attachBuildingBlock(this as IBlock, this.subScribedMessages);
   }
@@ -125,6 +129,7 @@ export default class RentHistoryController extends BlockComponent<Props, S, SS> 
 
       errorResponse = message.getData(getName(MessageEnum.RestAPIResponceErrorMessage));
     }
+
     if (responseJson && responseJson.meta && responseJson.meta.token) {
       runEngine.unSubscribeFromMessages(this, this.subScribedMessages);
     } else {
@@ -165,7 +170,14 @@ export default class RentHistoryController extends BlockComponent<Props, S, SS> 
 
   getRentHistoryResponse = (responseJson: any) => {
     if (responseJson && responseJson.data) {
-      this.setState({ rentHistory: responseJson.data });
+      this.setState({ rentHistory: responseJson.data }, () => {
+        if (this.state.rentHistory.length !== 0) {
+          const firstRentHistory = this.state.rentHistory[0];
+          this.setState({
+            currency: firstRentHistory.attributes.currency ? firstRentHistory.attributes.currency.currency : "",
+          });
+        }
+      });
     }
   };
 
@@ -254,10 +266,12 @@ export default class RentHistoryController extends BlockComponent<Props, S, SS> 
       .matches(/\S/, "Required"),
     rentAmount: Yup.string()
       .required("Required")
-      .matches(/\S/, "Required"),
+      .matches(/\S/, "Required")
+      .matches(/^\d+$/, "Only digit allowed"),
     receivedAmount: Yup.string()
       .required("Required")
-      .matches(/\S/, "Required"),
+      .matches(/\S/, "Required")
+      .matches(/^\d+$/, "Only digit allowed"),
     tenantName: Yup.string()
       .required("Required")
       .max(100, "Maximum length of title should be 100 character")

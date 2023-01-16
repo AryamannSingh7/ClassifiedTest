@@ -337,9 +337,10 @@ export const ContractsStyleWeb: any = {
       justifyContent: "space-between",
       margin: "18px 0",
     },
-    "& .issue-lease-content .tenant-info a": {
+    "& .issue-lease-content .tenant-info .register-tenant-link": {
       color: "#FC8434",
       fontWeight: "600",
+      cursor: "pointer",
     },
     "& .issue-lease-content .tenant-info span": {
       color: "#9C9C9C",
