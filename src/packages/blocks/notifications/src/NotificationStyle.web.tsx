@@ -61,6 +61,15 @@ export const NotificationStyle: any = {
             background: " #ffecdf",
             padding: "5px 15px",
             borderRadius: "25px",
+            textTransform: "capitalize",
+          },
+          "& span.building": {
+            color: "blue",
+            background: "#e9e9ff",
+          },
+          "& span.type": {
+            color: "green",
+            background: "#daffda",
           },
         },
         "& .header": {

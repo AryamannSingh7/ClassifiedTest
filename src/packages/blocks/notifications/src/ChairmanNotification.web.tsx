@@ -45,8 +45,7 @@ class ChairmanNotification extends ChairmanNotificationController {
   }
 
   render() {
-    const { t }: any = this.props;
-    const { classes } = this.props;
+    const { t, classes }: any = this.props;
 
     return (
       <>
