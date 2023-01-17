@@ -81,7 +81,13 @@ class OwnerNotification extends OwnerNotificationController {
                       <>
                         <Box>
                           <Menu menuButton={<img src={FilterIcon} alt="" />}>
-                            <MenuItem>{t("Mark as read")}</MenuItem>
+                            {this.state.notificationTypeList.map((type: any) => {
+                              return (
+                                <MenuItem key={type} onClick={() => this.setState({ filterType: type })}>
+                                  {type}
+                                </MenuItem>
+                              );
+                            })}
                           </Menu>
                         </Box>
                         <img src={DeleteRentIcon} alt="" onClick={() => this.setState({ isDeleteOpen: true })} />
@@ -92,7 +98,11 @@ class OwnerNotification extends OwnerNotificationController {
                 <Box className="tenant-detail-box">
                   <Container>
                     <Box className="rent-history-box">
-                      {this.state.notificationList.length === 0 && <Card>{t("No notification found")}</Card>}
+                      {this.state.notificationList.length === 0 && (
+                        <Card>
+                          <Box className="rent-history">{t("No notification found")}</Box>
+                        </Card>
+                      )}
                       {this.state.notificationList.map((notification: any) => {
                         return (
                           <Card key={notification.id}>
