@@ -61,6 +61,15 @@ export const NotificationStyle: any = {
             background: " #ffecdf",
             padding: "5px 15px",
             borderRadius: "25px",
+            textTransform: "capitalize",
+          },
+          "& span.building": {
+            color: "blue",
+            background: "#e9e9ff",
+          },
+          "& span.type": {
+            color: "green",
+            background: "#daffda",
           },
         },
         "& .header": {
@@ -134,6 +143,9 @@ export const NotificationStyle: any = {
       background: "white",
       padding: "15px",
       "& .notification-box:hover": {
+        background: "rgba(43,111,237,0.03)",
+      },
+      "& .notification-box.unRead": {
         background: "rgba(43,111,237,0.03)",
       },
       "& .notification-box:hover button.view-button": {

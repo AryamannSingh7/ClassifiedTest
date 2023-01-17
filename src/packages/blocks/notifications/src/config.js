@@ -3,14 +3,15 @@ Object.defineProperty(exports, "__esModule", {
 });
 
 // Customizable Area Start
-exports.apiContentType = "application/json"
+exports.apiContentType = "application/json";
 exports.endPoint = "notifications/notifications";
 exports.getDataMethod = "GET";
 exports.markAsReadMethod = "PUT";
 exports.deleteMethod = "DELETE";
+exports.patchMethod = "PATCH";
 
 exports.notifications = "Notifications";
-exports.deleteText = "DELETE"
-exports.okText = "OK"
-exports.deleteMessage = "Notifications deleted!"
+exports.deleteText = "DELETE";
+exports.okText = "OK";
+exports.deleteMessage = "Notifications deleted!";
 // Customizable Area End

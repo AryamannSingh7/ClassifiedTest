@@ -197,7 +197,7 @@ class ResidentDashboard extends DashboardController {
                     </Link>
                   </div>
                   <div>
-                    <Link href="/ResidentNotifications">
+                    <Link href="/Notifications">
                       <img src={notification} alt="GlobalIcon" />
                     </Link>
                   </div>
