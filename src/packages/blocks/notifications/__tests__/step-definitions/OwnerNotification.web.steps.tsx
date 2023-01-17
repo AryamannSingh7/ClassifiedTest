@@ -120,5 +120,16 @@ defineFeature(feature, (test) => {
       OwnerNotificationMountWrapper.find(Checkbox).at(0).props().onChange({ target: { checked: false } });
       expect(deleteNotificationSpy).toHaveBeenCalled();
     });
+
+    then("Should load the notification type", async () => {
+      instance.setState({ isDeleteOpen: false });
+      OwnerNotificationMountWrapper.update();
+
+      let notificationType = new Message(getName(MessageEnum.RestAPIResponceMessage));
+      notificationType.addData(getName(MessageEnum.RestAPIResponceDataMessage), notificationType);
+      notificationType.addData(getName(MessageEnum.RestAPIResponceSuccessMessage), { notification_type: ["message"] });
+      instance.GetNotificationTypeCallId = notificationType;
+      runEngine.sendMessage("Type Notification", notificationType);
+    });
   });
 });
