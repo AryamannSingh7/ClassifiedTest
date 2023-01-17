@@ -145,6 +145,9 @@ export const NotificationStyle: any = {
       "& .notification-box:hover": {
         background: "rgba(43,111,237,0.03)",
       },
+      "& .notification-box.unRead": {
+        background: "rgba(43,111,237,0.03)",
+      },
       "& .notification-box:hover button.view-button": {
         background: "rgba(43,111,237,0.03)",
       },

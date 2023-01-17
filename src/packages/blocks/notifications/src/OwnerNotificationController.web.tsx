@@ -78,9 +78,7 @@ export default class OwnerNotificationController extends BlockComponent<Props, S
           break;
         case this.DeleteNotificationCallId:
           this.setState({ loading: false }, () => {
-            if (responseJson) {
-              this.getAllNotification();
-            }
+            this.getAllNotification();
           });
           break;
         default:

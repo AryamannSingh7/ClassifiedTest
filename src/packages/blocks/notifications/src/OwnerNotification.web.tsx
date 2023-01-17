@@ -88,7 +88,7 @@ class OwnerNotification extends OwnerNotificationController {
                 <Box className="tenant-detail-box">
                   <Container>
                     <Box className="rent-history-box">
-                      {this.state.notificationList.length === 0 && <Card>{t("No notification")}</Card>}
+                      {this.state.notificationList.length === 0 && <Card>{t("No notification found")}</Card>}
                       {this.state.notificationList.map((notification: any) => {
                         return (
                           <Card key={notification.id}>
