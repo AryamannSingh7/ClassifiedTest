@@ -114,8 +114,8 @@ class Complex extends ComplexController {
           <Box style={{ display: "flex" }}>
             <Grid item xs={3} md={3} sm={3} className="SideBar">
               {/* Chairman Sidebar -- */}
-              {userType === "Security" ? <VisitorsSidebar {...this.props} /> : <ChairmanSidebar {...this.props} />}
-            </Grid>
+            <Sidebar userType = {userType} this = {this}></Sidebar>
+             </Grid>
             <Grid xs={9} md={9} sm={9} spacing={4} style={{ paddingTop: 35 }}>
               <Container>
                 <Box style={dashBoard.navigation}>
@@ -704,6 +704,15 @@ class Complex extends ComplexController {
 
 //@ts-ignore
 export default withTranslation()(withStyles(BuildingApartmentStyle)(Complex));
+
+const Sidebar = (props:any) => {
+  const userType =props?.userType;
+  return(
+  <>
+    {userType === "Security" ? <VisitorsSidebar {...props.this.props} /> : <ChairmanSidebar {...props.this.props} />}   
+  </>
+  )
+}
 
 const dashBoard = {
   navigation: {
