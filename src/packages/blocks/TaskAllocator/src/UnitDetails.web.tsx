@@ -171,9 +171,8 @@ class UnitDetails extends UnitDetailsController {
                         <Box className="header">
                           <h4>{t("Location Details")}</h4>
                           <Link
-                            href={`https://maps.google.com/?q=${this.state.unitDetails.lat},${
-                              this.state.unitDetails.long
-                            }`}
+                            href={`https://maps.google.com/?q=${this.state.unitDetails.lat},${this.state.unitDetails.long
+                              }`}
                             target="_blank"
                           >
                             <span>{t("See building on map")}</span>
@@ -295,8 +294,8 @@ class UnitDetails extends UnitDetailsController {
                                   <p>
                                     {this.state.unitDetails.purchaseDate
                                       ? moment(this.state.unitDetails.purchaseDate, "YYYY-MM-DD").format(
-                                          "MMMM DD, YYYY"
-                                        )
+                                        "MMMM DD, YYYY"
+                                      )
                                       : "-"}
                                   </p>
                                 </Box>
@@ -340,9 +339,8 @@ class UnitDetails extends UnitDetailsController {
                                     <Box className="item-data">
                                       <span>{t("Tenant Name")}</span>
                                       <Link
-                                        href={`/MyUnitDetails/${this.state.unitId}/TenantProfile/${
-                                          this.state.rentDetails.tenantId
-                                        }`}
+                                        href={`/MyUnitDetails/${this.state.unitId}/TenantProfile/${this.state.rentDetails.tenantId
+                                          }`}
                                       >
                                         <p className="tenant-link-text">
                                           {this.validationText(this.state.rentDetails.tenantName)}
@@ -359,9 +357,9 @@ class UnitDetails extends UnitDetailsController {
                                       <p>
                                         {this.state.rentDetails.startDate && this.state.rentDetails.endDate
                                           ? moment(this.state.rentDetails.endDate).diff(
-                                              moment(this.state.rentDetails.startDate),
-                                              "days"
-                                            )
+                                            moment(this.state.rentDetails.startDate),
+                                            "days"
+                                          )
                                           : "0"}{" "}
                                         Days
                                       </p>
@@ -431,7 +429,7 @@ class UnitDetails extends UnitDetailsController {
                                 <span>
                                   {this.handleEmptyText(this.state.unitDetails.currency) +
                                     " " +
-                                    this.validationText(history.attributes.rent_amount)}
+                                    Number(this.validationText(history.attributes.rent_amount)).toLocaleString()}
                                 </span>
                               </Box>
                               <Box className="info">
@@ -439,7 +437,7 @@ class UnitDetails extends UnitDetailsController {
                                 <span>
                                   {this.handleEmptyText(this.state.unitDetails.currency) +
                                     " " +
-                                    this.validationText(history.attributes.received_amount)}
+                                    Number(this.validationText(history.attributes.received_amount)).toLocaleString()}
                                 </span>
                               </Box>
                             </Box>

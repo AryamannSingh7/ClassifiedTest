@@ -41,9 +41,6 @@ import SuggestionData from '../../blocks/Feedback/src/SuggestionDetails.web';
 import NewRequestSuggestion from '../../blocks/Feedback/src/newRequest.web';
 import ResponseSuggestion from '../../blocks/Feedback/src/ResponseSuggestion.web';
 
-
-
-
 // import Contactus from "../../blocks/contactus/src/Contactus";
 import AddContactus from '../../blocks/contactus/src/AddContactus';
 import CountryCodeSelector from '../../blocks/country-code-selector/src/CountryCodeSelector';
@@ -363,9 +360,7 @@ import MyLeaseList from '../../blocks/ContentManagement/src/MyLeaseList.web';
 
 // Notification
 import OwnerNotification from '../../blocks/notifications/src/OwnerNotification.web';
-import ResidentNotification from '../../blocks/notifications/src/ResidentNotification.web';
 import ChairmanNotification from '../../blocks/notifications/src/ChairmanNotification.web';
-import ManagerNotification from '../../blocks/notifications/src/ManagerNotification.web';
 
 // My Expense
 import MyExpenseList from '../../blocks/ExpenseTracking/src/MyExpenseList.web';
@@ -2159,26 +2154,19 @@ const routeMap = {
   // Notification
   OwnerNotification: {
     component: OwnerNotification,
-    path: '/OwnerNotifications',
-    roles: [ROLE.OWNER, ROLE.PROPERTY_MANAGER],
-    exact: true
-  },
-  ResidentNotification: {
-    component: ResidentNotification,
-    path: '/ResidentNotifications',
-    roles: [ROLE.TENANT, ROLE.OWNER_RESIDENT],
+    path: '/Notifications',
+    roles: [
+      ROLE.OWNER,
+      ROLE.PROPERTY_MANAGER,
+      ROLE.OWNER_RESIDENT,
+      ROLE.TENANT
+    ],
     exact: true
   },
   ChairmanNotification: {
     component: ChairmanNotification,
-    path: '/ChairmanNotification',
-    roles: [ROLE.CHAIRMAN],
-    exact: true
-  },
-  ManagerNotification: {
-    component: ManagerNotification,
-    path: '/ManagerNotification',
-    roles: [ROLE.MANAGER],
+    path: '/AdminNotification',
+    roles: [ROLE.CHAIRMAN, ROLE.MANAGER],
     exact: true
   },
   // My Expense
