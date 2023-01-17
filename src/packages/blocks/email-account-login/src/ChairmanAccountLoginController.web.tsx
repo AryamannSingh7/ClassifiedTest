@@ -67,7 +67,6 @@ export default class ChairmanAccountLoginController extends BlockComponent<
   getUserTypeApiCallId: any;
   apiRegistrationRequestCallId:any ;
   deleteRequestCallId:any;
-  validationApiCallId: string = "";
 
   imgPasswordVisible: any;
   imgPasswordInVisible: any;
@@ -257,7 +256,7 @@ export default class ChairmanAccountLoginController extends BlockComponent<
         else if (apiRequestCallId === this.getUserTypeApiCallId) {
           if (responseJson && responseJson?.data ) {
           console.log("responseJson?.data========================>",responseJson?.data.roles)
-          this.setState({userTypeData :responseJson?.data.roles})
+          this.setState({userTypeData :responseJson?.data})
           this.setState({loading: false})
           } else if (responseJson?.errors) {
             let error = Object.values(responseJson.errors[0])[0] as string;

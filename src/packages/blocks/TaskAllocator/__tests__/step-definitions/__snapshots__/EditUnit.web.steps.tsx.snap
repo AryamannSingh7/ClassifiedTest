@@ -69,7 +69,7 @@ exports[`EditUnit User navigates to EditUnit 1`] = `
           "fontSize": "16px",
         },
         "& .tenant-list-box .tenant-list": Object {
-          "height": "calc(100% - 70px)",
+          "height": "calc(100% - 90px)",
           "overflowX": "hidden",
         },
         "& .tenant-list-box .upload-button": Object {
@@ -126,6 +126,14 @@ exports[`EditUnit User navigates to EditUnit 1`] = `
         },
       },
       "registerUnit": Object {
+        "& .edit-submit-button button.cancel": Object {
+          "background": "white",
+          "border": "1px solid #2b6fec",
+          "color": "#2b6fec",
+        },
+        "& .edit-submit-button.next-button button": Object {
+          "minWidth": "150px",
+        },
         "& .error": Object {
           "color": "red",
           "fontSize": "14px",
@@ -249,6 +257,7 @@ exports[`EditUnit User navigates to EditUnit 1`] = `
           "border": "1px solid #F0F0F0",
           "borderRadius": "30px",
           "marginTop": "18px",
+          "width": "100%",
         },
         "& .issue-lease-content .select-input-box .select-input .MuiListItemIcon-root": Object {
           "minWidth": "40px",
@@ -275,6 +284,7 @@ exports[`EditUnit User navigates to EditUnit 1`] = `
           "background": "white",
           "boxShadow": "none",
           "display": "flex",
+          "gap": "15px",
           "justifyContent": "center",
           "marginTop": "20px",
           "padding": "10px 0",
@@ -307,6 +317,9 @@ exports[`EditUnit User navigates to EditUnit 1`] = `
           "padding": "10px 0",
         },
         "& .pending-page": Object {
+          "& h4": Object {
+            "textAlign": "center",
+          },
           "& p": Object {
             "textAlign": "center",
           },
@@ -350,6 +363,15 @@ exports[`EditUnit User navigates to EditUnit 1`] = `
         },
         "& .top-bar .right-icon img": Object {
           "marginLeft": "15px",
+        },
+        "& .unit-box-currency": Object {
+          "& .unit-box-value": Object {
+            "fontWeight": 600,
+            "position": "absolute",
+            "right": "36px",
+            "top": "36px",
+          },
+          "position": "relative",
         },
         "& :-ms-input-placeholder": Object {
           "color": "black",
@@ -470,6 +492,9 @@ exports[`EditUnit User navigates to EditUnit 1`] = `
           "flexDirection": "column",
           "gap": "6px",
         },
+        "& .tenant-detail-box .detail .detail-box .info-item img": Object {
+          "marginTop": "5px",
+        },
         "& .tenant-detail-box .detail .detail-box .info-item p": Object {
           "fontWeight": 600,
         },
@@ -477,7 +502,7 @@ exports[`EditUnit User navigates to EditUnit 1`] = `
           "color": "#FC8434",
         },
         "& .tenant-detail-box .detail .detail-box .info-item span": Object {
-          "lineHeight": "14px",
+          "lineHeight": "20px",
         },
         "& .top-bar": Object {
           "alignItems": "center",
@@ -654,7 +679,10 @@ exports[`EditUnit User navigates to EditUnit 1`] = `
       },
     }
   }
+  history={[MockFunction]}
   id="EditUnit"
+  location={[MockFunction]}
+  match={[MockFunction]}
   navigation={
     Object {
       "getParam": [MockFunction] {
@@ -679,6 +707,14 @@ exports[`EditUnit User navigates to EditUnit 1`] = `
   <Styled(MuiBox)
     className={
       Object {
+        "& .edit-submit-button button.cancel": Object {
+          "background": "white",
+          "border": "1px solid #2b6fec",
+          "color": "#2b6fec",
+        },
+        "& .edit-submit-button.next-button button": Object {
+          "minWidth": "150px",
+        },
         "& .error": Object {
           "color": "red",
           "fontSize": "14px",
@@ -802,6 +838,7 @@ exports[`EditUnit User navigates to EditUnit 1`] = `
           "border": "1px solid #F0F0F0",
           "borderRadius": "30px",
           "marginTop": "18px",
+          "width": "100%",
         },
         "& .issue-lease-content .select-input-box .select-input .MuiListItemIcon-root": Object {
           "minWidth": "40px",
@@ -828,6 +865,7 @@ exports[`EditUnit User navigates to EditUnit 1`] = `
           "background": "white",
           "boxShadow": "none",
           "display": "flex",
+          "gap": "15px",
           "justifyContent": "center",
           "marginTop": "20px",
           "padding": "10px 0",
@@ -860,6 +898,9 @@ exports[`EditUnit User navigates to EditUnit 1`] = `
           "padding": "10px 0",
         },
         "& .pending-page": Object {
+          "& h4": Object {
+            "textAlign": "center",
+          },
           "& p": Object {
             "textAlign": "center",
           },
@@ -904,6 +945,15 @@ exports[`EditUnit User navigates to EditUnit 1`] = `
         "& .top-bar .right-icon img": Object {
           "marginLeft": "15px",
         },
+        "& .unit-box-currency": Object {
+          "& .unit-box-value": Object {
+            "fontWeight": 600,
+            "position": "absolute",
+            "right": "36px",
+            "top": "36px",
+          },
+          "position": "relative",
+        },
         "& :-ms-input-placeholder": Object {
           "color": "black",
           "opacity": 1,
@@ -930,7 +980,7 @@ exports[`EditUnit User navigates to EditUnit 1`] = `
     }
   >
     <div
-      className="MuiBox-root MuiBox-root-1 & .top-bar & .top-bar .left-icon & .top-bar .right-icon img & .right-image & a & .page-container & .issue-lease-content .select-input-box .select-input & .issue-lease-content .MuiSelect-root & .issue-lease-content .select-box & .issue-lease-content .select-box img & .issue-lease-content .select-box .select-input & .issue-lease-content .select-box .select-input.input & .issue-lease-content .select-input-box .select-input .MuiListItemIcon-root & .issue-lease-content .select-input-box .input.select-input & .issue-lease-content .select-input-box .input.select-input .MuiInputAdornment-positionStart & .issue-lease-content .select-input-box .input.select-input:before & .issue-lease-content .select-input-box .input.select-input:after & .issue-lease-content .tenant-info & .issue-lease-content .tenant-info a & .issue-lease-content .tenant-info span & .issue-lease-content .tenant-info p & .issue-lease-content & .success-page & .pending-page & .pending-buttons & .next-button & .next-button button & .error & ::placeholder & :-ms-input-placeholder & ::-ms-input-placeholder & .form.issue-lease-content .next-button"
+      className="MuiBox-root MuiBox-root-1 & .top-bar & .top-bar .left-icon & .top-bar .right-icon img & .right-image & a & .page-container & .issue-lease-content .select-input-box .select-input & .issue-lease-content .MuiSelect-root & .issue-lease-content .select-box & .issue-lease-content .select-box img & .issue-lease-content .select-box .select-input & .issue-lease-content .select-box .select-input.input & .issue-lease-content .select-input-box .select-input .MuiListItemIcon-root & .issue-lease-content .select-input-box .input.select-input & .issue-lease-content .select-input-box .input.select-input .MuiInputAdornment-positionStart & .issue-lease-content .select-input-box .input.select-input:before & .issue-lease-content .select-input-box .input.select-input:after & .issue-lease-content .tenant-info & .issue-lease-content .tenant-info a & .issue-lease-content .tenant-info span & .issue-lease-content .tenant-info p & .issue-lease-content & .success-page & .pending-page & .pending-buttons & .next-button & .next-button button & .edit-submit-button.next-button button & .edit-submit-button button.cancel & .error & ::placeholder & :-ms-input-placeholder & ::-ms-input-placeholder & .form.issue-lease-content .next-button & .unit-box-currency"
       style={
         Object {
           "background": "white",
@@ -1362,6 +1412,7 @@ exports[`EditUnit User navigates to EditUnit 1`] = `
                                       "date": "",
                                       "floorId": "",
                                       "income": "",
+                                      "measurement": "",
                                       "price": "",
                                       "region": "",
                                       "size": "",
@@ -1384,9 +1435,10 @@ exports[`EditUnit User navigates to EditUnit 1`] = `
                                       "_exclusive": Object {},
                                       "_mutate": undefined,
                                       "_nodes": Array [
-                                        "type",
                                         "income",
+                                        "type",
                                         "valuation",
+                                        "price",
                                       ],
                                       "_options": Object {
                                         "abortEarly": true,
@@ -1404,26 +1456,11 @@ exports[`EditUnit User navigates to EditUnit 1`] = `
                                             "list": Set {},
                                             "refs": Map {},
                                           },
-                                          "_conditions": Array [
-                                            Condition {
-                                              "fn": [Function],
-                                              "refs": Array [
-                                                Reference {
-                                                  "getter": [Function],
-                                                  "isContext": false,
-                                                  "isSibling": true,
-                                                  "isValue": false,
-                                                  "key": "type",
-                                                  "map": undefined,
-                                                  "path": "type",
-                                                },
-                                              ],
-                                            },
-                                          ],
-                                          "_deps": Array [
-                                            "type",
-                                          ],
-                                          "_exclusive": Object {},
+                                          "_conditions": Array [],
+                                          "_deps": Array [],
+                                          "_exclusive": Object {
+                                            "matches": false,
+                                          },
                                           "_mutate": undefined,
                                           "_options": Object {
                                             "abortEarly": true,
@@ -1435,7 +1472,38 @@ exports[`EditUnit User navigates to EditUnit 1`] = `
                                             "list": Set {},
                                             "refs": Map {},
                                           },
-                                          "tests": Array [],
+                                          "tests": Array [
+                                            [Function],
+                                          ],
+                                          "transforms": Array [
+                                            [Function],
+                                          ],
+                                          "type": "string",
+                                        },
+                                        "price": StringSchema {
+                                          "_blacklist": RefSet {
+                                            "list": Set {},
+                                            "refs": Map {},
+                                          },
+                                          "_conditions": Array [],
+                                          "_deps": Array [],
+                                          "_exclusive": Object {
+                                            "matches": false,
+                                          },
+                                          "_mutate": undefined,
+                                          "_options": Object {
+                                            "abortEarly": true,
+                                            "recursive": true,
+                                          },
+                                          "_type": "string",
+                                          "_typeError": [Function],
+                                          "_whitelist": RefSet {
+                                            "list": Set {},
+                                            "refs": Map {},
+                                          },
+                                          "tests": Array [
+                                            [Function],
+                                          ],
                                           "transforms": Array [
                                             [Function],
                                           ],
@@ -1475,7 +1543,6 @@ exports[`EditUnit User navigates to EditUnit 1`] = `
                                           "_deps": Array [],
                                           "_exclusive": Object {
                                             "matches": false,
-                                            "required": true,
                                           },
                                           "_mutate": undefined,
                                           "_options": Object {
@@ -1489,7 +1556,6 @@ exports[`EditUnit User navigates to EditUnit 1`] = `
                                             "refs": Map {},
                                           },
                                           "tests": Array [
-                                            [Function],
                                             [Function],
                                           ],
                                           "transforms": Array [
@@ -3221,89 +3287,14 @@ exports[`EditUnit User navigates to EditUnit 1`] = `
                                               <div
                                                 className="MuiFormControl-root MuiFormControl-fullWidth"
                                               >
-                                                <WithStyles(ForwardRef(Input))
-                                                  className="select-input input"
-                                                  name="size"
-                                                  placeholder=""
-                                                  readOnly={true}
-                                                  startAdornment={
-                                                    <WithStyles(ForwardRef(InputAdornment))
-                                                      position="start"
-                                                    >
-                                                      <img
-                                                        alt=""
-                                                        src={
-                                                          Object {
-                                                            "testUri": "../../../packages/blocks/TaskAllocator/assets/size.png",
-                                                          }
-                                                        }
-                                                      />
-                                                    </WithStyles(ForwardRef(InputAdornment))>
-                                                  }
-                                                  value=""
+                                                <Styled(MuiBox)
+                                                  className="unit-box-currency"
                                                 >
-                                                  <ForwardRef(Input)
-                                                    className="select-input input"
-                                                    classes={
-                                                      Object {
-                                                        "colorSecondary": "MuiInput-colorSecondary",
-                                                        "disabled": "Mui-disabled",
-                                                        "error": "Mui-error",
-                                                        "focused": "Mui-focused",
-                                                        "formControl": "MuiInput-formControl",
-                                                        "fullWidth": "MuiInput-fullWidth",
-                                                        "input": "MuiInput-input",
-                                                        "inputMarginDense": "MuiInput-inputMarginDense",
-                                                        "inputMultiline": "MuiInput-inputMultiline",
-                                                        "inputTypeSearch": "MuiInput-inputTypeSearch",
-                                                        "marginDense": "MuiInput-marginDense",
-                                                        "multiline": "MuiInput-multiline",
-                                                        "root": "MuiInput-root",
-                                                        "underline": "MuiInput-underline",
-                                                      }
-                                                    }
-                                                    name="size"
-                                                    placeholder=""
-                                                    readOnly={true}
-                                                    startAdornment={
-                                                      <WithStyles(ForwardRef(InputAdornment))
-                                                        position="start"
-                                                      >
-                                                        <img
-                                                          alt=""
-                                                          src={
-                                                            Object {
-                                                              "testUri": "../../../packages/blocks/TaskAllocator/assets/size.png",
-                                                            }
-                                                          }
-                                                        />
-                                                      </WithStyles(ForwardRef(InputAdornment))>
-                                                    }
-                                                    value=""
+                                                  <div
+                                                    className="MuiBox-root MuiBox-root-7 unit-box-currency"
                                                   >
-                                                    <WithStyles(ForwardRef(InputBase))
+                                                    <WithStyles(ForwardRef(Input))
                                                       className="select-input input"
-                                                      classes={
-                                                        Object {
-                                                          "colorSecondary": "MuiInput-colorSecondary",
-                                                          "disabled": "Mui-disabled",
-                                                          "error": "Mui-error",
-                                                          "focused": "Mui-focused",
-                                                          "formControl": "MuiInput-formControl",
-                                                          "fullWidth": "MuiInput-fullWidth",
-                                                          "input": "MuiInput-input",
-                                                          "inputMarginDense": "MuiInput-inputMarginDense",
-                                                          "inputMultiline": "MuiInput-inputMultiline",
-                                                          "inputTypeSearch": "MuiInput-inputTypeSearch",
-                                                          "marginDense": "MuiInput-marginDense",
-                                                          "multiline": "MuiInput-multiline",
-                                                          "root": "MuiInput-root MuiInput-underline",
-                                                          "underline": null,
-                                                        }
-                                                      }
-                                                      fullWidth={false}
-                                                      inputComponent="input"
-                                                      multiline={false}
                                                       name="size"
                                                       placeholder=""
                                                       readOnly={true}
@@ -3321,36 +3312,28 @@ exports[`EditUnit User navigates to EditUnit 1`] = `
                                                           />
                                                         </WithStyles(ForwardRef(InputAdornment))>
                                                       }
-                                                      type="text"
                                                       value=""
                                                     >
-                                                      <ForwardRef(InputBase)
+                                                      <ForwardRef(Input)
                                                         className="select-input input"
                                                         classes={
                                                           Object {
-                                                            "adornedEnd": "MuiInputBase-adornedEnd",
-                                                            "adornedStart": "MuiInputBase-adornedStart",
-                                                            "colorSecondary": "MuiInputBase-colorSecondary MuiInput-colorSecondary",
-                                                            "disabled": "Mui-disabled Mui-disabled",
-                                                            "error": "Mui-error Mui-error",
-                                                            "focused": "Mui-focused Mui-focused",
-                                                            "formControl": "MuiInputBase-formControl MuiInput-formControl",
-                                                            "fullWidth": "MuiInputBase-fullWidth MuiInput-fullWidth",
-                                                            "input": "MuiInputBase-input MuiInput-input",
-                                                            "inputAdornedEnd": "MuiInputBase-inputAdornedEnd",
-                                                            "inputAdornedStart": "MuiInputBase-inputAdornedStart",
-                                                            "inputHiddenLabel": "MuiInputBase-inputHiddenLabel",
-                                                            "inputMarginDense": "MuiInputBase-inputMarginDense MuiInput-inputMarginDense",
-                                                            "inputMultiline": "MuiInputBase-inputMultiline MuiInput-inputMultiline",
-                                                            "inputTypeSearch": "MuiInputBase-inputTypeSearch MuiInput-inputTypeSearch",
-                                                            "marginDense": "MuiInputBase-marginDense MuiInput-marginDense",
-                                                            "multiline": "MuiInputBase-multiline MuiInput-multiline",
-                                                            "root": "MuiInputBase-root MuiInput-root MuiInput-underline",
+                                                            "colorSecondary": "MuiInput-colorSecondary",
+                                                            "disabled": "Mui-disabled",
+                                                            "error": "Mui-error",
+                                                            "focused": "Mui-focused",
+                                                            "formControl": "MuiInput-formControl",
+                                                            "fullWidth": "MuiInput-fullWidth",
+                                                            "input": "MuiInput-input",
+                                                            "inputMarginDense": "MuiInput-inputMarginDense",
+                                                            "inputMultiline": "MuiInput-inputMultiline",
+                                                            "inputTypeSearch": "MuiInput-inputTypeSearch",
+                                                            "marginDense": "MuiInput-marginDense",
+                                                            "multiline": "MuiInput-multiline",
+                                                            "root": "MuiInput-root",
+                                                            "underline": "MuiInput-underline",
                                                           }
                                                         }
-                                                        fullWidth={false}
-                                                        inputComponent="input"
-                                                        multiline={false}
                                                         name="size"
                                                         placeholder=""
                                                         readOnly={true}
@@ -3368,32 +3351,84 @@ exports[`EditUnit User navigates to EditUnit 1`] = `
                                                             />
                                                           </WithStyles(ForwardRef(InputAdornment))>
                                                         }
-                                                        type="text"
                                                         value=""
                                                       >
-                                                        <div
-                                                          className="MuiInputBase-root MuiInput-root MuiInput-underline select-input input MuiInputBase-formControl MuiInput-formControl MuiInputBase-adornedStart"
-                                                          onClick={[Function]}
-                                                        >
-                                                          <WithStyles(ForwardRef(InputAdornment))
-                                                            position="start"
-                                                          >
-                                                            <ForwardRef(InputAdornment)
-                                                              classes={
-                                                                Object {
-                                                                  "disablePointerEvents": "MuiInputAdornment-disablePointerEvents",
-                                                                  "filled": "MuiInputAdornment-filled",
-                                                                  "hiddenLabel": "MuiInputAdornment-hiddenLabel",
-                                                                  "marginDense": "MuiInputAdornment-marginDense",
-                                                                  "positionEnd": "MuiInputAdornment-positionEnd",
-                                                                  "positionStart": "MuiInputAdornment-positionStart",
-                                                                  "root": "MuiInputAdornment-root",
-                                                                }
-                                                              }
+                                                        <WithStyles(ForwardRef(InputBase))
+                                                          className="select-input input"
+                                                          classes={
+                                                            Object {
+                                                              "colorSecondary": "MuiInput-colorSecondary",
+                                                              "disabled": "Mui-disabled",
+                                                              "error": "Mui-error",
+                                                              "focused": "Mui-focused",
+                                                              "formControl": "MuiInput-formControl",
+                                                              "fullWidth": "MuiInput-fullWidth",
+                                                              "input": "MuiInput-input",
+                                                              "inputMarginDense": "MuiInput-inputMarginDense",
+                                                              "inputMultiline": "MuiInput-inputMultiline",
+                                                              "inputTypeSearch": "MuiInput-inputTypeSearch",
+                                                              "marginDense": "MuiInput-marginDense",
+                                                              "multiline": "MuiInput-multiline",
+                                                              "root": "MuiInput-root MuiInput-underline",
+                                                              "underline": null,
+                                                            }
+                                                          }
+                                                          fullWidth={false}
+                                                          inputComponent="input"
+                                                          multiline={false}
+                                                          name="size"
+                                                          placeholder=""
+                                                          readOnly={true}
+                                                          startAdornment={
+                                                            <WithStyles(ForwardRef(InputAdornment))
                                                               position="start"
                                                             >
-                                                              <div
-                                                                className="MuiInputAdornment-root MuiInputAdornment-positionStart"
+                                                              <img
+                                                                alt=""
+                                                                src={
+                                                                  Object {
+                                                                    "testUri": "../../../packages/blocks/TaskAllocator/assets/size.png",
+                                                                  }
+                                                                }
+                                                              />
+                                                            </WithStyles(ForwardRef(InputAdornment))>
+                                                          }
+                                                          type="text"
+                                                          value=""
+                                                        >
+                                                          <ForwardRef(InputBase)
+                                                            className="select-input input"
+                                                            classes={
+                                                              Object {
+                                                                "adornedEnd": "MuiInputBase-adornedEnd",
+                                                                "adornedStart": "MuiInputBase-adornedStart",
+                                                                "colorSecondary": "MuiInputBase-colorSecondary MuiInput-colorSecondary",
+                                                                "disabled": "Mui-disabled Mui-disabled",
+                                                                "error": "Mui-error Mui-error",
+                                                                "focused": "Mui-focused Mui-focused",
+                                                                "formControl": "MuiInputBase-formControl MuiInput-formControl",
+                                                                "fullWidth": "MuiInputBase-fullWidth MuiInput-fullWidth",
+                                                                "input": "MuiInputBase-input MuiInput-input",
+                                                                "inputAdornedEnd": "MuiInputBase-inputAdornedEnd",
+                                                                "inputAdornedStart": "MuiInputBase-inputAdornedStart",
+                                                                "inputHiddenLabel": "MuiInputBase-inputHiddenLabel",
+                                                                "inputMarginDense": "MuiInputBase-inputMarginDense MuiInput-inputMarginDense",
+                                                                "inputMultiline": "MuiInputBase-inputMultiline MuiInput-inputMultiline",
+                                                                "inputTypeSearch": "MuiInputBase-inputTypeSearch MuiInput-inputTypeSearch",
+                                                                "marginDense": "MuiInputBase-marginDense MuiInput-marginDense",
+                                                                "multiline": "MuiInputBase-multiline MuiInput-multiline",
+                                                                "root": "MuiInputBase-root MuiInput-root MuiInput-underline",
+                                                              }
+                                                            }
+                                                            fullWidth={false}
+                                                            inputComponent="input"
+                                                            multiline={false}
+                                                            name="size"
+                                                            placeholder=""
+                                                            readOnly={true}
+                                                            startAdornment={
+                                                              <WithStyles(ForwardRef(InputAdornment))
+                                                                position="start"
                                                               >
                                                                 <img
                                                                   alt=""
@@ -3403,29 +3438,75 @@ exports[`EditUnit User navigates to EditUnit 1`] = `
                                                                     }
                                                                   }
                                                                 />
-                                                              </div>
-                                                            </ForwardRef(InputAdornment)>
-                                                          </WithStyles(ForwardRef(InputAdornment))>
-                                                          <input
-                                                            aria-invalid={false}
-                                                            className="MuiInputBase-input MuiInput-input MuiInputBase-inputAdornedStart"
-                                                            disabled={false}
-                                                            name="size"
-                                                            onAnimationStart={[Function]}
-                                                            onBlur={[Function]}
-                                                            onChange={[Function]}
-                                                            onFocus={[Function]}
-                                                            placeholder=""
-                                                            readOnly={true}
-                                                            required={false}
+                                                              </WithStyles(ForwardRef(InputAdornment))>
+                                                            }
                                                             type="text"
                                                             value=""
-                                                          />
-                                                        </div>
-                                                      </ForwardRef(InputBase)>
-                                                    </WithStyles(ForwardRef(InputBase))>
-                                                  </ForwardRef(Input)>
-                                                </WithStyles(ForwardRef(Input))>
+                                                          >
+                                                            <div
+                                                              className="MuiInputBase-root MuiInput-root MuiInput-underline select-input input MuiInputBase-formControl MuiInput-formControl MuiInputBase-adornedStart"
+                                                              onClick={[Function]}
+                                                            >
+                                                              <WithStyles(ForwardRef(InputAdornment))
+                                                                position="start"
+                                                              >
+                                                                <ForwardRef(InputAdornment)
+                                                                  classes={
+                                                                    Object {
+                                                                      "disablePointerEvents": "MuiInputAdornment-disablePointerEvents",
+                                                                      "filled": "MuiInputAdornment-filled",
+                                                                      "hiddenLabel": "MuiInputAdornment-hiddenLabel",
+                                                                      "marginDense": "MuiInputAdornment-marginDense",
+                                                                      "positionEnd": "MuiInputAdornment-positionEnd",
+                                                                      "positionStart": "MuiInputAdornment-positionStart",
+                                                                      "root": "MuiInputAdornment-root",
+                                                                    }
+                                                                  }
+                                                                  position="start"
+                                                                >
+                                                                  <div
+                                                                    className="MuiInputAdornment-root MuiInputAdornment-positionStart"
+                                                                  >
+                                                                    <img
+                                                                      alt=""
+                                                                      src={
+                                                                        Object {
+                                                                          "testUri": "../../../packages/blocks/TaskAllocator/assets/size.png",
+                                                                        }
+                                                                      }
+                                                                    />
+                                                                  </div>
+                                                                </ForwardRef(InputAdornment)>
+                                                              </WithStyles(ForwardRef(InputAdornment))>
+                                                              <input
+                                                                aria-invalid={false}
+                                                                className="MuiInputBase-input MuiInput-input MuiInputBase-inputAdornedStart"
+                                                                disabled={false}
+                                                                name="size"
+                                                                onAnimationStart={[Function]}
+                                                                onBlur={[Function]}
+                                                                onChange={[Function]}
+                                                                onFocus={[Function]}
+                                                                placeholder=""
+                                                                readOnly={true}
+                                                                required={false}
+                                                                type="text"
+                                                                value=""
+                                                              />
+                                                            </div>
+                                                          </ForwardRef(InputBase)>
+                                                        </WithStyles(ForwardRef(InputBase))>
+                                                      </ForwardRef(Input)>
+                                                    </WithStyles(ForwardRef(Input))>
+                                                    <Styled(MuiBox)
+                                                      className="unit-box-value"
+                                                    >
+                                                      <div
+                                                        className="MuiBox-root MuiBox-root-8 unit-box-value"
+                                                      />
+                                                    </Styled(MuiBox)>
+                                                  </div>
+                                                </Styled(MuiBox)>
                                               </div>
                                             </ForwardRef(FormControl)>
                                           </WithStyles(ForwardRef(FormControl))>
@@ -3907,91 +3988,14 @@ exports[`EditUnit User navigates to EditUnit 1`] = `
                                                           <div
                                                             className="MuiFormControl-root MuiFormControl-fullWidth"
                                                           >
-                                                            <WithStyles(ForwardRef(Input))
-                                                              className="select-input input"
-                                                              name="price"
-                                                              onBlur={[Function]}
-                                                              onChange={[Function]}
-                                                              placeholder=""
-                                                              startAdornment={
-                                                                <WithStyles(ForwardRef(InputAdornment))
-                                                                  position="start"
-                                                                >
-                                                                  <img
-                                                                    alt=""
-                                                                    src={
-                                                                      Object {
-                                                                        "testUri": "../../../packages/blocks/TaskAllocator/assets/price.png",
-                                                                      }
-                                                                    }
-                                                                  />
-                                                                </WithStyles(ForwardRef(InputAdornment))>
-                                                              }
-                                                              value=""
+                                                            <Styled(MuiBox)
+                                                              className="unit-box-currency"
                                                             >
-                                                              <ForwardRef(Input)
-                                                                className="select-input input"
-                                                                classes={
-                                                                  Object {
-                                                                    "colorSecondary": "MuiInput-colorSecondary",
-                                                                    "disabled": "Mui-disabled",
-                                                                    "error": "Mui-error",
-                                                                    "focused": "Mui-focused",
-                                                                    "formControl": "MuiInput-formControl",
-                                                                    "fullWidth": "MuiInput-fullWidth",
-                                                                    "input": "MuiInput-input",
-                                                                    "inputMarginDense": "MuiInput-inputMarginDense",
-                                                                    "inputMultiline": "MuiInput-inputMultiline",
-                                                                    "inputTypeSearch": "MuiInput-inputTypeSearch",
-                                                                    "marginDense": "MuiInput-marginDense",
-                                                                    "multiline": "MuiInput-multiline",
-                                                                    "root": "MuiInput-root",
-                                                                    "underline": "MuiInput-underline",
-                                                                  }
-                                                                }
-                                                                name="price"
-                                                                onBlur={[Function]}
-                                                                onChange={[Function]}
-                                                                placeholder=""
-                                                                startAdornment={
-                                                                  <WithStyles(ForwardRef(InputAdornment))
-                                                                    position="start"
-                                                                  >
-                                                                    <img
-                                                                      alt=""
-                                                                      src={
-                                                                        Object {
-                                                                          "testUri": "../../../packages/blocks/TaskAllocator/assets/price.png",
-                                                                        }
-                                                                      }
-                                                                    />
-                                                                  </WithStyles(ForwardRef(InputAdornment))>
-                                                                }
-                                                                value=""
+                                                              <div
+                                                                className="MuiBox-root MuiBox-root-9 unit-box-currency"
                                                               >
-                                                                <WithStyles(ForwardRef(InputBase))
+                                                                <WithStyles(ForwardRef(Input))
                                                                   className="select-input input"
-                                                                  classes={
-                                                                    Object {
-                                                                      "colorSecondary": "MuiInput-colorSecondary",
-                                                                      "disabled": "Mui-disabled",
-                                                                      "error": "Mui-error",
-                                                                      "focused": "Mui-focused",
-                                                                      "formControl": "MuiInput-formControl",
-                                                                      "fullWidth": "MuiInput-fullWidth",
-                                                                      "input": "MuiInput-input",
-                                                                      "inputMarginDense": "MuiInput-inputMarginDense",
-                                                                      "inputMultiline": "MuiInput-inputMultiline",
-                                                                      "inputTypeSearch": "MuiInput-inputTypeSearch",
-                                                                      "marginDense": "MuiInput-marginDense",
-                                                                      "multiline": "MuiInput-multiline",
-                                                                      "root": "MuiInput-root MuiInput-underline",
-                                                                      "underline": null,
-                                                                    }
-                                                                  }
-                                                                  fullWidth={false}
-                                                                  inputComponent="input"
-                                                                  multiline={false}
                                                                   name="price"
                                                                   onBlur={[Function]}
                                                                   onChange={[Function]}
@@ -4010,36 +4014,28 @@ exports[`EditUnit User navigates to EditUnit 1`] = `
                                                                       />
                                                                     </WithStyles(ForwardRef(InputAdornment))>
                                                                   }
-                                                                  type="text"
                                                                   value=""
                                                                 >
-                                                                  <ForwardRef(InputBase)
+                                                                  <ForwardRef(Input)
                                                                     className="select-input input"
                                                                     classes={
                                                                       Object {
-                                                                        "adornedEnd": "MuiInputBase-adornedEnd",
-                                                                        "adornedStart": "MuiInputBase-adornedStart",
-                                                                        "colorSecondary": "MuiInputBase-colorSecondary MuiInput-colorSecondary",
-                                                                        "disabled": "Mui-disabled Mui-disabled",
-                                                                        "error": "Mui-error Mui-error",
-                                                                        "focused": "Mui-focused Mui-focused",
-                                                                        "formControl": "MuiInputBase-formControl MuiInput-formControl",
-                                                                        "fullWidth": "MuiInputBase-fullWidth MuiInput-fullWidth",
-                                                                        "input": "MuiInputBase-input MuiInput-input",
-                                                                        "inputAdornedEnd": "MuiInputBase-inputAdornedEnd",
-                                                                        "inputAdornedStart": "MuiInputBase-inputAdornedStart",
-                                                                        "inputHiddenLabel": "MuiInputBase-inputHiddenLabel",
-                                                                        "inputMarginDense": "MuiInputBase-inputMarginDense MuiInput-inputMarginDense",
-                                                                        "inputMultiline": "MuiInputBase-inputMultiline MuiInput-inputMultiline",
-                                                                        "inputTypeSearch": "MuiInputBase-inputTypeSearch MuiInput-inputTypeSearch",
-                                                                        "marginDense": "MuiInputBase-marginDense MuiInput-marginDense",
-                                                                        "multiline": "MuiInputBase-multiline MuiInput-multiline",
-                                                                        "root": "MuiInputBase-root MuiInput-root MuiInput-underline",
+                                                                        "colorSecondary": "MuiInput-colorSecondary",
+                                                                        "disabled": "Mui-disabled",
+                                                                        "error": "Mui-error",
+                                                                        "focused": "Mui-focused",
+                                                                        "formControl": "MuiInput-formControl",
+                                                                        "fullWidth": "MuiInput-fullWidth",
+                                                                        "input": "MuiInput-input",
+                                                                        "inputMarginDense": "MuiInput-inputMarginDense",
+                                                                        "inputMultiline": "MuiInput-inputMultiline",
+                                                                        "inputTypeSearch": "MuiInput-inputTypeSearch",
+                                                                        "marginDense": "MuiInput-marginDense",
+                                                                        "multiline": "MuiInput-multiline",
+                                                                        "root": "MuiInput-root",
+                                                                        "underline": "MuiInput-underline",
                                                                       }
                                                                     }
-                                                                    fullWidth={false}
-                                                                    inputComponent="input"
-                                                                    multiline={false}
                                                                     name="price"
                                                                     onBlur={[Function]}
                                                                     onChange={[Function]}
@@ -4058,32 +4054,86 @@ exports[`EditUnit User navigates to EditUnit 1`] = `
                                                                         />
                                                                       </WithStyles(ForwardRef(InputAdornment))>
                                                                     }
-                                                                    type="text"
                                                                     value=""
                                                                   >
-                                                                    <div
-                                                                      className="MuiInputBase-root MuiInput-root MuiInput-underline select-input input MuiInputBase-formControl MuiInput-formControl MuiInputBase-adornedStart"
-                                                                      onClick={[Function]}
-                                                                    >
-                                                                      <WithStyles(ForwardRef(InputAdornment))
-                                                                        position="start"
-                                                                      >
-                                                                        <ForwardRef(InputAdornment)
-                                                                          classes={
-                                                                            Object {
-                                                                              "disablePointerEvents": "MuiInputAdornment-disablePointerEvents",
-                                                                              "filled": "MuiInputAdornment-filled",
-                                                                              "hiddenLabel": "MuiInputAdornment-hiddenLabel",
-                                                                              "marginDense": "MuiInputAdornment-marginDense",
-                                                                              "positionEnd": "MuiInputAdornment-positionEnd",
-                                                                              "positionStart": "MuiInputAdornment-positionStart",
-                                                                              "root": "MuiInputAdornment-root",
-                                                                            }
-                                                                          }
+                                                                    <WithStyles(ForwardRef(InputBase))
+                                                                      className="select-input input"
+                                                                      classes={
+                                                                        Object {
+                                                                          "colorSecondary": "MuiInput-colorSecondary",
+                                                                          "disabled": "Mui-disabled",
+                                                                          "error": "Mui-error",
+                                                                          "focused": "Mui-focused",
+                                                                          "formControl": "MuiInput-formControl",
+                                                                          "fullWidth": "MuiInput-fullWidth",
+                                                                          "input": "MuiInput-input",
+                                                                          "inputMarginDense": "MuiInput-inputMarginDense",
+                                                                          "inputMultiline": "MuiInput-inputMultiline",
+                                                                          "inputTypeSearch": "MuiInput-inputTypeSearch",
+                                                                          "marginDense": "MuiInput-marginDense",
+                                                                          "multiline": "MuiInput-multiline",
+                                                                          "root": "MuiInput-root MuiInput-underline",
+                                                                          "underline": null,
+                                                                        }
+                                                                      }
+                                                                      fullWidth={false}
+                                                                      inputComponent="input"
+                                                                      multiline={false}
+                                                                      name="price"
+                                                                      onBlur={[Function]}
+                                                                      onChange={[Function]}
+                                                                      placeholder=""
+                                                                      startAdornment={
+                                                                        <WithStyles(ForwardRef(InputAdornment))
                                                                           position="start"
                                                                         >
-                                                                          <div
-                                                                            className="MuiInputAdornment-root MuiInputAdornment-positionStart"
+                                                                          <img
+                                                                            alt=""
+                                                                            src={
+                                                                              Object {
+                                                                                "testUri": "../../../packages/blocks/TaskAllocator/assets/price.png",
+                                                                              }
+                                                                            }
+                                                                          />
+                                                                        </WithStyles(ForwardRef(InputAdornment))>
+                                                                      }
+                                                                      type="text"
+                                                                      value=""
+                                                                    >
+                                                                      <ForwardRef(InputBase)
+                                                                        className="select-input input"
+                                                                        classes={
+                                                                          Object {
+                                                                            "adornedEnd": "MuiInputBase-adornedEnd",
+                                                                            "adornedStart": "MuiInputBase-adornedStart",
+                                                                            "colorSecondary": "MuiInputBase-colorSecondary MuiInput-colorSecondary",
+                                                                            "disabled": "Mui-disabled Mui-disabled",
+                                                                            "error": "Mui-error Mui-error",
+                                                                            "focused": "Mui-focused Mui-focused",
+                                                                            "formControl": "MuiInputBase-formControl MuiInput-formControl",
+                                                                            "fullWidth": "MuiInputBase-fullWidth MuiInput-fullWidth",
+                                                                            "input": "MuiInputBase-input MuiInput-input",
+                                                                            "inputAdornedEnd": "MuiInputBase-inputAdornedEnd",
+                                                                            "inputAdornedStart": "MuiInputBase-inputAdornedStart",
+                                                                            "inputHiddenLabel": "MuiInputBase-inputHiddenLabel",
+                                                                            "inputMarginDense": "MuiInputBase-inputMarginDense MuiInput-inputMarginDense",
+                                                                            "inputMultiline": "MuiInputBase-inputMultiline MuiInput-inputMultiline",
+                                                                            "inputTypeSearch": "MuiInputBase-inputTypeSearch MuiInput-inputTypeSearch",
+                                                                            "marginDense": "MuiInputBase-marginDense MuiInput-marginDense",
+                                                                            "multiline": "MuiInputBase-multiline MuiInput-multiline",
+                                                                            "root": "MuiInputBase-root MuiInput-root MuiInput-underline",
+                                                                          }
+                                                                        }
+                                                                        fullWidth={false}
+                                                                        inputComponent="input"
+                                                                        multiline={false}
+                                                                        name="price"
+                                                                        onBlur={[Function]}
+                                                                        onChange={[Function]}
+                                                                        placeholder=""
+                                                                        startAdornment={
+                                                                          <WithStyles(ForwardRef(InputAdornment))
+                                                                            position="start"
                                                                           >
                                                                             <img
                                                                               alt=""
@@ -4093,28 +4143,74 @@ exports[`EditUnit User navigates to EditUnit 1`] = `
                                                                                 }
                                                                               }
                                                                             />
-                                                                          </div>
-                                                                        </ForwardRef(InputAdornment)>
-                                                                      </WithStyles(ForwardRef(InputAdornment))>
-                                                                      <input
-                                                                        aria-invalid={false}
-                                                                        className="MuiInputBase-input MuiInput-input MuiInputBase-inputAdornedStart"
-                                                                        disabled={false}
-                                                                        name="price"
-                                                                        onAnimationStart={[Function]}
-                                                                        onBlur={[Function]}
-                                                                        onChange={[Function]}
-                                                                        onFocus={[Function]}
-                                                                        placeholder=""
-                                                                        required={false}
+                                                                          </WithStyles(ForwardRef(InputAdornment))>
+                                                                        }
                                                                         type="text"
                                                                         value=""
-                                                                      />
-                                                                    </div>
-                                                                  </ForwardRef(InputBase)>
-                                                                </WithStyles(ForwardRef(InputBase))>
-                                                              </ForwardRef(Input)>
-                                                            </WithStyles(ForwardRef(Input))>
+                                                                      >
+                                                                        <div
+                                                                          className="MuiInputBase-root MuiInput-root MuiInput-underline select-input input MuiInputBase-formControl MuiInput-formControl MuiInputBase-adornedStart"
+                                                                          onClick={[Function]}
+                                                                        >
+                                                                          <WithStyles(ForwardRef(InputAdornment))
+                                                                            position="start"
+                                                                          >
+                                                                            <ForwardRef(InputAdornment)
+                                                                              classes={
+                                                                                Object {
+                                                                                  "disablePointerEvents": "MuiInputAdornment-disablePointerEvents",
+                                                                                  "filled": "MuiInputAdornment-filled",
+                                                                                  "hiddenLabel": "MuiInputAdornment-hiddenLabel",
+                                                                                  "marginDense": "MuiInputAdornment-marginDense",
+                                                                                  "positionEnd": "MuiInputAdornment-positionEnd",
+                                                                                  "positionStart": "MuiInputAdornment-positionStart",
+                                                                                  "root": "MuiInputAdornment-root",
+                                                                                }
+                                                                              }
+                                                                              position="start"
+                                                                            >
+                                                                              <div
+                                                                                className="MuiInputAdornment-root MuiInputAdornment-positionStart"
+                                                                              >
+                                                                                <img
+                                                                                  alt=""
+                                                                                  src={
+                                                                                    Object {
+                                                                                      "testUri": "../../../packages/blocks/TaskAllocator/assets/price.png",
+                                                                                    }
+                                                                                  }
+                                                                                />
+                                                                              </div>
+                                                                            </ForwardRef(InputAdornment)>
+                                                                          </WithStyles(ForwardRef(InputAdornment))>
+                                                                          <input
+                                                                            aria-invalid={false}
+                                                                            className="MuiInputBase-input MuiInput-input MuiInputBase-inputAdornedStart"
+                                                                            disabled={false}
+                                                                            name="price"
+                                                                            onAnimationStart={[Function]}
+                                                                            onBlur={[Function]}
+                                                                            onChange={[Function]}
+                                                                            onFocus={[Function]}
+                                                                            placeholder=""
+                                                                            required={false}
+                                                                            type="text"
+                                                                            value=""
+                                                                          />
+                                                                        </div>
+                                                                      </ForwardRef(InputBase)>
+                                                                    </WithStyles(ForwardRef(InputBase))>
+                                                                  </ForwardRef(Input)>
+                                                                </WithStyles(ForwardRef(Input))>
+                                                                <Styled(MuiBox)
+                                                                  className="unit-box-value"
+                                                                >
+                                                                  <div
+                                                                    className="MuiBox-root MuiBox-root-10 unit-box-value"
+                                                                  />
+                                                                </Styled(MuiBox)>
+                                                              </div>
+                                                            </Styled(MuiBox)>
                                                           </div>
                                                         </ForwardRef(FormControl)>
                                                       </WithStyles(ForwardRef(FormControl))>
@@ -4610,10 +4706,10 @@ exports[`EditUnit User navigates to EditUnit 1`] = `
                                                                       }
                                                                       classes={
                                                                         Object {
-                                                                          "checked": "PrivateSwitchBase-checked-8 Mui-checked",
-                                                                          "disabled": "PrivateSwitchBase-disabled-9 Mui-disabled",
-                                                                          "input": "PrivateSwitchBase-input-10",
-                                                                          "root": "PrivateSwitchBase-root-7 MuiRadio-root MuiRadio-colorSecondary",
+                                                                          "checked": "PrivateSwitchBase-checked-12 Mui-checked",
+                                                                          "disabled": "PrivateSwitchBase-disabled-13 Mui-disabled",
+                                                                          "input": "PrivateSwitchBase-input-14",
+                                                                          "root": "PrivateSwitchBase-root-11 MuiRadio-root MuiRadio-colorSecondary",
                                                                         }
                                                                       }
                                                                       color="secondary"
@@ -4629,7 +4725,7 @@ exports[`EditUnit User navigates to EditUnit 1`] = `
                                                                       value="Rented"
                                                                     >
                                                                       <WithStyles(ForwardRef(IconButton))
-                                                                        className="PrivateSwitchBase-root-7 MuiRadio-root MuiRadio-colorSecondary PrivateSwitchBase-checked-8 Mui-checked"
+                                                                        className="PrivateSwitchBase-root-11 MuiRadio-root MuiRadio-colorSecondary PrivateSwitchBase-checked-12 Mui-checked"
                                                                         color="secondary"
                                                                         component="span"
                                                                         disabled={false}
@@ -4638,7 +4734,7 @@ exports[`EditUnit User navigates to EditUnit 1`] = `
                                                                         tabIndex={null}
                                                                       >
                                                                         <ForwardRef(IconButton)
-                                                                          className="PrivateSwitchBase-root-7 MuiRadio-root MuiRadio-colorSecondary PrivateSwitchBase-checked-8 Mui-checked"
+                                                                          className="PrivateSwitchBase-root-11 MuiRadio-root MuiRadio-colorSecondary PrivateSwitchBase-checked-12 Mui-checked"
                                                                           classes={
                                                                             Object {
                                                                               "colorInherit": "MuiIconButton-colorInherit",
@@ -4661,7 +4757,7 @@ exports[`EditUnit User navigates to EditUnit 1`] = `
                                                                         >
                                                                           <WithStyles(ForwardRef(ButtonBase))
                                                                             centerRipple={true}
-                                                                            className="MuiIconButton-root PrivateSwitchBase-root-7 MuiRadio-root MuiRadio-colorSecondary PrivateSwitchBase-checked-8 Mui-checked MuiIconButton-colorSecondary"
+                                                                            className="MuiIconButton-root PrivateSwitchBase-root-11 MuiRadio-root MuiRadio-colorSecondary PrivateSwitchBase-checked-12 Mui-checked MuiIconButton-colorSecondary"
                                                                             component="span"
                                                                             disabled={false}
                                                                             focusRipple={true}
@@ -4671,7 +4767,7 @@ exports[`EditUnit User navigates to EditUnit 1`] = `
                                                                           >
                                                                             <ForwardRef(ButtonBase)
                                                                               centerRipple={true}
-                                                                              className="MuiIconButton-root PrivateSwitchBase-root-7 MuiRadio-root MuiRadio-colorSecondary PrivateSwitchBase-checked-8 Mui-checked MuiIconButton-colorSecondary"
+                                                                              className="MuiIconButton-root PrivateSwitchBase-root-11 MuiRadio-root MuiRadio-colorSecondary PrivateSwitchBase-checked-12 Mui-checked MuiIconButton-colorSecondary"
                                                                               classes={
                                                                                 Object {
                                                                                   "disabled": "Mui-disabled",
@@ -4688,7 +4784,7 @@ exports[`EditUnit User navigates to EditUnit 1`] = `
                                                                             >
                                                                               <span
                                                                                 aria-disabled={false}
-                                                                                className="MuiButtonBase-root MuiIconButton-root PrivateSwitchBase-root-7 MuiRadio-root MuiRadio-colorSecondary PrivateSwitchBase-checked-8 Mui-checked MuiIconButton-colorSecondary"
+                                                                                className="MuiButtonBase-root MuiIconButton-root PrivateSwitchBase-root-11 MuiRadio-root MuiRadio-colorSecondary PrivateSwitchBase-checked-12 Mui-checked MuiIconButton-colorSecondary"
                                                                                 onBlur={[Function]}
                                                                                 onDragLeave={[Function]}
                                                                                 onFocus={[Function]}
@@ -4707,7 +4803,7 @@ exports[`EditUnit User navigates to EditUnit 1`] = `
                                                                                 >
                                                                                   <input
                                                                                     checked={true}
-                                                                                    className="PrivateSwitchBase-input-10"
+                                                                                    className="PrivateSwitchBase-input-14"
                                                                                     disabled={false}
                                                                                     name="type"
                                                                                     onChange={[Function]}
@@ -4722,15 +4818,15 @@ exports[`EditUnit User navigates to EditUnit 1`] = `
                                                                                       checked={true}
                                                                                       classes={
                                                                                         Object {
-                                                                                          "checked": "PrivateRadioButtonIcon-checked-13",
-                                                                                          "layer": "PrivateRadioButtonIcon-layer-12",
-                                                                                          "root": "PrivateRadioButtonIcon-root-11",
+                                                                                          "checked": "PrivateRadioButtonIcon-checked-17",
+                                                                                          "layer": "PrivateRadioButtonIcon-layer-16",
+                                                                                          "root": "PrivateRadioButtonIcon-root-15",
                                                                                         }
                                                                                       }
                                                                                       fontSize="medium"
                                                                                     >
                                                                                       <div
-                                                                                        className="PrivateRadioButtonIcon-root-11 PrivateRadioButtonIcon-checked-13"
+                                                                                        className="PrivateRadioButtonIcon-root-15 PrivateRadioButtonIcon-checked-17"
                                                                                       >
                                                                                         <ForwardRef(RadioButtonUncheckedIcon)
                                                                                           fontSize="medium"
@@ -4768,15 +4864,15 @@ exports[`EditUnit User navigates to EditUnit 1`] = `
                                                                                           </WithStyles(ForwardRef(SvgIcon))>
                                                                                         </ForwardRef(RadioButtonUncheckedIcon)>
                                                                                         <ForwardRef(RadioButtonCheckedIcon)
-                                                                                          className="PrivateRadioButtonIcon-layer-12"
+                                                                                          className="PrivateRadioButtonIcon-layer-16"
                                                                                           fontSize="medium"
                                                                                         >
                                                                                           <WithStyles(ForwardRef(SvgIcon))
-                                                                                            className="PrivateRadioButtonIcon-layer-12"
+                                                                                            className="PrivateRadioButtonIcon-layer-16"
                                                                                             fontSize="medium"
                                                                                           >
                                                                                             <ForwardRef(SvgIcon)
-                                                                                              className="PrivateRadioButtonIcon-layer-12"
+                                                                                              className="PrivateRadioButtonIcon-layer-16"
                                                                                               classes={
                                                                                                 Object {
                                                                                                   "colorAction": "MuiSvgIcon-colorAction",
@@ -4794,7 +4890,7 @@ exports[`EditUnit User navigates to EditUnit 1`] = `
                                                                                             >
                                                                                               <svg
                                                                                                 aria-hidden={true}
-                                                                                                className="MuiSvgIcon-root PrivateRadioButtonIcon-layer-12"
+                                                                                                className="MuiSvgIcon-root PrivateRadioButtonIcon-layer-16"
                                                                                                 focusable="false"
                                                                                                 viewBox="0 0 24 24"
                                                                                               >
@@ -4975,10 +5071,10 @@ exports[`EditUnit User navigates to EditUnit 1`] = `
                                                                       }
                                                                       classes={
                                                                         Object {
-                                                                          "checked": "PrivateSwitchBase-checked-8 Mui-checked",
-                                                                          "disabled": "PrivateSwitchBase-disabled-9 Mui-disabled",
-                                                                          "input": "PrivateSwitchBase-input-10",
-                                                                          "root": "PrivateSwitchBase-root-7 MuiRadio-root MuiRadio-colorSecondary",
+                                                                          "checked": "PrivateSwitchBase-checked-12 Mui-checked",
+                                                                          "disabled": "PrivateSwitchBase-disabled-13 Mui-disabled",
+                                                                          "input": "PrivateSwitchBase-input-14",
+                                                                          "root": "PrivateSwitchBase-root-11 MuiRadio-root MuiRadio-colorSecondary",
                                                                         }
                                                                       }
                                                                       color="secondary"
@@ -4994,7 +5090,7 @@ exports[`EditUnit User navigates to EditUnit 1`] = `
                                                                       value="Non-Rented"
                                                                     >
                                                                       <WithStyles(ForwardRef(IconButton))
-                                                                        className="PrivateSwitchBase-root-7 MuiRadio-root MuiRadio-colorSecondary"
+                                                                        className="PrivateSwitchBase-root-11 MuiRadio-root MuiRadio-colorSecondary"
                                                                         color="secondary"
                                                                         component="span"
                                                                         disabled={false}
@@ -5003,7 +5099,7 @@ exports[`EditUnit User navigates to EditUnit 1`] = `
                                                                         tabIndex={null}
                                                                       >
                                                                         <ForwardRef(IconButton)
-                                                                          className="PrivateSwitchBase-root-7 MuiRadio-root MuiRadio-colorSecondary"
+                                                                          className="PrivateSwitchBase-root-11 MuiRadio-root MuiRadio-colorSecondary"
                                                                           classes={
                                                                             Object {
                                                                               "colorInherit": "MuiIconButton-colorInherit",
@@ -5026,7 +5122,7 @@ exports[`EditUnit User navigates to EditUnit 1`] = `
                                                                         >
                                                                           <WithStyles(ForwardRef(ButtonBase))
                                                                             centerRipple={true}
-                                                                            className="MuiIconButton-root PrivateSwitchBase-root-7 MuiRadio-root MuiRadio-colorSecondary MuiIconButton-colorSecondary"
+                                                                            className="MuiIconButton-root PrivateSwitchBase-root-11 MuiRadio-root MuiRadio-colorSecondary MuiIconButton-colorSecondary"
                                                                             component="span"
                                                                             disabled={false}
                                                                             focusRipple={true}
@@ -5036,7 +5132,7 @@ exports[`EditUnit User navigates to EditUnit 1`] = `
                                                                           >
                                                                             <ForwardRef(ButtonBase)
                                                                               centerRipple={true}
-                                                                              className="MuiIconButton-root PrivateSwitchBase-root-7 MuiRadio-root MuiRadio-colorSecondary MuiIconButton-colorSecondary"
+                                                                              className="MuiIconButton-root PrivateSwitchBase-root-11 MuiRadio-root MuiRadio-colorSecondary MuiIconButton-colorSecondary"
                                                                               classes={
                                                                                 Object {
                                                                                   "disabled": "Mui-disabled",
@@ -5053,7 +5149,7 @@ exports[`EditUnit User navigates to EditUnit 1`] = `
                                                                             >
                                                                               <span
                                                                                 aria-disabled={false}
-                                                                                className="MuiButtonBase-root MuiIconButton-root PrivateSwitchBase-root-7 MuiRadio-root MuiRadio-colorSecondary MuiIconButton-colorSecondary"
+                                                                                className="MuiButtonBase-root MuiIconButton-root PrivateSwitchBase-root-11 MuiRadio-root MuiRadio-colorSecondary MuiIconButton-colorSecondary"
                                                                                 onBlur={[Function]}
                                                                                 onDragLeave={[Function]}
                                                                                 onFocus={[Function]}
@@ -5072,7 +5168,7 @@ exports[`EditUnit User navigates to EditUnit 1`] = `
                                                                                 >
                                                                                   <input
                                                                                     checked={false}
-                                                                                    className="PrivateSwitchBase-input-10"
+                                                                                    className="PrivateSwitchBase-input-14"
                                                                                     disabled={false}
                                                                                     name="type"
                                                                                     onChange={[Function]}
@@ -5085,15 +5181,15 @@ exports[`EditUnit User navigates to EditUnit 1`] = `
                                                                                     <RadioButtonIcon
                                                                                       classes={
                                                                                         Object {
-                                                                                          "checked": "PrivateRadioButtonIcon-checked-13",
-                                                                                          "layer": "PrivateRadioButtonIcon-layer-12",
-                                                                                          "root": "PrivateRadioButtonIcon-root-11",
+                                                                                          "checked": "PrivateRadioButtonIcon-checked-17",
+                                                                                          "layer": "PrivateRadioButtonIcon-layer-16",
+                                                                                          "root": "PrivateRadioButtonIcon-root-15",
                                                                                         }
                                                                                       }
                                                                                       fontSize="medium"
                                                                                     >
                                                                                       <div
-                                                                                        className="PrivateRadioButtonIcon-root-11"
+                                                                                        className="PrivateRadioButtonIcon-root-15"
                                                                                       >
                                                                                         <ForwardRef(RadioButtonUncheckedIcon)
                                                                                           fontSize="medium"
@@ -5131,15 +5227,15 @@ exports[`EditUnit User navigates to EditUnit 1`] = `
                                                                                           </WithStyles(ForwardRef(SvgIcon))>
                                                                                         </ForwardRef(RadioButtonUncheckedIcon)>
                                                                                         <ForwardRef(RadioButtonCheckedIcon)
-                                                                                          className="PrivateRadioButtonIcon-layer-12"
+                                                                                          className="PrivateRadioButtonIcon-layer-16"
                                                                                           fontSize="medium"
                                                                                         >
                                                                                           <WithStyles(ForwardRef(SvgIcon))
-                                                                                            className="PrivateRadioButtonIcon-layer-12"
+                                                                                            className="PrivateRadioButtonIcon-layer-16"
                                                                                             fontSize="medium"
                                                                                           >
                                                                                             <ForwardRef(SvgIcon)
-                                                                                              className="PrivateRadioButtonIcon-layer-12"
+                                                                                              className="PrivateRadioButtonIcon-layer-16"
                                                                                               classes={
                                                                                                 Object {
                                                                                                   "colorAction": "MuiSvgIcon-colorAction",
@@ -5157,7 +5253,7 @@ exports[`EditUnit User navigates to EditUnit 1`] = `
                                                                                             >
                                                                                               <svg
                                                                                                 aria-hidden={true}
-                                                                                                className="MuiSvgIcon-root PrivateRadioButtonIcon-layer-12"
+                                                                                                className="MuiSvgIcon-root PrivateRadioButtonIcon-layer-16"
                                                                                                 focusable="false"
                                                                                                 viewBox="0 0 24 24"
                                                                                               >
@@ -5410,91 +5506,14 @@ exports[`EditUnit User navigates to EditUnit 1`] = `
                                               <div
                                                 className="MuiFormControl-root MuiFormControl-fullWidth"
                                               >
-                                                <WithStyles(ForwardRef(Input))
-                                                  className="select-input input"
-                                                  name="income"
-                                                  onBlur={[Function]}
-                                                  onChange={[Function]}
-                                                  placeholder=""
-                                                  startAdornment={
-                                                    <WithStyles(ForwardRef(InputAdornment))
-                                                      position="start"
-                                                    >
-                                                      <img
-                                                        alt=""
-                                                        src={
-                                                          Object {
-                                                            "testUri": "../../../packages/blocks/TaskAllocator/assets/rent-amount.png",
-                                                          }
-                                                        }
-                                                      />
-                                                    </WithStyles(ForwardRef(InputAdornment))>
-                                                  }
-                                                  value=""
+                                                <Styled(MuiBox)
+                                                  className="unit-box-currency"
                                                 >
-                                                  <ForwardRef(Input)
-                                                    className="select-input input"
-                                                    classes={
-                                                      Object {
-                                                        "colorSecondary": "MuiInput-colorSecondary",
-                                                        "disabled": "Mui-disabled",
-                                                        "error": "Mui-error",
-                                                        "focused": "Mui-focused",
-                                                        "formControl": "MuiInput-formControl",
-                                                        "fullWidth": "MuiInput-fullWidth",
-                                                        "input": "MuiInput-input",
-                                                        "inputMarginDense": "MuiInput-inputMarginDense",
-                                                        "inputMultiline": "MuiInput-inputMultiline",
-                                                        "inputTypeSearch": "MuiInput-inputTypeSearch",
-                                                        "marginDense": "MuiInput-marginDense",
-                                                        "multiline": "MuiInput-multiline",
-                                                        "root": "MuiInput-root",
-                                                        "underline": "MuiInput-underline",
-                                                      }
-                                                    }
-                                                    name="income"
-                                                    onBlur={[Function]}
-                                                    onChange={[Function]}
-                                                    placeholder=""
-                                                    startAdornment={
-                                                      <WithStyles(ForwardRef(InputAdornment))
-                                                        position="start"
-                                                      >
-                                                        <img
-                                                          alt=""
-                                                          src={
-                                                            Object {
-                                                              "testUri": "../../../packages/blocks/TaskAllocator/assets/rent-amount.png",
-                                                            }
-                                                          }
-                                                        />
-                                                      </WithStyles(ForwardRef(InputAdornment))>
-                                                    }
-                                                    value=""
+                                                  <div
+                                                    className="MuiBox-root MuiBox-root-18 unit-box-currency"
                                                   >
-                                                    <WithStyles(ForwardRef(InputBase))
+                                                    <WithStyles(ForwardRef(Input))
                                                       className="select-input input"
-                                                      classes={
-                                                        Object {
-                                                          "colorSecondary": "MuiInput-colorSecondary",
-                                                          "disabled": "Mui-disabled",
-                                                          "error": "Mui-error",
-                                                          "focused": "Mui-focused",
-                                                          "formControl": "MuiInput-formControl",
-                                                          "fullWidth": "MuiInput-fullWidth",
-                                                          "input": "MuiInput-input",
-                                                          "inputMarginDense": "MuiInput-inputMarginDense",
-                                                          "inputMultiline": "MuiInput-inputMultiline",
-                                                          "inputTypeSearch": "MuiInput-inputTypeSearch",
-                                                          "marginDense": "MuiInput-marginDense",
-                                                          "multiline": "MuiInput-multiline",
-                                                          "root": "MuiInput-root MuiInput-underline",
-                                                          "underline": null,
-                                                        }
-                                                      }
-                                                      fullWidth={false}
-                                                      inputComponent="input"
-                                                      multiline={false}
                                                       name="income"
                                                       onBlur={[Function]}
                                                       onChange={[Function]}
@@ -5513,36 +5532,28 @@ exports[`EditUnit User navigates to EditUnit 1`] = `
                                                           />
                                                         </WithStyles(ForwardRef(InputAdornment))>
                                                       }
-                                                      type="text"
                                                       value=""
                                                     >
-                                                      <ForwardRef(InputBase)
+                                                      <ForwardRef(Input)
                                                         className="select-input input"
                                                         classes={
                                                           Object {
-                                                            "adornedEnd": "MuiInputBase-adornedEnd",
-                                                            "adornedStart": "MuiInputBase-adornedStart",
-                                                            "colorSecondary": "MuiInputBase-colorSecondary MuiInput-colorSecondary",
-                                                            "disabled": "Mui-disabled Mui-disabled",
-                                                            "error": "Mui-error Mui-error",
-                                                            "focused": "Mui-focused Mui-focused",
-                                                            "formControl": "MuiInputBase-formControl MuiInput-formControl",
-                                                            "fullWidth": "MuiInputBase-fullWidth MuiInput-fullWidth",
-                                                            "input": "MuiInputBase-input MuiInput-input",
-                                                            "inputAdornedEnd": "MuiInputBase-inputAdornedEnd",
-                                                            "inputAdornedStart": "MuiInputBase-inputAdornedStart",
-                                                            "inputHiddenLabel": "MuiInputBase-inputHiddenLabel",
-                                                            "inputMarginDense": "MuiInputBase-inputMarginDense MuiInput-inputMarginDense",
-                                                            "inputMultiline": "MuiInputBase-inputMultiline MuiInput-inputMultiline",
-                                                            "inputTypeSearch": "MuiInputBase-inputTypeSearch MuiInput-inputTypeSearch",
-                                                            "marginDense": "MuiInputBase-marginDense MuiInput-marginDense",
-                                                            "multiline": "MuiInputBase-multiline MuiInput-multiline",
-                                                            "root": "MuiInputBase-root MuiInput-root MuiInput-underline",
+                                                            "colorSecondary": "MuiInput-colorSecondary",
+                                                            "disabled": "Mui-disabled",
+                                                            "error": "Mui-error",
+                                                            "focused": "Mui-focused",
+                                                            "formControl": "MuiInput-formControl",
+                                                            "fullWidth": "MuiInput-fullWidth",
+                                                            "input": "MuiInput-input",
+                                                            "inputMarginDense": "MuiInput-inputMarginDense",
+                                                            "inputMultiline": "MuiInput-inputMultiline",
+                                                            "inputTypeSearch": "MuiInput-inputTypeSearch",
+                                                            "marginDense": "MuiInput-marginDense",
+                                                            "multiline": "MuiInput-multiline",
+                                                            "root": "MuiInput-root",
+                                                            "underline": "MuiInput-underline",
                                                           }
                                                         }
-                                                        fullWidth={false}
-                                                        inputComponent="input"
-                                                        multiline={false}
                                                         name="income"
                                                         onBlur={[Function]}
                                                         onChange={[Function]}
@@ -5561,32 +5572,86 @@ exports[`EditUnit User navigates to EditUnit 1`] = `
                                                             />
                                                           </WithStyles(ForwardRef(InputAdornment))>
                                                         }
-                                                        type="text"
                                                         value=""
                                                       >
-                                                        <div
-                                                          className="MuiInputBase-root MuiInput-root MuiInput-underline select-input input MuiInputBase-formControl MuiInput-formControl MuiInputBase-adornedStart"
-                                                          onClick={[Function]}
-                                                        >
-                                                          <WithStyles(ForwardRef(InputAdornment))
-                                                            position="start"
-                                                          >
-                                                            <ForwardRef(InputAdornment)
-                                                              classes={
-                                                                Object {
-                                                                  "disablePointerEvents": "MuiInputAdornment-disablePointerEvents",
-                                                                  "filled": "MuiInputAdornment-filled",
-                                                                  "hiddenLabel": "MuiInputAdornment-hiddenLabel",
-                                                                  "marginDense": "MuiInputAdornment-marginDense",
-                                                                  "positionEnd": "MuiInputAdornment-positionEnd",
-                                                                  "positionStart": "MuiInputAdornment-positionStart",
-                                                                  "root": "MuiInputAdornment-root",
-                                                                }
-                                                              }
+                                                        <WithStyles(ForwardRef(InputBase))
+                                                          className="select-input input"
+                                                          classes={
+                                                            Object {
+                                                              "colorSecondary": "MuiInput-colorSecondary",
+                                                              "disabled": "Mui-disabled",
+                                                              "error": "Mui-error",
+                                                              "focused": "Mui-focused",
+                                                              "formControl": "MuiInput-formControl",
+                                                              "fullWidth": "MuiInput-fullWidth",
+                                                              "input": "MuiInput-input",
+                                                              "inputMarginDense": "MuiInput-inputMarginDense",
+                                                              "inputMultiline": "MuiInput-inputMultiline",
+                                                              "inputTypeSearch": "MuiInput-inputTypeSearch",
+                                                              "marginDense": "MuiInput-marginDense",
+                                                              "multiline": "MuiInput-multiline",
+                                                              "root": "MuiInput-root MuiInput-underline",
+                                                              "underline": null,
+                                                            }
+                                                          }
+                                                          fullWidth={false}
+                                                          inputComponent="input"
+                                                          multiline={false}
+                                                          name="income"
+                                                          onBlur={[Function]}
+                                                          onChange={[Function]}
+                                                          placeholder=""
+                                                          startAdornment={
+                                                            <WithStyles(ForwardRef(InputAdornment))
                                                               position="start"
                                                             >
-                                                              <div
-                                                                className="MuiInputAdornment-root MuiInputAdornment-positionStart"
+                                                              <img
+                                                                alt=""
+                                                                src={
+                                                                  Object {
+                                                                    "testUri": "../../../packages/blocks/TaskAllocator/assets/rent-amount.png",
+                                                                  }
+                                                                }
+                                                              />
+                                                            </WithStyles(ForwardRef(InputAdornment))>
+                                                          }
+                                                          type="text"
+                                                          value=""
+                                                        >
+                                                          <ForwardRef(InputBase)
+                                                            className="select-input input"
+                                                            classes={
+                                                              Object {
+                                                                "adornedEnd": "MuiInputBase-adornedEnd",
+                                                                "adornedStart": "MuiInputBase-adornedStart",
+                                                                "colorSecondary": "MuiInputBase-colorSecondary MuiInput-colorSecondary",
+                                                                "disabled": "Mui-disabled Mui-disabled",
+                                                                "error": "Mui-error Mui-error",
+                                                                "focused": "Mui-focused Mui-focused",
+                                                                "formControl": "MuiInputBase-formControl MuiInput-formControl",
+                                                                "fullWidth": "MuiInputBase-fullWidth MuiInput-fullWidth",
+                                                                "input": "MuiInputBase-input MuiInput-input",
+                                                                "inputAdornedEnd": "MuiInputBase-inputAdornedEnd",
+                                                                "inputAdornedStart": "MuiInputBase-inputAdornedStart",
+                                                                "inputHiddenLabel": "MuiInputBase-inputHiddenLabel",
+                                                                "inputMarginDense": "MuiInputBase-inputMarginDense MuiInput-inputMarginDense",
+                                                                "inputMultiline": "MuiInputBase-inputMultiline MuiInput-inputMultiline",
+                                                                "inputTypeSearch": "MuiInputBase-inputTypeSearch MuiInput-inputTypeSearch",
+                                                                "marginDense": "MuiInputBase-marginDense MuiInput-marginDense",
+                                                                "multiline": "MuiInputBase-multiline MuiInput-multiline",
+                                                                "root": "MuiInputBase-root MuiInput-root MuiInput-underline",
+                                                              }
+                                                            }
+                                                            fullWidth={false}
+                                                            inputComponent="input"
+                                                            multiline={false}
+                                                            name="income"
+                                                            onBlur={[Function]}
+                                                            onChange={[Function]}
+                                                            placeholder=""
+                                                            startAdornment={
+                                                              <WithStyles(ForwardRef(InputAdornment))
+                                                                position="start"
                                                               >
                                                                 <img
                                                                   alt=""
@@ -5596,28 +5661,74 @@ exports[`EditUnit User navigates to EditUnit 1`] = `
                                                                     }
                                                                   }
                                                                 />
-                                                              </div>
-                                                            </ForwardRef(InputAdornment)>
-                                                          </WithStyles(ForwardRef(InputAdornment))>
-                                                          <input
-                                                            aria-invalid={false}
-                                                            className="MuiInputBase-input MuiInput-input MuiInputBase-inputAdornedStart"
-                                                            disabled={false}
-                                                            name="income"
-                                                            onAnimationStart={[Function]}
-                                                            onBlur={[Function]}
-                                                            onChange={[Function]}
-                                                            onFocus={[Function]}
-                                                            placeholder=""
-                                                            required={false}
+                                                              </WithStyles(ForwardRef(InputAdornment))>
+                                                            }
                                                             type="text"
                                                             value=""
-                                                          />
-                                                        </div>
-                                                      </ForwardRef(InputBase)>
-                                                    </WithStyles(ForwardRef(InputBase))>
-                                                  </ForwardRef(Input)>
-                                                </WithStyles(ForwardRef(Input))>
+                                                          >
+                                                            <div
+                                                              className="MuiInputBase-root MuiInput-root MuiInput-underline select-input input MuiInputBase-formControl MuiInput-formControl MuiInputBase-adornedStart"
+                                                              onClick={[Function]}
+                                                            >
+                                                              <WithStyles(ForwardRef(InputAdornment))
+                                                                position="start"
+                                                              >
+                                                                <ForwardRef(InputAdornment)
+                                                                  classes={
+                                                                    Object {
+                                                                      "disablePointerEvents": "MuiInputAdornment-disablePointerEvents",
+                                                                      "filled": "MuiInputAdornment-filled",
+                                                                      "hiddenLabel": "MuiInputAdornment-hiddenLabel",
+                                                                      "marginDense": "MuiInputAdornment-marginDense",
+                                                                      "positionEnd": "MuiInputAdornment-positionEnd",
+                                                                      "positionStart": "MuiInputAdornment-positionStart",
+                                                                      "root": "MuiInputAdornment-root",
+                                                                    }
+                                                                  }
+                                                                  position="start"
+                                                                >
+                                                                  <div
+                                                                    className="MuiInputAdornment-root MuiInputAdornment-positionStart"
+                                                                  >
+                                                                    <img
+                                                                      alt=""
+                                                                      src={
+                                                                        Object {
+                                                                          "testUri": "../../../packages/blocks/TaskAllocator/assets/rent-amount.png",
+                                                                        }
+                                                                      }
+                                                                    />
+                                                                  </div>
+                                                                </ForwardRef(InputAdornment)>
+                                                              </WithStyles(ForwardRef(InputAdornment))>
+                                                              <input
+                                                                aria-invalid={false}
+                                                                className="MuiInputBase-input MuiInput-input MuiInputBase-inputAdornedStart"
+                                                                disabled={false}
+                                                                name="income"
+                                                                onAnimationStart={[Function]}
+                                                                onBlur={[Function]}
+                                                                onChange={[Function]}
+                                                                onFocus={[Function]}
+                                                                placeholder=""
+                                                                required={false}
+                                                                type="text"
+                                                                value=""
+                                                              />
+                                                            </div>
+                                                          </ForwardRef(InputBase)>
+                                                        </WithStyles(ForwardRef(InputBase))>
+                                                      </ForwardRef(Input)>
+                                                    </WithStyles(ForwardRef(Input))>
+                                                    <Styled(MuiBox)
+                                                      className="unit-box-value"
+                                                    >
+                                                      <div
+                                                        className="MuiBox-root MuiBox-root-19 unit-box-value"
+                                                      />
+                                                    </Styled(MuiBox)>
+                                                  </div>
+                                                </Styled(MuiBox)>
                                               </div>
                                             </ForwardRef(FormControl)>
                                           </WithStyles(ForwardRef(FormControl))>
@@ -5638,91 +5749,14 @@ exports[`EditUnit User navigates to EditUnit 1`] = `
                                               <div
                                                 className="MuiFormControl-root MuiFormControl-fullWidth"
                                               >
-                                                <WithStyles(ForwardRef(Input))
-                                                  className="select-input input"
-                                                  name="valuation"
-                                                  onBlur={[Function]}
-                                                  onChange={[Function]}
-                                                  placeholder=""
-                                                  startAdornment={
-                                                    <WithStyles(ForwardRef(InputAdornment))
-                                                      position="start"
-                                                    >
-                                                      <img
-                                                        alt=""
-                                                        src={
-                                                          Object {
-                                                            "testUri": "../../../packages/blocks/TaskAllocator/assets/valuation.png",
-                                                          }
-                                                        }
-                                                      />
-                                                    </WithStyles(ForwardRef(InputAdornment))>
-                                                  }
-                                                  value=""
+                                                <Styled(MuiBox)
+                                                  className="unit-box-currency"
                                                 >
-                                                  <ForwardRef(Input)
-                                                    className="select-input input"
-                                                    classes={
-                                                      Object {
-                                                        "colorSecondary": "MuiInput-colorSecondary",
-                                                        "disabled": "Mui-disabled",
-                                                        "error": "Mui-error",
-                                                        "focused": "Mui-focused",
-                                                        "formControl": "MuiInput-formControl",
-                                                        "fullWidth": "MuiInput-fullWidth",
-                                                        "input": "MuiInput-input",
-                                                        "inputMarginDense": "MuiInput-inputMarginDense",
-                                                        "inputMultiline": "MuiInput-inputMultiline",
-                                                        "inputTypeSearch": "MuiInput-inputTypeSearch",
-                                                        "marginDense": "MuiInput-marginDense",
-                                                        "multiline": "MuiInput-multiline",
-                                                        "root": "MuiInput-root",
-                                                        "underline": "MuiInput-underline",
-                                                      }
-                                                    }
-                                                    name="valuation"
-                                                    onBlur={[Function]}
-                                                    onChange={[Function]}
-                                                    placeholder=""
-                                                    startAdornment={
-                                                      <WithStyles(ForwardRef(InputAdornment))
-                                                        position="start"
-                                                      >
-                                                        <img
-                                                          alt=""
-                                                          src={
-                                                            Object {
-                                                              "testUri": "../../../packages/blocks/TaskAllocator/assets/valuation.png",
-                                                            }
-                                                          }
-                                                        />
-                                                      </WithStyles(ForwardRef(InputAdornment))>
-                                                    }
-                                                    value=""
+                                                  <div
+                                                    className="MuiBox-root MuiBox-root-20 unit-box-currency"
                                                   >
-                                                    <WithStyles(ForwardRef(InputBase))
+                                                    <WithStyles(ForwardRef(Input))
                                                       className="select-input input"
-                                                      classes={
-                                                        Object {
-                                                          "colorSecondary": "MuiInput-colorSecondary",
-                                                          "disabled": "Mui-disabled",
-                                                          "error": "Mui-error",
-                                                          "focused": "Mui-focused",
-                                                          "formControl": "MuiInput-formControl",
-                                                          "fullWidth": "MuiInput-fullWidth",
-                                                          "input": "MuiInput-input",
-                                                          "inputMarginDense": "MuiInput-inputMarginDense",
-                                                          "inputMultiline": "MuiInput-inputMultiline",
-                                                          "inputTypeSearch": "MuiInput-inputTypeSearch",
-                                                          "marginDense": "MuiInput-marginDense",
-                                                          "multiline": "MuiInput-multiline",
-                                                          "root": "MuiInput-root MuiInput-underline",
-                                                          "underline": null,
-                                                        }
-                                                      }
-                                                      fullWidth={false}
-                                                      inputComponent="input"
-                                                      multiline={false}
                                                       name="valuation"
                                                       onBlur={[Function]}
                                                       onChange={[Function]}
@@ -5741,36 +5775,28 @@ exports[`EditUnit User navigates to EditUnit 1`] = `
                                                           />
                                                         </WithStyles(ForwardRef(InputAdornment))>
                                                       }
-                                                      type="text"
                                                       value=""
                                                     >
-                                                      <ForwardRef(InputBase)
+                                                      <ForwardRef(Input)
                                                         className="select-input input"
                                                         classes={
                                                           Object {
-                                                            "adornedEnd": "MuiInputBase-adornedEnd",
-                                                            "adornedStart": "MuiInputBase-adornedStart",
-                                                            "colorSecondary": "MuiInputBase-colorSecondary MuiInput-colorSecondary",
-                                                            "disabled": "Mui-disabled Mui-disabled",
-                                                            "error": "Mui-error Mui-error",
-                                                            "focused": "Mui-focused Mui-focused",
-                                                            "formControl": "MuiInputBase-formControl MuiInput-formControl",
-                                                            "fullWidth": "MuiInputBase-fullWidth MuiInput-fullWidth",
-                                                            "input": "MuiInputBase-input MuiInput-input",
-                                                            "inputAdornedEnd": "MuiInputBase-inputAdornedEnd",
-                                                            "inputAdornedStart": "MuiInputBase-inputAdornedStart",
-                                                            "inputHiddenLabel": "MuiInputBase-inputHiddenLabel",
-                                                            "inputMarginDense": "MuiInputBase-inputMarginDense MuiInput-inputMarginDense",
-                                                            "inputMultiline": "MuiInputBase-inputMultiline MuiInput-inputMultiline",
-                                                            "inputTypeSearch": "MuiInputBase-inputTypeSearch MuiInput-inputTypeSearch",
-                                                            "marginDense": "MuiInputBase-marginDense MuiInput-marginDense",
-                                                            "multiline": "MuiInputBase-multiline MuiInput-multiline",
-                                                            "root": "MuiInputBase-root MuiInput-root MuiInput-underline",
+                                                            "colorSecondary": "MuiInput-colorSecondary",
+                                                            "disabled": "Mui-disabled",
+                                                            "error": "Mui-error",
+                                                            "focused": "Mui-focused",
+                                                            "formControl": "MuiInput-formControl",
+                                                            "fullWidth": "MuiInput-fullWidth",
+                                                            "input": "MuiInput-input",
+                                                            "inputMarginDense": "MuiInput-inputMarginDense",
+                                                            "inputMultiline": "MuiInput-inputMultiline",
+                                                            "inputTypeSearch": "MuiInput-inputTypeSearch",
+                                                            "marginDense": "MuiInput-marginDense",
+                                                            "multiline": "MuiInput-multiline",
+                                                            "root": "MuiInput-root",
+                                                            "underline": "MuiInput-underline",
                                                           }
                                                         }
-                                                        fullWidth={false}
-                                                        inputComponent="input"
-                                                        multiline={false}
                                                         name="valuation"
                                                         onBlur={[Function]}
                                                         onChange={[Function]}
@@ -5789,32 +5815,86 @@ exports[`EditUnit User navigates to EditUnit 1`] = `
                                                             />
                                                           </WithStyles(ForwardRef(InputAdornment))>
                                                         }
-                                                        type="text"
                                                         value=""
                                                       >
-                                                        <div
-                                                          className="MuiInputBase-root MuiInput-root MuiInput-underline select-input input MuiInputBase-formControl MuiInput-formControl MuiInputBase-adornedStart"
-                                                          onClick={[Function]}
-                                                        >
-                                                          <WithStyles(ForwardRef(InputAdornment))
-                                                            position="start"
-                                                          >
-                                                            <ForwardRef(InputAdornment)
-                                                              classes={
-                                                                Object {
-                                                                  "disablePointerEvents": "MuiInputAdornment-disablePointerEvents",
-                                                                  "filled": "MuiInputAdornment-filled",
-                                                                  "hiddenLabel": "MuiInputAdornment-hiddenLabel",
-                                                                  "marginDense": "MuiInputAdornment-marginDense",
-                                                                  "positionEnd": "MuiInputAdornment-positionEnd",
-                                                                  "positionStart": "MuiInputAdornment-positionStart",
-                                                                  "root": "MuiInputAdornment-root",
-                                                                }
-                                                              }
+                                                        <WithStyles(ForwardRef(InputBase))
+                                                          className="select-input input"
+                                                          classes={
+                                                            Object {
+                                                              "colorSecondary": "MuiInput-colorSecondary",
+                                                              "disabled": "Mui-disabled",
+                                                              "error": "Mui-error",
+                                                              "focused": "Mui-focused",
+                                                              "formControl": "MuiInput-formControl",
+                                                              "fullWidth": "MuiInput-fullWidth",
+                                                              "input": "MuiInput-input",
+                                                              "inputMarginDense": "MuiInput-inputMarginDense",
+                                                              "inputMultiline": "MuiInput-inputMultiline",
+                                                              "inputTypeSearch": "MuiInput-inputTypeSearch",
+                                                              "marginDense": "MuiInput-marginDense",
+                                                              "multiline": "MuiInput-multiline",
+                                                              "root": "MuiInput-root MuiInput-underline",
+                                                              "underline": null,
+                                                            }
+                                                          }
+                                                          fullWidth={false}
+                                                          inputComponent="input"
+                                                          multiline={false}
+                                                          name="valuation"
+                                                          onBlur={[Function]}
+                                                          onChange={[Function]}
+                                                          placeholder=""
+                                                          startAdornment={
+                                                            <WithStyles(ForwardRef(InputAdornment))
                                                               position="start"
                                                             >
-                                                              <div
-                                                                className="MuiInputAdornment-root MuiInputAdornment-positionStart"
+                                                              <img
+                                                                alt=""
+                                                                src={
+                                                                  Object {
+                                                                    "testUri": "../../../packages/blocks/TaskAllocator/assets/valuation.png",
+                                                                  }
+                                                                }
+                                                              />
+                                                            </WithStyles(ForwardRef(InputAdornment))>
+                                                          }
+                                                          type="text"
+                                                          value=""
+                                                        >
+                                                          <ForwardRef(InputBase)
+                                                            className="select-input input"
+                                                            classes={
+                                                              Object {
+                                                                "adornedEnd": "MuiInputBase-adornedEnd",
+                                                                "adornedStart": "MuiInputBase-adornedStart",
+                                                                "colorSecondary": "MuiInputBase-colorSecondary MuiInput-colorSecondary",
+                                                                "disabled": "Mui-disabled Mui-disabled",
+                                                                "error": "Mui-error Mui-error",
+                                                                "focused": "Mui-focused Mui-focused",
+                                                                "formControl": "MuiInputBase-formControl MuiInput-formControl",
+                                                                "fullWidth": "MuiInputBase-fullWidth MuiInput-fullWidth",
+                                                                "input": "MuiInputBase-input MuiInput-input",
+                                                                "inputAdornedEnd": "MuiInputBase-inputAdornedEnd",
+                                                                "inputAdornedStart": "MuiInputBase-inputAdornedStart",
+                                                                "inputHiddenLabel": "MuiInputBase-inputHiddenLabel",
+                                                                "inputMarginDense": "MuiInputBase-inputMarginDense MuiInput-inputMarginDense",
+                                                                "inputMultiline": "MuiInputBase-inputMultiline MuiInput-inputMultiline",
+                                                                "inputTypeSearch": "MuiInputBase-inputTypeSearch MuiInput-inputTypeSearch",
+                                                                "marginDense": "MuiInputBase-marginDense MuiInput-marginDense",
+                                                                "multiline": "MuiInputBase-multiline MuiInput-multiline",
+                                                                "root": "MuiInputBase-root MuiInput-root MuiInput-underline",
+                                                              }
+                                                            }
+                                                            fullWidth={false}
+                                                            inputComponent="input"
+                                                            multiline={false}
+                                                            name="valuation"
+                                                            onBlur={[Function]}
+                                                            onChange={[Function]}
+                                                            placeholder=""
+                                                            startAdornment={
+                                                              <WithStyles(ForwardRef(InputAdornment))
+                                                                position="start"
                                                               >
                                                                 <img
                                                                   alt=""
@@ -5824,150 +5904,320 @@ exports[`EditUnit User navigates to EditUnit 1`] = `
                                                                     }
                                                                   }
                                                                 />
-                                                              </div>
-                                                            </ForwardRef(InputAdornment)>
-                                                          </WithStyles(ForwardRef(InputAdornment))>
-                                                          <input
-                                                            aria-invalid={false}
-                                                            className="MuiInputBase-input MuiInput-input MuiInputBase-inputAdornedStart"
-                                                            disabled={false}
-                                                            name="valuation"
-                                                            onAnimationStart={[Function]}
-                                                            onBlur={[Function]}
-                                                            onChange={[Function]}
-                                                            onFocus={[Function]}
-                                                            placeholder=""
-                                                            required={false}
+                                                              </WithStyles(ForwardRef(InputAdornment))>
+                                                            }
                                                             type="text"
                                                             value=""
-                                                          />
-                                                        </div>
-                                                      </ForwardRef(InputBase)>
-                                                    </WithStyles(ForwardRef(InputBase))>
-                                                  </ForwardRef(Input)>
-                                                </WithStyles(ForwardRef(Input))>
+                                                          >
+                                                            <div
+                                                              className="MuiInputBase-root MuiInput-root MuiInput-underline select-input input MuiInputBase-formControl MuiInput-formControl MuiInputBase-adornedStart"
+                                                              onClick={[Function]}
+                                                            >
+                                                              <WithStyles(ForwardRef(InputAdornment))
+                                                                position="start"
+                                                              >
+                                                                <ForwardRef(InputAdornment)
+                                                                  classes={
+                                                                    Object {
+                                                                      "disablePointerEvents": "MuiInputAdornment-disablePointerEvents",
+                                                                      "filled": "MuiInputAdornment-filled",
+                                                                      "hiddenLabel": "MuiInputAdornment-hiddenLabel",
+                                                                      "marginDense": "MuiInputAdornment-marginDense",
+                                                                      "positionEnd": "MuiInputAdornment-positionEnd",
+                                                                      "positionStart": "MuiInputAdornment-positionStart",
+                                                                      "root": "MuiInputAdornment-root",
+                                                                    }
+                                                                  }
+                                                                  position="start"
+                                                                >
+                                                                  <div
+                                                                    className="MuiInputAdornment-root MuiInputAdornment-positionStart"
+                                                                  >
+                                                                    <img
+                                                                      alt=""
+                                                                      src={
+                                                                        Object {
+                                                                          "testUri": "../../../packages/blocks/TaskAllocator/assets/valuation.png",
+                                                                        }
+                                                                      }
+                                                                    />
+                                                                  </div>
+                                                                </ForwardRef(InputAdornment)>
+                                                              </WithStyles(ForwardRef(InputAdornment))>
+                                                              <input
+                                                                aria-invalid={false}
+                                                                className="MuiInputBase-input MuiInput-input MuiInputBase-inputAdornedStart"
+                                                                disabled={false}
+                                                                name="valuation"
+                                                                onAnimationStart={[Function]}
+                                                                onBlur={[Function]}
+                                                                onChange={[Function]}
+                                                                onFocus={[Function]}
+                                                                placeholder=""
+                                                                required={false}
+                                                                type="text"
+                                                                value=""
+                                                              />
+                                                            </div>
+                                                          </ForwardRef(InputBase)>
+                                                        </WithStyles(ForwardRef(InputBase))>
+                                                      </ForwardRef(Input)>
+                                                    </WithStyles(ForwardRef(Input))>
+                                                    <Styled(MuiBox)
+                                                      className="unit-box-value"
+                                                    >
+                                                      <div
+                                                        className="MuiBox-root MuiBox-root-21 unit-box-value"
+                                                      />
+                                                    </Styled(MuiBox)>
+                                                  </div>
+                                                </Styled(MuiBox)>
                                               </div>
                                             </ForwardRef(FormControl)>
                                           </WithStyles(ForwardRef(FormControl))>
-                                          <div
-                                            className="next-button"
+                                          <Styled(MuiBox)
+                                            className="next-button edit-submit-button"
                                           >
-                                            <WithStyles(ForwardRef(Button))
-                                              type="submit"
+                                            <div
+                                              className="MuiBox-root MuiBox-root-22 next-button edit-submit-button"
                                             >
-                                              <ForwardRef(Button)
-                                                classes={
-                                                  Object {
-                                                    "colorInherit": "MuiButton-colorInherit",
-                                                    "contained": "MuiButton-contained",
-                                                    "containedPrimary": "MuiButton-containedPrimary",
-                                                    "containedSecondary": "MuiButton-containedSecondary",
-                                                    "containedSizeLarge": "MuiButton-containedSizeLarge",
-                                                    "containedSizeSmall": "MuiButton-containedSizeSmall",
-                                                    "disableElevation": "MuiButton-disableElevation",
-                                                    "disabled": "Mui-disabled",
-                                                    "endIcon": "MuiButton-endIcon",
-                                                    "focusVisible": "Mui-focusVisible",
-                                                    "fullWidth": "MuiButton-fullWidth",
-                                                    "iconSizeLarge": "MuiButton-iconSizeLarge",
-                                                    "iconSizeMedium": "MuiButton-iconSizeMedium",
-                                                    "iconSizeSmall": "MuiButton-iconSizeSmall",
-                                                    "label": "MuiButton-label",
-                                                    "outlined": "MuiButton-outlined",
-                                                    "outlinedPrimary": "MuiButton-outlinedPrimary",
-                                                    "outlinedSecondary": "MuiButton-outlinedSecondary",
-                                                    "outlinedSizeLarge": "MuiButton-outlinedSizeLarge",
-                                                    "outlinedSizeSmall": "MuiButton-outlinedSizeSmall",
-                                                    "root": "MuiButton-root",
-                                                    "sizeLarge": "MuiButton-sizeLarge",
-                                                    "sizeSmall": "MuiButton-sizeSmall",
-                                                    "startIcon": "MuiButton-startIcon",
-                                                    "text": "MuiButton-text",
-                                                    "textPrimary": "MuiButton-textPrimary",
-                                                    "textSecondary": "MuiButton-textSecondary",
-                                                    "textSizeLarge": "MuiButton-textSizeLarge",
-                                                    "textSizeSmall": "MuiButton-textSizeSmall",
+                                              <WithStyles(ForwardRef(Button))
+                                                className="cancel"
+                                                onClick={[Function]}
+                                              >
+                                                <ForwardRef(Button)
+                                                  className="cancel"
+                                                  classes={
+                                                    Object {
+                                                      "colorInherit": "MuiButton-colorInherit",
+                                                      "contained": "MuiButton-contained",
+                                                      "containedPrimary": "MuiButton-containedPrimary",
+                                                      "containedSecondary": "MuiButton-containedSecondary",
+                                                      "containedSizeLarge": "MuiButton-containedSizeLarge",
+                                                      "containedSizeSmall": "MuiButton-containedSizeSmall",
+                                                      "disableElevation": "MuiButton-disableElevation",
+                                                      "disabled": "Mui-disabled",
+                                                      "endIcon": "MuiButton-endIcon",
+                                                      "focusVisible": "Mui-focusVisible",
+                                                      "fullWidth": "MuiButton-fullWidth",
+                                                      "iconSizeLarge": "MuiButton-iconSizeLarge",
+                                                      "iconSizeMedium": "MuiButton-iconSizeMedium",
+                                                      "iconSizeSmall": "MuiButton-iconSizeSmall",
+                                                      "label": "MuiButton-label",
+                                                      "outlined": "MuiButton-outlined",
+                                                      "outlinedPrimary": "MuiButton-outlinedPrimary",
+                                                      "outlinedSecondary": "MuiButton-outlinedSecondary",
+                                                      "outlinedSizeLarge": "MuiButton-outlinedSizeLarge",
+                                                      "outlinedSizeSmall": "MuiButton-outlinedSizeSmall",
+                                                      "root": "MuiButton-root",
+                                                      "sizeLarge": "MuiButton-sizeLarge",
+                                                      "sizeSmall": "MuiButton-sizeSmall",
+                                                      "startIcon": "MuiButton-startIcon",
+                                                      "text": "MuiButton-text",
+                                                      "textPrimary": "MuiButton-textPrimary",
+                                                      "textSecondary": "MuiButton-textSecondary",
+                                                      "textSizeLarge": "MuiButton-textSizeLarge",
+                                                      "textSizeSmall": "MuiButton-textSizeSmall",
+                                                    }
                                                   }
-                                                }
+                                                  onClick={[Function]}
+                                                >
+                                                  <WithStyles(ForwardRef(ButtonBase))
+                                                    className="MuiButton-root MuiButton-text cancel"
+                                                    component="button"
+                                                    disabled={false}
+                                                    focusRipple={true}
+                                                    focusVisibleClassName="Mui-focusVisible"
+                                                    onClick={[Function]}
+                                                    type="button"
+                                                  >
+                                                    <ForwardRef(ButtonBase)
+                                                      className="MuiButton-root MuiButton-text cancel"
+                                                      classes={
+                                                        Object {
+                                                          "disabled": "Mui-disabled",
+                                                          "focusVisible": "Mui-focusVisible",
+                                                          "root": "MuiButtonBase-root",
+                                                        }
+                                                      }
+                                                      component="button"
+                                                      disabled={false}
+                                                      focusRipple={true}
+                                                      focusVisibleClassName="Mui-focusVisible"
+                                                      onClick={[Function]}
+                                                      type="button"
+                                                    >
+                                                      <button
+                                                        className="MuiButtonBase-root MuiButton-root MuiButton-text cancel"
+                                                        disabled={false}
+                                                        onBlur={[Function]}
+                                                        onClick={[Function]}
+                                                        onDragLeave={[Function]}
+                                                        onFocus={[Function]}
+                                                        onKeyDown={[Function]}
+                                                        onKeyUp={[Function]}
+                                                        onMouseDown={[Function]}
+                                                        onMouseLeave={[Function]}
+                                                        onMouseUp={[Function]}
+                                                        onTouchEnd={[Function]}
+                                                        onTouchMove={[Function]}
+                                                        onTouchStart={[Function]}
+                                                        tabIndex={0}
+                                                        type="button"
+                                                      >
+                                                        <span
+                                                          className="MuiButton-label"
+                                                        />
+                                                        <WithStyles(memo)
+                                                          center={false}
+                                                        >
+                                                          <ForwardRef(TouchRipple)
+                                                            center={false}
+                                                            classes={
+                                                              Object {
+                                                                "child": "MuiTouchRipple-child",
+                                                                "childLeaving": "MuiTouchRipple-childLeaving",
+                                                                "childPulsate": "MuiTouchRipple-childPulsate",
+                                                                "ripple": "MuiTouchRipple-ripple",
+                                                                "ripplePulsate": "MuiTouchRipple-ripplePulsate",
+                                                                "rippleVisible": "MuiTouchRipple-rippleVisible",
+                                                                "root": "MuiTouchRipple-root",
+                                                              }
+                                                            }
+                                                          >
+                                                            <span
+                                                              className="MuiTouchRipple-root"
+                                                            >
+                                                              <TransitionGroup
+                                                                childFactory={[Function]}
+                                                                component={null}
+                                                                exit={true}
+                                                              />
+                                                            </span>
+                                                          </ForwardRef(TouchRipple)>
+                                                        </WithStyles(memo)>
+                                                      </button>
+                                                    </ForwardRef(ButtonBase)>
+                                                  </WithStyles(ForwardRef(ButtonBase))>
+                                                </ForwardRef(Button)>
+                                              </WithStyles(ForwardRef(Button))>
+                                              <WithStyles(ForwardRef(Button))
                                                 type="submit"
                                               >
-                                                <WithStyles(ForwardRef(ButtonBase))
-                                                  className="MuiButton-root MuiButton-text"
-                                                  component="button"
-                                                  disabled={false}
-                                                  focusRipple={true}
-                                                  focusVisibleClassName="Mui-focusVisible"
+                                                <ForwardRef(Button)
+                                                  classes={
+                                                    Object {
+                                                      "colorInherit": "MuiButton-colorInherit",
+                                                      "contained": "MuiButton-contained",
+                                                      "containedPrimary": "MuiButton-containedPrimary",
+                                                      "containedSecondary": "MuiButton-containedSecondary",
+                                                      "containedSizeLarge": "MuiButton-containedSizeLarge",
+                                                      "containedSizeSmall": "MuiButton-containedSizeSmall",
+                                                      "disableElevation": "MuiButton-disableElevation",
+                                                      "disabled": "Mui-disabled",
+                                                      "endIcon": "MuiButton-endIcon",
+                                                      "focusVisible": "Mui-focusVisible",
+                                                      "fullWidth": "MuiButton-fullWidth",
+                                                      "iconSizeLarge": "MuiButton-iconSizeLarge",
+                                                      "iconSizeMedium": "MuiButton-iconSizeMedium",
+                                                      "iconSizeSmall": "MuiButton-iconSizeSmall",
+                                                      "label": "MuiButton-label",
+                                                      "outlined": "MuiButton-outlined",
+                                                      "outlinedPrimary": "MuiButton-outlinedPrimary",
+                                                      "outlinedSecondary": "MuiButton-outlinedSecondary",
+                                                      "outlinedSizeLarge": "MuiButton-outlinedSizeLarge",
+                                                      "outlinedSizeSmall": "MuiButton-outlinedSizeSmall",
+                                                      "root": "MuiButton-root",
+                                                      "sizeLarge": "MuiButton-sizeLarge",
+                                                      "sizeSmall": "MuiButton-sizeSmall",
+                                                      "startIcon": "MuiButton-startIcon",
+                                                      "text": "MuiButton-text",
+                                                      "textPrimary": "MuiButton-textPrimary",
+                                                      "textSecondary": "MuiButton-textSecondary",
+                                                      "textSizeLarge": "MuiButton-textSizeLarge",
+                                                      "textSizeSmall": "MuiButton-textSizeSmall",
+                                                    }
+                                                  }
                                                   type="submit"
                                                 >
-                                                  <ForwardRef(ButtonBase)
+                                                  <WithStyles(ForwardRef(ButtonBase))
                                                     className="MuiButton-root MuiButton-text"
-                                                    classes={
-                                                      Object {
-                                                        "disabled": "Mui-disabled",
-                                                        "focusVisible": "Mui-focusVisible",
-                                                        "root": "MuiButtonBase-root",
-                                                      }
-                                                    }
                                                     component="button"
                                                     disabled={false}
                                                     focusRipple={true}
                                                     focusVisibleClassName="Mui-focusVisible"
                                                     type="submit"
                                                   >
-                                                    <button
-                                                      className="MuiButtonBase-root MuiButton-root MuiButton-text"
+                                                    <ForwardRef(ButtonBase)
+                                                      className="MuiButton-root MuiButton-text"
+                                                      classes={
+                                                        Object {
+                                                          "disabled": "Mui-disabled",
+                                                          "focusVisible": "Mui-focusVisible",
+                                                          "root": "MuiButtonBase-root",
+                                                        }
+                                                      }
+                                                      component="button"
                                                       disabled={false}
-                                                      onBlur={[Function]}
-                                                      onDragLeave={[Function]}
-                                                      onFocus={[Function]}
-                                                      onKeyDown={[Function]}
-                                                      onKeyUp={[Function]}
-                                                      onMouseDown={[Function]}
-                                                      onMouseLeave={[Function]}
-                                                      onMouseUp={[Function]}
-                                                      onTouchEnd={[Function]}
-                                                      onTouchMove={[Function]}
-                                                      onTouchStart={[Function]}
-                                                      tabIndex={0}
+                                                      focusRipple={true}
+                                                      focusVisibleClassName="Mui-focusVisible"
                                                       type="submit"
                                                     >
-                                                      <span
-                                                        className="MuiButton-label"
-                                                      />
-                                                      <WithStyles(memo)
-                                                        center={false}
+                                                      <button
+                                                        className="MuiButtonBase-root MuiButton-root MuiButton-text"
+                                                        disabled={false}
+                                                        onBlur={[Function]}
+                                                        onDragLeave={[Function]}
+                                                        onFocus={[Function]}
+                                                        onKeyDown={[Function]}
+                                                        onKeyUp={[Function]}
+                                                        onMouseDown={[Function]}
+                                                        onMouseLeave={[Function]}
+                                                        onMouseUp={[Function]}
+                                                        onTouchEnd={[Function]}
+                                                        onTouchMove={[Function]}
+                                                        onTouchStart={[Function]}
+                                                        tabIndex={0}
+                                                        type="submit"
                                                       >
-                                                        <ForwardRef(TouchRipple)
+                                                        <span
+                                                          className="MuiButton-label"
+                                                        />
+                                                        <WithStyles(memo)
                                                           center={false}
-                                                          classes={
-                                                            Object {
-                                                              "child": "MuiTouchRipple-child",
-                                                              "childLeaving": "MuiTouchRipple-childLeaving",
-                                                              "childPulsate": "MuiTouchRipple-childPulsate",
-                                                              "ripple": "MuiTouchRipple-ripple",
-                                                              "ripplePulsate": "MuiTouchRipple-ripplePulsate",
-                                                              "rippleVisible": "MuiTouchRipple-rippleVisible",
-                                                              "root": "MuiTouchRipple-root",
-                                                            }
-                                                          }
                                                         >
-                                                          <span
-                                                            className="MuiTouchRipple-root"
+                                                          <ForwardRef(TouchRipple)
+                                                            center={false}
+                                                            classes={
+                                                              Object {
+                                                                "child": "MuiTouchRipple-child",
+                                                                "childLeaving": "MuiTouchRipple-childLeaving",
+                                                                "childPulsate": "MuiTouchRipple-childPulsate",
+                                                                "ripple": "MuiTouchRipple-ripple",
+                                                                "ripplePulsate": "MuiTouchRipple-ripplePulsate",
+                                                                "rippleVisible": "MuiTouchRipple-rippleVisible",
+                                                                "root": "MuiTouchRipple-root",
+                                                              }
+                                                            }
                                                           >
-                                                            <TransitionGroup
-                                                              childFactory={[Function]}
-                                                              component={null}
-                                                              exit={true}
-                                                            />
-                                                          </span>
-                                                        </ForwardRef(TouchRipple)>
-                                                      </WithStyles(memo)>
-                                                    </button>
-                                                  </ForwardRef(ButtonBase)>
-                                                </WithStyles(ForwardRef(ButtonBase))>
-                                              </ForwardRef(Button)>
-                                            </WithStyles(ForwardRef(Button))>
-                                          </div>
+                                                            <span
+                                                              className="MuiTouchRipple-root"
+                                                            >
+                                                              <TransitionGroup
+                                                                childFactory={[Function]}
+                                                                component={null}
+                                                                exit={true}
+                                                              />
+                                                            </span>
+                                                          </ForwardRef(TouchRipple)>
+                                                        </WithStyles(memo)>
+                                                      </button>
+                                                    </ForwardRef(ButtonBase)>
+                                                  </WithStyles(ForwardRef(ButtonBase))>
+                                                </ForwardRef(Button)>
+                                              </WithStyles(ForwardRef(Button))>
+                                            </div>
+                                          </Styled(MuiBox)>
                                         </div>
                                       </Styled(MuiBox)>
                                     </form>
@@ -6113,7 +6363,7 @@ exports[`EditUnit User navigates to EditUnit 1`] = `
                     }
                   >
                     <div
-                      className="MuiBox-root MuiBox-root-14 right-block right-image"
+                      className="MuiBox-root MuiBox-root-23 right-block right-image"
                     >
                       <img
                         alt=""

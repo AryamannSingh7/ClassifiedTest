@@ -36,6 +36,9 @@ interface S {
   rentAmount:any;
   partialPaidAmount:any;
   currency:any;
+  amountError:any;
+  showError:boolean;
+  error:any;
 }
 
 interface SS {
@@ -83,6 +86,9 @@ export default class RegisterRentPaymentController extends BlockComponent<
       rentAmount:"",
       partialPaidAmount:"",
       currency:"",
+      amountError:"",
+      showError:false,
+      error:"",
     };
 
     this.emailReg = new RegExp("");
@@ -127,7 +133,7 @@ export default class RegisterRentPaymentController extends BlockComponent<
         if(responseJson.hasOwnProperty("data")){
           this.setState({
             tenantName:responseJson.data?.attributes?.tenant_name,
-            rentAmount:responseJson.data?.attributes?.amount,
+            rentAmount:responseJson.data?.attributes?.rent_amount,
             partialPaidAmount:responseJson?.data?.attributes?.partial_payment,
             currency:responseJson.data?.attributes.currency,
           })
@@ -136,6 +142,10 @@ export default class RegisterRentPaymentController extends BlockComponent<
     }
   }
 
+  amountFormatConvert = (amount:any) => {
+    const amt = amount?.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")
+    return amt
+  }
   rentBuildingList = (responseJson:any) => {
     if(responseJson.hasOwnProperty("data")){
       this.setState({
@@ -146,8 +156,14 @@ export default class RegisterRentPaymentController extends BlockComponent<
   registerPaymentResponse = (responseJson:any) => {
     if(responseJson.hasOwnProperty("data")){
       window.history.back()
+    }else{
+      this.setState({
+        error:"Something went wrong"
+      })
+      this.showError()
     }
   }
+
   getAmountDue = async () => {
     if(this.state.selectedUnit && this.state.selectedBuilding && this.state.selectedMonth){
       this.getRentDueAmountId = await this.apiCall({
@@ -185,16 +201,22 @@ export default class RegisterRentPaymentController extends BlockComponent<
         building_management_id:this.state.selectedBuilding,
         apartment_management_id:this.state.selectedUnit
       }
+      this.registerPayment(create)
     }else {
-      create = {
-        month:this.state.selectedMonth,
-        building_management_id:this.state.selectedBuilding,
-        apartment_management_id:this.state.selectedUnit,
-        partial_payment:this.state.partialPaymentAmount
+      if(this.state.rentAmount >= this.state.partialPaymentAmount){
+        create = {
+          month:this.state.selectedMonth,
+          building_management_id:this.state.selectedBuilding,
+          apartment_management_id:this.state.selectedUnit,
+          partial_payment:this.state.partialPaymentAmount
+        }
+        this.registerPayment(create)
+      }else{
+        this.setState({
+            amountError:"Amount should not greater then rent amount"
+        })
       }
     }
-    this.registerPayment(create)
-
   }
 
   registerPayment = async (body:any) => {
@@ -223,6 +245,14 @@ export default class RegisterRentPaymentController extends BlockComponent<
     runEngine.sendMessage(requestMessage.id, requestMessage);
     return requestMessage.messageId;
   };
+
+  showError = () => {
+    if(this.state.error){
+      this.setState({
+        showError:true
+      })
+    }
+  }
 }
 
 // Customizable Area End
