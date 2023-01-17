@@ -5,7 +5,7 @@ import { componentProps } from "../../../../components/src/TestCase/ComponentPro
 import { NotificationStyle } from "../../src/NotificationStyle.web";
 import { BrowserRouter } from "react-router-dom";
 import OwnerNotificationWeb from "../../src/OwnerNotification.web";
-import { Button, Checkbox, Dialog, IconButton } from "@material-ui/core";
+import { Button, Checkbox, IconButton } from "@material-ui/core";
 import { Message } from "../../../../framework/src/Message";
 import MessageEnum, { getName } from "../../../../framework/src/Messages/MessageEnum";
 import { runEngine } from "../../../../framework/src/RunEngine";

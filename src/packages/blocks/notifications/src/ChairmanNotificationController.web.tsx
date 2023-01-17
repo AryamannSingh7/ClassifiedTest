@@ -70,12 +70,7 @@ export default class ChairmanNotificationController extends BlockComponent<Props
             }
           });
           break;
-        case this.DeleteNotificationCallId:
-          this.setState({ loading: false }, () => {
-            this.getAllChairmanNotification(false);
-          });
-          break;
-        case this.UpdateReadStatusCallId:
+        case this.DeleteNotificationCallId || this.UpdateReadStatusCallId:
           this.setState({ loading: false }, () => {
             this.getAllChairmanNotification(false);
           });
