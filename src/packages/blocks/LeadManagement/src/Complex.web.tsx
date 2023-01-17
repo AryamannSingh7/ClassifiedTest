@@ -114,7 +114,7 @@ class Complex extends ComplexController {
           <Box style={{ display: "flex" }}>
             <Grid item xs={3} md={3} sm={3} className="SideBar">
               {/* Chairman Sidebar -- */}
-              {userType === "Visitors" ? <VisitorsSidebar {...this.props} /> : <ChairmanSidebar {...this.props} />}
+              {userType === "Security" ? <VisitorsSidebar {...this.props} /> : <ChairmanSidebar {...this.props} />}
             </Grid>
             <Grid xs={9} md={9} sm={9} spacing={4} style={{ paddingTop: 35 }}>
               <Container>
@@ -136,7 +136,7 @@ class Complex extends ComplexController {
                         {t("Complex")}
                       </Typography>
                     </Grid>
-                    {userType === "Visitors" ? null : (
+                    {userType === "Security" ? null : (
                       <Grid item xs={12} sm={2}>
                         <Button
                           className="edit-button"

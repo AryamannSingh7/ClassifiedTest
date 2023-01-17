@@ -56,7 +56,7 @@ class FaqChairman extends FaqChairmanController {
           <Box style={{ display: "flex" }}>
             <Grid item xs={3} md={3} sm={3} className="SideBar">
               {/* Chairman Sidebar -- */}
-              {  userType === "Visitors" ? 
+              {  userType === "Security" ? 
                             <VisitorsSidebar {...this.props} />
                             :
                             <ChairmanSidebarWeb {...this.props} /> 
@@ -110,7 +110,7 @@ class FaqChairman extends FaqChairmanController {
                     })}
                   </Box>
                   {
-                     userType === "Visitors"  ? null
+                     userType === "Security"  ? null
                      :
                      <Button
                        startIcon={<AddIcon />}
@@ -146,7 +146,7 @@ class FaqChairman extends FaqChairmanController {
                             >
                               {faq.title}
                             </Typography>
-                            {userType === "Visitors" ? 
+                            {userType === "Security" ? 
                             null
                             :
                             <Box className="icons">
@@ -173,7 +173,7 @@ class FaqChairman extends FaqChairmanController {
                 </Box>
                 <Box className="bottom-buttons">
                   {
-                  userType === "Visitors" ? 
+                  userType === "Security" ? 
                   null
                   :
                   this.state.selectedCategoryName ? (
@@ -188,7 +188,7 @@ class FaqChairman extends FaqChairmanController {
                     <div />
                   )}
                   {
-                     userType === "Visitors" ? 
+                     userType === "Security" ? 
                      null
                      :
                      <Button
