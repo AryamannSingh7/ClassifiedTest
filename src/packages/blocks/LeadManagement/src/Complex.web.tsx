@@ -666,37 +666,9 @@ class Complex extends ComplexController {
             }}
           </Formik>
         </Dialog>
-
-        <Dialog
-          className="edit-profile chairman-map-modal"
-          open={this.state.isOpenMapModalOpen}
-          scroll="paper"
-          fullWidth
-          maxWidth="sm"
-        >
-          <MuiDialogTitle disableTypography className="dialog-heading">
-            <Typography variant="h6">{t("Location")}</Typography>
-            <IconButton onClick={() => this.handleMapModal()}>
-              <CloseIcon />
-            </IconButton>
-          </MuiDialogTitle>
-          {this.state.complexData.lat && this.state.complexData.long ? (
-            <Box className="google-map-box">
-              <GoogleMapReact
-                bootstrapURLKeys={{ key: "AIzaSyA1NvS9-cKp1dl_kMQDVFr4Gmbnv97MTtk" }}
-                defaultCenter={{
-                  lat: this.state.complexData.lat,
-                  lng: this.state.complexData.long,
-                }}
-                defaultZoom={15}
-              >
-                <LocationPin lat={this.state.complexData.lat} lng={this.state.complexData.long} />
-              </GoogleMapReact>
-            </Box>
-          ) : (
-            <Box className="no-google-map-box">{t("No Location Available")}</Box>
-          )}
-        </Dialog>
+        
+        <MapDialog this={this}></MapDialog>
+     
       </>
     );
   }
@@ -704,6 +676,44 @@ class Complex extends ComplexController {
 
 //@ts-ignore
 export default withTranslation()(withStyles(BuildingApartmentStyle)(Complex));
+
+const MapDialog = (props:any) => {
+  const { t } : any = props.this.props;
+  return(
+ <>
+    <Dialog
+          className="edit-profile chairman-map-modal"
+          open={props.this.state.isOpenMapModalOpen}
+          scroll="paper"
+          fullWidth
+          maxWidth="sm"
+        >
+          <MuiDialogTitle disableTypography className="dialog-heading">
+            <Typography variant="h6">{t("Location")}</Typography>
+            <IconButton onClick={() => props.this.handleMapModal()}>
+              <CloseIcon />
+            </IconButton>
+          </MuiDialogTitle>
+          {props.this.state.complexData.lat && props.this.state.complexData.long ? (
+            <Box className="google-map-box">
+              <GoogleMapReact
+                bootstrapURLKeys={{ key: "AIzaSyA1NvS9-cKp1dl_kMQDVFr4Gmbnv97MTtk" }}
+                defaultCenter={{
+                  lat: props.this.state.complexData.lat,
+                  lng: props.this.state.complexData.long,
+                }}
+                defaultZoom={15}
+              >
+                <LocationPin lat={props.this.state.complexData.lat} lng={props.this.state.complexData.long} />
+              </GoogleMapReact>
+            </Box>
+          ) : (
+            <Box className="no-google-map-box">{t("No Location Available")}</Box>
+          )}
+        </Dialog>
+ </>
+  )
+}
 
 const Sidebar = (props:any) => {
   const userType =props?.userType;
