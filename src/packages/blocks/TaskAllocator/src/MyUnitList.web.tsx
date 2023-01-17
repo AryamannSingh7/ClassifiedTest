@@ -78,13 +78,13 @@ class MyUnitList extends MyUnitListController {
                         </IconButton>
                       }
                     >
-                      <MenuItem onClick={() => this.setState({ filter: { status: "", unitType: "Rented" } })}>
+                      <MenuItem onClick={() => this.setState({ filter: { status: "rented" } })}>
                         {t("Rented")}
                       </MenuItem>
-                      <MenuItem onClick={() => this.setState({ filter: { unitType: "", status: "Empty" } })}>
+                      <MenuItem onClick={() => this.setState({ filter: { status: "Empty" } })}>
                         {t("Vacant")}
                       </MenuItem>
-                      <MenuItem onClick={() => this.setState({ filter: { unitType: "", status: "" } })}>
+                      <MenuItem onClick={() => this.setState({ filter: { status: "" } })}>
                         {t("All")}
                       </MenuItem>
                     </Menu>
@@ -106,9 +106,8 @@ class MyUnitList extends MyUnitListController {
                                         <h4>{unit.attributes.society_management.name}</h4>
                                       </Link>
                                       <div
-                                        className={`right-menu ${
-                                          unit.attributes.request.status === "Accepted" ? "" : "pending"
-                                        }`}
+                                        className={`right-menu ${unit.attributes.request.status === "Accepted" ? "" : "pending"
+                                          }`}
                                       >
                                         <Menu
                                           menuButton={
