@@ -92,7 +92,7 @@ class Complex extends ComplexController {
   render() {
     const { t, classes }: any = this.props;
 
-    const userType = localStorage.getItem("selectUserType");
+    const userType = localStorage.getItem("userType");
 
     let searchData = this.state.complexData.buildingList.filter((building: any) => {
       if (
