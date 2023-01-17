@@ -12,7 +12,6 @@ import {
   DialogContent,
   Grid,
   IconButton,
-  Link,
   Typography,
   withStyles,
 } from "@material-ui/core";
@@ -24,6 +23,7 @@ import { NotificationStyle } from "./NotificationStyle.web";
 import Loader from "../../../components/src/Loader.web";
 import moment from "moment";
 import { toast } from "react-hot-toast";
+import { Menu, MenuItem } from "@szhsin/react-menu";
 
 class OwnerNotification extends OwnerNotificationController {
   constructor(props: Props) {
@@ -79,7 +79,11 @@ class OwnerNotification extends OwnerNotificationController {
                       </>
                     ) : (
                       <>
-                        <img src={FilterIcon} alt="" />
+                        <Box>
+                          <Menu menuButton={<img src={FilterIcon} alt="" />}>
+                            <MenuItem>{t("Mark as read")}</MenuItem>
+                          </Menu>
+                        </Box>
                         <img src={DeleteRentIcon} alt="" onClick={() => this.setState({ isDeleteOpen: true })} />
                       </>
                     )}
