@@ -442,7 +442,8 @@ const dashBoard = {
   },
   backColor:{
    backgroundColor: "#2D6EED",
-   padding:"9px 16px"
+   padding:"9px 16px",
+   color:'white'
   },
   boxStyling:{
     display:"flex",

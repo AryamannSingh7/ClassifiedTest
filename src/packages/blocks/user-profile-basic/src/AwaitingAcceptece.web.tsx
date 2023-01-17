@@ -133,7 +133,7 @@ class AwaitingAcceptece extends CommunityUserProfileController {
 
                 <Box style={dashBoard.boxStyling}>
                 <Grid container  xs={6} md={6} sm={6} spacing={2}>
-                    <Grid item xs={4}>
+                    <Grid item xs={3}>
                         <FormControl style={dashBoard.YearMain} className='yearTab'>
                           <NativeSelect className='yearSelection'
                             // value={this.state.Year}
@@ -151,7 +151,7 @@ class AwaitingAcceptece extends CommunityUserProfileController {
                           </NativeSelect>
                       </FormControl>
                       </Grid>
-                      <Grid item xs={4}>
+                      <Grid item xs={3}>
                         <FormControl style={dashBoard.YearMain} className='yearTab'>
                           <NativeSelect className='yearSelection'
                             // value={this.state.Year}
@@ -167,7 +167,7 @@ class AwaitingAcceptece extends CommunityUserProfileController {
                           </NativeSelect>
                       </FormControl>
                       </Grid>
-                      <Grid item xs={4}>
+                      <Grid item xs={3}>
                         <FormControl style={dashBoard.YearMain} className='yearTab'>
                           <NativeSelect className='yearSelection'
                           name='selectedUserType'
@@ -182,7 +182,7 @@ class AwaitingAcceptece extends CommunityUserProfileController {
                           </NativeSelect>
                       </FormControl>
                       </Grid>
-                      <Grid item xs={4}>
+                      <Grid item xs={3}>
                         <Button variant="contained" onClick={this.getInvitation} style={dashBoard.backColor}><InputAdornment position="start">
                                 <SearchIcon />
                               </InputAdornment>{t("Search")}</Button>
@@ -478,7 +478,7 @@ class AwaitingAcceptece extends CommunityUserProfileController {
                 CLOSE
               </Button>
               <Button variant="contained" type="submit" style={{background:'#5000f4', border: '1px solid #5000f4',borderRadius:5,width:'9rem',height:'3rem',color:'white'}}   >
-                CONFRIM
+              send invitation
               </Button>
                               </Grid>
                             </Grid>
@@ -524,7 +524,8 @@ const dashBoard = {
   },
   backColor:{
    backgroundColor: "#2D6EED",
-   padding:"9px 16px"
+   padding:"9px 16px",
+   color:'white'
   },
   boxStyling:{
     display:"flex",
