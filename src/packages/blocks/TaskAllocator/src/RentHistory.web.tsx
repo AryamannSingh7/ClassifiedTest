@@ -113,7 +113,7 @@ class RentHistory extends RentHistoryController {
                                 {(history.attributes.currency &&
                                   this.validationText(history.attributes.currency.currency)) +
                                   " " +
-                                  this.validationText(history.attributes.rent_amount)}
+                                  Number(this.validationText(history.attributes.rent_amount)).toLocaleString()}
                               </span>
                             </Box>
                             <Box className="info">
@@ -122,7 +122,7 @@ class RentHistory extends RentHistoryController {
                                 {(history.attributes.currency &&
                                   this.validationText(history.attributes.currency.currency)) +
                                   " " +
-                                  this.validationText(history.attributes.received_amount)}
+                                  Number(this.validationText(history.attributes.received_amount)).toLocaleString()}
                               </span>
                             </Box>
                           </Box>

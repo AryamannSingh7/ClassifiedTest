@@ -14,7 +14,15 @@ import {
   DialogActions,
   Button,
 } from "@material-ui/core";
-import { ProfileIcon, LogoutIcon, buildingLogo, chairmanUser, globalIcon, notification, LogoutDialogIcon } from "./assets";
+import {
+  ProfileIcon,
+  LogoutIcon,
+  buildingLogo,
+  chairmanUser,
+  globalIcon,
+  notification,
+  LogoutDialogIcon,
+} from "./assets";
 import { Menu } from "@szhsin/react-menu";
 import "@szhsin/react-menu/dist/core.css";
 import KeyboardArrowDownIcon from "@material-ui/icons/KeyboardArrowDown";
@@ -83,15 +91,9 @@ class DashboardHeader extends DashboardController {
                   </MenuItem>
                 </Menu>
               </Box>
-              {localStorage.getItem("userType") === "Chairman" ? (
-                <Link href="/ChairmanNotification">
-                  <img src={notification} alt="GlobalIcon" style={{ marginLeft: "10px" }} />
-                </Link>
-              ) : (
-                <Link>
-                  <img src={notification} alt="GlobalIcon" style={{ marginLeft: "10px" }} />
-                </Link>
-              )}
+              <Link href="/AdminNotification">
+                <img src={notification} alt="GlobalIcon" style={{ marginLeft: "10px" }} />
+              </Link>
             </div>
 
             <Box style={dashBoard.HeaderSecRtBox}>
