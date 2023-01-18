@@ -21,6 +21,7 @@ export const TotalExpenseStyle: any = {
     },
     "& .top-bar .left-icon span": {
       lineHeight: "18px",
+      fontSize: "18px",
     },
     "& .top-bar .right-icon": {
       display: "flex",
@@ -98,17 +99,25 @@ export const TotalExpenseStyle: any = {
           display: "flex",
           alignItems: "center",
           gap: "15px",
+          "& h4": {
+            fontSize: "16px",
+            fontWeight: "600",
+          },
           "& .image-box": {
             borderRadius: "50%",
             padding: "20px",
             border: "1px solid #f0f0f0",
           },
           "& .content-box": {
-            gap: "5px",
+            gap: "10px",
             display: "flex",
             flexDirection: "column",
             "& .amount": {
               color: "#FC8434",
+            },
+            "& h4": {
+              fontSize: "16px",
+              fontWeight: "600",
             },
           },
         },
@@ -126,6 +135,10 @@ export const TotalExpenseStyle: any = {
           },
           "& p": {
             marginBottom: "5px",
+          },
+          "& h4": {
+            fontSize: "16px",
+            fontWeight: "600",
           },
         },
       },
@@ -199,7 +212,6 @@ export const TotalExpenseStyle: any = {
       alignItems: "center",
       flexDirection: "column",
       marginBottom: "20px",
-      width: "40%",
       textAlign: "center",
     },
     "& .big-box .content-box .center-content": {

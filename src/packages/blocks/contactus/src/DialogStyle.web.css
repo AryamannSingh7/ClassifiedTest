@@ -1289,3 +1289,38 @@
 .edit-unit-modal-config .select-input .MuiSelect-root {
   background: #f9f9f9;
 }
+
+.lease-expiration-modal h6 {
+  font-weight: 600;
+  margin-bottom: 18px;
+  font-size: 22px;
+}
+
+.lease-expiration-modal .dialog-select-input {
+  border-radius: 28px;
+  border: 1px solid #dedede;
+  background-color: #f8f8f8;
+  width: 80%;
+  margin-bottom: 10px;
+}
+
+.lease-expiration-modal .MuiSelect-root {
+  background-color: #f8f8f8 !important;
+}
+
+.lease-expiration-modal .MuiInput-root::before,
+.lease-expiration-modal .MuiInput-root::after {
+  content: "";
+  border: 0;
+  position: unset;
+}
+
+.lease-expiration-set .dialog-button-group button.okay {
+  background-color: #2b6fec;
+  border-radius: 25px;
+  color: white;
+  font-weight: 600;
+  border: 1px solid #2b6fec;
+  padding: 12px 30px;
+  margin: 0;
+}
