@@ -469,7 +469,7 @@ class AwaitingAcceptece extends CommunityUserProfileController {
                                       } */}
 
                                     </Select>
-                                  </FormControl>
+                                  </FormControl> 
                               </Box> 
                             </Grid>
                             <Grid container justifyContent="flex-end">
