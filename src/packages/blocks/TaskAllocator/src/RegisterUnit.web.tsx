@@ -390,12 +390,12 @@ class RegisterMyUnit extends RegisterUnitController {
                                         <Divider />
                                         <Box className="info">
                                           <p>{t("Rent Amount (Monthly)")}</p>
-                                          <span>{this.state.currency + " " + rentHistory.attributes.rent_amount}</span>
+                                          <span>{this.state.currency + " " + Number(rentHistory.attributes.rent_amount).toLocaleString()}</span>
                                         </Box>
                                         <Box className="info">
                                           <p>{t("Received Amount")}</p>
                                           <span>
-                                            {this.state.currency + " " + rentHistory.attributes.received_amount}
+                                            {this.state.currency + " " + Number(rentHistory.attributes.received_amount).toLocaleString()}
                                           </span>
                                         </Box>
                                       </Box>
