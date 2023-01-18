@@ -468,7 +468,7 @@ class AwaitingAcceptece extends CommunityUserProfileController {
                                         ))
                                       } */}
 
-                                    </Select>
+                                    </Select> 
                                   </FormControl>   
                               </Box> 
                             </Grid>
