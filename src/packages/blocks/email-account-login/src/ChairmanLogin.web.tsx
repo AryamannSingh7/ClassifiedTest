@@ -138,7 +138,7 @@ class ChairmanLogin extends ChairmanAccountLoginController {
                             >
                               <MenuItem  disabled value=" ">
                                 Select User Type
-                               </MenuItem>
+                               </MenuItem> 
                               { 
                                 this.state?.userTypeData?.map((val, index) => (
                                   <MenuItem
