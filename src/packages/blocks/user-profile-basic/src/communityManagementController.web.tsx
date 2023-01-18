@@ -310,6 +310,14 @@ const profileData = JSON.parse(localStorage.getItem('profileData') ||'{}')
       this.getUnitApiRes(responseJson,errorReponse)
       
     }
+    else if (apiRequestCallId === this.deleteVehicleAPICallId) {
+      this.deleteReqRes(responseJson,errorReponse)
+      
+    }
+  }
+  deleteReqRes(responseJson:any,errorReponse:any){
+    window.location.reload()
+
   }
   verifyOTPRes(responseJson:any,errorReponse:any){
     if (!responseJson.errors) {
@@ -436,7 +444,7 @@ this.setState({loading:false,showDialog:false})
   }
   getInvitationRes(responseJson:any,errorReponse:any){
     if (!responseJson.errors) {
-      this.setState({allInvitation:responseJson.data,loading:false},()=>console.log(this.state.allInvitation))
+      this.setState({allInvitation:responseJson.member_invitations.data,loading:false},()=>console.log(this.state.allInvitation))
       
       
                 } else {
@@ -478,7 +486,7 @@ this.setState({loading:false,showDialog:false})
   getUserTypeRes(responseJson:any,errorReponse:any){
     if (!responseJson.errors) {
       console.log("user data===============>",responseJson.data.roles)
-      this.setState({ allUserType: responseJson.data.roles}, () => console.log(this.state.allUserType))
+      this.setState({ allUserType: responseJson.data}, () => console.log(this.state.allUserType))
       this.setState({ loading: false })
 
     } else {
@@ -534,7 +542,7 @@ this.setState({loading:false,showDialog:false})
       //@ts-ignore
       //@ts-nocheck
 
-      this.setState({ allUnit: responseJson.apartment_managements.data })
+      this.setState({ allUnit: responseJson.data.unit_apartments })
     } else {
       //Check Error Response
       this.parseApiErrorResponse(responseJson);

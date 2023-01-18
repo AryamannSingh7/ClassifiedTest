@@ -143,9 +143,9 @@ class ChairmanLogin extends ChairmanAccountLoginController {
                                 this.state?.userTypeData?.map((val, index) => (
                                   <MenuItem
                                     key={index}
-                                    value={val?.name}
+                                    value={val?.attributes?.name}
                                   >
-                                    {val?.name}
+                                    {val?.attributes?.name}
                                   </MenuItem>
                                 ))
                               }  

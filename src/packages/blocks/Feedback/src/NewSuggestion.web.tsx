@@ -29,7 +29,7 @@ class Suggestion extends SuggestionController {
     
   }
   render() {
-   
+
     return (
       <>
          <Box className="login-wrapper incident-wrapper">
@@ -39,14 +39,14 @@ class Suggestion extends SuggestionController {
                 <Box className="content-header">
                   <Box className="left-block blocks">
                     <Box className="backIcons" onClick={() => window.history.back()}><KeyboardBackspaceIcon /></Box>
-                    <h4>Facility Reservation</h4>
+                    <h4>Add New Suggestion</h4>
                   </Box>
                 </Box>
                 <Box className="content-block-wrapper common-incident-block desktop-ui create-reservation-wrapper">
                   <Formik
                     initialValues={{
                       title:  "",
-                      relatedTo:"",
+                      relatedTo:" ",
                       description:"",
                     }}
                     enableReinitialize
@@ -101,13 +101,14 @@ class Suggestion extends SuggestionController {
                               labelId="demo-simple-select-outlined-label"
                               id="demo-simple-select-outlined"
                               style={{ paddingLeft: 50 }}
+                              
                               placeholder='Suggestion is related to'
                               onChange={(e) => {
                                 (e.target.value != "") && setFieldValue("relatedTo", e.target.value)
                               }}
                               value={values.relatedTo}
                             >
-                              <MenuItem disabled value="">
+                              <MenuItem disabled value=" ">
                               Suggestion is related to
                               </MenuItem>
                               {
@@ -123,14 +124,16 @@ class Suggestion extends SuggestionController {
                           >
 
 
-                            <Field
+                            <textarea
+                            rows={10}
                               className="formInput"
                               name="description"
                               placeholder={"Add Description"}
+                              style={{height:'7rem !important'}}
 
                             />
                             <span className="frmLeftIcons">
-                              <img src={Clipboard} />
+                              <img src={Clipboard} style={{top:'1rem'}}/>
                             </span>
                           </Box>
 
