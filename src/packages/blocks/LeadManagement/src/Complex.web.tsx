@@ -92,7 +92,7 @@ class Complex extends ComplexController {
   render() {
     const { t, classes }: any = this.props;
 
-    const userType = localStorage.getItem("selectUserType");
+    const userType = localStorage.getItem("userType");
 
     let searchData = this.state.complexData.buildingList.filter((building: any) => {
       if (
@@ -114,8 +114,8 @@ class Complex extends ComplexController {
           <Box style={{ display: "flex" }}>
             <Grid item xs={3} md={3} sm={3} className="SideBar">
               {/* Chairman Sidebar -- */}
-              {userType === "Security" ? <VisitorsSidebar {...this.props} /> : <ChairmanSidebar {...this.props} />}
-            </Grid>
+            <Sidebar userType = {userType} this = {this}></Sidebar>
+             </Grid>
             <Grid xs={9} md={9} sm={9} spacing={4} style={{ paddingTop: 35 }}>
               <Container>
                 <Box style={dashBoard.navigation}>
@@ -666,37 +666,9 @@ class Complex extends ComplexController {
             }}
           </Formik>
         </Dialog>
-
-        <Dialog
-          className="edit-profile chairman-map-modal"
-          open={this.state.isOpenMapModalOpen}
-          scroll="paper"
-          fullWidth
-          maxWidth="sm"
-        >
-          <MuiDialogTitle disableTypography className="dialog-heading">
-            <Typography variant="h6">{t("Location")}</Typography>
-            <IconButton onClick={() => this.handleMapModal()}>
-              <CloseIcon />
-            </IconButton>
-          </MuiDialogTitle>
-          {this.state.complexData.lat && this.state.complexData.long ? (
-            <Box className="google-map-box">
-              <GoogleMapReact
-                bootstrapURLKeys={{ key: "AIzaSyA1NvS9-cKp1dl_kMQDVFr4Gmbnv97MTtk" }}
-                defaultCenter={{
-                  lat: this.state.complexData.lat,
-                  lng: this.state.complexData.long,
-                }}
-                defaultZoom={15}
-              >
-                <LocationPin lat={this.state.complexData.lat} lng={this.state.complexData.long} />
-              </GoogleMapReact>
-            </Box>
-          ) : (
-            <Box className="no-google-map-box">{t("No Location Available")}</Box>
-          )}
-        </Dialog>
+        
+        <MapDialog this={this}></MapDialog>
+     
       </>
     );
   }
@@ -704,6 +676,53 @@ class Complex extends ComplexController {
 
 //@ts-ignore
 export default withTranslation()(withStyles(BuildingApartmentStyle)(Complex));
+
+const MapDialog = (props:any) => {
+  const { t } : any = props.this.props;
+  return(
+ <>
+    <Dialog
+          className="edit-profile chairman-map-modal"
+          open={props.this.state.isOpenMapModalOpen}
+          scroll="paper"
+          fullWidth
+          maxWidth="sm"
+        >
+          <MuiDialogTitle disableTypography className="dialog-heading">
+            <Typography variant="h6">{t("Location")}</Typography>
+            <IconButton onClick={() => props.this.handleMapModal()}>
+              <CloseIcon />
+            </IconButton>
+          </MuiDialogTitle>
+          {props.this.state.complexData.lat && props.this.state.complexData.long ? (
+            <Box className="google-map-box">
+              <GoogleMapReact
+                bootstrapURLKeys={{ key: "AIzaSyA1NvS9-cKp1dl_kMQDVFr4Gmbnv97MTtk" }}
+                defaultCenter={{
+                  lat: props.this.state.complexData.lat,
+                  lng: props.this.state.complexData.long,
+                }}
+                defaultZoom={15}
+              >
+                <LocationPin lat={props.this.state.complexData.lat} lng={props.this.state.complexData.long} />
+              </GoogleMapReact>
+            </Box>
+          ) : (
+            <Box className="no-google-map-box">{t("No Location Available")}</Box>
+          )}
+        </Dialog>
+ </>
+  )
+}
+
+const Sidebar = (props:any) => {
+  const userType =props?.userType;
+  return(
+  <>
+    {userType === "Security" ? <VisitorsSidebar {...props.this.props} /> : <ChairmanSidebar {...props.this.props} />}   
+  </>
+  )
+}
 
 const dashBoard = {
   navigation: {

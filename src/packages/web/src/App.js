@@ -1949,7 +1949,7 @@ const routeMap = {
   Complex: {
     component: Complex,
     path: '/Complex',
-    roles: [ROLE.CHAIRMAN, ROLE.MANAGER,ROLE.SECURITY]
+    roles: [ROLE.CHAIRMAN, ROLE.MANAGER, ROLE.SECURITY]
   },
   UnitDetails: {
     component: UnitDetails,
