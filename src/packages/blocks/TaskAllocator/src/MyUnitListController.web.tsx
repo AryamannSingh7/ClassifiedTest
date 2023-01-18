@@ -25,7 +25,6 @@ interface S {
   myUnitList: any[];
 
   filter: {
-    unitType: string;
     status: string;
   };
 }
@@ -57,7 +56,6 @@ export default class MyUnitListController extends BlockComponent<Props, S, SS> {
       myUnitList: [],
 
       filter: {
-        unitType: "",
         status: "",
       },
     };
@@ -67,73 +65,30 @@ export default class MyUnitListController extends BlockComponent<Props, S, SS> {
   async receive(from: string, message: Message) {
     runEngine.debugLog("Message Recived", message);
 
-    // Get My Unit List - API Response
-    if (
-      getName(MessageEnum.RestAPIResponceMessage) === message.id &&
-      this.GetMyUnitListCallId !== null &&
-      this.GetMyUnitListCallId === message.getData(getName(MessageEnum.RestAPIResponceDataMessage))
-    ) {
-      this.GetMyUnitListCallId = null;
+    // Customizable Area Start
+    if (getName(MessageEnum.RestAPIResponceMessage) === message.id) {
+      let responseJson = message.getData(getName(MessageEnum.RestAPIResponceSuccessMessage));
+      let errorResponse = message.getData(getName(MessageEnum.RestAPIResponceErrorMessage));
 
-      var responseJson = message.getData(getName(MessageEnum.RestAPIResponceSuccessMessage));
+      const apiRequestCallId = message.getData(getName(MessageEnum.RestAPIResponceDataMessage));
 
-      if (responseJson && responseJson.data) {
-        this.setState({ myUnitList: responseJson.data });
+      switch (apiRequestCallId) {
+        case this.GetMyUnitListCallId:
+          this.handleGetUnitListResponse(responseJson);
+          break;
+        case this.DeLinkUnitCallId:
+        case this.DeleteRequestUnitCallId:
+          this.setState({ loading: false }, () => {
+            if (responseJson && responseJson.code === 200) {
+              toast.success(responseJson.message);
+              this.getMyUnitList();
+            }
+          });
+          break;
+        default:
+          break;
       }
 
-      var errorResponse = message.getData(getName(MessageEnum.RestAPIResponceErrorMessage));
-      if (responseJson && responseJson.meta && responseJson.meta.token) {
-        runEngine.unSubscribeFromMessages(this, this.subScribedMessages);
-      } else {
-        ApiErrorResponse(responseJson);
-      }
-      ApiCatchErrorResponse(errorResponse);
-    }
-
-    // DeLink Unit - API Response
-    if (
-      getName(MessageEnum.RestAPIResponceMessage) === message.id &&
-      this.DeLinkUnitCallId !== null &&
-      this.DeLinkUnitCallId === message.getData(getName(MessageEnum.RestAPIResponceDataMessage))
-    ) {
-      this.DeLinkUnitCallId = null;
-
-      var responseJson = message.getData(getName(MessageEnum.RestAPIResponceSuccessMessage));
-
-      this.setState({ loading: false }, () => {
-        if (responseJson && responseJson.code === 200) {
-          toast.success(responseJson.message);
-          this.getMyUnitList();
-        }
-      });
-
-      var errorResponse = message.getData(getName(MessageEnum.RestAPIResponceErrorMessage));
-      if (responseJson && responseJson.meta && responseJson.meta.token) {
-        runEngine.unSubscribeFromMessages(this, this.subScribedMessages);
-      } else {
-        ApiErrorResponse(responseJson);
-      }
-      ApiCatchErrorResponse(errorResponse);
-    }
-
-    // Delete Request Unit - API Response
-    if (
-      getName(MessageEnum.RestAPIResponceMessage) === message.id &&
-      this.DeleteRequestUnitCallId !== null &&
-      this.DeleteRequestUnitCallId === message.getData(getName(MessageEnum.RestAPIResponceDataMessage))
-    ) {
-      this.DeleteRequestUnitCallId = null;
-
-      var responseJson = message.getData(getName(MessageEnum.RestAPIResponceSuccessMessage));
-
-      this.setState({ loading: false }, () => {
-        if (responseJson && responseJson.code === 200) {
-          toast.success(responseJson.message);
-          this.getMyUnitList();
-        }
-      });
-
-      var errorResponse = message.getData(getName(MessageEnum.RestAPIResponceErrorMessage));
       if (responseJson && responseJson.meta && responseJson.meta.token) {
         runEngine.unSubscribeFromMessages(this, this.subScribedMessages);
       } else {
@@ -148,16 +103,13 @@ export default class MyUnitListController extends BlockComponent<Props, S, SS> {
   }
 
   async componentDidUpdate(prevProps: any, prevState: any): Promise<void> {
-    if (
-      prevState.filter.status !== this.state.filter.status ||
-      prevState.filter.unitType !== this.state.filter.unitType
-    ) {
+    if (prevState.filter.status !== this.state.filter.status) {
       await this.getMyUnitList();
     }
   }
 
   getMyUnitList = () => {
-    const { unitType, status } = this.state.filter;
+    const { status } = this.state.filter;
 
     const header = {
       "Content-Type": configJSON.ApiContentType,
@@ -170,7 +122,7 @@ export default class MyUnitListController extends BlockComponent<Props, S, SS> {
 
     apiRequest.addData(
       getName(MessageEnum.RestAPIResponceEndPointMessage),
-      `bx_block_request_management/my_apartment?status=${status}&unit_type=${unitType}`
+      `bx_block_request_management/my_apartment?status=${status}`
     );
 
     apiRequest.addData(getName(MessageEnum.RestAPIRequestHeaderMessage), JSON.stringify(header));
@@ -179,6 +131,12 @@ export default class MyUnitListController extends BlockComponent<Props, S, SS> {
 
     runEngine.sendMessage(apiRequest.id, apiRequest);
     return true;
+  };
+
+  handleGetUnitListResponse = (responseJson: any) => {
+    if (responseJson && responseJson.data) {
+      this.setState({ myUnitList: responseJson.data });
+    }
   };
 
   handleOpenDeleteUnitModal = (unit: any) => {

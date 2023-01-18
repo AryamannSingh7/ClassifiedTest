@@ -138,8 +138,8 @@ class ChairmanLogin extends ChairmanAccountLoginController {
                             >
                               <MenuItem  disabled value=" ">
                                 Select User Type
-                              </MenuItem>
-                              {
+                               </MenuItem>  
+                              { 
                                 this.state?.userTypeData?.map((val, index) => (
                                   <MenuItem
                                     key={index}
@@ -148,7 +148,7 @@ class ChairmanLogin extends ChairmanAccountLoginController {
                                     {val?.attributes?.name}
                                   </MenuItem>
                                 ))
-                              } 
+                              }  
 
                             </Select> 
                             <ErrorMessage className="text-error" component="Typography" name="userType" />

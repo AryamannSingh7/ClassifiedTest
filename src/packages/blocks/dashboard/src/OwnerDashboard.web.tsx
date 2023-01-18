@@ -224,7 +224,7 @@ class OwnerDashboard extends DashboardController {
                     </Link>
                   </div>
                   <div>
-                    <Link href="/OwnerNotifications">
+                    <Link href="/Notifications">
                       <img src={notification} alt="GlobalIcon" />
                     </Link>
                   </div>

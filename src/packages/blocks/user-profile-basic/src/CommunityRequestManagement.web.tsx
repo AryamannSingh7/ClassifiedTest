@@ -163,13 +163,13 @@ class CommunityRequestManagement extends CommunityUserProfileController {
                             <Typography variant="h6" style={dashBoard.subHeading}>{this.state.invitatonCount?.pending}</Typography>
                         </Paper>
                         <Paper elevation={3} style={dashBoard.managementPaper} 
-                        onClick={() => {
-                          //@ts-ignore
-                          this.props.history.push("/AwaitingAcceptece")}}>
+                        >
                             <div style={dashBoard.imgRound}>
                                 <img src= {invite} style={dashBoard.mailIcon}/>
                             </div>
-                            <div style={{display:"flex", alignItems:"center"}}>
+                            <div style={{display:"flex", alignItems:"center"}} onClick={() => {
+                          //@ts-ignore
+                          this.props.history.push("/AwaitingAcceptece")}}>
                                 <Typography variant="h6" style={dashBoard.subHeading}>{t("Sent invitations awaiting acceptance")}</Typography>
                                 <img
                                 aria-owns={this.state.openToolTip ? 'mouse-over-popover' : undefined}
@@ -299,7 +299,7 @@ class CommunityRequestManagement extends CommunityUserProfileController {
                                         {t("Select User Type")}
                                       </MenuItem>
                                       {
-                                        this.state.allUserType.map((item:any)=> <MenuItem value={item?.id}>{item.name}</MenuItem>)
+                                        this.state.allUserType.map((item:any)=> <MenuItem value={item?.id}>{item?.attributes?.name}</MenuItem>)
                                       }
                                       {/* <MenuItem value={"user1"}>User1</MenuItem>
                                       <MenuItem value={"user2"}>User2</MenuItem>
@@ -433,7 +433,7 @@ class CommunityRequestManagement extends CommunityUserProfileController {
                                       {t("Select Building")}
                                     </MenuItem>
                                     {
-                                      this.state.allBuilding.map((item:any)=> <MenuItem value={item.id}>{item.name}</MenuItem>)
+                                      this.state.allBuilding.map((item:any)=> <MenuItem value={item.id}>{item?.name}</MenuItem>)
                                     }
                                     {/* <MenuItem value={"building1"}>User1</MenuItem>
                                     <MenuItem value={"building2"}>User2</MenuItem>
@@ -491,7 +491,7 @@ class CommunityRequestManagement extends CommunityUserProfileController {
                                         {t("Select Unit")}
                                       </MenuItem>
                                       {
-                                        this.state.allUnit.map((item:any)=> <MenuItem value={item.id}>{item.apartment_name}</MenuItem>)
+                                        this.state.allUnit.map((item:any)=> <MenuItem value={item.id}>{item?.apartment_name}</MenuItem>)
                                       }
                                       {/* <MenuItem value={"unit1"}>User1</MenuItem>
                                       <MenuItem value={"unit2"}>User2</MenuItem>
