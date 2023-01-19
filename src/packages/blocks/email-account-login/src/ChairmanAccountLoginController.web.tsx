@@ -228,22 +228,27 @@ export default class ChairmanAccountLoginController extends BlockComponent<
               this.setState({loading: false})
              }else if(dashboardType === "Chairman"){
                 this.props.history.push("/DashboardGeneral")
+                localStorage.setItem("userType","Chairman")
                 this.setState({loading: false})
               }
               else if(dashboardType === "Manager"){
                 this.props.history.push("/DashboardGeneral")
+                localStorage.setItem("userType","Manager")
                 this.setState({loading: false})
               }
               else if(dashboardType === "Security"){
                 this.props.history.push("/DashboardGeneral")
+                localStorage.setItem("userType","Security")
                 this.setState({loading: false})
               }
               else if(dashboardType === "Auditor"){
                 this.props.history.push("/DashboardGeneral")
+                localStorage.setItem("userType","Auditor")
                 this.setState({loading: false})
               }
               else if(dashboardType === "Service Provider"){
                 this.props.history.push("/DashboardGeneral")
+                localStorage.setItem("userType","ServiceProvider")
                 this.setState({loading: false})
               }
             // else if(localStorage.getItem("userType") === "Chairman" || localStorage.getItem("userType") === "Manager"){

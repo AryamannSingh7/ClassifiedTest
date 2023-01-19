@@ -177,7 +177,6 @@ class AddTeamModal extends AddTeamModalController {
                                             id="demo-simple-select-outlined"
                                             style={{ paddingLeft: '45px' }}
                                             value={this.state.selectedUser.buildingId ? this.state.selectedUser.buildingId :"default"}
-                                            readOnly
                                             // label="Select User Type"
                                         >
                                             <MenuItem  disabled value="default">
@@ -202,7 +201,6 @@ class AddTeamModal extends AddTeamModalController {
                                             name="unit"
                                             labelId="demo-simple-select-outlined-label"
                                             id="demo-simple-select-outlined"
-                                            readOnly
                                             style={{ paddingLeft: '45px' }}
                                             value={this.state.selectedUser.unitId ? this.state.selectedUser.unitId :"default"}
                                         >

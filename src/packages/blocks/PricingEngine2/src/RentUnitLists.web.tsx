@@ -50,13 +50,13 @@ class RentUnitLists extends RentUnitListController{
                                         marginTop='1.5rem'
                                         padding='1.5rem'
                                         style={{boxShadow:"rgba(99, 99, 99, 0.2) 0px 2px 8px 0px"}}
-                                        onClick={()=>this.props.history.push(`/UnitRentList/${item.attributes.apartment_management.id}`)}
+                                        onClick={()=>this.props.history.push(`/UnitRentList/${item.attributes?.unit_number?.id}`)}
                                     >
                                         <Box style={{minWidth:"100%"}}>
                                             <Box style={{display:"flex",alignItems:"center",justifyContent:"space-between"}}>
                                                 <Box>
                                                     <Typography variant={"body1"} style={{fontWeight:"bold",marginTop:"5px"}}>
-                                                        {item.attributes.apartment_management.apartment_name}
+                                                        {item.attributes?.unit_number?.apartment_name}
                                                     </Typography>
                                                 </Box>
                                                 <ArrowForwardIosIcon fontSize="small" style={{color:"#BFBFBF",fontSize:"25px"}}/>

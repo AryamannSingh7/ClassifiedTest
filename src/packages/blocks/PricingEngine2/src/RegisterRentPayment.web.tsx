@@ -146,7 +146,7 @@ class RegisterRentPayment extends RegisterRentPaymentController{
                                 {
                                     this.state.UnitListing?.map((item:any,key:any)=> {
                                         return(
-                                            <option key={key} value={item.attributes.apartment_management.id}> {item.attributes?.apartment_management?.apartment_name}</option>
+                                            <option key={key} value={item.attributes?.unit_number?.id}> {item.attributes?.unit_number?.apartment_name}</option>
                                         )
                                     })
                                 }
@@ -185,7 +185,7 @@ class RegisterRentPayment extends RegisterRentPaymentController{
                                         placeholder="Enter Partial paid amount"
                                         fullWidth
                                         value={this.state.partialPaymentAmount}
-                                        onChange={(e:any)=> this.setState({partialPaymentAmount:e.target.value})}
+                                        onChange={(e:any)=> this.setState({partialPaymentAmount:e.target.value,amountError:""})}
                                         startAdornment={
                                             <InputAdornment position="start">
                                                 <img src={currency} height="20px" width="20px" style={{marginLeft:"15px"}}/>

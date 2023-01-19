@@ -132,10 +132,10 @@ export default class RegisterRentPaymentController extends BlockComponent<
       if(this.getRentDueAmountId === apiRequestCallId) {
         if(responseJson.hasOwnProperty("data")){
           this.setState({
-            tenantName:responseJson.data?.attributes?.tenant_name,
-            rentAmount:responseJson.data?.attributes?.rent_amount,
-            partialPaidAmount:responseJson?.data?.attributes?.partial_payment,
-            currency:responseJson.data?.attributes.currency,
+            tenantName:responseJson.data[0]?.attributes?.tenant_name,
+            rentAmount:responseJson.data[0]?.attributes?.rent_amount,
+            partialPaidAmount:responseJson?.data[0]?.attributes?.partial_amount || 0,
+            currency:responseJson.data[0]?.attributes?.currency,
           })
         }
       }

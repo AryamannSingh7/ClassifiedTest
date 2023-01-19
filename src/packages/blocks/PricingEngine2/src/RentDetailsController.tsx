@@ -36,11 +36,9 @@ export default class CoverImageController extends BlockComponent<
   S,
   SS
 > {
-
-  apiEmailLoginCallId: string = "";
   emailReg: RegExp;
   labelTitle: string = "";
-  getVisitorListId:string = "";
+  getMonthRentId:string = "";
   constructor(props: Props) {
 
     super(props);
@@ -67,20 +65,61 @@ export default class CoverImageController extends BlockComponent<
   }
 
   async componentDidMount() {
-
+    this.getRentUnitList()
   }
 
+  getRentUnitList = async () => {
+    const {id} = this.props.match.params
+    this.getMonthRentId = await this.apiCall({
+      contentType: "application/json",
+      method: "GET",
+      endPoint: `bx_block_rent_payment/monthly_payment/${id}`,
+    });
+  };
 
   async receive(from: string, message: Message) {
     if(getName(MessageEnum.RestAPIResponceMessage) === message.id) {
       const apiRequestCallId = message.getData(getName(MessageEnum.RestAPIResponceDataMessage));
       const responseJson = message.getData(getName(MessageEnum.RestAPIResponceSuccessMessage));
       var errorReponse = message.getData(getName(MessageEnum.RestAPIResponceErrorMessage));
-      if(this.apiEmailLoginCallId === apiRequestCallId ){
-        console.log(responseJson,errorReponse)
+      if(this.getMonthRentId === apiRequestCallId){
+
       }
     }
   }
+
+  apiCall = async (data: any) => {
+    const { contentType, method, endPoint, body } = data;
+
+    const token = localStorage.getItem('userToken') ;
+
+    const header = {
+      "content-type":"application/json",
+      token
+    };
+    const requestMessage = new Message(
+        getName(MessageEnum.RestAPIRequestMessage)
+    );
+    requestMessage.addData(
+        getName(MessageEnum.RestAPIRequestHeaderMessage),
+        JSON.stringify(header)
+    );
+    requestMessage.addData(
+        getName(MessageEnum.RestAPIResponceEndPointMessage),
+        endPoint
+    );
+    requestMessage.addData(
+        getName(MessageEnum.RestAPIRequestMethodMessage),
+        method
+    );
+    body && requestMessage.addData(
+        getName(MessageEnum.RestAPIRequestBodyMessage),
+        body
+    );
+    runEngine.sendMessage(requestMessage.id, requestMessage);
+    // console.log("Called",requestMessage);
+    return requestMessage.messageId;
+  };
 
 }
 

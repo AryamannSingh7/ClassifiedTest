@@ -69,22 +69,24 @@ class BudgetReport extends BudgetReportController {
                 </Box>
                 <Box className="top-bar">
                   <Box className="filter">
-                    {localStorage.getItem("userType") === ROLE.MANAGER && (
-                      <Select displayEmpty value="" className="select-input">
-                        <MenuItem value="" disabled>
-                          {t("Select Building")}
-                        </MenuItem>
-                      </Select>
-                    )}
-                    <Select displayEmpty className="select-input" value="">
+                    {/*{localStorage.getItem("userType") === ROLE.MANAGER && (*/}
+                    {/*  <Select displayEmpty value="" className="select-input">*/}
+                    {/*    <MenuItem value="" disabled>*/}
+                    {/*      {t("Select Building")}*/}
+                    {/*    </MenuItem>*/}
+                    {/*  </Select>*/}
+                    {/*)}*/}
+                    <Select displayEmpty className="select-input" value={this.state.budgetYear} onChange={this.handleYearChange} >
                       <MenuItem value="" disabled>
                         {t("Select Year")}
                       </MenuItem>
-                      <MenuItem value="scheduled">{t("Scheduled")}</MenuItem>
-                      <MenuItem value="completed">{t("Completed")}</MenuItem>
-                      <MenuItem value="cancelled">{t("Cancelled")}</MenuItem>
+                      <MenuItem value="scheduled">{(new Date().getFullYear()) - 3}</MenuItem>
+                      <MenuItem value="scheduled">{(new Date().getFullYear()) - 2}</MenuItem>
+                      <MenuItem value="completed">{(new Date().getFullYear()) - 1}</MenuItem>
+                      <MenuItem value="completed">{(new Date().getFullYear())}</MenuItem>
+                      <MenuItem value="completed">{(new Date().getFullYear()) + 1}</MenuItem>
                     </Select>
-                    <Select displayEmpty className="select-input" value="">
+                    <Select displayEmpty className="select-input" value={this.state.status} onChange={this.handleStatusChange}>
                       <MenuItem value="" disabled>
                         {t("Select Status")}
                       </MenuItem>

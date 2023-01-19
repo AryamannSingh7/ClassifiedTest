@@ -47,7 +47,8 @@ interface S {
   selectedAudienceName:any,
   audienceValidationError:any;
   deleteAudienceId:any;
-  totalBudget:any
+  totalBudget:any;
+  currency:any;
 }
 
 interface SS {
@@ -63,7 +64,7 @@ export default class CoverImageController extends BlockComponent<
   apiEmailLoginCallId: string = "";
   emailReg: RegExp;
   labelTitle: string = "";
-  createSurvey:string = "";
+  createBugetId:string = "";
   getAudienceListId:string = "";
   deleteAudienceId:string = "";
 
@@ -88,11 +89,11 @@ export default class CoverImageController extends BlockComponent<
       audienceModal:false,
       budgetItems: [
         {
-          budgetCategory: "",
+          budget_category: "",
           budgetCategoryError:"",
-          amount:"",
+          allocate_budget:"",
           amountError:"",
-                   
+          description:null,
           descriptionError:"",
           error:false,
           _destroy: "false",
@@ -119,13 +120,13 @@ export default class CoverImageController extends BlockComponent<
       selectedAudienceName:"",
       deleteAudienceId:"",
       audienceValidationError:"",
+      currency:"2",
     };
 
     this.labelTitle = configJSON.labelTitle;
 
     runEngine.attachBuildingBlock(this as IBlock, this.subScribedMessages);
 
-    this.handleSurveyDataSubmit = this.handleSurveyDataSubmit.bind(this)
     this.handleValidation = this.handleValidation.bind(this)
     this.handlePriviewData = this.handlePriviewData.bind(this)
     this.handleOpenAudienceModal = this.handleOpenAudienceModal.bind(this)
@@ -142,7 +143,7 @@ export default class CoverImageController extends BlockComponent<
       if(budgetPreview){
         let total = 0
         budgetPreview.budgetItems.map((item:any)=> {
-          total = total + parseInt(item.amount)
+          total = total + parseInt(item.allocate_budget)
         })
         await this.setState({
           budgetYear:budgetPreview.budgetYear,
@@ -150,8 +151,21 @@ export default class CoverImageController extends BlockComponent<
           totalBudget:total
         })
       }
-      localStorage.removeItem("Survey_Data")
+      // localStorage.removeItem("Report_Data")
     }
+  }
+
+  handleGenerateReport = (e:any) => {
+    e.preventDefault()
+    const data = {
+      budget_report:{
+        year:this.state.budgetYear,
+        currency_id:this.state.currency,
+        facilities_attributes:this.state.budgetItems
+      }
+    }
+    this.addBudgetData(data)
+    console.log(data)
   }
 
   async receive(from: string, message: Message) {
@@ -162,12 +176,11 @@ export default class CoverImageController extends BlockComponent<
       if(this.apiEmailLoginCallId === apiRequestCallId ){
         console.log(responseJson,errorReponse)
       }
-      if(this.createSurvey === apiRequestCallId){
+      if(this.createBugetId === apiRequestCallId){
         if(responseJson.code === 200){
           this.setState({
             loading:false
           })
-          this.props.history.push("/polling")
         }else{
           console.log("SOMETHING WENT WRONG")
         }
@@ -245,7 +258,7 @@ export default class CoverImageController extends BlockComponent<
 
   categoryValidation = (item:any) => {
     let categoryValidation = false
-    if(item.budgetCategory !== ""){
+    if(item.budget_category !== ""){
       categoryValidation = true
     }
     return categoryValidation
@@ -253,7 +266,7 @@ export default class CoverImageController extends BlockComponent<
 
   amountValidation = (item:any) => {
     let amountValidation = false
-    if(item.amount !== ""){
+    if(item.allocate_budget !== ""){
       amountValidation = true
     }
     return amountValidation
@@ -344,6 +357,7 @@ export default class CoverImageController extends BlockComponent<
       budgetItems:updatedArray
     })
     optionValidation = this.manageOptionValidation(updatedArray)
+    console.log("OPTION VALIDATION",optionValidation)
     return optionValidation
   }
 
@@ -404,7 +418,7 @@ export default class CoverImageController extends BlockComponent<
       if(key === index){
         return{
           ...item,
-          budgetCategory:event.target.value,
+          budget_category:event.target.value,
         }
       }else{
         return item
@@ -418,7 +432,7 @@ export default class CoverImageController extends BlockComponent<
       if(key === index){
         return{
           ...item,
-          amount:event.target.value,
+          allocate_budget:event.target.value,
         }
       }else{
         return item
@@ -430,11 +444,11 @@ export default class CoverImageController extends BlockComponent<
 
   addQuestionFields = () => {
     this.setState({budgetItems : [...this.state.budgetItems, {
-        budgetCategory: "",
+        budget_category: "",
         budgetCategoryError:"",
-        amount:"",
+        allocate_budget:"",
         amountError:"",
-        description:"",
+        description:null,
         descriptionError:"",
         error:false,
         _destroy: "false",
@@ -470,16 +484,12 @@ export default class CoverImageController extends BlockComponent<
     }
   }
 
-  handleSurveyDataSubmit =  async (event:any,preview?:boolean) => {
-    event.preventDefault()
-  }
-
-  addSurveyData = async (data:any) => {
+  addBudgetData = async (data:any) => {
     const societyID = localStorage.getItem("society_id")
-    this.createSurvey = await this.apiCall({
+    this.createBugetId = await this.apiCall({
       contentType: configJSON.exampleApiContentType,
       method: configJSON.httpPostMethod,
-      endPoint: `/society_managements/${societyID}/bx_block_survey/surveys`,
+      endPoint: `/society_managements/${societyID}/bx_block_report/budget_reports`,
       body:JSON.stringify(data)
     });
   }
