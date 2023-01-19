@@ -930,7 +930,6 @@
   "Are you sure you want to approve budget report?": "هل أنت متأكد أنك تريد الموافقة على تقرير الميزانية؟",
   "Add Another Unit": "أضف وحدة أخرى",
   "Add Another Rent History": "أضف تاريخ إيجار آخر",
-  "A verification ownership request has been sent to the building/complex manger for approval, Upon approval of ownership the unit will be added to his list of units": "تم إرسال طلب التحقق من الملكية إلى مدير المبنى / المجمع للموافقة عليه ، وعند الموافقة على الملكية سيتم إضافة الوحدة إلى قائمة الوحدات الخاصة به",
   "Generate Budget Report": "إنشاء تقرير الميزانية",
   "Enter budget year": "أدخل سنة الميزانية",
   "Add Another Budget Item": "أضف عنصر ميزانية آخر",
@@ -997,5 +996,9 @@
   "Sq ft": "قدم مربع",
   "Sq m": "متر مربع",
   "Only digit allowed": "يسمح فقط بالأرقام",
-  "Area Measurement": "قياس المنطقة"
+  "A verification ownership request has been sent to the building/complex manger for approval, Upon approval of ownership the unit will be added to your list of units": "تم إرسال طلب التحقق من الملكية إلى مدير المبنى / المجمع للموافقة عليه ، وعند الموافقة على الملكية ستتم إضافة الوحدة إلى قائمة الوحدات الخاصة بك",
+  "Area Measurement": "قياس المنطقة",
+  "Vacant": "شاغر",
+  "Rent Amount (Monthly)": "مبلغ الإيجار (شهري)",
+  "You don't have registered units that are vacant": "ليس لديك وحدات مسجلة شاغرة"
 }

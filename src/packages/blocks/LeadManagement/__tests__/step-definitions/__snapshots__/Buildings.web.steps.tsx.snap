@@ -12824,6 +12824,7 @@ exports[`Buildings User navigates to Buildings 1`] = `
                                               >
                                                 <p />
                                                 <h2>
+                                                  -
                                                    
                                                 </h2>
                                               </div>
@@ -13005,7 +13006,7 @@ exports[`Buildings User navigates to Buildings 1`] = `
                                               >
                                                 <p />
                                                 <h2>
-                                                  0
+                                                  -
                                                 </h2>
                                               </div>
                                             </ForwardRef(Paper)>
@@ -13186,7 +13187,7 @@ exports[`Buildings User navigates to Buildings 1`] = `
                                               >
                                                 <p />
                                                 <h2>
-                                                  0
+                                                  -
                                                 </h2>
                                               </div>
                                             </ForwardRef(Paper)>
@@ -14154,17 +14155,23 @@ exports[`Buildings User navigates to Buildings 1`] = `
                                                                       onBlur={[Function]}
                                                                       onFocus={[Function]}
                                                                     >
-                                                                      <Styled(MuiBox)
-                                                                        className="item"
+                                                                      <ChairmanCategoryBox
+                                                                        heading=""
+                                                                        image={
+                                                                          Object {
+                                                                            "testUri": "../../../packages/blocks/LeadManagement/assets/document.png",
+                                                                          }
+                                                                        }
+                                                                        value={0}
                                                                       >
-                                                                        <div
-                                                                          className="MuiBox-root MuiBox-root-40 item"
+                                                                        <Styled(MuiBox)
+                                                                          className="item"
                                                                         >
-                                                                          <Styled(MuiBox)
-                                                                            className="heading"
+                                                                          <div
+                                                                            className="MuiBox-root MuiBox-root-40 item"
                                                                           >
                                                                             <div
-                                                                              className="MuiBox-root MuiBox-root-41 heading"
+                                                                              className="heading"
                                                                             >
                                                                               <img
                                                                                 src={
@@ -14175,9 +14182,9 @@ exports[`Buildings User navigates to Buildings 1`] = `
                                                                               />
                                                                               <h4 />
                                                                             </div>
-                                                                          </Styled(MuiBox)>
-                                                                        </div>
-                                                                      </Styled(MuiBox)>
+                                                                          </div>
+                                                                        </Styled(MuiBox)>
+                                                                      </ChairmanCategoryBox>
                                                                     </a>
                                                                   </ForwardRef(Typography)>
                                                                 </WithStyles(ForwardRef(Typography))>
@@ -14382,17 +14389,23 @@ exports[`Buildings User navigates to Buildings 1`] = `
                                                                       onBlur={[Function]}
                                                                       onFocus={[Function]}
                                                                     >
-                                                                      <Styled(MuiBox)
-                                                                        className="item"
+                                                                      <ChairmanCategoryBox
+                                                                        heading=""
+                                                                        image={
+                                                                          Object {
+                                                                            "testUri": "../../../packages/blocks/LeadManagement/assets/document.png",
+                                                                          }
+                                                                        }
+                                                                        value={0}
                                                                       >
-                                                                        <div
-                                                                          className="MuiBox-root MuiBox-root-42 item"
+                                                                        <Styled(MuiBox)
+                                                                          className="item"
                                                                         >
-                                                                          <Styled(MuiBox)
-                                                                            className="heading"
+                                                                          <div
+                                                                            className="MuiBox-root MuiBox-root-41 item"
                                                                           >
                                                                             <div
-                                                                              className="MuiBox-root MuiBox-root-43 heading"
+                                                                              className="heading"
                                                                             >
                                                                               <img
                                                                                 src={
@@ -14403,9 +14416,9 @@ exports[`Buildings User navigates to Buildings 1`] = `
                                                                               />
                                                                               <h4 />
                                                                             </div>
-                                                                          </Styled(MuiBox)>
-                                                                        </div>
-                                                                      </Styled(MuiBox)>
+                                                                          </div>
+                                                                        </Styled(MuiBox)>
+                                                                      </ChairmanCategoryBox>
                                                                     </a>
                                                                   </ForwardRef(Typography)>
                                                                 </WithStyles(ForwardRef(Typography))>
@@ -14610,17 +14623,23 @@ exports[`Buildings User navigates to Buildings 1`] = `
                                                                       onBlur={[Function]}
                                                                       onFocus={[Function]}
                                                                     >
-                                                                      <Styled(MuiBox)
-                                                                        className="item"
+                                                                      <ChairmanCategoryBox
+                                                                        heading=""
+                                                                        image={
+                                                                          Object {
+                                                                            "testUri": "../../../packages/blocks/LeadManagement/assets/document.png",
+                                                                          }
+                                                                        }
+                                                                        value={0}
                                                                       >
-                                                                        <div
-                                                                          className="MuiBox-root MuiBox-root-44 item"
+                                                                        <Styled(MuiBox)
+                                                                          className="item"
                                                                         >
-                                                                          <Styled(MuiBox)
-                                                                            className="heading"
+                                                                          <div
+                                                                            className="MuiBox-root MuiBox-root-42 item"
                                                                           >
                                                                             <div
-                                                                              className="MuiBox-root MuiBox-root-45 heading"
+                                                                              className="heading"
                                                                             >
                                                                               <img
                                                                                 src={
@@ -14631,9 +14650,9 @@ exports[`Buildings User navigates to Buildings 1`] = `
                                                                               />
                                                                               <h4 />
                                                                             </div>
-                                                                          </Styled(MuiBox)>
-                                                                        </div>
-                                                                      </Styled(MuiBox)>
+                                                                          </div>
+                                                                        </Styled(MuiBox)>
+                                                                      </ChairmanCategoryBox>
                                                                     </a>
                                                                   </ForwardRef(Typography)>
                                                                 </WithStyles(ForwardRef(Typography))>
@@ -14838,17 +14857,23 @@ exports[`Buildings User navigates to Buildings 1`] = `
                                                                       onBlur={[Function]}
                                                                       onFocus={[Function]}
                                                                     >
-                                                                      <Styled(MuiBox)
-                                                                        className="item"
+                                                                      <ChairmanCategoryBox
+                                                                        heading=""
+                                                                        image={
+                                                                          Object {
+                                                                            "testUri": "../../../packages/blocks/LeadManagement/assets/document.png",
+                                                                          }
+                                                                        }
+                                                                        value={0}
                                                                       >
-                                                                        <div
-                                                                          className="MuiBox-root MuiBox-root-46 item"
+                                                                        <Styled(MuiBox)
+                                                                          className="item"
                                                                         >
-                                                                          <Styled(MuiBox)
-                                                                            className="heading"
+                                                                          <div
+                                                                            className="MuiBox-root MuiBox-root-43 item"
                                                                           >
                                                                             <div
-                                                                              className="MuiBox-root MuiBox-root-47 heading"
+                                                                              className="heading"
                                                                             >
                                                                               <img
                                                                                 src={
@@ -14859,9 +14884,9 @@ exports[`Buildings User navigates to Buildings 1`] = `
                                                                               />
                                                                               <h4 />
                                                                             </div>
-                                                                          </Styled(MuiBox)>
-                                                                        </div>
-                                                                      </Styled(MuiBox)>
+                                                                          </div>
+                                                                        </Styled(MuiBox)>
+                                                                      </ChairmanCategoryBox>
                                                                     </a>
                                                                   </ForwardRef(Typography)>
                                                                 </WithStyles(ForwardRef(Typography))>
@@ -15066,17 +15091,23 @@ exports[`Buildings User navigates to Buildings 1`] = `
                                                                       onBlur={[Function]}
                                                                       onFocus={[Function]}
                                                                     >
-                                                                      <Styled(MuiBox)
-                                                                        className="item"
+                                                                      <ChairmanCategoryBox
+                                                                        heading=""
+                                                                        image={
+                                                                          Object {
+                                                                            "testUri": "../../../packages/blocks/LeadManagement/assets/document.png",
+                                                                          }
+                                                                        }
+                                                                        value={0}
                                                                       >
-                                                                        <div
-                                                                          className="MuiBox-root MuiBox-root-48 item"
+                                                                        <Styled(MuiBox)
+                                                                          className="item"
                                                                         >
-                                                                          <Styled(MuiBox)
-                                                                            className="heading"
+                                                                          <div
+                                                                            className="MuiBox-root MuiBox-root-44 item"
                                                                           >
                                                                             <div
-                                                                              className="MuiBox-root MuiBox-root-49 heading"
+                                                                              className="heading"
                                                                             >
                                                                               <img
                                                                                 src={
@@ -15087,9 +15118,9 @@ exports[`Buildings User navigates to Buildings 1`] = `
                                                                               />
                                                                               <h4 />
                                                                             </div>
-                                                                          </Styled(MuiBox)>
-                                                                        </div>
-                                                                      </Styled(MuiBox)>
+                                                                          </div>
+                                                                        </Styled(MuiBox)>
+                                                                      </ChairmanCategoryBox>
                                                                     </a>
                                                                   </ForwardRef(Typography)>
                                                                 </WithStyles(ForwardRef(Typography))>

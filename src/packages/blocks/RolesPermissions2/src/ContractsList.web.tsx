@@ -9,13 +9,12 @@ import {
   Box,
   Grid,
   Tab,
-  MenuItem,
   Card,
   Dialog,
   Typography,
   DialogContent,
 } from "@material-ui/core";
-import { Menu } from "@szhsin/react-menu";
+import { Menu, MenuItem } from "@szhsin/react-menu";
 import MoreVertIcon from "@material-ui/icons/MoreVert";
 import KeyboardBackspaceIcon from "@material-ui/icons/KeyboardBackspace";
 import ContractsListController, { Props } from "./ContractsListController.web";
@@ -42,8 +41,8 @@ import {
 } from "react-share";
 import { BuildingLogo, SortIcon, FilterIcon, TemplateIcon } from "./assets";
 import { withTranslation } from "react-i18next";
-import "../../../web/src/i18n.js";
 import moment from "moment";
+import ShareDocumentModal from "../../../components/src/DocumentComponent/ShareModal.web";
 
 class ContractsList extends ContractsListController {
   constructor(props: Props) {
@@ -353,96 +352,12 @@ class ContractsList extends ContractsListController {
           </Grid>
         </Box>
 
-        <Dialog
-          fullWidth
-          onClose={() => this.handleShareModal()}
-          open={this.state.isShareModalOpen}
-          className="select-meeting"
-        >
-          <MuiDialogTitle disableTypography className="dialog-heading">
-            <Typography variant="h6">{t("Share")}</Typography>
-            <IconButton onClick={() => this.handleShareModal()}>
-              <CloseIcon />
-            </IconButton>
-          </MuiDialogTitle>
-          <DialogContent>
-            <div className="share-box">
-              <FacebookShareButton
-                url={this.state.shareUrl}
-                title={shareTitle}
-                windowWidth={sharePopupWidth}
-                windowHeight={sharePopupHeight}
-                // @ts-ignore
-                children={<FacebookIcon />}
-                translate
-              />
-              <TwitterShareButton
-                url={this.state.shareUrl}
-                title={shareTitle}
-                windowWidth={sharePopupWidth}
-                windowHeight={sharePopupHeight}
-                // @ts-ignore
-                children={<TwitterIcon />}
-                translate
-              />
-              <WhatsappShareButton
-                url={this.state.shareUrl}
-                title={shareTitle}
-                windowWidth={sharePopupWidth}
-                windowHeight={sharePopupHeight}
-                separator=":: "
-                // @ts-ignore
-                children={<WhatsappIcon />}
-                translate
-              />
-              <LinkedinShareButton
-                url={this.state.shareUrl}
-                title={shareTitle}
-                windowWidth={sharePopupWidth}
-                windowHeight={sharePopupHeight}
-                // @ts-ignore
-                children={<LinkedinIcon />}
-                translate
-              />
-              <EmailShareButton
-                url={this.state.shareUrl}
-                title={shareTitle}
-                windowWidth={sharePopupWidth}
-                windowHeight={sharePopupHeight}
-                // @ts-ignore
-                children={<EmailIcon />}
-                translate
-              />
-              <RedditShareButton
-                url={this.state.shareUrl}
-                title={shareTitle}
-                windowWidth={sharePopupWidth}
-                windowHeight={sharePopupHeight}
-                // @ts-ignore
-                children={<RedditIcon />}
-                translate
-              />
-              <TelegramShareButton
-                url={this.state.shareUrl}
-                title={shareTitle}
-                windowWidth={sharePopupWidth}
-                windowHeight={sharePopupHeight}
-                // @ts-ignore
-                children={<TelegramIcon />}
-                translate
-              />
-              <TumblrShareButton
-                url={this.state.shareUrl}
-                title={shareTitle}
-                windowWidth={sharePopupWidth}
-                windowHeight={sharePopupHeight}
-                // @ts-ignore
-                children={<TumblrIcon />}
-                translate
-              />
-            </div>
-          </DialogContent>
-        </Dialog>
+        <ShareDocumentModal
+          isOpen={this.state.isShareModalOpen}
+          handleClose={this.handleShareModal}
+          heading={t("Share")}
+          documentURL={this.state.shareUrl}
+        />
       </>
     );
   }

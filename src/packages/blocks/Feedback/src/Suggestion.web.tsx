@@ -86,7 +86,7 @@ class Suggestion extends SuggestionController {
                       })
                     }
                   </Box>
-                  <Box className="customButton add-incident">
+                  <Box className="customButton add-incident" style={{borderTop:'none'}}>
                     <Button variant="contained" onClick={() => { this.setState({ loading: true });//@ts-ignore
                      this.props.history.push("/newsuggestion") }} >ADD NEW SUGGESTION</Button>
                   </Box>
