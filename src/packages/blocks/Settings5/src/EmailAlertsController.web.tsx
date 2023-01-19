@@ -65,7 +65,7 @@ export default class EmailAlertsController extends BlockComponent<Props, S, SS> 
       let responseJson = message.getData(getName(MessageEnum.RestAPIResponceSuccessMessage));
       let errorResponse = message.getData(getName(MessageEnum.RestAPIResponceErrorMessage));
 
-      const apiRequestCallId = message.getData(getName(MessageEnum.RestAPIResponceDataMessage));
+    //  const apiRequestCallId = message.getData(getName(MessageEnum.RestAPIResponceDataMessage));
 
       if (responseJson && responseJson.meta && responseJson.meta.token) {
         runEngine.unSubscribeFromMessages(this, this.subScribedMessages);
