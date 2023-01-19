@@ -12,7 +12,6 @@ import {
   DialogContent,
   Grid,
   IconButton,
-  Link,
   Typography,
   withStyles,
 } from "@material-ui/core";
@@ -24,6 +23,7 @@ import { NotificationStyle } from "./NotificationStyle.web";
 import Loader from "../../../components/src/Loader.web";
 import moment from "moment";
 import { toast } from "react-hot-toast";
+import { Menu, MenuItem } from "@szhsin/react-menu";
 
 class OwnerNotification extends OwnerNotificationController {
   constructor(props: Props) {
@@ -79,7 +79,17 @@ class OwnerNotification extends OwnerNotificationController {
                       </>
                     ) : (
                       <>
-                        <img src={FilterIcon} alt="" />
+                        <Box>
+                          <Menu menuButton={<img src={FilterIcon} alt="" />}>
+                            {this.state.notificationTypeList.map((type: any) => {
+                              return (
+                                <MenuItem key={type} onClick={() => this.setState({ filterType: type })}>
+                                  {type}
+                                </MenuItem>
+                              );
+                            })}
+                          </Menu>
+                        </Box>
                         <img src={DeleteRentIcon} alt="" onClick={() => this.setState({ isDeleteOpen: true })} />
                       </>
                     )}
@@ -88,7 +98,11 @@ class OwnerNotification extends OwnerNotificationController {
                 <Box className="tenant-detail-box">
                   <Container>
                     <Box className="rent-history-box">
-                      {this.state.notificationList.length === 0 && <Card>{t("No notification found")}</Card>}
+                      {this.state.notificationList.length === 0 && (
+                        <Card>
+                          <Box className="rent-history">{t("No notification found")}</Box>
+                        </Card>
+                      )}
                       {this.state.notificationList.map((notification: any) => {
                         return (
                           <Card key={notification.id}>

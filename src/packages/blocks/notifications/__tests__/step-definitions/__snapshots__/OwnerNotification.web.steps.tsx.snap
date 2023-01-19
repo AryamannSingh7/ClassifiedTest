@@ -863,14 +863,82 @@ exports[`OwnerNotification User navigates to OwnerNotification 1`] = `
                           <div
                             className="right-icon"
                           >
-                            <img
-                              alt=""
-                              src={
-                                Object {
-                                  "testUri": "../../../packages/blocks/notifications/assets/filter.png",
-                                }
-                              }
-                            />
+                            <Styled(MuiBox)>
+                              <div
+                                className="MuiBox-root MuiBox-root-4"
+                              >
+                                <ForwardRef(Menu)
+                                  align="start"
+                                  direction="bottom"
+                                  menuButton={
+                                    <img
+                                      alt=""
+                                      src={
+                                        Object {
+                                          "testUri": "../../../packages/blocks/notifications/assets/filter.png",
+                                        }
+                                      }
+                                    />
+                                  }
+                                  offsetX={0}
+                                  offsetY={0}
+                                  overflow="visible"
+                                  position="auto"
+                                  reposition="auto"
+                                  submenuCloseDelay={150}
+                                  submenuOpenDelay={300}
+                                  transitionTimeout={500}
+                                  viewScroll="initial"
+                                >
+                                  <img
+                                    alt=""
+                                    onClick={[Function]}
+                                    onKeyDown={[Function]}
+                                    src={
+                                      Object {
+                                        "testUri": "../../../packages/blocks/notifications/assets/filter.png",
+                                      }
+                                    }
+                                  />
+                                  <ForwardRef(ControlledMenu)
+                                    align="start"
+                                    anchorRef={
+                                      Object {
+                                        "current": <img
+                                          alt=""
+                                          src="[object Object]"
+                                        />,
+                                      }
+                                    }
+                                    aria-label="Menu"
+                                    direction="bottom"
+                                    endTransition={[Function]}
+                                    menuItemFocus={Object {}}
+                                    offsetX={0}
+                                    offsetY={0}
+                                    onClose={[Function]}
+                                    overflow="visible"
+                                    position="auto"
+                                    reposition="auto"
+                                    skipOpen={
+                                      Object {
+                                        "current": false,
+                                      }
+                                    }
+                                    submenuCloseDelay={150}
+                                    submenuOpenDelay={300}
+                                    transitionTimeout={500}
+                                    viewScroll="initial"
+                                  >
+                                    <div
+                                      className="szh-menu-container"
+                                      onBlur={[Function]}
+                                      onKeyDown={[Function]}
+                                    />
+                                  </ForwardRef(ControlledMenu)>
+                                </ForwardRef(Menu)>
+                              </div>
+                            </Styled(MuiBox)>
                             <img
                               alt=""
                               onClick={[Function]}
@@ -887,7 +955,7 @@ exports[`OwnerNotification User navigates to OwnerNotification 1`] = `
                         className="tenant-detail-box"
                       >
                         <div
-                          className="MuiBox-root MuiBox-root-4 tenant-detail-box"
+                          className="MuiBox-root MuiBox-root-5 tenant-detail-box"
                         >
                           <WithStyles(ForwardRef(Container))>
                             <ForwardRef(Container)
@@ -911,7 +979,7 @@ exports[`OwnerNotification User navigates to OwnerNotification 1`] = `
                                   className="rent-history-box"
                                 >
                                   <div
-                                    className="MuiBox-root MuiBox-root-5 rent-history-box"
+                                    className="MuiBox-root MuiBox-root-6 rent-history-box"
                                   >
                                     <WithStyles(ForwardRef(Card))>
                                       <ForwardRef(Card)
@@ -963,7 +1031,15 @@ exports[`OwnerNotification User navigates to OwnerNotification 1`] = `
                                           >
                                             <div
                                               className="MuiPaper-root MuiCard-root MuiPaper-elevation1 MuiPaper-rounded"
-                                            />
+                                            >
+                                              <Styled(MuiBox)
+                                                className="rent-history"
+                                              >
+                                                <div
+                                                  className="MuiBox-root MuiBox-root-7 rent-history"
+                                                />
+                                              </Styled(MuiBox)>
+                                            </div>
                                           </ForwardRef(Paper)>
                                         </WithStyles(ForwardRef(Paper))>
                                       </ForwardRef(Card)>
@@ -1110,7 +1186,7 @@ exports[`OwnerNotification User navigates to OwnerNotification 1`] = `
                     }
                   >
                     <div
-                      className="MuiBox-root MuiBox-root-6 right-block right-image"
+                      className="MuiBox-root MuiBox-root-8 right-block right-image"
                     >
                       <img
                         alt=""
