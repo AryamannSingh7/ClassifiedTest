@@ -67,11 +67,6 @@ export default class EmailAlertsController extends BlockComponent<Props, S, SS> 
 
       const apiRequestCallId = message.getData(getName(MessageEnum.RestAPIResponceDataMessage));
 
-      switch (apiRequestCallId) {
-        default:
-          break;
-      }
-
       if (responseJson && responseJson.meta && responseJson.meta.token) {
         runEngine.unSubscribeFromMessages(this, this.subScribedMessages);
       } else {
@@ -83,7 +78,6 @@ export default class EmailAlertsController extends BlockComponent<Props, S, SS> 
   }
 
   // Customizable Area Start
-  async componentDidMount(): Promise<void> {}
 
   handleLeaseExpirationModal = () => {
     this.setState({ isLeaseExpirationModal: !this.state.isLeaseExpirationModal });
