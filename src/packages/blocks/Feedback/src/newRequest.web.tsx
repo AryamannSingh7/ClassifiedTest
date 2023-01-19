@@ -25,13 +25,8 @@ class NewRequestSuggestion extends SuggestionController {
   render() {
 
    //@ts-ignore
-   const id = this.props.history?.location?.id
-   console.log("id=====>",id );
-    if (!id) {
-      //@ts-ignore
-      this.props.history.push("/SuggestionListing");
-      return null;
-    }
+   let data:any=JSON.parse(localStorage.getItem('selectSuggestion'))
+
     return (
       <>
         <Box className="login-wrapper auth-wrapper">
@@ -51,7 +46,7 @@ class NewRequestSuggestion extends SuggestionController {
                     <h1>Suggestion Sent 
 <br></br>Successfully</h1>
                     <p>Your suggestion has been sent successfully. 
-Your ticket id for sent suggestion is 1234567890. </p>
+Your ticket id for sent suggestion is {data?.id}. </p>
                   </Box>
                 </Box>
                 <Box className="footer-block desktop-ui">
