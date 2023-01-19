@@ -37,6 +37,8 @@ import "./DialogStyle.web.css";
 import { withTranslation } from 'react-i18next';
 import '../../../web/src/i18n.js';
 import VisitorsSidebar from "../../dashboard/src/VisitorsSidebar.web";
+import GeneralSideBarWeb from "../../dashboard/src/GeneralSideBar.web";
+
 
 class FaqChairman extends FaqChairmanController {
   constructor(props: Props) {
@@ -56,11 +58,7 @@ class FaqChairman extends FaqChairmanController {
           <Box style={{ display: "flex" }}>
             <Grid item xs={3} md={3} sm={3} className="SideBar">
               {/* Chairman Sidebar -- */}
-              {  userType === "Security" ? 
-                            <VisitorsSidebar {...this.props} />
-                            :
-                            <ChairmanSidebarWeb {...this.props} /> 
-                           }
+              <GeneralSideBarWeb {...this.props}></GeneralSideBarWeb>
             </Grid>
 
             <Grid item xs={9} md={9} sm={9} style={{ paddingTop: 35 }}>
