@@ -41,6 +41,7 @@ import { BuildingApartmentStyle } from "./BuildingApartmentStyle.web";
 import Loader from "../../../components/src/Loader.web";
 import { Formik, Form } from "formik";
 import moment from "moment";
+import GeneralSideBarWeb from "../../dashboard/src/GeneralSideBar.web";
 
 const settings = {
   infinite: false,
@@ -55,7 +56,7 @@ class SharedArea extends SharedAreaController {
 
   render() {
     const { t, classes }: any = this.props;
-
+    const  userType = localStorage.getItem("userType");
     return (
       <>
         <Loader loading={this.state.loading} />
@@ -66,7 +67,8 @@ class SharedArea extends SharedAreaController {
           <Box style={{ display: "flex" }}>
             <Grid item xs={3} md={3} sm={3} className="SideBar">
               {/* Chairman Sidebar -- */}
-              <ChairmanSidebar {...this.props} />
+              {/* <ChairmanSidebar {...this.props} /> */}
+              <GeneralSideBarWeb {...this.props}></GeneralSideBarWeb>
             </Grid>
             <Grid xs={9} md={9} sm={9} spacing={4} style={{ paddingTop: 35 }}>
               <Container>
@@ -88,6 +90,7 @@ class SharedArea extends SharedAreaController {
                         {this.state.sharedAreaData.name}
                       </Typography>
                     </Grid>
+                    {userType === "Security" ? null : (
                     <Grid item xs={12} sm={2}>
                       <Button
                         className="edit-button"
@@ -98,6 +101,7 @@ class SharedArea extends SharedAreaController {
                         {t("Edit Details")}
                       </Button>
                     </Grid>
+                     ) }
                   </Grid>
                 </Box>
 
