@@ -114,7 +114,7 @@ class Complex extends ComplexController {
           <DashboardHeader {...this.props} />
           <Box style={{ display: "flex" }}>
             <Grid item xs={3} md={3} sm={3} className="SideBar">
-              {/* Chairman Sidebar -- */}
+            
               <GeneralSideBarWeb {...this.props}></GeneralSideBarWeb>
              </Grid>
             <Grid xs={9} md={9} sm={9} spacing={4} style={{ paddingTop: 35 }}>
