@@ -187,7 +187,7 @@ export default class ChairmanAccountLoginController extends BlockComponent<
             }
           }
         }
-      else if (apiRequestCallId === this.apiEmailLoginCallId) {
+        else if (apiRequestCallId === this.apiEmailLoginCallId) {
           if (responseJson && responseJson.meta && responseJson.meta.token) {
             localStorage.setItem("userToken", responseJson?.meta?.token)
             localStorage.setItem("userId", responseJson?.meta?.id)
@@ -293,7 +293,6 @@ export default class ChairmanAccountLoginController extends BlockComponent<
           this.showError()
           this.setState({loading: false})
         }
-
       }
     }
 

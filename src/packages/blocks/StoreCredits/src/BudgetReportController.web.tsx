@@ -4,9 +4,6 @@ import { Message } from "../../../framework/src/Message";
 import { BlockComponent } from "../../../framework/src/BlockComponent";
 import MessageEnum, { getName } from "../../../framework/src/Messages/MessageEnum";
 import { runEngine } from "../../../framework/src/RunEngine";
-import {string} from "yup";
-
-
 
 export const configJSON = require("./config.js");
 
@@ -30,7 +27,7 @@ interface SS {
 }
 
 export default class BudgetReportController extends BlockComponent<Props, S, SS> {
-  getBudgetData:String = ""
+  getBudgetData:string = ""
   constructor(props: Props) {
     super(props);
     this.receive = this.receive.bind(this);
@@ -54,7 +51,7 @@ export default class BudgetReportController extends BlockComponent<Props, S, SS>
       const responseJson = message.getData(getName(MessageEnum.RestAPIResponceSuccessMessage));
       const errorResponse = message.getData(getName(MessageEnum.RestAPIResponceErrorMessage));
       if(this.getBudgetData === apiRequestCallId ){
-
+        console.log("CHECK",responseJson,errorResponse)
       }
     }
   }

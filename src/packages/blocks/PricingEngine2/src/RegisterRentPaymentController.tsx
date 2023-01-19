@@ -110,6 +110,15 @@ export default class RegisterRentPaymentController extends BlockComponent<
     )
     this.getRentUnitList(e.target.value)
   }
+
+  unitListResponse = (responseJson:any) => {
+    if(responseJson.hasOwnProperty("data")){
+      this.setState({
+        UnitListing:responseJson.data
+      })
+    }
+  }
+
   async receive(from: string, message: Message) {
     if(getName(MessageEnum.RestAPIResponceMessage) === message.id) {
       const apiRequestCallId = message.getData(getName(MessageEnum.RestAPIResponceDataMessage));
@@ -117,11 +126,7 @@ export default class RegisterRentPaymentController extends BlockComponent<
       let errorReponse = message.getData(getName(MessageEnum.RestAPIResponceErrorMessage));
       console.log("ERROR",errorReponse)
       if (this.getRentUnitListId === apiRequestCallId) {
-        if(responseJson.hasOwnProperty("data")){
-          this.setState({
-            UnitListing:responseJson.data
-          })
-        }
+        this.unitListResponse(responseJson)
       }
       if (this.getRentBuildingListId === apiRequestCallId) {
         this.rentBuildingList(responseJson)

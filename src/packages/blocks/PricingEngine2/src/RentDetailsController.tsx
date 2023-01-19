@@ -83,13 +83,13 @@ export default class CoverImageController extends BlockComponent<
       const responseJson = message.getData(getName(MessageEnum.RestAPIResponceSuccessMessage));
       var errorReponse = message.getData(getName(MessageEnum.RestAPIResponceErrorMessage));
       if(this.getMonthRentId === apiRequestCallId){
-
+        console.log("ResponseJSON",responseJson)
       }
     }
   }
 
   apiCall = async (data: any) => {
-    const { contentType, method, endPoint, body } = data;
+    const { method, endPoint, body } = data;
 
     const token = localStorage.getItem('userToken') ;
 
@@ -117,7 +117,6 @@ export default class CoverImageController extends BlockComponent<
         body
     );
     runEngine.sendMessage(requestMessage.id, requestMessage);
-    // console.log("Called",requestMessage);
     return requestMessage.messageId;
   };
 

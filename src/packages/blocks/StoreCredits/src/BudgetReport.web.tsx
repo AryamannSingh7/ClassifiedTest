@@ -69,13 +69,6 @@ class BudgetReport extends BudgetReportController {
                 </Box>
                 <Box className="top-bar">
                   <Box className="filter">
-                    {/*{localStorage.getItem("userType") === ROLE.MANAGER && (*/}
-                    {/*  <Select displayEmpty value="" className="select-input">*/}
-                    {/*    <MenuItem value="" disabled>*/}
-                    {/*      {t("Select Building")}*/}
-                    {/*    </MenuItem>*/}
-                    {/*  </Select>*/}
-                    {/*)}*/}
                     <Select displayEmpty className="select-input" value={this.state.budgetYear} onChange={this.handleYearChange} >
                       <MenuItem value="" disabled>
                         {t("Select Year")}
