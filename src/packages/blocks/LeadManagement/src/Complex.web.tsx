@@ -233,8 +233,8 @@ class Complex extends ComplexController {
                     <p>{this.state.complexData.aboutUs || "-"}</p>
                   </Card>
                 </Box>
-                 <Building this={this} searchData={searchData}></Building>
-                 <ComplexArea this={this}></ComplexArea>
+                 <Building this={this} searchData={searchData} userType={userType}></Building>
+                 <ComplexArea this={this} ></ComplexArea>
                  <DocumentsSharedArea this={this}></DocumentsSharedArea>
               
               </Container>
@@ -449,7 +449,7 @@ const Building = (props:any) => {
                         {props.searchData.map((building: any) => {
                           return (
                             <Grid item xs={4} key={building.building_management_id}>
-                              <Link href={`/Building/${building.building_management_id}`}>
+                                <Link href={props.userType === "Security" ? "#" :`/Building/${building.building_management_id}`}>
                                 <Box className="building-box">
                                   <h5>{building.building_name}</h5>
                                 </Box>
