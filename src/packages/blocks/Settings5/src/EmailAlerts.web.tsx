@@ -37,7 +37,7 @@ class EmailAlerts extends EmailAlertsController {
           <Grid container>
             <Grid item xs={12} md={7}>
               <Box className="faq-step">
-                <Box display={{ xs: "flex", md: "flex" }} className="top-bar">
+                <Box display={{ xs: "flex", md: "flex" }} className="top-bar-navigation">
                   <Box className="left-icon">
                     <Link href="/OwnerDashboard">
                       <IconButton>
@@ -48,7 +48,7 @@ class EmailAlerts extends EmailAlertsController {
                   </Box>
                 </Box>
                 <Container>
-                  <Box className="setting-page">
+                  <Box className="setting-page-email">
                     <Grid container spacing={2}>
                       <Grid item xs={12}>
                         <Card className="main-setting-box">
@@ -75,12 +75,6 @@ class EmailAlerts extends EmailAlertsController {
                               <h4>{t("Rent Due Alert")}</h4>
                               <Switch checked={false} onChange={() => {}} name="lease" color="primary" />
                             </Box>
-                            <Box className="setting-on-box">
-                              <p>
-                                Lease expiration alert will be sent 30 days before lease expires to you and your tenant.
-                              </p>
-                              <span className="setting-text">Change Settings</span>
-                            </Box>
                           </Box>
                         </Card>
                       </Grid>
@@ -89,13 +83,7 @@ class EmailAlerts extends EmailAlertsController {
                           <Box className="card-box-setting">
                             <Box className="setting-content-box">
                               <h4>{t("Management Fee Due")}</h4>
-                              <Switch checked={false} onChange={() => {}} name="lease" color="primary" />
-                            </Box>
-                            <Box className="setting-on-box">
-                              <p>
-                                Lease expiration alert will be sent 30 days before lease expires to you and your tenant.
-                              </p>
-                              <span className="setting-text">Change Settings</span>
+                              <Switch checked={true} onChange={() => {}} name="fee" color="primary" />
                             </Box>
                           </Box>
                         </Card>

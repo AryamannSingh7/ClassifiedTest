@@ -2,7 +2,7 @@ export const EmailAlertsStyle: any = {
   totalExpense: {
     height: "100vh",
     overflowY: "hidden",
-    "& .top-bar": {
+    "& .top-bar-navigation": {
       display: "flex",
       alignItems: "center",
       fontWeight: "600",
@@ -13,22 +13,15 @@ export const EmailAlertsStyle: any = {
       zIndex: "9999",
       borderBottom: "2px solid #e2e2ef",
     },
-    "& .top-bar .left-icon": {
+    "& .top-bar-navigation .left-icon": {
       display: "flex",
       alignItems: "center",
       justifyContent: "center",
       gap: "10px",
     },
-    "& .top-bar .left-icon span": {
+    "& .top-bar-navigation .left-icon span": {
       lineHeight: "18px",
       fontSize: "18px",
-    },
-    "& .top-bar .right-icon": {
-      display: "flex",
-      alignItems: "center",
-    },
-    "& .top-bar .right-icon img": {
-      cursor: "pointer",
     },
     "& .right-image": {
       padding: "25px 60px",
@@ -40,7 +33,7 @@ export const EmailAlertsStyle: any = {
       overflowY: "auto",
       height: "87vh",
     },
-    "& .setting-page": {
+    "& .setting-page-email": {
       marginTop: "15px",
     },
     "& .main-setting-box": {
