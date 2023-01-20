@@ -35,7 +35,7 @@ import MuiDialogTitle from "@material-ui/core/DialogTitle";
 import CloseIcon from "@material-ui/icons/Close";
 import {withTranslation} from "react-i18next";
 import VisitorsSidebar from "../../dashboard/src/VisitorsSidebar.web";
-
+import GeneralSideBarWeb from "../../dashboard/src/GeneralSideBar.web";
 class VisitorsList extends VisitorsListController {
     constructor(props: Props) {
         super(props);
@@ -54,14 +54,8 @@ class VisitorsList extends VisitorsListController {
                     <DashboardHeader {...this.props} />
                     <Box style={{ display: "flex" }}>
                         <Grid item xs={3} md={3} sm={3} className="SideBar">
-                            {/* Chairman Sidebar -- */}
-                           {
-                             userType === "Security" ? 
-                            <VisitorsSidebar {...this.props} />
-                            :
-                            <ChairmanSidebarWeb {...this.props} /> 
-                           }
-                            
+                            {/* Chairman Sidebar -- */}           
+                        <GeneralSideBarWeb {...this.props}></GeneralSideBarWeb>
                         </Grid>
 
                         <Grid item xs={9} md={9} sm={9} style={{ paddingTop: 35 }}>
