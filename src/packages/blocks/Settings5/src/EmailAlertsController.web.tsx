@@ -8,7 +8,7 @@ import { runEngine } from "../../../framework/src/RunEngine";
 import { ApiCatchErrorResponse, ApiErrorResponse } from "../../../components/src/APIErrorResponse";
 // Customizable Area End
 
-export const configJSON = require("../config");
+export const configJSON = require("./config");
 
 export interface Props {
   navigation: any;
