@@ -55,6 +55,7 @@ import Loader from "../../../components/src/Loader.web";
 //@ts-ignore
 import GoogleMapReact from "google-map-react";
 import VisitorsSidebar from "../../dashboard/src/VisitorsSidebar.web";
+import GeneralSideBarWeb from "../../dashboard/src/GeneralSideBar.web";
 
 const TabPanel = (props: any) => {
   const { children, value, index, ...other } = props;
@@ -92,7 +93,7 @@ class Complex extends ComplexController {
   render() {
     const { t, classes }: any = this.props;
 
-    const userType = localStorage.getItem("selectUserType");
+    const userType = localStorage.getItem("userType");
 
     let searchData = this.state.complexData.buildingList.filter((building: any) => {
       if (
@@ -113,9 +114,9 @@ class Complex extends ComplexController {
           <DashboardHeader {...this.props} />
           <Box style={{ display: "flex" }}>
             <Grid item xs={3} md={3} sm={3} className="SideBar">
-              {/* Chairman Sidebar -- */}
-              {userType === "Visitors" ? <VisitorsSidebar {...this.props} /> : <ChairmanSidebar {...this.props} />}
-            </Grid>
+            
+              <GeneralSideBarWeb {...this.props}></GeneralSideBarWeb>
+             </Grid>
             <Grid xs={9} md={9} sm={9} spacing={4} style={{ paddingTop: 35 }}>
               <Container>
                 <Box style={dashBoard.navigation}>
@@ -136,7 +137,7 @@ class Complex extends ComplexController {
                         {t("Complex")}
                       </Typography>
                     </Grid>
-                    {userType === "Visitors" ? null : (
+                    {userType === "Security" ? null : (
                       <Grid item xs={12} sm={2}>
                         <Button
                           className="edit-button"
@@ -232,81 +233,37 @@ class Complex extends ComplexController {
                     <p>{this.state.complexData.aboutUs || "-"}</p>
                   </Card>
                 </Box>
+                 <Building this={this} searchData={searchData} userType={userType}></Building>
+                 <ComplexArea this={this} ></ComplexArea>
+                 <DocumentsSharedArea this={this}></DocumentsSharedArea>
+              
+              </Container>
+            </Grid>
+          </Box>
+        </Box>
+        <ComplexDialog this={this}></ComplexDialog>
+      
+        <MapDialog this={this}></MapDialog>
+     
+      </>
+    );
+  }
+}
 
-                <Box className="building-list">
-                  <Card>
-                    <Box className="top-content">
-                      <Box className="heading">
-                        <h4>{t("Buildings")}</h4>
-                      </Box>
-                      <TextField
-                        className="search-unit"
-                        value={this.state.dataSearch}
-                        placeholder={t("Search by building name")}
-                        onChange={(e: any) => {
-                          this.setState({ dataSearch: e.target.value });
-                        }}
-                        InputProps={{
-                          startAdornment: (
-                            <InputAdornment position="start">
-                              <SearchOutlinedIcon />
-                            </InputAdornment>
-                          ),
-                        }}
-                      />
-                    </Box>
-                    <Divider />
-                    <Box className="bottom-content">
-                      <Grid container spacing={2}>
-                        {searchData.length === 0 && <p>{t("No Building Available")}</p>}
-                        {searchData.map((building: any) => {
-                          return (
-                            <Grid item xs={4} key={building.building_management_id}>
-                              <Link href={`/Building/${building.building_management_id}`}>
-                                <Box className="building-box">
-                                  <h5>{building.building_name}</h5>
-                                </Box>
-                              </Link>
-                            </Grid>
-                          );
-                        })}
-                      </Grid>
-                    </Box>
-                  </Card>
-                </Box>
+//@ts-ignore
+export default withTranslation()(withStyles(BuildingApartmentStyle)(Complex));
 
-                <Box className="stat-boxes">
-                  <Grid container spacing={2}>
-                    <Grid item sm={4}>
-                      <Card>
-                        <p>{t("Complex Area")}</p>
-                        <h2>
-                          {this.state.complexData.complexArea || ""} {this.state.complexData.measurement || " "}
-                        </h2>
-                      </Card>
-                    </Grid>
-                    <Grid item sm={4}>
-                      <Card>
-                        <p>{t("Total Buildings")}</p>
-                        <h2>{this.state.complexData.totalBuilding}</h2>
-                      </Card>
-                    </Grid>
-                    <Grid item sm={4}>
-                      <Card>
-                        <p>{t("Total Units")}</p>
-                        <h2>{this.state.complexData.totalUnits}</h2>
-                      </Card>
-                    </Grid>
-                  </Grid>
-                </Box>
-
-                <Box className="content-boxes">
-                  <Tabs value={this.state.currentTab} onChange={this.handleTabChange}>
+const DocumentsSharedArea = (props:any) => {
+  const { t } : any = props.this.props;
+  return(
+ <>
+       <Box className="content-boxes">
+                  <Tabs value={props.this.state.currentTab} onChange={props.this.handleTabChange}>
                     <Tab label={t("Documents")} />
                     <Tab label={t("Shared Area")} />
                   </Tabs>
                   <Box className="tab-content">
-                    <TabPanel value={this.state.currentTab} index={0}>
+                    <TabPanel value={props.this.state.currentTab} index={0}>
                       <>
                         <Box className="top-content">
                           <Box className="heading">
@@ -329,8 +286,8 @@ class Complex extends ComplexController {
                                     <img src={Document} />
                                     <h4>{t("Policy")}</h4>
                                   </div>
-                                  {this.state.documentCount.policy > 0 && (
-                                    <Button className="color-btn">{this.state.documentCount.policy}</Button>
+                                  {props.this.state.documentCount.policy > 0 && (
+                                    <Button className="color-btn">{props.this.state.documentCount.policy}</Button>
                                   )}
                                 </Box>
                               </Link>
@@ -342,8 +299,8 @@ class Complex extends ComplexController {
                                     <img src={Document} />
                                     <h4>{t("Guidelines")}</h4>
                                   </div>
-                                  {this.state.documentCount.guidelines > 0 && (
-                                    <Button className="color-btn">{this.state.documentCount.guidelines}</Button>
+                                  {props.this.state.documentCount.guidelines > 0 && (
+                                    <Button className="color-btn">{props.this.state.documentCount.guidelines}</Button>
                                   )}
                                 </Box>
                               </Link>
@@ -355,8 +312,8 @@ class Complex extends ComplexController {
                                     <img src={Document} />
                                     <h4>{t("Roles")}</h4>
                                   </div>
-                                  {this.state.documentCount.roles > 0 && (
-                                    <Button className="color-btn">{this.state.documentCount.roles}</Button>
+                                  {props.this.state.documentCount.roles > 0 && (
+                                    <Button className="color-btn">{props.this.state.documentCount.roles}</Button>
                                   )}
                                 </Box>
                               </Link>
@@ -368,8 +325,8 @@ class Complex extends ComplexController {
                                     <img src={Document} />
                                     <h4>{t("Resolution")}</h4>
                                   </div>
-                                  {this.state.documentCount.resolution > 0 && (
-                                    <Button className="color-btn">{this.state.documentCount.resolution}</Button>
+                                  {props.this.state.documentCount.resolution > 0 && (
+                                    <Button className="color-btn">{props.this.state.documentCount.resolution}</Button>
                                   )}
                                 </Box>
                               </Link>
@@ -381,8 +338,8 @@ class Complex extends ComplexController {
                                     <img src={Document} />
                                     <h4>{t("Building Plans")}</h4>
                                   </div>
-                                  {this.state.documentCount.buildingPlans > 0 && (
-                                    <Button className="color-btn">{this.state.documentCount.buildingPlans}</Button>
+                                  {props.this.state.documentCount.buildingPlans > 0 && (
+                                    <Button className="color-btn">{props.this.state.documentCount.buildingPlans}</Button>
                                   )}
                                 </Box>
                               </Link>
@@ -391,7 +348,7 @@ class Complex extends ComplexController {
                         </Box>
                       </>
                     </TabPanel>
-                    <TabPanel value={this.state.currentTab} index={1}>
+                    <TabPanel value={props.this.state.currentTab} index={1}>
                       <>
                         <Box className="top-content">
                           <Box className="heading">
@@ -401,13 +358,13 @@ class Complex extends ComplexController {
                         <Divider />
                         <Box className="document-box-box">
                           <Grid container spacing={2}>
-                            {this.state.complexData.sharedAreaList.map((sharedArea: any) => {
+                            {props.this.state.complexData.sharedAreaList.map((sharedArea: any) => {
                               return (
                                 <Grid item xs={12} md={6} lg={4} key={sharedArea.id}>
                                   <Box
                                     className="item shared-area-item"
                                     style={dashBoard.cursorPointer}
-                                    onClick={() => this.props.navigation.navigate("SharedArea", { id: sharedArea.id })}
+                                    onClick={() => props.this.props.navigation.navigate("SharedArea", { id: sharedArea.id })}
                                   >
                                     <div className="heading">
                                       <img src={Document} />
@@ -423,31 +380,153 @@ class Complex extends ComplexController {
                     </TabPanel>
                   </Box>
                 </Box>
-              </Container>
-            </Grid>
-          </Box>
-        </Box>
+ </>
+  )
+}
 
-        <Dialog
+const ComplexArea = (props:any) => {
+  const { t } : any = props.this.props;
+  return(
+ <>
+        <Box className="stat-boxes">
+                  <Grid container spacing={2}>
+                    <Grid item sm={4}>
+                      <Card>
+                        <p>{t("Complex Area")}</p>
+                        <h2>
+                          {props.this.state.complexData.complexArea || ""} {props.this.state.complexData.measurement || " "}
+                        </h2>
+                      </Card>
+                    </Grid>
+                    <Grid item sm={4}>
+                      <Card>
+                        <p>{t("Total Buildings")}</p>
+                        <h2>{props.this.state.complexData.totalBuilding}</h2>
+                      </Card>
+                    </Grid>
+                    <Grid item sm={4}>
+                      <Card>
+                        <p>{t("Total Units")}</p>
+                        <h2>{props.this.state.complexData.totalUnits}</h2>
+                      </Card>
+                    </Grid>
+                  </Grid>
+                </Box>
+ </>
+  )
+}
+
+const Building = (props:any) => {
+  const { t } : any = props.this.props;
+  return(
+ <>
+      <Box className="building-list">
+                  <Card>
+                    <Box className="top-content">
+                      <Box className="heading">
+                        <h4>{t("Buildings")}</h4>
+                      </Box>
+                      <TextField
+                        className="search-unit"
+                        value={props.this.state.dataSearch}
+                        placeholder={t("Search by building name")}
+                        onChange={(e: any) => {
+                          props.this.setState({ dataSearch: e.target.value });
+                        }}
+                        InputProps={{
+                          startAdornment: (
+                            <InputAdornment position="start">
+                              <SearchOutlinedIcon />
+                            </InputAdornment>
+                          ),
+                        }}
+                      />
+                    </Box>
+                    <Divider />
+                    <Box className="bottom-content">
+                      <Grid container spacing={2}>
+                        {props.searchData.length === 0 && <p>{t("No Building Available")}</p>}
+                        {props.searchData.map((building: any) => {
+                          return (
+                            <Grid item xs={4} key={building.building_management_id}>
+                                <Link href={props.userType === "Security" ? "#" :`/Building/${building.building_management_id}`}>
+                                <Box className="building-box">
+                                  <h5>{building.building_name}</h5>
+                                </Box>
+                              </Link>
+                            </Grid>
+                          );
+                        })}
+                      </Grid>
+                    </Box>
+                  </Card>
+                </Box>
+ </>
+  )
+}
+
+const MapDialog = (props:any) => {
+  const { t } : any = props.this.props;
+  return(
+ <>
+    <Dialog
+          className="edit-profile chairman-map-modal"
+          open={props.this.state.isOpenMapModalOpen}
+          scroll="paper"
+          fullWidth
+          maxWidth="sm"
+        >
+          <MuiDialogTitle disableTypography className="dialog-heading">
+            <Typography variant="h6">{t("Location")}</Typography>
+            <IconButton onClick={() => props.this.handleMapModal()}>
+              <CloseIcon />
+            </IconButton>
+          </MuiDialogTitle>
+          {props.this.state.complexData.lat && props.this.state.complexData.long ? (
+            <Box className="google-map-box">
+              <GoogleMapReact
+                bootstrapURLKeys={{ key: "AIzaSyA1NvS9-cKp1dl_kMQDVFr4Gmbnv97MTtk" }}
+                defaultCenter={{
+                  lat: props.this.state.complexData.lat,
+                  lng: props.this.state.complexData.long,
+                }}
+                defaultZoom={15}
+              >
+                <LocationPin lat={props.this.state.complexData.lat} lng={props.this.state.complexData.long} />
+              </GoogleMapReact>
+            </Box>
+          ) : (
+            <Box className="no-google-map-box">{t("No Location Available")}</Box>
+          )}
+        </Dialog>
+ </>
+  )
+}
+
+const ComplexDialog = (props:any) => {
+  const { t } : any = props.this.props;
+  return(
+  <>
+  <Dialog
           className="edit-profile edit-complex-details"
-          open={this.state.isEditBuildingModalOpen}
+          open={props.this.state.isEditBuildingModalOpen}
           scroll="paper"
           fullWidth
           maxWidth="md"
         >
           <MuiDialogTitle disableTypography className="dialog-heading">
             <Typography variant="h6">{t("Edit Details")}</Typography>
-            <IconButton onClick={() => this.handleEditComplexModal()}>
+            <IconButton onClick={() => props.this.handleEditComplexModal()}>
               <CloseIcon />
             </IconButton>
           </MuiDialogTitle>
           <Formik
             enableReinitialize={true}
-            initialValues={this.state.editForm}
-            validationSchema={this.editComplexDetailValidation}
+            initialValues={props.this.state.editForm}
+            validationSchema={props.this.editComplexDetailValidation}
             onSubmit={(values, { resetForm }) => {
-              this.handleEditComplexModal();
-              this.handleSaveComplexDetails(values);
+              props.this.handleEditComplexModal();
+              props.this.handleSaveComplexDetails(values);
             }}
           >
             {({ values, errors, touched, handleChange, handleBlur, handleSubmit, setFieldValue }) => {
@@ -456,12 +535,12 @@ class Complex extends ComplexController {
                   <DialogContent dividers>
                     <Box className="profile-picture">
                       <img src={values.displayLogo} alt="profile" className="picture building" />
-                      <p className="logo-text" onClick={() => this.uploadLogo.click()}>
+                      <p className="logo-text" onClick={() => props.this.uploadLogo.click()}>
                         {t("Change Logo")}
                       </p>
                       <input
                         type="file"
-                        ref={(ref: any) => (this.uploadLogo = ref)}
+                        ref={(ref: any) => (props.this.uploadLogo = ref)}
                         style={{ display: "none" }}
                         accept="image/*"
                         onChange={(e: any) => {
@@ -483,12 +562,12 @@ class Complex extends ComplexController {
                         <InputLabel>{t("Upload Photos")}</InputLabel>
                         <Grid container spacing={4}>
                           <Grid item md={3}>
-                            <Box className="upload-photo" onClick={() => this.uploadImages.click()}>
+                            <Box className="upload-photo" onClick={() => props.this.uploadImages.click()}>
                               <img src={uploadbw} alt="" />
                             </Box>
                             <input
                               type="file"
-                              ref={(ref: any) => (this.uploadImages = ref)}
+                              ref={(ref: any) => (props.this.uploadImages = ref)}
                               style={{ display: "none" }}
                               accept="image/*"
                               onChange={(e: any) => {
@@ -654,7 +733,7 @@ class Complex extends ComplexController {
                     </Grid>
                   </DialogContent>
                   <DialogActions className="dialog-button-group">
-                    <Button className="cancel-button" onClick={() => this.handleEditComplexModal()}>
+                    <Button className="cancel-button" onClick={() => props.this.handleEditComplexModal()}>
                       {t("Cancel")}
                     </Button>
                     <Button type="submit" className="add-button">
@@ -666,44 +745,10 @@ class Complex extends ComplexController {
             }}
           </Formik>
         </Dialog>
-
-        <Dialog
-          className="edit-profile chairman-map-modal"
-          open={this.state.isOpenMapModalOpen}
-          scroll="paper"
-          fullWidth
-          maxWidth="sm"
-        >
-          <MuiDialogTitle disableTypography className="dialog-heading">
-            <Typography variant="h6">{t("Location")}</Typography>
-            <IconButton onClick={() => this.handleMapModal()}>
-              <CloseIcon />
-            </IconButton>
-          </MuiDialogTitle>
-          {this.state.complexData.lat && this.state.complexData.long ? (
-            <Box className="google-map-box">
-              <GoogleMapReact
-                bootstrapURLKeys={{ key: "AIzaSyA1NvS9-cKp1dl_kMQDVFr4Gmbnv97MTtk" }}
-                defaultCenter={{
-                  lat: this.state.complexData.lat,
-                  lng: this.state.complexData.long,
-                }}
-                defaultZoom={15}
-              >
-                <LocationPin lat={this.state.complexData.lat} lng={this.state.complexData.long} />
-              </GoogleMapReact>
-            </Box>
-          ) : (
-            <Box className="no-google-map-box">{t("No Location Available")}</Box>
-          )}
-        </Dialog>
-      </>
-    );
-  }
+        
+  </>
+  )
 }
-
-//@ts-ignore
-export default withTranslation()(withStyles(BuildingApartmentStyle)(Complex));
 
 const dashBoard = {
   navigation: {

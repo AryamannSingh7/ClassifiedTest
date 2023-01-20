@@ -882,7 +882,7 @@ const routeMap = {
     component: FaqChairman,
     path: '/FaqChairman',
     exact: true,
-    roles: [ROLE.CHAIRMAN, ROLE.MANAGER]
+    roles: [ROLE.CHAIRMAN, ROLE.MANAGER, ROLE.SECURITY]
   },
   FaqOwner: {
     component: FaqOwner,
@@ -1949,17 +1949,17 @@ const routeMap = {
   Complex: {
     component: Complex,
     path: '/Complex',
-    roles: [ROLE.CHAIRMAN, ROLE.MANAGER]
+    roles: [ROLE.CHAIRMAN, ROLE.MANAGER, ROLE.SECURITY]
   },
   UnitDetails: {
     component: UnitDetails,
     path: '/UnitDetail/:id',
-    roles: [ROLE.CHAIRMAN, ROLE.MANAGER]
+    roles: [ROLE.CHAIRMAN, ROLE.MANAGER,ROLE.SECURITY]
   },
   SharedArea: {
     component: SharedArea,
     path: '/SharedArea/:id',
-    roles: [ROLE.CHAIRMAN, ROLE.MANAGER]
+    roles: [ROLE.CHAIRMAN, ROLE.MANAGER,ROLE.SECURITY]
   },
   OwnerComplex: {
     component: OwnerComplex,

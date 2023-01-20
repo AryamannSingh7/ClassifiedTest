@@ -90,7 +90,7 @@ const MenuList = [
   },
   {
     name: "Email Alerts",
-    url: "",
+    url: "/EmailAlerts",
     img: SidebarEmail,
   },
   {

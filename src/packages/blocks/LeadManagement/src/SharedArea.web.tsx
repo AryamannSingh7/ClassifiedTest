@@ -41,6 +41,7 @@ import { BuildingApartmentStyle } from "./BuildingApartmentStyle.web";
 import Loader from "../../../components/src/Loader.web";
 import { Formik, Form } from "formik";
 import moment from "moment";
+import GeneralSideBarWeb from "../../dashboard/src/GeneralSideBar.web";
 
 const settings = {
   infinite: false,
@@ -55,7 +56,7 @@ class SharedArea extends SharedAreaController {
 
   render() {
     const { t, classes }: any = this.props;
-
+    const  userType = localStorage.getItem("userType");
     return (
       <>
         <Loader loading={this.state.loading} />
@@ -66,7 +67,8 @@ class SharedArea extends SharedAreaController {
           <Box style={{ display: "flex" }}>
             <Grid item xs={3} md={3} sm={3} className="SideBar">
               {/* Chairman Sidebar -- */}
-              <ChairmanSidebar {...this.props} />
+              {/* <ChairmanSidebar {...this.props} /> */}
+              <GeneralSideBarWeb {...this.props}></GeneralSideBarWeb>
             </Grid>
             <Grid xs={9} md={9} sm={9} spacing={4} style={{ paddingTop: 35 }}>
               <Container>
@@ -88,16 +90,7 @@ class SharedArea extends SharedAreaController {
                         {this.state.sharedAreaData.name}
                       </Typography>
                     </Grid>
-                    <Grid item xs={12} sm={2}>
-                      <Button
-                        className="edit-button"
-                        variant="contained"
-                        color="primary"
-                        onClick={() => this.openSharedAreaEditModal()}
-                      >
-                        {t("Edit Details")}
-                      </Button>
-                    </Grid>
+                  <EditButton this={this} userType = {userType}></EditButton>
                   </Grid>
                 </Box>
 
@@ -259,21 +252,33 @@ class SharedArea extends SharedAreaController {
             </Grid>
           </Box>
         </Box>
+        <DialogBox this={this}></DialogBox>
+       
+      </>
+    );
+  }
+}
 
-        <Dialog className="edit-profile edit-share-area-modal" open={this.state.setComplexEditOpen} scroll="paper" fullWidth maxWidth="md">
+export default withTranslation()(withStyles(BuildingApartmentStyle)(SharedArea));
+
+const DialogBox = (props : any)=>{
+  const { t ,classes} : any = props.this.props;
+  return(
+    <>
+    <Dialog className="edit-profile edit-share-area-modal" open={props.this.state.setComplexEditOpen} scroll="paper" fullWidth maxWidth="md">
           <MuiDialogTitle disableTypography className="dialog-heading">
             <Typography variant="h6">{t("Edit Details")}</Typography>
-            <IconButton onClick={() => this.handleSharedAreaEditModal()}>
+            <IconButton onClick={() => props.this.handleSharedAreaEditModal()}>
               <CloseIcon />
             </IconButton>
           </MuiDialogTitle>
           <Formik
             enableReinitialize={true}
-            initialValues={this.state.editForm}
-            validationSchema={this.editAreaDetailValidation}
+            initialValues={props.this.state.editForm}
+            validationSchema={props.this.editAreaDetailValidation}
             onSubmit={(values, { resetForm }) => {
-              this.handleSharedAreaEditModal();
-              this.handleSaveSharedAreaDetails(values);
+              props.this.handleSharedAreaEditModal();
+              props.this.handleSaveSharedAreaDetails(values);
             }}
           >
             {({ values, errors, touched, handleChange, handleBlur, handleSubmit, setFieldValue }) => {
@@ -285,12 +290,12 @@ class SharedArea extends SharedAreaController {
                         <InputLabel>{t("Upload Photos")}</InputLabel>
                         <Grid container spacing={4}>
                           <Grid item md={3}>
-                            <Box className="upload-photo" onClick={() => this.uploadImages.click()}>
+                            <Box className="upload-photo" onClick={() => props.this.uploadImages.click()}>
                               <img src={uploadbw} alt="" />
                             </Box>
                             <input
                               type="file"
-                              ref={(ref: any) => (this.uploadImages = ref)}
+                              ref={(ref: any) => (props.this.uploadImages = ref)}
                               style={{ display: "none" }}
                               accept="image/*"
                               onChange={(e: any) => {
@@ -376,7 +381,7 @@ class SharedArea extends SharedAreaController {
                         <Box className="floor-plan-box">
                           <input
                             type="file"
-                            ref={(ref: any) => (this.uploadFile = ref)}
+                            ref={(ref: any) => (props.this.uploadFile = ref)}
                             style={{ display: "none" }}
                             accept=".pdf"
                             className="floor-plan-pdf"
@@ -401,7 +406,7 @@ class SharedArea extends SharedAreaController {
                               className={classes.chip}
                             />
                           )}
-                          <img onClick={() => this.uploadFile.click()} src={uploadbw} />
+                          <img onClick={() => props.this.uploadFile.click()} src={uploadbw} />
                         </Box>
                         {errors.floorPlan && touched.floorPlan && (
                           <small className="error">{t(errors.floorPlan)}</small>
@@ -410,7 +415,7 @@ class SharedArea extends SharedAreaController {
                     </Grid>
                   </DialogContent>
                   <DialogActions className="dialog-button-group">
-                    <Button className="cancel-button" onClick={() => this.handleSharedAreaEditModal()}>
+                    <Button className="cancel-button" onClick={() => props.this.handleSharedAreaEditModal()}>
                       {t("Cancel")}
                     </Button>
                     <Button type="submit" className="add-button">
@@ -422,13 +427,29 @@ class SharedArea extends SharedAreaController {
             }}
           </Formik>
         </Dialog>
-      </>
-    );
-  }
+    </>
+  )
 }
 
-export default withTranslation()(withStyles(BuildingApartmentStyle)(SharedArea));
-
+const EditButton = (props : any)=>{
+  const { t } : any = props.this.props;
+  return(
+    <>
+      {props.userType === "Security" ? null : (
+                    <Grid item xs={12} sm={2}>
+                      <Button
+                        className="edit-button"
+                        variant="contained"
+                        color="primary"
+                        onClick={() => props.this.openSharedAreaEditModal()}
+                      >
+                        {t("Edit Details")}
+                      </Button>
+                    </Grid>
+                     ) }
+    </>
+  )
+}
 const dashBoard = {
   navigation: {
     display: "flex",

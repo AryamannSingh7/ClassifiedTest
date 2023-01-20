@@ -37,6 +37,8 @@ import "./DialogStyle.web.css";
 import { withTranslation } from 'react-i18next';
 import '../../../web/src/i18n.js';
 import VisitorsSidebar from "../../dashboard/src/VisitorsSidebar.web";
+import GeneralSideBarWeb from "../../dashboard/src/GeneralSideBar.web";
+
 
 class FaqChairman extends FaqChairmanController {
   constructor(props: Props) {
@@ -46,7 +48,7 @@ class FaqChairman extends FaqChairmanController {
   render() {
     const {t} = this.props
     const { classes } = this.props;
-    const userType  = localStorage.getItem("selectUserType");
+    const userType  = localStorage.getItem("userType");
 
     return (
       <>
@@ -56,11 +58,7 @@ class FaqChairman extends FaqChairmanController {
           <Box style={{ display: "flex" }}>
             <Grid item xs={3} md={3} sm={3} className="SideBar">
               {/* Chairman Sidebar -- */}
-              {  userType === "Visitors" ? 
-                            <VisitorsSidebar {...this.props} />
-                            :
-                            <ChairmanSidebarWeb {...this.props} /> 
-                           }
+              <GeneralSideBarWeb {...this.props}></GeneralSideBarWeb>
             </Grid>
 
             <Grid item xs={9} md={9} sm={9} style={{ paddingTop: 35 }}>
@@ -110,7 +108,7 @@ class FaqChairman extends FaqChairmanController {
                     })}
                   </Box>
                   {
-                     userType === "Visitors"  ? null
+                     userType === "Security"  ? null
                      :
                      <Button
                        startIcon={<AddIcon />}
@@ -146,7 +144,7 @@ class FaqChairman extends FaqChairmanController {
                             >
                               {faq.title}
                             </Typography>
-                            {userType === "Visitors" ? 
+                            {userType === "Security" ? 
                             null
                             :
                             <Box className="icons">
@@ -173,7 +171,7 @@ class FaqChairman extends FaqChairmanController {
                 </Box>
                 <Box className="bottom-buttons">
                   {
-                  userType === "Visitors" ? 
+                  userType === "Security" ? 
                   null
                   :
                   this.state.selectedCategoryName ? (
@@ -188,7 +186,7 @@ class FaqChairman extends FaqChairmanController {
                     <div />
                   )}
                   {
-                     userType === "Visitors" ? 
+                     userType === "Security" ? 
                      null
                      :
                      <Button
