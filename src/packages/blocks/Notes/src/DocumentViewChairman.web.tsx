@@ -6,6 +6,7 @@ import { DocumentReportStyleWeb } from "./DocumentReportStyle.web";
 import DashboardHeader from "../../dashboard/src/DashboardHeader.web";
 import ChairmanSidebarWeb from "../../dashboard/src/ChairmanSidebar.web";
 import { withTranslation } from "react-i18next";
+import GeneralSideBarWeb from "../../dashboard/src/GeneralSideBar.web";
 
 class DocumentViewChairman extends DocumentViewChairmanController {
   constructor(props: Props) {
@@ -23,7 +24,7 @@ class DocumentViewChairman extends DocumentViewChairmanController {
           <Box style={{ display: "flex" }}>
             <Grid item xs={3} md={3} sm={3} className="SideBar">
               {/* Chairman Sidebar -- */}
-              <ChairmanSidebarWeb {...this.props} />
+              <GeneralSideBarWeb {...this.props}></GeneralSideBarWeb>
             </Grid>
 
             <Grid item xs={9} md={9} sm={9} style={{ paddingTop: 35 }}>
