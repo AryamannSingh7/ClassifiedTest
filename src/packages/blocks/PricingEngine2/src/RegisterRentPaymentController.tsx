@@ -1,11 +1,9 @@
 // Customizable Area Start
-import { IBlock } from "../../../framework/src/IBlock";
-import { Message } from "../../../framework/src/Message";
-import { BlockComponent } from "../../../framework/src/BlockComponent";
-import MessageEnum, {
-  getName
-} from "../../../framework/src/Messages/MessageEnum";
-import { runEngine } from "../../../framework/src/RunEngine";
+import {IBlock} from "../../../framework/src/IBlock";
+import {Message} from "../../../framework/src/Message";
+import MessageEnum, {getName} from "../../../framework/src/Messages/MessageEnum";
+import {runEngine} from "../../../framework/src/RunEngine";
+import CommonApiCallForBlockComponent from "../../../components/src/ApiCallCommon.web";
 
 export const configJSON = require("./config");
 
@@ -39,13 +37,14 @@ interface S {
   amountError:any;
   showError:boolean;
   error:any;
+  contractId:any;
 }
 
 interface SS {
   id: any;
 }
 
-export default class RegisterRentPaymentController extends BlockComponent<
+export default class RegisterRentPaymentController extends CommonApiCallForBlockComponent<
   Props,
   S,
   SS
@@ -58,6 +57,7 @@ export default class RegisterRentPaymentController extends BlockComponent<
   getRentUnitListId: string = "";
   RegisterRentPaymentId:string = "";
   getRentDueAmountId:string = "";
+  getRentMonthListId:string = "";
   constructor(props: Props) {
 
     super(props);
@@ -89,6 +89,7 @@ export default class RegisterRentPaymentController extends BlockComponent<
       amountError:"",
       showError:false,
       error:"",
+      contractId:"",
     };
 
     this.emailReg = new RegExp("");
@@ -100,6 +101,7 @@ export default class RegisterRentPaymentController extends BlockComponent<
 
   async componentDidMount() {
     this.getRentBuildingList()
+    this.getRentMonthList()
   }
 
   manageSelectBuilding = (e:any) => {
@@ -137,12 +139,16 @@ export default class RegisterRentPaymentController extends BlockComponent<
       if(this.getRentDueAmountId === apiRequestCallId) {
         if(responseJson.hasOwnProperty("data")){
           this.setState({
-            tenantName:responseJson.data[0]?.attributes?.tenant_name,
-            rentAmount:responseJson.data[0]?.attributes?.rent_amount,
-            partialPaidAmount:responseJson?.data[0]?.attributes?.partial_amount || 0,
-            currency:responseJson.data[0]?.attributes?.currency,
+            tenantName:responseJson.data?.attributes?.tenant_name,
+            rentAmount:responseJson.data?.attributes?.rent_amount,
+            partialPaidAmount:responseJson?.data?.attributes?.partial_payment || 0,
+            currency:responseJson.data?.attributes?.currency,
+            contractId:responseJson.data?.attributes?.contract_id
           })
         }
+      }
+      if(this.getRentMonthListId === apiRequestCallId){
+
       }
     }
   }
@@ -188,6 +194,16 @@ export default class RegisterRentPaymentController extends BlockComponent<
     return true
   };
 
+  getRentMonthList = async () => {
+    this.getRentMonthListId = await this.apiCall({
+      contentType: "application/json",
+      method: "GET",
+      endPoint: `/bx_block_rent_payment/rent_payments/month_list`,
+    });
+    return true
+  };
+
+
   getRentUnitList = async (id:any) => {
     console.log("BuildingID",id)
     this.getRentUnitListId = await this.apiCall({
@@ -231,24 +247,6 @@ export default class RegisterRentPaymentController extends BlockComponent<
       endPoint: `/bx_block_rent_payment/rent_payments`,
       body:JSON.stringify(body)
     });
-  };
-
-  apiCall = async (data: any) => {
-    const { contentType, method, endPoint, body } = data;
-
-    const token = localStorage.getItem("userToken");
-
-    const header = {
-      "Content-Type": contentType,
-      token,
-    };
-    const requestMessage = new Message(getName(MessageEnum.RestAPIRequestMessage));
-    requestMessage.addData(getName(MessageEnum.RestAPIRequestHeaderMessage), JSON.stringify(header));
-    requestMessage.addData(getName(MessageEnum.RestAPIResponceEndPointMessage), endPoint);
-    requestMessage.addData(getName(MessageEnum.RestAPIRequestMethodMessage), method);
-    body && requestMessage.addData(getName(MessageEnum.RestAPIRequestBodyMessage), body);
-    runEngine.sendMessage(requestMessage.id, requestMessage);
-    return requestMessage.messageId;
   };
 
   showError = () => {

@@ -146,7 +146,7 @@ class RegisterRentPayment extends RegisterRentPaymentController{
                                 {
                                     this.state.UnitListing?.map((item:any,key:any)=> {
                                         return(
-                                            <option key={key} value={item.attributes?.unit_number?.id}> {item.attributes?.unit_number?.apartment_name}</option>
+                                            <option key={key} value={item?.id}> {item.attributes?.apartment_management?.apartment_name}</option>
                                         )
                                     })
                                 }

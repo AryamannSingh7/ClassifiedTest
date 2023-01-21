@@ -6,6 +6,8 @@ import MessageEnum, {
   getName
 } from "../../../framework/src/Messages/MessageEnum";
 import { runEngine } from "../../../framework/src/RunEngine";
+import CommonApiCallForBlockComponent from "../../../components/src/ApiCallCommon.web";
+
 // import {toast} from "react-toastify";
 
 export const configJSON = require("./config");
@@ -24,14 +26,14 @@ interface S {
   loading: boolean;
   sortBy:any;
   status:any;
-  pollListing:any;
+  rentDetails:any;
 }
 
 interface SS {
   id: any;
 }
 
-export default class CoverImageController extends BlockComponent<
+export default class CoverImageController extends CommonApiCallForBlockComponent<
   Props,
   S,
   SS
@@ -54,7 +56,7 @@ export default class CoverImageController extends BlockComponent<
       loading:false,
       sortBy : "" ,
       status:"",
-      pollListing:[],
+      rentDetails:{},
     };
 
     this.emailReg = new RegExp("");
@@ -73,7 +75,7 @@ export default class CoverImageController extends BlockComponent<
     this.getMonthRentId = await this.apiCall({
       contentType: "application/json",
       method: "GET",
-      endPoint: `bx_block_rent_payment/monthly_payment/${id}`,
+      endPoint: `bx_block_rent_payment/rent_payments/${id}`,
     });
   };
 
@@ -83,42 +85,14 @@ export default class CoverImageController extends BlockComponent<
       const responseJson = message.getData(getName(MessageEnum.RestAPIResponceSuccessMessage));
       var errorReponse = message.getData(getName(MessageEnum.RestAPIResponceErrorMessage));
       if(this.getMonthRentId === apiRequestCallId){
-        console.log("ResponseJSON",responseJson)
+        if(responseJson.hasOwnProperty("data")){
+          this.setState({
+            rentDetails:responseJson?.data?.attributes
+          })
+        }
       }
     }
   }
-
-  apiCall = async (data: any) => {
-    const { method, endPoint, body } = data;
-
-    const token = localStorage.getItem('userToken') ;
-
-    const header = {
-      "content-type":"application/json",
-      token
-    };
-    const requestMessage = new Message(
-        getName(MessageEnum.RestAPIRequestMessage)
-    );
-    requestMessage.addData(
-        getName(MessageEnum.RestAPIRequestHeaderMessage),
-        JSON.stringify(header)
-    );
-    requestMessage.addData(
-        getName(MessageEnum.RestAPIResponceEndPointMessage),
-        endPoint
-    );
-    requestMessage.addData(
-        getName(MessageEnum.RestAPIRequestMethodMessage),
-        method
-    );
-    body && requestMessage.addData(
-        getName(MessageEnum.RestAPIRequestBodyMessage),
-        body
-    );
-    runEngine.sendMessage(requestMessage.id, requestMessage);
-    return requestMessage.messageId;
-  };
 
 }
 

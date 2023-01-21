@@ -53,9 +53,30 @@ class ReceiptDetails extends RentDetailsController{
                                             <Typography variant={"subtitle2"}>
                                                 {t("Due on")} 23 April 2022
                                             </Typography>
-                                            <Typography variant="subtitle2" className="paymentStatusRed">
-                                                Due
-                                            </Typography>
+                                            {
+                                                this.state.rentDetails?.status === "due" &&
+                                                <Typography variant="subtitle2" className="paymentStatusRed">
+                                                    Due
+                                                </Typography>
+                                            }
+                                            {
+                                                this.state.rentDetails?.status === "partially_paid" &&
+                                                <Typography variant="subtitle2" className="paymentStatusYellow">
+                                                    Partially Paid
+                                                </Typography>
+                                            }
+                                            {
+                                                this.state.rentDetails?.status === "fully_paid" &&
+                                                <Typography variant="subtitle2" className="paymentStatusGreen">
+                                                    Received
+                                                </Typography>
+                                            }
+                                            {
+                                                this.state.rentDetails?.status === "overdue" &&
+                                                <Typography variant="subtitle2" className="paymentStatusOrange">
+                                                    Overdue
+                                                </Typography>
+                                            }
                                         </Box>
                                     </Grid>
                                     <Grid item xs={6} style={{marginTop:"15px"}}>
@@ -71,7 +92,7 @@ class ReceiptDetails extends RentDetailsController{
                                             {t("Building Name")}
                                         </Typography>
                                         <Typography variant={"body1"} style={{fontWeight:"bold",marginTop:"5px"}}>
-                                            Building 1
+                                            {this.state.rentDetails.building_name}
                                         </Typography>
                                     </Grid>
                                     <Grid item xs={6} style={{marginTop:"8px"}}>
@@ -79,7 +100,7 @@ class ReceiptDetails extends RentDetailsController{
                                             {t("Unit Number")}
                                         </Typography>
                                         <Typography variant={"body1"} style={{fontWeight:"bold",marginTop:"5px"}}>
-                                            A-4512
+                                            {this.state.rentDetails.unit_no}
                                         </Typography>
                                     </Grid>
                                     <Grid item xs={6} style={{marginTop:"8px"}}>
@@ -87,7 +108,7 @@ class ReceiptDetails extends RentDetailsController{
                                             {t("Amount")}
                                         </Typography>
                                         <Typography variant={"body1"} style={{fontWeight:"bold",marginTop:"5px"}}>
-                                            SR500
+                                            SR{this.state.rentDetails?.amount?.toLocaleString()}
                                         </Typography>
                                     </Grid>
                                     <Grid item xs={6} style={{marginTop:"8px"}}>
@@ -95,15 +116,27 @@ class ReceiptDetails extends RentDetailsController{
                                             {t("Rent Amount")}
                                         </Typography>
                                         <Typography variant={"body1"} style={{fontWeight:"bold",marginTop:"5px"}}>
-                                            SR500
+                                            SR{this.state.rentDetails?.amount?.toLocaleString()}
                                         </Typography>
                                     </Grid>
                                     <Grid item xs={6} style={{marginTop:"8px"}}>
                                         <Typography variant={"subtitle2"} >
                                             {t("Due Amount")}
                                         </Typography>
+                                        {
+                                            this.state.rentDetails?.status === "fully_paid" &&
+                                            <Typography variant={"body1"} style={{fontWeight:"bold",marginTop:"5px"}}>
+                                                SR 0
+                                            </Typography>
+                                        }
+                                        {
+                                            this.state.rentDetails?.status === "partially_paid" &&
+                                            <Typography variant={"body1"} style={{fontWeight:"bold",marginTop:"5px"}}>
+                                                SR{(this.state.rentDetails?.amount - this.state.rentDetails?.partial_payment).toLocaleString()}
+                                            </Typography>
+                                        }
                                         <Typography variant={"body1"} style={{fontWeight:"bold",marginTop:"5px"}}>
-                                            SR500
+                                            SR{this.state.rentDetails.amount}
                                         </Typography>
                                     </Grid>
                                 </Grid>

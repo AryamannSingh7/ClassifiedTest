@@ -32,7 +32,7 @@ import { withTranslation } from "react-i18next";
 import { ROLE } from "../../../framework/src/Enum";
 import { ReportsStyleWeb } from "./ReportsStyle.web";
 import { SearchIconImage } from "./assets";
-
+import moment from "moment"
 class BudgetReport extends BudgetReportController {
   constructor(props: Props) {
     super(props);
@@ -119,33 +119,41 @@ class BudgetReport extends BudgetReportController {
                         </TableRow>
                       </TableHead>
                       <TableBody>
-                        <TableRow>
-                          <TableCell colSpan={6}>{t("No Budget Reports Available")}</TableCell>
-                        </TableRow>
-                        <TableRow>
-                          <TableCell>1</TableCell>
-                          <TableCell>2022</TableCell>
-                          <TableCell>12 Dec 2022</TableCell>
-                          <TableCell>SR 12,000</TableCell>
-                          <TableCell>
-                            <span className="Pending">Pending</span>
-                          </TableCell>
-                          <TableCell>
-                            <Menu
-                              menuButton={
-                                <IconButton>
-                                  <MoreVertIcon />
-                                </IconButton>
-                              }
-                            >
-                              <MenuItem onClick={() => this.props.history.push("/BudgetReports/1")}>
-                                {t("View")}
-                              </MenuItem>
-                              <MenuItem>{t("Download")}</MenuItem>
-                              <MenuItem>{t("Share")}</MenuItem>
-                            </Menu>
-                          </TableCell>
-                        </TableRow>
+                        {
+                          this.state.budgetReportList?.length > 0 ?
+                              this.state.budgetReportList.map((item:any,key:any)=> {
+                                return(
+                                    <TableRow>
+                                      <TableCell>{key+1}</TableCell>
+                                      <TableCell>{item?.attributes?.year}</TableCell>
+                                      <TableCell>{moment(item?.attributes?.report_generated_on,"DD-MM-YY").format("DD MMM YYYY")}</TableCell>
+                                      <TableCell>{item?.attributes?.currency?.currency} {item?.attributes?.amount.toLocaleString()}</TableCell>
+                                      <TableCell>
+                                        <span className="Pending">{item?.attributes?.status}</span>
+                                      </TableCell>
+                                      <TableCell>
+                                        <Menu
+                                            menuButton={
+                                              <IconButton>
+                                                <MoreVertIcon />
+                                              </IconButton>
+                                            }
+                                        >
+                                          <MenuItem onClick={() => this.props.history.push(`/BudgetReports/${item.id}`)}>
+                                            {t("View")}
+                                          </MenuItem>
+                                          <MenuItem>{t("Download")}</MenuItem>
+                                          <MenuItem>{t("Share")}</MenuItem>
+                                        </Menu>
+                                      </TableCell>
+                                    </TableRow>
+                                )
+                              })
+                              :
+                              <TableRow>
+                                <TableCell colSpan={6}>{t("No Budget Reports Available")}</TableCell>
+                              </TableRow>
+                        }
                       </TableBody>
                     </Table>
                     <Divider />
