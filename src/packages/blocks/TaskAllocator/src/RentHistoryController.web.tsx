@@ -253,6 +253,8 @@ export default class RentHistoryController extends BlockComponent<Props, S, SS> 
       if (responseJson && responseJson.data) {
         toast.success("Rent History Created Successfully");
         this.getRentHistory();
+      } else if (responseJson && responseJson.message) {
+        toast.error(responseJson.message);
       }
     });
   };
