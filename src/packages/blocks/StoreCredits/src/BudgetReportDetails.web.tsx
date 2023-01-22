@@ -1,44 +1,45 @@
 // Customizable Area Start
 import React from "react";
 import {
-  Container,
-  Typography,
-  withStyles,
-  Button,
-  IconButton,
-  Divider,
-  Box,
-  Grid,
-  Dialog,
-  DialogContent,
-  DialogActions,
-  Modal,
-  Fade,
-  TextField,
-  Backdrop,
-  Card,
-  FormControl,
-  TextareaAutosize,
-  Table,
-  TableHead,
-  TableRow,
-  TableBody,
-  TableCell,
-  Tooltip,
+    Backdrop,
+    Box,
+    Button,
+    Card,
+    Container,
+    Dialog,
+    DialogActions,
+    DialogContent,
+    Divider,
+    Fade,
+    FormControl,
+    Grid,
+    IconButton,
+    Modal,
+    Table,
+    TableBody,
+    TableCell,
+    TableHead,
+    TableRow,
+    TextareaAutosize,
+    TextField,
+    Tooltip,
+    Typography,
+    withStyles,
 } from "@material-ui/core";
-import BudgetReportDetailsController, { Props } from "./BudgetReportDetailsController.web";
+import BudgetReportDetailsController, {Props} from "./BudgetReportDetailsController.web";
 import DashboardHeader from "../../dashboard/src/DashboardHeader.web";
 import ChairmanSidebarWeb from "../../dashboard/src/ChairmanSidebar.web";
-import { withTranslation } from "react-i18next";
+import {withTranslation} from "react-i18next";
 import "web/src/i18n";
-import { ReportsStyleWeb } from "./ReportsStyle.web";
+import {ReportsStyleWeb} from "./ReportsStyle.web";
 import InfoOutlinedIcon from '@material-ui/icons/InfoOutlined';
-import {CheckIcon,cancle} from "../../user-profile-basic/src/assets"
-import {buildingLogo,manageLogo,GroupLogo} from "./assets"
+import {cancle, CheckIcon} from "../../user-profile-basic/src/assets"
+import {buildingLogo, GroupLogo, manageLogo} from "./assets"
 import CloseIcon from "@material-ui/icons/Close";
 import MuiDialogTitle from "@material-ui/core/DialogTitle";
-import { BuildingImage } from "../../TaskAllocator/src/assets";
 import {withRouter} from "react-router";
+// @ts-ignore
+import DOMPurify from 'dompurify'
 
 class BudgetReportDetails extends BudgetReportDetailsController {
   constructor(props: Props) {
@@ -123,10 +124,9 @@ class BudgetReportDetails extends BudgetReportDetailsController {
                                                               <Typography variant="h6" style={{ fontWeight: "bold", marginBottom: "10px" }}>
                                                                   {item.budget_category}
                                                               </Typography>
-                                                              <Typography variant="subtitle2">
-                                                                  {" "}
-                                                                  {item.description}{" "}
-                                                              </Typography>
+                                                              <Typography variant="subtitle2" dangerouslySetInnerHTML={
+                                                                  { __html: DOMPurify.sanitize(item.description) }
+                                                              }/>
                                                           </Box>
                                                       </React.Fragment>
                                                   }
@@ -252,79 +252,6 @@ class BudgetReportDetails extends BudgetReportDetailsController {
                 </div>
             </Fade>
             </Modal>
-                {/*<Box className="building-box">*/}
-                {/*  <Card>*/}
-                {/*    <Grid container spacing={2}>*/}
-                {/*      <Grid md={8} item>*/}
-                {/*        <Box className="left-box">*/}
-                {/*          <Box className="building">*/}
-                {/*            <img src={BuildingImage.default} alt="" />*/}
-                {/*            <h4>Building Name</h4>*/}
-                {/*          </Box>*/}
-                {/*          <p>Managed By: Qwerty</p>*/}
-                {/*        </Box>*/}
-                {/*      </Grid>*/}
-                {/*      <Grid md={4} item>*/}
-                {/*        <Box className="right-box">*/}
-                {/*          <img src={BuildingImage.default} alt="" />*/}
-                {/*        </Box>*/}
-                {/*      </Grid>*/}
-                {/*    </Grid>*/}
-                {/*  </Card>*/}
-                {/*</Box>*/}
-
-                {/*<Box className="budget-box">*/}
-                {/*  <Card>*/}
-                {/*    <Box className="heading">*/}
-                {/*      <h4>Budget 2022</h4>*/}
-                {/*    </Box>*/}
-                {/*    <Divider />*/}
-                {/*    <Box className="budget-content-box">*/}
-                {/*      <Box className="head content-line">*/}
-                {/*        <p>Name</p>*/}
-                {/*        <span>Amount</span>*/}
-                {/*      </Box>*/}
-                {/*      <hr />*/}
-                {/*      <Box className="content-line">*/}
-                {/*        <p>Budget 2022</p>*/}
-                {/*        <span>SR 2022</span>*/}
-                {/*      </Box>*/}
-                {/*      <hr />*/}
-                {/*      <Box className="content-line">*/}
-                {/*        <p>Budget 2022</p>*/}
-                {/*        <span>SR 2022</span>*/}
-                {/*      </Box>*/}
-                {/*      <hr />*/}
-                {/*      <Box className="content-line">*/}
-                {/*        <p>Budget 2022</p>*/}
-                {/*        <span>SR 2022</span>*/}
-                {/*      </Box>*/}
-                {/*      <hr />*/}
-                {/*      <Box className="content-line">*/}
-                {/*        <p>Budget 2022</p>*/}
-                {/*        <span>SR 2022</span>*/}
-                {/*      </Box>*/}
-                {/*    </Box>*/}
-                {/*    <Divider />*/}
-                {/*    <Box className="footer">*/}
-                {/*      <Box className="content-line">*/}
-                {/*        <p>Budget 2022</p>*/}
-                {/*        <span>SR 2022</span>*/}
-                {/*      </Box>*/}
-                {/*    </Box>*/}
-                {/*  </Card>*/}
-                {/*</Box>*/}
-
-
-
-                {/*<Box className="button-box">*/}
-                {/*  <Button className="cancel" onClick={() => this.handleRejectReportModal()}>*/}
-                {/*    {t("Reject")}*/}
-                {/*  </Button>*/}
-                {/*  <Button className="edit" onClick={() => this.handleApproveReportModal()}>*/}
-                {/*    {t("Approve")}*/}
-                {/*  </Button>*/}
-                {/*</Box>*/}
           </Box>
         </Box>
 

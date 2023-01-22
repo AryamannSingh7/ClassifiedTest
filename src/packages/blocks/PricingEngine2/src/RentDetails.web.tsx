@@ -84,7 +84,7 @@ class ReceiptDetails extends RentDetailsController{
                                             {t("Landlord")}
                                         </Typography>
                                         <Typography variant={"body1"} style={{fontWeight:"bold",marginTop:"5px"}}>
-                                            Mr. Ali Khanost
+                                            {this.state?.rentDetails?.landlord_name}
                                         </Typography>
                                     </Grid>
                                     <Grid item xs={6} style={{marginTop:"15px"}}>
@@ -92,7 +92,7 @@ class ReceiptDetails extends RentDetailsController{
                                             {t("Building Name")}
                                         </Typography>
                                         <Typography variant={"body1"} style={{fontWeight:"bold",marginTop:"5px"}}>
-                                            {this.state.rentDetails.building_name}
+                                            {this.state?.rentDetails?.building_name}
                                         </Typography>
                                     </Grid>
                                     <Grid item xs={6} style={{marginTop:"8px"}}>
@@ -100,7 +100,7 @@ class ReceiptDetails extends RentDetailsController{
                                             {t("Unit Number")}
                                         </Typography>
                                         <Typography variant={"body1"} style={{fontWeight:"bold",marginTop:"5px"}}>
-                                            {this.state.rentDetails.unit_no}
+                                            {this.state?.rentDetails?.unit_no}
                                         </Typography>
                                     </Grid>
                                     <Grid item xs={6} style={{marginTop:"8px"}}>
@@ -135,26 +135,33 @@ class ReceiptDetails extends RentDetailsController{
                                                 SR{(this.state.rentDetails?.amount - this.state.rentDetails?.partial_payment).toLocaleString()}
                                             </Typography>
                                         }
-                                        <Typography variant={"body1"} style={{fontWeight:"bold",marginTop:"5px"}}>
-                                            SR{this.state.rentDetails.amount}
-                                        </Typography>
+                                        {
+                                            this.state.rentDetails?.status !== "partially_paid" && this.state.rentDetails?.status !== "fully_paid" &&
+                                            <Typography variant={"body1"} style={{fontWeight:"bold",marginTop:"5px"}}>
+                                                SR{(this.state.rentDetails?.amount - this.state.rentDetails?.partial_payment) || 0}
+                                            </Typography>
+                                        }
                                     </Grid>
                                 </Grid>
                             </Box>
                         </Grid>
+
                         <Grid xs={12} style={{display:'flex',justifyContent:'center',position:"absolute",bottom:"10px",width:"90%",flexDirection:"column"}}>
-                            <Grid container spacing={2} style={{width:"95%",display:'flex',alignItems:'center'}}>
-                                <Grid item xs={10}>
-                                    <Button2 fullWidth>
-                                        {t("DOWNLOAD RECEIPT")}
-                                    </Button2>
+                            {
+                                this.state.rentDetails?.status === "partially_paid" || this.state.rentDetails?.status === "fully_paid" &&
+                                <Grid container spacing={2} style={{width:"95%",display:'flex',alignItems:'center'}}>
+                                    <Grid item xs={10}>
+                                        <Button2 fullWidth>
+                                            {t("DOWNLOAD RECEIPT")}
+                                        </Button2>
+                                    </Grid>
+                                    <Grid item xs={2}>
+                                        <Box>
+                                            <img src={share2} width="55px" height="50px"/>
+                                        </Box>
+                                    </Grid>
                                 </Grid>
-                                <Grid item xs={2}>
-                                    <Box>
-                                        <img src={share2} width="55px" height="50px"/>
-                                    </Box>
-                                </Grid>
-                            </Grid>
+                            }
                             <Grid container spacing={2} style={{width:"95%",display:'flex',alignItems:'center',marginTop:"10px"}}>
                                 <Grid item xs={10}>
                                     <Button1 fullWidth>

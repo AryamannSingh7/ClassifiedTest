@@ -35,8 +35,8 @@ import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Radio from "@material-ui/core/Radio";
 import RadioButtonUncheckedIcon from "@material-ui/icons/RadioButtonUnchecked";
 import RadioButtonCheckedIcon from "@material-ui/icons/RadioButtonChecked";
-import AlertErrorWeb from "../../../components/src/AlertError.web";
-
+import AlertError from "../../../components/src/AlertError.web";
+import AlertSuccess from "../../../components/src/AlertSuccess.web"
 class RegisterRentPayment extends RegisterRentPaymentController{
   constructor(props: Props) {
     super(props);
@@ -80,18 +80,13 @@ class RegisterRentPayment extends RegisterRentPaymentController{
                                 }}
                             >
                                 <option value="" disabled>Month</option>
-                                <option value={1}>January</option>
-                                <option value={2}>February</option>
-                                <option value={3}>March</option>
-                                <option value={4}>April</option>
-                                <option value={5}>May</option>
-                                <option value={6}>June</option>
-                                <option value={7}>July</option>
-                                <option value={8}>August</option>
-                                <option value={9}>September</option>
-                                <option value={10}>October</option>
-                                <option value={11}>November</option>
-                                <option value={12}>December</option>
+                                {
+                                    this.state.monthList.map((item:any,key:any)=> {
+                                        return(
+                                            <option key={key} value={item[0]}>{item[1]}</option>
+                                        )
+                                    })
+                                }
                             </Select>
                         </Grid>
                         <Grid item xs={12}>
@@ -198,7 +193,7 @@ class RegisterRentPayment extends RegisterRentPaymentController{
                         }
                         <Grid item xs={12}>
                             <Typography style={{color:"#2B6FED",fontWeight:"bold"}}>
-                                {t("Rent Amount")} : {this.state.currency}{this.amountFormatConvert(this.state.rentAmount)}
+                                {t("Rent Amount")} : {this.state.currency}{this.amountFormatConvert(this.state.rentAmount - this.state.partialPaidAmount)}
                             </Typography>
                         </Grid>
                         {
@@ -217,7 +212,8 @@ class RegisterRentPayment extends RegisterRentPaymentController{
                     </Box>
                 </Box>
             </Grid>
-            <AlertErrorWeb show={this.state.showError} handleClose={()=> this.setState({showError:false,error:null})} message={this.state.error} />
+            <AlertError show={this.state.showError} handleClose={()=> this.setState({showError:false,error:null})} message={this.state.error} />
+            <AlertSuccess show={this.state.showSuccess} handleClose={this.handleSuccessClose} message={this.state.successMessage} />
         </>
     );
   }

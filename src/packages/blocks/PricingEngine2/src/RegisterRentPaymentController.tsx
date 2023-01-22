@@ -38,6 +38,9 @@ interface S {
   showError:boolean;
   error:any;
   contractId:any;
+  monthList:any;
+  successMessage:any;
+  showSuccess:boolean;
 }
 
 interface SS {
@@ -81,7 +84,7 @@ export default class RegisterRentPaymentController extends CommonApiCallForBlock
       selectedBuilding:"",
       selectedUnit:"",
       selectedMonth:"",
-      partialPaymentAmount:"",
+      partialPaymentAmount:0,
       tenantName:"",
       rentAmount:"",
       partialPaidAmount:"",
@@ -90,6 +93,9 @@ export default class RegisterRentPaymentController extends CommonApiCallForBlock
       showError:false,
       error:"",
       contractId:"",
+      monthList:[],
+      successMessage:"",
+      showSuccess:false,
     };
 
     this.emailReg = new RegExp("");
@@ -148,9 +154,26 @@ export default class RegisterRentPaymentController extends CommonApiCallForBlock
         }
       }
       if(this.getRentMonthListId === apiRequestCallId){
-
+        if(responseJson.hasOwnProperty("month")){
+          this.setState({
+            monthList:responseJson.month
+          })
+        }
       }
     }
+  }
+
+  handleSuccessClose = () => {
+    this.setState({
+      showSuccess:false,
+      rentAmount:"",
+      tenantName:"",
+      selectedUnit:"",
+      selectedBuilding:"",
+      selectedMonth:"",
+      paymentType:"",
+      currency:"",
+    })
   }
 
   amountFormatConvert = (amount:any) => {
@@ -166,7 +189,10 @@ export default class RegisterRentPaymentController extends CommonApiCallForBlock
   }
   registerPaymentResponse = (responseJson:any) => {
     if(responseJson.hasOwnProperty("data")){
-      window.history.back()
+      this.setState({
+        successMessage:"Rent payment Updated Successfully!!",
+        showSuccess:true,
+      })
     }else{
       this.setState({
         error:"Something went wrong"
@@ -216,26 +242,61 @@ export default class RegisterRentPaymentController extends CommonApiCallForBlock
 
   createPayment = () => {
     let create ={}
-    if(this.state.paymentType ==="full"){
-      create={
-        month:this.state.selectedMonth,
-        building_management_id:this.state.selectedBuilding,
-        apartment_management_id:this.state.selectedUnit
+    if(this.state.paymentType === "" || this.state.selectedMonth === "" || this.state.selectedUnit === "" || this.state.selectedBuilding === ""){
+      if(this.state.selectedMonth === ""){
+        this.setState({
+          showError:true,
+          error:"Please select payment month"
+        })
+        return
+      }else if(this.state.selectedBuilding === ""){
+        this.setState({
+          showError:true,
+          error:"Please select Building"
+        })
+        return
+      }else if(this.state.selectedUnit === ""){
+        this.setState({
+          showError:true,
+          error:"Please select Unit No."
+        })
+        return
+      }else if(this.state.paymentType === "" ){
+        this.setState({
+          showError:true,
+          error:"Please select payment type"
+        })
+        return
       }
-      this.registerPayment(create)
-    }else {
-      if(this.state.rentAmount >= this.state.partialPaymentAmount){
-        create = {
+    }else{
+      if(this.state.paymentType ==="full"){
+        create={
           month:this.state.selectedMonth,
           building_management_id:this.state.selectedBuilding,
-          apartment_management_id:this.state.selectedUnit,
-          partial_payment:this.state.partialPaymentAmount
+          apartment_management_id:this.state.selectedUnit
         }
         this.registerPayment(create)
-      }else{
-        this.setState({
+      }else {
+        if(this.state.rentAmount >= this.state.partialPaymentAmount){
+          if(this.state.partialPaymentAmount !== 0){
+            create = {
+              month:this.state.selectedMonth,
+              building_management_id:this.state.selectedBuilding,
+              apartment_management_id:this.state.selectedUnit,
+              partial_payment:this.state.partialPaymentAmount
+            }
+            this.registerPayment(create)
+          }else{
+            this.setState({
+              showError:true,
+              error:"Please enter partial payment amount"
+            })
+          }
+        }else{
+          this.setState({
             amountError:"Amount should not greater then rent amount"
-        })
+          })
+        }
       }
     }
   }
@@ -256,6 +317,7 @@ export default class RegisterRentPaymentController extends CommonApiCallForBlock
       })
     }
   }
+
 }
 
 // Customizable Area End

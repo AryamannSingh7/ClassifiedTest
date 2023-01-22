@@ -53,7 +53,7 @@ interface SS {
   id: any;
 }
 
-export default class CoverImageController extends CommonApiCallForBlockComponent<
+export default class GenerateBudgetReportController extends CommonApiCallForBlockComponent<
   Props,
   S,
   SS
@@ -158,9 +158,10 @@ export default class CoverImageController extends CommonApiCallForBlockComponent
     e.preventDefault()
     const data = {
       budget_report:{
-        year:this.state.budgetYear,
-        currency_id:this.state.currency,
-        facilities_attributes:this.state.budgetItems
+        year:this.state?.budgetYear,
+        currency_id:this.state.currency?.id,
+        facilities_attributes:this.state?.budgetItems,
+        status:0,
       }
     }
     this.addBudgetData(data)
@@ -188,6 +189,14 @@ export default class CoverImageController extends CommonApiCallForBlockComponent
         if(responseJson.hasOwnProperty('data')){
           this.setState({
             audienceList:responseJson.data
+          })
+        }
+      }
+      if(this.getCurrencyId === apiRequestCallId){
+        console.log("Currency",responseJson)
+        if(responseJson.hasOwnProperty("currencies")){
+          this.setState({
+            currency:responseJson.currencies
           })
         }
       }
@@ -486,8 +495,8 @@ export default class CoverImageController extends CommonApiCallForBlockComponent
   addBudgetData = async (data:any) => {
     const societyID = localStorage.getItem("society_id")
     this.createBugetId = await this.apiCall({
-      contentType: configJSON.exampleApiContentType,
-      method: configJSON.httpPostMethod,
+      contentType: "application/json",
+      method: "POST",
       endPoint: `/society_managements/${societyID}/bx_block_report/budget_reports`,
       body:JSON.stringify(data)
     });
@@ -503,13 +512,15 @@ export default class CoverImageController extends CommonApiCallForBlockComponent
   }
 
   getCurrency = async () => {
+    console.log("CHECK")
     const societyID = localStorage.getItem("society_id")
     this.getCurrencyId = await this.apiCall({
-      contentType: configJSON.exampleApiContentType,
-      method: configJSON.httpDeleteMethod,
+      contentType: "application/json",
+      method: "GET",
       endPoint: `/society_managements/${societyID}/bx_block_report/budget_reports/currency`,
     });
   }
+
   handleCloseAudienceModal () {
     this.setState({
       audienceModal:false,

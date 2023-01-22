@@ -237,29 +237,23 @@ export default class ChairmanAccountLoginController extends BlockComponent<
                 this.setState({loading: false})
               }
               else if(dashboardType === "Security"){
-                this.props.history.push("/DashboardGeneral")
+                this.props.history.push("/Visitors")
                 localStorage.setItem("userType","Security")
                 this.setState({loading: false})
               }
               else if(dashboardType === "Auditor"){
-                this.props.history.push("/DashboardGeneral")
+                this.props.history.push("/AuditorDashboard")
                 localStorage.setItem("userType","Auditor")
                 this.setState({loading: false})
               }
               else if(dashboardType === "Service Provider"){
-                this.props.history.push("/DashboardGeneral")
+                this.props.history.push("/ServiceProviderDashboard")
                 localStorage.setItem("userType","ServiceProvider")
                 this.setState({loading: false})
               }
-            // else if(localStorage.getItem("userType") === "Chairman" || localStorage.getItem("userType") === "Manager"){
-             //  this.props.history.push("/DashboardGeneral")
-             //  this.setState({loading: false})
-             // }
-
             } else if (responseJson?.errors) {
               let error = Object.values(responseJson.errors[0])[0] as string;
               this.setState({ error });
-              // this.parseApiCatchErrorResponse(this.state.error);
             } else {
               this.setState({ error: responseJson?.error || "Something went wrong!" });
               this.showError()
