@@ -262,25 +262,21 @@ export default class RegisterRentPaymentController extends CommonApiCallForBlock
         showError:true,
         error:"Please select payment month"
       })
-      return
     }else if(this.state.selectedBuilding === ""){
       this.setState({
         showError:true,
         error:"Please select Building"
       })
-      return
     }else if(this.state.selectedUnit === ""){
       this.setState({
         showError:true,
         error:"Please select Unit No."
       })
-      return
     }else if(this.state.paymentType === "" ){
       this.setState({
         showError:true,
         error:"Please select payment type"
       })
-      return
     }
   }
 
