@@ -11,13 +11,12 @@ interface OwnProps {
 
 type Props = OwnProps;
 
-class AlertError extends PureComponent<Props> {
-
+class SuccessAlert extends PureComponent<Props> {
   render() {
     return (
       <>
         <Modal
-            style={alertModal.modal}
+            style={successAlertModal.successModal}
             open={this.props.show}
             onClose={this.props.handleClose}
             closeAfterTransition
@@ -27,7 +26,7 @@ class AlertError extends PureComponent<Props> {
             }}>
           {/*@ts-ignore*/}
           <Fade in={this.props.show}>
-            <Paper style={alertModal.paper}>
+            <Paper style={successAlertModal.successPaper}>
               {/*@ts-ignore*/}
               <Box style={alertModal.cancel} onClick={this.props.handleClose}>
                   <CloseIcon style={{fontSize:"30px"}}/>
@@ -48,21 +47,21 @@ class AlertError extends PureComponent<Props> {
   }
 }
 
-export default AlertError;
+export default SuccessAlert;
 
-const alertModal = {
-  cancel:{
+const successAlertModal = {
+  successCancel:{
     top:15,
     right:15,
     float:"right",
     cursor:"pointer"
   },
-  modal:{
+  successModal:{
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
   },
-  paper: {
+  successPaper: {
     backgroundColor: "#fff",
     borderRadius: '10px',
     padding: "15px 15px 15px",
