@@ -127,6 +127,26 @@ export default class RegisterRentPaymentController extends CommonApiCallForBlock
     }
   }
 
+  rentDueResponse = (responseJson:any) => {
+    if(responseJson.hasOwnProperty("data")){
+      this.setState({
+        tenantName:responseJson.data?.attributes?.tenant_name,
+        rentAmount:responseJson.data?.attributes?.rent_amount,
+        partialPaidAmount:responseJson?.data?.attributes?.partial_payment || 0,
+        currency:responseJson.data?.attributes?.currency,
+        contractId:responseJson.data?.attributes?.contract_id
+      })
+    }
+  }
+
+  monthListResponse = (responseJson:any) => {
+    if(responseJson.hasOwnProperty("month")){
+      this.setState({
+        monthList:responseJson.month
+      })
+    }
+  }
+
   async receive(from: string, message: Message) {
     if(getName(MessageEnum.RestAPIResponceMessage) === message.id) {
       const apiRequestCallId = message.getData(getName(MessageEnum.RestAPIResponceDataMessage));
@@ -143,22 +163,10 @@ export default class RegisterRentPaymentController extends CommonApiCallForBlock
         this.registerPaymentResponse(responseJson)
       }
       if(this.getRentDueAmountId === apiRequestCallId) {
-        if(responseJson.hasOwnProperty("data")){
-          this.setState({
-            tenantName:responseJson.data?.attributes?.tenant_name,
-            rentAmount:responseJson.data?.attributes?.rent_amount,
-            partialPaidAmount:responseJson?.data?.attributes?.partial_payment || 0,
-            currency:responseJson.data?.attributes?.currency,
-            contractId:responseJson.data?.attributes?.contract_id
-          })
-        }
+       this.rentDueResponse(responseJson)
       }
       if(this.getRentMonthListId === apiRequestCallId){
-        if(responseJson.hasOwnProperty("month")){
-          this.setState({
-            monthList:responseJson.month
-          })
-        }
+        this.monthListResponse(responseJson)
       }
     }
   }
@@ -240,34 +248,46 @@ export default class RegisterRentPaymentController extends CommonApiCallForBlock
     return true
   };
 
+  checkValues = () => {
+    if(this.state.paymentType === "" || this.state.selectedMonth === "" || this.state.selectedUnit === "" || this.state.selectedBuilding === ""){
+      return true
+    }else {
+      return false
+    }
+  }
+
+  manageErrors = () => {
+    if(this.state.selectedMonth === ""){
+      this.setState({
+        showError:true,
+        error:"Please select payment month"
+      })
+      return
+    }else if(this.state.selectedBuilding === ""){
+      this.setState({
+        showError:true,
+        error:"Please select Building"
+      })
+      return
+    }else if(this.state.selectedUnit === ""){
+      this.setState({
+        showError:true,
+        error:"Please select Unit No."
+      })
+      return
+    }else if(this.state.paymentType === "" ){
+      this.setState({
+        showError:true,
+        error:"Please select payment type"
+      })
+      return
+    }
+  }
+
   createPayment = () => {
     let create ={}
-    if(this.state.paymentType === "" || this.state.selectedMonth === "" || this.state.selectedUnit === "" || this.state.selectedBuilding === ""){
-      if(this.state.selectedMonth === ""){
-        this.setState({
-          showError:true,
-          error:"Please select payment month"
-        })
-        return
-      }else if(this.state.selectedBuilding === ""){
-        this.setState({
-          showError:true,
-          error:"Please select Building"
-        })
-        return
-      }else if(this.state.selectedUnit === ""){
-        this.setState({
-          showError:true,
-          error:"Please select Unit No."
-        })
-        return
-      }else if(this.state.paymentType === "" ){
-        this.setState({
-          showError:true,
-          error:"Please select payment type"
-        })
-        return
-      }
+    if(this.checkValues()){
+      this.manageErrors()
     }else{
       if(this.state.paymentType ==="full"){
         create={

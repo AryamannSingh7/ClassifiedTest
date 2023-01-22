@@ -63,7 +63,6 @@ export default class GenerateBudgetReportController extends CommonApiCallForBloc
   emailReg: RegExp;
   labelTitle: string = "";
   createBugetId:string = "";
-  getAudienceListId:string = "";
   deleteAudienceId:string = "";
   getCurrencyId:string = "";
   constructor(props: Props) {
@@ -168,32 +167,25 @@ export default class GenerateBudgetReportController extends CommonApiCallForBloc
     console.log(data)
   }
 
+  createBudgetRepost = (responseJson:any) => {
+    if(responseJson.code === 200){
+      this.setState({
+        loading:false
+      })
+    }else{
+      console.log("SOMETHING WENT WRONG")
+    }
+  }
   async receive(from: string, message: Message) {
     if(getName(MessageEnum.RestAPIResponceMessage) === message.id) {
       const apiRequestCallId = message.getData(getName(MessageEnum.RestAPIResponceDataMessage));
       const responseJson = message.getData(getName(MessageEnum.RestAPIResponceSuccessMessage));
       const errorReponse = message.getData(getName(MessageEnum.RestAPIResponceErrorMessage));
-      if(this.apiEmailLoginCallId === apiRequestCallId ){
-        console.log(responseJson,errorReponse)
-      }
       if(this.createBugetId === apiRequestCallId){
-        if(responseJson.code === 200){
-          this.setState({
-            loading:false
-          })
-        }else{
-          console.log("SOMETHING WENT WRONG")
-        }
-      }
-      if(this.getAudienceListId === apiRequestCallId){
-        if(responseJson.hasOwnProperty('data')){
-          this.setState({
-            audienceList:responseJson.data
-          })
-        }
+        console.log("ERORR",errorReponse)
+        this.createBudgetRepost(responseJson)
       }
       if(this.getCurrencyId === apiRequestCallId){
-        console.log("Currency",responseJson)
         if(responseJson.hasOwnProperty("currencies")){
           this.setState({
             currency:responseJson.currencies

@@ -1,5 +1,5 @@
-import React, { PureComponent } from 'react';
-import {Backdrop, Box, Fade, Modal, Paper, Typography,IconButton} from "@material-ui/core"
+import React, {PureComponent} from 'react';
+import {Backdrop, Box, Fade, Modal, Paper, Typography} from "@material-ui/core"
 import CloseIcon from '@material-ui/icons/Close';
 import {SuccessIcon} from "../../blocks/RolesPermissions2/src/assets"
 
