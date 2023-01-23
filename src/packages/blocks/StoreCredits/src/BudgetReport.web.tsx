@@ -32,7 +32,7 @@ import { withTranslation } from "react-i18next";
 import { ROLE } from "../../../framework/src/Enum";
 import { ReportsStyleWeb } from "./ReportsStyle.web";
 import { SearchIconImage } from "./assets";
-
+import moment from "moment"
 class BudgetReport extends BudgetReportController {
   constructor(props: Props) {
     super(props);
@@ -69,22 +69,17 @@ class BudgetReport extends BudgetReportController {
                 </Box>
                 <Box className="top-bar">
                   <Box className="filter">
-                    {localStorage.getItem("userType") === ROLE.MANAGER && (
-                      <Select displayEmpty value="" className="select-input">
-                        <MenuItem value="" disabled>
-                          {t("Select Building")}
-                        </MenuItem>
-                      </Select>
-                    )}
-                    <Select displayEmpty className="select-input" value="">
+                    <Select displayEmpty className="select-input" value={this.state.budgetYear} onChange={this.handleYearChange} >
                       <MenuItem value="" disabled>
                         {t("Select Year")}
                       </MenuItem>
-                      <MenuItem value="scheduled">{t("Scheduled")}</MenuItem>
-                      <MenuItem value="completed">{t("Completed")}</MenuItem>
-                      <MenuItem value="cancelled">{t("Cancelled")}</MenuItem>
+                      <MenuItem value="scheduled">{(new Date().getFullYear()) - 3}</MenuItem>
+                      <MenuItem value="scheduled">{(new Date().getFullYear()) - 2}</MenuItem>
+                      <MenuItem value="completed">{(new Date().getFullYear()) - 1}</MenuItem>
+                      <MenuItem value="completed">{(new Date().getFullYear())}</MenuItem>
+                      <MenuItem value="completed">{(new Date().getFullYear()) + 1}</MenuItem>
                     </Select>
-                    <Select displayEmpty className="select-input" value="">
+                    <Select displayEmpty className="select-input" value={this.state.status} onChange={this.handleStatusChange}>
                       <MenuItem value="" disabled>
                         {t("Select Status")}
                       </MenuItem>
@@ -124,33 +119,41 @@ class BudgetReport extends BudgetReportController {
                         </TableRow>
                       </TableHead>
                       <TableBody>
-                        <TableRow>
-                          <TableCell colSpan={6}>{t("No Budget Reports Available")}</TableCell>
-                        </TableRow>
-                        <TableRow>
-                          <TableCell>1</TableCell>
-                          <TableCell>2022</TableCell>
-                          <TableCell>12 Dec 2022</TableCell>
-                          <TableCell>SR 12,000</TableCell>
-                          <TableCell>
-                            <span className="Pending">Pending</span>
-                          </TableCell>
-                          <TableCell>
-                            <Menu
-                              menuButton={
-                                <IconButton>
-                                  <MoreVertIcon />
-                                </IconButton>
-                              }
-                            >
-                              <MenuItem onClick={() => this.props.history.push("/BudgetReports/1")}>
-                                {t("View")}
-                              </MenuItem>
-                              <MenuItem>{t("Download")}</MenuItem>
-                              <MenuItem>{t("Share")}</MenuItem>
-                            </Menu>
-                          </TableCell>
-                        </TableRow>
+                        {
+                          this.state.budgetReportList?.length > 0 ?
+                              this.state.budgetReportList.map((item:any,key:any)=> {
+                                return(
+                                    <TableRow>
+                                      <TableCell>{key+1}</TableCell>
+                                      <TableCell>{item?.attributes?.year}</TableCell>
+                                      <TableCell>{moment(item?.attributes?.report_generated_on,"DD-MM-YY").format("DD MMM YYYY")}</TableCell>
+                                      <TableCell>{item?.attributes?.currency?.currency} {item?.attributes?.amount.toLocaleString()}</TableCell>
+                                      <TableCell>
+                                        <span className="Pending">{item?.attributes?.status}</span>
+                                      </TableCell>
+                                      <TableCell>
+                                        <Menu
+                                            menuButton={
+                                              <IconButton>
+                                                <MoreVertIcon />
+                                              </IconButton>
+                                            }
+                                        >
+                                          <MenuItem onClick={() => this.props.history.push(`/BudgetReports/${item.id}`)}>
+                                            {t("View")}
+                                          </MenuItem>
+                                          <MenuItem>{t("Download")}</MenuItem>
+                                          <MenuItem>{t("Share")}</MenuItem>
+                                        </Menu>
+                                      </TableCell>
+                                    </TableRow>
+                                )
+                              })
+                              :
+                              <TableRow>
+                                <TableCell colSpan={6}>{t("No Budget Reports Available")}</TableCell>
+                              </TableRow>
+                        }
                       </TableBody>
                     </Table>
                     <Divider />
