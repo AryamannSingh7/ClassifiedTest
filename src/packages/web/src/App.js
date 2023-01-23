@@ -376,6 +376,9 @@ import UnitTotalExpense from '../../blocks/StoreCredits/src/MyExpenseReport/Unit
 import RentedVsEmpty from '../../blocks/StoreCredits/src/MyExpenseReport/RentedVsEmpty.web';
 import CollectedVsDue from '../../blocks/StoreCredits/src/MyExpenseReport/CollectedVsDue.web';
 import SpentVsCollected from '../../blocks/StoreCredits/src/MyExpenseReport/SpentVsCollected.web';
+// Auditor dash
+
+import AuditorDashboardGeneral from '../../blocks/customform/src/Auditor.web'
 
 const routeMap = {
   //done
@@ -536,6 +539,11 @@ const routeMap = {
   NewSuggestion: {
     component: NewSuggestion,
     path: '/NewSuggestion',
+    exact: true
+  },
+  AuditorDas: {
+    component: AuditorDashboardGeneral,
+    path: '/AuditorDas',
     exact: true
   },
   ChairmanChangePassword: {
