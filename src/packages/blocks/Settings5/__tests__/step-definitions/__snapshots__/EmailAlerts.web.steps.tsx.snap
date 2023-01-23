@@ -931,130 +931,120 @@ exports[`EmailAlerts User navigates to EmailAlerts 1`] = `
                                           <div
                                             className="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12"
                                           >
-                                            <WithStyles(ForwardRef(Card))
-                                              className="main-setting-box"
-                                            >
-                                              <ForwardRef(Card)
-                                                className="main-setting-box"
-                                                classes={
-                                                  Object {
-                                                    "root": "MuiCard-root",
-                                                  }
+                                            <NotificationCard
+                                              emailAlert={
+                                                Object {
+                                                  "activated": "",
+                                                  "id": "",
+                                                  "timeLimit": "",
                                                 }
+                                              }
+                                              heading="Lease Expiration Alert"
+                                              message="Lease expiration alert will be sent  days before lease expires to you and your tenant."
+                                              t={[Function]}
+                                              updateStatus={[Function]}
+                                              updateTime={[Function]}
+                                            >
+                                              <WithStyles(ForwardRef(Card))
+                                                className="main-setting-box"
                                               >
-                                                <WithStyles(ForwardRef(Paper))
-                                                  className="MuiCard-root main-setting-box"
-                                                  elevation={1}
-                                                >
-                                                  <ForwardRef(Paper)
-                                                    className="MuiCard-root main-setting-box"
-                                                    classes={
-                                                      Object {
-                                                        "elevation0": "MuiPaper-elevation0",
-                                                        "elevation1": "MuiPaper-elevation1",
-                                                        "elevation10": "MuiPaper-elevation10",
-                                                        "elevation11": "MuiPaper-elevation11",
-                                                        "elevation12": "MuiPaper-elevation12",
-                                                        "elevation13": "MuiPaper-elevation13",
-                                                        "elevation14": "MuiPaper-elevation14",
-                                                        "elevation15": "MuiPaper-elevation15",
-                                                        "elevation16": "MuiPaper-elevation16",
-                                                        "elevation17": "MuiPaper-elevation17",
-                                                        "elevation18": "MuiPaper-elevation18",
-                                                        "elevation19": "MuiPaper-elevation19",
-                                                        "elevation2": "MuiPaper-elevation2",
-                                                        "elevation20": "MuiPaper-elevation20",
-                                                        "elevation21": "MuiPaper-elevation21",
-                                                        "elevation22": "MuiPaper-elevation22",
-                                                        "elevation23": "MuiPaper-elevation23",
-                                                        "elevation24": "MuiPaper-elevation24",
-                                                        "elevation3": "MuiPaper-elevation3",
-                                                        "elevation4": "MuiPaper-elevation4",
-                                                        "elevation5": "MuiPaper-elevation5",
-                                                        "elevation6": "MuiPaper-elevation6",
-                                                        "elevation7": "MuiPaper-elevation7",
-                                                        "elevation8": "MuiPaper-elevation8",
-                                                        "elevation9": "MuiPaper-elevation9",
-                                                        "outlined": "MuiPaper-outlined",
-                                                        "root": "MuiPaper-root",
-                                                        "rounded": "MuiPaper-rounded",
-                                                      }
+                                                <ForwardRef(Card)
+                                                  className="main-setting-box"
+                                                  classes={
+                                                    Object {
+                                                      "root": "MuiCard-root",
                                                     }
+                                                  }
+                                                >
+                                                  <WithStyles(ForwardRef(Paper))
+                                                    className="MuiCard-root main-setting-box"
                                                     elevation={1}
                                                   >
-                                                    <div
-                                                      className="MuiPaper-root MuiCard-root main-setting-box MuiPaper-elevation1 MuiPaper-rounded"
+                                                    <ForwardRef(Paper)
+                                                      className="MuiCard-root main-setting-box"
+                                                      classes={
+                                                        Object {
+                                                          "elevation0": "MuiPaper-elevation0",
+                                                          "elevation1": "MuiPaper-elevation1",
+                                                          "elevation10": "MuiPaper-elevation10",
+                                                          "elevation11": "MuiPaper-elevation11",
+                                                          "elevation12": "MuiPaper-elevation12",
+                                                          "elevation13": "MuiPaper-elevation13",
+                                                          "elevation14": "MuiPaper-elevation14",
+                                                          "elevation15": "MuiPaper-elevation15",
+                                                          "elevation16": "MuiPaper-elevation16",
+                                                          "elevation17": "MuiPaper-elevation17",
+                                                          "elevation18": "MuiPaper-elevation18",
+                                                          "elevation19": "MuiPaper-elevation19",
+                                                          "elevation2": "MuiPaper-elevation2",
+                                                          "elevation20": "MuiPaper-elevation20",
+                                                          "elevation21": "MuiPaper-elevation21",
+                                                          "elevation22": "MuiPaper-elevation22",
+                                                          "elevation23": "MuiPaper-elevation23",
+                                                          "elevation24": "MuiPaper-elevation24",
+                                                          "elevation3": "MuiPaper-elevation3",
+                                                          "elevation4": "MuiPaper-elevation4",
+                                                          "elevation5": "MuiPaper-elevation5",
+                                                          "elevation6": "MuiPaper-elevation6",
+                                                          "elevation7": "MuiPaper-elevation7",
+                                                          "elevation8": "MuiPaper-elevation8",
+                                                          "elevation9": "MuiPaper-elevation9",
+                                                          "outlined": "MuiPaper-outlined",
+                                                          "root": "MuiPaper-root",
+                                                          "rounded": "MuiPaper-rounded",
+                                                        }
+                                                      }
+                                                      elevation={1}
                                                     >
-                                                      <Styled(MuiBox)
-                                                        className="card-box-setting"
+                                                      <div
+                                                        className="MuiPaper-root MuiCard-root main-setting-box MuiPaper-elevation1 MuiPaper-rounded"
                                                       >
-                                                        <div
-                                                          className="MuiBox-root MuiBox-root-6 card-box-setting"
+                                                        <Styled(MuiBox)
+                                                          className="card-box-setting"
                                                         >
-                                                          <Styled(MuiBox)
-                                                            className="setting-content-box"
+                                                          <div
+                                                            className="MuiBox-root MuiBox-root-6 card-box-setting"
                                                           >
-                                                            <div
-                                                              className="MuiBox-root MuiBox-root-7 setting-content-box"
+                                                            <Styled(MuiBox)
+                                                              className="setting-content-box"
                                                             >
-                                                              <h4 />
-                                                              <WithStyles(ForwardRef(Switch))
-                                                                checked={false}
-                                                                color="primary"
-                                                                name="lease"
-                                                                onChange={[Function]}
+                                                              <div
+                                                                className="MuiBox-root MuiBox-root-7 setting-content-box"
                                                               >
-                                                                <ForwardRef(Switch)
-                                                                  checked={false}
-                                                                  classes={
-                                                                    Object {
-                                                                      "checked": "Mui-checked",
-                                                                      "colorPrimary": "MuiSwitch-colorPrimary",
-                                                                      "colorSecondary": "MuiSwitch-colorSecondary",
-                                                                      "disabled": "Mui-disabled",
-                                                                      "edgeEnd": "MuiSwitch-edgeEnd",
-                                                                      "edgeStart": "MuiSwitch-edgeStart",
-                                                                      "input": "MuiSwitch-input",
-                                                                      "root": "MuiSwitch-root",
-                                                                      "sizeSmall": "MuiSwitch-sizeSmall",
-                                                                      "switchBase": "MuiSwitch-switchBase",
-                                                                      "thumb": "MuiSwitch-thumb",
-                                                                      "track": "MuiSwitch-track",
-                                                                    }
-                                                                  }
+                                                                <h4 />
+                                                                <WithStyles(ForwardRef(Switch))
+                                                                  checked=""
                                                                   color="primary"
                                                                   name="lease"
                                                                   onChange={[Function]}
                                                                 >
-                                                                  <span
-                                                                    className="MuiSwitch-root"
+                                                                  <ForwardRef(Switch)
+                                                                    checked=""
+                                                                    classes={
+                                                                      Object {
+                                                                        "checked": "Mui-checked",
+                                                                        "colorPrimary": "MuiSwitch-colorPrimary",
+                                                                        "colorSecondary": "MuiSwitch-colorSecondary",
+                                                                        "disabled": "Mui-disabled",
+                                                                        "edgeEnd": "MuiSwitch-edgeEnd",
+                                                                        "edgeStart": "MuiSwitch-edgeStart",
+                                                                        "input": "MuiSwitch-input",
+                                                                        "root": "MuiSwitch-root",
+                                                                        "sizeSmall": "MuiSwitch-sizeSmall",
+                                                                        "switchBase": "MuiSwitch-switchBase",
+                                                                        "thumb": "MuiSwitch-thumb",
+                                                                        "track": "MuiSwitch-track",
+                                                                      }
+                                                                    }
+                                                                    color="primary"
+                                                                    name="lease"
+                                                                    onChange={[Function]}
                                                                   >
-                                                                    <WithStyles(ForwardRef(SwitchBase))
-                                                                      checked={false}
-                                                                      checkedIcon={
-                                                                        <span
-                                                                          className="MuiSwitch-thumb"
-                                                                        />
-                                                                      }
-                                                                      classes={
-                                                                        Object {
-                                                                          "checked": "Mui-checked",
-                                                                          "disabled": "Mui-disabled",
-                                                                          "input": "MuiSwitch-input",
-                                                                          "root": "MuiSwitch-switchBase MuiSwitch-colorPrimary",
-                                                                        }
-                                                                      }
-                                                                      icon={
-                                                                        <span
-                                                                          className="MuiSwitch-thumb"
-                                                                        />
-                                                                      }
-                                                                      name="lease"
-                                                                      onChange={[Function]}
-                                                                      type="checkbox"
+                                                                    <span
+                                                                      className="MuiSwitch-root"
                                                                     >
-                                                                      <ForwardRef(SwitchBase)
-                                                                        checked={false}
+                                                                      <WithStyles(ForwardRef(SwitchBase))
+                                                                        checked=""
                                                                         checkedIcon={
                                                                           <span
                                                                             className="MuiSwitch-thumb"
@@ -1062,10 +1052,10 @@ exports[`EmailAlerts User navigates to EmailAlerts 1`] = `
                                                                         }
                                                                         classes={
                                                                           Object {
-                                                                            "checked": "PrivateSwitchBase-checked-9 Mui-checked",
-                                                                            "disabled": "PrivateSwitchBase-disabled-10 Mui-disabled",
-                                                                            "input": "PrivateSwitchBase-input-11 MuiSwitch-input",
-                                                                            "root": "PrivateSwitchBase-root-8 MuiSwitch-switchBase MuiSwitch-colorPrimary",
+                                                                            "checked": "Mui-checked",
+                                                                            "disabled": "Mui-disabled",
+                                                                            "input": "MuiSwitch-input",
+                                                                            "root": "MuiSwitch-switchBase MuiSwitch-colorPrimary",
                                                                           }
                                                                         }
                                                                         icon={
@@ -1077,53 +1067,60 @@ exports[`EmailAlerts User navigates to EmailAlerts 1`] = `
                                                                         onChange={[Function]}
                                                                         type="checkbox"
                                                                       >
-                                                                        <WithStyles(ForwardRef(IconButton))
-                                                                          className="PrivateSwitchBase-root-8 MuiSwitch-switchBase MuiSwitch-colorPrimary"
-                                                                          component="span"
-                                                                          onBlur={[Function]}
-                                                                          onFocus={[Function]}
-                                                                          tabIndex={null}
-                                                                        >
-                                                                          <ForwardRef(IconButton)
-                                                                            className="PrivateSwitchBase-root-8 MuiSwitch-switchBase MuiSwitch-colorPrimary"
-                                                                            classes={
-                                                                              Object {
-                                                                                "colorInherit": "MuiIconButton-colorInherit",
-                                                                                "colorPrimary": "MuiIconButton-colorPrimary",
-                                                                                "colorSecondary": "MuiIconButton-colorSecondary",
-                                                                                "disabled": "Mui-disabled",
-                                                                                "edgeEnd": "MuiIconButton-edgeEnd",
-                                                                                "edgeStart": "MuiIconButton-edgeStart",
-                                                                                "label": "MuiIconButton-label",
-                                                                                "root": "MuiIconButton-root",
-                                                                                "sizeSmall": "MuiIconButton-sizeSmall",
-                                                                              }
+                                                                        <ForwardRef(SwitchBase)
+                                                                          checked=""
+                                                                          checkedIcon={
+                                                                            <span
+                                                                              className="MuiSwitch-thumb"
+                                                                            />
+                                                                          }
+                                                                          classes={
+                                                                            Object {
+                                                                              "checked": "PrivateSwitchBase-checked-9 Mui-checked",
+                                                                              "disabled": "PrivateSwitchBase-disabled-10 Mui-disabled",
+                                                                              "input": "PrivateSwitchBase-input-11 MuiSwitch-input",
+                                                                              "root": "PrivateSwitchBase-root-8 MuiSwitch-switchBase MuiSwitch-colorPrimary",
                                                                             }
+                                                                          }
+                                                                          icon={
+                                                                            <span
+                                                                              className="MuiSwitch-thumb"
+                                                                            />
+                                                                          }
+                                                                          name="lease"
+                                                                          onChange={[Function]}
+                                                                          type="checkbox"
+                                                                        >
+                                                                          <WithStyles(ForwardRef(IconButton))
+                                                                            className="PrivateSwitchBase-root-8 MuiSwitch-switchBase MuiSwitch-colorPrimary"
                                                                             component="span"
                                                                             onBlur={[Function]}
                                                                             onFocus={[Function]}
                                                                             tabIndex={null}
                                                                           >
-                                                                            <WithStyles(ForwardRef(ButtonBase))
-                                                                              centerRipple={true}
-                                                                              className="MuiIconButton-root PrivateSwitchBase-root-8 MuiSwitch-switchBase MuiSwitch-colorPrimary"
+                                                                            <ForwardRef(IconButton)
+                                                                              className="PrivateSwitchBase-root-8 MuiSwitch-switchBase MuiSwitch-colorPrimary"
+                                                                              classes={
+                                                                                Object {
+                                                                                  "colorInherit": "MuiIconButton-colorInherit",
+                                                                                  "colorPrimary": "MuiIconButton-colorPrimary",
+                                                                                  "colorSecondary": "MuiIconButton-colorSecondary",
+                                                                                  "disabled": "Mui-disabled",
+                                                                                  "edgeEnd": "MuiIconButton-edgeEnd",
+                                                                                  "edgeStart": "MuiIconButton-edgeStart",
+                                                                                  "label": "MuiIconButton-label",
+                                                                                  "root": "MuiIconButton-root",
+                                                                                  "sizeSmall": "MuiIconButton-sizeSmall",
+                                                                                }
+                                                                              }
                                                                               component="span"
-                                                                              disabled={false}
-                                                                              focusRipple={true}
                                                                               onBlur={[Function]}
                                                                               onFocus={[Function]}
                                                                               tabIndex={null}
                                                                             >
-                                                                              <ForwardRef(ButtonBase)
+                                                                              <WithStyles(ForwardRef(ButtonBase))
                                                                                 centerRipple={true}
                                                                                 className="MuiIconButton-root PrivateSwitchBase-root-8 MuiSwitch-switchBase MuiSwitch-colorPrimary"
-                                                                                classes={
-                                                                                  Object {
-                                                                                    "disabled": "Mui-disabled",
-                                                                                    "focusVisible": "Mui-focusVisible",
-                                                                                    "root": "MuiButtonBase-root",
-                                                                                  }
-                                                                                }
                                                                                 component="span"
                                                                                 disabled={false}
                                                                                 focusRipple={true}
@@ -1131,101 +1128,104 @@ exports[`EmailAlerts User navigates to EmailAlerts 1`] = `
                                                                                 onFocus={[Function]}
                                                                                 tabIndex={null}
                                                                               >
-                                                                                <span
-                                                                                  aria-disabled={false}
-                                                                                  className="MuiButtonBase-root MuiIconButton-root PrivateSwitchBase-root-8 MuiSwitch-switchBase MuiSwitch-colorPrimary"
+                                                                                <ForwardRef(ButtonBase)
+                                                                                  centerRipple={true}
+                                                                                  className="MuiIconButton-root PrivateSwitchBase-root-8 MuiSwitch-switchBase MuiSwitch-colorPrimary"
+                                                                                  classes={
+                                                                                    Object {
+                                                                                      "disabled": "Mui-disabled",
+                                                                                      "focusVisible": "Mui-focusVisible",
+                                                                                      "root": "MuiButtonBase-root",
+                                                                                    }
+                                                                                  }
+                                                                                  component="span"
+                                                                                  disabled={false}
+                                                                                  focusRipple={true}
                                                                                   onBlur={[Function]}
-                                                                                  onDragLeave={[Function]}
                                                                                   onFocus={[Function]}
-                                                                                  onKeyDown={[Function]}
-                                                                                  onKeyUp={[Function]}
-                                                                                  onMouseDown={[Function]}
-                                                                                  onMouseLeave={[Function]}
-                                                                                  onMouseUp={[Function]}
-                                                                                  onTouchEnd={[Function]}
-                                                                                  onTouchMove={[Function]}
-                                                                                  onTouchStart={[Function]}
                                                                                   tabIndex={null}
                                                                                 >
                                                                                   <span
-                                                                                    className="MuiIconButton-label"
+                                                                                    aria-disabled={false}
+                                                                                    className="MuiButtonBase-root MuiIconButton-root PrivateSwitchBase-root-8 MuiSwitch-switchBase MuiSwitch-colorPrimary"
+                                                                                    onBlur={[Function]}
+                                                                                    onDragLeave={[Function]}
+                                                                                    onFocus={[Function]}
+                                                                                    onKeyDown={[Function]}
+                                                                                    onKeyUp={[Function]}
+                                                                                    onMouseDown={[Function]}
+                                                                                    onMouseLeave={[Function]}
+                                                                                    onMouseUp={[Function]}
+                                                                                    onTouchEnd={[Function]}
+                                                                                    onTouchMove={[Function]}
+                                                                                    onTouchStart={[Function]}
+                                                                                    tabIndex={null}
                                                                                   >
-                                                                                    <input
-                                                                                      checked={false}
-                                                                                      className="PrivateSwitchBase-input-11 MuiSwitch-input"
-                                                                                      name="lease"
-                                                                                      onChange={[Function]}
-                                                                                      type="checkbox"
-                                                                                    />
                                                                                     <span
-                                                                                      className="MuiSwitch-thumb"
-                                                                                    />
-                                                                                  </span>
-                                                                                  <WithStyles(memo)
-                                                                                    center={true}
-                                                                                  >
-                                                                                    <ForwardRef(TouchRipple)
-                                                                                      center={true}
-                                                                                      classes={
-                                                                                        Object {
-                                                                                          "child": "MuiTouchRipple-child",
-                                                                                          "childLeaving": "MuiTouchRipple-childLeaving",
-                                                                                          "childPulsate": "MuiTouchRipple-childPulsate",
-                                                                                          "ripple": "MuiTouchRipple-ripple",
-                                                                                          "ripplePulsate": "MuiTouchRipple-ripplePulsate",
-                                                                                          "rippleVisible": "MuiTouchRipple-rippleVisible",
-                                                                                          "root": "MuiTouchRipple-root",
-                                                                                        }
-                                                                                      }
+                                                                                      className="MuiIconButton-label"
                                                                                     >
+                                                                                      <input
+                                                                                        checked=""
+                                                                                        className="PrivateSwitchBase-input-11 MuiSwitch-input"
+                                                                                        name="lease"
+                                                                                        onChange={[Function]}
+                                                                                        type="checkbox"
+                                                                                      />
                                                                                       <span
-                                                                                        className="MuiTouchRipple-root"
+                                                                                        className="MuiSwitch-thumb"
+                                                                                      />
+                                                                                    </span>
+                                                                                    <WithStyles(memo)
+                                                                                      center={true}
+                                                                                    >
+                                                                                      <ForwardRef(TouchRipple)
+                                                                                        center={true}
+                                                                                        classes={
+                                                                                          Object {
+                                                                                            "child": "MuiTouchRipple-child",
+                                                                                            "childLeaving": "MuiTouchRipple-childLeaving",
+                                                                                            "childPulsate": "MuiTouchRipple-childPulsate",
+                                                                                            "ripple": "MuiTouchRipple-ripple",
+                                                                                            "ripplePulsate": "MuiTouchRipple-ripplePulsate",
+                                                                                            "rippleVisible": "MuiTouchRipple-rippleVisible",
+                                                                                            "root": "MuiTouchRipple-root",
+                                                                                          }
+                                                                                        }
                                                                                       >
-                                                                                        <TransitionGroup
-                                                                                          childFactory={[Function]}
-                                                                                          component={null}
-                                                                                          exit={true}
-                                                                                        />
-                                                                                      </span>
-                                                                                    </ForwardRef(TouchRipple)>
-                                                                                  </WithStyles(memo)>
-                                                                                </span>
-                                                                              </ForwardRef(ButtonBase)>
-                                                                            </WithStyles(ForwardRef(ButtonBase))>
-                                                                          </ForwardRef(IconButton)>
-                                                                        </WithStyles(ForwardRef(IconButton))>
-                                                                      </ForwardRef(SwitchBase)>
-                                                                    </WithStyles(ForwardRef(SwitchBase))>
-                                                                    <span
-                                                                      className="MuiSwitch-track"
-                                                                    />
-                                                                  </span>
-                                                                </ForwardRef(Switch)>
-                                                              </WithStyles(ForwardRef(Switch))>
-                                                            </div>
-                                                          </Styled(MuiBox)>
-                                                          <Styled(MuiBox)
-                                                            className="setting-on-box"
-                                                          >
-                                                            <div
-                                                              className="MuiBox-root MuiBox-root-12 setting-on-box"
-                                                            >
-                                                              <p>
-                                                                Lease expiration alert will be sent 30 days before lease expires to you and your tenant.
-                                                              </p>
-                                                              <span
-                                                                className="setting-text"
-                                                                onClick={[Function]}
-                                                              />
-                                                            </div>
-                                                          </Styled(MuiBox)>
-                                                        </div>
-                                                      </Styled(MuiBox)>
-                                                    </div>
-                                                  </ForwardRef(Paper)>
-                                                </WithStyles(ForwardRef(Paper))>
-                                              </ForwardRef(Card)>
-                                            </WithStyles(ForwardRef(Card))>
+                                                                                        <span
+                                                                                          className="MuiTouchRipple-root"
+                                                                                        >
+                                                                                          <TransitionGroup
+                                                                                            childFactory={[Function]}
+                                                                                            component={null}
+                                                                                            exit={true}
+                                                                                          />
+                                                                                        </span>
+                                                                                      </ForwardRef(TouchRipple)>
+                                                                                    </WithStyles(memo)>
+                                                                                  </span>
+                                                                                </ForwardRef(ButtonBase)>
+                                                                              </WithStyles(ForwardRef(ButtonBase))>
+                                                                            </ForwardRef(IconButton)>
+                                                                          </WithStyles(ForwardRef(IconButton))>
+                                                                        </ForwardRef(SwitchBase)>
+                                                                      </WithStyles(ForwardRef(SwitchBase))>
+                                                                      <span
+                                                                        className="MuiSwitch-track"
+                                                                      />
+                                                                    </span>
+                                                                  </ForwardRef(Switch)>
+                                                                </WithStyles(ForwardRef(Switch))>
+                                                              </div>
+                                                            </Styled(MuiBox)>
+                                                          </div>
+                                                        </Styled(MuiBox)>
+                                                      </div>
+                                                    </ForwardRef(Paper)>
+                                                  </WithStyles(ForwardRef(Paper))>
+                                                </ForwardRef(Card)>
+                                              </WithStyles(ForwardRef(Card))>
+                                            </NotificationCard>
                                           </div>
                                         </ForwardRef(Grid)>
                                       </WithStyles(ForwardRef(Grid))>
@@ -1347,130 +1347,120 @@ exports[`EmailAlerts User navigates to EmailAlerts 1`] = `
                                           <div
                                             className="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12"
                                           >
-                                            <WithStyles(ForwardRef(Card))
-                                              className="main-setting-box"
-                                            >
-                                              <ForwardRef(Card)
-                                                className="main-setting-box"
-                                                classes={
-                                                  Object {
-                                                    "root": "MuiCard-root",
-                                                  }
+                                            <NotificationCard
+                                              emailAlert={
+                                                Object {
+                                                  "activated": "",
+                                                  "id": "",
+                                                  "timeLimit": "",
                                                 }
+                                              }
+                                              heading="Rent Due Alert"
+                                              message="Rent due alert will be sent  days before rent expires to you and your tenant."
+                                              t={[Function]}
+                                              updateStatus={[Function]}
+                                              updateTime={[Function]}
+                                            >
+                                              <WithStyles(ForwardRef(Card))
+                                                className="main-setting-box"
                                               >
-                                                <WithStyles(ForwardRef(Paper))
-                                                  className="MuiCard-root main-setting-box"
-                                                  elevation={1}
-                                                >
-                                                  <ForwardRef(Paper)
-                                                    className="MuiCard-root main-setting-box"
-                                                    classes={
-                                                      Object {
-                                                        "elevation0": "MuiPaper-elevation0",
-                                                        "elevation1": "MuiPaper-elevation1",
-                                                        "elevation10": "MuiPaper-elevation10",
-                                                        "elevation11": "MuiPaper-elevation11",
-                                                        "elevation12": "MuiPaper-elevation12",
-                                                        "elevation13": "MuiPaper-elevation13",
-                                                        "elevation14": "MuiPaper-elevation14",
-                                                        "elevation15": "MuiPaper-elevation15",
-                                                        "elevation16": "MuiPaper-elevation16",
-                                                        "elevation17": "MuiPaper-elevation17",
-                                                        "elevation18": "MuiPaper-elevation18",
-                                                        "elevation19": "MuiPaper-elevation19",
-                                                        "elevation2": "MuiPaper-elevation2",
-                                                        "elevation20": "MuiPaper-elevation20",
-                                                        "elevation21": "MuiPaper-elevation21",
-                                                        "elevation22": "MuiPaper-elevation22",
-                                                        "elevation23": "MuiPaper-elevation23",
-                                                        "elevation24": "MuiPaper-elevation24",
-                                                        "elevation3": "MuiPaper-elevation3",
-                                                        "elevation4": "MuiPaper-elevation4",
-                                                        "elevation5": "MuiPaper-elevation5",
-                                                        "elevation6": "MuiPaper-elevation6",
-                                                        "elevation7": "MuiPaper-elevation7",
-                                                        "elevation8": "MuiPaper-elevation8",
-                                                        "elevation9": "MuiPaper-elevation9",
-                                                        "outlined": "MuiPaper-outlined",
-                                                        "root": "MuiPaper-root",
-                                                        "rounded": "MuiPaper-rounded",
-                                                      }
+                                                <ForwardRef(Card)
+                                                  className="main-setting-box"
+                                                  classes={
+                                                    Object {
+                                                      "root": "MuiCard-root",
                                                     }
+                                                  }
+                                                >
+                                                  <WithStyles(ForwardRef(Paper))
+                                                    className="MuiCard-root main-setting-box"
                                                     elevation={1}
                                                   >
-                                                    <div
-                                                      className="MuiPaper-root MuiCard-root main-setting-box MuiPaper-elevation1 MuiPaper-rounded"
+                                                    <ForwardRef(Paper)
+                                                      className="MuiCard-root main-setting-box"
+                                                      classes={
+                                                        Object {
+                                                          "elevation0": "MuiPaper-elevation0",
+                                                          "elevation1": "MuiPaper-elevation1",
+                                                          "elevation10": "MuiPaper-elevation10",
+                                                          "elevation11": "MuiPaper-elevation11",
+                                                          "elevation12": "MuiPaper-elevation12",
+                                                          "elevation13": "MuiPaper-elevation13",
+                                                          "elevation14": "MuiPaper-elevation14",
+                                                          "elevation15": "MuiPaper-elevation15",
+                                                          "elevation16": "MuiPaper-elevation16",
+                                                          "elevation17": "MuiPaper-elevation17",
+                                                          "elevation18": "MuiPaper-elevation18",
+                                                          "elevation19": "MuiPaper-elevation19",
+                                                          "elevation2": "MuiPaper-elevation2",
+                                                          "elevation20": "MuiPaper-elevation20",
+                                                          "elevation21": "MuiPaper-elevation21",
+                                                          "elevation22": "MuiPaper-elevation22",
+                                                          "elevation23": "MuiPaper-elevation23",
+                                                          "elevation24": "MuiPaper-elevation24",
+                                                          "elevation3": "MuiPaper-elevation3",
+                                                          "elevation4": "MuiPaper-elevation4",
+                                                          "elevation5": "MuiPaper-elevation5",
+                                                          "elevation6": "MuiPaper-elevation6",
+                                                          "elevation7": "MuiPaper-elevation7",
+                                                          "elevation8": "MuiPaper-elevation8",
+                                                          "elevation9": "MuiPaper-elevation9",
+                                                          "outlined": "MuiPaper-outlined",
+                                                          "root": "MuiPaper-root",
+                                                          "rounded": "MuiPaper-rounded",
+                                                        }
+                                                      }
+                                                      elevation={1}
                                                     >
-                                                      <Styled(MuiBox)
-                                                        className="card-box-setting"
+                                                      <div
+                                                        className="MuiPaper-root MuiCard-root main-setting-box MuiPaper-elevation1 MuiPaper-rounded"
                                                       >
-                                                        <div
-                                                          className="MuiBox-root MuiBox-root-13 card-box-setting"
+                                                        <Styled(MuiBox)
+                                                          className="card-box-setting"
                                                         >
-                                                          <Styled(MuiBox)
-                                                            className="setting-content-box"
+                                                          <div
+                                                            className="MuiBox-root MuiBox-root-12 card-box-setting"
                                                           >
-                                                            <div
-                                                              className="MuiBox-root MuiBox-root-14 setting-content-box"
+                                                            <Styled(MuiBox)
+                                                              className="setting-content-box"
                                                             >
-                                                              <h4 />
-                                                              <WithStyles(ForwardRef(Switch))
-                                                                checked={false}
-                                                                color="primary"
-                                                                name="lease"
-                                                                onChange={[Function]}
+                                                              <div
+                                                                className="MuiBox-root MuiBox-root-13 setting-content-box"
                                                               >
-                                                                <ForwardRef(Switch)
-                                                                  checked={false}
-                                                                  classes={
-                                                                    Object {
-                                                                      "checked": "Mui-checked",
-                                                                      "colorPrimary": "MuiSwitch-colorPrimary",
-                                                                      "colorSecondary": "MuiSwitch-colorSecondary",
-                                                                      "disabled": "Mui-disabled",
-                                                                      "edgeEnd": "MuiSwitch-edgeEnd",
-                                                                      "edgeStart": "MuiSwitch-edgeStart",
-                                                                      "input": "MuiSwitch-input",
-                                                                      "root": "MuiSwitch-root",
-                                                                      "sizeSmall": "MuiSwitch-sizeSmall",
-                                                                      "switchBase": "MuiSwitch-switchBase",
-                                                                      "thumb": "MuiSwitch-thumb",
-                                                                      "track": "MuiSwitch-track",
-                                                                    }
-                                                                  }
+                                                                <h4 />
+                                                                <WithStyles(ForwardRef(Switch))
+                                                                  checked=""
                                                                   color="primary"
                                                                   name="lease"
                                                                   onChange={[Function]}
                                                                 >
-                                                                  <span
-                                                                    className="MuiSwitch-root"
+                                                                  <ForwardRef(Switch)
+                                                                    checked=""
+                                                                    classes={
+                                                                      Object {
+                                                                        "checked": "Mui-checked",
+                                                                        "colorPrimary": "MuiSwitch-colorPrimary",
+                                                                        "colorSecondary": "MuiSwitch-colorSecondary",
+                                                                        "disabled": "Mui-disabled",
+                                                                        "edgeEnd": "MuiSwitch-edgeEnd",
+                                                                        "edgeStart": "MuiSwitch-edgeStart",
+                                                                        "input": "MuiSwitch-input",
+                                                                        "root": "MuiSwitch-root",
+                                                                        "sizeSmall": "MuiSwitch-sizeSmall",
+                                                                        "switchBase": "MuiSwitch-switchBase",
+                                                                        "thumb": "MuiSwitch-thumb",
+                                                                        "track": "MuiSwitch-track",
+                                                                      }
+                                                                    }
+                                                                    color="primary"
+                                                                    name="lease"
+                                                                    onChange={[Function]}
                                                                   >
-                                                                    <WithStyles(ForwardRef(SwitchBase))
-                                                                      checked={false}
-                                                                      checkedIcon={
-                                                                        <span
-                                                                          className="MuiSwitch-thumb"
-                                                                        />
-                                                                      }
-                                                                      classes={
-                                                                        Object {
-                                                                          "checked": "Mui-checked",
-                                                                          "disabled": "Mui-disabled",
-                                                                          "input": "MuiSwitch-input",
-                                                                          "root": "MuiSwitch-switchBase MuiSwitch-colorPrimary",
-                                                                        }
-                                                                      }
-                                                                      icon={
-                                                                        <span
-                                                                          className="MuiSwitch-thumb"
-                                                                        />
-                                                                      }
-                                                                      name="lease"
-                                                                      onChange={[Function]}
-                                                                      type="checkbox"
+                                                                    <span
+                                                                      className="MuiSwitch-root"
                                                                     >
-                                                                      <ForwardRef(SwitchBase)
-                                                                        checked={false}
+                                                                      <WithStyles(ForwardRef(SwitchBase))
+                                                                        checked=""
                                                                         checkedIcon={
                                                                           <span
                                                                             className="MuiSwitch-thumb"
@@ -1478,10 +1468,10 @@ exports[`EmailAlerts User navigates to EmailAlerts 1`] = `
                                                                         }
                                                                         classes={
                                                                           Object {
-                                                                            "checked": "PrivateSwitchBase-checked-9 Mui-checked",
-                                                                            "disabled": "PrivateSwitchBase-disabled-10 Mui-disabled",
-                                                                            "input": "PrivateSwitchBase-input-11 MuiSwitch-input",
-                                                                            "root": "PrivateSwitchBase-root-8 MuiSwitch-switchBase MuiSwitch-colorPrimary",
+                                                                            "checked": "Mui-checked",
+                                                                            "disabled": "Mui-disabled",
+                                                                            "input": "MuiSwitch-input",
+                                                                            "root": "MuiSwitch-switchBase MuiSwitch-colorPrimary",
                                                                           }
                                                                         }
                                                                         icon={
@@ -1493,53 +1483,60 @@ exports[`EmailAlerts User navigates to EmailAlerts 1`] = `
                                                                         onChange={[Function]}
                                                                         type="checkbox"
                                                                       >
-                                                                        <WithStyles(ForwardRef(IconButton))
-                                                                          className="PrivateSwitchBase-root-8 MuiSwitch-switchBase MuiSwitch-colorPrimary"
-                                                                          component="span"
-                                                                          onBlur={[Function]}
-                                                                          onFocus={[Function]}
-                                                                          tabIndex={null}
-                                                                        >
-                                                                          <ForwardRef(IconButton)
-                                                                            className="PrivateSwitchBase-root-8 MuiSwitch-switchBase MuiSwitch-colorPrimary"
-                                                                            classes={
-                                                                              Object {
-                                                                                "colorInherit": "MuiIconButton-colorInherit",
-                                                                                "colorPrimary": "MuiIconButton-colorPrimary",
-                                                                                "colorSecondary": "MuiIconButton-colorSecondary",
-                                                                                "disabled": "Mui-disabled",
-                                                                                "edgeEnd": "MuiIconButton-edgeEnd",
-                                                                                "edgeStart": "MuiIconButton-edgeStart",
-                                                                                "label": "MuiIconButton-label",
-                                                                                "root": "MuiIconButton-root",
-                                                                                "sizeSmall": "MuiIconButton-sizeSmall",
-                                                                              }
+                                                                        <ForwardRef(SwitchBase)
+                                                                          checked=""
+                                                                          checkedIcon={
+                                                                            <span
+                                                                              className="MuiSwitch-thumb"
+                                                                            />
+                                                                          }
+                                                                          classes={
+                                                                            Object {
+                                                                              "checked": "PrivateSwitchBase-checked-9 Mui-checked",
+                                                                              "disabled": "PrivateSwitchBase-disabled-10 Mui-disabled",
+                                                                              "input": "PrivateSwitchBase-input-11 MuiSwitch-input",
+                                                                              "root": "PrivateSwitchBase-root-8 MuiSwitch-switchBase MuiSwitch-colorPrimary",
                                                                             }
+                                                                          }
+                                                                          icon={
+                                                                            <span
+                                                                              className="MuiSwitch-thumb"
+                                                                            />
+                                                                          }
+                                                                          name="lease"
+                                                                          onChange={[Function]}
+                                                                          type="checkbox"
+                                                                        >
+                                                                          <WithStyles(ForwardRef(IconButton))
+                                                                            className="PrivateSwitchBase-root-8 MuiSwitch-switchBase MuiSwitch-colorPrimary"
                                                                             component="span"
                                                                             onBlur={[Function]}
                                                                             onFocus={[Function]}
                                                                             tabIndex={null}
                                                                           >
-                                                                            <WithStyles(ForwardRef(ButtonBase))
-                                                                              centerRipple={true}
-                                                                              className="MuiIconButton-root PrivateSwitchBase-root-8 MuiSwitch-switchBase MuiSwitch-colorPrimary"
+                                                                            <ForwardRef(IconButton)
+                                                                              className="PrivateSwitchBase-root-8 MuiSwitch-switchBase MuiSwitch-colorPrimary"
+                                                                              classes={
+                                                                                Object {
+                                                                                  "colorInherit": "MuiIconButton-colorInherit",
+                                                                                  "colorPrimary": "MuiIconButton-colorPrimary",
+                                                                                  "colorSecondary": "MuiIconButton-colorSecondary",
+                                                                                  "disabled": "Mui-disabled",
+                                                                                  "edgeEnd": "MuiIconButton-edgeEnd",
+                                                                                  "edgeStart": "MuiIconButton-edgeStart",
+                                                                                  "label": "MuiIconButton-label",
+                                                                                  "root": "MuiIconButton-root",
+                                                                                  "sizeSmall": "MuiIconButton-sizeSmall",
+                                                                                }
+                                                                              }
                                                                               component="span"
-                                                                              disabled={false}
-                                                                              focusRipple={true}
                                                                               onBlur={[Function]}
                                                                               onFocus={[Function]}
                                                                               tabIndex={null}
                                                                             >
-                                                                              <ForwardRef(ButtonBase)
+                                                                              <WithStyles(ForwardRef(ButtonBase))
                                                                                 centerRipple={true}
                                                                                 className="MuiIconButton-root PrivateSwitchBase-root-8 MuiSwitch-switchBase MuiSwitch-colorPrimary"
-                                                                                classes={
-                                                                                  Object {
-                                                                                    "disabled": "Mui-disabled",
-                                                                                    "focusVisible": "Mui-focusVisible",
-                                                                                    "root": "MuiButtonBase-root",
-                                                                                  }
-                                                                                }
                                                                                 component="span"
                                                                                 disabled={false}
                                                                                 focusRipple={true}
@@ -1547,86 +1544,104 @@ exports[`EmailAlerts User navigates to EmailAlerts 1`] = `
                                                                                 onFocus={[Function]}
                                                                                 tabIndex={null}
                                                                               >
-                                                                                <span
-                                                                                  aria-disabled={false}
-                                                                                  className="MuiButtonBase-root MuiIconButton-root PrivateSwitchBase-root-8 MuiSwitch-switchBase MuiSwitch-colorPrimary"
+                                                                                <ForwardRef(ButtonBase)
+                                                                                  centerRipple={true}
+                                                                                  className="MuiIconButton-root PrivateSwitchBase-root-8 MuiSwitch-switchBase MuiSwitch-colorPrimary"
+                                                                                  classes={
+                                                                                    Object {
+                                                                                      "disabled": "Mui-disabled",
+                                                                                      "focusVisible": "Mui-focusVisible",
+                                                                                      "root": "MuiButtonBase-root",
+                                                                                    }
+                                                                                  }
+                                                                                  component="span"
+                                                                                  disabled={false}
+                                                                                  focusRipple={true}
                                                                                   onBlur={[Function]}
-                                                                                  onDragLeave={[Function]}
                                                                                   onFocus={[Function]}
-                                                                                  onKeyDown={[Function]}
-                                                                                  onKeyUp={[Function]}
-                                                                                  onMouseDown={[Function]}
-                                                                                  onMouseLeave={[Function]}
-                                                                                  onMouseUp={[Function]}
-                                                                                  onTouchEnd={[Function]}
-                                                                                  onTouchMove={[Function]}
-                                                                                  onTouchStart={[Function]}
                                                                                   tabIndex={null}
                                                                                 >
                                                                                   <span
-                                                                                    className="MuiIconButton-label"
+                                                                                    aria-disabled={false}
+                                                                                    className="MuiButtonBase-root MuiIconButton-root PrivateSwitchBase-root-8 MuiSwitch-switchBase MuiSwitch-colorPrimary"
+                                                                                    onBlur={[Function]}
+                                                                                    onDragLeave={[Function]}
+                                                                                    onFocus={[Function]}
+                                                                                    onKeyDown={[Function]}
+                                                                                    onKeyUp={[Function]}
+                                                                                    onMouseDown={[Function]}
+                                                                                    onMouseLeave={[Function]}
+                                                                                    onMouseUp={[Function]}
+                                                                                    onTouchEnd={[Function]}
+                                                                                    onTouchMove={[Function]}
+                                                                                    onTouchStart={[Function]}
+                                                                                    tabIndex={null}
                                                                                   >
-                                                                                    <input
-                                                                                      checked={false}
-                                                                                      className="PrivateSwitchBase-input-11 MuiSwitch-input"
-                                                                                      name="lease"
-                                                                                      onChange={[Function]}
-                                                                                      type="checkbox"
-                                                                                    />
                                                                                     <span
-                                                                                      className="MuiSwitch-thumb"
-                                                                                    />
-                                                                                  </span>
-                                                                                  <WithStyles(memo)
-                                                                                    center={true}
-                                                                                  >
-                                                                                    <ForwardRef(TouchRipple)
-                                                                                      center={true}
-                                                                                      classes={
-                                                                                        Object {
-                                                                                          "child": "MuiTouchRipple-child",
-                                                                                          "childLeaving": "MuiTouchRipple-childLeaving",
-                                                                                          "childPulsate": "MuiTouchRipple-childPulsate",
-                                                                                          "ripple": "MuiTouchRipple-ripple",
-                                                                                          "ripplePulsate": "MuiTouchRipple-ripplePulsate",
-                                                                                          "rippleVisible": "MuiTouchRipple-rippleVisible",
-                                                                                          "root": "MuiTouchRipple-root",
-                                                                                        }
-                                                                                      }
+                                                                                      className="MuiIconButton-label"
                                                                                     >
+                                                                                      <input
+                                                                                        checked=""
+                                                                                        className="PrivateSwitchBase-input-11 MuiSwitch-input"
+                                                                                        name="lease"
+                                                                                        onChange={[Function]}
+                                                                                        type="checkbox"
+                                                                                      />
                                                                                       <span
-                                                                                        className="MuiTouchRipple-root"
+                                                                                        className="MuiSwitch-thumb"
+                                                                                      />
+                                                                                    </span>
+                                                                                    <WithStyles(memo)
+                                                                                      center={true}
+                                                                                    >
+                                                                                      <ForwardRef(TouchRipple)
+                                                                                        center={true}
+                                                                                        classes={
+                                                                                          Object {
+                                                                                            "child": "MuiTouchRipple-child",
+                                                                                            "childLeaving": "MuiTouchRipple-childLeaving",
+                                                                                            "childPulsate": "MuiTouchRipple-childPulsate",
+                                                                                            "ripple": "MuiTouchRipple-ripple",
+                                                                                            "ripplePulsate": "MuiTouchRipple-ripplePulsate",
+                                                                                            "rippleVisible": "MuiTouchRipple-rippleVisible",
+                                                                                            "root": "MuiTouchRipple-root",
+                                                                                          }
+                                                                                        }
                                                                                       >
-                                                                                        <TransitionGroup
-                                                                                          childFactory={[Function]}
-                                                                                          component={null}
-                                                                                          exit={true}
-                                                                                        />
-                                                                                      </span>
-                                                                                    </ForwardRef(TouchRipple)>
-                                                                                  </WithStyles(memo)>
-                                                                                </span>
-                                                                              </ForwardRef(ButtonBase)>
-                                                                            </WithStyles(ForwardRef(ButtonBase))>
-                                                                          </ForwardRef(IconButton)>
-                                                                        </WithStyles(ForwardRef(IconButton))>
-                                                                      </ForwardRef(SwitchBase)>
-                                                                    </WithStyles(ForwardRef(SwitchBase))>
-                                                                    <span
-                                                                      className="MuiSwitch-track"
-                                                                    />
-                                                                  </span>
-                                                                </ForwardRef(Switch)>
-                                                              </WithStyles(ForwardRef(Switch))>
-                                                            </div>
-                                                          </Styled(MuiBox)>
-                                                        </div>
-                                                      </Styled(MuiBox)>
-                                                    </div>
-                                                  </ForwardRef(Paper)>
-                                                </WithStyles(ForwardRef(Paper))>
-                                              </ForwardRef(Card)>
-                                            </WithStyles(ForwardRef(Card))>
+                                                                                        <span
+                                                                                          className="MuiTouchRipple-root"
+                                                                                        >
+                                                                                          <TransitionGroup
+                                                                                            childFactory={[Function]}
+                                                                                            component={null}
+                                                                                            exit={true}
+                                                                                          />
+                                                                                        </span>
+                                                                                      </ForwardRef(TouchRipple)>
+                                                                                    </WithStyles(memo)>
+                                                                                  </span>
+                                                                                </ForwardRef(ButtonBase)>
+                                                                              </WithStyles(ForwardRef(ButtonBase))>
+                                                                            </ForwardRef(IconButton)>
+                                                                          </WithStyles(ForwardRef(IconButton))>
+                                                                        </ForwardRef(SwitchBase)>
+                                                                      </WithStyles(ForwardRef(SwitchBase))>
+                                                                      <span
+                                                                        className="MuiSwitch-track"
+                                                                      />
+                                                                    </span>
+                                                                  </ForwardRef(Switch)>
+                                                                </WithStyles(ForwardRef(Switch))>
+                                                              </div>
+                                                            </Styled(MuiBox)>
+                                                          </div>
+                                                        </Styled(MuiBox)>
+                                                      </div>
+                                                    </ForwardRef(Paper)>
+                                                  </WithStyles(ForwardRef(Paper))>
+                                                </ForwardRef(Card)>
+                                              </WithStyles(ForwardRef(Card))>
+                                            </NotificationCard>
                                           </div>
                                         </ForwardRef(Grid)>
                                       </WithStyles(ForwardRef(Grid))>
@@ -1748,130 +1763,120 @@ exports[`EmailAlerts User navigates to EmailAlerts 1`] = `
                                           <div
                                             className="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12"
                                           >
-                                            <WithStyles(ForwardRef(Card))
-                                              className="main-setting-box"
-                                            >
-                                              <ForwardRef(Card)
-                                                className="main-setting-box"
-                                                classes={
-                                                  Object {
-                                                    "root": "MuiCard-root",
-                                                  }
+                                            <NotificationCard
+                                              emailAlert={
+                                                Object {
+                                                  "activated": "",
+                                                  "id": "",
+                                                  "timeLimit": "",
                                                 }
+                                              }
+                                              heading="Management Fee Due"
+                                              message="Management fee alert will be sent  days before management fee due."
+                                              t={[Function]}
+                                              updateStatus={[Function]}
+                                              updateTime={[Function]}
+                                            >
+                                              <WithStyles(ForwardRef(Card))
+                                                className="main-setting-box"
                                               >
-                                                <WithStyles(ForwardRef(Paper))
-                                                  className="MuiCard-root main-setting-box"
-                                                  elevation={1}
-                                                >
-                                                  <ForwardRef(Paper)
-                                                    className="MuiCard-root main-setting-box"
-                                                    classes={
-                                                      Object {
-                                                        "elevation0": "MuiPaper-elevation0",
-                                                        "elevation1": "MuiPaper-elevation1",
-                                                        "elevation10": "MuiPaper-elevation10",
-                                                        "elevation11": "MuiPaper-elevation11",
-                                                        "elevation12": "MuiPaper-elevation12",
-                                                        "elevation13": "MuiPaper-elevation13",
-                                                        "elevation14": "MuiPaper-elevation14",
-                                                        "elevation15": "MuiPaper-elevation15",
-                                                        "elevation16": "MuiPaper-elevation16",
-                                                        "elevation17": "MuiPaper-elevation17",
-                                                        "elevation18": "MuiPaper-elevation18",
-                                                        "elevation19": "MuiPaper-elevation19",
-                                                        "elevation2": "MuiPaper-elevation2",
-                                                        "elevation20": "MuiPaper-elevation20",
-                                                        "elevation21": "MuiPaper-elevation21",
-                                                        "elevation22": "MuiPaper-elevation22",
-                                                        "elevation23": "MuiPaper-elevation23",
-                                                        "elevation24": "MuiPaper-elevation24",
-                                                        "elevation3": "MuiPaper-elevation3",
-                                                        "elevation4": "MuiPaper-elevation4",
-                                                        "elevation5": "MuiPaper-elevation5",
-                                                        "elevation6": "MuiPaper-elevation6",
-                                                        "elevation7": "MuiPaper-elevation7",
-                                                        "elevation8": "MuiPaper-elevation8",
-                                                        "elevation9": "MuiPaper-elevation9",
-                                                        "outlined": "MuiPaper-outlined",
-                                                        "root": "MuiPaper-root",
-                                                        "rounded": "MuiPaper-rounded",
-                                                      }
+                                                <ForwardRef(Card)
+                                                  className="main-setting-box"
+                                                  classes={
+                                                    Object {
+                                                      "root": "MuiCard-root",
                                                     }
+                                                  }
+                                                >
+                                                  <WithStyles(ForwardRef(Paper))
+                                                    className="MuiCard-root main-setting-box"
                                                     elevation={1}
                                                   >
-                                                    <div
-                                                      className="MuiPaper-root MuiCard-root main-setting-box MuiPaper-elevation1 MuiPaper-rounded"
+                                                    <ForwardRef(Paper)
+                                                      className="MuiCard-root main-setting-box"
+                                                      classes={
+                                                        Object {
+                                                          "elevation0": "MuiPaper-elevation0",
+                                                          "elevation1": "MuiPaper-elevation1",
+                                                          "elevation10": "MuiPaper-elevation10",
+                                                          "elevation11": "MuiPaper-elevation11",
+                                                          "elevation12": "MuiPaper-elevation12",
+                                                          "elevation13": "MuiPaper-elevation13",
+                                                          "elevation14": "MuiPaper-elevation14",
+                                                          "elevation15": "MuiPaper-elevation15",
+                                                          "elevation16": "MuiPaper-elevation16",
+                                                          "elevation17": "MuiPaper-elevation17",
+                                                          "elevation18": "MuiPaper-elevation18",
+                                                          "elevation19": "MuiPaper-elevation19",
+                                                          "elevation2": "MuiPaper-elevation2",
+                                                          "elevation20": "MuiPaper-elevation20",
+                                                          "elevation21": "MuiPaper-elevation21",
+                                                          "elevation22": "MuiPaper-elevation22",
+                                                          "elevation23": "MuiPaper-elevation23",
+                                                          "elevation24": "MuiPaper-elevation24",
+                                                          "elevation3": "MuiPaper-elevation3",
+                                                          "elevation4": "MuiPaper-elevation4",
+                                                          "elevation5": "MuiPaper-elevation5",
+                                                          "elevation6": "MuiPaper-elevation6",
+                                                          "elevation7": "MuiPaper-elevation7",
+                                                          "elevation8": "MuiPaper-elevation8",
+                                                          "elevation9": "MuiPaper-elevation9",
+                                                          "outlined": "MuiPaper-outlined",
+                                                          "root": "MuiPaper-root",
+                                                          "rounded": "MuiPaper-rounded",
+                                                        }
+                                                      }
+                                                      elevation={1}
                                                     >
-                                                      <Styled(MuiBox)
-                                                        className="card-box-setting"
+                                                      <div
+                                                        className="MuiPaper-root MuiCard-root main-setting-box MuiPaper-elevation1 MuiPaper-rounded"
                                                       >
-                                                        <div
-                                                          className="MuiBox-root MuiBox-root-15 card-box-setting"
+                                                        <Styled(MuiBox)
+                                                          className="card-box-setting"
                                                         >
-                                                          <Styled(MuiBox)
-                                                            className="setting-content-box"
+                                                          <div
+                                                            className="MuiBox-root MuiBox-root-14 card-box-setting"
                                                           >
-                                                            <div
-                                                              className="MuiBox-root MuiBox-root-16 setting-content-box"
+                                                            <Styled(MuiBox)
+                                                              className="setting-content-box"
                                                             >
-                                                              <h4 />
-                                                              <WithStyles(ForwardRef(Switch))
-                                                                checked={true}
-                                                                color="primary"
-                                                                name="fee"
-                                                                onChange={[Function]}
+                                                              <div
+                                                                className="MuiBox-root MuiBox-root-15 setting-content-box"
                                                               >
-                                                                <ForwardRef(Switch)
-                                                                  checked={true}
-                                                                  classes={
-                                                                    Object {
-                                                                      "checked": "Mui-checked",
-                                                                      "colorPrimary": "MuiSwitch-colorPrimary",
-                                                                      "colorSecondary": "MuiSwitch-colorSecondary",
-                                                                      "disabled": "Mui-disabled",
-                                                                      "edgeEnd": "MuiSwitch-edgeEnd",
-                                                                      "edgeStart": "MuiSwitch-edgeStart",
-                                                                      "input": "MuiSwitch-input",
-                                                                      "root": "MuiSwitch-root",
-                                                                      "sizeSmall": "MuiSwitch-sizeSmall",
-                                                                      "switchBase": "MuiSwitch-switchBase",
-                                                                      "thumb": "MuiSwitch-thumb",
-                                                                      "track": "MuiSwitch-track",
-                                                                    }
-                                                                  }
+                                                                <h4 />
+                                                                <WithStyles(ForwardRef(Switch))
+                                                                  checked=""
                                                                   color="primary"
-                                                                  name="fee"
+                                                                  name="lease"
                                                                   onChange={[Function]}
                                                                 >
-                                                                  <span
-                                                                    className="MuiSwitch-root"
+                                                                  <ForwardRef(Switch)
+                                                                    checked=""
+                                                                    classes={
+                                                                      Object {
+                                                                        "checked": "Mui-checked",
+                                                                        "colorPrimary": "MuiSwitch-colorPrimary",
+                                                                        "colorSecondary": "MuiSwitch-colorSecondary",
+                                                                        "disabled": "Mui-disabled",
+                                                                        "edgeEnd": "MuiSwitch-edgeEnd",
+                                                                        "edgeStart": "MuiSwitch-edgeStart",
+                                                                        "input": "MuiSwitch-input",
+                                                                        "root": "MuiSwitch-root",
+                                                                        "sizeSmall": "MuiSwitch-sizeSmall",
+                                                                        "switchBase": "MuiSwitch-switchBase",
+                                                                        "thumb": "MuiSwitch-thumb",
+                                                                        "track": "MuiSwitch-track",
+                                                                      }
+                                                                    }
+                                                                    color="primary"
+                                                                    name="lease"
+                                                                    onChange={[Function]}
                                                                   >
-                                                                    <WithStyles(ForwardRef(SwitchBase))
-                                                                      checked={true}
-                                                                      checkedIcon={
-                                                                        <span
-                                                                          className="MuiSwitch-thumb"
-                                                                        />
-                                                                      }
-                                                                      classes={
-                                                                        Object {
-                                                                          "checked": "Mui-checked",
-                                                                          "disabled": "Mui-disabled",
-                                                                          "input": "MuiSwitch-input",
-                                                                          "root": "MuiSwitch-switchBase MuiSwitch-colorPrimary",
-                                                                        }
-                                                                      }
-                                                                      icon={
-                                                                        <span
-                                                                          className="MuiSwitch-thumb"
-                                                                        />
-                                                                      }
-                                                                      name="fee"
-                                                                      onChange={[Function]}
-                                                                      type="checkbox"
+                                                                    <span
+                                                                      className="MuiSwitch-root"
                                                                     >
-                                                                      <ForwardRef(SwitchBase)
-                                                                        checked={true}
+                                                                      <WithStyles(ForwardRef(SwitchBase))
+                                                                        checked=""
                                                                         checkedIcon={
                                                                           <span
                                                                             className="MuiSwitch-thumb"
@@ -1879,10 +1884,10 @@ exports[`EmailAlerts User navigates to EmailAlerts 1`] = `
                                                                         }
                                                                         classes={
                                                                           Object {
-                                                                            "checked": "PrivateSwitchBase-checked-9 Mui-checked",
-                                                                            "disabled": "PrivateSwitchBase-disabled-10 Mui-disabled",
-                                                                            "input": "PrivateSwitchBase-input-11 MuiSwitch-input",
-                                                                            "root": "PrivateSwitchBase-root-8 MuiSwitch-switchBase MuiSwitch-colorPrimary",
+                                                                            "checked": "Mui-checked",
+                                                                            "disabled": "Mui-disabled",
+                                                                            "input": "MuiSwitch-input",
+                                                                            "root": "MuiSwitch-switchBase MuiSwitch-colorPrimary",
                                                                           }
                                                                         }
                                                                         icon={
@@ -1890,57 +1895,64 @@ exports[`EmailAlerts User navigates to EmailAlerts 1`] = `
                                                                             className="MuiSwitch-thumb"
                                                                           />
                                                                         }
-                                                                        name="fee"
+                                                                        name="lease"
                                                                         onChange={[Function]}
                                                                         type="checkbox"
                                                                       >
-                                                                        <WithStyles(ForwardRef(IconButton))
-                                                                          className="PrivateSwitchBase-root-8 MuiSwitch-switchBase MuiSwitch-colorPrimary PrivateSwitchBase-checked-9 Mui-checked"
-                                                                          component="span"
-                                                                          onBlur={[Function]}
-                                                                          onFocus={[Function]}
-                                                                          tabIndex={null}
-                                                                        >
-                                                                          <ForwardRef(IconButton)
-                                                                            className="PrivateSwitchBase-root-8 MuiSwitch-switchBase MuiSwitch-colorPrimary PrivateSwitchBase-checked-9 Mui-checked"
-                                                                            classes={
-                                                                              Object {
-                                                                                "colorInherit": "MuiIconButton-colorInherit",
-                                                                                "colorPrimary": "MuiIconButton-colorPrimary",
-                                                                                "colorSecondary": "MuiIconButton-colorSecondary",
-                                                                                "disabled": "Mui-disabled",
-                                                                                "edgeEnd": "MuiIconButton-edgeEnd",
-                                                                                "edgeStart": "MuiIconButton-edgeStart",
-                                                                                "label": "MuiIconButton-label",
-                                                                                "root": "MuiIconButton-root",
-                                                                                "sizeSmall": "MuiIconButton-sizeSmall",
-                                                                              }
+                                                                        <ForwardRef(SwitchBase)
+                                                                          checked=""
+                                                                          checkedIcon={
+                                                                            <span
+                                                                              className="MuiSwitch-thumb"
+                                                                            />
+                                                                          }
+                                                                          classes={
+                                                                            Object {
+                                                                              "checked": "PrivateSwitchBase-checked-9 Mui-checked",
+                                                                              "disabled": "PrivateSwitchBase-disabled-10 Mui-disabled",
+                                                                              "input": "PrivateSwitchBase-input-11 MuiSwitch-input",
+                                                                              "root": "PrivateSwitchBase-root-8 MuiSwitch-switchBase MuiSwitch-colorPrimary",
                                                                             }
+                                                                          }
+                                                                          icon={
+                                                                            <span
+                                                                              className="MuiSwitch-thumb"
+                                                                            />
+                                                                          }
+                                                                          name="lease"
+                                                                          onChange={[Function]}
+                                                                          type="checkbox"
+                                                                        >
+                                                                          <WithStyles(ForwardRef(IconButton))
+                                                                            className="PrivateSwitchBase-root-8 MuiSwitch-switchBase MuiSwitch-colorPrimary"
                                                                             component="span"
                                                                             onBlur={[Function]}
                                                                             onFocus={[Function]}
                                                                             tabIndex={null}
                                                                           >
-                                                                            <WithStyles(ForwardRef(ButtonBase))
-                                                                              centerRipple={true}
-                                                                              className="MuiIconButton-root PrivateSwitchBase-root-8 MuiSwitch-switchBase MuiSwitch-colorPrimary PrivateSwitchBase-checked-9 Mui-checked"
+                                                                            <ForwardRef(IconButton)
+                                                                              className="PrivateSwitchBase-root-8 MuiSwitch-switchBase MuiSwitch-colorPrimary"
+                                                                              classes={
+                                                                                Object {
+                                                                                  "colorInherit": "MuiIconButton-colorInherit",
+                                                                                  "colorPrimary": "MuiIconButton-colorPrimary",
+                                                                                  "colorSecondary": "MuiIconButton-colorSecondary",
+                                                                                  "disabled": "Mui-disabled",
+                                                                                  "edgeEnd": "MuiIconButton-edgeEnd",
+                                                                                  "edgeStart": "MuiIconButton-edgeStart",
+                                                                                  "label": "MuiIconButton-label",
+                                                                                  "root": "MuiIconButton-root",
+                                                                                  "sizeSmall": "MuiIconButton-sizeSmall",
+                                                                                }
+                                                                              }
                                                                               component="span"
-                                                                              disabled={false}
-                                                                              focusRipple={true}
                                                                               onBlur={[Function]}
                                                                               onFocus={[Function]}
                                                                               tabIndex={null}
                                                                             >
-                                                                              <ForwardRef(ButtonBase)
+                                                                              <WithStyles(ForwardRef(ButtonBase))
                                                                                 centerRipple={true}
-                                                                                className="MuiIconButton-root PrivateSwitchBase-root-8 MuiSwitch-switchBase MuiSwitch-colorPrimary PrivateSwitchBase-checked-9 Mui-checked"
-                                                                                classes={
-                                                                                  Object {
-                                                                                    "disabled": "Mui-disabled",
-                                                                                    "focusVisible": "Mui-focusVisible",
-                                                                                    "root": "MuiButtonBase-root",
-                                                                                  }
-                                                                                }
+                                                                                className="MuiIconButton-root PrivateSwitchBase-root-8 MuiSwitch-switchBase MuiSwitch-colorPrimary"
                                                                                 component="span"
                                                                                 disabled={false}
                                                                                 focusRipple={true}
@@ -1948,86 +1960,104 @@ exports[`EmailAlerts User navigates to EmailAlerts 1`] = `
                                                                                 onFocus={[Function]}
                                                                                 tabIndex={null}
                                                                               >
-                                                                                <span
-                                                                                  aria-disabled={false}
-                                                                                  className="MuiButtonBase-root MuiIconButton-root PrivateSwitchBase-root-8 MuiSwitch-switchBase MuiSwitch-colorPrimary PrivateSwitchBase-checked-9 Mui-checked"
+                                                                                <ForwardRef(ButtonBase)
+                                                                                  centerRipple={true}
+                                                                                  className="MuiIconButton-root PrivateSwitchBase-root-8 MuiSwitch-switchBase MuiSwitch-colorPrimary"
+                                                                                  classes={
+                                                                                    Object {
+                                                                                      "disabled": "Mui-disabled",
+                                                                                      "focusVisible": "Mui-focusVisible",
+                                                                                      "root": "MuiButtonBase-root",
+                                                                                    }
+                                                                                  }
+                                                                                  component="span"
+                                                                                  disabled={false}
+                                                                                  focusRipple={true}
                                                                                   onBlur={[Function]}
-                                                                                  onDragLeave={[Function]}
                                                                                   onFocus={[Function]}
-                                                                                  onKeyDown={[Function]}
-                                                                                  onKeyUp={[Function]}
-                                                                                  onMouseDown={[Function]}
-                                                                                  onMouseLeave={[Function]}
-                                                                                  onMouseUp={[Function]}
-                                                                                  onTouchEnd={[Function]}
-                                                                                  onTouchMove={[Function]}
-                                                                                  onTouchStart={[Function]}
                                                                                   tabIndex={null}
                                                                                 >
                                                                                   <span
-                                                                                    className="MuiIconButton-label"
+                                                                                    aria-disabled={false}
+                                                                                    className="MuiButtonBase-root MuiIconButton-root PrivateSwitchBase-root-8 MuiSwitch-switchBase MuiSwitch-colorPrimary"
+                                                                                    onBlur={[Function]}
+                                                                                    onDragLeave={[Function]}
+                                                                                    onFocus={[Function]}
+                                                                                    onKeyDown={[Function]}
+                                                                                    onKeyUp={[Function]}
+                                                                                    onMouseDown={[Function]}
+                                                                                    onMouseLeave={[Function]}
+                                                                                    onMouseUp={[Function]}
+                                                                                    onTouchEnd={[Function]}
+                                                                                    onTouchMove={[Function]}
+                                                                                    onTouchStart={[Function]}
+                                                                                    tabIndex={null}
                                                                                   >
-                                                                                    <input
-                                                                                      checked={true}
-                                                                                      className="PrivateSwitchBase-input-11 MuiSwitch-input"
-                                                                                      name="fee"
-                                                                                      onChange={[Function]}
-                                                                                      type="checkbox"
-                                                                                    />
                                                                                     <span
-                                                                                      className="MuiSwitch-thumb"
-                                                                                    />
-                                                                                  </span>
-                                                                                  <WithStyles(memo)
-                                                                                    center={true}
-                                                                                  >
-                                                                                    <ForwardRef(TouchRipple)
-                                                                                      center={true}
-                                                                                      classes={
-                                                                                        Object {
-                                                                                          "child": "MuiTouchRipple-child",
-                                                                                          "childLeaving": "MuiTouchRipple-childLeaving",
-                                                                                          "childPulsate": "MuiTouchRipple-childPulsate",
-                                                                                          "ripple": "MuiTouchRipple-ripple",
-                                                                                          "ripplePulsate": "MuiTouchRipple-ripplePulsate",
-                                                                                          "rippleVisible": "MuiTouchRipple-rippleVisible",
-                                                                                          "root": "MuiTouchRipple-root",
-                                                                                        }
-                                                                                      }
+                                                                                      className="MuiIconButton-label"
                                                                                     >
+                                                                                      <input
+                                                                                        checked=""
+                                                                                        className="PrivateSwitchBase-input-11 MuiSwitch-input"
+                                                                                        name="lease"
+                                                                                        onChange={[Function]}
+                                                                                        type="checkbox"
+                                                                                      />
                                                                                       <span
-                                                                                        className="MuiTouchRipple-root"
+                                                                                        className="MuiSwitch-thumb"
+                                                                                      />
+                                                                                    </span>
+                                                                                    <WithStyles(memo)
+                                                                                      center={true}
+                                                                                    >
+                                                                                      <ForwardRef(TouchRipple)
+                                                                                        center={true}
+                                                                                        classes={
+                                                                                          Object {
+                                                                                            "child": "MuiTouchRipple-child",
+                                                                                            "childLeaving": "MuiTouchRipple-childLeaving",
+                                                                                            "childPulsate": "MuiTouchRipple-childPulsate",
+                                                                                            "ripple": "MuiTouchRipple-ripple",
+                                                                                            "ripplePulsate": "MuiTouchRipple-ripplePulsate",
+                                                                                            "rippleVisible": "MuiTouchRipple-rippleVisible",
+                                                                                            "root": "MuiTouchRipple-root",
+                                                                                          }
+                                                                                        }
                                                                                       >
-                                                                                        <TransitionGroup
-                                                                                          childFactory={[Function]}
-                                                                                          component={null}
-                                                                                          exit={true}
-                                                                                        />
-                                                                                      </span>
-                                                                                    </ForwardRef(TouchRipple)>
-                                                                                  </WithStyles(memo)>
-                                                                                </span>
-                                                                              </ForwardRef(ButtonBase)>
-                                                                            </WithStyles(ForwardRef(ButtonBase))>
-                                                                          </ForwardRef(IconButton)>
-                                                                        </WithStyles(ForwardRef(IconButton))>
-                                                                      </ForwardRef(SwitchBase)>
-                                                                    </WithStyles(ForwardRef(SwitchBase))>
-                                                                    <span
-                                                                      className="MuiSwitch-track"
-                                                                    />
-                                                                  </span>
-                                                                </ForwardRef(Switch)>
-                                                              </WithStyles(ForwardRef(Switch))>
-                                                            </div>
-                                                          </Styled(MuiBox)>
-                                                        </div>
-                                                      </Styled(MuiBox)>
-                                                    </div>
-                                                  </ForwardRef(Paper)>
-                                                </WithStyles(ForwardRef(Paper))>
-                                              </ForwardRef(Card)>
-                                            </WithStyles(ForwardRef(Card))>
+                                                                                        <span
+                                                                                          className="MuiTouchRipple-root"
+                                                                                        >
+                                                                                          <TransitionGroup
+                                                                                            childFactory={[Function]}
+                                                                                            component={null}
+                                                                                            exit={true}
+                                                                                          />
+                                                                                        </span>
+                                                                                      </ForwardRef(TouchRipple)>
+                                                                                    </WithStyles(memo)>
+                                                                                  </span>
+                                                                                </ForwardRef(ButtonBase)>
+                                                                              </WithStyles(ForwardRef(ButtonBase))>
+                                                                            </ForwardRef(IconButton)>
+                                                                          </WithStyles(ForwardRef(IconButton))>
+                                                                        </ForwardRef(SwitchBase)>
+                                                                      </WithStyles(ForwardRef(SwitchBase))>
+                                                                      <span
+                                                                        className="MuiSwitch-track"
+                                                                      />
+                                                                    </span>
+                                                                  </ForwardRef(Switch)>
+                                                                </WithStyles(ForwardRef(Switch))>
+                                                              </div>
+                                                            </Styled(MuiBox)>
+                                                          </div>
+                                                        </Styled(MuiBox)>
+                                                      </div>
+                                                    </ForwardRef(Paper)>
+                                                  </WithStyles(ForwardRef(Paper))>
+                                                </ForwardRef(Card)>
+                                              </WithStyles(ForwardRef(Card))>
+                                            </NotificationCard>
                                           </div>
                                         </ForwardRef(Grid)>
                                       </WithStyles(ForwardRef(Grid))>
@@ -2175,7 +2205,7 @@ exports[`EmailAlerts User navigates to EmailAlerts 1`] = `
                       }
                     >
                       <div
-                        className="MuiBox-root MuiBox-root-17 right-block right-image"
+                        className="MuiBox-root MuiBox-root-16 right-block right-image"
                       >
                         <img
                           alt=""
