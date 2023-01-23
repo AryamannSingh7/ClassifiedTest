@@ -49,7 +49,8 @@ import '../../../web/src/i18n.js';
 import PeopleOutlinedIcon from '@material-ui/icons/PeopleOutlined';
 import MailOutlineOutlinedIcon from '@material-ui/icons/MailOutlineOutlined';
 import CreateOutlinedIcon from '@material-ui/icons/CreateOutlined';
-
+import Tooltip from '@material-ui/core/Tooltip';
+import ClickAwayListener from '@material-ui/core/ClickAwayListener';
 //resorces
 import { invite, addgroup, newMember, info, cancle, user_icon, email_icon, phone_icon, building, unit } from "./assets";
 
@@ -97,17 +98,23 @@ class CommunityRequestManagement extends CommunityUserProfileController {
                                 <img src= {newMember} style={dashBoard.inviteIcon}/>
                             </div>
                             <div style={{display:"flex", alignItems:"center"}}><Typography variant="h6" style={dashBoard.subHeading}>{t("Invite a new Member")}</Typography>
+                            <Tooltip style={{background:'white'}} title="This section will allow you to invite new owners, residents, and team members to join the platform and start engaging with the building community">
+
                                 <img
-                                aria-owns={this.state.openToolTip ? 'mouse-over-popover' : undefined}
-                                aria-haspopup="true"
-                                onClick={(e: any) => this.handleToolTip(e, "dfdfdfdfddfdfdfd")}
-                                onMouseEnter={(e: any) => this.handleToolTip(e, "dfdfdfdfdfdfdfd")} 
-                                src= {info} style={{paddingLeft:"10px"}}/></div>
+                                // aria-owns={this.state.openToolTip ? 'mouse-over-popover' : undefined}
+                                // aria-haspopup="true"
+                                // onClick={(e: any) => this.handleToolTip(e, "dfdfdfdfddfdfdfd")}
+                                // onMouseEnter={(e: any) => this.handleToolTip(e, "dfdfdfdfdfdfdfd")} 
+                                src= {info} style={{paddingLeft:"10px"}}/>
+                              </Tooltip>
+                                </div>
+                             
                                  <RequestManagementDetailPopover
                                     id="mouse-over-popover"
                                     open={this.state.openToolTip}
                                     anchorEl={this.state.anchorEl}
                                     disableRestoreFocus
+                                    style={{top:'20rem'}}
                                     anchorOrigin={{
                                         vertical: 'bottom',
                                         horizontal: 'center',
@@ -134,12 +141,22 @@ class CommunityRequestManagement extends CommunityUserProfileController {
                             </div>
                             <div style={{display:"flex", alignItems:"center"}}>
                                 <Typography variant="h6" style={dashBoard.subHeading}>{t("Pending Join requests")}</Typography>
-                                <img
+                                {/* <img
                                 aria-owns={this.state.openToolTip ? 'mouse-over-popover' : undefined}
                                 aria-haspopup="true"
                                 onClick={(e: any) => this.handleToolTip(e, "dfdfdfdfddfdfdfd")}
                                 onMouseEnter={(e: any) => this.handleToolTip(e, "dfdfdfdfdfdfdfd")} 
-                                src= {info} style={{paddingLeft:"10px"}}/></div>
+                                src= {info} style={{paddingLeft:"10px"}}/> */}
+                                 <Tooltip style={{background:'white'}} title="This section will allow you to invite new owners, residents, and team members to join the platform and start engaging with the building community">
+
+<img
+// aria-owns={this.state.openToolTip ? 'mouse-over-popover' : undefined}
+// aria-haspopup="true"
+// onClick={(e: any) => this.handleToolTip(e, "dfdfdfdfddfdfdfd")}
+// onMouseEnter={(e: any) => this.handleToolTip(e, "dfdfdfdfdfdfdfd")} 
+src= {info} style={{paddingLeft:"10px"}}/>
+</Tooltip>
+                                </div>
                                  <RequestManagementDetailPopover
                                     id="mouse-over-popover"
                                     open={this.state.openToolTip}
@@ -171,12 +188,22 @@ class CommunityRequestManagement extends CommunityUserProfileController {
                           //@ts-ignore
                           this.props.history.push("/AwaitingAcceptece")}}>
                                 <Typography variant="h6" style={dashBoard.subHeading}>{t("Sent invitations awaiting acceptance")}</Typography>
-                                <img
+                                {/* <img
                                 aria-owns={this.state.openToolTip ? 'mouse-over-popover' : undefined}
                                 aria-haspopup="true"
                                 onClick={(e: any) => this.handleToolTip(e, "dfdfdfdfddfdfdfd")}
                                 onMouseEnter={(e: any) => this.handleToolTip(e, "dfdfdfdfdfdfdfd")} 
-                                src= {info} style={{paddingLeft:"10px"}}/></div>
+                                src= {info} style={{paddingLeft:"10px"}}/> */}
+                                 <Tooltip style={{background:'white'}} title="This section will allow you to invite new owners, residents, and team members to join the platform and start engaging with the building community">
+
+<img
+// aria-owns={this.state.openToolTip ? 'mouse-over-popover' : undefined}
+// aria-haspopup="true"
+// onClick={(e: any) => this.handleToolTip(e, "dfdfdfdfddfdfdfd")}
+// onMouseEnter={(e: any) => this.handleToolTip(e, "dfdfdfdfdfdfdfd")} 
+src= {info} style={{paddingLeft:"10px"}}/>
+</Tooltip>
+                                </div>
                                  <RequestManagementDetailPopover
                                     id="mouse-over-popover"
                                     open={this.state.openToolTip}
@@ -197,7 +224,7 @@ class CommunityRequestManagement extends CommunityUserProfileController {
                                     //@ts-ignore
                                     style={dashBoard.cancleIcon} onClick={(e: any) => this.handleToolTip(e, "")}/>
                                 </RequestManagementDetailPopover>
-                            <Typography variant="h6" style={dashBoard.subHeading}>{this.state.invitatonCount?.totle_sent_requests-this.state.invitatonCount?.accepted}</Typography>
+                            <Typography variant="h6" style={dashBoard.subHeading}>{this.state.invitatonCount?.totle_received_requests-this.state.invitatonCount?.accepted}</Typography>
                         </Paper>
                     </div>
                   </Box>
@@ -228,7 +255,7 @@ class CommunityRequestManagement extends CommunityUserProfileController {
                             </div>
                             <div style={dashBoard.facility}>
                                 <h6 style={dashBoard.inviteTitle}>{t("Total received join requests")}</h6>
-                                <Typography variant="h6" style={dashBoard.invitationCont}>{this.state.invitatonCount?.totle_sent_requests}</Typography>
+                                <Typography variant="h6" style={dashBoard.invitationCont}>{this.state.invitatonCount?.totle_received_requests}</Typography>
                             </div>
                         </div>
                     </Paper>
@@ -675,6 +702,7 @@ inviteInput:{
 
 const RequestManagementDetailPopover = withStyles({
     paper: {
+      top:'20rem !important',
       color: 'rgba(4, 60, 116, 1)',
       fontWeight: 600,
       fontFamily: 'SFProDisplay',

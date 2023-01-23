@@ -80,6 +80,11 @@ export interface S {
   query:any;
   allProfileKeys:any;
   invitatonCount:any;
+  open:boolean;
+  open2:boolean;
+  open3:boolean;
+
+
   // Customizable Area End
 }
 
@@ -212,7 +217,11 @@ const profileData = JSON.parse(localStorage.getItem('profileData') ||'{}')
   selectedUserType:null,
   query:null,
   allProfileKeys:[],
-  invitatonCount:null
+  invitatonCount:null,
+  open:false,
+  open2:false,
+  open3:false,
+
 
       // Customizable Area End
     };
@@ -349,7 +358,7 @@ const profileData = JSON.parse(localStorage.getItem('profileData') ||'{}')
   getInvitationCountRes(responseJson:any,errorReponse:any){
     if (!responseJson.errors) {
       console.log(responseJson)
-      this.setState({ invitatonCount:responseJson,loading: false })
+      this.setState({ invitatonCount:responseJson,loading: false },()=>console.log('123',this.state.invitatonCount))
     } 
     else if (responseJson?.errors) {
 
@@ -1570,7 +1579,7 @@ this.setState({loading:true})
     this.getInvitationCountApiCallId = requestMessage.messageId;
     requestMessage.addData(
       getName(MessageEnum.RestAPIResponceEndPointMessage),
-      `bx_block_request_management/member_invitations/request_count`
+      `bx_block_request_management/member_invitations/request_count?society_id=${localStorage.getItem('society_id')}`
     );
 
     requestMessage.addData(
@@ -2462,6 +2471,28 @@ let userType=localStorage.getItem('userType')
     } catch (error) {
       console.log(error);
     }
+  }
+  handleTooltipClose=(value:any)=>{
+    if(value===1){
+      this.setState({open:false})
+    }else if(value==2){
+      this.setState({open2:false})
+    
+    }else{
+      this.setState({open3:false})
+    
+    }
+  }
+  handleTooltipOpen=(value:any)=>{
+if(value===1){
+  this.setState({open:true})
+}else if(value==2){
+  this.setState({open2:true})
+
+}else{
+  this.setState({open3:true})
+
+}
   }
   // Customizable Area End
 }
