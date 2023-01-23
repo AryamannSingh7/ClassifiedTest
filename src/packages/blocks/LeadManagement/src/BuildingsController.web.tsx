@@ -44,6 +44,7 @@ interface BuildingData {
   photos: any[];
   aboutBuilding: string;
   buildingArea: string;
+  measurement: string;
   totalFloor: string;
   totalUnit: string;
   sharedAreaList: any[];
@@ -141,6 +142,7 @@ export default class BuildingsController extends BlockComponent<Props, S, SS> {
         photos: [],
         aboutBuilding: "",
         buildingArea: "",
+        measurement: "",
         totalFloor: "",
         totalUnit: "",
         sharedAreaList: [],
@@ -170,117 +172,41 @@ export default class BuildingsController extends BlockComponent<Props, S, SS> {
 
   async receive(from: string, message: Message) {
     runEngine.debugLog("Message Recived", message);
+
     // Customizable Area Start
-    // Get Unit List API Response
-    if (
-      getName(MessageEnum.RestAPIResponceMessage) === message.id &&
-      this.GetUnitListCallId !== null &&
-      this.GetUnitListCallId === message.getData(getName(MessageEnum.RestAPIResponceDataMessage))
-    ) {
-      this.GetUnitListCallId = null;
+    if (getName(MessageEnum.RestAPIResponceMessage) === message.id) {
+      let responseJson = message.getData(getName(MessageEnum.RestAPIResponceSuccessMessage));
+      let errorResponse = message.getData(getName(MessageEnum.RestAPIResponceErrorMessage));
 
-      var responseJson = message.getData(getName(MessageEnum.RestAPIResponceSuccessMessage));
+      const apiRequestCallId = message.getData(getName(MessageEnum.RestAPIResponceDataMessage));
 
-      if (responseJson.apartment_managements) {
-        this.setState({ unitList: responseJson.apartment_managements.data, pagination: responseJson.meta.pagination });
+      switch (apiRequestCallId) {
+        case this.GetUnitListCallId:
+          if (responseJson && responseJson.apartment_managements) {
+            this.setState({
+              unitList: responseJson.apartment_managements.data,
+              pagination: responseJson.meta.pagination,
+            });
+          }
+          break;
+        case this.GetDocumentCountCallId:
+          this.handleDocumentCountResponse(responseJson);
+          break;
+        case this.GetBuildingDetailsCallId:
+          this.handleBuildingDetailResponse(responseJson);
+          break;
+        case this.EditBuildingDetailCallId:
+          if (responseJson && responseJson.data) {
+            this.setState({ loading: false }, () => {
+              toast.success("Details updated successfully");
+              this.getBuildingDetail();
+            });
+          }
+          break;
+        default:
+          break;
       }
 
-      var errorResponse = message.getData(getName(MessageEnum.RestAPIResponceErrorMessage));
-      if (responseJson && responseJson.meta && responseJson.meta.token) {
-        runEngine.unSubscribeFromMessages(this, this.subScribedMessages);
-      } else {
-        ApiErrorResponse(responseJson);
-      }
-      ApiCatchErrorResponse(errorResponse);
-    }
-
-    // Get Building Details API Response
-    if (
-      getName(MessageEnum.RestAPIResponceMessage) === message.id &&
-      this.GetBuildingDetailsCallId !== null &&
-      this.GetBuildingDetailsCallId === message.getData(getName(MessageEnum.RestAPIResponceDataMessage))
-    ) {
-      this.GetBuildingDetailsCallId = null;
-
-      var responseJson = message.getData(getName(MessageEnum.RestAPIResponceSuccessMessage));
-
-      if (responseJson.data) {
-        this.setState({
-          buildingData: {
-            buildingName: responseJson.data.attributes.name,
-            city: responseJson.data.attributes.city,
-            country: responseJson.data.attributes.country,
-            logo: responseJson.data.attributes.logo && responseJson.data.attributes.logo.url,
-            photos: responseJson.data.attributes.photos,
-            aboutBuilding: responseJson.data.attributes.description,
-            buildingArea: responseJson.data.attributes.building_area,
-            totalFloor: responseJson.data.attributes.total_floors,
-            totalUnit: responseJson.data.attributes.total_units,
-            sharedAreaList: responseJson.data.attributes.shared_area,
-            lat: responseJson.data.attributes.lat,
-            long: responseJson.data.attributes.long,
-          },
-        });
-      }
-
-      var errorResponse = message.getData(getName(MessageEnum.RestAPIResponceErrorMessage));
-      if (responseJson && responseJson.meta && responseJson.meta.token) {
-        runEngine.unSubscribeFromMessages(this, this.subScribedMessages);
-      } else {
-        ApiErrorResponse(responseJson);
-      }
-      ApiCatchErrorResponse(errorResponse);
-    }
-
-    // Get Document Count API Response
-    if (
-      getName(MessageEnum.RestAPIResponceMessage) === message.id &&
-      this.GetDocumentCountCallId !== null &&
-      this.GetDocumentCountCallId === message.getData(getName(MessageEnum.RestAPIResponceDataMessage))
-    ) {
-      this.GetDocumentCountCallId = null;
-
-      var responseJson = message.getData(getName(MessageEnum.RestAPIResponceSuccessMessage));
-
-      if (responseJson.data) {
-        this.setState({
-          documentCount: {
-            policy: responseJson.data.policy_count,
-            guidelines: responseJson.data.guideline_count,
-            roles: responseJson.data.role_count,
-            resolution: responseJson.data.resolution_count,
-            buildingPlans: responseJson.data.building_plan_count,
-          },
-        });
-      }
-
-      var errorResponse = message.getData(getName(MessageEnum.RestAPIResponceErrorMessage));
-      if (responseJson && responseJson.meta && responseJson.meta.token) {
-        runEngine.unSubscribeFromMessages(this, this.subScribedMessages);
-      } else {
-        ApiErrorResponse(responseJson);
-      }
-      ApiCatchErrorResponse(errorResponse);
-    }
-
-    // Edit Complex Details API Response
-    if (
-      getName(MessageEnum.RestAPIResponceMessage) === message.id &&
-      this.EditBuildingDetailCallId !== null &&
-      this.EditBuildingDetailCallId === message.getData(getName(MessageEnum.RestAPIResponceDataMessage))
-    ) {
-      this.EditBuildingDetailCallId = null;
-
-      var responseJson = message.getData(getName(MessageEnum.RestAPIResponceSuccessMessage));
-
-      if (responseJson.data) {
-        this.setState({ loading: false }, () => {
-          toast.success("Details updated successfully");
-          this.getBuildingDetail();
-        });
-      }
-
-      var errorResponse = message.getData(getName(MessageEnum.RestAPIResponceErrorMessage));
       if (responseJson && responseJson.meta && responseJson.meta.token) {
         runEngine.unSubscribeFromMessages(this, this.subScribedMessages);
       } else {
@@ -357,6 +283,28 @@ export default class BuildingsController extends BlockComponent<Props, S, SS> {
     return true;
   };
 
+  handleBuildingDetailResponse = (responseJson: any) => {
+    if (responseJson && responseJson.data) {
+      this.setState({
+        buildingData: {
+          buildingName: responseJson.data.attributes.name,
+          city: responseJson.data.attributes.city,
+          country: responseJson.data.attributes.country,
+          logo: responseJson.data.attributes.logo && responseJson.data.attributes.logo.url,
+          photos: responseJson.data.attributes.photos,
+          aboutBuilding: responseJson.data.attributes.description,
+          buildingArea: responseJson.data.attributes.building_area,
+          totalFloor: responseJson.data.attributes.total_floors,
+          totalUnit: responseJson.data.attributes.total_units,
+          sharedAreaList: responseJson.data.attributes.shared_area,
+          lat: responseJson.data.attributes.lat,
+          long: responseJson.data.attributes.long,
+          measurement: responseJson.data.attributes.society_management.measurement_unit,
+        },
+      });
+    }
+  };
+
   // Get Document Count API
   getDocumentCount = () => {
     const header = {
@@ -382,10 +330,24 @@ export default class BuildingsController extends BlockComponent<Props, S, SS> {
     return true;
   };
 
+  handleDocumentCountResponse = (responseJson: any) => {
+    if (responseJson && responseJson.data) {
+      this.setState({
+        documentCount: {
+          policy: responseJson.data.policy_count,
+          guidelines: responseJson.data.guideline_count,
+          roles: responseJson.data.role_count,
+          resolution: responseJson.data.resolution_count,
+          buildingPlans: responseJson.data.building_plan_count,
+        },
+      });
+    }
+  };
+
   handleSaveBuildingDetails = (values: EditForm) => {
     this.setState({ loading: true });
 
-    var data = new FormData();
+    let data = new FormData();
     data.append("building_management[name]", values.buildingName);
     data.append("building_management[building_area]", values.buildingArea);
     data.append("building_management[description]", values.aboutBuilding);
@@ -398,6 +360,10 @@ export default class BuildingsController extends BlockComponent<Props, S, SS> {
       data.append("building_management[photos][]", this.dataURLtoFile(image));
     });
 
+    this.handleAPICallEditBuilding(data);
+  };
+
+  handleAPICallEditBuilding = (data: any) => {
     const header = {
       token: localStorage.getItem("userToken"),
     };
@@ -480,7 +446,8 @@ export default class BuildingsController extends BlockComponent<Props, S, SS> {
       .matches(/\S/, "Required"),
     buildingArea: Yup.string()
       .required("Required")
-      .matches(/\S/, "Required"),
+      .matches(/\S/, "Required")
+      .matches(/^\d+$/, "Only digit allowed"),
     photos: Yup.array().min(1, "Required"),
   });
 
@@ -495,6 +462,10 @@ export default class BuildingsController extends BlockComponent<Props, S, SS> {
     });
     let photos = await Promise.allSettled(imageUrlPromise);
 
+    this.handleOpenEditBuildingState(photos);
+  };
+
+  handleOpenEditBuildingState = (photos: any) => {
     this.setState(
       {
         loading: false,
@@ -514,6 +485,30 @@ export default class BuildingsController extends BlockComponent<Props, S, SS> {
         this.handleEditBuildingModal();
       }
     );
+  };
+
+  handleValidText = (text: any) => {
+    if (text) {
+      return text;
+    } else {
+      return "-";
+    }
+  };
+
+  handleValidEmptyText = (text: any) => {
+    if (text) {
+      return text;
+    } else {
+      return "";
+    }
+  };
+
+  handleStatus = (status: any) => {
+    if (status === "No-Own") {
+      return "Not Owned";
+    } else {
+      return status;
+    }
   };
   // Customizable Area End
 }

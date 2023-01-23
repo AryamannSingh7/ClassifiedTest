@@ -8,13 +8,11 @@ import {
   Grid,
   MenuItem,
   Select,
-  ListItemIcon,
   OutlinedInput,
   InputAdornment,
   Input,
   FormControl,
   Divider,
-  Link,
 } from "@material-ui/core";
 import KeyboardBackspaceIcon from "@material-ui/icons/KeyboardBackspace";
 import {
@@ -39,7 +37,7 @@ import { CountryList } from "./countryList";
 import CloseIcon from "@material-ui/icons/Close";
 import Loader from "../../../components/src/Loader.web";
 import moment from "moment";
-import { Menu } from "@szhsin/react-menu";
+import { Menu, MenuItem as MenuItemMenu } from "@szhsin/react-menu";
 import MoreVertIcon from "@material-ui/icons/MoreVert";
 
 class RegisterTenant extends RegisterTenantController {
@@ -52,9 +50,14 @@ class RegisterTenant extends RegisterTenantController {
     this.getIdTypeList();
   }
 
+  handleErrorMessage = (errors: any, touched: any, t: any) => {
+    if (errors && touched) {
+      return <p className="error">{t(errors)}</p>;
+    }
+  };
+
   render() {
-    const { classes } = this.props;
-    const { t }: any = this.props;
+    const { t, classes }: any = this.props;
 
     return (
       <>
@@ -67,11 +70,18 @@ class RegisterTenant extends RegisterTenantController {
                 <Box>
                   <Box display={{ xs: "flex", md: "flex" }} className="top-bar">
                     <div className="left-icon">
-                      <Link href="/Tenants">
-                        <IconButton>
-                          <KeyboardBackspaceIcon />
-                        </IconButton>
-                      </Link>
+                      <IconButton
+                        onClick={() => {
+                          if (localStorage.getItem("isComingFromContract") === "IssueContract") {
+                            localStorage.removeItem("isComingFromContract");
+                            this.props.navigation.navigate("IssueContract");
+                          } else {
+                            this.props.navigation.navigate("TenantList");
+                          }
+                        }}
+                      >
+                        <KeyboardBackspaceIcon />
+                      </IconButton>
                       <span>{t("Register A Tenant")}</span>
                     </div>
                   </Box>
@@ -127,15 +137,11 @@ class RegisterTenant extends RegisterTenantController {
                                         {t("Type of Tenant")}
                                       </MenuItem>
                                       <MenuItem value="Individual">{t("Individual Person")}</MenuItem>
-                                      <MenuItem value="Company" disabled>
-                                        {t("Company")}
-                                      </MenuItem>
+                                      <MenuItem value="Company">{t("Company")}</MenuItem>
                                     </Select>
                                     <img src={GreyTenantType} alt="" />
                                   </Box>
-                                  {errors.tenantType && touched.tenantType && (
-                                    <p className="error">{t(errors.tenantType)}</p>
-                                  )}
+                                  {this.handleErrorMessage(errors.tenantType, touched.tenantType, t)}
                                 </FormControl>
                                 <FormControl fullWidth>
                                   <Input
@@ -153,9 +159,7 @@ class RegisterTenant extends RegisterTenantController {
                                       </InputAdornment>
                                     }
                                   />
-                                  {errors.tenantName && touched.tenantName && (
-                                    <p className="error">{t(errors.tenantName)}</p>
-                                  )}
+                                  {this.handleErrorMessage(errors.tenantName, touched.tenantName, t)}
                                 </FormControl>
                                 <FormControl fullWidth>
                                   <Box className="mobile-box">
@@ -204,9 +208,7 @@ class RegisterTenant extends RegisterTenantController {
                                       }
                                     />
                                   </Box>
-                                  {errors.tenantMobile && touched.tenantMobile && (
-                                    <p className="error">{t(errors.tenantMobile)}</p>
-                                  )}
+                                  {this.handleErrorMessage(errors.tenantMobile, touched.tenantMobile, t)}
                                 </FormControl>
                                 <FormControl fullWidth>
                                   <Input
@@ -224,9 +226,7 @@ class RegisterTenant extends RegisterTenantController {
                                       </InputAdornment>
                                     }
                                   />
-                                  {errors.tenantEmail && touched.tenantEmail && (
-                                    <p className="error">{t(errors.tenantEmail)}</p>
-                                  )}
+                                  {this.handleErrorMessage(errors.tenantEmail, touched.tenantEmail, t)}
                                 </FormControl>
                                 <FormControl fullWidth>
                                   <Box className="select-box">
@@ -256,7 +256,7 @@ class RegisterTenant extends RegisterTenantController {
                                     </Select>
                                     <img src={GreyBuildingName} alt="" />
                                   </Box>
-                                  {errors.building && touched.building && <p className="error">{t(errors.building)}</p>}
+                                  {this.handleErrorMessage(errors.building, touched.building, t)}
                                 </FormControl>
                                 <FormControl fullWidth>
                                   <Box className="select-box">
@@ -286,7 +286,7 @@ class RegisterTenant extends RegisterTenantController {
                                     </Select>
                                     <img src={GreyUnitNumber} alt="" />
                                   </Box>
-                                  {errors.unit && touched.unit && <p className="error">{t(errors.unit)}</p>}
+                                  {this.handleErrorMessage(errors.unit, touched.unit, t)}
                                 </FormControl>
                                 <FormControl fullWidth>
                                   <Box className="select-box">
@@ -315,7 +315,7 @@ class RegisterTenant extends RegisterTenantController {
                                     </Select>
                                     <img src={GreyIdType} alt="" />
                                   </Box>
-                                  {errors.idType && touched.idType && <p className="error">{t(errors.idType)}</p>}
+                                  {this.handleErrorMessage(errors.idType, touched.idType, t)}
                                 </FormControl>
                                 <FormControl fullWidth>
                                   <Input
@@ -333,7 +333,7 @@ class RegisterTenant extends RegisterTenantController {
                                       </InputAdornment>
                                     }
                                   />
-                                  {errors.idNumber && touched.idNumber && <p className="error">{t(errors.idNumber)}</p>}
+                                  {this.handleErrorMessage(errors.idNumber, touched.idNumber, t)}
                                 </FormControl>
                                 <FormControl fullWidth>
                                   <Input
@@ -352,7 +352,7 @@ class RegisterTenant extends RegisterTenantController {
                                       </InputAdornment>
                                     }
                                   />
-                                  {errors.idDate && touched.idDate && <p className="error">{t(errors.idDate)}</p>}
+                                  {this.handleErrorMessage(errors.idDate, touched.idDate, t)}
                                 </FormControl>
                                 <FormControl fullWidth>
                                   <Box className="upload-box" onClick={() => this.uploadIDCard.click()}>
@@ -385,7 +385,7 @@ class RegisterTenant extends RegisterTenantController {
                                       </Box>
                                     );
                                   })}
-                                  {errors.idCard && touched.idCard && <p className="error">{t(errors.idCard)}</p>}
+                                  {this.handleErrorMessage(errors.idCard, touched.idCard, t)}
                                 </FormControl>
                                 <FormControl fullWidth>
                                   <Box className="upload-box" onClick={() => this.uploadOtherDocument.click()}>
@@ -423,16 +423,11 @@ class RegisterTenant extends RegisterTenantController {
                                       </Box>
                                     );
                                   })}
-                                  {errors.otherDocument && touched.otherDocument && (
-                                    <p className="error">{t(errors.otherDocument)}</p>
-                                  )}
+                                  {this.handleErrorMessage(errors.otherDocument, touched.otherDocument, t)}
                                 </FormControl>
-
-                                <div className="next-button submit-button">
-                                  {/* <Link to=""> */}
+                                <Box className="next-button submit-button">
                                   <Button type="submit">{t("Next")}</Button>
-                                  {/* </Link> */}
-                                </div>
+                                </Box>
                               </Box>
                             </Form>
                           );
@@ -494,7 +489,9 @@ class RegisterTenant extends RegisterTenantController {
                                       </IconButton>
                                     }
                                   >
-                                    <MenuItem onClick={() => this.setState({ contract: null })}>{t("Delete")}</MenuItem>
+                                    <MenuItemMenu onClick={() => this.setState({ contract: null })}>
+                                      {t("Delete")}
+                                    </MenuItemMenu>
                                   </Menu>
                                 </div>
                               </Box>

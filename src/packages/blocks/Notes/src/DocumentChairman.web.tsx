@@ -1,15 +1,13 @@
 // Customizable Area Start
 import React from "react";
-import { Button, Container, Link, Typography, withStyles } from "@material-ui/core";
-import Box from "@material-ui/core/Box";
-import Grid from "@material-ui/core/Grid";
+import { Container, Link, Typography, withStyles, Box, Grid } from "@material-ui/core";
 import DocumentChairmanController, { Props } from "./DocumentChairmanController.web";
 import { DocumentReportStyleWeb } from "./DocumentReportStyle.web";
 import DashboardHeader from "../../dashboard/src/DashboardHeader.web";
 import ChairmanSidebarWeb from "../../dashboard/src/ChairmanSidebar.web";
 import { Document } from "./assets";
 import { withTranslation } from "react-i18next";
-import "../../../web/src/i18n.js";
+import ChairmanCategoryBox from "../../../components/src/DocumentComponent/ChairmanCategoryBox.web";
 
 class DocumentChairman extends DocumentChairmanController {
   constructor(props: Props) {
@@ -17,8 +15,7 @@ class DocumentChairman extends DocumentChairmanController {
   }
 
   render() {
-    const { t }: any = this.props;
-    const { classes } = this.props;
+    const { t, classes }: any = this.props;
 
     window.addEventListener("pageshow", (event) => {
       const historyTraversal =
@@ -54,59 +51,35 @@ class DocumentChairman extends DocumentChairmanController {
                   <Grid container spacing={2}>
                     <Grid item xs={12} md={6} lg={4}>
                       <Link href="/DocumentChairman/Policy">
-                        <Box className="item">
-                          <div className="heading">
-                            <img src={Document} />
-                            <h4>{t("Policy")}</h4>
-                          </div>
-                          {this.state.policy > 0 && <Button className="color-btn">{this.state.policy}</Button>}
-                        </Box>
+                        <ChairmanCategoryBox image={Document} heading={t("Policy")} value={this.state.policy} />
                       </Link>
                     </Grid>
                     <Grid item xs={12} md={6} lg={4}>
                       <Link href="/DocumentChairman/Guidelines">
-                        <Box className="item">
-                          <div className="heading">
-                            <img src={Document} />
-                            <h4>{t("Guidelines")}</h4>
-                          </div>
-                          {this.state.guidelines > 0 && <Button className="color-btn">{this.state.guidelines}</Button>}
-                        </Box>
+                        <ChairmanCategoryBox image={Document} heading={t("Guidelines")} value={this.state.guidelines} />
                       </Link>
                     </Grid>
                     <Grid item xs={12} md={6} lg={4}>
                       <Link href="/DocumentChairman/Roles">
-                        <Box className="item">
-                          <div className="heading">
-                            <img src={Document} />
-                            <h4>{t("Roles")}</h4>
-                          </div>
-                          {this.state.roles > 0 && <Button className="color-btn">{this.state.roles}</Button>}
-                        </Box>
+                        <ChairmanCategoryBox image={Document} heading={t("Roles")} value={this.state.roles} />
                       </Link>
                     </Grid>
                     <Grid item xs={12} md={6} lg={4}>
                       <Link href="/DocumentChairman/Resolutions">
-                        <Box className="item">
-                          <div className="heading">
-                            <img src={Document} />
-                            <h4>{t("Resolution")}</h4>
-                          </div>
-                          {this.state.resolution > 0 && <Button className="color-btn">{this.state.resolution}</Button>}
-                        </Box>
+                        <ChairmanCategoryBox
+                          image={Document}
+                          heading={t("Resolutions")}
+                          value={this.state.resolution}
+                        />
                       </Link>
                     </Grid>
                     <Grid item xs={12} md={6} lg={4}>
                       <Link href="/DocumentChairman/Building-Plans">
-                        <Box className="item">
-                          <div className="heading">
-                            <img src={Document} />
-                            <h4>{t("Building Plans")}</h4>
-                          </div>
-                          {this.state.buildingPlans > 0 && (
-                            <Button className="color-btn">{this.state.buildingPlans}</Button>
-                          )}
-                        </Box>
+                        <ChairmanCategoryBox
+                          image={Document}
+                          heading={t("Building Plans")}
+                          value={this.state.buildingPlans}
+                        />
                       </Link>
                     </Grid>
                   </Grid>

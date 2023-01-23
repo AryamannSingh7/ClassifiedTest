@@ -86,7 +86,7 @@ class CreateFacilityReservation extends FacilityReservationController {
                 <Box className="content-block-wrapper common-incident-block desktop-ui create-reservation-wrapper">
                   <Formik
                     initialValues={{
-                      areaReserve: FacilityId ?`${attributes?.common_area?.id},${attributes?.common_area?.details},${attributes?.common_area?.name},${attributes?.common_area?.reservation_fee},${attributes?.common_area?.currency?.currency}`: " ",
+                      areaReserve: FacilityId ?`${attributes?.common_area?.id},${attributes?.common_area?.details},${attributes?.common_area?.name},${attributes?.common_area?.reservation_fee},${attributes?.currency?.currency}`: " ",
                       buildingName: attributes?.building?.id || " ",
                       date: moment(attributes?.date, 'DD-MMM-YYYY').format('YYYY-MM-DD') || "",
                       timeFrom: attributes?.start_time || "",
@@ -154,7 +154,7 @@ class CreateFacilityReservation extends FacilityReservationController {
                                 this.onChange(e) ;
                                 setFieldValue("areaReserve", e.target.value)
                               }}
-                              value={this.state?.areaReserve}
+                              value={values.areaReserve}
                             >
                               <MenuItem disabled value=" ">
                                 Area to Reserve
@@ -244,9 +244,7 @@ class CreateFacilityReservation extends FacilityReservationController {
                          FacilityId ?<Button variant="contained" type="submit">update request</Button>: <Button variant="contained" type="submit">Submit</Button>
                        }
                         </Box>
-                         {JSON.stringify(errors, null, 2)} 
-                         {JSON.stringify(values, null, 2)}
-
+                        
                       </Form>
                     )}
                   </Formik>

@@ -1,5 +1,5 @@
 // Customizable Area Start
-import React from "react";
+import React, { useRef } from "react";
 import {
   Container,
   Typography,
@@ -49,7 +49,7 @@ import { dailCode } from "../../email-account-registration/src/code";
 import ChipInput from "material-ui-chip-input";
 import OtpInput from "react-otp-input";
 import InboxWeb from "./Inbox.web";
-import { Building1, info, NoChat, Search, Send } from "./assets";
+import {  DoubleTick, info, NoChat, Send } from "./assets";
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 import Menu from '@material-ui/core/Menu';
 import InboxController,{Props} from "./inboxController.web";
@@ -63,7 +63,7 @@ class ChairmanChat extends InboxController {
   constructor(props: Props) {
     super(props);
     const messagesEndRef = React.createRef()
-    this.handleClick1 = this.handleClick1.bind(this);
+   
   }
 
   async componentDidMount() {
@@ -100,8 +100,7 @@ if(window.history?.state?.state?.data){
 
   let date = new Date(value[value.length-1].message.created_at)
 
-  let d = date.getHours();
-  let m = date.getMinutes();
+  
 
   return this.dateToFromNowDaily(value[value.length-1].message.created_at)
   // return `${d}:${m < 9 ? `0` + m : m} (${moment(value[value.length-1].message.created_at).format("DD MMM YYYY")})`
@@ -122,25 +121,7 @@ if(window.history?.state?.state?.data){
     return `${d}:${m < 9 ? `0` + m : m}`
 
   }
-  handleClick1(e:any) {
 
-    //@ts-ignore
-//@ts-nocheck
-    this.refs.fileUploader.click();
-  }
-
-  handleFile2(file:any) {
-    //@ts-ignore
-//@ts-nocheck
-if (file && !['image/png', 'image/jpeg', 'image/jpg',].includes(file.type)) {
-  return alert('Only png and jpeg are supported.')
-}
-else{
-
-  this.setState({ selectedMedia: { url: URL.createObjectURL(file), mimetype: file.type }, accept: true, file: file },)
-}
-
-  }
 
   // Customizable Area Start
   // Customizable Area End
@@ -270,8 +251,8 @@ const currentAccountId = localStorage.getItem('userId')
 
                   <Box key={item} display='flex' style={{ gap: '1rem',maxHeight:'5rem',marginTop:'1rem',cursor:'pointer',borderBottom:'1px solid #f2f2f2' }} onClick={() => this.openChat2(item)}>
                     <img src={item?.attributes?.chat_with_account?.attributes?.profile_pic?.url ||'https://images.freeimages.com/images/large-previews/e04/yellow-frontal-with-ivy-1228121.jpg'} width='50' height='50' style={{ borderRadius: 25 }} />
-                    
-                    <Box padding='0.25rem' width='100%' >
+                    <InBoxCard item={item} displaytime={this.displaytime} getLastMessage={this.getLastMessage}/>
+                    {/* <Box padding='0.25rem' width='100%' >
                       <Box width='100%' display='flex' justifyContent='space-between' alignItems='center'>
 
                       <h5>
@@ -297,7 +278,7 @@ const currentAccountId = localStorage.getItem('userId')
                       </p>
                       }
                       </Box>
-                    </Box>
+                    </Box> */}
                   </Box>
 
               </>
@@ -327,7 +308,8 @@ const currentAccountId = localStorage.getItem('userId')
             },
           }}
         >
-          <Grid container>
+          <DialogBox allInbox={this.state.allInbox} disableChat={this.disablechat} onClickHandle={() => this.setState({ showSuccessModal: false })}/>
+          {/* <Grid container>
             <Grid xs={12} style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', marginBottom: 10 }}>
 
               <img src={NoChat} />
@@ -369,7 +351,7 @@ const currentAccountId = localStorage.getItem('userId')
                 }
               </Button>
             </DialogActions>
-          </Box>
+          </Box> */}
         </Dialog>
         < Loader loading={this.state.loading} />
       </>
@@ -381,14 +363,15 @@ const currentAccountId = localStorage.getItem('userId')
               <div style={{ padding: "0.3rem", backgroundColor: "#ffff",paddingLeft:'0.3rem',minWidth:'95%'}}>
         <Grid container>
           <Grid item xs={12} style={{ display: 'flex', justifyContent: 'space-between',paddingBottom:'1rem' }}>
-            <Box display='flex' alignItems='center' >
+            {/* <Box display='flex' alignItems='center' >
              
               <span style={{ fontWeight: 'bold',display:'flex',gap:'0.5rem',marginTop:'1rem' }}>
               {item?.attributes?.chat_with_account?.id != localStorage.getItem('userId')  ? <img src={item?.attributes?.chat_with_account?.attributes?.profile_pic?.url} width='25' height='25'/> || <img src={NoProfile_Img} width='25' height='25' />:<img src={item?.attributes?.chatable?.attributes?.profile_pic?.url} width='25' height='25'/>   || <img src={NoProfile_Img} width='25' height='25'/> }
 
                 {item?.attributes?.chat_with_account?.id != localStorage.getItem('userId') ?item?.attributes?.chat_with_account?.attributes?.full_name || 'N/A':item?.attributes?.chatable?.attributes?.full_name || 'N/A' }
               </span>
-            </Box>
+            </Box> */}
+            <ChatRoomSection item={item}/>
 
 
           </Grid>
@@ -419,98 +402,9 @@ const currentAccountId = localStorage.getItem('userId')
 
                   <ListItem key={i}>
                     <Grid container>
-                      <Grid item xs={12}
-                      style={{display:'flex',alignItems:'flex-start',gap:'0.5rem'}}
-                      // @ts-ignore
-                          style={message.message.account_id == currentAccountId ? { 'display': 'flex', 'justifyContent': 'end', alignItems: 'center' } : { 'display': 'flex', 'justifyContent': 'start', alignItems: 'center' }}
-                      >
-{
-  message.message.account_id != currentAccountId  ?  <img src={message.message.profile_pic.url} alt='profile-pic' width='50' height='50' style={{borderRadius:20,marginRight:5}}/> :null
-}
-
-
-{/* <img src=""/> */}
-
-
-                      <Box style={{background:'#f6f6f6',borderRadius:'6px',padding:'0.5rem',borderTopRightRadius:0}}>
-
-
-                        <Typography
-                          style={{
-                            color: "#081F32",
-                            fontFamily: "Poppins",
-                            fontWeight: 500,
-                            fontSize: 14,
-                            marginLeft: 5
-                          }}
-                        align={
-                          message.message.account_id == currentAccountId
-                            ? "right"
-                            : "left"
-                        }
-                        >
-
-                        </Typography>
-
-
-                        {
-                              message.message.message.length > 45 ?
-                            <>
-                              <Typography
-                                style={{
-                                  color: "#081F32",
-                                  fontWeight: 500,
-                                  fontSize: 14,
-                                  wordBreak: 'break-all'
-                                }}
-                                align='left'
-                              >
-                                    {message.message.message}
-                              </Typography>
-
-
-                            </>
-
-                            :
-
-                            <>
-                              <Typography
-                                style={{
-                                  color: "#081F32",
-                                  fontWeight: 500,
-                                  fontSize: 14,
-                                  wordBreak: 'break-all'
-                                }}
-                              >
-                                    {message.message.message}
-                              </Typography>
-
-                            </>
-                        }
-
-
-
-                      {
-                              message?.message?.images.length !=0 ?
-                          <Grid item xs={12}
-                          >
-
-                                  <img style={{ 'cursor': 'pointer' }} onClick={() => {//@ts-ignore
+                      <MessageSection handleClick={() => {//@ts-ignore
 //@ts-nocheck
-this.setState({ selectedMedia: message.message.images[0] })}} src={message.message.images[0].url} width="75" height="75" />
-                          </Grid>
-                          :
-                          null
-
-                      }
-
-                        <ListItemText
-                        
-                        style={ message.message.account_id == currentAccountId?{textAlign:"right"}:{textAlign:"left"}}
-                              secondary={this.displaytime2(message.message.created_at)}
-                        />
-                     </Box>
-                      </Grid>
+this.setState({ selectedMedia: message.message.images[0] })}}  message={message} displaytime2={this.displaytime2} currentAccountId={currentAccountId} />
                     </Grid>
                   </ListItem>
                   </>)
@@ -519,64 +413,7 @@ this.setState({ selectedMedia: message.message.images[0] })}} src={message.messa
               ))}
             </List>
 
-{
-  item?.attributes?.chatable?.attributes?.disable_chat ? <>
-
-  <div style={{display:'flex',justifyContent:'center',alignItems:'center',gap:'0.5rem',background:'#E7E1E1',borderRadius:'6px',boxShadow:'0px 4px 14px #f4f6fb',padding:'0.75rem'}}>
-  <img src={info} width='20' height='20'/>
-  <p>
-
-  {item?.attributes?.chatable?.attributes?.full_name} has disabled his chat. You won’t be able to send him message unit he enables it.
-  </p>
-  </div>
-  
-  </>:
-
-
-            <Grid container style={{ padding: "20px", display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-
-              <Grid item xs={10} style={{ display: 'flex', alignItems: 'center' }}>
-
-                <input
-                disabled={!this.state.selectedChatRoom}
-                  onKeyPress={event => {
-                    if (event.key === 'Enter') {
-                      this.createMessages()
-                    }
-                  }}
-
-                  onChange={(e) => this.CreateNewMessage(e)} type="" style={{ border: '1px solid #EDEDED', color: '#726363', borderRadius: 15, padding: 10, width: '100%' }} placeholder="Type your message" value={this.state.newMessage}/>
-                {// @ts-ignore
-// @ts-nocheck
-<AttachFileIcon onClick={this.handleClick1} for="BtnBrowseHidden" style={{ cursor: 'pointer' }} />}
-                <input
-                disabled={!this.state.selectedChatRoom}
-
-                  id="BtnBrowseHidden"
-                  type="file"
-                  onChange={(e: any) =>
-                    this.handleFile2(
-                      e.target.files[0]
-                    )
-                  }
-                  style={{
-                    position: "absolute",
-                    height: "10px",
-                    width: "10px",
-                    zIndex: 2,
-                    cursor: "pointer",
-                    opacity: 0
-                  }}
-                  ref="fileUploader"
-                  accept="image/png, image/jpeg, image/jpg,.pdf"
-                />
-              </Grid>
-              <img src={Send} style={{ cursor: 'pointer',borderRadius:'20px',padding:'1rem',background:'#2B6FED' }} onClick={()=>this.createMessages()}/> 
-              {/* <SendIcon style={{ cursor: 'pointer' }} onClick={()=>this.createMessages()} /> */}
-
-            </Grid>
-
-}
+<SendMessage newMessage={this.state.newMessage} selectedChatRoom={this.state.selectedChatRoom} handleFile2={this.handleFile2} createMessages={this.createMessages} CreateNewMessage={this.CreateNewMessage} />
 
           </Grid>
         </Grid>
@@ -769,3 +606,325 @@ const IOSSwitch = styled((props) => (
     }),
   },
 }));
+
+
+const InBoxCard=(props:any)=>{
+console.log(props)
+function displaytime(obj:any) {
+
+  let value = obj[Object.keys(obj)[Object.keys(obj).length - 1]]
+ 
+  //@ts-ignore
+  //@ts-nocheck
+  if(value){
+
+
+
+
+
+return dateToFromNowDaily1(value[value.length-1].message.created_at)
+
+}else{
+return ''
+}
+
+}
+const dateToFromNowDaily1=( myDate:any )=> {
+
+  // get from-now for this date
+  let fromNow = moment.utc( myDate ).fromNow();
+
+  // ensure the date is displayed with today and yesterday
+  return moment( myDate ).calendar( null, {
+      // when the date is closer, specify custom values
+      lastWeek: '[Last] dddd',
+      lastDay:  '[Yesterday]',
+      sameDay:  '[Today]',
+      nextDay:  '[Tomorrow]',
+      nextWeek: 'dddd',
+      // when the date is further away, use from-now functionality             
+      sameElse: function () {
+          return "[" + fromNow + "]";
+      }
+  });
+}
+  return(
+    <Box padding='0.25rem' width='100%' >
+                      <Box width='100%' display='flex' justifyContent='space-between' alignItems='center'>
+
+                      <h5>
+                      {props?.item?.attributes?.chat_with_account?.id != localStorage.getItem('userId') ?props?.item?.attributes?.chat_with_account?.attributes?.full_name || 'N/A':props?.item?.attributes?.chatable?.attributes?.full_name || 'N/A' }
+
+                      </h5>
+                      <p>
+                       { displaytime(props?.item.attributes.messages)}
+                      </p>
+                      </Box>
+                      <Box style={{display:'flex',justifyContent:'space-between'}}>
+
+                      <p>
+
+                        {
+                          Object.keys(props?.item.attributes.messages).length !=0 && props?.getLastMessage(props?.item.attributes.messages)
+                        }
+                      </p>
+                      {
+                         props?.item?.attributes?.is_mark_unread===0 ?null :
+                      <p style={{background:'#FC8434',color:'white',borderRadius:'50%',width:'12px',height:'12px',fontSize:'12px',padding:'4px 6px 8px 6px',textAlign:'center'}}>
+                       {props?.item?.attributes?.is_mark_unread}
+                      </p>
+                      }
+                      </Box>
+                    </Box>
+  )
+}
+
+const DialogBox=(props:any)=>{
+  const checkPrime=()=>{
+    
+   return   props.allInbox[0]?.attributes?.chat_with_account?.id == localStorage.getItem('userId')  ? 
+      check2()
+      :
+      check3()
+     
+  }
+  const check2=()=>{
+return props.allInbox[0]?.attributes?.chat_with_account?.attributes?.disable_chat ? ' Enable Chat' :' Disable Chat'
+  }
+  const check3=()=>{
+return props.allInbox[0]?.attributes?.chatable?.attributes?.disable_chat ?' Enable Chat' :' Disable Chat'
+  }
+  return(
+    <>
+      <Grid container>
+            <Grid xs={12} style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', marginBottom: 10 }}>
+
+              <img src={NoChat} />
+            </Grid>
+          </Grid>
+          <Grid container>
+            <Grid xs={12} style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', marginBottom: 10 }}>
+
+              <p style={{ fontWeight: 800, fontSize: '1.5rem', textAlign: 'center' }}>
+             {checkPrime()}  Functionality?
+
+              </p>
+            </Grid>
+          </Grid>
+          <Grid container>
+            <Grid xs={12} style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', marginBottom: 10 }}>
+              <p style={{ fontWeight: 400, fontSize: '0.8rem', textAlign: 'center' }}>
+                Are you sure want to  {checkPrime()} functionality? No one will be able to send you any messages while it is disabled.
+              </p>
+            </Grid>
+          </Grid>
+          <Box className="dialog-footer desktop-ui">
+            <DialogActions className="customButton" style={{display:'flex',gap:'1rem',justifyContent:'center',flexDirection:'row-reverse'}}>
+              <Button variant="contained" onClick={() => props.disableChat()} style={{width:'12rem'}}  >
+                Yes
+                {checkPrime()}
+                 
+              </Button>
+              <Button variant='text' onClick={props.onClickHandle} style={{width:'fit-content',border:'1px solid #668DE7',color:'#668DE7'}} >
+                No, don’t
+                {checkPrime()}
+              </Button>
+            </DialogActions>
+          </Box>
+    </>
+  )
+}
+
+
+const ChatRoomSection=(props:any)=>{
+
+  return(
+    <>
+         <Box display='flex' alignItems='center' >
+             
+             <span style={{ fontWeight: 'bold',display:'flex',gap:'0.5rem',marginTop:'1rem' }}>
+             {props.item?.attributes?.chat_with_account?.id != localStorage.getItem('userId')  ? <img src={props.item?.attributes?.chat_with_account?.attributes?.profile_pic?.url} width='25' height='25'/> || <img src={NoProfile_Img} width='25' height='25' />:<img src={props.item?.attributes?.chatable?.attributes?.profile_pic?.url} width='25' height='25'/>   || <img src={NoProfile_Img} width='25' height='25'/> }
+
+               {props.item?.attributes?.chat_with_account?.id != localStorage.getItem('userId') ?props.item?.attributes?.chat_with_account?.attributes?.full_name || 'N/A':props.item?.attributes?.chatable?.attributes?.full_name || 'N/A' }
+             </span>
+           </Box>
+    </>
+  )
+}
+
+const SendMessage=(props:any)=>{
+  const inputRef = useRef(null);
+  console.log(props.item)
+  console.log(props)
+
+  console.log(props?.item?.attributes?.chat_with_account?.attributes?.disable_chat)
+  console.log(props?.item?.attributes?.chatable?.attributes?.disable_chat)
+  console.log(props?.item?.attributes?.chat_with_account?.attributes?.disable_chat)
+// console.log( props?.item?.attributes?.chatable?.attributes?.disable_chat || props?.item?.attributes?.chat_with_account?.attributes?.disable_chat)
+  return(<>
+  {
+  props?.selectedChatRoom?.attributes?.chatable?.attributes?.disable_chat || props?.selectedChatRoom?.attributes?.chat_with_account?.attributes?.disable_chat  ?  <>
+
+  <div style={{display:'flex',justifyContent:'center',alignItems:'center',gap:'0.5rem',background:'#E7E1E1',borderRadius:'6px',boxShadow:'0px 4px 14px #f4f6fb',padding:'0.75rem'}}>
+  <img src={info} width='20' height='20'/>
+  <p>
+
+  {props?.selectedChatRoom?.attributes?.chatable?.attributes?.disable_chat? props?.selectedChatRoom?.attributes?.chatable?.attributes?.full_name:props?.selectedChatRoom?.attributes?.chat_with_account?.attributes?.full_name} has disabled his chat. You won’t be able to send him message unit he enables it.
+  </p>
+  </div>
+  
+  </>:
+
+
+            <Grid container style={{ padding: "20px", display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+
+              <Grid item xs={10} style={{ display: 'flex', alignItems: 'center' }}>
+
+                <input
+                disabled={!props.selectedChatRoom}
+                  onKeyPress={event => {
+                    if (event.key === 'Enter') {
+                      props.createMessages()
+                    }
+                  }}
+
+                  onChange={(e) =>  props.CreateNewMessage(e)} type="" style={{ border: '1px solid #EDEDED', color: '#726363', borderRadius: 15, padding: 10, width: '100%' }} placeholder="Type your message" value={props.newMessage}/>
+                {// @ts-ignore
+// @ts-nocheck
+<AttachFileIcon
+ onClick={() => {
+  // @ts-ignore
+  // @ts-nocheck
+                 inputRef.current.click();
+              }} 
+              for="BtnBrowseHidden" style={{ cursor: 'pointer' }} />}
+                <input
+                disabled={!props.selectedChatRoom}
+                ref={inputRef}
+                  id="BtnBrowseHidden"
+                  type="file"
+                  onChange={(e: any) =>
+                    props?.handleFile2(
+                      e.target.files[0]
+                    )
+                  }
+                  style={{
+                    position: "absolute",
+                    height: "10px",
+                    width: "10px",
+                    zIndex: 2,
+                    cursor: "pointer",
+                    opacity: 0
+                  }}
+                  accept="image/png, image/jpeg, image/jpg,.pdf"
+                />
+              </Grid>
+              <img src={Send} style={{ cursor: 'pointer',borderRadius:'20px',padding:'1rem',background:'#2B6FED' }} onClick={()=>props.createMessages()}/> 
+              {/* <SendIcon style={{ cursor: 'pointer' }} onClick={()=>this.createMessages()} /> */}
+
+            </Grid>
+
+}
+  </>)
+}
+
+const MessageSection=(props:any)=>{
+  return(<>
+  <Grid item xs={12}
+                      
+                      // @ts-ignore
+                          style={props.message.message.account_id == props.currentAccountId ? { 'display': 'flex', 'justifyContent': 'end', alignItems: 'center',gap:'0.5rem' } : { 'display': 'flex', 'justifyContent': 'start', alignItems: 'center',gap:'0.5rem' }}
+                      >
+{
+  props.message.message.account_id != props.currentAccountId  ?  <img src={props.message.message.profile_pic.url} alt='profile-pic' width='50' height='50' style={{borderRadius:20,marginRight:5}}/> :null
+}
+
+
+{/* <img src=""/> */}
+
+
+                      <Box style={{background:'#f6f6f6',borderRadius:'6px',padding:'0.5rem',borderTopRightRadius:0}}>
+
+
+                        <Typography
+                          style={{
+                            color: "#081F32",
+                            fontFamily: "Poppins",
+                            fontWeight: 500,
+                            fontSize: 14,
+                            marginLeft: 5
+                          }}
+                        align={
+                          props.message.message.account_id == props.currentAccountId
+                            ? "right"
+                            : "left"
+                        }
+                        >
+
+                        </Typography>
+
+
+                        {
+                              props.message.message.message.length > 45 ?
+                            <>
+                              <Typography
+                                style={{
+                                  color: "#081F32",
+                                  fontWeight: 500,
+                                  fontSize: 14,
+                                  wordBreak: 'break-all'
+                                }}
+                                align='left'
+                              >
+                                    {props.message.message.message}
+                              </Typography>
+
+
+                            </>
+
+                            :
+
+                            <>
+                              <Typography
+                                style={{
+                                  color: "#081F32",
+                                  fontWeight: 500,
+                                  fontSize: 14,
+                                  wordBreak: 'break-all',
+                                  display:'flex',
+                                  alignItems:'center'
+                                }}
+                              >
+                              {props.message.message.account_id == props.currentAccountId &&  <div style={{position:'relative',marginRight:'0.25rem'}}>
+                                <img src={DoubleTick}/> 
+                                <img src={DoubleTick} style={{position:'absolute',left:'-4px'}}/> 
+                                </div>}
+                                 {props.message.message.message}
+                              </Typography>
+
+                            </>
+                        }
+
+
+
+                      {
+                              props.message?.message?.images.length !=0 ?
+                          <Grid item xs={12}
+                          >
+
+                                  <img style={{ 'cursor': 'pointer' }} onClick={props.handleClick} src={props.message.message.images[0].url} width="75" height="75" />
+                          </Grid>
+                          :
+                          null
+
+                      }
+
+                        <ListItemText
+                        
+                        style={ props.message.message.account_id == props.currentAccountId?{textAlign:"right"}:{textAlign:"left"}}
+                              secondary={props.displaytime2(props.message.message.created_at)}
+                        />
+                     </Box>
+                      </Grid>
+  </>)
+}

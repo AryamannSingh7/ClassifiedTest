@@ -162,6 +162,9 @@ exports[`ManagerFacilityReservation User navigates to ManagerFacilityReservation
           "My Dashboard",
         ],
         Array [
+          "General Dashboard",
+        ],
+        Array [
           "Vehicle",
         ],
         Array [
@@ -169,6 +172,12 @@ exports[`ManagerFacilityReservation User navigates to ManagerFacilityReservation
         ],
         Array [
           "Visitors Dashboard",
+        ],
+        Array [
+          "Budget Dashboard",
+        ],
+        Array [
+          "Action Assigned to me",
         ],
         Array [
           "My Team",
@@ -199,6 +208,15 @@ exports[`ManagerFacilityReservation User navigates to ManagerFacilityReservation
         ],
         Array [
           "Invoices & Receipts",
+        ],
+        Array [
+          "Invoices",
+        ],
+        Array [
+          "Receipts",
+        ],
+        Array [
+          "Payment History",
         ],
         Array [
           "Complex & Apartments",
@@ -240,10 +258,22 @@ exports[`ManagerFacilityReservation User navigates to ManagerFacilityReservation
           "Contact Us",
         ],
         Array [
+          "Incident Management",
+        ],
+        Array [
+          "Facility Reservation",
+        ],
+        Array [
           "Premimum",
         ],
         Array [
           "Plan",
+        ],
+        Array [
+          "Expires in",
+        ],
+        Array [
+          "days",
         ],
         Array [
           "My Dashboard",
@@ -291,6 +321,9 @@ exports[`ManagerFacilityReservation User navigates to ManagerFacilityReservation
           "My Dashboard",
         ],
         Array [
+          "General Dashboard",
+        ],
+        Array [
           "Vehicle",
         ],
         Array [
@@ -298,6 +331,12 @@ exports[`ManagerFacilityReservation User navigates to ManagerFacilityReservation
         ],
         Array [
           "Visitors Dashboard",
+        ],
+        Array [
+          "Budget Dashboard",
+        ],
+        Array [
+          "Action Assigned to me",
         ],
         Array [
           "My Team",
@@ -328,6 +367,15 @@ exports[`ManagerFacilityReservation User navigates to ManagerFacilityReservation
         ],
         Array [
           "Invoices & Receipts",
+        ],
+        Array [
+          "Invoices",
+        ],
+        Array [
+          "Receipts",
+        ],
+        Array [
+          "Payment History",
         ],
         Array [
           "Complex & Apartments",
@@ -369,13 +417,105 @@ exports[`ManagerFacilityReservation User navigates to ManagerFacilityReservation
           "Contact Us",
         ],
         Array [
+          "Incident Management",
+        ],
+        Array [
+          "Facility Reservation",
+        ],
+        Array [
           "Premimum",
         ],
         Array [
           "Plan",
         ],
+        Array [
+          "Expires in",
+        ],
+        Array [
+          "days",
+        ],
       ],
       "results": Array [
+        Object {
+          "type": "return",
+          "value": undefined,
+        },
+        Object {
+          "type": "return",
+          "value": undefined,
+        },
+        Object {
+          "type": "return",
+          "value": undefined,
+        },
+        Object {
+          "type": "return",
+          "value": undefined,
+        },
+        Object {
+          "type": "return",
+          "value": undefined,
+        },
+        Object {
+          "type": "return",
+          "value": undefined,
+        },
+        Object {
+          "type": "return",
+          "value": undefined,
+        },
+        Object {
+          "type": "return",
+          "value": undefined,
+        },
+        Object {
+          "type": "return",
+          "value": undefined,
+        },
+        Object {
+          "type": "return",
+          "value": undefined,
+        },
+        Object {
+          "type": "return",
+          "value": undefined,
+        },
+        Object {
+          "type": "return",
+          "value": undefined,
+        },
+        Object {
+          "type": "return",
+          "value": undefined,
+        },
+        Object {
+          "type": "return",
+          "value": undefined,
+        },
+        Object {
+          "type": "return",
+          "value": undefined,
+        },
+        Object {
+          "type": "return",
+          "value": undefined,
+        },
+        Object {
+          "type": "return",
+          "value": undefined,
+        },
+        Object {
+          "type": "return",
+          "value": undefined,
+        },
+        Object {
+          "type": "return",
+          "value": undefined,
+        },
+        Object {
+          "type": "return",
+          "value": undefined,
+        },
         Object {
           "type": "return",
           "value": undefined,
@@ -906,6 +1046,9 @@ exports[`ManagerFacilityReservation User navigates to ManagerFacilityReservation
                 "My Dashboard",
               ],
               Array [
+                "General Dashboard",
+              ],
+              Array [
                 "Vehicle",
               ],
               Array [
@@ -913,6 +1056,12 @@ exports[`ManagerFacilityReservation User navigates to ManagerFacilityReservation
               ],
               Array [
                 "Visitors Dashboard",
+              ],
+              Array [
+                "Budget Dashboard",
+              ],
+              Array [
+                "Action Assigned to me",
               ],
               Array [
                 "My Team",
@@ -943,6 +1092,15 @@ exports[`ManagerFacilityReservation User navigates to ManagerFacilityReservation
               ],
               Array [
                 "Invoices & Receipts",
+              ],
+              Array [
+                "Invoices",
+              ],
+              Array [
+                "Receipts",
+              ],
+              Array [
+                "Payment History",
               ],
               Array [
                 "Complex & Apartments",
@@ -984,10 +1142,22 @@ exports[`ManagerFacilityReservation User navigates to ManagerFacilityReservation
                 "Contact Us",
               ],
               Array [
+                "Incident Management",
+              ],
+              Array [
+                "Facility Reservation",
+              ],
+              Array [
                 "Premimum",
               ],
               Array [
                 "Plan",
+              ],
+              Array [
+                "Expires in",
+              ],
+              Array [
+                "days",
               ],
               Array [
                 "My Dashboard",
@@ -1035,6 +1205,9 @@ exports[`ManagerFacilityReservation User navigates to ManagerFacilityReservation
                 "My Dashboard",
               ],
               Array [
+                "General Dashboard",
+              ],
+              Array [
                 "Vehicle",
               ],
               Array [
@@ -1042,6 +1215,12 @@ exports[`ManagerFacilityReservation User navigates to ManagerFacilityReservation
               ],
               Array [
                 "Visitors Dashboard",
+              ],
+              Array [
+                "Budget Dashboard",
+              ],
+              Array [
+                "Action Assigned to me",
               ],
               Array [
                 "My Team",
@@ -1072,6 +1251,15 @@ exports[`ManagerFacilityReservation User navigates to ManagerFacilityReservation
               ],
               Array [
                 "Invoices & Receipts",
+              ],
+              Array [
+                "Invoices",
+              ],
+              Array [
+                "Receipts",
+              ],
+              Array [
+                "Payment History",
               ],
               Array [
                 "Complex & Apartments",
@@ -1113,13 +1301,105 @@ exports[`ManagerFacilityReservation User navigates to ManagerFacilityReservation
                 "Contact Us",
               ],
               Array [
+                "Incident Management",
+              ],
+              Array [
+                "Facility Reservation",
+              ],
+              Array [
                 "Premimum",
               ],
               Array [
                 "Plan",
               ],
+              Array [
+                "Expires in",
+              ],
+              Array [
+                "days",
+              ],
             ],
             "results": Array [
+              Object {
+                "type": "return",
+                "value": undefined,
+              },
+              Object {
+                "type": "return",
+                "value": undefined,
+              },
+              Object {
+                "type": "return",
+                "value": undefined,
+              },
+              Object {
+                "type": "return",
+                "value": undefined,
+              },
+              Object {
+                "type": "return",
+                "value": undefined,
+              },
+              Object {
+                "type": "return",
+                "value": undefined,
+              },
+              Object {
+                "type": "return",
+                "value": undefined,
+              },
+              Object {
+                "type": "return",
+                "value": undefined,
+              },
+              Object {
+                "type": "return",
+                "value": undefined,
+              },
+              Object {
+                "type": "return",
+                "value": undefined,
+              },
+              Object {
+                "type": "return",
+                "value": undefined,
+              },
+              Object {
+                "type": "return",
+                "value": undefined,
+              },
+              Object {
+                "type": "return",
+                "value": undefined,
+              },
+              Object {
+                "type": "return",
+                "value": undefined,
+              },
+              Object {
+                "type": "return",
+                "value": undefined,
+              },
+              Object {
+                "type": "return",
+                "value": undefined,
+              },
+              Object {
+                "type": "return",
+                "value": undefined,
+              },
+              Object {
+                "type": "return",
+                "value": undefined,
+              },
+              Object {
+                "type": "return",
+                "value": undefined,
+              },
+              Object {
+                "type": "return",
+                "value": undefined,
+              },
               Object {
                 "type": "return",
                 "value": undefined,
@@ -3222,6 +3502,9 @@ exports[`ManagerFacilityReservation User navigates to ManagerFacilityReservation
                           "My Dashboard",
                         ],
                         Array [
+                          "General Dashboard",
+                        ],
+                        Array [
                           "Vehicle",
                         ],
                         Array [
@@ -3229,6 +3512,12 @@ exports[`ManagerFacilityReservation User navigates to ManagerFacilityReservation
                         ],
                         Array [
                           "Visitors Dashboard",
+                        ],
+                        Array [
+                          "Budget Dashboard",
+                        ],
+                        Array [
+                          "Action Assigned to me",
                         ],
                         Array [
                           "My Team",
@@ -3259,6 +3548,15 @@ exports[`ManagerFacilityReservation User navigates to ManagerFacilityReservation
                         ],
                         Array [
                           "Invoices & Receipts",
+                        ],
+                        Array [
+                          "Invoices",
+                        ],
+                        Array [
+                          "Receipts",
+                        ],
+                        Array [
+                          "Payment History",
                         ],
                         Array [
                           "Complex & Apartments",
@@ -3300,10 +3598,22 @@ exports[`ManagerFacilityReservation User navigates to ManagerFacilityReservation
                           "Contact Us",
                         ],
                         Array [
+                          "Incident Management",
+                        ],
+                        Array [
+                          "Facility Reservation",
+                        ],
+                        Array [
                           "Premimum",
                         ],
                         Array [
                           "Plan",
+                        ],
+                        Array [
+                          "Expires in",
+                        ],
+                        Array [
+                          "days",
                         ],
                         Array [
                           "My Dashboard",
@@ -3351,6 +3661,9 @@ exports[`ManagerFacilityReservation User navigates to ManagerFacilityReservation
                           "My Dashboard",
                         ],
                         Array [
+                          "General Dashboard",
+                        ],
+                        Array [
                           "Vehicle",
                         ],
                         Array [
@@ -3358,6 +3671,12 @@ exports[`ManagerFacilityReservation User navigates to ManagerFacilityReservation
                         ],
                         Array [
                           "Visitors Dashboard",
+                        ],
+                        Array [
+                          "Budget Dashboard",
+                        ],
+                        Array [
+                          "Action Assigned to me",
                         ],
                         Array [
                           "My Team",
@@ -3388,6 +3707,15 @@ exports[`ManagerFacilityReservation User navigates to ManagerFacilityReservation
                         ],
                         Array [
                           "Invoices & Receipts",
+                        ],
+                        Array [
+                          "Invoices",
+                        ],
+                        Array [
+                          "Receipts",
+                        ],
+                        Array [
+                          "Payment History",
                         ],
                         Array [
                           "Complex & Apartments",
@@ -3429,13 +3757,105 @@ exports[`ManagerFacilityReservation User navigates to ManagerFacilityReservation
                           "Contact Us",
                         ],
                         Array [
+                          "Incident Management",
+                        ],
+                        Array [
+                          "Facility Reservation",
+                        ],
+                        Array [
                           "Premimum",
                         ],
                         Array [
                           "Plan",
                         ],
+                        Array [
+                          "Expires in",
+                        ],
+                        Array [
+                          "days",
+                        ],
                       ],
                       "results": Array [
+                        Object {
+                          "type": "return",
+                          "value": undefined,
+                        },
+                        Object {
+                          "type": "return",
+                          "value": undefined,
+                        },
+                        Object {
+                          "type": "return",
+                          "value": undefined,
+                        },
+                        Object {
+                          "type": "return",
+                          "value": undefined,
+                        },
+                        Object {
+                          "type": "return",
+                          "value": undefined,
+                        },
+                        Object {
+                          "type": "return",
+                          "value": undefined,
+                        },
+                        Object {
+                          "type": "return",
+                          "value": undefined,
+                        },
+                        Object {
+                          "type": "return",
+                          "value": undefined,
+                        },
+                        Object {
+                          "type": "return",
+                          "value": undefined,
+                        },
+                        Object {
+                          "type": "return",
+                          "value": undefined,
+                        },
+                        Object {
+                          "type": "return",
+                          "value": undefined,
+                        },
+                        Object {
+                          "type": "return",
+                          "value": undefined,
+                        },
+                        Object {
+                          "type": "return",
+                          "value": undefined,
+                        },
+                        Object {
+                          "type": "return",
+                          "value": undefined,
+                        },
+                        Object {
+                          "type": "return",
+                          "value": undefined,
+                        },
+                        Object {
+                          "type": "return",
+                          "value": undefined,
+                        },
+                        Object {
+                          "type": "return",
+                          "value": undefined,
+                        },
+                        Object {
+                          "type": "return",
+                          "value": undefined,
+                        },
+                        Object {
+                          "type": "return",
+                          "value": undefined,
+                        },
+                        Object {
+                          "type": "return",
+                          "value": undefined,
+                        },
                         Object {
                           "type": "return",
                           "value": undefined,
@@ -3980,6 +4400,9 @@ exports[`ManagerFacilityReservation User navigates to ManagerFacilityReservation
                               "My Dashboard",
                             ],
                             Array [
+                              "General Dashboard",
+                            ],
+                            Array [
                               "Vehicle",
                             ],
                             Array [
@@ -3987,6 +4410,12 @@ exports[`ManagerFacilityReservation User navigates to ManagerFacilityReservation
                             ],
                             Array [
                               "Visitors Dashboard",
+                            ],
+                            Array [
+                              "Budget Dashboard",
+                            ],
+                            Array [
+                              "Action Assigned to me",
                             ],
                             Array [
                               "My Team",
@@ -4017,6 +4446,15 @@ exports[`ManagerFacilityReservation User navigates to ManagerFacilityReservation
                             ],
                             Array [
                               "Invoices & Receipts",
+                            ],
+                            Array [
+                              "Invoices",
+                            ],
+                            Array [
+                              "Receipts",
+                            ],
+                            Array [
+                              "Payment History",
                             ],
                             Array [
                               "Complex & Apartments",
@@ -4058,10 +4496,22 @@ exports[`ManagerFacilityReservation User navigates to ManagerFacilityReservation
                               "Contact Us",
                             ],
                             Array [
+                              "Incident Management",
+                            ],
+                            Array [
+                              "Facility Reservation",
+                            ],
+                            Array [
                               "Premimum",
                             ],
                             Array [
                               "Plan",
+                            ],
+                            Array [
+                              "Expires in",
+                            ],
+                            Array [
+                              "days",
                             ],
                             Array [
                               "My Dashboard",
@@ -4109,6 +4559,9 @@ exports[`ManagerFacilityReservation User navigates to ManagerFacilityReservation
                               "My Dashboard",
                             ],
                             Array [
+                              "General Dashboard",
+                            ],
+                            Array [
                               "Vehicle",
                             ],
                             Array [
@@ -4116,6 +4569,12 @@ exports[`ManagerFacilityReservation User navigates to ManagerFacilityReservation
                             ],
                             Array [
                               "Visitors Dashboard",
+                            ],
+                            Array [
+                              "Budget Dashboard",
+                            ],
+                            Array [
+                              "Action Assigned to me",
                             ],
                             Array [
                               "My Team",
@@ -4146,6 +4605,15 @@ exports[`ManagerFacilityReservation User navigates to ManagerFacilityReservation
                             ],
                             Array [
                               "Invoices & Receipts",
+                            ],
+                            Array [
+                              "Invoices",
+                            ],
+                            Array [
+                              "Receipts",
+                            ],
+                            Array [
+                              "Payment History",
                             ],
                             Array [
                               "Complex & Apartments",
@@ -4187,13 +4655,105 @@ exports[`ManagerFacilityReservation User navigates to ManagerFacilityReservation
                               "Contact Us",
                             ],
                             Array [
+                              "Incident Management",
+                            ],
+                            Array [
+                              "Facility Reservation",
+                            ],
+                            Array [
                               "Premimum",
                             ],
                             Array [
                               "Plan",
                             ],
+                            Array [
+                              "Expires in",
+                            ],
+                            Array [
+                              "days",
+                            ],
                           ],
                           "results": Array [
+                            Object {
+                              "type": "return",
+                              "value": undefined,
+                            },
+                            Object {
+                              "type": "return",
+                              "value": undefined,
+                            },
+                            Object {
+                              "type": "return",
+                              "value": undefined,
+                            },
+                            Object {
+                              "type": "return",
+                              "value": undefined,
+                            },
+                            Object {
+                              "type": "return",
+                              "value": undefined,
+                            },
+                            Object {
+                              "type": "return",
+                              "value": undefined,
+                            },
+                            Object {
+                              "type": "return",
+                              "value": undefined,
+                            },
+                            Object {
+                              "type": "return",
+                              "value": undefined,
+                            },
+                            Object {
+                              "type": "return",
+                              "value": undefined,
+                            },
+                            Object {
+                              "type": "return",
+                              "value": undefined,
+                            },
+                            Object {
+                              "type": "return",
+                              "value": undefined,
+                            },
+                            Object {
+                              "type": "return",
+                              "value": undefined,
+                            },
+                            Object {
+                              "type": "return",
+                              "value": undefined,
+                            },
+                            Object {
+                              "type": "return",
+                              "value": undefined,
+                            },
+                            Object {
+                              "type": "return",
+                              "value": undefined,
+                            },
+                            Object {
+                              "type": "return",
+                              "value": undefined,
+                            },
+                            Object {
+                              "type": "return",
+                              "value": undefined,
+                            },
+                            Object {
+                              "type": "return",
+                              "value": undefined,
+                            },
+                            Object {
+                              "type": "return",
+                              "value": undefined,
+                            },
+                            Object {
+                              "type": "return",
+                              "value": undefined,
+                            },
                             Object {
                               "type": "return",
                               "value": undefined,
@@ -5135,9 +5695,7 @@ exports[`ManagerFacilityReservation User navigates to ManagerFacilityReservation
                                                           >
                                                             <p
                                                               className="MuiTypography-root cursor-pointer MuiTypography-body2"
-                                                            >
-                                                              General Dashboard
-                                                            </p>
+                                                            />
                                                           </ForwardRef(Typography)>
                                                         </WithStyles(ForwardRef(Typography))>
                                                       </div>
@@ -5401,9 +5959,7 @@ exports[`ManagerFacilityReservation User navigates to ManagerFacilityReservation
                                                           >
                                                             <p
                                                               className="MuiTypography-root cursor-pointer MuiTypography-body2"
-                                                            >
-                                                              Budget Dashboard
-                                                            </p>
+                                                            />
                                                           </ForwardRef(Typography)>
                                                         </WithStyles(ForwardRef(Typography))>
                                                       </div>
@@ -5469,9 +6025,7 @@ exports[`ManagerFacilityReservation User navigates to ManagerFacilityReservation
                                                           >
                                                             <p
                                                               className="MuiTypography-root cursor-pointer MuiTypography-body2"
-                                                            >
-                                                              Action Assigned to me
-                                                            </p>
+                                                            />
                                                           </ForwardRef(Typography)>
                                                         </WithStyles(ForwardRef(Typography))>
                                                       </div>
@@ -7536,9 +8090,7 @@ exports[`ManagerFacilityReservation User navigates to ManagerFacilityReservation
                                                           >
                                                             <p
                                                               className="MuiTypography-root MuiTypography-body2"
-                                                            >
-                                                              Invoices
-                                                            </p>
+                                                            />
                                                           </ForwardRef(Typography)>
                                                         </WithStyles(ForwardRef(Typography))>
                                                       </div>
@@ -7602,9 +8154,7 @@ exports[`ManagerFacilityReservation User navigates to ManagerFacilityReservation
                                                           >
                                                             <p
                                                               className="MuiTypography-root MuiTypography-body2"
-                                                            >
-                                                              Receipts
-                                                            </p>
+                                                            />
                                                           </ForwardRef(Typography)>
                                                         </WithStyles(ForwardRef(Typography))>
                                                       </div>
@@ -7668,9 +8218,7 @@ exports[`ManagerFacilityReservation User navigates to ManagerFacilityReservation
                                                           >
                                                             <p
                                                               className="MuiTypography-root MuiTypography-body2"
-                                                            >
-                                                              Payment History
-                                                            </p>
+                                                            />
                                                           </ForwardRef(Typography)>
                                                         </WithStyles(ForwardRef(Typography))>
                                                       </div>
@@ -10340,9 +10888,7 @@ exports[`ManagerFacilityReservation User navigates to ManagerFacilityReservation
                                   >
                                     <p
                                       className="MuiTypography-root SingleLinkSize MuiTypography-body1"
-                                    >
-                                      Incident Management
-                                    </p>
+                                    />
                                   </ForwardRef(Typography)>
                                 </WithStyles(ForwardRef(Typography))>
                               </div>
@@ -10475,9 +11021,7 @@ exports[`ManagerFacilityReservation User navigates to ManagerFacilityReservation
                                   >
                                     <p
                                       className="MuiTypography-root SingleLinkSize MuiTypography-body1"
-                                    >
-                                      Facility Reservation
-                                    </p>
+                                    />
                                   </ForwardRef(Typography)>
                                 </WithStyles(ForwardRef(Typography))>
                               </div>
@@ -10639,7 +11183,7 @@ exports[`ManagerFacilityReservation User navigates to ManagerFacilityReservation
                                       }
                                     }
                                   >
-                                    Expires in 125 days
+                                     125 
                                   </p>
                                 </ForwardRef(Typography)>
                               </WithStyles(ForwardRef(Typography))>

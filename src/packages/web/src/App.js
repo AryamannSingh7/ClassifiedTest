@@ -38,7 +38,8 @@ import Feedback from '../../blocks/Feedback/src/Feedback';
 import SuggestionListing from '../../blocks/Feedback/src/Suggestion.web';
 import NewSuggestion from '../../blocks/Feedback/src/NewSuggestion.web';
 import SuggestionData from '../../blocks/Feedback/src/SuggestionDetails.web';
-
+import NewRequestSuggestion from '../../blocks/Feedback/src/newRequest.web';
+import ResponseSuggestion from '../../blocks/Feedback/src/ResponseSuggestion.web';
 
 // import Contactus from "../../blocks/contactus/src/Contactus";
 import AddContactus from '../../blocks/contactus/src/AddContactus';
@@ -325,8 +326,8 @@ import RentDetails from '../../blocks/PricingEngine2/src/RentDetails.web';
 import AddRentPayment from '../../blocks/PricingEngine2/src/RegisterRentPayment.web';
 
 // Reports
-import GenerateBudgetReport from "../../blocks/StoreCredits/src/GenerateBudgetReport.web"
-import GenerateBudgetReportPreview from "../../blocks/StoreCredits/src/BudgetReportPreview.web"
+import GenerateBudgetReport from '../../blocks/StoreCredits/src/GenerateBudgetReport.web';
+import GenerateBudgetReportPreview from '../../blocks/StoreCredits/src/BudgetReportPreview.web';
 import ReportDashboard from '../../blocks/StoreCredits/src/ReportDashboard.web';
 import BudgetReport from '../../blocks/StoreCredits/src/BudgetReport.web';
 import BudgetReportDetails from '../../blocks/StoreCredits/src/BudgetReportDetails.web';
@@ -359,9 +360,7 @@ import MyLeaseList from '../../blocks/ContentManagement/src/MyLeaseList.web';
 
 // Notification
 import OwnerNotification from '../../blocks/notifications/src/OwnerNotification.web';
-import ResidentNotification from '../../blocks/notifications/src/ResidentNotification.web';
 import ChairmanNotification from '../../blocks/notifications/src/ChairmanNotification.web';
-import ManagerNotification from '../../blocks/notifications/src/ManagerNotification.web';
 
 // My Expense
 import MyExpenseList from '../../blocks/ExpenseTracking/src/MyExpenseList.web';
@@ -374,6 +373,8 @@ import AddExpenseSuccess from '../../blocks/ExpenseTracking/src/AddExpenseSucces
 import TotalExpense from '../../blocks/StoreCredits/src/MyExpenseReport/TotalExpense.web';
 import UnitTotalExpense from '../../blocks/StoreCredits/src/MyExpenseReport/UnitTotalExpense.web';
 import RentedVsEmpty from '../../blocks/StoreCredits/src/MyExpenseReport/RentedVsEmpty.web';
+import RentedAndEmpty from '../../blocks/StoreCredits/src/MyExpenseReport/RentedAndEmpty.web';
+import CityWiseRentedVsEmpty from '../../blocks/StoreCredits/src/MyExpenseReport/CityWiseRentedVsEmpty.web';
 import CollectedVsDue from '../../blocks/StoreCredits/src/MyExpenseReport/CollectedVsDue.web';
 import SpentVsCollected from '../../blocks/StoreCredits/src/MyExpenseReport/SpentVsCollected.web';
 // Auditor dash
@@ -534,6 +535,16 @@ const routeMap = {
   SuggestionListing: {
     component: SuggestionListing,
     path: '/SuggestionListing',
+    exact: true
+  },
+  ResponseSuggestion: {
+    component: ResponseSuggestion,
+    path: '/ResponseSuggestion',
+    exact: true
+  },
+  NewRequestSuggestion: {
+    component: NewRequestSuggestion,
+    path: '/NewRequestSuggestion',
     exact: true
   },
   NewSuggestion: {
@@ -2097,14 +2108,14 @@ const routeMap = {
     exact: true
   },
 
-  GenerateBudgetReport:{
+  GenerateBudgetReport: {
     component: GenerateBudgetReport,
     path: '/GenerateBudgetReport',
     roles: [ROLE.MANAGER],
     exact: true
   },
 
-  GenerateBudgetReportPreview:{
+  GenerateBudgetReportPreview: {
     component: GenerateBudgetReportPreview,
     path: '/GenerateBudgetReportPreview',
     roles: [ROLE.MANAGER],
@@ -2151,26 +2162,19 @@ const routeMap = {
   // Notification
   OwnerNotification: {
     component: OwnerNotification,
-    path: '/OwnerNotifications',
-    roles: [ROLE.OWNER, ROLE.PROPERTY_MANAGER],
-    exact: true
-  },
-  ResidentNotification: {
-    component: ResidentNotification,
-    path: '/ResidentNotifications',
-    roles: [ROLE.TENANT, ROLE.OWNER_RESIDENT],
+    path: '/Notifications',
+    roles: [
+      ROLE.OWNER,
+      ROLE.PROPERTY_MANAGER,
+      ROLE.OWNER_RESIDENT,
+      ROLE.TENANT
+    ],
     exact: true
   },
   ChairmanNotification: {
     component: ChairmanNotification,
-    path: '/ChairmanNotification',
-    roles: [ROLE.CHAIRMAN],
-    exact: true
-  },
-  ManagerNotification: {
-    component: ManagerNotification,
-    path: '/ManagerNotification',
-    roles: [ROLE.MANAGER],
+    path: '/AdminNotification',
+    roles: [ROLE.CHAIRMAN, ROLE.MANAGER],
     exact: true
   },
   // My Expense
@@ -2226,6 +2230,18 @@ const routeMap = {
   RentedVsEmpty: {
     component: RentedVsEmpty,
     path: '/RentedVsEmpty',
+    roles: [ROLE.OWNER, ROLE.OWNER_RESIDENT],
+    exact: true
+  },
+  RentedAndEmpty: {
+    component: RentedAndEmpty,
+    path: '/RentedVsEmpty/:id',
+    roles: [ROLE.OWNER, ROLE.OWNER_RESIDENT],
+    exact: true
+  },
+  CityWiseRentedVsEmpty: {
+    component: CityWiseRentedVsEmpty,
+    path: '/RentedVsEmpty/City/:id',
     roles: [ROLE.OWNER, ROLE.OWNER_RESIDENT],
     exact: true
   },

@@ -6,7 +6,6 @@ import { runEngine } from "../../../framework/src/RunEngine";
 
 // Customizable Area Start
 import * as Yup from "yup";
-import { imgPasswordInVisible, imgPasswordVisible } from "./assets";
 import { ApiCatchErrorResponse, ApiErrorResponse } from "../../../components/src/APIErrorResponse";
 import toast from "react-hot-toast";
 // Customizable Area End
@@ -56,6 +55,7 @@ interface SharedAreaData {
   totalArea: string;
   reservationFee: string;
   floorPlan: any;
+  currency: string;
 }
 
 interface SS {
@@ -93,6 +93,7 @@ export default class SharedAreaController extends BlockComponent<Props, S, SS> {
         totalArea: "",
         reservationFee: "",
         floorPlan: null,
+        currency: ""
       },
 
       editForm: {
@@ -133,6 +134,7 @@ export default class SharedAreaController extends BlockComponent<Props, S, SS> {
             totalArea: responseJson.data.attributes.total_area,
             reservationFee: responseJson.data.attributes.reservation_fee,
             floorPlan: responseJson.data.attributes.floor_plan,
+            currency: responseJson.data.attributes.currency.currency,
           },
         });
       }
@@ -263,9 +265,7 @@ export default class SharedAreaController extends BlockComponent<Props, S, SS> {
   handleSaveSharedAreaDetails = (values: SharedAreaEditForm) => {
     this.setState({ loading: true });
 
-    var data = new FormData();
-
-    var data = new FormData();
+    let data = new FormData();
     data.append("common_area[details]", values.details);
     data.append("common_area[total_area]", values.totalArea);
     data.append("common_area[reservation_fee]", values.fees);
@@ -276,6 +276,10 @@ export default class SharedAreaController extends BlockComponent<Props, S, SS> {
       data.append("common_area[floor_plan]", values.floorPlan);
     }
 
+    this.handleAPIEditSharedArea(data);
+  };
+
+  handleAPIEditSharedArea = (data: any) => {
     const header = {
       token: localStorage.getItem("userToken"),
     };
@@ -297,7 +301,7 @@ export default class SharedAreaController extends BlockComponent<Props, S, SS> {
 
     runEngine.sendMessage(apiRequest.id, apiRequest);
     return true;
-  };
+  }
 
   // Get Upcoming Reservation List API
   getUpcomingReservationList = () => {
@@ -310,7 +314,6 @@ export default class SharedAreaController extends BlockComponent<Props, S, SS> {
 
     this.GetUpcomingReservationListCallId = apiRequest.messageId;
 
-    const society_id = localStorage.getItem("society_id");
     apiRequest.addData(
       getName(MessageEnum.RestAPIResponceEndPointMessage),
       `bx_block_society_management/facility_reservations/upcoming_reservation?common_area_id=${this.state.sharedAreaId}&search_building=${this.state.selectedBuilding}`
@@ -374,7 +377,7 @@ export default class SharedAreaController extends BlockComponent<Props, S, SS> {
   };
 
   editAreaDetailValidation = Yup.object().shape({
-    floorPlan: Yup.mixed().required("Required"),
+    // floorPlan: Yup.mixed().required("Required"),
     details: Yup.string()
       .required("Required")
       .matches(/\S/, "Required"),
@@ -411,6 +414,10 @@ export default class SharedAreaController extends BlockComponent<Props, S, SS> {
     });
     let photos = await Promise.allSettled(imageUrlPromise);
 
+    this.handleSharedAreaEditState(photos);
+  };
+
+  handleSharedAreaEditState = (photos: any) => {
     this.setState(
       {
         loading: false,
@@ -427,7 +434,7 @@ export default class SharedAreaController extends BlockComponent<Props, S, SS> {
         this.handleSharedAreaEditModal();
       }
     );
-  };
+  }
 
   handleSharedAreaEditModal = () => {
     this.setState({ setComplexEditOpen: !this.state.setComplexEditOpen });

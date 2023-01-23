@@ -56,6 +56,7 @@ class NeighboursListing extends NeighboursController {
 
   render() {
     const { navigation } = this.props;
+    console.log("==================>",this.state?.buildingListing[0]?.id)
     return (
       <>
         <Box className="login-wrapper incident-wrapper neighbour-listing-wrapper">
@@ -104,10 +105,10 @@ class NeighboursListing extends NeighboursController {
                             labelId="demo-simple-select-outlined-label"
                             id="demo-simple-select-outlined"
                             onChange={(e) => { this.onChange(e) }}
-                            value={this.state?.myApartment}
+                            value={this.state?.buildingListing?.length === 1 ? this.state?.buildingListing[0]?.id : this.state?.myApartment}
                           >
                              <MenuItem disabled value=" ">
-                              Select Park
+                              Select Building
                             </MenuItem>
                             {
                               this.state?.buildingListing?.map((val:any, index : any) => (
@@ -129,9 +130,42 @@ class NeighboursListing extends NeighboursController {
                       this.state?.neighboursListing?.map((val:any,index: any)=>(
                         val?.account?.data?.attributes?.full_name?.publilc_access ?
                         <Grid item xs={this.state?.neighboursListing.length===1? 12 : 6} md={6}  key={index}>
-                         <Card className="neighbour-card neighbour-list-card card" >
+                        <CardDeatils val={val} getNeighboursDetails={this.getNeighboursDetails} createChatRoom={this.createChatRoom}/> 
+                       </Grid>
+                        :
+                        <Grid item xs={this.state?.neighboursListing.length===1? 12 : 6} md={6}  key={index}>
+                        <CardAnonymousDeatils val={val} getNeighboursDetails={this.getNeighboursDetails} /> 
+                    
+                      </Grid>
+                      ))
+                    }        
+                  </Grid>
+                </Box>
+              </Box>
+            </Grid>
+            <Grid item xs={12} md={5} className="auth-cols">
+              <Box className="right-block" display={{ xs: 'none', md: 'flex' }}>
+                <img src={Building1.default} className="building-logo" alt="" />
+              </Box>
+            </Grid>
+          </Grid>
+        </Box>
+        <Loader loading={this.state.loading} />
+      </>
+    )
+  }
+}
+//@ts-ignore
+export default withRouter(NeighboursListing)
+
+const CardDeatils = (props:any) => {
+  const val =props?.val;
+  
+  return(
+   <>
+      <Card className="neighbour-card neighbour-list-card card" >
                            <CardContent>
-                            <Box onClick={()=>this.getNeighboursDetails(val?.account?.data?.id)}>
+                            <Box onClick={()=> props.getNeighboursDetails(val?.account?.data?.id)}>
                              <img src={val?.account?.data?.attributes?.profile_pic?.url||NoProfile_Img} className="info-icon" alt="No profile" />
                              <Typography component="h4">
                               {val?.account?.data?.attributes?.full_name?.name}
@@ -154,7 +188,7 @@ class NeighboursListing extends NeighboursController {
                                </Box>
                                 :
                                 <Box className="blocks">
-                                  <img src={Chat_Icon} onClick={() => this.createChatRoom( val?.account?.data?.attributes?.id)} className="icons" alt="info-icon" />
+                                  <img src={Chat_Icon} onClick={() => props.createChatRoom( val?.account?.data?.attributes?.id)} className="icons" alt="info-icon" />
                                 </Box>
                                }
                                {
@@ -185,12 +219,17 @@ class NeighboursListing extends NeighboursController {
                              </Box>
                            </CardContent>
                          </Card>
-                       </Grid>
-                        :
-                        <Grid item xs={this.state?.neighboursListing.length===1? 12 : 6} md={6}  key={index}>
-                        <Card className="neighbour-card neighbour-list-card card" >
+   </>
+  )
+}
+const CardAnonymousDeatils = (props:any) => {
+  const val =props?.val;
+  
+  return(
+   <>
+       <Card className="neighbour-card neighbour-list-card card" >
                           <CardContent>
-                           <Box onClick={()=>this.getNeighboursDetails(val?.account?.data?.id)}>
+                           <Box onClick={()=>props.getNeighboursDetails(val?.account?.data?.id)}>
                             <img src={val?.account?.data?.attributes?.profile_pic?.url||NoProfile_Img} className="info-icon" alt="No profile" />
                             <Typography component="h4">
                               Anonymous
@@ -212,24 +251,6 @@ class NeighboursListing extends NeighboursController {
                         </Box>
                           </CardContent>
                         </Card>
-                      </Grid>
-                      ))
-                    }        
-                  </Grid>
-                </Box>
-              </Box>
-            </Grid>
-            <Grid item xs={12} md={5} className="auth-cols">
-              <Box className="right-block" display={{ xs: 'none', md: 'flex' }}>
-                <img src={Building1.default} className="building-logo" alt="" />
-              </Box>
-            </Grid>
-          </Grid>
-        </Box>
-        <Loader loading={this.state.loading} />
-      </>
-    )
-  }
+   </>
+  )
 }
-//@ts-ignore
-export default withRouter(NeighboursListing)

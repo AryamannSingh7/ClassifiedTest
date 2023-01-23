@@ -1,44 +1,15 @@
 // Customizable Area Start
 import React from "react";
-import {
-  Container,
-  IconButton,
-  Link,
-  Typography,
-  withStyles,
-  Box,
-  Grid,
-  Dialog,
-  DialogContent,
-  Card,
-} from "@material-ui/core";
-import CloseIcon from "@material-ui/icons/Close";
-import MuiDialogTitle from "@material-ui/core/DialogTitle";
+import { Container, IconButton, Link, withStyles, Box, Grid, Card } from "@material-ui/core";
 import KeyboardBackspaceIcon from "@material-ui/icons/KeyboardBackspace";
 import BuildingDocumentListController, { Props } from "./BuildingDocumentListController.web";
 import { DocumentReportStyleWeb } from "./DocumentReportStyle.web";
-import { BuildingLogo, PdfImage, ShareImage, DownloadImage, NoPdf } from "./assets";
+import { PdfImage, ShareImage, DownloadImage, NoPdf } from "./assets";
 import moment from "moment";
-import {
-  EmailShareButton,
-  FacebookShareButton,
-  LinkedinShareButton,
-  RedditShareButton,
-  TelegramShareButton,
-  TumblrShareButton,
-  TwitterShareButton,
-  WhatsappShareButton,
-  EmailIcon,
-  FacebookIcon,
-  LinkedinIcon,
-  RedditIcon,
-  TelegramIcon,
-  TumblrIcon,
-  TwitterIcon,
-  WhatsappIcon,
-} from "react-share";
 import { withTranslation } from "react-i18next";
-import "../../../web/src/i18n.js";
+import SidebarImageComponent from "../../../components/src/OwnerSidebarImage.web";
+import ShareDocumentModal from "../../../components/src/DocumentComponent/ShareModal.web";
+import { toast } from "react-hot-toast";
 
 class BuildingDocumentList extends BuildingDocumentListController {
   constructor(props: Props) {
@@ -46,12 +17,7 @@ class BuildingDocumentList extends BuildingDocumentListController {
   }
 
   render() {
-    const { classes } = this.props;
-    const { t }: any = this.props;
-
-    const sharePopupWidth = 500;
-    const sharePopupHeight = 700;
-    const shareTitle = "TI 1 Final Leap";
+    const { t, classes }: any = this.props;
 
     return (
       <>
@@ -116,20 +82,24 @@ class BuildingDocumentList extends BuildingDocumentListController {
                                   <div className="icons">
                                     <img
                                       src={ShareImage}
+                                      className="share-document-image"
+                                      alt="share-document-image"
                                       onClick={() => {
-                                        this.setState(
-                                          {
-                                            ...this.state,
-                                            shareUrl: document.attributes.meeting_mins_pdf.url,
-                                            shareQuote: document.attributes.meeting.title,
-                                          },
-                                          () => {
+                                        if (document.attributes.meeting_mins_pdf) {
+                                          this.setState({ shareUrl: document.attributes.meeting_mins_pdf.url }, () => {
                                             this.handleShareModal();
-                                          }
-                                        );
+                                          });
+                                        } else {
+                                          toast.error("No meeting minute available");
+                                        }
                                       }}
                                     />
-                                    <Link href={document.attributes.meeting_mins_pdf.url} target="_blank">
+                                    <Link
+                                      href={
+                                        document.attributes.meeting_mins_pdf && document.attributes.meeting_mins_pdf.url
+                                      }
+                                      target="_blank"
+                                    >
                                       <img src={DownloadImage} />
                                     </Link>
                                   </div>
@@ -166,103 +136,17 @@ class BuildingDocumentList extends BuildingDocumentListController {
               </Container>
             </Grid>
             <Grid item xs={12} md={5}>
-              <Box className="right-block right-image" display={{ xs: "none", md: "flex" }}>
-                <img src={BuildingLogo.default} className="building-logo" alt="" />
-              </Box>
+              <SidebarImageComponent />
             </Grid>
           </Grid>
         </Box>
 
-        <Dialog
-          fullWidth
-          onClose={() => this.handleShareModal()}
-          open={this.state.isShareModalOpen}
-          className="select-meeting"
-        >
-          <MuiDialogTitle disableTypography className="dialog-heading">
-            <Typography variant="h6">Share</Typography>
-            <IconButton onClick={() => this.handleShareModal()}>
-              <CloseIcon />
-            </IconButton>
-          </MuiDialogTitle>
-          <DialogContent>
-            <div className="share-box">
-              <FacebookShareButton
-                url={this.state.shareUrl}
-                title={shareTitle}
-                windowWidth={sharePopupWidth}
-                windowHeight={sharePopupHeight}
-                // @ts-ignore
-                children={<FacebookIcon />}
-                translate
-              />
-              <TwitterShareButton
-                url={this.state.shareUrl}
-                title={shareTitle}
-                windowWidth={sharePopupWidth}
-                windowHeight={sharePopupHeight}
-                // @ts-ignore
-                children={<TwitterIcon />}
-                translate
-              />
-              <WhatsappShareButton
-                url={this.state.shareUrl}
-                title={shareTitle}
-                windowWidth={sharePopupWidth}
-                windowHeight={sharePopupHeight}
-                separator=":: "
-                // @ts-ignore
-                children={<WhatsappIcon />}
-                translate
-              />
-              <LinkedinShareButton
-                url={this.state.shareUrl}
-                title={shareTitle}
-                windowWidth={sharePopupWidth}
-                windowHeight={sharePopupHeight}
-                // @ts-ignore
-                children={<LinkedinIcon />}
-                translate
-              />
-              <EmailShareButton
-                url={this.state.shareUrl}
-                title={shareTitle}
-                windowWidth={sharePopupWidth}
-                windowHeight={sharePopupHeight}
-                // @ts-ignore
-                children={<EmailIcon />}
-                translate
-              />
-              <RedditShareButton
-                url={this.state.shareUrl}
-                title={shareTitle}
-                windowWidth={sharePopupWidth}
-                windowHeight={sharePopupHeight}
-                // @ts-ignore
-                children={<RedditIcon />}
-                translate
-              />
-              <TelegramShareButton
-                url={this.state.shareUrl}
-                title={shareTitle}
-                windowWidth={sharePopupWidth}
-                windowHeight={sharePopupHeight}
-                // @ts-ignore
-                children={<TelegramIcon />}
-                translate
-              />
-              <TumblrShareButton
-                url={this.state.shareUrl}
-                title={shareTitle}
-                windowWidth={sharePopupWidth}
-                windowHeight={sharePopupHeight}
-                // @ts-ignore
-                children={<TumblrIcon />}
-                translate
-              />
-            </div>
-          </DialogContent>
-        </Dialog>
+        <ShareDocumentModal
+          isOpen={this.state.isShareModalOpen}
+          handleClose={this.handleShareModal}
+          heading={t("Share")}
+          documentURL={this.state.shareUrl}
+        />
       </>
     );
   }

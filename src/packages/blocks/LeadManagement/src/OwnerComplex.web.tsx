@@ -5,7 +5,6 @@ import Box from "@material-ui/core/Box";
 import Grid from "@material-ui/core/Grid";
 import OwnerComplexController, { Props } from "./OwnerComplexController.web";
 import { withTranslation } from "react-i18next";
-import "../../../web/src/i18n.js";
 import "./style.css";
 //@ts-ignore
 import Slider from "react-slick";
@@ -51,10 +50,7 @@ class OwnerComplex extends OwnerComplexController {
   }
 
   render() {
-    const { t }: any = this.props;
-    const { classes } = this.props;
-
-    console.log(this.state);
+    const { t, classes }: any = this.props;
 
     return (
       <>
@@ -81,9 +77,8 @@ class OwnerComplex extends OwnerComplexController {
                         <Box className="heading">
                           <h4>{t("About")}</h4>
                           <Link
-                            href={`https://maps.google.com/?q=${this.state.complexData.lat},${
-                              this.state.complexData.long
-                            }`}
+                            href={`https://maps.google.com/?q=${this.state.complexData.lat},${this.state.complexData.long
+                              }`}
                             target="_blank"
                           >
                             <span>{t("See complex on map")}</span>
@@ -155,20 +150,6 @@ class OwnerComplex extends OwnerComplexController {
                         <Grid item xs={12}>
                           <Card className="team-member-box">{t("Coming soon")}</Card>
                         </Grid>
-                        {/* <Grid item xs={6}>
-                          <Card className="team-member-box">
-                            <img src={BuildingLogo.default} alt="" />
-                            <h4>Ali Khan</h4>
-                            <p>Manager</p>
-                            <Box className="icons">
-                              <img src={ManagementChat} alt="" />
-                              <div />
-                              <img src={ManagementPhone} alt="" />
-                              <div />
-                              <img src={ManagementEmail} alt="" />
-                            </Box>
-                          </Card>
-                        </Grid> */}
                       </Grid>
                     </Box>
 

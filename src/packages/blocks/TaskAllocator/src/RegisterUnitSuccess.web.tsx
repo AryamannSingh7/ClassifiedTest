@@ -1,12 +1,10 @@
 // Customizable Area Start
-import React, { useRef } from "react";
+import React from "react";
 import { Button, Container, IconButton, withStyles, Box, Grid } from "@material-ui/core";
-import { Link } from "react-router-dom";
 import KeyboardBackspaceIcon from "@material-ui/icons/KeyboardBackspace";
 import { BuildingImage, UnitRegisterCompleteIcon } from "./assets";
 import RegisterUnitController, { Props } from "./RegisterUnitController.web";
 import { withTranslation } from "react-i18next";
-import "../../../web/src/i18n.js";
 import { MyUnitStyle } from "./MyUnitStyle.web";
 
 class RegisterMyUnitSuccess extends RegisterUnitController {
@@ -37,7 +35,7 @@ class RegisterMyUnitSuccess extends RegisterUnitController {
                     <h4>{t("Unit Added Successfully")}</h4>
                     <p>
                       {t(
-                        "A verification ownership request has been sent to the building/complex manger for approval, Upon approval of ownership the unit will be added to his list of units"
+                        "A verification ownership request has been sent to the building/complex manger for approval, Upon approval of ownership the unit will be added to your list of units"
                       )}
                     </p>
                   </Box>
