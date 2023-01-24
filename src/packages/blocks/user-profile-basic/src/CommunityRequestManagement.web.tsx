@@ -50,7 +50,6 @@ import PeopleOutlinedIcon from '@material-ui/icons/PeopleOutlined';
 import MailOutlineOutlinedIcon from '@material-ui/icons/MailOutlineOutlined';
 import CreateOutlinedIcon from '@material-ui/icons/CreateOutlined';
 import Tooltip from '@material-ui/core/Tooltip';
-import ClickAwayListener from '@material-ui/core/ClickAwayListener';
 //resorces
 import { invite, addgroup, newMember, info, cancle, user_icon, email_icon, phone_icon, building, unit } from "./assets";
 
