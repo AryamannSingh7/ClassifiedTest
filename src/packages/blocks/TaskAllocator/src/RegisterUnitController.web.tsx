@@ -426,6 +426,8 @@ export default class RegisterUnitController extends BlockComponent<Props, S, SS>
       if (responseJson && responseJson.data) {
         toast.success("Rent History Created Successfully");
         this.getRentHistory(this.state.unitId);
+      } else if (responseJson && responseJson.message) {
+        toast.error(responseJson.message);
       }
     });
   };

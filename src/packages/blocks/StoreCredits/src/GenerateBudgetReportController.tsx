@@ -1,11 +1,9 @@
 // Customizable Area Start
-import { IBlock } from "../../../framework/src/IBlock";
-import { Message } from "../../../framework/src/Message";
-import { BlockComponent } from "../../../framework/src/BlockComponent";
-import MessageEnum, {
-  getName
-} from "../../../framework/src/Messages/MessageEnum";
-import { runEngine } from "../../../framework/src/RunEngine";
+import {IBlock} from "../../../framework/src/IBlock";
+import {Message} from "../../../framework/src/Message";
+import MessageEnum, {getName} from "../../../framework/src/Messages/MessageEnum";
+import {runEngine} from "../../../framework/src/RunEngine";
+import CommonApiCallForBlockComponent from "../../../components/src/ApiCallCommon.web";
 
 export const configJSON = require("../../ExpenseTracking/src/config");
 
@@ -47,14 +45,15 @@ interface S {
   selectedAudienceName:any,
   audienceValidationError:any;
   deleteAudienceId:any;
-  totalBudget:any
+  totalBudget:any;
+  currency:any;
 }
 
 interface SS {
   id: any;
 }
 
-export default class CoverImageController extends BlockComponent<
+export default class GenerateBudgetReportController extends CommonApiCallForBlockComponent<
   Props,
   S,
   SS
@@ -63,10 +62,9 @@ export default class CoverImageController extends BlockComponent<
   apiEmailLoginCallId: string = "";
   emailReg: RegExp;
   labelTitle: string = "";
-  createSurvey:string = "";
-  getAudienceListId:string = "";
+  createBugetId:string = "";
   deleteAudienceId:string = "";
-
+  getCurrencyId:string = "";
   constructor(props: Props) {
 
     super(props);
@@ -88,11 +86,11 @@ export default class CoverImageController extends BlockComponent<
       audienceModal:false,
       budgetItems: [
         {
-          budgetCategory: "",
+          budget_category: "",
           budgetCategoryError:"",
-          amount:"",
+          allocate_budget:"",
           amountError:"",
-                   
+          description:null,
           descriptionError:"",
           error:false,
           _destroy: "false",
@@ -119,13 +117,13 @@ export default class CoverImageController extends BlockComponent<
       selectedAudienceName:"",
       deleteAudienceId:"",
       audienceValidationError:"",
+      currency:"2",
     };
 
     this.labelTitle = configJSON.labelTitle;
 
     runEngine.attachBuildingBlock(this as IBlock, this.subScribedMessages);
 
-    this.handleSurveyDataSubmit = this.handleSurveyDataSubmit.bind(this)
     this.handleValidation = this.handleValidation.bind(this)
     this.handlePriviewData = this.handlePriviewData.bind(this)
     this.handleOpenAudienceModal = this.handleOpenAudienceModal.bind(this)
@@ -137,12 +135,13 @@ export default class CoverImageController extends BlockComponent<
   }
 
   async componentDidMount() {
+    this.getCurrency()
     if(localStorage.getItem("Report_Data")){
       const budgetPreview:any = JSON.parse(localStorage.getItem("Report_Data") || "")
       if(budgetPreview){
         let total = 0
         budgetPreview.budgetItems.map((item:any)=> {
-          total = total + parseInt(item.amount)
+          total = total + parseInt(item.allocate_budget)
         })
         await this.setState({
           budgetYear:budgetPreview.budgetYear,
@@ -150,32 +149,46 @@ export default class CoverImageController extends BlockComponent<
           totalBudget:total
         })
       }
-      localStorage.removeItem("Survey_Data")
+      // localStorage.removeItem("Report_Data")
     }
   }
 
+  handleGenerateReport = (e:any) => {
+    e.preventDefault()
+    const data = {
+      budget_report:{
+        year:this.state?.budgetYear,
+        currency_id:this.state.currency?.id,
+        facilities_attributes:this.state?.budgetItems,
+        status:0,
+      }
+    }
+    this.addBudgetData(data)
+    console.log(data)
+  }
+
+  createBudgetRepost = (responseJson:any) => {
+    if(responseJson.code === 200){
+      this.setState({
+        loading:false
+      })
+    }else{
+      console.log("SOMETHING WENT WRONG")
+    }
+  }
   async receive(from: string, message: Message) {
     if(getName(MessageEnum.RestAPIResponceMessage) === message.id) {
       const apiRequestCallId = message.getData(getName(MessageEnum.RestAPIResponceDataMessage));
       const responseJson = message.getData(getName(MessageEnum.RestAPIResponceSuccessMessage));
       const errorReponse = message.getData(getName(MessageEnum.RestAPIResponceErrorMessage));
-      if(this.apiEmailLoginCallId === apiRequestCallId ){
-        console.log(responseJson,errorReponse)
+      if(this.createBugetId === apiRequestCallId){
+        console.log("ERORR",errorReponse)
+        this.createBudgetRepost(responseJson)
       }
-      if(this.createSurvey === apiRequestCallId){
-        if(responseJson.code === 200){
+      if(this.getCurrencyId === apiRequestCallId){
+        if(responseJson.hasOwnProperty("currencies")){
           this.setState({
-            loading:false
-          })
-          this.props.history.push("/polling")
-        }else{
-          console.log("SOMETHING WENT WRONG")
-        }
-      }
-      if(this.getAudienceListId === apiRequestCallId){
-        if(responseJson.hasOwnProperty('data')){
-          this.setState({
-            audienceList:responseJson.data
+            currency:responseJson.currencies
           })
         }
       }
@@ -245,7 +258,7 @@ export default class CoverImageController extends BlockComponent<
 
   categoryValidation = (item:any) => {
     let categoryValidation = false
-    if(item.budgetCategory !== ""){
+    if(item.budget_category !== ""){
       categoryValidation = true
     }
     return categoryValidation
@@ -253,7 +266,7 @@ export default class CoverImageController extends BlockComponent<
 
   amountValidation = (item:any) => {
     let amountValidation = false
-    if(item.amount !== ""){
+    if(item.allocate_budget !== ""){
       amountValidation = true
     }
     return amountValidation
@@ -344,6 +357,7 @@ export default class CoverImageController extends BlockComponent<
       budgetItems:updatedArray
     })
     optionValidation = this.manageOptionValidation(updatedArray)
+    console.log("OPTION VALIDATION",optionValidation)
     return optionValidation
   }
 
@@ -404,7 +418,7 @@ export default class CoverImageController extends BlockComponent<
       if(key === index){
         return{
           ...item,
-          budgetCategory:event.target.value,
+          budget_category:event.target.value,
         }
       }else{
         return item
@@ -418,7 +432,7 @@ export default class CoverImageController extends BlockComponent<
       if(key === index){
         return{
           ...item,
-          amount:event.target.value,
+          allocate_budget:event.target.value,
         }
       }else{
         return item
@@ -430,11 +444,11 @@ export default class CoverImageController extends BlockComponent<
 
   addQuestionFields = () => {
     this.setState({budgetItems : [...this.state.budgetItems, {
-        budgetCategory: "",
+        budget_category: "",
         budgetCategoryError:"",
-        amount:"",
+        allocate_budget:"",
         amountError:"",
-        description:"",
+        description:null,
         descriptionError:"",
         error:false,
         _destroy: "false",
@@ -470,16 +484,12 @@ export default class CoverImageController extends BlockComponent<
     }
   }
 
-  handleSurveyDataSubmit =  async (event:any,preview?:boolean) => {
-    event.preventDefault()
-  }
-
-  addSurveyData = async (data:any) => {
+  addBudgetData = async (data:any) => {
     const societyID = localStorage.getItem("society_id")
-    this.createSurvey = await this.apiCall({
-      contentType: configJSON.exampleApiContentType,
-      method: configJSON.httpPostMethod,
-      endPoint: `/society_managements/${societyID}/bx_block_survey/surveys`,
+    this.createBugetId = await this.apiCall({
+      contentType: "application/json",
+      method: "POST",
+      endPoint: `/society_managements/${societyID}/bx_block_report/budget_reports`,
       body:JSON.stringify(data)
     });
   }
@@ -490,6 +500,16 @@ export default class CoverImageController extends BlockComponent<
       contentType: configJSON.exampleApiContentType,
       method: configJSON.httpDeleteMethod,
       endPoint: `/society_managements/${societyID}/bx_block_survey/survey_audiences/${this.state.deleteAudienceId}`,
+    });
+  }
+
+  getCurrency = async () => {
+    console.log("CHECK")
+    const societyID = localStorage.getItem("society_id")
+    this.getCurrencyId = await this.apiCall({
+      contentType: "application/json",
+      method: "GET",
+      endPoint: `/society_managements/${societyID}/bx_block_report/budget_reports/currency`,
     });
   }
 
@@ -513,37 +533,6 @@ export default class CoverImageController extends BlockComponent<
     })
   }
 
-  apiCall = async (data: any) => {
-    const { contentType, method, endPoint, body } = data;
-
-    const token = localStorage.getItem('userToken') ;
-
-    const header = {
-      "Content-Type": contentType,
-      token
-    };
-    const requestMessage = new Message(
-        getName(MessageEnum.RestAPIRequestMessage)
-    );
-    requestMessage.addData(
-        getName(MessageEnum.RestAPIRequestHeaderMessage),
-        JSON.stringify(header)
-    );
-    requestMessage.addData(
-        getName(MessageEnum.RestAPIResponceEndPointMessage),
-        endPoint
-    );
-    requestMessage.addData(
-        getName(MessageEnum.RestAPIRequestMethodMessage),
-        method
-    );
-    body && requestMessage.addData(
-        getName(MessageEnum.RestAPIRequestBodyMessage),
-        body
-    );
-    runEngine.sendMessage(requestMessage.id, requestMessage);
-    return requestMessage.messageId;
-  };
   handleClick = (event:any) => {
     this.setState({anchorEl:event.currentTarget })
   };

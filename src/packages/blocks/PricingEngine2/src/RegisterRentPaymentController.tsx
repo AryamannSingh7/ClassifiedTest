@@ -1,11 +1,9 @@
 // Customizable Area Start
-import { IBlock } from "../../../framework/src/IBlock";
-import { Message } from "../../../framework/src/Message";
-import { BlockComponent } from "../../../framework/src/BlockComponent";
-import MessageEnum, {
-  getName
-} from "../../../framework/src/Messages/MessageEnum";
-import { runEngine } from "../../../framework/src/RunEngine";
+import {IBlock} from "../../../framework/src/IBlock";
+import {Message} from "../../../framework/src/Message";
+import MessageEnum, {getName} from "../../../framework/src/Messages/MessageEnum";
+import {runEngine} from "../../../framework/src/RunEngine";
+import CommonApiCallForBlockComponent from "../../../components/src/ApiCallCommon.web";
 
 export const configJSON = require("./config");
 
@@ -39,13 +37,17 @@ interface S {
   amountError:any;
   showError:boolean;
   error:any;
+  contractId:any;
+  monthList:any;
+  successMessage:any;
+  showSuccess:boolean;
 }
 
 interface SS {
   id: any;
 }
 
-export default class RegisterRentPaymentController extends BlockComponent<
+export default class RegisterRentPaymentController extends CommonApiCallForBlockComponent<
   Props,
   S,
   SS
@@ -58,6 +60,7 @@ export default class RegisterRentPaymentController extends BlockComponent<
   getRentUnitListId: string = "";
   RegisterRentPaymentId:string = "";
   getRentDueAmountId:string = "";
+  getRentMonthListId:string = "";
   constructor(props: Props) {
 
     super(props);
@@ -81,7 +84,7 @@ export default class RegisterRentPaymentController extends BlockComponent<
       selectedBuilding:"",
       selectedUnit:"",
       selectedMonth:"",
-      partialPaymentAmount:"",
+      partialPaymentAmount:0,
       tenantName:"",
       rentAmount:"",
       partialPaidAmount:"",
@@ -89,6 +92,10 @@ export default class RegisterRentPaymentController extends BlockComponent<
       amountError:"",
       showError:false,
       error:"",
+      contractId:"",
+      monthList:[],
+      successMessage:"",
+      showSuccess:false,
     };
 
     this.emailReg = new RegExp("");
@@ -100,6 +107,7 @@ export default class RegisterRentPaymentController extends BlockComponent<
 
   async componentDidMount() {
     this.getRentBuildingList()
+    this.getRentMonthList()
   }
 
   manageSelectBuilding = (e:any) => {
@@ -110,6 +118,35 @@ export default class RegisterRentPaymentController extends BlockComponent<
     )
     this.getRentUnitList(e.target.value)
   }
+
+  unitListResponse = (responseJson:any) => {
+    if(responseJson.hasOwnProperty("data")){
+      this.setState({
+        UnitListing:responseJson.data
+      })
+    }
+  }
+
+  rentDueResponse = (responseJson:any) => {
+    if(responseJson.hasOwnProperty("data")){
+      this.setState({
+        tenantName:responseJson.data?.attributes?.tenant_name,
+        rentAmount:responseJson.data?.attributes?.rent_amount,
+        partialPaidAmount:responseJson?.data?.attributes?.partial_payment || 0,
+        currency:responseJson.data?.attributes?.currency,
+        contractId:responseJson.data?.attributes?.contract_id
+      })
+    }
+  }
+
+  monthListResponse = (responseJson:any) => {
+    if(responseJson.hasOwnProperty("month")){
+      this.setState({
+        monthList:responseJson.month
+      })
+    }
+  }
+
   async receive(from: string, message: Message) {
     if(getName(MessageEnum.RestAPIResponceMessage) === message.id) {
       const apiRequestCallId = message.getData(getName(MessageEnum.RestAPIResponceDataMessage));
@@ -117,11 +154,7 @@ export default class RegisterRentPaymentController extends BlockComponent<
       let errorReponse = message.getData(getName(MessageEnum.RestAPIResponceErrorMessage));
       console.log("ERROR",errorReponse)
       if (this.getRentUnitListId === apiRequestCallId) {
-        if(responseJson.hasOwnProperty("data")){
-          this.setState({
-            UnitListing:responseJson.data
-          })
-        }
+        this.unitListResponse(responseJson)
       }
       if (this.getRentBuildingListId === apiRequestCallId) {
         this.rentBuildingList(responseJson)
@@ -130,16 +163,25 @@ export default class RegisterRentPaymentController extends BlockComponent<
         this.registerPaymentResponse(responseJson)
       }
       if(this.getRentDueAmountId === apiRequestCallId) {
-        if(responseJson.hasOwnProperty("data")){
-          this.setState({
-            tenantName:responseJson.data?.attributes?.tenant_name,
-            rentAmount:responseJson.data?.attributes?.rent_amount,
-            partialPaidAmount:responseJson?.data?.attributes?.partial_payment,
-            currency:responseJson.data?.attributes.currency,
-          })
-        }
+       this.rentDueResponse(responseJson)
+      }
+      if(this.getRentMonthListId === apiRequestCallId){
+        this.monthListResponse(responseJson)
       }
     }
+  }
+
+  handleSuccessClose = () => {
+    this.setState({
+      showSuccess:false,
+      rentAmount:"",
+      tenantName:"",
+      selectedUnit:"",
+      selectedBuilding:"",
+      selectedMonth:"",
+      paymentType:"",
+      currency:"",
+    })
   }
 
   amountFormatConvert = (amount:any) => {
@@ -155,7 +197,10 @@ export default class RegisterRentPaymentController extends BlockComponent<
   }
   registerPaymentResponse = (responseJson:any) => {
     if(responseJson.hasOwnProperty("data")){
-      window.history.back()
+      this.setState({
+        successMessage:"Rent payment Updated Successfully!!",
+        showSuccess:true,
+      })
     }else{
       this.setState({
         error:"Something went wrong"
@@ -183,6 +228,16 @@ export default class RegisterRentPaymentController extends BlockComponent<
     return true
   };
 
+  getRentMonthList = async () => {
+    this.getRentMonthListId = await this.apiCall({
+      contentType: "application/json",
+      method: "GET",
+      endPoint: `/bx_block_rent_payment/rent_payments/month_list`,
+    });
+    return true
+  };
+
+
   getRentUnitList = async (id:any) => {
     console.log("BuildingID",id)
     this.getRentUnitListId = await this.apiCall({
@@ -193,28 +248,71 @@ export default class RegisterRentPaymentController extends BlockComponent<
     return true
   };
 
+  checkValues = () => {
+    if(this.state.paymentType === "" || this.state.selectedMonth === "" || this.state.selectedUnit === "" || this.state.selectedBuilding === ""){
+      return true
+    }else {
+      return false
+    }
+  }
+
+  manageErrors = () => {
+    if(this.state.selectedMonth === ""){
+      this.setState({
+        showError:true,
+        error:"Please select payment month"
+      })
+    }else if(this.state.selectedBuilding === ""){
+      this.setState({
+        showError:true,
+        error:"Please select Building"
+      })
+    }else if(this.state.selectedUnit === ""){
+      this.setState({
+        showError:true,
+        error:"Please select Unit No."
+      })
+    }else if(this.state.paymentType === "" ){
+      this.setState({
+        showError:true,
+        error:"Please select payment type"
+      })
+    }
+  }
+
   createPayment = () => {
     let create ={}
-    if(this.state.paymentType ==="full"){
-      create={
-        month:this.state.selectedMonth,
-        building_management_id:this.state.selectedBuilding,
-        apartment_management_id:this.state.selectedUnit
-      }
-      this.registerPayment(create)
-    }else {
-      if(this.state.rentAmount >= this.state.partialPaymentAmount){
-        create = {
+    if(this.checkValues()){
+      this.manageErrors()
+    }else{
+      if(this.state.paymentType ==="full"){
+        create={
           month:this.state.selectedMonth,
           building_management_id:this.state.selectedBuilding,
-          apartment_management_id:this.state.selectedUnit,
-          partial_payment:this.state.partialPaymentAmount
+          apartment_management_id:this.state.selectedUnit
         }
         this.registerPayment(create)
-      }else{
-        this.setState({
+      }else {
+        if(this.state.rentAmount >= this.state.partialPaymentAmount){
+          if(this.state.partialPaymentAmount !== 0){
+            create = {
+              month:this.state.selectedMonth,
+              building_management_id:this.state.selectedBuilding,
+              apartment_management_id:this.state.selectedUnit,
+              partial_payment:this.state.partialPaymentAmount
+            }
+            this.registerPayment(create)
+          }else{
+            this.setState({
+              showError:true,
+              error:"Please enter partial payment amount"
+            })
+          }
+        }else{
+          this.setState({
             amountError:"Amount should not greater then rent amount"
-        })
+          })
+        }
       }
     }
   }
@@ -228,24 +326,6 @@ export default class RegisterRentPaymentController extends BlockComponent<
     });
   };
 
-  apiCall = async (data: any) => {
-    const { contentType, method, endPoint, body } = data;
-
-    const token = localStorage.getItem("userToken");
-
-    const header = {
-      "Content-Type": contentType,
-      token,
-    };
-    const requestMessage = new Message(getName(MessageEnum.RestAPIRequestMessage));
-    requestMessage.addData(getName(MessageEnum.RestAPIRequestHeaderMessage), JSON.stringify(header));
-    requestMessage.addData(getName(MessageEnum.RestAPIResponceEndPointMessage), endPoint);
-    requestMessage.addData(getName(MessageEnum.RestAPIRequestMethodMessage), method);
-    body && requestMessage.addData(getName(MessageEnum.RestAPIRequestBodyMessage), body);
-    runEngine.sendMessage(requestMessage.id, requestMessage);
-    return requestMessage.messageId;
-  };
-
   showError = () => {
     if(this.state.error){
       this.setState({
@@ -253,6 +333,7 @@ export default class RegisterRentPaymentController extends BlockComponent<
       })
     }
   }
+
 }
 
 // Customizable Area End

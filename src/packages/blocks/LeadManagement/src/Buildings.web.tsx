@@ -66,6 +66,7 @@ import Loader from "../../../components/src/Loader.web";
 //@ts-ignore
 import GoogleMapReact from "google-map-react";
 import ChairmanCategoryBox from "../../../components/src/DocumentComponent/ChairmanCategoryBox.web";
+import GeneralSideBarWeb from "../../dashboard/src/GeneralSideBar.web";
 
 const TabPanel = (props: any) => {
   const { children, value, index, ...other } = props;
@@ -179,7 +180,7 @@ class Buildings extends BuildingsController {
 
   render() {
     const { t, classes }: any = this.props;
-
+    const  userType = localStorage.getItem("userType");
     let searchData = this.state.unitList.filter((item: any) => {
       if (this.handleSearch(item)) {
         return item;
@@ -196,7 +197,8 @@ class Buildings extends BuildingsController {
           <Box style={{ display: "flex" }}>
             <Grid item xs={3} md={3} sm={3} className="SideBar">
               {/* Chairman Sidebar -- */}
-              <ChairmanSidebar {...this.props} />
+              {/* <ChairmanSidebar {...this.props} /> */}
+              <GeneralSideBarWeb {...this.props}></GeneralSideBarWeb> 
             </Grid>
             <Grid xs={9} md={9} sm={9} spacing={4} style={{ paddingTop: 35 }}>
               <Container>
@@ -218,16 +220,23 @@ class Buildings extends BuildingsController {
                         {t("Buildings & Apartments")}
                       </Typography>
                     </Grid>
-                    <Grid item xs={12} sm={2}>
-                      <Button
-                        className="edit-button"
-                        variant="contained"
-                        color="primary"
-                        onClick={() => this.openEditBuildingModal()}
-                      >
-                        {t("Edit Details")}
-                      </Button>
-                    </Grid>
+                    {
+                        userType === "Security" ? 
+                        null
+                        :
+                        <Grid item xs={12} sm={2}>
+                        <Button
+                          className="edit-button"
+                          variant="contained"
+                          color="primary"
+                          onClick={() => this.openEditBuildingModal()}
+                        >
+                          {t("Edit Details")}
+                        </Button>
+                      </Grid>
+                    }
+                  
+                   
                   </Grid>
                 </Box>
 

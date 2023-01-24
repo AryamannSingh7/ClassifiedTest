@@ -35,14 +35,18 @@ import moment from "moment";
 import { Formik, Form } from "formik";
 import { withTranslation } from "react-i18next";
 import ShareDocumentModal from "../../../components/src/DocumentComponent/ShareModal.web";
+import GeneralSideBarWeb from "../../dashboard/src/GeneralSideBar.web";
 
 class DocumentListChairman extends DocumentListChairmanController {
   constructor(props: Props) {
     super(props);
   }
-
+   userType = localStorage.getItem("userType");
   headerButton = (documentPage: any, t: any) => {
-    if (documentPage === "resolutions") {
+   if(this.userType === "Security"  ) {
+    return null
+   }
+   else if (documentPage === "resolutions") {
       return <Button onClick={() => this.handleAddResolutionsModal()}>{t("Add New Resolution")}</Button>;
     } else {
       return <Button onClick={() => this.handleAddDocumentModal()}>{t("Upload Documents")}</Button>;
@@ -282,7 +286,8 @@ class DocumentListChairman extends DocumentListChairmanController {
           <Box style={{ display: "flex" }}>
             <Grid item xs={3} md={3} sm={3} className="SideBar">
               {/* Chairman Sidebar -- */}
-              <ChairmanSidebarWeb {...this.props} />
+              {/* <ChairmanSidebarWeb {...this.props} /> */}
+              <GeneralSideBarWeb {...this.props}></GeneralSideBarWeb> 
             </Grid>
 
             <Grid item xs={9} md={9} sm={9} style={{ paddingTop: 35 }}>

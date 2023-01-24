@@ -9,4 +9,4 @@ export const FacebookIcon = require("../assets/facebook.png");
 export const InstagramIcon = require("../assets/instagram.png");
 export const TwitterIcon = require("../assets/twitter.png");
 export const SnapchatIcon = require("../assets/snapchat.png");
-
+export const TimeIcon = require("../assets/time.png");
