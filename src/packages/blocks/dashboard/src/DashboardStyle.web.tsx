@@ -159,4 +159,185 @@ export const DashboardStyleWeb: any = {
       marginTop: "10px",
     },
   },
+  generalDashboard: {
+    background: "rgb(244, 247, 255)",
+    "& .navigation": {
+      display: "flex",
+      flexDirection: "column",
+      alignItems: "flex-start",
+      "& .sub-heading-box": {
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "space-between",
+        width: "100%",
+        marginTop: "10px",
+        marginBottom: "10px",
+        "& h5": {
+          fontWeight: "600",
+          fontSize: "22px",
+        },
+      },
+      "& .select-year": {
+        background: "#fff",
+        border: "1px solid lightgrey",
+        borderRadius: 5,
+        padding: "2px 12px",
+        "& select": {
+          background: "#fff !important",
+        },
+      },
+      "& .select-box": {
+        display: "flex",
+        alignItems: "center",
+        gap: "14px",
+      },
+      "& .select-year:before": {
+        content: "",
+        border: 0,
+        outline: "none",
+        position: "unset",
+      },
+      "& .select-year:after": {
+        content: "",
+        border: 0,
+        outline: "none",
+        position: "unset",
+      },
+    },
+    "& .dashboard-card-box": {
+      padding: "40px 20px 20px 20px",
+      background: "#fff",
+      borderRadius: 8,
+      boxShadow: "none",
+      "& .card-image": {
+        width: "40px",
+        height: "40px",
+        padding: "10px",
+        border: "1px solid #d9d4d3",
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        borderRadius: "50%",
+        "& img": {
+          width: "28px",
+          height: "28px",
+        },
+      },
+      "& h4": {
+        fontWeight: "600",
+        fontSize: "17px",
+        margin: "12px 0",
+      },
+      "& .card-bottom-info": {
+        display: "flex",
+        alignItems: "center",
+        gap: "10px",
+      },
+      "& .info-box": {
+        display: "flex",
+        alignItems: "center",
+        gap: "8px",
+        "& span": {
+          fontWeight: "600",
+          color: "#FC8434",
+        },
+      },
+    },
+    "& a": {
+      textDecoration: "none !important",
+    },
+    "& .budget-table-content-box": {
+      background: "#fff",
+      borderRadius: 8,
+      boxShadow: "none",
+      "& .header": {
+        fontWeight: "600",
+        padding: "20px 15px",
+        fontSize: "24px",
+      },
+      "& .footer": {
+        padding: "20px 15px",
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "space-between",
+        "& p": {
+          fontSize: "18px",
+          fontWeight: "600",
+        },
+        "& h4": {
+          fontSize: "18px",
+          color: "#FC8434",
+          fontWeight: "600",
+        },
+      },
+      "& .body": {
+        padding: "20px 15px",
+        "& .table-header": {
+          padding: "10px 0",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "space-between",
+          "& span": {
+            color: "#999",
+          },
+        },
+        "& .table-content": {
+          padding: "10px 0",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "space-between",
+          borderTop: "1px solid #F4F6FB",
+          "& span": {
+            fontWeight: "600",
+          },
+        },
+      },
+      "& hr": {
+        margin: "0",
+        color: "#F4F6FB",
+      },
+    },
+    "& .event-card": {
+      padding: "20px 20px 20px 20px",
+      background: "#fff",
+      borderRadius: 8,
+      boxShadow: "none",
+      "& .event-heading": {
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "space-between",
+        gap: "10px",
+        marginBottom: "13px",
+        "& h4": {
+          marginBottom: "5px",
+        },
+        "& span": {
+          background: "#D4FFE3",
+          color: "#1EC65B",
+          fontWeight: 600,
+          padding: "5px 10px",
+          borderRadius: "25px",
+          fontSize: "14px",
+        },
+      },
+      "& .event-content-box": {
+        "& .event-content": {
+          display: "flex",
+          alignItems: "center",
+          gap: "10px",
+          margin: "5px 0",
+        },
+        "& .meeting-state-box": {
+          display: "flex",
+          alignItems: "center",
+          gap: "20px",
+          "& .meeting-state": {
+            display: "flex",
+            alignItems: "center",
+            gap: "10px",
+          },
+        },
+      },
+    },
+  },
 };
