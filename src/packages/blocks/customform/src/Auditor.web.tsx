@@ -9,7 +9,7 @@ import Box from "@material-ui/core/Box";
 import Select from "@material-ui/core/Select";
 import NativeSelect from "@material-ui/core/NativeSelect";
 import Grid from "@material-ui/core/Grid";
-import DashboardHeader from "./DashboardHeader.web";
+import DashboardHeader from "../../dashboard/src/DashboardHeader.web";
 import ChairmanSidebar from "./ChairmanSidebar.web";
 import { withRouter } from 'react-router-dom';
 import { withTranslation } from 'react-i18next';
@@ -71,7 +71,7 @@ class AuditorDashboardGeneral extends AuditorController {
                     <Box style={dashBoard.Cards}>
                       <Box sx={{ ml: 1, mb: 2 }} style={dashBoard.CardsIcons}>
                         {/* <img src={keyhand} alt="keyhand" /> */}
-                        <img src={keyhand} alt="keyhand" />
+                        {/* <img src={keyhand} alt="keyhand" /> */}
                       </Box>
                       <Typography style={dashBoard.subHeading}>
                         {t("Building 1")}
@@ -92,7 +92,7 @@ class AuditorDashboardGeneral extends AuditorController {
                   <Grid item sm={4}>
                     <Box style={dashBoard.Cards}>
                       <Box sx={{ ml: 1, mb: 2 }} style={dashBoard.CardsIcons}>
-                        <img src={keyrented} alt="keyrented" width={32} />
+                        {/* <img src={keyrented} alt="keyrented" width={32} /> */}
                       </Box>
                       <Typography style={dashBoard.subHeading}>
                         {t("Rented Out Apartments")}
@@ -107,7 +107,7 @@ class AuditorDashboardGeneral extends AuditorController {
                   <Grid item sm={4}>
                     <Box style={dashBoard.Cards}>
                       <Box sx={{ ml: 1, mb: 2 }} style={dashBoard.CardsIcons}>
-                        <img src={money} alt="money" width={28} />
+                        {/* <img src={money} alt="money" width={28} /> */}
                       </Box>
                       <Typography style={dashBoard.subHeading}>
                         {t("Management Fee Collected")}
@@ -122,7 +122,7 @@ class AuditorDashboardGeneral extends AuditorController {
                   <Grid item sm={4}>
                     <Box style={dashBoard.Cards}>
                       <Box sx={{ ml: 1, mb: 2 }} style={dashBoard.CardsIcons}>
-                        <img src={registered} alt="registered" />
+                        {/* <img src={registered} alt="registered" /> */}
                       </Box>
                       <Typography style={dashBoard.subHeading}>
                         {t("Registered Residents/Owners")}
@@ -137,7 +137,7 @@ class AuditorDashboardGeneral extends AuditorController {
                   <Grid item sm={4}>
                     <Box style={dashBoard.Cards}>
                       <Box sx={{ ml: 1, mb: 2 }} style={dashBoard.CardsIcons}>
-                        <img src={activemembers} alt="activemembers" />
+                        {/* <img src={activemembers} alt="activemembers" /> */}
                       </Box>
                       <Typography style={dashBoard.subHeading}>
                         {t("Active Registered Members")}
@@ -155,7 +155,7 @@ class AuditorDashboardGeneral extends AuditorController {
               }}>
                     <Box style={dashBoard.Cards}>
                       <Box sx={{ ml: 1, mb: 2 }} style={dashBoard.CardsIcons}>
-                        <img src={activemembers} alt="/ClassifiedManagerListing" />
+                        {/* <img src={activemembers} alt="/ClassifiedManagerListing" /> */}
                       </Box>
                       <Typography style={dashBoard.subHeading}>
                         {t("Classifieds")}
@@ -173,7 +173,7 @@ class AuditorDashboardGeneral extends AuditorController {
               }}>
                     <Box style={dashBoard.Cards}>
                       <Box sx={{ ml: 1, mb: 2 }} style={dashBoard.CardsIcons}>
-                        <img src={activemembers} alt="/IncidentManagement" />
+                        {/* <img src={activemembers} alt="/IncidentManagement" /> */}
                       </Box>
                       <Typography style={dashBoard.subHeading}>
                         {t("Incident")}
@@ -188,7 +188,7 @@ class AuditorDashboardGeneral extends AuditorController {
                   <Grid item sm={4}>
                     <Box style={dashBoard.Cards}>
                       <Box sx={{ ml: 1, mb: 2 }} style={dashBoard.CardsIcons}>
-                        <img src={members} alt="members" />
+                        {/* <img src={members} alt="members" /> */}
                       </Box>
                       <Typography style={dashBoard.subHeading}>
                         {t("Members Never Logged in")}
@@ -203,7 +203,7 @@ class AuditorDashboardGeneral extends AuditorController {
                   <Grid item sm={4}>
                     <Box style={dashBoard.Cards}>
                       <Box sx={{ ml: 1, mb: 2 }} style={dashBoard.CardsIcons}>
-                        <img src={overdue} alt="overdue" width={25} />
+                        {/* <img src={overdue} alt="overdue" width={25} /> */}
                       </Box>
                       <Typography style={dashBoard.subHeading}>
                         {t("Overdue Management Fee")}
@@ -241,20 +241,20 @@ class AuditorDashboardGeneral extends AuditorController {
                         <Box component="span">Center park common hall</Box>
                       </Box>
                       <Box style={dashBoard.EventsIconsText}>
-                        <img src={Cardcalendar} alt="Cardcalendar" />
+                        {/* <img src={Cardcalendar} alt="Cardcalendar" /> */}
                         <Box component="span">05-08-2022 18:00 to 20:00 </Box>
                       </Box>
                       <Box style={dashBoard.EventsIconsData}>
                         <Box style={dashBoard.EventsIconsDataBox}>
-                          <img src={awated} alt="awated" />
+                          {/* <img src={awated} alt="awated" /> */}
                           <Box component="span">84</Box>
                         </Box>
                         <Box style={dashBoard.EventsIconsDataBox}>
-                          <img src={Check_Mark} alt="Check_Mark" />
+                          {/* <img src={Check_Mark} alt="Check_Mark" /> */}
                           <Box component="span">29</Box>
                         </Box>
                         <Box style={dashBoard.EventsIconsDataBox}>
-                          <img src={xmark} alt="xmark" />
+                          {/* <img src={xmark} alt="xmark" /> */}
                           <Box component="span">13</Box>
                         </Box>
                       </Box>
@@ -278,11 +278,11 @@ class AuditorDashboardGeneral extends AuditorController {
                         <Box component="span">Center park garden</Box>
                       </Box>
                       <Box style={dashBoard.EventsIconsText}>
-                        <img src={Cardcalendar} alt="Cardcalendar" />
+                        {/* <img src={Cardcalendar} alt="Cardcalendar" /> */}
                         <Box component="span">12-08-2022 18:00 to 20:00</Box>
                       </Box>
                       <Box style={dashBoard.EventsIconsText}>
-                        <img src={account} alt="account" />
+                        {/* <img src={account} alt="account" /> */}
                         <Box component="span">jhon doe</Box>
                       </Box>
                     </Box>

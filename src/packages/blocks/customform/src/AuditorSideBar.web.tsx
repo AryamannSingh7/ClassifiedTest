@@ -1,6 +1,5 @@
 // Customizable Area Start
 import React from "react";
-import "./Dashboard.web.css";
 import "../../dashboard/src/Dashboard.web.css";
 import { Typography, Link, withStyles } from "@material-ui/core";
 import Box from "@material-ui/core/Box";
