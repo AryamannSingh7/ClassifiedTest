@@ -95,7 +95,7 @@ class Suggestion extends SuggestionController {
                   <h6 className="bottom-text">POWERED BY</h6>
                   <img src={Tenant_Logo.default} className="tenant-logo" alt="" />
                 </Box> */}
-              </Box>           
+              </Box>            
             </Grid>
             {/* desktop footer block */}
             <Grid item xs={12} md={5} className="auth-cols">
