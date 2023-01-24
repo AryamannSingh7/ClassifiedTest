@@ -67,7 +67,6 @@ export default class ChairmanAccountLoginController extends BlockComponent<
   getUserTypeApiCallId: any;
   apiRegistrationRequestCallId:any ;
   deleteRequestCallId:any;
-  validationApiCallId: string = "";
 
   imgPasswordVisible: any;
   imgPasswordInVisible: any;
@@ -188,7 +187,7 @@ export default class ChairmanAccountLoginController extends BlockComponent<
             }
           }
         }
-      else if (apiRequestCallId === this.apiEmailLoginCallId) {
+        else if (apiRequestCallId === this.apiEmailLoginCallId) {
           if (responseJson && responseJson.meta && responseJson.meta.token) {
             localStorage.setItem("userToken", responseJson?.meta?.token)
             localStorage.setItem("userId", responseJson?.meta?.id)
@@ -211,35 +210,55 @@ export default class ChairmanAccountLoginController extends BlockComponent<
           this.setState({loading: false})
         }
         else if (apiRequestCallId === this.apiRegistrationRequestCallId) {
+          const userType = this.state.userTypeData
+          const localUserType = localStorage.getItem("userType")
+          const dashboardType = userType.filter((item)=> item.attributes.name === localUserType)[0]?.attributes?.dashboard_name
           if (responseJson && responseJson?.data ) {
             const  registrationRequest = responseJson?.data[0]
             const status :any = registrationRequest?.attributes?.status;
-        if( status === "Requested"){
-            this.props.history.push("/ChairmanRegistrationRequest");
-            this.setState({registrationRequest, requestdeleteId :registrationRequest.id,loading: false})
-          }
-           else if(localStorage.getItem("userType") === "Owner" || localStorage.getItem("userType") === "Property Manager"){
-            this.props.history.push("/OwnerDashboard")
+            if( status === "Requested"){
+              this.props.history.push("/ChairmanRegistrationRequest");
+              this.setState({registrationRequest, requestdeleteId :registrationRequest.id,loading: false})
+            }
+             else if(localStorage.getItem("userType") === "Owner" || localStorage.getItem("userType") === "Property Manager"){
+              this.props.history.push("/OwnerDashboard")
+              this.setState({loading: false})
+             }else if (localStorage.getItem("userType") === "Resident" || localStorage.getItem("userType") === "Tenant"){
+              this.props.history.push("/ResidentDashboard")
+              this.setState({loading: false})
+             }else if(dashboardType === "Chairman"){
+                this.props.history.push("/DashboardGeneral")
+                localStorage.setItem("userType","Chairman")
+                this.setState({loading: false})
+              }
+              else if(dashboardType === "Manager"){
+                this.props.history.push("/DashboardGeneral")
+                localStorage.setItem("userType","Manager")
+                this.setState({loading: false})
+              }
+              else if(dashboardType === "Security"){
+                this.props.history.push("/Visitors")
+                localStorage.setItem("userType","Security")
+                this.setState({loading: false})
+              }
+              else if(dashboardType === "Auditor"){
+                this.props.history.push("/AuditorDashboard")
+                localStorage.setItem("userType","Auditor")
+                this.setState({loading: false})
+              }
+              else if(dashboardType === "Service Provider"){
+                this.props.history.push("/ServiceProviderDashboard")
+                localStorage.setItem("userType","ServiceProvider")
+                this.setState({loading: false})
+              }
+            } else if (responseJson?.errors) {
+              let error = Object.values(responseJson.errors[0])[0] as string;
+              this.setState({ error });
+            } else {
+              this.setState({ error: responseJson?.error || "Something went wrong!" });
+              this.showError()
+            }
             this.setState({loading: false})
-           }else if (localStorage.getItem("userType") === "Resident"){
-            this.props.history.push("/ResidentDashboard")
-            this.setState({loading: false})
-           }
-           else if(localStorage.getItem("userType") === "Chairman" || localStorage.getItem("userType") === "Manager"){
-            this.props.history.push("/DashboardGeneral")
-            this.setState({loading: false})
-           }
-
-          } else if (responseJson?.errors) {
-            let error = Object.values(responseJson.errors[0])[0] as string;
-            this.setState({ error });
-            // this.parseApiCatchErrorResponse(this.state.error);
-          } else {
-            this.setState({ error: responseJson?.error || "Something went wrong!" });
-
-          }
-          this.showError()
-          this.setState({loading: false})
         }
         else if (apiRequestCallId === this.deleteRequestCallId) {
           if (responseJson.message && responseJson ) {
@@ -257,7 +276,7 @@ export default class ChairmanAccountLoginController extends BlockComponent<
         else if (apiRequestCallId === this.getUserTypeApiCallId) {
           if (responseJson && responseJson?.data ) {
           console.log("responseJson?.data========================>",responseJson?.data.roles)
-          this.setState({userTypeData :responseJson?.data.roles})
+          this.setState({userTypeData :responseJson?.data})
           this.setState({loading: false})
           } else if (responseJson?.errors) {
             let error = Object.values(responseJson.errors[0])[0] as string;
@@ -268,7 +287,6 @@ export default class ChairmanAccountLoginController extends BlockComponent<
           this.showError()
           this.setState({loading: false})
         }
-
       }
     }
 

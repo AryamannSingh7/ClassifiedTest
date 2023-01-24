@@ -32,10 +32,10 @@ class SuggestionDetails extends SuggestionController {
         <Box className="login-wrapper incident-wrapper">
           <Grid container spacing={2} className="auth-container">
             <Grid item xs={12} md={7} className="auth-cols">
-              <Box className="content-block">
+              <Box className="content-block" style={{height:'100%',display:'block'}}>
                 <Box className="content-header">
                   <Box className="left-block blocks">
-                    <Box className="backIcons" onClick={() => this.redirectToDashboard()}><KeyboardBackspaceIcon /></Box>
+                    <Box className="backIcons" onClick={() => window.history.back()}><KeyboardBackspaceIcon /></Box>
                     <h4>{data?.attributes?.title}</h4>
                   </Box>
                   <Box className="incident-right-block blocks">
@@ -44,19 +44,20 @@ class SuggestionDetails extends SuggestionController {
 
                   </Box>
                 </Box>
-                <Box className="content-block-wrapper common-incident-block">
+                <Box className="content-block-wrapper common-incident-block" style={{display:'flex',flexDirection:'column',justifyContent:'space-between',height:'95%',background:'#F8F9FE'}}>
+                  <Box style={{paddingTop:'5rem'}}>
+
                     <Box style={{display:'flex',justifyContent:'space-between'}}>
 
-                <Typography className="sub-title h5-title" component="h5">
+                <Typography className="sub-title h5-title" component="h5" style={{fontWeight:600}}>
                   Suggestion Details
                     </Typography>
                     <Box className="customButton">
-                      <Button variant="contained" className="contain blue" type="submit" >1 Response</Button>
+                      <Button variant="contained" className="contain blue" type="submit" >{data?.attributes?.response.length>0 ? data?.attributes?.response.length:'0'} Response</Button>
                     </Box>
                     </Box>
-
                     <Box>
-                    <Typography className="sub-title h5-title" component="h5">
+                    <Typography  variant="caption">
                     Suggestion is related to: 
                     </Typography>
                     <Typography className="sub-title h5-title" component="h5">
@@ -64,9 +65,8 @@ class SuggestionDetails extends SuggestionController {
                     </Typography>
                     </Box>
                     <br/>
-
                     <Box>
-                    <Typography className="sub-title h5-title" component="h5">
+                    <Typography  variant="caption">
                     Description: 
                     </Typography>
                     <Typography className="sub-title h5-title" component="h5">
@@ -75,19 +75,17 @@ class SuggestionDetails extends SuggestionController {
                     </Box>
 
                     <br/>
-
                     <Box>
-                    <Typography className="sub-title h5-title" component="h5">
+                    <Typography  variant="caption">
                     Status: 
                     </Typography>
                     <Typography className="sub-title h5-title" component="h5">
                     {data?.attributes?.status}
                     </Typography>
                     </Box>
-
                     <Box style={{display:'flex',justifyContent:'space-between'}}>
 
-                    <Typography className="sub-title h5-title" component="h5">
+                    <Typography  className="sub-title h5-title" component="h5" style={{fontWeight:600,marginTop:'2rem'}}>
                  Sent Details
                     </Typography>
                     
@@ -103,16 +101,27 @@ class SuggestionDetails extends SuggestionController {
 <Typography className="sub-title h5-title" component="h5">
 <img src={Claender}/> Sent On:
 <br/>
-{data?.attributes?.sent_on}
+{data?.attributes?.sent_on} {" "} {data?.attributes?.sent_on_time}
 </Typography>
 
 
 </Box>
+                  </Box>
+
+
+
+
 
                     
                   <Box className="customButton add-incident">
+                  {data?.attributes?.response.length>0 ?
+                  
                     <Button variant="contained" onClick={() => { this.setState({ loading: true });//@ts-ignore
-                     this.props.history.push("/newsuggestion") }} >Close</Button>
+                    this.props.history.push("/ResponseSuggestion") }} >VIEW RESPONSE</Button>
+                    :
+                    <Button variant="contained" onClick={() => { this.setState({ loading: true });//@ts-ignore
+                    window.history.back() }} >Close</Button>
+                  }
                   </Box>
                 </Box>
                 {/* <Box className="footer-main-block bottomBlock">

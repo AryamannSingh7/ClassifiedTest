@@ -13,7 +13,6 @@ import ArrowForwardIosOutlinedIcon from "@material-ui/icons/ArrowForwardIosOutli
 import { withRouter } from "react-router-dom";
 import DashboardController, { Props } from "./DashboardController.web";
 import { withTranslation } from "react-i18next";
-import "../../../web/src/i18n.js";
 import i18next from "i18next";
 
 class VisitorsSidebar extends DashboardController {
@@ -21,22 +20,17 @@ class VisitorsSidebar extends DashboardController {
     super(props);
   }
 
-    async componentDidMount() {
-
-      this.getUnreadCount()
-  
-    }
+  async componentDidMount() {
+    this.getUnreadCount();
+  }
   render() {
     const { t }: any = this.props;
     const { classes }: any = this.props;
 
-   
-
     return (
       <>
         <Box className="AccordinoList">
-      
-        <Box className="SingleLink">
+          <Box className="SingleLink">
             <Typography className="SingleLinkSize">
               <DashboardOutlinedIcon />
             </Typography>
@@ -53,17 +47,21 @@ class VisitorsSidebar extends DashboardController {
               <Typography className="SingleLinkSize">{t("Units")}</Typography>
             </div>
           </Box>
-          
+
           <Box className="SingleLink">
             <Typography className="SingleLinkSize">
               <DashboardOutlinedIcon />
             </Typography>
-            <div onClick={() => //@ts-ignore
-                this.props.history.push("/TeamMembers/CoreMember")}>
+            <div
+              onClick={() =>
+                //@ts-ignore
+                this.props.history.push("/TeamMembers/CoreMember")
+              }
+            >
               <Typography className="SingleLinkSize">{t("My team")}</Typography>
             </div>
           </Box>
-         
+
           <Box className="SingleLink">
             <Typography className="SingleLinkSize">
               <DashboardOutlinedIcon />
@@ -81,7 +79,6 @@ class VisitorsSidebar extends DashboardController {
               <Typography className="SingleLinkSize">{t("FAQ")}</Typography>
             </div>
           </Box>
-
         </Box>
 
         <Box className="SideBarBottom">
@@ -93,9 +90,6 @@ class VisitorsSidebar extends DashboardController {
     );
   }
 }
-
-//@ts-ignore
-export default withTranslation()(withStyles(dashBoard)(withRouter(VisitorsSidebar)));
 
 const dashBoard = {
   PremimumPlan: {
@@ -118,4 +112,6 @@ const dashBoard = {
   },
 };
 
+//@ts-ignore
+export default withTranslation()(withStyles(dashBoard)(withRouter(VisitorsSidebar)));
 // Customizable Area End

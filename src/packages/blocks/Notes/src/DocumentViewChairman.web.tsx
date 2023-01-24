@@ -6,7 +6,7 @@ import { DocumentReportStyleWeb } from "./DocumentReportStyle.web";
 import DashboardHeader from "../../dashboard/src/DashboardHeader.web";
 import ChairmanSidebarWeb from "../../dashboard/src/ChairmanSidebar.web";
 import { withTranslation } from "react-i18next";
-import "../../../web/src/i18n.js";
+import GeneralSideBarWeb from "../../dashboard/src/GeneralSideBar.web";
 
 class DocumentViewChairman extends DocumentViewChairmanController {
   constructor(props: Props) {
@@ -14,8 +14,7 @@ class DocumentViewChairman extends DocumentViewChairmanController {
   }
 
   render() {
-    const { classes } = this.props;
-    const { t }: any = this.props;
+    const { t, classes }: any = this.props;
 
     return (
       <>
@@ -25,7 +24,7 @@ class DocumentViewChairman extends DocumentViewChairmanController {
           <Box style={{ display: "flex" }}>
             <Grid item xs={3} md={3} sm={3} className="SideBar">
               {/* Chairman Sidebar -- */}
-              <ChairmanSidebarWeb {...this.props} />
+              <GeneralSideBarWeb {...this.props}></GeneralSideBarWeb>
             </Grid>
 
             <Grid item xs={9} md={9} sm={9} style={{ paddingTop: 35 }}>
@@ -41,12 +40,12 @@ class DocumentViewChairman extends DocumentViewChairmanController {
                           wordBreak: "break-all",
                         }}
                       >
-                        {this.state.document && this.state.document.attributes.images[0].file_name}
+                        {this.state.document && this.state.document.attributes.title}
                       </Box>
                     </Typography>
                     <Box className="top-heading">
                       <Typography variant="h5" className="sub-heading">
-                        {this.state.document && this.state.document.attributes.images[0].file_name}
+                        {this.state.document && this.state.document.attributes.title}
                       </Typography>
                       <Link
                         href={this.state.document && this.state.document.attributes.images[0].download_url}

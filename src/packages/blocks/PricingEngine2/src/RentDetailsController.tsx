@@ -6,6 +6,8 @@ import MessageEnum, {
   getName
 } from "../../../framework/src/Messages/MessageEnum";
 import { runEngine } from "../../../framework/src/RunEngine";
+import CommonApiCallForBlockComponent from "../../../components/src/ApiCallCommon.web";
+
 // import {toast} from "react-toastify";
 
 export const configJSON = require("./config");
@@ -24,23 +26,21 @@ interface S {
   loading: boolean;
   sortBy:any;
   status:any;
-  pollListing:any;
+  rentDetails:any;
 }
 
 interface SS {
   id: any;
 }
 
-export default class CoverImageController extends BlockComponent<
+export default class CoverImageController extends CommonApiCallForBlockComponent<
   Props,
   S,
   SS
 > {
-
-  apiEmailLoginCallId: string = "";
   emailReg: RegExp;
   labelTitle: string = "";
-  getVisitorListId:string = "";
+  getMonthRentId:string = "";
   constructor(props: Props) {
 
     super(props);
@@ -56,7 +56,7 @@ export default class CoverImageController extends BlockComponent<
       loading:false,
       sortBy : "" ,
       status:"",
-      pollListing:[],
+      rentDetails:{},
     };
 
     this.emailReg = new RegExp("");
@@ -67,17 +67,29 @@ export default class CoverImageController extends BlockComponent<
   }
 
   async componentDidMount() {
-
+    this.getRentUnitList()
   }
 
+  getRentUnitList = async () => {
+    const {id} = this.props.match.params
+    this.getMonthRentId = await this.apiCall({
+      contentType: "application/json",
+      method: "GET",
+      endPoint: `bx_block_rent_payment/rent_payments/${id}`,
+    });
+  };
 
   async receive(from: string, message: Message) {
     if(getName(MessageEnum.RestAPIResponceMessage) === message.id) {
       const apiRequestCallId = message.getData(getName(MessageEnum.RestAPIResponceDataMessage));
       const responseJson = message.getData(getName(MessageEnum.RestAPIResponceSuccessMessage));
       var errorReponse = message.getData(getName(MessageEnum.RestAPIResponceErrorMessage));
-      if(this.apiEmailLoginCallId === apiRequestCallId ){
-        console.log(responseJson,errorReponse)
+      if(this.getMonthRentId === apiRequestCallId){
+        if(responseJson.hasOwnProperty("data")){
+          this.setState({
+            rentDetails:responseJson?.data?.attributes
+          })
+        }
       }
     }
   }

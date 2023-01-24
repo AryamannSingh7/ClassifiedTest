@@ -23,7 +23,7 @@ import GenerateBudgetReportController, {
 } from "./GenerateBudgetReportController";
 import ChairmanSidebar from "../../dashboard/src/ChairmanSidebar.web";
 import DashboardHeader from "../../dashboard/src/DashboardHeader.web";
-import TextEditor from "../../Polling/src/TextEditorSurvey.web";
+import TextEditor from "./TextEditorBudgetReport.web";
 import Backdrop from "@material-ui/core/Backdrop";
 import { withRouter } from 'react-router';
 import { withTranslation } from 'react-i18next';
@@ -87,7 +87,7 @@ class CreateSurveys extends GenerateBudgetReportController {
                                                                         maxLength: 255
                                                                     }}
                                                                     id="CategoryItem"
-                                                                    value={item.budgetCategory}
+                                                                    value={item.budget_category}
                                                                     onChange={(e)=>this.handleBudgetCategory(key,e)}
                                                                     required fullWidth style={{marginTop:20,borderRadius:"10px"}}
                                                         />
@@ -101,7 +101,7 @@ class CreateSurveys extends GenerateBudgetReportController {
                                                                         maxLength: 255
                                                                     }}
                                                                     id="SurveyQuestion"
-                                                                    value={item.amount}
+                                                                    value={item.allocate_budget}
                                                                     onChange={(e)=>this.handleBudgetAmount(key,e)}
                                                                     required fullWidth style={{marginTop:20,borderRadius:"10px"}}
                                                         />
@@ -116,6 +116,7 @@ class CreateSurveys extends GenerateBudgetReportController {
                                                     <TextEditor
                                                         // @ts-ignore
                                                         markup={item.description}
+                                                        itemKey={key}
                                                         onChange={(value:any) => this.onChangeTextEditor(value,key)} />
                                                 </Box>
                                                 <p style={{color:"red"}}>{item.descriptionError}</p>
@@ -139,7 +140,7 @@ class CreateSurveys extends GenerateBudgetReportController {
                                         <PreviewReportButton className="GenerateBudgetReport" onClick={this.handlePriviewData} variant="contained" color="primary">{t("PREVIEW")}</PreviewReportButton>
                                     </Box>
                                     <Box className="Publishbtn GenerateBudgetReport">
-                                        <PublishBudgetButton className="GenerateBudgetReport" disabled={this.state.loading} type="submit" variant="outlined" color="primary">{this.state.loading && <CircularProgress color="inherit" size={20}/> } {" "}{t("PUBLISH")}</PublishBudgetButton>
+                                        <PublishBudgetButton className="GenerateBudgetReport" onClick={this.handleGenerateReport} disabled={this.state.loading} type="submit" variant="outlined" color="primary">{this.state.loading && <CircularProgress color="inherit" size={20}/> } {" "}{t("PUBLISH")}</PublishBudgetButton>
                                     </Box>
                                 </Box>
                             </Grid>

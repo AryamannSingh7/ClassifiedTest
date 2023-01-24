@@ -26,6 +26,27 @@
   -o-border-radius: 5px;
 }
 
+.modal-document-box {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 20px;
+  padding: 12px 15px;
+  border: 1px solid lightgray;
+  border-radius: 5px;
+  background: #efefef;
+}
+
+.modal-document-box .left-side-document {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.modal-document-box .right-side-document {
+  cursor: pointer;
+}
+
 .dialog-heading {
   display: flex;
   justify-content: space-between;
@@ -267,8 +288,7 @@
 .szh-menu-container ul li {
   padding: 8px 32px;
   display: block;
-  background-color: white;
-  min-height: 38px;
+  font-weight: 400;
 }
 
 .chairman-top-menu.szh-menu-container ul li {
@@ -286,6 +306,25 @@
   align-items: center !important;
   justify-content: flex-start !important;
   text-decoration: none !important;
+}
+
+.unit-box-currency,
+.measurement-modal-box {
+  position: relative;
+}
+
+.unit-box-currency .unit-box-value {
+  position: absolute;
+  top: 36px;
+  right: 36px;
+  font-weight: 600;
+}
+
+.measurement-modal-value {
+  position: absolute;
+  top: 16px;
+  right: 15px;
+  font-weight: 600;
 }
 
 .share-box {
@@ -439,6 +478,7 @@
 .rent-history-dialog .select-input.input {
   margin-top: 20px;
   background-color: #f3f3f3;
+  width: 100%;
 }
 
 .rent-history-dialog .select-box .select-input {
@@ -813,11 +853,33 @@
   padding: 20px 50px;
 }
 
-.edit-profile .input-with-icon {
+.edit-profile .input-with-icon,
+.edit-profile .select-with-icon {
   border: 1px solid #c6c6c6;
   border-radius: 8px;
-  background-color: #f9f9f9;
+  background: #f9f9f9;
   padding: 15px;
+}
+
+.edit-profile .measurement-box {
+  position: relative;
+}
+
+.edit-profile .measurement-box img {
+  position: absolute;
+  top: 15px;
+  left: 12px;
+  opacity: 1;
+  z-index: 9999999999;
+}
+
+.edit-profile .measurement-box .MuiSelect-root,
+.edit-profile .measurement-box .MuiInput-root {
+  background: #f9f9f9 !important;
+}
+
+.edit-profile .measurement-box .select-with-icon {
+  padding: 10px 15px 10px 45px;
 }
 
 .edit-profile .mobile-box {
@@ -1203,4 +1265,62 @@
   position: absolute;
   top: 15px;
   left: 10px;
+}
+
+.edit-unit-modal-config {
+  position: relative;
+}
+
+.edit-unit-modal-config img {
+  position: absolute;
+  z-index: 999;
+  top: 18px;
+  left: 10px;
+}
+
+.edit-unit-modal-config .select-input {
+  border: 1px solid #c6c6c6;
+  border-radius: 8px;
+  background: #f9f9f9;
+  width: 100%;
+  padding-left: 22px;
+}
+
+.edit-unit-modal-config .select-input .MuiSelect-root {
+  background: #f9f9f9;
+}
+
+.lease-expiration-modal h6 {
+  font-weight: 600;
+  margin-bottom: 18px;
+  font-size: 22px;
+}
+
+.lease-expiration-modal .dialog-select-input {
+  border-radius: 28px;
+  border: 1px solid #dedede;
+  background-color: #f8f8f8;
+  width: 80%;
+  margin-bottom: 10px;
+}
+
+.lease-expiration-modal .MuiSelect-root {
+  background-color: #f8f8f8 !important;
+}
+
+.lease-expiration-modal .MuiInput-root::before,
+.lease-expiration-modal .MuiInput-root::after {
+  content: "";
+  border: 0;
+  position: unset;
+}
+
+.lease-expiration-set .dialog-button-group button.okay {
+  background-color: #2b6fec;
+  border-radius: 25px;
+  color: white;
+  font-weight: 600;
+  border: 1px solid #2b6fec;
+  padding: 12px 30px;
+  margin: 0;
 }

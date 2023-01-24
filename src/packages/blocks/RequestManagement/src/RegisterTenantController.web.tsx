@@ -3,9 +3,12 @@ import { Message } from "../../../framework/src/Message";
 import { BlockComponent } from "../../../framework/src/BlockComponent";
 import MessageEnum, { getName } from "../../../framework/src/Messages/MessageEnum";
 import { runEngine } from "../../../framework/src/RunEngine";
+
+// Customizable Area Start
 import { ApiCatchErrorResponse, ApiErrorResponse } from "../../../components/src/APIErrorResponse";
 import * as Yup from "yup";
 import toast from "react-hot-toast";
+// Customizable Area End
 
 export const configJSON = require("./config");
 
@@ -114,21 +117,49 @@ export default class RegisterTenantController extends BlockComponent<Props, S, S
 
   async receive(from: string, message: Message) {
     runEngine.debugLog("Message Recived", message);
-    // Get All Building List - API Response
-    if (
-      getName(MessageEnum.RestAPIResponceMessage) === message.id &&
-      this.GetBuildingListCallId !== null &&
-      this.GetBuildingListCallId === message.getData(getName(MessageEnum.RestAPIResponceDataMessage))
-    ) {
-      this.GetBuildingListCallId = null;
 
-      var responseJson = message.getData(getName(MessageEnum.RestAPIResponceSuccessMessage));
+    // Customizable Area Start
+    if (getName(MessageEnum.RestAPIResponceMessage) === message.id) {
+      let responseJson = message.getData(getName(MessageEnum.RestAPIResponceSuccessMessage));
+      let errorResponse = message.getData(getName(MessageEnum.RestAPIResponceErrorMessage));
 
-      if (responseJson.buildings) {
-        this.setState({ buildingList: responseJson.buildings });
+      const apiRequestCallId = message.getData(getName(MessageEnum.RestAPIResponceDataMessage));
+
+      switch (apiRequestCallId) {
+        case this.GetBuildingListCallId:
+          this.handleGetBuildingListResponse(responseJson);
+          break;
+        case this.GetUnitListCallId:
+          this.handleGetUnitListResponse(responseJson);
+          break;
+        case this.GetIDTypeListCallId:
+          this.handleGetIdTypeListResponse(responseJson);
+          break;
+        case this.CreateTenantCallId:
+          this.handleSubmitRegisterTenantResponse(responseJson);
+          break;
+        case this.CreateTenantForContractCallId:
+          this.handleSubmitTenantForContractResponse(responseJson);
+          break;
+        case this.GetTenantDetailsCallId:
+          this.handleGetTenantDetailsResponse(responseJson);
+          break;
+        case this.CreateContractCallId:
+          this.handleSubmitTenantContractResponse(responseJson);
+          break;
+        case this.GetTenantDetailsForEditCallId:
+          this.handleGetTenantDetailsForEditResponse(responseJson);
+          break;
+        case this.EditTenantCallId:
+          this.handleEditTenantResponse(responseJson);
+          break;
+        case this.IsTenantExistCallId:
+          this.handleCheckTenantExistResponse(responseJson);
+          break;
+        default:
+          break;
       }
 
-      var errorResponse = message.getData(getName(MessageEnum.RestAPIResponceErrorMessage));
       if (responseJson && responseJson.meta && responseJson.meta.token) {
         runEngine.unSubscribeFromMessages(this, this.subScribedMessages);
       } else {
@@ -136,278 +167,7 @@ export default class RegisterTenantController extends BlockComponent<Props, S, S
       }
       ApiCatchErrorResponse(errorResponse);
     }
-
-    // Get All Unit List - API Response
-    if (
-      getName(MessageEnum.RestAPIResponceMessage) === message.id &&
-      this.GetUnitListCallId !== null &&
-      this.GetUnitListCallId === message.getData(getName(MessageEnum.RestAPIResponceDataMessage))
-    ) {
-      this.GetUnitListCallId = null;
-
-      var responseJson = message.getData(getName(MessageEnum.RestAPIResponceSuccessMessage));
-
-      if (responseJson.apartments) {
-        this.setState({ unitList: responseJson.apartments });
-      }
-
-      var errorResponse = message.getData(getName(MessageEnum.RestAPIResponceErrorMessage));
-      if (responseJson && responseJson.meta && responseJson.meta.token) {
-        runEngine.unSubscribeFromMessages(this, this.subScribedMessages);
-      } else {
-        ApiErrorResponse(responseJson);
-      }
-      ApiCatchErrorResponse(errorResponse);
-    }
-
-    // Get All Id Type List - API Response
-    if (
-      getName(MessageEnum.RestAPIResponceMessage) === message.id &&
-      this.GetIDTypeListCallId !== null &&
-      this.GetIDTypeListCallId === message.getData(getName(MessageEnum.RestAPIResponceDataMessage))
-    ) {
-      this.GetIDTypeListCallId = null;
-
-      var responseJson = message.getData(getName(MessageEnum.RestAPIResponceSuccessMessage));
-
-      if (responseJson.relaions) {
-        this.setState({ idTypeList: responseJson.relaions });
-      }
-
-      var errorResponse = message.getData(getName(MessageEnum.RestAPIResponceErrorMessage));
-      if (responseJson && responseJson.meta && responseJson.meta.token) {
-        runEngine.unSubscribeFromMessages(this, this.subScribedMessages);
-      } else {
-        ApiErrorResponse(responseJson);
-      }
-      ApiCatchErrorResponse(errorResponse);
-    }
-
-    // Create Tenant - API Response
-    if (
-      getName(MessageEnum.RestAPIResponceMessage) === message.id &&
-      this.CreateTenantCallId !== null &&
-      this.CreateTenantCallId === message.getData(getName(MessageEnum.RestAPIResponceDataMessage))
-    ) {
-      this.CreateTenantCallId = null;
-
-      var responseJson = message.getData(getName(MessageEnum.RestAPIResponceSuccessMessage));
-
-      this.setState({ loading: false }, () => {
-        if (responseJson && responseJson.data) {
-          toast.success("Tenant created successfully");
-          if (this.state.isNowContract) {
-            this.props.navigation.navigate("IssueLease");
-          } else {
-            this.props.navigation.navigate("TenantList");
-          }
-        }
-      });
-
-      var errorResponse = message.getData(getName(MessageEnum.RestAPIResponceErrorMessage));
-      if (responseJson && responseJson.meta && responseJson.meta.token) {
-        runEngine.unSubscribeFromMessages(this, this.subScribedMessages);
-      } else {
-        ApiErrorResponse(responseJson);
-      }
-      ApiCatchErrorResponse(errorResponse);
-    }
-
-    // Create Tenant For Contract - API Response
-    if (
-      getName(MessageEnum.RestAPIResponceMessage) === message.id &&
-      this.CreateTenantForContractCallId !== null &&
-      this.CreateTenantForContractCallId === message.getData(getName(MessageEnum.RestAPIResponceDataMessage))
-    ) {
-      this.CreateTenantForContractCallId = null;
-
-      var responseJson = message.getData(getName(MessageEnum.RestAPIResponceSuccessMessage));
-
-      if (responseJson.data) {
-        this.setState({ tenantId: responseJson.data.id }, () => {
-          this.getTenantDetails();
-        });
-      }
-
-      var errorResponse = message.getData(getName(MessageEnum.RestAPIResponceErrorMessage));
-      if (responseJson && responseJson.meta && responseJson.meta.token) {
-        runEngine.unSubscribeFromMessages(this, this.subScribedMessages);
-      } else {
-        ApiErrorResponse(responseJson);
-      }
-      ApiCatchErrorResponse(errorResponse);
-    }
-
-    // Get Tenant Details - API Response
-    if (
-      getName(MessageEnum.RestAPIResponceMessage) === message.id &&
-      this.GetTenantDetailsCallId !== null &&
-      this.GetTenantDetailsCallId === message.getData(getName(MessageEnum.RestAPIResponceDataMessage))
-    ) {
-      this.GetTenantDetailsCallId = null;
-
-      var responseJson = message.getData(getName(MessageEnum.RestAPIResponceSuccessMessage));
-
-      if (responseJson.code === 200) {
-        this.setState({ tenantDetails: responseJson.tenant.data }, () => {
-          this.handleSubmitTenantContract();
-        });
-      }
-
-      var errorResponse = message.getData(getName(MessageEnum.RestAPIResponceErrorMessage));
-      if (responseJson && responseJson.meta && responseJson.meta.token) {
-        runEngine.unSubscribeFromMessages(this, this.subScribedMessages);
-      } else {
-        ApiErrorResponse(responseJson);
-      }
-      ApiCatchErrorResponse(errorResponse);
-    }
-
-    // Create Contract  - API Response
-    if (
-      getName(MessageEnum.RestAPIResponceMessage) === message.id &&
-      this.CreateContractCallId !== null &&
-      this.CreateContractCallId === message.getData(getName(MessageEnum.RestAPIResponceDataMessage))
-    ) {
-      this.CreateContractCallId = null;
-
-      var responseJson = message.getData(getName(MessageEnum.RestAPIResponceSuccessMessage));
-
-      this.setState({ loading: false }, () => {
-        if (responseJson.code === 200) {
-          toast.success("Tenant created successfully");
-          this.props.navigation.navigate("TenantList");
-        }
-      });
-
-      var errorResponse = message.getData(getName(MessageEnum.RestAPIResponceErrorMessage));
-      if (responseJson && responseJson.meta && responseJson.meta.token) {
-        runEngine.unSubscribeFromMessages(this, this.subScribedMessages);
-      } else {
-        ApiErrorResponse(responseJson);
-      }
-      ApiCatchErrorResponse(errorResponse);
-    }
-
-    // Get Tenant Details For Edit - API Response
-    if (
-      getName(MessageEnum.RestAPIResponceMessage) === message.id &&
-      this.GetTenantDetailsForEditCallId !== null &&
-      this.GetTenantDetailsForEditCallId === message.getData(getName(MessageEnum.RestAPIResponceDataMessage))
-    ) {
-      this.GetTenantDetailsForEditCallId = null;
-
-      var responseJson = message.getData(getName(MessageEnum.RestAPIResponceSuccessMessage));
-
-      if (responseJson.code === 200) {
-        const tenant = responseJson.tenant.data;
-
-        const IdCardCopy: any[] = [tenant.attributes.tenant_id_copy];
-
-        const IdCardCopyUrlPromise: any[] = IdCardCopy.map(async (file: any) => {
-          return new Promise(async (resolve, reject) => {
-            let blobString = await this.fileUrlToDataURL(file.url);
-            resolve(blobString);
-          });
-        });
-
-        let IdCardCopyFilesPromise = await Promise.allSettled(IdCardCopyUrlPromise);
-        let IdCardCopyFiles = IdCardCopyFilesPromise.map((file: any) => file.value);
-
-        const IdCardFile = IdCardCopyFiles.map((blobString: any, index: number) => {
-          return this.dataURLtoFileObject(blobString, IdCardCopy[index].file_name);
-        });
-
-        const otherDocumentUrlPromise: any[] = tenant.attributes.tenant_documents.map(async (file: any) => {
-          return new Promise(async (resolve, reject) => {
-            let blobString = await this.fileUrlToDataURL(file.url);
-            resolve(blobString);
-          });
-        });
-
-        let otherDocumentFilesPromise = await Promise.allSettled(otherDocumentUrlPromise);
-        let otherDocumentFiles = otherDocumentFilesPromise.map((file: any) => file.value);
-
-        const otherDocumentFile = otherDocumentFiles.map((blobString: any, index: number) => {
-          return this.dataURLtoFileObject(blobString, tenant.attributes.tenant_documents[index].file_name);
-        });
-
-        this.setState({
-          loading: false,
-          registerTenantForm: {
-            tenantType: tenant.attributes.tenant_type,
-            tenantName: tenant.attributes.tenant.full_name,
-            tenantCountryCode: tenant.attributes.phone_number.split("-")[0],
-            tenantMobile: tenant.attributes.phone_number.split("-")[1],
-            tenantEmail: tenant.attributes.email,
-            building: tenant.attributes.building_management.name,
-            unit: tenant.attributes.apartment_management.apartment_name,
-            idType: tenant.attributes.id_proof.id,
-            idNumber: tenant.attributes.id_number,
-            idDate: tenant.attributes.id_expectation_date,
-            idCard: IdCardFile,
-            otherDocument: otherDocumentFile,
-          },
-        });
-      }
-
-      var errorResponse = message.getData(getName(MessageEnum.RestAPIResponceErrorMessage));
-      if (responseJson && responseJson.meta && responseJson.meta.token) {
-        runEngine.unSubscribeFromMessages(this, this.subScribedMessages);
-      } else {
-        ApiErrorResponse(responseJson);
-      }
-      ApiCatchErrorResponse(errorResponse);
-    }
-
-    // Edit Tenant - API Response
-    if (
-      getName(MessageEnum.RestAPIResponceMessage) === message.id &&
-      this.EditTenantCallId !== null &&
-      this.EditTenantCallId === message.getData(getName(MessageEnum.RestAPIResponceDataMessage))
-    ) {
-      this.EditTenantCallId = null;
-
-      var responseJson = message.getData(getName(MessageEnum.RestAPIResponceSuccessMessage));
-
-      this.setState({ loading: false }, () => {
-        if (responseJson && responseJson.data) {
-          toast.success("Tenant updated successfully");
-          this.props.navigation.navigate("TenantDetails", { id: responseJson.data.id });
-        }
-      });
-
-      var errorResponse = message.getData(getName(MessageEnum.RestAPIResponceErrorMessage));
-      if (responseJson && responseJson.meta && responseJson.meta.token) {
-        runEngine.unSubscribeFromMessages(this, this.subScribedMessages);
-      } else {
-        ApiErrorResponse(responseJson);
-      }
-      ApiCatchErrorResponse(errorResponse);
-    }
-
-    // Find Unit Tenant Exist - API Response
-    if (
-      getName(MessageEnum.RestAPIResponceMessage) === message.id &&
-      this.IsTenantExistCallId !== null &&
-      this.IsTenantExistCallId === message.getData(getName(MessageEnum.RestAPIResponceDataMessage))
-    ) {
-      this.IsTenantExistCallId = null;
-
-      var responseJson = message.getData(getName(MessageEnum.RestAPIResponceSuccessMessage));
-
-      if (responseJson && responseJson.account) {
-        this.setState({ isTenant: responseJson.account });
-      }
-
-      var errorResponse = message.getData(getName(MessageEnum.RestAPIResponceErrorMessage));
-      if (responseJson && responseJson.meta && responseJson.meta.token) {
-        runEngine.unSubscribeFromMessages(this, this.subScribedMessages);
-      } else {
-        ApiErrorResponse(responseJson);
-      }
-      ApiCatchErrorResponse(errorResponse);
-    }
+    // Customizable Area End
   }
 
   uploadIDCard: any;
@@ -438,6 +198,12 @@ export default class RegisterTenantController extends BlockComponent<Props, S, S
     return true;
   };
 
+  handleGetBuildingListResponse = (responseJson: any) => {
+    if (responseJson && responseJson.buildings) {
+      this.setState({ buildingList: responseJson.buildings });
+    }
+  };
+
   getUnitList = (building: any) => {
     const header = {
       "Content-Type": configJSON.ApiContentType,
@@ -462,6 +228,12 @@ export default class RegisterTenantController extends BlockComponent<Props, S, S
     return true;
   };
 
+  handleGetUnitListResponse = (responseJson: any) => {
+    if (responseJson && responseJson.apartments) {
+      this.setState({ unitList: responseJson.apartments });
+    }
+  };
+
   getIdTypeList = () => {
     const header = {
       "Content-Type": configJSON.ApiContentType,
@@ -480,6 +252,12 @@ export default class RegisterTenantController extends BlockComponent<Props, S, S
 
     runEngine.sendMessage(apiRequest.id, apiRequest);
     return true;
+  };
+
+  handleGetIdTypeListResponse = (responseJson: any) => {
+    if (responseJson && responseJson.relaions) {
+      this.setState({ idTypeList: responseJson.relaions });
+    }
   };
 
   // Find Unit Tenant Exist - API
@@ -507,10 +285,16 @@ export default class RegisterTenantController extends BlockComponent<Props, S, S
     return true;
   };
 
+  handleCheckTenantExistResponse = (responseJson: any) => {
+    if (responseJson) {
+      this.setState({ isTenant: responseJson.account !== null });
+    }
+  };
+
   handleSubmitRegisterTenant = (values: TenantForm, isNowContract: boolean) => {
     this.setState({ loading: true, isNowContract: isNowContract });
     const otherDocument: any = [...values.otherDocument];
-    var data = new FormData();
+    let data = new FormData();
     data.append("[tenant_resquest][name]", values.tenantName);
     data.append("[tenant_resquest][phone_number]", values.tenantCountryCode + "-" + values.tenantMobile);
     data.append("[tenant_resquest][email]", values.tenantEmail);
@@ -545,11 +329,25 @@ export default class RegisterTenantController extends BlockComponent<Props, S, S
     return true;
   };
 
+  handleSubmitRegisterTenantResponse = (responseJson: any) => {
+    this.setState({ loading: false }, () => {
+      if (responseJson && responseJson.data) {
+        toast.success("Tenant created successfully");
+        localStorage.removeItem("isComingFromContract");
+        if (this.state.isNowContract) {
+          this.props.navigation.navigate("IssueLease");
+        } else {
+          this.props.navigation.navigate("TenantList");
+        }
+      }
+    });
+  };
+
   handleEditTenant = (values: TenantForm) => {
     this.setState({ loading: true });
     const otherDocument: any = [...values.otherDocument];
 
-    var data = new FormData();
+    let data = new FormData();
     data.append("[tenant_resquest][name]", values.tenantName);
     data.append("[tenant_resquest][phone_number]", values.tenantCountryCode + "-" + values.tenantMobile);
     data.append("[tenant_resquest][id_proof_id]", values.idType);
@@ -584,6 +382,15 @@ export default class RegisterTenantController extends BlockComponent<Props, S, S
     return true;
   };
 
+  handleEditTenantResponse = (responseJson: any) => {
+    this.setState({ loading: false }, () => {
+      if (responseJson && responseJson.data) {
+        toast.success("Tenant updated successfully");
+        this.props.navigation.navigate("TenantDetails", { id: responseJson.data.id });
+      }
+    });
+  };
+
   getTenantDetails = () => {
     const header = {
       "Content-Type": configJSON.ApiContentType,
@@ -605,6 +412,14 @@ export default class RegisterTenantController extends BlockComponent<Props, S, S
 
     runEngine.sendMessage(apiRequest.id, apiRequest);
     return true;
+  };
+
+  handleGetTenantDetailsResponse = (responseJson: any) => {
+    if (responseJson.code === 200) {
+      this.setState({ tenantDetails: responseJson.tenant.data }, () => {
+        this.handleSubmitTenantContract();
+      });
+    }
   };
 
   getTenantDetailsForEdit = () => {
@@ -629,6 +444,60 @@ export default class RegisterTenantController extends BlockComponent<Props, S, S
 
     runEngine.sendMessage(apiRequest.id, apiRequest);
     return true;
+  };
+
+  handleGetTenantDetailsForEditResponse = async (responseJson: any) => {
+    if (responseJson.code === 200) {
+      const tenant = responseJson.tenant.data;
+
+      const IdCardCopy: any[] = [tenant.attributes.tenant_id_copy];
+
+      const IdCardCopyUrlPromise: any[] = IdCardCopy.map(async (file: any) => {
+        return new Promise(async (resolve, reject) => {
+          let blobString = await this.fileUrlToDataURL(file.url);
+          resolve(blobString);
+        });
+      });
+
+      let IdCardCopyFilesPromise = await Promise.allSettled(IdCardCopyUrlPromise);
+      let IdCardCopyFiles = IdCardCopyFilesPromise.map((file: any) => file.value);
+
+      const IdCardFile = IdCardCopyFiles.map((blobString: any, index: number) => {
+        return this.dataURLtoFileObject(blobString, IdCardCopy[index].file_name);
+      });
+
+      const otherDocumentUrlPromise: any[] = tenant.attributes.tenant_documents.map(async (file: any) => {
+        return new Promise(async (resolve, reject) => {
+          let blobString = await this.fileUrlToDataURL(file.url);
+          resolve(blobString);
+        });
+      });
+
+      let otherDocumentFilesPromise = await Promise.allSettled(otherDocumentUrlPromise);
+      let otherDocumentFiles = otherDocumentFilesPromise.map((file: any) => file.value);
+
+      const otherDocumentFile = otherDocumentFiles.map((blobString: any, index: number) => {
+        return this.dataURLtoFileObject(blobString, tenant.attributes.tenant_documents[index].file_name);
+      });
+
+      this.setState({
+        loading: false,
+        registerTenantForm: {
+          tenantType: tenant.attributes.tenant_type,
+          tenantName: tenant.attributes.tenant.full_name,
+          tenantCountryCode: tenant.attributes.phone_number.split("-")[0],
+          tenantMobile: tenant.attributes.phone_number.split("-")[1],
+          tenantEmail: tenant.attributes.email,
+          building: tenant.attributes.building_management.name,
+          unit: tenant.attributes.apartment_management.apartment_name,
+          idType: tenant.attributes.id_proof.id,
+          idNumber: tenant.attributes.id_number,
+          idDate: tenant.attributes.id_expectation_date,
+          idCard: IdCardFile,
+          otherDocument: otherDocumentFile,
+        },
+      });
+    }
   };
 
   // Create Tenant For Contract - API
@@ -670,6 +539,14 @@ export default class RegisterTenantController extends BlockComponent<Props, S, S
     return true;
   };
 
+  handleSubmitTenantForContractResponse = (responseJson: any) => {
+    if (responseJson && responseJson.data) {
+      this.setState({ tenantId: responseJson.data.id }, () => {
+        this.getTenantDetails();
+      });
+    }
+  };
+
   handleSubmitTenantContract = () => {
     var data = new FormData();
     data.append("[contract][apartment_management_id]", this.state.tenantDetails.attributes.apartment_management_id);
@@ -709,6 +586,15 @@ export default class RegisterTenantController extends BlockComponent<Props, S, S
     return true;
   };
 
+  handleSubmitTenantContractResponse = (responseJson: any) => {
+    this.setState({ loading: false }, () => {
+      if (responseJson.code === 200) {
+        toast.success("Tenant created successfully");
+        this.props.navigation.navigate("TenantList");
+      }
+    });
+  };
+
   validationRegisterTenantFormSchema: any = Yup.object().shape({
     tenantType: Yup.string()
       .required("Required")
@@ -733,7 +619,7 @@ export default class RegisterTenantController extends BlockComponent<Props, S, S
       .matches(/\S/, "Required")
       .test("unit", "Already tenant available to this unit", (value: any) => {
         if (value) {
-          return this.state.isTenant === null;
+          return this.state.isTenant === false;
         }
         return true;
       }),

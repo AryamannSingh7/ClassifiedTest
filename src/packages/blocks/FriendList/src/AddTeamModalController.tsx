@@ -115,9 +115,9 @@ export default class FriendListController extends BlockComponent<
     this.setState({
       selectedUser:{
         name:updatedData[0].attributes.full_name,
-        email:updatedData[0].attributes.email_address,
+        email:updatedData[0].attributes.email,
         phone:updatedData[0].attributes.phone_number,
-        buildingName:updatedData[0].attributes.building_management.name,
+        buildingName:updatedData[0].attributes.building_management.building_name,
         buildingId:updatedData[0].attributes.building_management.id,
         unitName:updatedData[0].attributes.apartment_management.apartment_name,
         unitId:updatedData[0].attributes.apartment_management.id
@@ -125,10 +125,18 @@ export default class FriendListController extends BlockComponent<
       userId:id,
       userError:""
     })
+    console.log("USER DATA",updatedData)
   }
 
   handleSubmit = () => {
     if(this.state.userId !== "" && this.state.roleId !== ""){
+      const data = {
+        "email":this.state.selectedUser.email,
+        "account_id": this.state.userId,
+        "building_management_id": this.state.selectedUser.buildingId,
+        "role_id": this.state.roleId,
+        "apartment_management_id": this.state.selectedUser.unitId
+      }
       let formdata = new FormData();
       formdata.append("team_member[email]",  this.state.selectedUser.email);
       formdata.append("team_member[role_id]", this.state.roleId);
@@ -139,7 +147,7 @@ export default class FriendListController extends BlockComponent<
       if(this.props.editId){
         this.updateTeamMember(this.props.editId.id,this.state.roleId)
       }else{
-        this.createTeamMember(formdata)
+        this.createTeamMember(data)
       }
 
     }else{
@@ -196,7 +204,7 @@ export default class FriendListController extends BlockComponent<
     this.createTeamMemberId = await this.apiCall({
       method:"POST",
       endPoint: `bx_block_my_team/team_members`,
-      body:data
+      body:JSON.stringify(data)
     });
   }
 
@@ -282,7 +290,7 @@ export default class FriendListController extends BlockComponent<
             })
           }else{
             this.setState({
-              roleList:responseJson?.data?.roles,
+              roleList:responseJson?.data,
             })
           }
         }else{

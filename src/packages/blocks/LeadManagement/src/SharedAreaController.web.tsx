@@ -6,7 +6,6 @@ import { runEngine } from "../../../framework/src/RunEngine";
 
 // Customizable Area Start
 import * as Yup from "yup";
-import { imgPasswordInVisible, imgPasswordVisible } from "./assets";
 import { ApiCatchErrorResponse, ApiErrorResponse } from "../../../components/src/APIErrorResponse";
 import toast from "react-hot-toast";
 // Customizable Area End
@@ -56,6 +55,7 @@ interface SharedAreaData {
   totalArea: string;
   reservationFee: string;
   floorPlan: any;
+  currency: string;
 }
 
 interface SS {
@@ -93,6 +93,7 @@ export default class SharedAreaController extends BlockComponent<Props, S, SS> {
         totalArea: "",
         reservationFee: "",
         floorPlan: null,
+        currency: "",
       },
 
       editForm: {
@@ -114,30 +115,30 @@ export default class SharedAreaController extends BlockComponent<Props, S, SS> {
   async receive(from: string, message: Message) {
     runEngine.debugLog("Message Recived", message);
 
-    // Get Unit Detail API Response
-    if (
-      getName(MessageEnum.RestAPIResponceMessage) === message.id &&
-      this.GetSharedAreaDetailsCallId !== null &&
-      this.GetSharedAreaDetailsCallId === message.getData(getName(MessageEnum.RestAPIResponceDataMessage))
-    ) {
-      this.GetSharedAreaDetailsCallId = null;
+    // Customizable Area Start
+    if (getName(MessageEnum.RestAPIResponceMessage) === message.id) {
+      let responseJson = message.getData(getName(MessageEnum.RestAPIResponceSuccessMessage));
+      let errorResponse = message.getData(getName(MessageEnum.RestAPIResponceErrorMessage));
 
-      var responseJson = message.getData(getName(MessageEnum.RestAPIResponceSuccessMessage));
+      const apiRequestCallId = message.getData(getName(MessageEnum.RestAPIResponceDataMessage));
 
-      if (responseJson.data) {
-        this.setState({
-          sharedAreaData: {
-            name: responseJson.data.attributes.name,
-            photos: responseJson.data.attributes.photos,
-            details: responseJson.data.attributes.details,
-            totalArea: responseJson.data.attributes.total_area,
-            reservationFee: responseJson.data.attributes.reservation_fee,
-            floorPlan: responseJson.data.attributes.floor_plan,
-          },
-        });
+      switch (apiRequestCallId) {
+        case this.GetSharedAreaDetailsCallId:
+          this.handleGetSharedAreaDetailsResponse(responseJson);
+          break;
+        case this.EditSharedAreaCallId:
+          this.handleSaveSharedAreaDetailsResponse(responseJson);
+          break;
+        case this.GetBuildingCallId:
+          this.handleBuildingsListResponse(responseJson);
+          break;
+        case this.GetUpcomingReservationListCallId:
+          this.handleUpcomingReservationListResponse(responseJson);
+          break;
+        default:
+          break;
       }
 
-      var errorResponse = message.getData(getName(MessageEnum.RestAPIResponceErrorMessage));
       if (responseJson && responseJson.meta && responseJson.meta.token) {
         runEngine.unSubscribeFromMessages(this, this.subScribedMessages);
       } else {
@@ -145,78 +146,7 @@ export default class SharedAreaController extends BlockComponent<Props, S, SS> {
       }
       ApiCatchErrorResponse(errorResponse);
     }
-
-    // Edit Shared Area API Response
-    if (
-      getName(MessageEnum.RestAPIResponceMessage) === message.id &&
-      this.EditSharedAreaCallId !== null &&
-      this.EditSharedAreaCallId === message.getData(getName(MessageEnum.RestAPIResponceDataMessage))
-    ) {
-      this.EditSharedAreaCallId = null;
-
-      var responseJson = message.getData(getName(MessageEnum.RestAPIResponceSuccessMessage));
-
-      if (responseJson.data) {
-        this.setState({ loading: false }, () => {
-          toast.success("Details updated successfully");
-          this.getSharedAreaDetail();
-        });
-      }
-
-      var errorResponse = message.getData(getName(MessageEnum.RestAPIResponceErrorMessage));
-      if (responseJson && responseJson.meta && responseJson.meta.token) {
-        runEngine.unSubscribeFromMessages(this, this.subScribedMessages);
-      } else {
-        ApiErrorResponse(responseJson);
-      }
-      ApiCatchErrorResponse(errorResponse);
-    }
-
-    // Edit Shared Area API Response
-    if (
-      getName(MessageEnum.RestAPIResponceMessage) === message.id &&
-      this.GetBuildingCallId !== null &&
-      this.GetBuildingCallId === message.getData(getName(MessageEnum.RestAPIResponceDataMessage))
-    ) {
-      this.GetBuildingCallId = null;
-
-      var responseJson = message.getData(getName(MessageEnum.RestAPIResponceSuccessMessage));
-
-      if (responseJson.data) {
-        this.setState({ buildings: responseJson.data.buildings });
-      }
-
-      var errorResponse = message.getData(getName(MessageEnum.RestAPIResponceErrorMessage));
-      if (responseJson && responseJson.meta && responseJson.meta.token) {
-        runEngine.unSubscribeFromMessages(this, this.subScribedMessages);
-      } else {
-        ApiErrorResponse(responseJson);
-      }
-      ApiCatchErrorResponse(errorResponse);
-    }
-
-    // Edit Shared Area API Response
-    if (
-      getName(MessageEnum.RestAPIResponceMessage) === message.id &&
-      this.GetUpcomingReservationListCallId !== null &&
-      this.GetUpcomingReservationListCallId === message.getData(getName(MessageEnum.RestAPIResponceDataMessage))
-    ) {
-      this.GetUpcomingReservationListCallId = null;
-
-      var responseJson = message.getData(getName(MessageEnum.RestAPIResponceSuccessMessage));
-
-      if (responseJson.data) {
-        this.setState({ reservationList: responseJson.data });
-      }
-
-      var errorResponse = message.getData(getName(MessageEnum.RestAPIResponceErrorMessage));
-      if (responseJson && responseJson.meta && responseJson.meta.token) {
-        runEngine.unSubscribeFromMessages(this, this.subScribedMessages);
-      } else {
-        ApiErrorResponse(responseJson);
-      }
-      ApiCatchErrorResponse(errorResponse);
-    }
+    // Customizable Area End
   }
 
   // Customizable Area Start
@@ -259,23 +189,41 @@ export default class SharedAreaController extends BlockComponent<Props, S, SS> {
     return true;
   };
 
+  handleGetSharedAreaDetailsResponse = (responseJson: any) => {
+    if (responseJson && responseJson.data) {
+      this.setState({
+        sharedAreaData: {
+          name: responseJson.data.attributes.name,
+          photos: responseJson.data.attributes.photos,
+          details: responseJson.data.attributes.details,
+          totalArea: responseJson.data.attributes.total_area,
+          reservationFee: responseJson.data.attributes.reservation_fee,
+          floorPlan: responseJson.data.attributes.floor_plan,
+          currency: responseJson.data.attributes.currency ? responseJson.data.attributes.currency.currency : "",
+        },
+      });
+    }
+  };
+
   // Edit Shared Area API
   handleSaveSharedAreaDetails = (values: SharedAreaEditForm) => {
     this.setState({ loading: true });
 
-    var data = new FormData();
-
-    var data = new FormData();
+    let data = new FormData();
     data.append("common_area[details]", values.details);
     data.append("common_area[total_area]", values.totalArea);
     data.append("common_area[reservation_fee]", values.fees);
-    values.photos.map((image: any) => {
+    values.photos.forEach((image: any) => {
       data.append("common_area[photos][]", this.dataURLtoFile(image));
     });
     if (typeof values.floorPlan === "object" && values.floorPlan !== null) {
       data.append("common_area[floor_plan]", values.floorPlan);
     }
 
+    this.handleAPIEditSharedArea(data);
+  };
+
+  handleAPIEditSharedArea = (data: any) => {
     const header = {
       token: localStorage.getItem("userToken"),
     };
@@ -299,6 +247,15 @@ export default class SharedAreaController extends BlockComponent<Props, S, SS> {
     return true;
   };
 
+  handleSaveSharedAreaDetailsResponse = (responseJson: any) => {
+    if (responseJson && responseJson.data) {
+      this.setState({ loading: false }, () => {
+        toast.success("Details updated successfully");
+        this.getSharedAreaDetail();
+      });
+    }
+  };
+
   // Get Upcoming Reservation List API
   getUpcomingReservationList = () => {
     const header = {
@@ -310,10 +267,11 @@ export default class SharedAreaController extends BlockComponent<Props, S, SS> {
 
     this.GetUpcomingReservationListCallId = apiRequest.messageId;
 
-    const society_id = localStorage.getItem("society_id");
     apiRequest.addData(
       getName(MessageEnum.RestAPIResponceEndPointMessage),
-      `bx_block_society_management/facility_reservations/upcoming_reservation?common_area_id=${this.state.sharedAreaId}&search_building=${this.state.selectedBuilding}`
+      `bx_block_society_management/facility_reservations/upcoming_reservation?common_area_id=${
+        this.state.sharedAreaId
+      }&search_building=${this.state.selectedBuilding}`
     );
 
     apiRequest.addData(getName(MessageEnum.RestAPIRequestHeaderMessage), JSON.stringify(header));
@@ -322,6 +280,12 @@ export default class SharedAreaController extends BlockComponent<Props, S, SS> {
 
     runEngine.sendMessage(apiRequest.id, apiRequest);
     return true;
+  };
+
+  handleUpcomingReservationListResponse = (responseJson: any) => {
+    if (responseJson && responseJson.data) {
+      this.setState({ reservationList: responseJson.data });
+    }
   };
 
   // Get Buildings List API
@@ -349,6 +313,12 @@ export default class SharedAreaController extends BlockComponent<Props, S, SS> {
     return true;
   };
 
+  handleBuildingsListResponse = (responseJson: any) => {
+    if (responseJson && responseJson.data) {
+      this.setState({ buildings: responseJson.data.buildings });
+    }
+  };
+
   slider: any;
   uploadFile: any;
   uploadImages: any;
@@ -362,7 +332,7 @@ export default class SharedAreaController extends BlockComponent<Props, S, SS> {
   };
 
   dataURLtoFile = (dataurl: any) => {
-    var arr = dataurl.split(","),
+    let arr = dataurl.split(","),
       mime = arr[0].match(/:(.*?);/)[1],
       bstr = atob(arr[1]),
       n = bstr.length,
@@ -374,7 +344,7 @@ export default class SharedAreaController extends BlockComponent<Props, S, SS> {
   };
 
   editAreaDetailValidation = Yup.object().shape({
-    floorPlan: Yup.mixed().required("Required"),
+    // floorPlan: Yup.mixed().required("Required"),
     details: Yup.string()
       .required("Required")
       .matches(/\S/, "Required"),
@@ -411,6 +381,10 @@ export default class SharedAreaController extends BlockComponent<Props, S, SS> {
     });
     let photos = await Promise.allSettled(imageUrlPromise);
 
+    this.handleSharedAreaEditState(photos);
+  };
+
+  handleSharedAreaEditState = (photos: any) => {
     this.setState(
       {
         loading: false,
@@ -419,8 +393,8 @@ export default class SharedAreaController extends BlockComponent<Props, S, SS> {
           details: this.state.sharedAreaData.details || "",
           totalArea: this.state.sharedAreaData.totalArea || "",
           fees: this.state.sharedAreaData.reservationFee || "",
-          floorPlan: this.state.sharedAreaData.floorPlan?.url || "",
-          floorPlanName: this.state.sharedAreaData.floorPlan?.file_name || "",
+          floorPlan: this.state.sharedAreaData.floorPlan ? this.state.sharedAreaData.floorPlan.url : "",
+          floorPlanName: this.state.sharedAreaData.floorPlan ? this.state.sharedAreaData.floorPlan.file_name : "",
         },
       },
       () => {

@@ -6,7 +6,7 @@ import DashboardHeader from "../../dashboard/src/DashboardHeader.web";
 import ChairmanSidebarWeb from "../../dashboard/src/ChairmanSidebar.web";
 import { SuggestionStyleWeb } from "./SuggestionStyle.web";
 import { avatarIcon, calenderIcon, phone } from "./assets";
-
+import { withRouter } from 'react-router';
 class SuggestionDetails extends SuggestionsController {
   constructor(props: Props) {
     super(props);
@@ -94,14 +94,17 @@ class SuggestionDetails extends SuggestionsController {
                   <Box className="responses-box">
                     {
                       item?.attributes?.response.length>0 && 
-                    <Card>
+                      item?.attributes?.response.map((data:any)=><>
+                       <Card>
                       <Box className="response">
                         <p>
-                          Response By: <span>Ali Khan</span>
+                          Response By: <span>{item?.attributes?.sent_by?.name || 'N/A'}</span>
                         </p>
-                        <pre>Hi Ali! Your Suggestion sounds good. Thanks for the suggestion.</pre>
+                        <pre>{data}</pre>
                       </Box>
                     </Card>
+                      </>)
+                   
                     }
                   </Box>
                 </Box>
@@ -113,6 +116,7 @@ class SuggestionDetails extends SuggestionsController {
     );
   }
 }
-
-export default withStyles(SuggestionStyleWeb)(SuggestionDetails);
+// @ts-ignore
+// @ts-nocheck
+export default withRouter(withStyles(SuggestionStyleWeb)(SuggestionDetails));
 // Customizable Area End

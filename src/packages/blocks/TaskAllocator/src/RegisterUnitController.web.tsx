@@ -40,6 +40,7 @@ interface UnitRegisterForm {
   type: string;
   income: string;
   valuation: string;
+  measurement: string;
 }
 
 interface S {
@@ -50,11 +51,14 @@ interface S {
   floorList: any[];
   unitList: any[];
   rentHistoryList: any[];
+  configList: any[];
 
   unitRegisterForm: UnitRegisterForm;
 
   rentHistoryForm: RentHistoryForm;
   unitId: string;
+
+  currency: string;
 
   lat: string;
   long: string;
@@ -77,6 +81,7 @@ export default class RegisterUnitController extends BlockComponent<Props, S, SS>
   RegisterUnitCallId: any;
   GetEditUnitDetailsCallId: any;
   EditRegisterUnitCallId: any;
+  GetConfigurationListCallId: any;
 
   constructor(props: Props) {
     super(props);
@@ -93,6 +98,7 @@ export default class RegisterUnitController extends BlockComponent<Props, S, SS>
       floorList: [],
       unitList: [],
       rentHistoryList: [],
+      configList: [],
 
       unitRegisterForm: {
         country: "",
@@ -109,6 +115,7 @@ export default class RegisterUnitController extends BlockComponent<Props, S, SS>
         type: "Rented",
         income: "",
         valuation: "",
+        measurement: "",
       },
 
       rentHistoryForm: {
@@ -120,6 +127,8 @@ export default class RegisterUnitController extends BlockComponent<Props, S, SS>
       },
       unitId: "",
 
+      currency: "",
+
       lat: "",
       long: "",
     };
@@ -128,21 +137,51 @@ export default class RegisterUnitController extends BlockComponent<Props, S, SS>
 
   async receive(from: string, message: Message) {
     runEngine.debugLog("Message Recived", message);
-    // Building List - API Response
-    if (
-      getName(MessageEnum.RestAPIResponceMessage) === message.id &&
-      this.GetBuildingListCallId !== null &&
-      this.GetBuildingListCallId === message.getData(getName(MessageEnum.RestAPIResponceDataMessage))
-    ) {
-      this.GetBuildingListCallId = null;
 
-      var responseJson = message.getData(getName(MessageEnum.RestAPIResponceSuccessMessage));
+    // Customizable Area Start
+    if (getName(MessageEnum.RestAPIResponceMessage) === message.id) {
+      let responseJson = message.getData(getName(MessageEnum.RestAPIResponceSuccessMessage));
+      let errorResponse = message.getData(getName(MessageEnum.RestAPIResponceErrorMessage));
 
-      if (responseJson && responseJson.data) {
-        this.setState({ buildingList: responseJson.data.buildings });
+      const apiRequestCallId = message.getData(getName(MessageEnum.RestAPIResponceDataMessage));
+
+      switch (apiRequestCallId) {
+        case this.GetBuildingListCallId:
+          this.handleBuildingListResponse(responseJson);
+          break;
+        case this.GetFloorListCallId:
+          this.handleFloorListResponse(responseJson);
+          break;
+        case this.GetUnitListCallId:
+          this.handleUnitListResponse(responseJson);
+          break;
+        case this.GetRentHistoryListCallId:
+          this.handleRentHistoryResponse(responseJson);
+          break;
+        case this.CreateRentHistoryCallId:
+          this.handleAddRentHistoryResponse(responseJson);
+          break;
+        case this.DeleteRentHistoriesCallId:
+          this.handleDeleteRentHistoriesResponse(responseJson);
+          break;
+        case this.RegisterUnitCallId:
+          this.handleRegisterUnitToOwnerResponse(responseJson);
+          break;
+        case this.EditRegisterUnitCallId:
+          this.handleEditRegisterUnitResponse(responseJson);
+          break;
+        case this.GetConfigurationListCallId:
+          this.handleConfigurationListResponse(responseJson);
+          break;
+        case this.GetEditUnitDetailsCallId:
+          this.handleGetEditUnitDetailsResponse(responseJson);
+          break;
+        case this.GetComplexDetailsCallId:
+          this.handleComplexDetailsResponse(responseJson);
+          break;
+        default:
+          break;
       }
-
-      var errorResponse = message.getData(getName(MessageEnum.RestAPIResponceErrorMessage));
       if (responseJson && responseJson.meta && responseJson.meta.token) {
         runEngine.unSubscribeFromMessages(this, this.subScribedMessages);
       } else {
@@ -150,249 +189,7 @@ export default class RegisterUnitController extends BlockComponent<Props, S, SS>
       }
       ApiCatchErrorResponse(errorResponse);
     }
-
-    // Floor List - API Response
-    if (
-      getName(MessageEnum.RestAPIResponceMessage) === message.id &&
-      this.GetFloorListCallId !== null &&
-      this.GetFloorListCallId === message.getData(getName(MessageEnum.RestAPIResponceDataMessage))
-    ) {
-      this.GetFloorListCallId = null;
-
-      var responseJson = message.getData(getName(MessageEnum.RestAPIResponceSuccessMessage));
-
-      if (responseJson && responseJson.floors) {
-        this.setState({ floorList: responseJson.floors });
-      }
-
-      var errorResponse = message.getData(getName(MessageEnum.RestAPIResponceErrorMessage));
-      if (responseJson && responseJson.meta && responseJson.meta.token) {
-        runEngine.unSubscribeFromMessages(this, this.subScribedMessages);
-      } else {
-        ApiErrorResponse(responseJson);
-      }
-      ApiCatchErrorResponse(errorResponse);
-    }
-
-    // Unit List - API Response
-    if (
-      getName(MessageEnum.RestAPIResponceMessage) === message.id &&
-      this.GetUnitListCallId !== null &&
-      this.GetUnitListCallId === message.getData(getName(MessageEnum.RestAPIResponceDataMessage))
-    ) {
-      this.GetUnitListCallId = null;
-
-      var responseJson = message.getData(getName(MessageEnum.RestAPIResponceSuccessMessage));
-
-      if (responseJson && responseJson.apartment_managements) {
-        this.setState({ unitList: responseJson.apartment_managements });
-      }
-
-      var errorResponse = message.getData(getName(MessageEnum.RestAPIResponceErrorMessage));
-      if (responseJson && responseJson.meta && responseJson.meta.token) {
-        runEngine.unSubscribeFromMessages(this, this.subScribedMessages);
-      } else {
-        ApiErrorResponse(responseJson);
-      }
-      ApiCatchErrorResponse(errorResponse);
-    }
-
-    // Complex Details - API Response
-    if (
-      getName(MessageEnum.RestAPIResponceMessage) === message.id &&
-      this.GetComplexDetailsCallId !== null &&
-      this.GetComplexDetailsCallId === message.getData(getName(MessageEnum.RestAPIResponceDataMessage))
-    ) {
-      this.GetComplexDetailsCallId = null;
-
-      var responseJson = message.getData(getName(MessageEnum.RestAPIResponceSuccessMessage));
-
-      if (responseJson && responseJson.complex && responseJson.complex_address) {
-        this.setState({
-          unitRegisterForm: {
-            ...this.state.unitRegisterForm,
-            country: responseJson.complex_address.country,
-            region: responseJson.complex_address.region,
-            city: responseJson.complex_address.city,
-            complex: responseJson.complex.name,
-          },
-        });
-      }
-
-      var errorResponse = message.getData(getName(MessageEnum.RestAPIResponceErrorMessage));
-      if (responseJson && responseJson.meta && responseJson.meta.token) {
-        runEngine.unSubscribeFromMessages(this, this.subScribedMessages);
-      } else {
-        ApiErrorResponse(responseJson);
-      }
-      ApiCatchErrorResponse(errorResponse);
-    }
-
-    // Rent History List - API Response
-    if (
-      getName(MessageEnum.RestAPIResponceMessage) === message.id &&
-      this.GetRentHistoryListCallId !== null &&
-      this.GetRentHistoryListCallId === message.getData(getName(MessageEnum.RestAPIResponceDataMessage))
-    ) {
-      this.GetRentHistoryListCallId = null;
-
-      var responseJson = message.getData(getName(MessageEnum.RestAPIResponceSuccessMessage));
-
-      if (responseJson && responseJson.data) {
-        this.setState({ rentHistoryList: responseJson.data });
-      }
-
-      var errorResponse = message.getData(getName(MessageEnum.RestAPIResponceErrorMessage));
-      if (responseJson && responseJson.meta && responseJson.meta.token) {
-        runEngine.unSubscribeFromMessages(this, this.subScribedMessages);
-      } else {
-        ApiErrorResponse(responseJson);
-      }
-      ApiCatchErrorResponse(errorResponse);
-    }
-
-    // Create Rent History - API Response
-    if (
-      getName(MessageEnum.RestAPIResponceMessage) === message.id &&
-      this.CreateRentHistoryCallId !== null &&
-      this.CreateRentHistoryCallId === message.getData(getName(MessageEnum.RestAPIResponceDataMessage))
-    ) {
-      this.CreateRentHistoryCallId = null;
-
-      var responseJson = message.getData(getName(MessageEnum.RestAPIResponceSuccessMessage));
-
-      this.setState({ loading: false }, () => {
-        if (responseJson && responseJson.data) {
-          toast.success("Rent History Created Successfully");
-          this.getRentHistory(this.state.unitId);
-        }
-      });
-
-      var errorResponse = message.getData(getName(MessageEnum.RestAPIResponceErrorMessage));
-      if (responseJson && responseJson.meta && responseJson.meta.token) {
-        runEngine.unSubscribeFromMessages(this, this.subScribedMessages);
-      } else {
-        ApiErrorResponse(responseJson);
-      }
-      ApiCatchErrorResponse(errorResponse);
-    }
-
-    // Delete Rent History - API Response
-    if (
-      getName(MessageEnum.RestAPIResponceMessage) === message.id &&
-      this.DeleteRentHistoriesCallId !== null &&
-      this.DeleteRentHistoriesCallId === message.getData(getName(MessageEnum.RestAPIResponceDataMessage))
-    ) {
-      this.DeleteRentHistoriesCallId = null;
-
-      var responseJson = message.getData(getName(MessageEnum.RestAPIResponceSuccessMessage));
-
-      this.setState({ loading: false }, () => {
-        if (responseJson && responseJson.message) {
-          toast.success(responseJson.message);
-          this.getRentHistory(this.state.unitId);
-        }
-      });
-
-      var errorResponse = message.getData(getName(MessageEnum.RestAPIResponceErrorMessage));
-      if (responseJson && responseJson.meta && responseJson.meta.token) {
-        runEngine.unSubscribeFromMessages(this, this.subScribedMessages);
-      } else {
-        ApiErrorResponse(responseJson);
-      }
-      ApiCatchErrorResponse(errorResponse);
-    }
-
-    // Register Unit - API Response
-    if (
-      getName(MessageEnum.RestAPIResponceMessage) === message.id &&
-      this.RegisterUnitCallId !== null &&
-      this.RegisterUnitCallId === message.getData(getName(MessageEnum.RestAPIResponceDataMessage))
-    ) {
-      this.RegisterUnitCallId = null;
-
-      var responseJson = message.getData(getName(MessageEnum.RestAPIResponceSuccessMessage));
-
-      this.setState({ loading: false }, () => {
-        if (responseJson && responseJson.data) {
-          this.props.navigation.navigate("RegisterMyUnitSuccess");
-        }
-      });
-
-      var errorResponse = message.getData(getName(MessageEnum.RestAPIResponceErrorMessage));
-      if (responseJson && responseJson.meta && responseJson.meta.token) {
-        runEngine.unSubscribeFromMessages(this, this.subScribedMessages);
-      } else {
-        ApiErrorResponse(responseJson);
-      }
-      ApiCatchErrorResponse(errorResponse);
-    }
-
-    // Get Edit Unit Details - API Response
-    if (
-      getName(MessageEnum.RestAPIResponceMessage) === message.id &&
-      this.GetEditUnitDetailsCallId !== null &&
-      this.GetEditUnitDetailsCallId === message.getData(getName(MessageEnum.RestAPIResponceDataMessage))
-    ) {
-      this.GetEditUnitDetailsCallId = null;
-
-      var responseJson = message.getData(getName(MessageEnum.RestAPIResponceSuccessMessage));
-
-      if (responseJson && responseJson.data) {
-        const unit = responseJson.data;
-
-        this.setState({
-          unitRegisterForm: {
-            ...this.state.unitRegisterForm,
-            buildingId: unit.attributes.building_management.name,
-            floorId: unit.attributes.floor_number,
-            unitId: unit.attributes.apartment_name,
-            size: unit.attributes.size || "",
-            config: unit.attributes.configuration || "",
-            price: unit.attributes.purchase_price || "",
-            date: unit.attributes.purchase_date || "",
-            type: unit.attributes.unit_type,
-            income: unit.attributes.monthly_renting_income || "",
-            valuation: unit.attributes.current_valuation || "",
-          },
-          lat: unit.attributes.lat,
-          long: unit.attributes.long,
-        });
-      }
-
-      var errorResponse = message.getData(getName(MessageEnum.RestAPIResponceErrorMessage));
-      if (responseJson && responseJson.meta && responseJson.meta.token) {
-        runEngine.unSubscribeFromMessages(this, this.subScribedMessages);
-      } else {
-        ApiErrorResponse(responseJson);
-      }
-      ApiCatchErrorResponse(errorResponse);
-    }
-
-    // Edit Register Unit - API Response
-    if (
-      getName(MessageEnum.RestAPIResponceMessage) === message.id &&
-      this.EditRegisterUnitCallId !== null &&
-      this.EditRegisterUnitCallId === message.getData(getName(MessageEnum.RestAPIResponceDataMessage))
-    ) {
-      this.EditRegisterUnitCallId = null;
-
-      var responseJson = message.getData(getName(MessageEnum.RestAPIResponceSuccessMessage));
-
-      this.setState({ loading: false }, () => {
-        if (responseJson && responseJson.data) {
-          this.props.navigation.navigate("MyUnitDetails", { id: this.state.unitId });
-        }
-      });
-
-      var errorResponse = message.getData(getName(MessageEnum.RestAPIResponceErrorMessage));
-      if (responseJson && responseJson.meta && responseJson.meta.token) {
-        runEngine.unSubscribeFromMessages(this, this.subScribedMessages);
-      } else {
-        ApiErrorResponse(responseJson);
-      }
-      ApiCatchErrorResponse(errorResponse);
-    }
+    // Customizable Area End
   }
 
   getBuildingList = () => {
@@ -419,6 +216,41 @@ export default class RegisterUnitController extends BlockComponent<Props, S, SS>
     return true;
   };
 
+  handleBuildingListResponse = (responseJson: any) => {
+    if (responseJson && responseJson.data) {
+      this.setState({ buildingList: responseJson.data.buildings });
+    }
+  };
+
+  getConfigurationList = () => {
+    const header = {
+      "Content-Type": configJSON.ApiContentType,
+      token: localStorage.getItem("userToken"),
+    };
+
+    const apiRequest = new Message(getName(MessageEnum.RestAPIRequestMessage));
+
+    this.GetConfigurationListCallId = apiRequest.messageId;
+
+    apiRequest.addData(
+      getName(MessageEnum.RestAPIResponceEndPointMessage),
+      `bx_block_settings/apartment_managements/unit_configuration`
+    );
+
+    apiRequest.addData(getName(MessageEnum.RestAPIRequestHeaderMessage), JSON.stringify(header));
+
+    apiRequest.addData(getName(MessageEnum.RestAPIRequestMethodMessage), configJSON.apiMethodTypeGet);
+
+    runEngine.sendMessage(apiRequest.id, apiRequest);
+    return true;
+  };
+
+  handleConfigurationListResponse = (responseJson: any) => {
+    if (responseJson && responseJson.configuration) {
+      this.setState({ configList: responseJson.configuration });
+    }
+  };
+
   getFloorList = (building: any) => {
     const header = {
       "Content-Type": configJSON.ApiContentType,
@@ -443,6 +275,12 @@ export default class RegisterUnitController extends BlockComponent<Props, S, SS>
     return true;
   };
 
+  handleFloorListResponse = (responseJson: any) => {
+    if (responseJson && responseJson.floors) {
+      this.setState({ floorList: responseJson.floors });
+    }
+  };
+
   getUnitList = (buildingId: any, floor: any) => {
     const header = {
       "Content-Type": configJSON.ApiContentType,
@@ -455,7 +293,7 @@ export default class RegisterUnitController extends BlockComponent<Props, S, SS>
 
     apiRequest.addData(
       getName(MessageEnum.RestAPIResponceEndPointMessage),
-      `bx_block_request_management/unit_list?building_management_id=${buildingId}&floor_number=${floor}&status=No-Own`
+      `bx_block_request_management/unit_list?building_management_id=${buildingId}&floor_number=${floor}`
     );
 
     apiRequest.addData(getName(MessageEnum.RestAPIRequestHeaderMessage), JSON.stringify(header));
@@ -464,6 +302,12 @@ export default class RegisterUnitController extends BlockComponent<Props, S, SS>
 
     runEngine.sendMessage(apiRequest.id, apiRequest);
     return true;
+  };
+
+  handleUnitListResponse = (responseJson: any) => {
+    if (responseJson && responseJson.apartment_managements) {
+      this.setState({ unitList: responseJson.apartment_managements });
+    }
   };
 
   getComplexDetails = () => {
@@ -490,6 +334,35 @@ export default class RegisterUnitController extends BlockComponent<Props, S, SS>
     return true;
   };
 
+  handleComplexDetailsResponse = (responseJson: any) => {
+    if (responseJson) {
+      if (responseJson.complex) {
+        this.setState({
+          unitRegisterForm: {
+            ...this.state.unitRegisterForm,
+            complex: responseJson.complex.name,
+            measurement: responseJson.complex.measurement_unit,
+          },
+        });
+      }
+      if (responseJson.complex_address) {
+        this.setState({
+          unitRegisterForm: {
+            ...this.state.unitRegisterForm,
+            country: responseJson.complex_address.country,
+            region: responseJson.complex_address.region,
+            city: responseJson.complex_address.city,
+          },
+        });
+      }
+      if (responseJson.currency) {
+        this.setState({
+          currency: responseJson.currency && responseJson.currency.currency,
+        });
+      }
+    }
+  };
+
   getRentHistory = (unitId: any) => {
     const header = {
       "Content-Type": configJSON.ApiContentType,
@@ -511,6 +384,12 @@ export default class RegisterUnitController extends BlockComponent<Props, S, SS>
 
     runEngine.sendMessage(apiRequest.id, apiRequest);
     return true;
+  };
+
+  handleRentHistoryResponse = (responseJson: any) => {
+    if (responseJson && responseJson.data) {
+      this.setState({ rentHistoryList: responseJson.data });
+    }
   };
 
   addRentHistory = (values: any) => {
@@ -542,6 +421,17 @@ export default class RegisterUnitController extends BlockComponent<Props, S, SS>
     return true;
   };
 
+  handleAddRentHistoryResponse = (responseJson: any) => {
+    this.setState({ loading: false }, () => {
+      if (responseJson && responseJson.data) {
+        toast.success("Rent History Created Successfully");
+        this.getRentHistory(this.state.unitId);
+      } else if (responseJson && responseJson.message) {
+        toast.error(responseJson.message);
+      }
+    });
+  };
+
   deleteRentHistories = (id: any) => {
     const body = {
       ids: [id],
@@ -571,6 +461,15 @@ export default class RegisterUnitController extends BlockComponent<Props, S, SS>
     return true;
   };
 
+  handleDeleteRentHistoriesResponse = (responseJson: any) => {
+    this.setState({ loading: false }, () => {
+      if (responseJson && responseJson.message) {
+        toast.success(responseJson.message);
+        this.getRentHistory(this.state.unitId);
+      }
+    });
+  };
+
   registerUnitToOwner = (values: any) => {
     const body = {
       data: {
@@ -586,6 +485,7 @@ export default class RegisterUnitController extends BlockComponent<Props, S, SS>
         current_valuation: values.valuation,
         monthly_renting_income: values.income,
         unit_type: values.type,
+        society_management_id: localStorage.getItem("society_id"),
       },
     };
 
@@ -610,6 +510,14 @@ export default class RegisterUnitController extends BlockComponent<Props, S, SS>
     return true;
   };
 
+  handleRegisterUnitToOwnerResponse = (responseJson: any) => {
+    this.setState({ loading: false }, () => {
+      if (responseJson && responseJson.data) {
+        this.props.navigation.navigate("RegisterMyUnitSuccess");
+      }
+    });
+  };
+
   getEditUnitDetails = () => {
     const header = {
       "Content-Type": configJSON.ApiContentType,
@@ -631,6 +539,29 @@ export default class RegisterUnitController extends BlockComponent<Props, S, SS>
 
     runEngine.sendMessage(apiRequest.id, apiRequest);
     return true;
+  };
+
+  handleGetEditUnitDetailsResponse = (responseJson: any) => {
+    if (responseJson && responseJson.data) {
+      const unit = responseJson.data;
+      this.setState({
+        unitRegisterForm: {
+          ...this.state.unitRegisterForm,
+          buildingId: unit.attributes.building_management.name,
+          floorId: unit.attributes.floor_number,
+          unitId: unit.attributes.apartment_name,
+          size: unit.attributes.size || "",
+          config: unit.attributes.configuration || "",
+          price: unit.attributes.purchase_price || "",
+          date: unit.attributes.purchase_date || "",
+          type: unit.attributes.unit_type,
+          income: unit.attributes.monthly_renting_income || "",
+          valuation: unit.attributes.current_valuation || "",
+        },
+        lat: unit.attributes.lat,
+        long: unit.attributes.long,
+      });
+    }
   };
 
   editRegisterUnit = (values: any) => {
@@ -664,6 +595,14 @@ export default class RegisterUnitController extends BlockComponent<Props, S, SS>
     return true;
   };
 
+  handleEditRegisterUnitResponse = (responseJson: any) => {
+    this.setState({ loading: false }, () => {
+      if (responseJson && responseJson.data) {
+        this.props.navigation.navigate("MyUnitDetails", { id: this.state.unitId });
+      }
+    });
+  };
+
   validationRentHistoryFormSchema: any = Yup.object().shape({
     startDate: Yup.string()
       .required("Required")
@@ -673,10 +612,12 @@ export default class RegisterUnitController extends BlockComponent<Props, S, SS>
       .matches(/\S/, "Required"),
     rentAmount: Yup.string()
       .required("Required")
-      .matches(/\S/, "Required"),
+      .matches(/\S/, "Required")
+      .matches(/^\d+$/, "Only digit allowed"),
     receivedAmount: Yup.string()
       .required("Required")
-      .matches(/\S/, "Required"),
+      .matches(/\S/, "Required")
+      .matches(/^\d+$/, "Only digit allowed"),
     tenantName: Yup.string()
       .required("Required")
       .max(100, "Maximum length of title should be 100 character")
@@ -693,23 +634,18 @@ export default class RegisterUnitController extends BlockComponent<Props, S, SS>
     unitId: Yup.string()
       .required("Required")
       .matches(/\S/, "Required"),
-    valuation: Yup.string()
-      .required("Required")
-      .matches(/\S/, "Required"),
+    price: Yup.string().matches(/^\d+$/, "Only digit allowed"),
     type: Yup.string(),
-    income: Yup.string().when("type", (type: any) => {
-      if (type === "Rented") return Yup.string().required("Required");
-    }),
+    income: Yup.string().matches(/^\d+$/, "Only digit allowed"),
+    valuation: Yup.string().matches(/^\d+$/, "Only digit allowed"),
+    size: Yup.string().matches(/^\d+$/, "Only digit allowed"),
   });
 
   validationEditUnitFormSchema: any = Yup.object().shape({
-    valuation: Yup.string()
-      .required("Required")
-      .matches(/\S/, "Required"),
+    price: Yup.string().matches(/^\d+$/, "Only digit allowed"),
+    valuation: Yup.string().matches(/^\d+$/, "Only digit allowed"),
     type: Yup.string(),
-    income: Yup.string().when("type", (type: any) => {
-      if (type === "Rented") return Yup.string().required("Required");
-    }),
+    income: Yup.string().matches(/^\d+$/, "Only digit allowed"),
   });
 
   handleOpenRentHistoryModal = (unitId: any) => {

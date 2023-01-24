@@ -1,7 +1,6 @@
 // Customizable Area Start
 import React from "react";
 import "./Dashboard.web.css";
-import { globalIcon, notification, chatIcon, LogoutDialogIcon } from "./assets";
 import "../../../web/src/assets/css/style.scss";
 import {
   Box,
@@ -15,13 +14,20 @@ import {
   DialogActions,
   Button,
 } from "@material-ui/core";
-import { ProfileIcon, LogoutIcon, buildingLogo, chairmanUser } from "./assets";
+import {
+  ProfileIcon,
+  LogoutIcon,
+  buildingLogo,
+  chairmanUser,
+  globalIcon,
+  notification,
+  LogoutDialogIcon,
+} from "./assets";
 import { Menu } from "@szhsin/react-menu";
 import "@szhsin/react-menu/dist/core.css";
 import KeyboardArrowDownIcon from "@material-ui/icons/KeyboardArrowDown";
-import DashboardController, { Props } from "./DashboardController";
+import DashboardController from "./DashboardController";
 import { withTranslation } from "react-i18next";
-import "../../../web/src/i18n.js";
 import i18next from "i18next";
 
 class DashboardHeader extends DashboardController {
@@ -85,15 +91,9 @@ class DashboardHeader extends DashboardController {
                   </MenuItem>
                 </Menu>
               </Box>
-              {localStorage.getItem("userType") === "Chairman" ? (
-                <Link href="/ChairmanNotification">
-                  <img src={notification} alt="GlobalIcon" style={{ marginLeft: "10px" }} />
-                </Link>
-              ) : (
-                <Link>
-                  <img src={notification} alt="GlobalIcon" style={{ marginLeft: "10px" }} />
-                </Link>
-              )}
+              <Link href="/AdminNotification">
+                <img src={notification} alt="GlobalIcon" style={{ marginLeft: "10px" }} />
+              </Link>
             </div>
 
             <Box style={dashBoard.HeaderSecRtBox}>

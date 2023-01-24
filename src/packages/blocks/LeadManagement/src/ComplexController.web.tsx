@@ -35,6 +35,7 @@ interface ComplexData {
   aboutUs: string;
   photos: any[];
   complexArea: string;
+  measurement: string;
   totalUnits: string;
   totalBuilding: number;
   buildingList: any[];
@@ -49,8 +50,11 @@ interface EditForm {
   photos: any[];
   aboutUs: string;
   complexArea: string;
+  measurement: string;
   totalUnits: string;
   totalBuilding: number;
+  lat: string;
+  long: string;
 }
 
 interface S {
@@ -124,6 +128,7 @@ export default class ComplexController extends BlockComponent<Props, S, SS> {
         aboutUs: "",
         photos: [],
         complexArea: "",
+        measurement: "",
         totalUnits: "",
         totalBuilding: 0,
         buildingList: [],
@@ -137,9 +142,12 @@ export default class ComplexController extends BlockComponent<Props, S, SS> {
         displayLogo: null,
         photos: [],
         complexArea: "",
+        measurement: "",
         aboutUs: "",
         totalUnits: "",
         totalBuilding: 0,
+        lat: "",
+        long: "",
       },
       // Customizable Area End
     };
@@ -151,96 +159,33 @@ export default class ComplexController extends BlockComponent<Props, S, SS> {
 
   async receive(from: string, message: Message) {
     runEngine.debugLog("Message Recived", message);
+
     // Customizable Area Start
-    // Get Document Count API Response
-    if (
-      getName(MessageEnum.RestAPIResponceMessage) === message.id &&
-      this.GetDocumentCountCallId !== null &&
-      this.GetDocumentCountCallId === message.getData(getName(MessageEnum.RestAPIResponceDataMessage))
-    ) {
-      this.GetDocumentCountCallId = null;
+    if (getName(MessageEnum.RestAPIResponceMessage) === message.id) {
+      let responseJson = message.getData(getName(MessageEnum.RestAPIResponceSuccessMessage));
+      let errorResponse = message.getData(getName(MessageEnum.RestAPIResponceErrorMessage));
 
-      var responseJson = message.getData(getName(MessageEnum.RestAPIResponceSuccessMessage));
+      const apiRequestCallId = message.getData(getName(MessageEnum.RestAPIResponceDataMessage));
 
-      if (responseJson.data) {
-        this.setState({
-          documentCount: {
-            policy: responseJson.data.policy_count,
-            guidelines: responseJson.data.guideline_count,
-            roles: responseJson.data.role_count,
-            resolution: responseJson.data.resolution_count,
-            buildingPlans: responseJson.data.building_plan_count,
-          },
-        });
+      switch (apiRequestCallId) {
+        case this.GetDocumentCountCallId:
+          this.handleDocumentCountResponse(responseJson);
+          break;
+        case this.GetComplexDetailsCallId:
+          this.handleComplexDetailsResponse(responseJson);
+          break;
+        case this.EditComplexDetailCallId:
+          if (responseJson.data) {
+            this.setState({ loading: false }, () => {
+              toast.success("Details updated successfully");
+              this.getComplexDetails();
+            });
+          }
+          break;
+        default:
+          break;
       }
 
-      var errorResponse = message.getData(getName(MessageEnum.RestAPIResponceErrorMessage));
-      if (responseJson && responseJson.meta && responseJson.meta.token) {
-        runEngine.unSubscribeFromMessages(this, this.subScribedMessages);
-      } else {
-        ApiErrorResponse(responseJson);
-      }
-      ApiCatchErrorResponse(errorResponse);
-    }
-
-    // Get Complex Details API Response
-    if (
-      getName(MessageEnum.RestAPIResponceMessage) === message.id &&
-      this.GetComplexDetailsCallId !== null &&
-      this.GetComplexDetailsCallId === message.getData(getName(MessageEnum.RestAPIResponceDataMessage))
-    ) {
-      this.GetComplexDetailsCallId = null;
-
-      var responseJson = message.getData(getName(MessageEnum.RestAPIResponceSuccessMessage));
-
-      if (responseJson.data) {
-        this.setState({
-          complexDetails: responseJson.data,
-          complexData: {
-            ...this.state.complexData,
-            logo: responseJson.data.attributes.logo && responseJson.data.attributes.logo.url,
-            complexName: responseJson.data.attributes.name,
-            city: responseJson.data.attributes.city,
-            aboutUs: responseJson.data.attributes.description,
-            photos: responseJson.data.attributes.photos,
-            complexArea: responseJson.data.attributes.complex_area,
-            totalUnits: responseJson.data.attributes.total_units && responseJson.data.attributes.total_units[0],
-            totalBuilding: responseJson.data.attributes.total_buildings,
-            buildingList: responseJson.data.attributes.building_list,
-            sharedAreaList: responseJson.data.attributes.shared_area,
-            lat: responseJson.data.attributes.lat,
-            long: responseJson.data.attributes.long,
-          },
-        });
-      }
-
-      var errorResponse = message.getData(getName(MessageEnum.RestAPIResponceErrorMessage));
-      if (responseJson && responseJson.meta && responseJson.meta.token) {
-        runEngine.unSubscribeFromMessages(this, this.subScribedMessages);
-      } else {
-        ApiErrorResponse(responseJson);
-      }
-      ApiCatchErrorResponse(errorResponse);
-    }
-
-    // Edit Complex Details API Response
-    if (
-      getName(MessageEnum.RestAPIResponceMessage) === message.id &&
-      this.EditComplexDetailCallId !== null &&
-      this.EditComplexDetailCallId === message.getData(getName(MessageEnum.RestAPIResponceDataMessage))
-    ) {
-      this.EditComplexDetailCallId = null;
-
-      var responseJson = message.getData(getName(MessageEnum.RestAPIResponceSuccessMessage));
-
-      if (responseJson.data) {
-        this.setState({ loading: false }, () => {
-          toast.success("Details updated successfully");
-          this.getComplexDetails();
-        });
-      }
-
-      var errorResponse = message.getData(getName(MessageEnum.RestAPIResponceErrorMessage));
       if (responseJson && responseJson.meta && responseJson.meta.token) {
         runEngine.unSubscribeFromMessages(this, this.subScribedMessages);
       } else {
@@ -293,6 +238,30 @@ export default class ComplexController extends BlockComponent<Props, S, SS> {
     return true;
   };
 
+  handleComplexDetailsResponse = (responseJson: any) => {
+    if (responseJson && responseJson.data) {
+      this.setState({
+        complexDetails: responseJson.data,
+        complexData: {
+          ...this.state.complexData,
+          logo: responseJson.data.attributes.logo && responseJson.data.attributes.logo.url,
+          complexName: responseJson.data.attributes.name,
+          city: responseJson.data.attributes.city,
+          aboutUs: responseJson.data.attributes.description,
+          photos: responseJson.data.attributes.photos,
+          complexArea: responseJson.data.attributes.complex_area,
+          measurement: responseJson.data.attributes.measurement_unit,
+          totalUnits: responseJson.data.attributes.total_units && responseJson.data.attributes.total_units[0],
+          totalBuilding: responseJson.data.attributes.total_buildings,
+          buildingList: responseJson.data.attributes.building_list,
+          sharedAreaList: responseJson.data.attributes.shared_area,
+          lat: responseJson.data.attributes.lat,
+          long: responseJson.data.attributes.long,
+        },
+      });
+    }
+  };
+
   // Get Document Count API
   getDocumentCount = () => {
     const header = {
@@ -318,21 +287,42 @@ export default class ComplexController extends BlockComponent<Props, S, SS> {
     return true;
   };
 
+  handleDocumentCountResponse = (responseJson: any) => {
+    if (responseJson && responseJson.data) {
+      this.setState({
+        documentCount: {
+          policy: responseJson.data.policy_count,
+          guidelines: responseJson.data.guideline_count,
+          roles: responseJson.data.role_count,
+          resolution: responseJson.data.resolution_count,
+          buildingPlans: responseJson.data.building_plan_count,
+        },
+      });
+    }
+  };
+
   // Edit Complex Detail API
   handleSaveComplexDetails = async (values: EditForm) => {
     this.setState({ loading: true });
-    var data = new FormData();
+    let data = new FormData();
     data.append("society_management[description]", values.aboutUs);
     data.append("society_management[complex_area]", values.complexArea);
+    data.append("society_management[latitude]", values.lat);
+    data.append("society_management[longitude]", values.long);
+    data.append("society_management[measurement_unit]", values.measurement);
 
     if (typeof values.logo === "object" && values.logo !== null) {
       data.append("society_management[logo]", values.logo);
     }
 
-    values.photos.map((image: any) => {
+    values.photos.forEach((image: any) => {
       data.append("society_management[photos][]", this.dataURLtoFile(image));
     });
 
+    this.handleEditComplexAPICall(data);
+  };
+
+  handleEditComplexAPICall = (data: any) => {
     const header = {
       token: localStorage.getItem("userToken"),
     };
@@ -383,8 +373,8 @@ export default class ComplexController extends BlockComponent<Props, S, SS> {
           })
       );
 
-  dataURLtoFile = (dataurl: any) => {
-    var arr = dataurl.split(","),
+  dataURLtoFile = (dataUrl: any) => {
+    let arr = dataUrl.split(","),
       mime = arr[0].match(/:(.*?);/)[1],
       bstr = atob(arr[1]),
       n = bstr.length,
@@ -402,7 +392,20 @@ export default class ComplexController extends BlockComponent<Props, S, SS> {
       .matches(/\S/, "Required"),
     complexArea: Yup.string()
       .required("Required")
-      .matches(/\S/, "Required"),
+      .matches(/\S/, "Required")
+      .matches(/^\d+$/, "Only digit allowed"),
+    measurement: Yup.string()
+      .required("Required")
+      .matches(/\S/, "Required")
+      .nullable(),
+    lat: Yup.string()
+      .required("Required")
+      .matches(/\S/, "Required")
+      .nullable(),
+    long: Yup.string()
+      .required("Required")
+      .matches(/\S/, "Required")
+      .nullable(),
     photos: Yup.array().min(1, "Required"),
   });
 
@@ -417,6 +420,10 @@ export default class ComplexController extends BlockComponent<Props, S, SS> {
     });
     let photos = await Promise.allSettled(imageUrlPromise);
 
+    this.updateStateOpenBuildingModal(photos);
+  };
+
+  updateStateOpenBuildingModal = (photos: any) => {
     this.setState(
       {
         loading: false,
@@ -425,9 +432,12 @@ export default class ComplexController extends BlockComponent<Props, S, SS> {
           displayLogo: this.state.complexData.logo,
           photos: photos.map((image: any) => image.value),
           complexArea: this.state.complexData.complexArea,
+          measurement: this.state.complexData.measurement,
           aboutUs: this.state.complexData.aboutUs,
           totalUnits: this.state.complexData.totalUnits,
           totalBuilding: this.state.complexData.totalBuilding,
+          lat: this.state.complexData.lat,
+          long: this.state.complexData.long,
         },
       },
       () => {

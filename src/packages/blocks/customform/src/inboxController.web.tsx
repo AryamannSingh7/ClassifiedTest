@@ -96,6 +96,9 @@ export default class InboxController extends BlockComponent<Props, S, SS> {
     this.receive = this.receive.bind(this);
 
     // Customizable Area Start
+    this.CreateNewMessage = this.CreateNewMessage.bind(this)
+    this.handleFile2 = this.handleFile2.bind(this)
+
     this.subScribedMessages = [
       getName(MessageEnum.RestAPIRequestMessage),
       getName(MessageEnum.RestAPIResponceMessage),
@@ -163,190 +166,117 @@ export default class InboxController extends BlockComponent<Props, S, SS> {
 
 
 
-      if (apiRequestCallId && responseJson) {
-        if (apiRequestCallId === this.state.postSellerDetailsMessageId) {
-          this.showModal();
+
+
+         if (apiRequestCallId === this.getInboxApiCallId) {
+          this.getInboxRes(responseJson,errorReponse)
+          
+        } 
+        if (apiRequestCallId === this.chatSettingApiCallId) {
+          this.chatSettingRes(responseJson,errorReponse)
+  
+        } 
+        if (apiRequestCallId === this.getProfileDataAPiCallId) {
+          this.getProfileDataRes(responseJson,errorReponse)
       
-        }
-
-        if (apiRequestCallId === this.state.getSellerDetailsMessageId) {
-      
-          if (responseJson.data && responseJson.data.attributes) {
-            console.log(
-              "responseJson.data.attributes ",
-              responseJson.data.attributes
-            );
-            let isWholesalerSelected =
-              responseJson.data.attributes.wholesaler != undefined
-                ? responseJson.data.attributes.wholesaler
-                : false;
-            let isRetailerSelected =
-              responseJson.data.attributes.retailer != undefined
-                ? responseJson.data.attributes.retailer
-                : false;
-            let isManufacturerSelected =
-              responseJson.data.attributes.manufacturer != undefined
-                ? responseJson.data.attributes.manufacturer
-                : false;
-            let isHallmarking_centerSelected =
-              responseJson.data.attributes.hallmarking_center != undefined
-                ? responseJson.data.attributes.hallmarking_center
-                : false;
-
-            let selectedServices = [];
-
-            if (isWholesalerSelected) {
-              selectedServices.push(1);
-            }
-            if (isManufacturerSelected) {
-              selectedServices.push(2);
-            }
-            if (isHallmarking_centerSelected) {
-              selectedServices.push(3);
-            }
-            if (isRetailerSelected) {
-              selectedServices.push(4);
-            }
-
-            this.setState({
-              sellerID: responseJson.data.id,
-              shopName: responseJson.data.attributes.firm_name
-                ? responseJson.data.attributes.firm_name
-                : "",
-              address: responseJson.data.attributes.location
-                ? responseJson.data.attributes.location
-                : "",
-              gstin: responseJson.data.attributes.gstin_number
-                ? responseJson.data.attributes.gstin_number
-                : "",
-              selectedServices: selectedServices,
-            });
-          }
-        } if (apiRequestCallId === this.createVehicleApiCallId) {
-          if (!responseJson.errors) {
-            console.log(responseJson)
-            if (localStorage.getItem('selectCar')) {
-              localStorage.removeItem('selectCar')
-              //@ts-ignore
-              //@ts-nocheck
-              this.props.history.push('/familylist')
-            } else {
-
-              //@ts-ignore
-              //@ts-nocheck
-              this.setState({ loading: false })
-              //@ts-ignore
-              //@ts-nocheck
-              this.props.history.push('/familylist')
-            }
-          } else if (responseJson?.errors) {
-            let error = responseJson.errors[0];
-            this.setState({ error });
-          } else {
-            this.setState({ error: responseJson?.error || "Something went wrong!" });
-            this.parseApiCatchErrorResponse(this.state.error);
-          }
-          this.setState({ loading: false })
-
-        } if (apiRequestCallId === this.getInboxApiCallId) {
-          if (!responseJson.errors) {
-           
-            if (responseJson.data) {
-
-              this.setState({ allInbox: responseJson.data,loading:false,switchVaule: responseJson.data[0]?.attributes?.chatable?.attributes?.disable_chat})
-            }
-          } else {
-            //Check Error Response
-            // this.parseApiErrorResponse(responseJson);
-          }
-
-          this.parseApiCatchErrorResponse(errorReponse);
-        } if (apiRequestCallId === this.chatSettingApiCallId) {
-          if (!responseJson.errors) {
-            console.log(responseJson)
-            if (responseJson) {
-              window.location.reload();
-              // this.setState({ allInbox: responseJson.data }, () => console.log(this.state.allInbox))
-            }
-          } else {
-            //Check Error Response
-            // this.parseApiErrorResponse(responseJson);
-          }
-
-          this.parseApiCatchErrorResponse(errorReponse);
-        } if (apiRequestCallId === this.getProfileDataAPiCallId) {
-          if (!responseJson.errors) {
-            console.log(responseJson)
-            this.setState({ profileData: responseJson.data,loading:false }, () => console.log(this.state.profileData))
-          } else {
-            //Check Error Response
-            // this.parseApiErrorResponse(responseJson);
-          }
-
-          this.parseApiCatchErrorResponse(errorReponse);
         }
         if (apiRequestCallId === this.getCreateMessagesApiCallId) {
-          if (!responseJson.errors) {
-            this.getSingleInbox()
-            // let tempArray = this.state.singleChatRoom[Object.keys(this.state.singleChatRoom)[Object.keys(obj).length - 1]]
-
-            // tempArray.push(responseJson.data)
-            this.setState({  newMessage: '' });
-          } else {
-            //Check Error Response
-            // this.parseApiErrorResponse(responseJson);
-          }
-
-          this.parseApiCatchErrorResponse(errorReponse);
+          this.getCreateMessages(responseJson,errorReponse)
+          
         }
         if (apiRequestCallId === this.getSingleInboxApiCallId) {
-          if (!responseJson.errors) {
-            console.log(responseJson.data)
-            this.setState({ singleChatRoom: responseJson.data[0].attributes.messages })
-    this.setState({ singleChatRoom: responseJson.data[0].attributes.messages, selectedChatRoomId: responseJson.data[0].id, allInboxKey: Object.keys(responseJson.data[0].attributes.messages) }, () => console.log("djhjskjhdksj",this.state.allInboxKey))
-
-            localStorage.setItem('selectedChat', JSON.stringify(responseJson.data[0]))
-            this.forceUpdate()
-          } else {
-            //Check Error Response
-            this.parseApiErrorResponse(responseJson);
-          }
-
-          this.parseApiCatchErrorResponse(errorReponse);
+          this.getSingleInboxRes(responseJson,errorReponse)
+          
         }
         if (apiRequestCallId === this.markUnreadAPIcallId) {
-          if (!responseJson.errors) {
-            
-            this.forceUpdate()
-          } else {
-            //Check Error Response
-            this.parseApiErrorResponse(responseJson);
-          }
-
-          this.parseApiCatchErrorResponse(errorReponse);
+          this.markUnreadRes(responseJson,errorReponse)
+         
         }
-        if (apiRequestCallId === this.updateVehicleApiCallId) {
-          if (!responseJson.errors) {
-            console.log(responseJson)
-            //@ts-ignore
-            //@ts-nocheck
-            localStorage.removeItem('selectCar')
-            this.props.history.push('/familylist')
-          } else {
-            //Check Error Response
-            this.parseApiErrorResponse(responseJson);
-          }
-
-          this.parseApiCatchErrorResponse(errorReponse);
-        }
-      }
+        
+     
     }
     // Customizable Area End
   }
 
   // Customizable Area Start
+  chatSettingRes(responseJson:any,errorReponse:any){
+    if (!responseJson.errors) {
+      console.log(responseJson)
+      if (responseJson) {
+        window.location.reload();
+     
+      }
+    } else {
+      //Check Error Response
+      // this.parseApiErrorResponse(responseJson);
+    }
 
+    this.parseApiCatchErrorResponse(errorReponse);
+  }
+  getInboxRes(responseJson:any,errorReponse:any){
+    if (!responseJson.errors) {
+           
+      if (responseJson.data) {
 
+        this.setState({ allInbox: responseJson.data,loading:false,switchVaule: responseJson.data[0]?.attributes?.chat_with_account?.id == localStorage.getItem('userId') ?responseJson.data[0]?.attributes?.chat_with_account?.attributes?.disable_chat : responseJson.data[0]?.attributes?.chatable?.attributes?.disable_chat})
+        console.log(responseJson.data[0]?.attributes?.chat_with_account?.id == localStorage.getItem('userId') ?responseJson.data[0]?.attributes?.chat_with_account?.attributes?.disable_chat : responseJson.data[0]?.attributes?.attributes?.chatable?.attributes?.disable_chat)
+      }
+    } else {
+      //Check Error Response
+      // this.parseApiErrorResponse(responseJson);
+    }
+
+    this.parseApiCatchErrorResponse(errorReponse);
+  }
+  markUnreadRes(responseJson:any,errorReponse:any){
+    if (!responseJson.errors) {
+            
+      this.forceUpdate()
+    } else {
+      //Check Error Response
+      this.parseApiErrorResponse(responseJson);
+    }
+
+    this.parseApiCatchErrorResponse(errorReponse);
+  }
+  getSingleInboxRes(responseJson:any,errorReponse:any){
+    if (!responseJson.errors) {
+      console.log(responseJson.data)
+      this.setState({ singleChatRoom: responseJson.data[0].attributes.messages })
+this.setState({ singleChatRoom: responseJson.data[0].attributes.messages, selectedChatRoomId: responseJson.data[0].id, allInboxKey: Object.keys(responseJson.data[0].attributes.messages) }, () => console.log("djhjskjhdksj",this.state.allInboxKey))
+
+      localStorage.setItem('selectedChat', JSON.stringify(responseJson.data[0]))
+      this.forceUpdate()
+    } else {
+      //Check Error Response
+      this.parseApiErrorResponse(responseJson);
+    }
+
+    this.parseApiCatchErrorResponse(errorReponse);
+  }
+  getCreateMessages(responseJson:any,errorReponse:any){
+    if (!responseJson.errors) {
+      this.getSingleInbox()
+     
+      this.setState({  newMessage: '' });
+    } else {
+      //Check Error Response
+      // this.parseApiErrorResponse(responseJson);
+    }
+
+    this.parseApiCatchErrorResponse(errorReponse);
+  }
+  getProfileDataRes(responseJson:any,errorReponse:any){
+    if (!responseJson.errors) {
+      console.log(responseJson)
+      this.setState({ profileData: responseJson.data,loading:false }, () => console.log(this.state.profileData))
+    } else {
+      //Check Error Response
+      // this.parseApiErrorResponse(responseJson);
+    }
+
+    this.parseApiCatchErrorResponse(errorReponse);
+  }
   getToken = () => {
     const msg: Message = new Message(
       getName(MessageEnum.SessionRequestMessage)
@@ -406,93 +336,7 @@ export default class InboxController extends BlockComponent<Props, S, SS> {
     runEngine.sendMessage(requestMessage.id, requestMessage);
   };
 
-  submitSellerDetails = async () => {
-
-    let token = this.state.token;
-
-    if (!token || token.length === 0) {
-      this.showAlert("Error", "Invaild Token. Plese log in.")
-      return;
-    }
-    if (
-      this.state.shopName.trim() == ""
-    ) {
-      this.showAlert("Error", configJSON.errorMessageShopName);
-      return;
-    }
-
-    const header = {
-      "Content-Type": configJSON.sellerDetailsApiContentType,
-    };
-
-    let isWholesalerSelected = false;
-    let isRetailerSelected = false;
-    let isManufacturerSelected = false;
-    let isHallmarking_centerSelected = false;
-
-    this.state.selectedServices.forEach((value) => {
-      switch (value) {
-        case 1:
-          isWholesalerSelected = true;
-          break;
-        case 2:
-          isManufacturerSelected = true;
-          break;
-        case 3:
-          isHallmarking_centerSelected = true;
-          break;
-        case 4:
-          isRetailerSelected = true;
-          break;
-      }
-    });
-
-    const httpBody = {
-      token: token,
-      seller_account: {
-        firm_name: this.state.shopName,
-        location: this.state.address,
-        gstin_number: this.state.gstin,
-        wholesaler: isWholesalerSelected,
-        retailer: isRetailerSelected,
-        manufacturer: isManufacturerSelected,
-        hallmarking_center: isHallmarking_centerSelected,
-        lat: this.state.lat,
-        long: this.state.long,
-      },
-    };
-
-    const requestMessage = new Message(
-      getName(MessageEnum.RestAPIRequestMessage)
-    );
-
-    this.setState({
-      postSellerDetailsMessageId: requestMessage.messageId,
-    });
-
-
-    requestMessage.addData(
-      getName(MessageEnum.RestAPIResponceEndPointMessage),
-      this.state.sellerID.length > 1 ? configJSON.sellersAPIEndPoint + "/" + this.state.sellerID : configJSON.sellersAPIEndPoint
-    );
-
-    requestMessage.addData(
-      getName(MessageEnum.RestAPIRequestHeaderMessage),
-      JSON.stringify(header)
-    );
-
-    requestMessage.addData(
-      getName(MessageEnum.RestAPIRequestBodyMessage),
-      JSON.stringify(httpBody)
-    );
-
-    requestMessage.addData(
-      getName(MessageEnum.RestAPIRequestMethodMessage),
-      this.state.sellerID.length > 1 ? configJSON.sellerDetailsAPIMethodPUT : configJSON.sellerDetailsAPIMethodPOST
-    );
-
-    runEngine.sendMessage(requestMessage.id, requestMessage);
-  };
+  
 
   onChangeInput = (name: string, value: any) => {
     // @ts-ignore
@@ -1017,7 +861,12 @@ export default class InboxController extends BlockComponent<Props, S, SS> {
       getName(MessageEnum.RestAPIRequestMessage)
     );
     this.chatSettingApiCallId = requestMessage.messageId;
-    let value = this.state.allInbox[0]?.attributes?.chatable?.attributes?.disable_chat 
+    let value =   
+      this.state.allInbox[0]?.attributes?.chat_with_account?.id == localStorage.getItem('userId')  ? 
+      this.state.allInbox[0]?.attributes?.chat_with_account?.attributes?.disable_chat
+      :
+      this.state.allInbox[0]?.attributes?.chatable?.attributes?.disable_chat
+     
 
 
     requestMessage.addData(
@@ -1116,11 +965,20 @@ export default class InboxController extends BlockComponent<Props, S, SS> {
         this.setState({singleChatRoom: window.history?.state?.state?.data.attributes.messages ,selectedChatRoom:window.history?.state?.state?.data,allInboxKey: Object.keys(window.history?.state?.state?.data.attributes.messages)},()=>console.log('mystate',this.state))
       }
 
-      // enableDisableChat=()=>{
-      //   if(value){
-      //     this.disablechat()
-      //   }
-      // }
+     
+    
+      handleFile2(file:any) {
+        //@ts-ignore
+    //@ts-nocheck
+    if (file && !['image/png', 'image/jpeg', 'image/jpg',].includes(file.type)) {
+      return alert('Only png and jpeg are supported.')
+    }
+    else{
+    
+      this.setState({ selectedMedia: { url: URL.createObjectURL(file), mimetype: file.type }, accept: true, file: file },)
+    }
+    
+      }
 
   // Customizable Area End
 }

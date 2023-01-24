@@ -166,7 +166,7 @@ export default class AnnouncementsController extends BlockComponent<Props, S, SS
       if(this.state.selectedImage !== ""){
         formData.append('announcement[image]', this.state.selectedImage,this.state.selectedImage.name)
       }
-      formData.append('announcement[building_management_id][]', this.state.selectedBuilding)
+      formData.append('announcement[building_management_id]', this.state.selectedBuilding)
       await this.createAnnouncement(formData)
   }
 

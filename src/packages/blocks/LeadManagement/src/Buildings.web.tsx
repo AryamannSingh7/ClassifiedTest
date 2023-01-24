@@ -25,10 +25,7 @@ import {
   DialogActions,
   InputLabel,
   Input,
-  Select,
   MenuItem,
-  ListItemIcon,
-  OutlinedInput,
 } from "@material-ui/core";
 import SearchOutlinedIcon from "@material-ui/icons/SearchOutlined";
 import "../../dashboard/src/Dashboard.web.css";
@@ -40,7 +37,6 @@ import BuildingsController, { Props } from "./BuildingsController.web";
 import DashboardHeader from "../../dashboard/src/DashboardHeader.web";
 import ChairmanSidebar from "../../dashboard/src/ChairmanSidebar.web";
 import { withTranslation } from "react-i18next";
-import "../../../web/src/i18n.js";
 import "./style.css";
 import {
   upload,
@@ -69,6 +65,8 @@ import { Menu } from "@szhsin/react-menu";
 import Loader from "../../../components/src/Loader.web";
 //@ts-ignore
 import GoogleMapReact from "google-map-react";
+import ChairmanCategoryBox from "../../../components/src/DocumentComponent/ChairmanCategoryBox.web";
+import GeneralSideBarWeb from "../../dashboard/src/GeneralSideBar.web";
 
 const TabPanel = (props: any) => {
   const { children, value, index, ...other } = props;
@@ -96,21 +94,95 @@ const settings = {
   swipeToSlide: true,
 };
 
-const LocationPin = ({  }: any) => <img src={mapLocation} />;
+const LocationPin = ({ lat, long }: any) => <img src={mapLocation} />;
 
 class Buildings extends BuildingsController {
   constructor(props: Props) {
     super(props);
   }
 
-  render() {
-    const { t }: any = this.props;
-    const { classes } = this.props;
+  handleSearch = (item: any) => {
+    return (
+      this.state.dataSearch === "" ||
+      (this.state.dataSearch !== "" &&
+        item.attributes.apartment_name.toLowerCase().includes(this.state.dataSearch.toLowerCase()))
+    );
+  };
 
-    var searchData = this.state.unitList.filter((item: any) => {
-      if (this.state.dataSearch === "") {
-        return item;
-      } else if (item.attributes.apartment_name.toLowerCase().includes(this.state.dataSearch.toLowerCase())) {
+  unitImageSlider = () => {
+    if (this.state.buildingData.photos.length > 0) {
+      return (
+        <>
+          <Slider ref={(c: any) => (this.slider = c)} {...settings}>
+            {this.state.buildingData.photos.map((image: any, index: number) => {
+              return (
+                <div
+                  className="slider-image-box"
+                  onClick={() => this.setState({ imageBox: true, photoIndex: index })}
+                  key={index}
+                >
+                  <img src={image.url} alt="" />
+                </div>
+              );
+            })}
+          </Slider>
+          <Box className="slick-bottom">
+            <Box className="button prev" onClick={this.previousImage}>
+              <img src={previousIcon} alt="" />
+            </Box>
+            <Box className="button next" onClick={this.nextImage}>
+              <img src={nextIcon} alt="" />
+            </Box>
+          </Box>
+        </>
+      );
+    }
+  };
+
+  unitImageModal = () => {
+    if (this.state.imageBox && this.state.buildingData.photos.length > 0) {
+      return (
+        <Lightbox
+          imagePadding={120}
+          mainSrc={this.state.buildingData.photos[this.state.photoIndex].url}
+          nextSrc={
+            this.state.buildingData.photos[(this.state.photoIndex + 1) % this.state.buildingData.photos.length].url
+          }
+          prevSrc={
+            this.state.buildingData.photos[
+              (this.state.photoIndex + this.state.buildingData.photos.length - 1) %
+                this.state.buildingData.photos.length
+            ].url
+          }
+          onCloseRequest={() => this.setState({ imageBox: false })}
+          onMovePrevRequest={() =>
+            this.setState({
+              photoIndex:
+                (this.state.photoIndex + this.state.buildingData.photos.length - 1) %
+                this.state.buildingData.photos.length,
+            })
+          }
+          onMoveNextRequest={() =>
+            this.setState({
+              photoIndex: (this.state.photoIndex + 1) % this.state.buildingData.photos.length,
+            })
+          }
+        />
+      );
+    }
+  };
+
+  handleError = (errors: any, touched: any, t: any) => {
+    if (errors && touched) {
+      return <small className="error">{t(errors)}</small>;
+    }
+  };
+
+  render() {
+    const { t, classes }: any = this.props;
+    const  userType = localStorage.getItem("userType");
+    let searchData = this.state.unitList.filter((item: any) => {
+      if (this.handleSearch(item)) {
         return item;
       }
     });
@@ -125,7 +197,8 @@ class Buildings extends BuildingsController {
           <Box style={{ display: "flex" }}>
             <Grid item xs={3} md={3} sm={3} className="SideBar">
               {/* Chairman Sidebar -- */}
-              <ChairmanSidebar {...this.props} />
+              {/* <ChairmanSidebar {...this.props} /> */}
+              <GeneralSideBarWeb {...this.props}></GeneralSideBarWeb> 
             </Grid>
             <Grid xs={9} md={9} sm={9} spacing={4} style={{ paddingTop: 35 }}>
               <Container>
@@ -147,16 +220,23 @@ class Buildings extends BuildingsController {
                         {t("Buildings & Apartments")}
                       </Typography>
                     </Grid>
-                    <Grid item xs={12} sm={2}>
-                      <Button
-                        className="edit-button"
-                        variant="contained"
-                        color="primary"
-                        onClick={() => this.openEditBuildingModal()}
-                      >
-                        {t("Edit Details")}
-                      </Button>
-                    </Grid>
+                    {
+                        userType === "Security" ? 
+                        null
+                        :
+                        <Grid item xs={12} sm={2}>
+                        <Button
+                          className="edit-button"
+                          variant="contained"
+                          color="primary"
+                          onClick={() => this.openEditBuildingModal()}
+                        >
+                          {t("Edit Details")}
+                        </Button>
+                      </Grid>
+                    }
+                  
+                   
                   </Grid>
                 </Box>
 
@@ -166,8 +246,8 @@ class Buildings extends BuildingsController {
                       <Box className="building-info-left">
                         <img src={this.state.buildingData.logo} />
                         <Box className="building-name-country">
-                          <h4>{this.state.buildingData.buildingName || "-"}</h4>
-                          <p>{this.state.buildingData.city || "-"}</p>
+                          <h4>{this.handleValidText(this.state.buildingData.buildingName)}</h4>
+                          <p>{this.handleValidText(this.state.buildingData.city)}</p>
                         </Box>
                       </Box>
                       <Box className="building-info-right" onClick={() => this.handleMapModal()}>
@@ -175,67 +255,16 @@ class Buildings extends BuildingsController {
                         <span>{t("See building on map")}</span>
                       </Box>
                     </Box>
-                    <Box className="building-info-bottom">
-                      {this.state.buildingData.photos.length > 0 && (
-                        <>
-                          <Slider ref={(c: any) => (this.slider = c)} {...settings}>
-                            {this.state.buildingData.photos.map((image: any, index: number) => {
-                              return (
-                                <div onClick={() => this.setState({ imageBox: true, photoIndex: index })} key={index}>
-                                  <img src={image.url} alt="" />
-                                </div>
-                              );
-                            })}
-                          </Slider>
-                          <Box className="slick-bottom">
-                            <Box className="button prev" onClick={this.previousImage}>
-                              <img src={previousIcon} alt="" />
-                            </Box>
-                            <Box className="button next" onClick={this.nextImage}>
-                              <img src={nextIcon} alt="" />
-                            </Box>
-                          </Box>
-                        </>
-                      )}
-                    </Box>
+                    <Box className="building-info-bottom">{this.unitImageSlider()}</Box>
                   </Card>
                 </Box>
 
-                {this.state.imageBox && this.state.buildingData.photos.length > 0 && (
-                  <Lightbox
-                    imagePadding={120}
-                    mainSrc={this.state.buildingData.photos[this.state.photoIndex].url}
-                    nextSrc={
-                      this.state.buildingData.photos[
-                        (this.state.photoIndex + 1) % this.state.buildingData.photos.length
-                      ].url
-                    }
-                    prevSrc={
-                      this.state.buildingData.photos[
-                        (this.state.photoIndex + this.state.buildingData.photos.length - 1) %
-                          this.state.buildingData.photos.length
-                      ].url
-                    }
-                    onCloseRequest={() => this.setState({ imageBox: false })}
-                    onMovePrevRequest={() =>
-                      this.setState({
-                        photoIndex:
-                          (this.state.photoIndex + this.state.buildingData.photos.length - 1) %
-                          this.state.buildingData.photos.length,
-                      })
-                    }
-                    onMoveNextRequest={() =>
-                      this.setState({
-                        photoIndex: (this.state.photoIndex + 1) % this.state.buildingData.photos.length,
-                      })
-                    }
-                  />
-                )}
+                {this.unitImageModal()}
 
                 <Box className="about-building">
                   <Card>
                     <h4>{t("About Building Name")}</h4>
-                    <p>{this.state.buildingData.aboutBuilding || "-"}</p>
+                    <p>{this.handleValidText(this.state.buildingData.aboutBuilding)}</p>
                   </Card>
                 </Box>
 
@@ -244,19 +273,22 @@ class Buildings extends BuildingsController {
                     <Grid item sm={4}>
                       <Card>
                         <p>{t("Building Area")}</p>
-                        <h2>{this.state.buildingData.buildingArea || "-"}</h2>
+                        <h2>
+                          {this.handleValidText(this.state.buildingData.buildingArea)}{" "}
+                          {this.handleValidEmptyText(this.state.buildingData.measurement)}
+                        </h2>
                       </Card>
                     </Grid>
                     <Grid item sm={4}>
                       <Card>
                         <p>{t("Total Floors")}</p>
-                        <h2>{this.state.buildingData.totalFloor || 0}</h2>
+                        <h2>{this.handleValidText(this.state.buildingData.totalFloor)}</h2>
                       </Card>
                     </Grid>
                     <Grid item sm={4}>
                       <Card>
                         <p>{t("Total Units")}</p>
-                        <h2>{this.state.buildingData.totalUnit || 0}</h2>
+                        <h2>{this.handleValidText(this.state.buildingData.totalUnit)}</h2>
                       </Card>
                     </Grid>
                   </Grid>
@@ -287,67 +319,47 @@ class Buildings extends BuildingsController {
                           <Grid container spacing={2}>
                             <Grid item xs={12} md={6} lg={4}>
                               <Link href="/DocumentChairman/Policy">
-                                <Box className="item">
-                                  <Box className="heading">
-                                    <img src={Document} />
-                                    <h4>{t("Policy")}</h4>
-                                  </Box>
-                                  {this.state.documentCount.policy > 0 && (
-                                    <Button className="color-btn">{this.state.documentCount.policy}</Button>
-                                  )}
-                                </Box>
+                                <ChairmanCategoryBox
+                                  image={Document}
+                                  heading={t("Policy")}
+                                  value={this.state.documentCount.policy}
+                                />
                               </Link>
                             </Grid>
                             <Grid item xs={12} md={6} lg={4}>
                               <Link href="/DocumentChairman/Guidelines">
-                                <Box className="item">
-                                  <Box className="heading">
-                                    <img src={Document} />
-                                    <h4>{t("Guidelines")}</h4>
-                                  </Box>
-                                  {this.state.documentCount.guidelines > 0 && (
-                                    <Button className="color-btn">{this.state.documentCount.guidelines}</Button>
-                                  )}
-                                </Box>
+                                <ChairmanCategoryBox
+                                  image={Document}
+                                  heading={t("Guidelines")}
+                                  value={this.state.documentCount.guidelines}
+                                />
                               </Link>
                             </Grid>
                             <Grid item xs={12} md={6} lg={4}>
                               <Link href="/DocumentChairman/Roles">
-                                <Box className="item">
-                                  <Box className="heading">
-                                    <img src={Document} />
-                                    <h4>{t("Roles")}</h4>
-                                  </Box>
-                                  {this.state.documentCount.roles > 0 && (
-                                    <Button className="color-btn">{this.state.documentCount.roles}</Button>
-                                  )}
-                                </Box>
+                                <ChairmanCategoryBox
+                                  image={Document}
+                                  heading={t("Roles")}
+                                  value={this.state.documentCount.roles}
+                                />
                               </Link>
                             </Grid>
                             <Grid item xs={12} md={6} lg={4}>
                               <Link href="/DocumentChairman/Resolutions">
-                                <Box className="item">
-                                  <Box className="heading">
-                                    <img src={Document} />
-                                    <h4>{t("Resolution")}</h4>
-                                  </Box>
-                                  {this.state.documentCount.resolution > 0 && (
-                                    <Button className="color-btn">{this.state.documentCount.resolution}</Button>
-                                  )}
-                                </Box>
+                                <ChairmanCategoryBox
+                                  image={Document}
+                                  heading={t("Resolution")}
+                                  value={this.state.documentCount.resolution}
+                                />
                               </Link>
                             </Grid>
                             <Grid item xs={12} md={6} lg={4}>
                               <Link href="/DocumentChairman/Building-Plans">
-                                <Box className="item">
-                                  <Box className="heading">
-                                    <img src={Document} />
-                                    <h4>{t("Building Plans")}</h4>
-                                  </Box>
-                                  {this.state.documentCount.buildingPlans > 0 && (
-                                    <Button className="color-btn">{this.state.documentCount.buildingPlans}</Button>
-                                  )}
-                                </Box>
+                                <ChairmanCategoryBox
+                                  image={Document}
+                                  heading={t("Building Plans")}
+                                  value={this.state.documentCount.buildingPlans}
+                                />
                               </Link>
                             </Grid>
                           </Grid>
@@ -419,9 +431,7 @@ class Buildings extends BuildingsController {
                                     </TableCell>
                                     <TableCell>
                                       <span className={unit.attributes.status}>
-                                        {unit.attributes.status === "No-Own"
-                                          ? `${t("Not Owned")}`
-                                          : unit.attributes.status}
+                                        {t(this.handleStatus(unit.attributes.status))}
                                       </span>
                                     </TableCell>
                                     <TableCell>
@@ -497,7 +507,7 @@ class Buildings extends BuildingsController {
         </Box>
 
         <Dialog
-          className="edit-profile"
+          className="edit-profile edit-building-modal"
           open={this.state.isEditBuildingModalOpen}
           scroll="paper"
           fullWidth
@@ -524,7 +534,9 @@ class Buildings extends BuildingsController {
                   <DialogContent dividers>
                     <Box className="profile-picture">
                       <img src={values.displayLogo} alt="profile" className="picture building" />
-                      <p onClick={() => this.uploadLogo.click()}>{t("Change Logo")}</p>
+                      <p className="logo-text" onClick={() => this.uploadLogo.click()}>
+                        {t("Change Logo")}
+                      </p>
                       <input
                         type="file"
                         ref={(ref: any) => (this.uploadLogo = ref)}
@@ -542,7 +554,7 @@ class Buildings extends BuildingsController {
                         onBlur={handleBlur}
                         name="logo"
                       />
-                      {errors.logo && touched.logo && <small className="error">{t(errors.logo)}</small>}
+                      {this.handleError(errors.logo, touched.logo, t)}
                     </Box>
                     <Grid container spacing={2} className="edit-building">
                       <Grid item md={12}>
@@ -558,12 +570,12 @@ class Buildings extends BuildingsController {
                               style={{ display: "none" }}
                               accept="image/*"
                               onChange={(e: any) => {
-                                for (let i = 0; i < e.target.files.length; i++) {
-                                  const file = e.target.files[i];
+                                for (let file of e.target.files) {
                                   let reader = new FileReader();
                                   reader.onloadend = () => {
                                     values.photos = [...values.photos, reader.result];
                                     setFieldValue("photos", values.photos);
+                                    console.log(values.photos);
                                   };
                                   reader.readAsDataURL(file);
                                 }
@@ -593,7 +605,7 @@ class Buildings extends BuildingsController {
                             );
                           })}
                         </Grid>
-                        {errors.photos && touched.photos && <small className="error">{t(errors.photos)}</small>}
+                        {this.handleError(errors.photos, touched.photos, t)}
                       </Grid>
                       <Grid item md={12}>
                         <InputLabel>{t("About Us")}</InputLabel>
@@ -605,9 +617,7 @@ class Buildings extends BuildingsController {
                           onBlur={handleBlur}
                           name="aboutBuilding"
                         />
-                        {errors.aboutBuilding && touched.aboutBuilding && (
-                          <small className="error">{t(errors.aboutBuilding)}</small>
-                        )}
+                        {this.handleError(errors.aboutBuilding, touched.aboutBuilding, t)}
                       </Grid>
                       <Grid item md={6}>
                         <InputLabel>{t("Building Name")}</InputLabel>
@@ -625,9 +635,7 @@ class Buildings extends BuildingsController {
                           onBlur={handleBlur}
                           name="buildingName"
                         />
-                        {errors.buildingName && touched.buildingName && (
-                          <small className="error">{t(errors.buildingName)}</small>
-                        )}
+                        {this.handleError(errors.buildingName, touched.buildingName, t)}
                       </Grid>
                       <Grid item md={6}>
                         <InputLabel>{t("Country")}</InputLabel>
@@ -646,23 +654,24 @@ class Buildings extends BuildingsController {
                       </Grid>
                       <Grid item md={6}>
                         <InputLabel>{t("Building Area")}</InputLabel>
-                        <Input
-                          className="input-with-icon"
-                          fullWidth
-                          placeholder={t("Building Area")}
-                          startAdornment={
-                            <InputAdornment position="start">
-                              <img src={sizebw} alt="icon" />
-                            </InputAdornment>
-                          }
-                          value={values.buildingArea}
-                          onChange={handleChange}
-                          onBlur={handleBlur}
-                          name="buildingArea"
-                        />
-                        {errors.buildingArea && touched.buildingArea && (
-                          <small className="error">{t(errors.buildingArea)}</small>
-                        )}
+                        <Box className="measurement-modal-box">
+                          <Input
+                            className="input-with-icon"
+                            fullWidth
+                            placeholder={t("Building Area")}
+                            startAdornment={
+                              <InputAdornment position="start">
+                                <img src={sizebw} alt="icon" />
+                              </InputAdornment>
+                            }
+                            value={values.buildingArea}
+                            onChange={handleChange}
+                            onBlur={handleBlur}
+                            name="buildingArea"
+                          />
+                          <Box className="measurement-modal-value">{this.state.buildingData.measurement}</Box>
+                        </Box>
+                        {this.handleError(errors.buildingArea, touched.buildingArea, t)}
                       </Grid>
                       <Grid item md={6}>
                         <InputLabel>{t("Total Floors")}</InputLabel>
@@ -710,7 +719,13 @@ class Buildings extends BuildingsController {
           </Formik>
         </Dialog>
 
-        <Dialog className="edit-profile" open={this.state.isOpenMapModalOpen} scroll="paper" fullWidth maxWidth="sm">
+        <Dialog
+          className="edit-profile chairman-map-modal"
+          open={this.state.isOpenMapModalOpen}
+          scroll="paper"
+          fullWidth
+          maxWidth="sm"
+        >
           <MuiDialogTitle disableTypography className="dialog-heading">
             <Typography variant="h6">{t("Location")}</Typography>
             <IconButton onClick={() => this.handleMapModal()}>

@@ -197,7 +197,7 @@ class ResidentDashboard extends DashboardController {
                     </Link>
                   </div>
                   <div>
-                    <Link href="/ResidentNotifications">
+                    <Link href="/Notifications">
                       <img src={notification} alt="GlobalIcon" />
                     </Link>
                   </div>
@@ -329,7 +329,7 @@ class ResidentDashboard extends DashboardController {
                     </Link>
                   </Grid>
                   <Grid item xs={6} sm={6}>
-                    <Link href="">
+                    <Link href="/suggestionListing">
                       <DashboardCard
                         image={DashboardSuggestion}
                         heading={t("My Suggestions")}
