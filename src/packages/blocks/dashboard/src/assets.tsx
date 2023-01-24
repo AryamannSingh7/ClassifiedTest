@@ -74,3 +74,9 @@ export const voting = require("../assets/voting.png");
 export const NotificationGreen = require("../assets/notification-green.png");
 export const NotificationRed = require("../assets/notification-red.png");
 export const ExclamationIcon = require("../assets/request.png");
+// Manager Dashboard
+export const ManagerClassified = require("../assets/chair-classified.png");
+export const ManagerCollection = require("../assets/chair-collection.png");
+export const ManagerIncident = require("../assets/chair-incident.png");
+export const ManagerVehicle = require("../assets/chair-vehicle.png");
+export const ManagerFacility = require("../assets/chair-facility.png");
