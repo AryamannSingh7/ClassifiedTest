@@ -25,7 +25,7 @@ interface S {
   loading: boolean;
   Year: any;
   expanded: any;
-  anchorEl: any;
+  anchorEl:any;
 
   isMenuOpen: boolean;
   isLogoutModalOpen: boolean;
@@ -59,7 +59,7 @@ export default class DashboardController extends BlockComponent<Props, S, SS> {
       loading: false,
       Year: "",
       expanded: '',
-      anchorEl: null,
+      anchorEl:null,
 
       isLogoutModalOpen: false,
       isMenuOpen: false,
@@ -77,8 +77,8 @@ export default class DashboardController extends BlockComponent<Props, S, SS> {
       });
     }
   }
-
-  getToken = () => {
+  
+  getToken=()=>{
     const msg: Message = new Message(getName(MessageEnum.SessionRequestMessage));
     this.send(msg);
   }
@@ -122,7 +122,7 @@ export default class DashboardController extends BlockComponent<Props, S, SS> {
     }
 
     if (getName(MessageEnum.RestAPIResponceMessage) === message.id) {
-      let responseJson = message.getData(
+      var responseJson = message.getData(
         getName(MessageEnum.RestAPIResponceSuccessMessage)
       );
       if (responseJson && !responseJson.errors && responseJson.data) {
@@ -139,7 +139,7 @@ export default class DashboardController extends BlockComponent<Props, S, SS> {
           });
         }
       } else {
-        let errorReponse = message.getData(
+        var errorReponse = message.getData(
           getName(MessageEnum.RestAPIResponceErrorMessage)
         );
         if (errorReponse === undefined) {
@@ -159,11 +159,11 @@ export default class DashboardController extends BlockComponent<Props, S, SS> {
   }
 
   // Customizable Area Start
-  handleChange = (event: any) => {
+  handleChange = (event:any) => {
     this.setState({ Year: event.target.value });
   };
 
-  handleAccordinoChange = (panel: string) => (event: any, isExpanded: boolean) => {
+  handleAccordinoChange = (panel:string) => (event:any, isExpanded:boolean) => {
     this.setState({ expanded: isExpanded ? panel : '' });
   };
   // Customizable Area End
