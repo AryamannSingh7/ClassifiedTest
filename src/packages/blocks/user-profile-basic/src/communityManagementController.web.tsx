@@ -140,6 +140,7 @@ export default class CommunityUserProfileController extends BlockComponent<
   btnTextSignUp: string;
   getInvitationCountApiCallId:any
   currentCountryCode: any;
+  getRequestDataAPICall:any
   // createInvitationAPICallId:any;
   // Customizable Area End
 
@@ -322,10 +323,26 @@ const profileData = JSON.parse(localStorage.getItem('profileData') ||'{}')
     else if (apiRequestCallId === this.deleteVehicleAPICallId) {
       this.deleteReqRes(responseJson,errorReponse)
       
-    }
+    }else if(apiRequestCallId ===this.getRequestDataAPICall){
+      
+        this.getRequestDataRes(responseJson,errorReponse)
+      }
   }
   deleteReqRes(responseJson:any,errorReponse:any){
     window.location.reload()
+
+  }
+  getRequestDataRes(responseJson:any,errorReponse:any){
+    if (!responseJson.errors) {
+      this.setState({allInvitation:responseJson.data,loading:false},()=>console.log(this.state.allInvitation))
+      
+      
+                } else {
+                  //Check Error Response
+                  this.parseApiErrorResponse(responseJson);
+                }
+      
+                this.parseApiCatchErrorResponse(errorReponse);
 
   }
   verifyOTPRes(responseJson:any,errorReponse:any){
@@ -2111,7 +2128,7 @@ let userType=localStorage.getItem('userType')
       const requestMessage = new Message(
         getName(MessageEnum.RestAPIRequestMessage)
       );
-      this.getInvitationAPICall = requestMessage.messageId;
+      this.getRequestDataAPICall = requestMessage.messageId;
       this.setState({ loading: true });
 
       requestMessage.addData(

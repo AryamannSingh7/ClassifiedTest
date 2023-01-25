@@ -108,7 +108,7 @@ class CommunityRequestManagement extends CommunityUserProfileController {
                             onClick={() => {
                             //@ts-ignore
                             this.props.history.push("/PendingRequest")}}>
-                            <div style={dashBoard.imgRound}> 
+                            <div style={dashBoard.cm_imgRound}> 
                                 <img src= {addgroup} style={dashBoard.cm_mailIcon}/>
                             </div>
                             <div style={{display:"flex", alignItems:"center"}}>
@@ -131,7 +131,7 @@ src= {info} style={{paddingLeft:"10px"}}/>
                             <div style={{display:"flex", alignItems:"center"}} onClick={() => {
                           //@ts-ignore
                           this.props.history.push("/AwaitingAcceptece")}}>
-                                <Typography variant="h6" style={dashBoard.subHeading}>{t("Sent invitations awaiting acceptance")}</Typography>
+                                <Typography variant="h6" style={dashBoard.cm_subHeading}>{t("Sent invitations awaiting acceptance")}</Typography>
                             
                                  <Tooltip style={{background:'white'}} title="This section will allow you to invite new owners, residents, and team members to join the platform and start engaging with the building community">
 
@@ -154,22 +154,22 @@ src= {info} style={{paddingLeft:"10px"}}/>
                                 <h6 style={{color:"d3d3d3", margin:"20px 0px 10px 0px"}}>{t("Title")}</h6>
                                 <h6 style={{color:"d3d3d3", margin:"20px 0px 10px 0px"}}>{t("Count")}</h6>
                             </div>
-                            <div style={dashBoard.facility}  
+                            <div style={dashBoard.cm_facility}  
                             onClick={() => {
                             //@ts-ignore
                             this.props.history.push("/SentInvitation")}}>
                                 <h6>{t("Total Sent Invitations")}</h6>
                                 <Typography variant="h6" style={dashBoard.cm_invitationCont}>{this.state.invitatonCount?.totle_sent_requests}</Typography>
                             </div>
-                            <div style={dashBoard.facility}>
+                            <div style={dashBoard.cm_facility}>
                                 <h6>{t("Accepted Invitations by users")}</h6>
                                 <Typography variant="h6" style={dashBoard.cm_invitationCont}>{this.state.invitatonCount?.accepted}</Typography>
                             </div>
-                            <div style={dashBoard.facility}>
+                            <div style={dashBoard.cm_facility}>
                                 <h6>{t("Rejected Invitation by users")}</h6>
                                 <Typography variant="h6" style={dashBoard.cm_invitationCont}>{this.state.invitatonCount?.rejected}</Typography>
                             </div>
-                            <div style={dashBoard.facility}>
+                            <div style={dashBoard.cm_facility}>
                                 <h6 style={dashBoard.cm_inviteTitle}>{t("Total received join requests")}</h6>
                                 <Typography variant="h6" style={dashBoard.cm_invitationCont}>{this.state.invitatonCount?.totle_received_requests}</Typography>
                             </div>
