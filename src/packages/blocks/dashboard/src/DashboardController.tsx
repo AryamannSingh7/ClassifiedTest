@@ -1,9 +1,7 @@
 import { IBlock } from "../../../framework/src/IBlock";
 import { Message } from "../../../framework/src/Message";
 import { BlockComponent } from "../../../framework/src/BlockComponent";
-import MessageEnum, {
-  getName
-} from "../../../framework/src/Messages/MessageEnum";
+import MessageEnum, { getName } from "../../../framework/src/Messages/MessageEnum";
 import { runEngine } from "../../../framework/src/RunEngine";
 
 // Customizable Area Start
@@ -15,6 +13,7 @@ export interface Props {
   navigation: any;
   id: string;
   // Customizable Area Start
+  classes: any;
   // Customizable Area End
 }
 interface S {
@@ -25,7 +24,7 @@ interface S {
   loading: boolean;
   Year: any;
   expanded: any;
-  anchorEl:any;
+  anchorEl: any;
 
   isMenuOpen: boolean;
   isLogoutModalOpen: boolean;
@@ -49,7 +48,7 @@ export default class DashboardController extends BlockComponent<Props, S, SS> {
       getName(MessageEnum.AccoutLoginSuccess),
       getName(MessageEnum.RestAPIResponceMessage),
       getName(MessageEnum.SessionSaveMessage),
-      getName(MessageEnum.SessionResponseMessage)
+      getName(MessageEnum.SessionResponseMessage),
     ];
 
     this.state = {
@@ -58,8 +57,8 @@ export default class DashboardController extends BlockComponent<Props, S, SS> {
       token: "",
       loading: false,
       Year: "",
-      expanded: '',
-      anchorEl:null,
+      expanded: "",
+      anchorEl: null,
 
       isLogoutModalOpen: false,
       isMenuOpen: false,
@@ -72,41 +71,30 @@ export default class DashboardController extends BlockComponent<Props, S, SS> {
     super.componentDidMount();
     this.getToken();
     if (this.isPlatformWeb() === false) {
-      this.props.navigation.addListener('willFocus', () => {
+      this.props.navigation.addListener("willFocus", () => {
         this.getToken();
       });
     }
   }
-  
-  getToken=()=>{
+
+  getToken = () => {
     const msg: Message = new Message(getName(MessageEnum.SessionRequestMessage));
     this.send(msg);
-  }
+  };
 
   getDashboardData(): boolean {
     // Customizable Area Start
     const header = {
       "Content-Type": configJSON.dashboarContentType,
-      token: this.state.token
+      token: this.state.token,
     };
-    const requestMessage = new Message(
-      getName(MessageEnum.RestAPIRequestMessage)
-    );
+    const requestMessage = new Message(getName(MessageEnum.RestAPIRequestMessage));
     this.apiDashboardItemCallId = requestMessage.messageId;
-    requestMessage.addData(
-      getName(MessageEnum.RestAPIResponceEndPointMessage),
-      configJSON.dashboardGetUrl
-    );
+    requestMessage.addData(getName(MessageEnum.RestAPIResponceEndPointMessage), configJSON.dashboardGetUrl);
 
-    requestMessage.addData(
-      getName(MessageEnum.RestAPIRequestHeaderMessage),
-      JSON.stringify(header)
-    );
+    requestMessage.addData(getName(MessageEnum.RestAPIRequestHeaderMessage), JSON.stringify(header));
 
-    requestMessage.addData(
-      getName(MessageEnum.RestAPIRequestMethodMessage),
-      configJSON.dashboarApiMethodType
-    );
+    requestMessage.addData(getName(MessageEnum.RestAPIRequestMethodMessage), configJSON.dashboarApiMethodType);
     runEngine.sendMessage(requestMessage.id, requestMessage);
     // Customizable Area End
     return true;
@@ -122,35 +110,31 @@ export default class DashboardController extends BlockComponent<Props, S, SS> {
     }
 
     if (getName(MessageEnum.RestAPIResponceMessage) === message.id) {
-      var responseJson = message.getData(
-        getName(MessageEnum.RestAPIResponceSuccessMessage)
-      );
+      let responseJson = message.getData(getName(MessageEnum.RestAPIResponceSuccessMessage));
       if (responseJson && !responseJson.errors && responseJson.data) {
         if (responseJson.data.length === 0) {
           this.setState({
             errorMsg: "Data Not Found",
-            loading: false
+            loading: false,
           });
         } else {
           this.setState({
             dashboardData: responseJson.data,
             errorMsg: "",
-            loading: false
+            loading: false,
           });
         }
       } else {
-        var errorReponse = message.getData(
-          getName(MessageEnum.RestAPIResponceErrorMessage)
-        );
+        let errorReponse = message.getData(getName(MessageEnum.RestAPIResponceErrorMessage));
         if (errorReponse === undefined) {
           this.setState({
             errorMsg: "Something went wrong",
-            loading: false
+            loading: false,
           });
         } else {
           this.setState({
             errorMsg: errorReponse,
-            loading: false
+            loading: false,
           });
         }
       }
@@ -159,13 +143,12 @@ export default class DashboardController extends BlockComponent<Props, S, SS> {
   }
 
   // Customizable Area Start
-  handleChange = (event:any) => {
+  handleChange = (event: any) => {
     this.setState({ Year: event.target.value });
   };
 
-  handleAccordinoChange = (panel:string) => (event:any, isExpanded:boolean) => {
-    this.setState({ expanded: isExpanded ? panel : '' });
+  handleAccordinoChange = (panel: string) => (event: any, isExpanded: boolean) => {
+    this.setState({ expanded: isExpanded ? panel : "" });
   };
   // Customizable Area End
-
 }
