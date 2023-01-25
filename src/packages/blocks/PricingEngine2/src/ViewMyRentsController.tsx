@@ -37,6 +37,7 @@ interface S {
   partialPaymentError:any;
   mainBuildingName:any;
   mainUnitName:any;
+  partialAmount:any;
 }
 
 interface SS {
@@ -84,6 +85,7 @@ export default class CoverImageController extends BlockComponent<
       partialPaymentError:"",
       mainBuildingName:"",
       mainUnitName:"",
+      partialAmount:"",
     };
 
     this.emailReg = new RegExp("");
@@ -101,14 +103,16 @@ export default class CoverImageController extends BlockComponent<
     this.setState({
       paymentConfirmModal:true,
       isPartialPayment:isPartial,
-      paymentAmount:item.attributes.amount,
+      paymentAmount:item.attributes.rent_amount,
       rentUpdateId:item.id,
       paymentMonth:`${item?.attributes?.month} ${item?.attributes?.year}`,
       buildingName:item.attributes.building_name,
       unitName:item.attributes.apartment_name,
       tenantName:item.attributes.tenant_name,
+      partialAmount:item.attributes.partial_payment,
     })
   }
+
   getRentUnitList = async () => {
     const {id} = this.props.match.params
     this.getRentUnitViseListId = await this.apiCall({
@@ -140,7 +144,7 @@ export default class CoverImageController extends BlockComponent<
     if(this.state.partialPayment){
       if(this.state.partialPayment !== ""){
         const body = {
-          "partial_payment": this.state.partialPayment
+          "partial_payment": parseInt(this.state.partialPayment)
         }
         this.UpdatePartialPayment(body)
       }else{

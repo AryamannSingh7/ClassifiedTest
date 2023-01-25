@@ -90,7 +90,7 @@ export default class GenerateBudgetReportController extends CommonApiCallForBloc
           budgetCategoryError:"",
           allocate_budget:"",
           amountError:"",
-          description:null,
+          description:"",
           descriptionError:"",
           error:false,
           _destroy: "false",
@@ -183,7 +183,9 @@ export default class GenerateBudgetReportController extends CommonApiCallForBloc
       const errorReponse = message.getData(getName(MessageEnum.RestAPIResponceErrorMessage));
       if(this.createBugetId === apiRequestCallId){
         console.log("ERORR",errorReponse)
-        this.createBudgetRepost(responseJson)
+        if(responseJson.hasOwnProperty("budget_report")){
+          this.props.history.push(`/BudgetReports/${responseJson.budget_report.data.id}`)
+        }
       }
       if(this.getCurrencyId === apiRequestCallId){
         if(responseJson.hasOwnProperty("currencies")){
@@ -448,7 +450,7 @@ export default class GenerateBudgetReportController extends CommonApiCallForBloc
         budgetCategoryError:"",
         allocate_budget:"",
         amountError:"",
-        description:null,
+        description:"",
         descriptionError:"",
         error:false,
         _destroy: "false",
