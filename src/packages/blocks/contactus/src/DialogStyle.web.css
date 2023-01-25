@@ -96,6 +96,10 @@
   background-color: white;
 }
 
+.category.dialog-select-input {
+  margin-bottom: 20px;
+}
+
 .dialog-textarea-input {
   border-radius: 5px;
   border: 1px solid lightgray;

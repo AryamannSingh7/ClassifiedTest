@@ -8,26 +8,18 @@ import ChairmanSidebarWeb from "../../dashboard/src/ChairmanSidebar.web";
 import VisitorsSidebar from "../../dashboard/src/VisitorsSidebar.web";
 
 class GeneralSideBar extends React.Component {
-  constructor(props:any) {
+  constructor(props: any) {
     super(props);
   }
 
   render() {
-    const userType  = localStorage.getItem("userType");
+    const userType = localStorage.getItem("userType");
 
     return (
-      <>
-         {
-               userType === "Security" ? 
-                  <VisitorsSidebar {...this.props} />
-                      :
-                  <ChairmanSidebarWeb {...this.props} /> 
-         }
-      </>
+      <>{userType === "Security" ? <VisitorsSidebar {...this.props} /> : <ChairmanSidebarWeb {...this.props} />}</>
     );
   }
 }
-
 
 //@ts-ignore
 export default withTranslation()(withRouter(GeneralSideBar));
