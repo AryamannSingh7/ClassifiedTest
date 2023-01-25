@@ -135,19 +135,10 @@ class CommunityRequestManagement extends CommunityUserProfileController {
                             </div>
                             <div style={{display:"flex", alignItems:"center"}}>
                                 <Typography variant="h6" style={dashBoard.subHeading}>{t("Pending Join requests")}</Typography>
-                                {/* <img
-                                aria-owns={this.state.openToolTip ? 'mouse-over-popover' : undefined}
-                                aria-haspopup="true"
-                                onClick={(e: any) => this.handleToolTip(e, "dfdfdfdfddfdfdfd")}
-                                onMouseEnter={(e: any) => this.handleToolTip(e, "dfdfdfdfdfdfdfd")} 
-                                src= {info} style={{paddingLeft:"10px"}}/> */}
+                               
                                  <Tooltip style={{background:'white'}} title="This section will allow you to invite new owners, residents, and team members to join the platform and start engaging with the building community">
 
 <img
-// aria-owns={this.state.openToolTip ? 'mouse-over-popover' : undefined}
-// aria-haspopup="true"
-// onClick={(e: any) => this.handleToolTip(e, "dfdfdfdfddfdfdfd")}
-// onMouseEnter={(e: any) => this.handleToolTip(e, "dfdfdfdfdfdfdfd")} 
 src= {info} style={{paddingLeft:"10px"}}/>
 </Tooltip>
                                 </div>
@@ -182,19 +173,10 @@ src= {info} style={{paddingLeft:"10px"}}/>
                           //@ts-ignore
                           this.props.history.push("/AwaitingAcceptece")}}>
                                 <Typography variant="h6" style={dashBoard.subHeading}>{t("Sent invitations awaiting acceptance")}</Typography>
-                                {/* <img
-                                aria-owns={this.state.openToolTip ? 'mouse-over-popover' : undefined}
-                                aria-haspopup="true"
-                                onClick={(e: any) => this.handleToolTip(e, "dfdfdfdfddfdfdfd")}
-                                onMouseEnter={(e: any) => this.handleToolTip(e, "dfdfdfdfdfdfdfd")} 
-                                src= {info} style={{paddingLeft:"10px"}}/> */}
+                            
                                  <Tooltip style={{background:'white'}} title="This section will allow you to invite new owners, residents, and team members to join the platform and start engaging with the building community">
 
 <img
-// aria-owns={this.state.openToolTip ? 'mouse-over-popover' : undefined}
-// aria-haspopup="true"
-// onClick={(e: any) => this.handleToolTip(e, "dfdfdfdfddfdfdfd")}
-// onMouseEnter={(e: any) => this.handleToolTip(e, "dfdfdfdfdfdfdfd")} 
 src= {info} style={{paddingLeft:"10px"}}/>
 </Tooltip>
                                 </div>
@@ -322,21 +304,7 @@ src= {info} style={{paddingLeft:"10px"}}/>
                                       {
                                         this.state.allUserType.map((item:any)=> <MenuItem value={item?.id}>{item?.attributes?.name}</MenuItem>)
                                       }
-                                      {/* <MenuItem value={"user1"}>User1</MenuItem>
-                                      <MenuItem value={"user2"}>User2</MenuItem>
-                                      <MenuItem value={"user3"}>User3</MenuItem>
-                                      <MenuItem value={"user4"}>User4</MenuItem> */}
-
-                                      {/* {
-                                        this.state?.userTypeData?.map((val, index) => (
-                                          <MenuItem
-                                            key={index}
-                                            value={val?.name}
-                                          >
-                                            {val?.name}
-                                          </MenuItem>
-                                        ))
-                                      } */}
+                                     
 
                                     </Select>
                                   </FormControl>
@@ -456,21 +424,7 @@ src= {info} style={{paddingLeft:"10px"}}/>
                                     {
                                       this.state.allBuilding.map((item:any)=> <MenuItem value={item.id}>{item?.name}</MenuItem>)
                                     }
-                                    {/* <MenuItem value={"building1"}>User1</MenuItem>
-                                    <MenuItem value={"building2"}>User2</MenuItem>
-                                    <MenuItem value={"building3"}>User3</MenuItem>
-                                    <MenuItem value={"building4"}>User4</MenuItem> */}
-
-                                    {/* {
-                                      this.state?.userTypeData?.map((val, index) => (
-                                        <MenuItem
-                                          key={index}
-                                          value={val?.name}
-                                        >
-                                          {val?.name}
-                                        </MenuItem>
-                                      ))
-                                    } */}
+                                   
 
                                   </Select>
                                 </FormControl>
@@ -514,21 +468,7 @@ src= {info} style={{paddingLeft:"10px"}}/>
                                       {
                                         this.state.allUnit.map((item:any)=> <MenuItem value={item.id}>{item?.apartment_name}</MenuItem>)
                                       }
-                                      {/* <MenuItem value={"unit1"}>User1</MenuItem>
-                                      <MenuItem value={"unit2"}>User2</MenuItem>
-                                      <MenuItem value={"unit3"}>User3</MenuItem>
-                                      <MenuItem value={"unit4"}>User4</MenuItem> */}
-
-                                      {/* {
-                                        this.state?.userTypeData?.map((val, index) => (
-                                          <MenuItem
-                                            key={index}
-                                            value={val?.name}
-                                          >
-                                            {val?.name}
-                                          </MenuItem>
-                                        ))
-                                      } */}
+                                      
 
                                     </Select>
                                   </FormControl>
