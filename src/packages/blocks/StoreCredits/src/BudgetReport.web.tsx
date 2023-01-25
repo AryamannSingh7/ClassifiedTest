@@ -129,7 +129,18 @@ class BudgetReport extends BudgetReportController {
                                       <TableCell>{moment(item?.attributes?.report_generated_on,"DD-MM-YY").format("DD MMM YYYY")}</TableCell>
                                       <TableCell>{item?.attributes?.currency?.currency} {item?.attributes?.amount.toLocaleString()}</TableCell>
                                       <TableCell>
-                                        <span className="Pending">{item?.attributes?.status}</span>
+                                        {
+                                            item?.attributes?.status === "Pending" &&
+                                          <span className="pending">Pending Approval</span>
+                                        }
+                                        {
+                                            item?.attributes?.status === "Approved" &&
+                                            <span className="approved">{item?.attributes?.status}</span>
+                                        }
+                                        {
+                                            item?.attributes?.status === "Rejected" &&
+                                            <span className="cancelled">{item?.attributes?.status}</span>
+                                        }
                                       </TableCell>
                                       <TableCell>
                                         <Menu

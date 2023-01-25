@@ -391,6 +391,18 @@
     font-weight: 800 !important;
 }
 
+.statusRejected{
+  background: #FFEAEA;
+  padding: 5px 15px;
+  border-radius: 30px;
+  color: #F21717;
+  display: initial;
+  min-height: 20px;
+  min-width: 50px;
+  text-transform: capitalize;
+  font-weight: 800 !important;
+}
+
 
 .chairmanSelected{
     background: #fc8434;
