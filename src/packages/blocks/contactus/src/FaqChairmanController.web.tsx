@@ -3,9 +3,10 @@ import { Message } from "../../../framework/src/Message";
 import { BlockComponent } from "../../../framework/src/BlockComponent";
 import MessageEnum, { getName } from "../../../framework/src/Messages/MessageEnum";
 import { runEngine } from "../../../framework/src/RunEngine";
-import { ApiCatchErrorResponse, ApiErrorResponse } from "../../../components/src/APIErrorResponse";
 
 // Customizable Area Start
+import { ApiCatchErrorResponse, ApiErrorResponse } from "../../../components/src/APIErrorResponse";
+import { apiCall } from "../../../components/src/APICallComponent/index.web";
 // Customizable Area End
 
 export const configJSON = require("./config.js");
@@ -30,11 +31,13 @@ interface S {
 
   faqList: any[];
   catagoriesList: any[];
+  dashboardTypeList: any[];
 
   selectedCategoryId: string;
   selectedCategoryName: string;
 
   categoryName: string;
+  dashboardType: string;
 
   selectedFaqId: string;
 
@@ -60,6 +63,7 @@ export default class FaqChairmanController extends BlockComponent<Props, S, SS> 
   DeleteFaqCallId: any;
   CreateFaqCallId: any;
   CategoryByIdCallId: any;
+  GetDashboardTypeCallId: any;
 
   constructor(props: Props) {
     super(props);
@@ -79,11 +83,13 @@ export default class FaqChairmanController extends BlockComponent<Props, S, SS> 
 
       faqList: [],
       catagoriesList: [],
+      dashboardTypeList: [],
 
       selectedCategoryId: "",
       selectedCategoryName: "",
 
       categoryName: "",
+      dashboardType: "",
 
       selectedFaqId: "",
 
@@ -100,29 +106,45 @@ export default class FaqChairmanController extends BlockComponent<Props, S, SS> 
   }
 
   async receive(from: string, message: Message) {
+    runEngine.debugLog("Message Recived", message);
+
     // Customizable Area Start
-    // Get FAQ Category
-    if (
-      getName(MessageEnum.RestAPIResponceMessage) === message.id &&
-      this.FaqCategoryCallId !== null &&
-      this.FaqCategoryCallId === message.getData(getName(MessageEnum.RestAPIResponceDataMessage))
-    ) {
-      this.FaqCategoryCallId = null;
+    if (getName(MessageEnum.RestAPIResponceMessage) === message.id) {
+      let responseJson = message.getData(getName(MessageEnum.RestAPIResponceSuccessMessage));
+      let errorResponse = message.getData(getName(MessageEnum.RestAPIResponceErrorMessage));
 
-      var responseJson = message.getData(getName(MessageEnum.RestAPIResponceSuccessMessage));
+      const apiRequestCallId = message.getData(getName(MessageEnum.RestAPIResponceDataMessage));
 
-      if (responseJson.data) {
-        this.setState({
-          ...this.state,
-          catagoriesList: responseJson.data,
-          selectedCategoryId: responseJson.data.length > 0 ? responseJson.data[0].id : "",
-          createCategoryId: responseJson.data.length > 0 ? responseJson.data[0].id : "",
-          selectedCategoryName: responseJson.data.length > 0 ? responseJson.data[0].attributes.name : "",
-          faqList: responseJson.data.length > 0 ? responseJson.data[0].attributes.FAQ : [],
-        });
+      switch (apiRequestCallId) {
+        case this.FaqCategoryCallId:
+          this.handleGetFaqCategoryResponse(responseJson);
+          break;
+        case this.CreateFaqCategoryCallId:
+          this.handleCreateCategoryResponse(responseJson);
+          break;
+        case this.DeleteFaqCategoryCallId:
+          this.getFaqCategory();
+          this.handleDeleteAllCategoryModal();
+          break;
+        case this.EditFaqCallId:
+          this.handleEditFaqResponse(responseJson);
+          break;
+        case this.DeleteFaqCallId:
+          this.handleDeleteFaqResponse(responseJson);
+          break;
+        case this.CreateFaqCallId:
+          this.handleCreateFaqResponse(responseJson);
+          break;
+        case this.CategoryByIdCallId:
+          this.handleGetCategoryByIdResponse(responseJson);
+          break;
+        case this.GetDashboardTypeCallId:
+          this.handleGetDashboardTypeResponse(responseJson);
+          break;
+        default:
+          break;
       }
 
-      var errorResponse = message.getData(getName(MessageEnum.RestAPIResponceErrorMessage));
       if (responseJson && responseJson.meta && responseJson.meta.token) {
         runEngine.unSubscribeFromMessages(this, this.subScribedMessages);
       } else {
@@ -130,282 +152,92 @@ export default class FaqChairmanController extends BlockComponent<Props, S, SS> 
       }
       ApiCatchErrorResponse(errorResponse);
     }
-
-    // Create Category
-    if (
-      getName(MessageEnum.RestAPIResponceMessage) === message.id &&
-      this.CreateFaqCategoryCallId !== null &&
-      this.CreateFaqCategoryCallId === message.getData(getName(MessageEnum.RestAPIResponceDataMessage))
-    ) {
-      this.CreateFaqCategoryCallId = null;
-
-      var responseJson = message.getData(getName(MessageEnum.RestAPIResponceSuccessMessage));
-
-      if (responseJson.data) {
-        this.setState(
-          {
-            ...this.state,
-            catagoriesList: [...this.state.catagoriesList, responseJson.data],
-            selectedCategoryId: responseJson.data.id,
-            selectedCategoryName: responseJson.data.attributes.name,
-            faqList: responseJson.data.attributes.FAQ,
-          },
-          () => {
-            this.handleAddCategoryModal();
-          }
-        );
-      }
-
-      var errorResponse = message.getData(getName(MessageEnum.RestAPIResponceErrorMessage));
-      if (responseJson && responseJson.meta && responseJson.meta.token) {
-        runEngine.unSubscribeFromMessages(this, this.subScribedMessages);
-      } else {
-        ApiErrorResponse(responseJson);
-      }
-      ApiCatchErrorResponse(errorResponse);
-    }
-
-    // Delete Category
-    if (
-      getName(MessageEnum.RestAPIResponceMessage) === message.id &&
-      this.DeleteFaqCategoryCallId !== null &&
-      this.DeleteFaqCategoryCallId === message.getData(getName(MessageEnum.RestAPIResponceDataMessage))
-    ) {
-      this.DeleteFaqCategoryCallId = null;
-
-      var responseJson = message.getData(getName(MessageEnum.RestAPIResponceSuccessMessage));
-
-      this.getFaqCategory();
-      this.handleDeleteAllCategoryModal();
-
-      var errorResponse = message.getData(getName(MessageEnum.RestAPIResponceErrorMessage));
-      if (responseJson && responseJson.meta && responseJson.meta.token) {
-        runEngine.unSubscribeFromMessages(this, this.subScribedMessages);
-      } else {
-        ApiErrorResponse(responseJson);
-      }
-      ApiCatchErrorResponse(errorResponse);
-    }
-
-    // Edit Faq
-    if (
-      getName(MessageEnum.RestAPIResponceMessage) === message.id &&
-      this.EditFaqCallId !== null &&
-      this.EditFaqCallId === message.getData(getName(MessageEnum.RestAPIResponceDataMessage))
-    ) {
-      this.EditFaqCallId = null;
-
-      var responseJson = message.getData(getName(MessageEnum.RestAPIResponceSuccessMessage));
-
-      if (responseJson) {
-        this.setState(
-          {
-            ...this.state,
-            editCategoryId: "",
-            editQuestion: "",
-            editAnswer: "",
-          },
-          () => {
-            this.getCategoryByCategoryId();
-            this.handleEditQuestionModal();
-          }
-        );
-      }
-
-      var errorResponse = message.getData(getName(MessageEnum.RestAPIResponceErrorMessage));
-      if (responseJson && responseJson.meta && responseJson.meta.token) {
-        runEngine.unSubscribeFromMessages(this, this.subScribedMessages);
-      } else {
-        ApiErrorResponse(responseJson);
-      }
-      ApiCatchErrorResponse(errorResponse);
-    }
-
-    // Delete Faq
-    if (
-      getName(MessageEnum.RestAPIResponceMessage) === message.id &&
-      this.DeleteFaqCallId !== null &&
-      this.DeleteFaqCallId === message.getData(getName(MessageEnum.RestAPIResponceDataMessage))
-    ) {
-      this.DeleteFaqCallId = null;
-
-      var responseJson = message.getData(getName(MessageEnum.RestAPIResponceSuccessMessage));
-
-      if (responseJson) {
-        this.getCategoryByCategoryId();
-        this.handleDeleteQuestionModal();
-      }
-
-      var errorResponse = message.getData(getName(MessageEnum.RestAPIResponceErrorMessage));
-      if (responseJson && responseJson.meta && responseJson.meta.token) {
-        runEngine.unSubscribeFromMessages(this, this.subScribedMessages);
-      } else {
-        ApiErrorResponse(responseJson);
-      }
-      ApiCatchErrorResponse(errorResponse);
-    }
-
-    // Create Faq
-    if (
-      getName(MessageEnum.RestAPIResponceMessage) === message.id &&
-      this.CreateFaqCallId !== null &&
-      this.CreateFaqCallId === message.getData(getName(MessageEnum.RestAPIResponceDataMessage))
-    ) {
-      this.CreateFaqCallId = null;
-
-      var responseJson = message.getData(getName(MessageEnum.RestAPIResponceSuccessMessage));
-
-      if (responseJson.data) {
-        this.setState(
-          {
-            ...this.state,
-          },
-          () => {
-            this.getCategoryByCategoryId();
-            this.handleAddQuestionModal();
-          }
-        );
-        // this.getFaqCategory();
-      }
-
-      var errorResponse = message.getData(getName(MessageEnum.RestAPIResponceErrorMessage));
-      if (responseJson && responseJson.meta && responseJson.meta.token) {
-        runEngine.unSubscribeFromMessages(this, this.subScribedMessages);
-      } else {
-        ApiErrorResponse(responseJson);
-      }
-      ApiCatchErrorResponse(errorResponse);
-    }
-
-    // Get Category Id
-    if (
-      getName(MessageEnum.RestAPIResponceMessage) === message.id &&
-      this.CategoryByIdCallId !== null &&
-      this.CategoryByIdCallId === message.getData(getName(MessageEnum.RestAPIResponceDataMessage))
-    ) {
-      this.CategoryByIdCallId = null;
-
-      var responseJson = message.getData(getName(MessageEnum.RestAPIResponceSuccessMessage));
-
-      if (responseJson.data) {
-        const data = this.state.catagoriesList.map((category: any) =>
-          category.id === responseJson.data.id ? responseJson.data : category
-        );
-
-        this.setState({
-          ...this.state,
-          catagoriesList: data,
-          faqList: responseJson.data.attributes.FAQ,
-        });
-      }
-
-      var errorResponse = message.getData(getName(MessageEnum.RestAPIResponceErrorMessage));
-      if (responseJson && responseJson.meta && responseJson.meta.token) {
-        runEngine.unSubscribeFromMessages(this, this.subScribedMessages);
-      } else {
-        ApiErrorResponse(responseJson);
-      }
-      ApiCatchErrorResponse(errorResponse);
-    }
-
     // Customizable Area End
   }
 
   // Customizable Area Start
   async componentDidMount(): Promise<void> {
     this.getFaqCategory();
+    this.getDashboardType();
   }
 
   // Get FAQ Category API
-  getFaqCategory = () => {
-    const header = {
-      "Content-Type": configJSON.ApiContentType,
-      token: localStorage.getItem("userToken"),
-    };
-
-    const apiRequest = new Message(getName(MessageEnum.RestAPIRequestMessage));
-
-    this.FaqCategoryCallId = apiRequest.messageId;
-
+  getFaqCategory = async () => {
     const society_id = localStorage.getItem("society_id");
-    apiRequest.addData(
-      getName(MessageEnum.RestAPIResponceEndPointMessage),
-      `society_managements/${society_id}/bx_block_interactive_faqs/interactive_faq_categories`
-    );
+    const dashboard_type = localStorage.getItem("userType");
 
-    apiRequest.addData(getName(MessageEnum.RestAPIRequestHeaderMessage), JSON.stringify(header));
+    this.FaqCategoryCallId = await apiCall({
+      contentType: "application/json",
+      method: "GET",
+      endPoint: `society_managements/${society_id}/bx_block_interactive_faqs/interactive_faq_categories?dashboard_type=${dashboard_type}`,
+    });
+  };
 
-    apiRequest.addData(getName(MessageEnum.RestAPIRequestMethodMessage), configJSON.apiMethodTypeGet);
-
-    runEngine.sendMessage(apiRequest.id, apiRequest);
-    return true;
+  handleGetFaqCategoryResponse = (responseJson: any) => {
+    if (responseJson && responseJson.data) {
+      this.setState({
+        ...this.state,
+        catagoriesList: responseJson.data,
+        selectedCategoryId: responseJson.data.length > 0 ? responseJson.data[0].id : "",
+        createCategoryId: responseJson.data.length > 0 ? responseJson.data[0].id : "",
+        selectedCategoryName: responseJson.data.length > 0 ? responseJson.data[0].attributes.name : "",
+        faqList: responseJson.data.length > 0 ? responseJson.data[0].attributes.FAQ : [],
+      });
+    }
   };
 
   // Create FAQ Category API
-  createCategory = () => {
+  createCategory = async () => {
     const body = {
       data: {
         attributes: {
           name: this.state.categoryName,
           society_id: localStorage.getItem("society_id"),
+          dashboard_type: this.state.dashboardType,
         },
       },
     };
-
-    const header = {
-      "Content-Type": configJSON.ApiContentType,
-      token: localStorage.getItem("userToken"),
-    };
-
-    const apiRequest = new Message(getName(MessageEnum.RestAPIRequestMessage));
-
-    this.CreateFaqCategoryCallId = apiRequest.messageId;
-
     const society_id = localStorage.getItem("society_id");
-    apiRequest.addData(
-      getName(MessageEnum.RestAPIResponceEndPointMessage),
-      `society_managements/${society_id}/bx_block_interactive_faqs/interactive_faq_categories`
-    );
 
-    apiRequest.addData(getName(MessageEnum.RestAPIRequestHeaderMessage), JSON.stringify(header));
+    this.CreateFaqCategoryCallId = await apiCall({
+      contentType: "application/json",
+      method: "POST",
+      endPoint: `society_managements/${society_id}/bx_block_interactive_faqs/interactive_faq_categories`,
+      body: body,
+    });
+  };
 
-    apiRequest.addData(getName(MessageEnum.RestAPIRequestBodyMessage), JSON.stringify(body));
-
-    apiRequest.addData(getName(MessageEnum.RestAPIRequestMethodMessage), configJSON.apiMethodTypePost);
-
-    runEngine.sendMessage(apiRequest.id, apiRequest);
-    return true;
+  handleCreateCategoryResponse = (responseJson: any) => {
+    if (responseJson && responseJson.data) {
+      this.setState(
+        {
+          catagoriesList: [...this.state.catagoriesList, responseJson.data],
+          selectedCategoryId: responseJson.data.id,
+          selectedCategoryName: responseJson.data.attributes.name,
+          faqList: responseJson.data.attributes.FAQ,
+        },
+        () => {
+          this.handleAddCategoryModal();
+        }
+      );
+    }
   };
 
   // Delete FAQ Category API
-  deleteCategory = () => {
-    const header = {
-      "Content-Type": configJSON.ApiContentType,
-      token: localStorage.getItem("userToken"),
-    };
-
-    const apiRequest = new Message(getName(MessageEnum.RestAPIRequestMessage));
-
-    this.DeleteFaqCategoryCallId = apiRequest.messageId;
-
+  deleteCategory = async () => {
     const society_id = localStorage.getItem("society_id");
-    apiRequest.addData(
-      getName(MessageEnum.RestAPIResponceEndPointMessage),
-      `society_managements/${society_id}/bx_block_interactive_faqs/interactive_faq_categories/${
+
+    this.DeleteFaqCategoryCallId = await apiCall({
+      contentType: "application/json",
+      method: "DELETE",
+      endPoint: `society_managements/${society_id}/bx_block_interactive_faqs/interactive_faq_categories/${
         this.state.selectedCategoryId
-      }`
-    );
-
-    apiRequest.addData(getName(MessageEnum.RestAPIRequestHeaderMessage), JSON.stringify(header));
-
-    apiRequest.addData(getName(MessageEnum.RestAPIRequestMethodMessage), configJSON.apiMethodTypeDelete);
-
-    runEngine.sendMessage(apiRequest.id, apiRequest);
-    return true;
+      }`,
+    });
   };
 
   // Edit FAQ API
-  editFaq = () => {
+  editFaq = async () => {
     const body = {
       data: {
         attributes: {
@@ -415,59 +247,56 @@ export default class FaqChairmanController extends BlockComponent<Props, S, SS> 
         },
       },
     };
-
-    const header = {
-      "Content-Type": configJSON.ApiContentType,
-      token: localStorage.getItem("userToken"),
-    };
-
-    const apiRequest = new Message(getName(MessageEnum.RestAPIRequestMessage));
-
-    this.EditFaqCallId = apiRequest.messageId;
-
     const society_id = localStorage.getItem("society_id");
-    apiRequest.addData(
-      getName(MessageEnum.RestAPIResponceEndPointMessage),
-      `society_managements/${society_id}/bx_block_interactive_faqs/interactive_faqs/${this.state.selectedFaqId}`
-    );
 
-    apiRequest.addData(getName(MessageEnum.RestAPIRequestBodyMessage), JSON.stringify(body));
+    this.EditFaqCallId = await apiCall({
+      contentType: "application/json",
+      method: "PUT",
+      endPoint: `society_managements/${society_id}/bx_block_interactive_faqs/interactive_faqs/${
+        this.state.selectedFaqId
+      }`,
+      body: body,
+    });
+  };
 
-    apiRequest.addData(getName(MessageEnum.RestAPIRequestHeaderMessage), JSON.stringify(header));
-
-    apiRequest.addData(getName(MessageEnum.RestAPIRequestMethodMessage), configJSON.apiMethodTypePut);
-
-    runEngine.sendMessage(apiRequest.id, apiRequest);
-    return true;
+  handleEditFaqResponse = (responseJson: any) => {
+    if (responseJson) {
+      this.setState(
+        {
+          editCategoryId: "",
+          editQuestion: "",
+          editAnswer: "",
+        },
+        () => {
+          this.getCategoryByCategoryId();
+          this.handleEditQuestionModal();
+        }
+      );
+    }
   };
 
   // Delete FAQ API
-  deleteFaq = () => {
-    const header = {
-      "Content-Type": configJSON.ApiContentType,
-      token: localStorage.getItem("userToken"),
-    };
-
-    const apiRequest = new Message(getName(MessageEnum.RestAPIRequestMessage));
-
-    this.DeleteFaqCallId = apiRequest.messageId;
-
+  deleteFaq = async () => {
     const society_id = localStorage.getItem("society_id");
-    apiRequest.addData(
-      getName(MessageEnum.RestAPIResponceEndPointMessage),
-      `society_managements/${society_id}/bx_block_interactive_faqs/interactive_faqs/${this.state.selectedFaqId}`
-    );
 
-    apiRequest.addData(getName(MessageEnum.RestAPIRequestHeaderMessage), JSON.stringify(header));
+    this.DeleteFaqCallId = await apiCall({
+      contentType: "application/json",
+      method: "DELETE",
+      endPoint: `society_managements/${society_id}/bx_block_interactive_faqs/interactive_faqs/${
+        this.state.selectedFaqId
+      }`,
+    });
+  };
 
-    apiRequest.addData(getName(MessageEnum.RestAPIRequestMethodMessage), configJSON.apiMethodTypeDelete);
-
-    runEngine.sendMessage(apiRequest.id, apiRequest);
-    return true;
+  handleDeleteFaqResponse = (responseJson: any) => {
+    if (responseJson) {
+      this.getCategoryByCategoryId();
+      this.handleDeleteQuestionModal();
+    }
   };
 
   // Create FAQ API
-  createFaq = () => {
+  createFaq = async () => {
     const body = {
       data: {
         attributes: {
@@ -477,64 +306,72 @@ export default class FaqChairmanController extends BlockComponent<Props, S, SS> 
         },
       },
     };
-
-    const header = {
-      "Content-Type": configJSON.ApiContentType,
-      token: localStorage.getItem("userToken"),
-    };
-
-    const apiRequest = new Message(getName(MessageEnum.RestAPIRequestMessage));
-
-    this.CreateFaqCallId = apiRequest.messageId;
-
     const society_id = localStorage.getItem("society_id");
-    apiRequest.addData(
-      getName(MessageEnum.RestAPIResponceEndPointMessage),
-      `society_managements/${society_id}/bx_block_interactive_faqs/interactive_faqs`
-    );
 
-    apiRequest.addData(getName(MessageEnum.RestAPIRequestHeaderMessage), JSON.stringify(header));
+    this.CreateFaqCallId = await apiCall({
+      contentType: "application/json",
+      method: "POST",
+      endPoint: `society_managements/${society_id}/bx_block_interactive_faqs/interactive_faqs`,
+      body: body,
+    });
+  };
 
-    apiRequest.addData(getName(MessageEnum.RestAPIRequestBodyMessage), JSON.stringify(body));
-
-    apiRequest.addData(getName(MessageEnum.RestAPIRequestMethodMessage), configJSON.apiMethodTypePost);
-
-    runEngine.sendMessage(apiRequest.id, apiRequest);
-    return true;
+  handleCreateFaqResponse = (responseJson: any) => {
+    if (responseJson && responseJson.data) {
+      this.setState({ ...this.state }, () => {
+        this.getCategoryByCategoryId();
+        this.handleAddQuestionModal();
+      });
+    }
   };
 
   // Get Category Id API
-  getCategoryByCategoryId = () => {
-    const header = {
-      "Content-Type": configJSON.ApiContentType,
-      token: localStorage.getItem("userToken"),
-    };
-
-    const apiRequest = new Message(getName(MessageEnum.RestAPIRequestMessage));
-
-    this.CategoryByIdCallId = apiRequest.messageId;
-
+  getCategoryByCategoryId = async () => {
     const society_id = localStorage.getItem("society_id");
-    apiRequest.addData(
-      getName(MessageEnum.RestAPIResponceEndPointMessage),
-      `society_managements/${society_id}/bx_block_interactive_faqs/interactive_faq_categories/${
+
+    this.CategoryByIdCallId = await apiCall({
+      contentType: "application/json",
+      method: "GET",
+      endPoint: `society_managements/${society_id}/bx_block_interactive_faqs/interactive_faq_categories/${
         this.state.selectedCategoryId
-      }`
-    );
+      }`,
+    });
+  };
 
-    apiRequest.addData(getName(MessageEnum.RestAPIRequestHeaderMessage), JSON.stringify(header));
+  handleGetCategoryByIdResponse = (responseJson: any) => {
+    if (responseJson && responseJson.data) {
+      const data = this.state.catagoriesList.map((category: any) =>
+        category.id === responseJson.data.id ? responseJson.data : category
+      );
 
-    apiRequest.addData(getName(MessageEnum.RestAPIRequestMethodMessage), configJSON.apiMethodTypeGet);
+      this.setState({
+        catagoriesList: data,
+        faqList: responseJson.data.attributes.FAQ,
+      });
+    }
+  };
 
-    runEngine.sendMessage(apiRequest.id, apiRequest);
-    return true;
+  // Get Dashboard Type
+  getDashboardType = async () => {
+    const society_id = localStorage.getItem("society_id");
+
+    this.GetDashboardTypeCallId = await apiCall({
+      contentType: "application/json",
+      method: "GET",
+      endPoint: `society_managements/${society_id}/bx_block_interactive_faqs/list_dashbord`,
+    });
+  };
+
+  handleGetDashboardTypeResponse = (responseJson: any) => {
+    if (responseJson && responseJson.dashbords) {
+      this.setState({ dashboardTypeList: responseJson.dashbords });
+    }
   };
 
   // State Handle Function
   selectEditFaq = (faq: any) => {
     this.setState(
       {
-        ...this.state,
         selectedFaqId: faq.id,
         editCategoryId: faq.interactive_faq_category_id,
         editQuestion: faq.title,
@@ -547,27 +384,19 @@ export default class FaqChairmanController extends BlockComponent<Props, S, SS> 
   };
 
   selectDeleteFaq = (faq: any) => {
-    this.setState(
-      {
-        ...this.state,
-        selectedFaqId: faq.id,
-      },
-      () => {
-        this.handleDeleteQuestionModal();
-      }
-    );
+    this.setState({ selectedFaqId: faq.id }, () => {
+      this.handleDeleteQuestionModal();
+    });
   };
 
   handleChange = (panel: string) => () => {
     this.setState({
-      ...this.state,
       expanded: panel.toString(),
     });
   };
 
   handleAddQuestionModal = () => {
     this.setState({
-      ...this.state,
       createQuestion: "",
       createAnswer: "",
       isAddQuestionModalOpen: !this.state.isAddQuestionModalOpen,
@@ -576,32 +405,28 @@ export default class FaqChairmanController extends BlockComponent<Props, S, SS> 
 
   handleEditQuestionModal = () => {
     this.setState({
-      ...this.state,
       isEditQuestionModalOpen: !this.state.isEditQuestionModalOpen,
     });
   };
 
   handleAddCategoryModal = () => {
     this.setState({
-      ...this.state,
       categoryName: "",
+      dashboardType: "",
       isAddCategoryModalOpen: !this.state.isAddCategoryModalOpen,
     });
   };
 
   handleDeleteAllCategoryModal = () => {
     this.setState({
-      ...this.state,
       isDeleteAllCategoryModalOpen: !this.state.isDeleteAllCategoryModalOpen,
     });
   };
 
   handleDeleteQuestionModal = () => {
     this.setState({
-      ...this.state,
       isDeleteQuestionModalOpen: !this.state.isDeleteQuestionModalOpen,
     });
   };
-
   // Customizable Area End
 }
