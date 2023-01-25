@@ -46,6 +46,7 @@ export default class ReportDashboardController extends CommonApiCallForBlockComp
       const responseJson = message.getData(getName(MessageEnum.RestAPIResponceSuccessMessage));
       const errorResponse = message.getData(getName(MessageEnum.RestAPIResponceErrorMessage));
       if(this.getBudgetDataId === apiRequestCallId ){
+        console.log("ERROR",errorResponse)
         if(responseJson.hasOwnProperty("budget_report")){
           this.setState({
             budgetReportCount:responseJson?.budget_report?.data?.length || 0
