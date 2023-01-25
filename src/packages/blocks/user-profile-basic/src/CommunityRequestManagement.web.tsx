@@ -43,6 +43,7 @@ import ChairmanSidebar from "../../dashboard/src/ChairmanSidebar.web";
 import { withTranslation } from 'react-i18next';
 import '../../../web/src/i18n.js';
 import Tooltip from '@material-ui/core/Tooltip';
+// @ts-ignore
 import {dashBoard} from "./dash.js";
 
 //resorces
@@ -74,67 +75,44 @@ class CommunityRequestManagement extends CommunityUserProfileController {
             </Grid>
             <Grid xs={9} md={9} sm={9} spacing={4} style={{ paddingTop: 35 }}>
               <Container>
-                <Box style={dashBoard.navigation}>
+                <Box style={dashBoard.cm_navigation}>
                   <Box>
                     <Typography variant="body1" >
                       {t("Community Management")} / <Box component="span" style={{ color: "blue" }}> {t("Request Management")}</Box>
                     </Typography>
-                    <Typography variant="h5" style={dashBoard.subHeading}>{t("Request Management")}</Typography>
+                    <Typography variant="h5" style={dashBoard.cm_subHeading}>{t("Request Management")}</Typography>
                   </Box>
                 </Box>
 
                   {/* Request Management -- */}
                   <Box style={{marginTop:"20px"}}>
                     <div style={dashBoard.gaMemberCard}>
-                        <Paper elevation={3} style={dashBoard.managementPaper}
+                        <Paper elevation={3} style={dashBoard.cm_managementPaper}
                             onClick={this.handleOpen}>
                             <div style={dashBoard.invitemember}>
-                                <img src= {newMember} style={dashBoard.inviteIcon}/>
+                                <img src= {newMember} style={dashBoard.cm_inviteIcon}/>
                             </div>
-                            <div style={{display:"flex", alignItems:"center"}}><Typography variant="h6" style={dashBoard.subHeading}>{t("Invite a new Member")}</Typography>
+                            <div style={{display:"flex", alignItems:"center"}}><Typography variant="h6" style={dashBoard.cm_subHeading}>{t("Invite a new Member")}</Typography>
                             <Tooltip style={{background:'white'}} title="This section will allow you to invite new owners, residents, and team members to join the platform and start engaging with the building community">
 
                                 <img
-                                // aria-owns={this.state.openToolTip ? 'mouse-over-popover' : undefined}
-                                // aria-haspopup="true"
-                                // onClick={(e: any) => this.handleToolTip(e, "dfdfdfdfddfdfdfd")}
-                                // onMouseEnter={(e: any) => this.handleToolTip(e, "dfdfdfdfdfdfdfd")} 
+                                
                                 src= {info} style={{paddingLeft:"10px"}}/>
                               </Tooltip>
                                 </div>
                              
-                                 <RequestManagementDetailPopover
-                                    id="mouse-over-popover"
-                                    open={this.state.openToolTip}
-                                    anchorEl={this.state.anchorEl}
-                                    disableRestoreFocus
-                                    style={{top:'20rem'}}
-                                    anchorOrigin={{
-                                        vertical: 'bottom',
-                                        horizontal: 'center',
-                                    }}
-                                    transformOrigin={{
-                                        vertical: 'top',
-                                        horizontal: 'center',
-                                    }}
-                                    onClose={(e: any) => this.handleToolTip(e, "fdfdfdfdfdfdfdfd")}
-                                    >
-                                    <h6 style={{lineHeight:"20px", margin:"12px"}}>{t("Info")}</h6>
-                                    <img src={cancle}
-                                    //@ts-ignore 
-                                    style={dashBoard.cancleIcon} onClick={(e: any) => this.handleToolTip(e, "")}/>
-                                </RequestManagementDetailPopover>
+                                 
                             <h6>{t("Invite Member")}</h6>
                         </Paper>
-                        <Paper elevation={3} style={dashBoard.managementPaper} 
+                        <Paper elevation={3} style={dashBoard.cm_managementPaper} 
                             onClick={() => {
                             //@ts-ignore
                             this.props.history.push("/PendingRequest")}}>
                             <div style={dashBoard.imgRound}> 
-                                <img src= {addgroup} style={dashBoard.mailIcon}/>
+                                <img src= {addgroup} style={dashBoard.cm_mailIcon}/>
                             </div>
                             <div style={{display:"flex", alignItems:"center"}}>
-                                <Typography variant="h6" style={dashBoard.subHeading}>{t("Pending Join requests")}</Typography>
+                                <Typography variant="h6" style={dashBoard.cm_subHeading}>{t("Pending Join requests")}</Typography>
                                
                                  <Tooltip style={{background:'white'}} title="This section will allow you to invite new owners, residents, and team members to join the platform and start engaging with the building community">
 
@@ -142,32 +120,13 @@ class CommunityRequestManagement extends CommunityUserProfileController {
 src= {info} style={{paddingLeft:"10px"}}/>
 </Tooltip>
                                 </div>
-                                 <RequestManagementDetailPopover
-                                    id="mouse-over-popover"
-                                    open={this.state.openToolTip}
-                                    anchorEl={this.state.anchorEl}
-                                    disableRestoreFocus
-                                    anchorOrigin={{
-                                        vertical: 'bottom',
-                                        horizontal: 'center',
-                                    }}
-                                    transformOrigin={{
-                                        vertical: 'top',
-                                        horizontal: 'center',
-                                    }}
-                                    onClose={(e: any) => this.handleToolTip(e, "fdfdfdfdfdfdfdfd")}
-                                    >
-                                    <h6 style={{lineHeight:"20px", margin:"12px"}}>{t("Info")}</h6>
-                                    <img src={cancle}
-                                    //@ts-ignore 
-                                    style={dashBoard.cancleIcon} onClick={(e: any) => this.handleToolTip(e, "")}/>
-                                </RequestManagementDetailPopover>
-                            <Typography variant="h6" style={dashBoard.subHeading}>{this.state.invitatonCount?.pending}</Typography>
+                               
+                            <Typography variant="h6" style={dashBoard.cm_subHeading}>{this.state.invitatonCount?.pending}</Typography>
                         </Paper>
-                        <Paper elevation={3} style={dashBoard.managementPaper} 
+                        <Paper elevation={3} style={dashBoard.cm_managementPaper} 
                         >
-                            <div style={dashBoard.imgRound}>
-                                <img src= {invite} style={dashBoard.mailIcon}/>
+                            <div style={dashBoard.cm_imgRound}>
+                                <img src= {invite} style={dashBoard.cm_mailIcon}/>
                             </div>
                             <div style={{display:"flex", alignItems:"center"}} onClick={() => {
                           //@ts-ignore
@@ -180,37 +139,18 @@ src= {info} style={{paddingLeft:"10px"}}/>
 src= {info} style={{paddingLeft:"10px"}}/>
 </Tooltip>
                                 </div>
-                                 <RequestManagementDetailPopover
-                                    id="mouse-over-popover"
-                                    open={this.state.openToolTip}
-                                    anchorEl={this.state.anchorEl}
-                                    disableRestoreFocus
-                                    anchorOrigin={{
-                                        vertical: 'bottom',
-                                        horizontal: 'center',
-                                    }}
-                                    transformOrigin={{
-                                        vertical: 'top',
-                                        horizontal: 'center',
-                                    }}
-                                    onClose={(e: any) => this.handleToolTip(e, "fdfdfdfdfdfdfdfd")}
-                                    >
-                                    <h6 style={{lineHeight:"20px", margin:"12px"}} onClick={(e: any) => this.handleToolTip(e, "")}>{t("Info")}</h6>
-                                    <img src={cancle} 
-                                    //@ts-ignore
-                                    style={dashBoard.cancleIcon} onClick={(e: any) => this.handleToolTip(e, "")}/>
-                                </RequestManagementDetailPopover>
-                            <Typography variant="h6" style={dashBoard.subHeading}>{this.state.invitatonCount?.totle_received_requests-this.state.invitatonCount?.accepted}</Typography>
+                           
+                            <Typography variant="h6" style={dashBoard.cm_subHeading}>{this.state.invitatonCount?.totle_received_requests-this.state.invitatonCount?.accepted}</Typography>
                         </Paper>
                     </div>
                   </Box>
 
-                  <Box style={dashBoard.invitationReq}>
-                    <Paper elevation={3} style={dashBoard.managementPaper}>
-                        <Typography variant="h6" style={dashBoard.subHeading}>{t("Invitation Requests")}</Typography>
+                  <Box style={dashBoard.cm_invitationReq}>
+                    <Paper elevation={3} style={dashBoard.cm_managementPaper}>
+                        <Typography variant="h6" style={dashBoard.cm_subHeading}>{t("Invitation Requests")}</Typography>
                         <hr />
                         <div>
-                            <div style={dashBoard.facility}>
+                            <div style={dashBoard.cm_facility}>
                                 <h6 style={{color:"d3d3d3", margin:"20px 0px 10px 0px"}}>{t("Title")}</h6>
                                 <h6 style={{color:"d3d3d3", margin:"20px 0px 10px 0px"}}>{t("Count")}</h6>
                             </div>
@@ -219,19 +159,19 @@ src= {info} style={{paddingLeft:"10px"}}/>
                             //@ts-ignore
                             this.props.history.push("/SentInvitation")}}>
                                 <h6>{t("Total Sent Invitations")}</h6>
-                                <Typography variant="h6" style={dashBoard.invitationCont}>{this.state.invitatonCount?.totle_sent_requests}</Typography>
+                                <Typography variant="h6" style={dashBoard.cm_invitationCont}>{this.state.invitatonCount?.totle_sent_requests}</Typography>
                             </div>
                             <div style={dashBoard.facility}>
                                 <h6>{t("Accepted Invitations by users")}</h6>
-                                <Typography variant="h6" style={dashBoard.invitationCont}>{this.state.invitatonCount?.accepted}</Typography>
+                                <Typography variant="h6" style={dashBoard.cm_invitationCont}>{this.state.invitatonCount?.accepted}</Typography>
                             </div>
                             <div style={dashBoard.facility}>
                                 <h6>{t("Rejected Invitation by users")}</h6>
-                                <Typography variant="h6" style={dashBoard.invitationCont}>{this.state.invitatonCount?.rejected}</Typography>
+                                <Typography variant="h6" style={dashBoard.cm_invitationCont}>{this.state.invitatonCount?.rejected}</Typography>
                             </div>
                             <div style={dashBoard.facility}>
-                                <h6 style={dashBoard.inviteTitle}>{t("Total received join requests")}</h6>
-                                <Typography variant="h6" style={dashBoard.invitationCont}>{this.state.invitatonCount?.totle_received_requests}</Typography>
+                                <h6 style={dashBoard.cm_inviteTitle}>{t("Total received join requests")}</h6>
+                                <Typography variant="h6" style={dashBoard.cm_invitationCont}>{this.state.invitatonCount?.totle_received_requests}</Typography>
                             </div>
                         </div>
                     </Paper>
@@ -239,7 +179,7 @@ src= {info} style={{paddingLeft:"10px"}}/>
 
                   {/* Invite Member modal */}
                   <Modal
-                    style={dashBoard.modal}
+                    style={dashBoard.cm_modal}
                     open={Boolean(this.state.setOpen)}
                     onClose={this.handleClose}
                     closeAfterTransition
@@ -250,14 +190,14 @@ src= {info} style={{paddingLeft:"10px"}}/>
                     >
                       
                     <Fade in={Boolean(this.state.setOpen)}>
-                      <div style={dashBoard.paper}>
+                      <div style={dashBoard.cm_paper}>
                         <div style={{display:'flex',justifyContent:'space-between',alignItems:'center',borderBottom:'1px solid #0000002e',padding:'16px 32px 24px'}}>
 
                         <p style={{fontWeight:600}}>Invite Member</p>
                         <img src={cancle}
                         onClick={this.handleClose}
                         //@ts-ignore 
-                        style={dashBoard.modalCacle}/>
+                        style={dashBoard.cm_modalCacle}/>
                         </div>
                         <Formik
                     initialValues={{
@@ -281,12 +221,12 @@ src= {info} style={{paddingLeft:"10px"}}/>
                           <Grid container spacing={3}>
                             <Grid item xs={12} sm={6}>
                               <Box className="formGroup customSelect">
-                                  <FormLabel component="legend" style={dashBoard.labelsStyle}>{t("Select User Type")}</FormLabel>
+                                  <FormLabel component="legend" style={dashBoard.cm_labelsStyle}>{t("Select User Type")}</FormLabel>
                                   <FormControl variant="outlined" >
                                     <span className="frmLeftIcons" style={{top:'28%'}}>
                                       <img src={user_icon} className="frm-icons" alt="User Icon" />
                                     </span>
-                                    <InputLabel id="demo-simple-select-outlined-label" style={dashBoard.formLabels}>{t("Select User Type")}</InputLabel> 
+                                    <InputLabel id="demo-simple-select-outlined-label" style={dashBoard.cm_formLabels}>{t("Select User Type")}</InputLabel> 
                                     <Select
                                       name="usertype"
                                       labelId="demo-simple-select-outlined-label"
@@ -325,11 +265,11 @@ src= {info} style={{paddingLeft:"10px"}}/>
                             </Grid>
                             <Grid item xs={12} sm={6}>
                               <Box className="formGroup">
-                              <FormLabel component="legend" style={dashBoard.labelsStyle}>{t("Member full name")}</FormLabel>
-                              <Field name="fullname" type="text" placeholder={t("Member full name")} style={dashBoard.inviteInput} />
+                              <FormLabel component="legend" style={dashBoard.cm_labelsStyle}>{t("Member full name")}</FormLabel>
+                              <Field name="fullname" type="text" placeholder={t("Member full name")} style={dashBoard.cm_inviteInput} />
                               <span
                               //@ts-ignore 
-                              style={dashBoard.formLeftIcn}>
+                              style={dashBoard.cm_formLeftIcn}>
                                 <img src={user_icon} className="frm-icons" alt="User Icon" />
                               </span>
                               {errors.fullname && touched.fullname ? (
@@ -351,11 +291,11 @@ src= {info} style={{paddingLeft:"10px"}}/>
                           <Grid container spacing={3}>
                             <Grid item xs={12} sm={6}>
                               <Box className="formGroup">
-                              <FormLabel component="legend" style={dashBoard.labelsStyle}>{t("Email Address")}</FormLabel>
-                              <Field name="email" type="text" placeholder={t("Email Address")} style={dashBoard.inviteInput} />
+                              <FormLabel component="legend" style={dashBoard.cm_labelsStyle}>{t("Email Address")}</FormLabel>
+                              <Field name="email" type="text" placeholder={t("Email Address")} style={dashBoard.cm_inviteInput} />
                               <span 
                               //@ts-ignore 
-                              style={dashBoard.formLeftIcn}>
+                              style={dashBoard.cm_formLeftIcn}>
                                 <img src={email_icon} className="frm-icons" alt="Email Icon" />
                               </span>
                               {errors.email && touched.email ? (
@@ -375,11 +315,11 @@ src= {info} style={{paddingLeft:"10px"}}/>
                             </Grid>
                             <Grid item xs={12} sm={6}>
                               <Box className="formGroup">
-                              <FormLabel component="legend" style={dashBoard.labelsStyle}>{t("Phone Number")}</FormLabel>
-                              <Field name="phoneno" type="text" placeholder={t("Phone Number")} style={dashBoard.inviteInput} />
+                              <FormLabel component="legend" style={dashBoard.cm_labelsStyle}>{t("Phone Number")}</FormLabel>
+                              <Field name="phoneno" type="text" placeholder={t("Phone Number")} style={dashBoard.cm_inviteInput} />
                               <span 
                               //@ts-ignore 
-                              style={dashBoard.formLeftIcn}>
+                              style={dashBoard.cm_formLeftIcn}>
                                 <img src={phone_icon} className="frm-icons" alt="Phone Icon" />
                               </span>
                               {errors.phoneno && touched.phoneno ? (
@@ -401,12 +341,12 @@ src= {info} style={{paddingLeft:"10px"}}/>
                           <Grid container spacing={3}>
                             <Grid item xs={12} sm={6}>
                               <Box className="formGroup customSelect">
-                              <FormLabel component="legend" style={dashBoard.labelsStyle}>{t("Select Building")}</FormLabel>
+                              <FormLabel component="legend" style={dashBoard.cm_labelsStyle}>{t("Select Building")}</FormLabel>
                                 <FormControl variant="outlined" >
                                   <span className="frmLeftIcons" style={{top:'28%'}}>
                                     <img src={building} className="frm-icons" alt="Building Icon" />
                                   </span>
-                                  <InputLabel id="demo-simple-select-outlined-label" style={dashBoard.formLabels}>{t("Select Building")}</InputLabel> 
+                                  <InputLabel id="demo-simple-select-outlined-label" style={dashBoard.cm_formLabels}>{t("Select Building")}</InputLabel> 
                                   <Select
                                     name="building"
                                     labelId="demo-simple-select-outlined-label"
@@ -445,12 +385,12 @@ src= {info} style={{paddingLeft:"10px"}}/>
                             </Grid>
                             <Grid item xs={12} sm={6}>
                               <Box className="formGroup customSelect">
-                              <FormLabel component="legend" style={dashBoard.labelsStyle}>{t("Select Unit")}</FormLabel>
+                              <FormLabel component="legend" style={dashBoard.cm_labelsStyle}>{t("Select Unit")}</FormLabel>
                                   <FormControl variant="outlined" >
                                     <span className="frmLeftIcons" style={{top:'30%'}}>
                                       <img src={unit} className="frm-icons" alt="Unit Icon" />
                                     </span>
-                                    <InputLabel id="demo-simple-select-outlined-label" style={dashBoard.formLabels}>{t("Select Unit")}</InputLabel> 
+                                    <InputLabel id="demo-simple-select-outlined-label" style={dashBoard.cm_formLabels}>{t("Select Unit")}</InputLabel> 
                                     <Select
                                       name="unit"
                                       labelId="demo-simple-select-outlined-label"
@@ -530,37 +470,6 @@ export default withTranslation()(withStyles(dashBoard)(withRouter(CommunityReque
 
 
 
-const RequestManagementDetailPopover = withStyles({
-    paper: {
-      top:'20rem !important',
-      color: 'rgba(4, 60, 116, 1)',
-      fontWeight: 600,
-      fontFamily: 'SFProDisplay',
-      fontSize: '20px',
-      backgroundColor: "rgba(255, 255, 255, 1)",
-      boxShadow: "0px 2px 4px 0px #64646430",
-      minWidth: 300,
-      maxWidth: 255,
-      borderRadius: 8,
-      padding: '5px 10px',
-      overflowX: "unset",
-      overflowY: "unset",
-      position:"absolute",
-      "&::before": {
-        backgroundColor: "rgba(255, 255, 255, 1)",
-        content: '""',
-        display: "block",
-        position: "absolute",
-        width: 14,
-        height: 14,
-        top: -6,
-        transform: "rotate(45deg)",
-        left: "calc(50% - 10px)",
-      },
-      "@media (max-width: 980px)": {
-        width: '68%',
-      }
-    }
-  })(Popover);
+
 
 // Customizable Area End
