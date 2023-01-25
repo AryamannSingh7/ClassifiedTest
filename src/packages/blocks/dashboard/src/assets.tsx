@@ -80,3 +80,7 @@ export const ManagerCollection = require("../assets/chair-collection.png");
 export const ManagerIncident = require("../assets/chair-incident.png");
 export const ManagerVehicle = require("../assets/chair-vehicle.png");
 export const ManagerFacility = require("../assets/chair-facility.png");
+export const NewNotification = require("../assets/active-notification.png");
+export const ActionBuilding = require("../assets/action-building.png");
+export const ActionAssign = require("../assets/action-assign.png");
+export const ActionCalender = require("../assets/action-calender.png");
