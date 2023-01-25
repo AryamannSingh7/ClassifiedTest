@@ -36,6 +36,10 @@ export default class ReportDashboardController extends CommonApiCallForBlockComp
     runEngine.attachBuildingBlock(this as IBlock, this.subScribedMessages);
   }
 
+  async componentDidMount(): Promise<void> {
+    this.getBudgetReport()
+  }
+
   async receive(from: string, message: Message) {
     if(getName(MessageEnum.RestAPIResponceMessage) === message.id) {
       const apiRequestCallId = message.getData(getName(MessageEnum.RestAPIResponceDataMessage));
@@ -44,19 +48,19 @@ export default class ReportDashboardController extends CommonApiCallForBlockComp
       if(this.getBudgetDataId === apiRequestCallId ){
         if(responseJson.hasOwnProperty("budget_report")){
           this.setState({
-            budgetReportCount:responseJson?.budget_report?.data?.length
+            budgetReportCount:responseJson?.budget_report?.data?.length || 0
           })
         }
       }
     }
   }
 
-  getBudgetReport = async (status:any,year:any) => {
+  getBudgetReport = async () => {
     const societyID = localStorage.getItem("society_id")
     this.getBudgetDataId = await this.apiCall({
       contentType: "application/json",
       method: "GET",
-      endPoint: `/society_managements/${societyID}/bx_block_report/budget_reports?status=${status}&year=${year}`,
+      endPoint: `/society_managements/${societyID}/bx_block_report/budget_reports`,
     });
   }
 }

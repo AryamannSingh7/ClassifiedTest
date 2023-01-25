@@ -6,6 +6,7 @@ import MessageEnum, {
   getName
 } from "../../../framework/src/Messages/MessageEnum";
 import { runEngine } from "../../../framework/src/RunEngine";
+import CommonApiCallForBlockComponent from "../../../components/src/ApiCallCommon.web";
 // import {toast} from "react-toastify";
 
 export const configJSON = require("./config");
@@ -44,7 +45,7 @@ interface SS {
   id: any;
 }
 
-export default class CoverImageController extends BlockComponent<
+export default class CoverImageController extends CommonApiCallForBlockComponent<
   Props,
   S,
   SS
@@ -156,24 +157,6 @@ export default class CoverImageController extends BlockComponent<
       this.UpdateFullPayment()
     }
   }
-
-  apiCall = async (data: any) => {
-    const { contentType, method, endPoint, body } = data;
-
-    const token = localStorage.getItem("userToken");
-
-    const header = {
-      "Content-Type": contentType,
-      token,
-    };
-    const requestMessage = new Message(getName(MessageEnum.RestAPIRequestMessage));
-    requestMessage.addData(getName(MessageEnum.RestAPIRequestHeaderMessage), JSON.stringify(header));
-    requestMessage.addData(getName(MessageEnum.RestAPIResponceEndPointMessage), endPoint);
-    requestMessage.addData(getName(MessageEnum.RestAPIRequestMethodMessage), method);
-    body && requestMessage.addData(getName(MessageEnum.RestAPIRequestBodyMessage), body);
-    runEngine.sendMessage(requestMessage.id, requestMessage);
-    return requestMessage.messageId;
-  };
 
   handleCloseDeleteModal = () => {
     this.setState({
