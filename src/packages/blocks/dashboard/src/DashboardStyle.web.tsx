@@ -177,31 +177,82 @@ export const DashboardStyleWeb: any = {
           fontSize: "22px",
         },
       },
-      "& .select-year": {
-        background: "#fff",
-        border: "1px solid lightgrey",
-        borderRadius: 5,
-        padding: "2px 12px",
-        "& select": {
-          background: "#fff !important",
-        },
+    },
+    "& .select-year": {
+      background: "#fff",
+      border: "1px solid lightgrey",
+      borderRadius: 5,
+      padding: "2px 12px",
+      "& select": {
+        background: "#fff !important",
       },
-      "& .select-box": {
+    },
+    "& .select-box": {
+      display: "flex",
+      alignItems: "center",
+      gap: "14px",
+    },
+    "& .select-year:before": {
+      content: "",
+      border: 0,
+      outline: "none",
+      position: "unset",
+    },
+    "& .select-year:after": {
+      content: "",
+      border: 0,
+      outline: "none",
+      position: "unset",
+    },
+    "& .action-filter-box": {
+      display: "flex",
+      alignItems: "center",
+      gap: "18px",
+      margin: "15px 0",
+      "& button": {
+        background: "#2B6FED",
+        color: "white",
+        borderRadius: "8px",
+        fontWeight: "600",
+        padding: "7px 18px",
+      },
+    },
+    "& .action-card": {
+      background: "#fff",
+      borderRadius: 8,
+      boxShadow: "none",
+      padding: "20px",
+      "& .action-info-box": {
         display: "flex",
         alignItems: "center",
-        gap: "14px",
+        justifyContent: "space-between",
+        "& .action-info": {
+          display: "flex",
+          alignItems: "center",
+          gap: "15px",
+          "& span": {
+            fontSize: "14px",
+            color: "#FC8434",
+          },
+          "& p": {
+            fontWeight: "600",
+          },
+        },
+        "& button": {
+          background: "#2B6FED",
+          color: "white",
+          borderRadius: "8px",
+          fontWeight: "600",
+          padding: "7px 18px",
+        },
+        "& .action-content-box": {
+          display: "flex",
+          alignItems: "center",
+          gap: "50px",
+        },
       },
-      "& .select-year:before": {
-        content: "",
-        border: 0,
-        outline: "none",
-        position: "unset",
-      },
-      "& .select-year:after": {
-        content: "",
-        border: 0,
-        outline: "none",
-        position: "unset",
+      "& p.description": {
+        margin: "16px 0",
       },
     },
     "& .dashboard-card-box": {
