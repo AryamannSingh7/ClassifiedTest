@@ -3,9 +3,10 @@ import { Message } from "../../../framework/src/Message";
 import { BlockComponent } from "../../../framework/src/BlockComponent";
 import MessageEnum, { getName } from "../../../framework/src/Messages/MessageEnum";
 import { runEngine } from "../../../framework/src/RunEngine";
-import { ApiCatchErrorResponse, ApiErrorResponse } from "../../../components/src/APIErrorResponse";
 
 // Customizable Area Start
+import { ApiCatchErrorResponse, ApiErrorResponse } from "../../../components/src/APIErrorResponse";
+import { apiCall } from "../../../components/src/APICallComponent/index.web";
 // Customizable Area End
 
 export const configJSON = require("./config.js");
@@ -71,7 +72,7 @@ export default class FaqResidentController extends BlockComponent<Props, S, SS> 
     ) {
       this.FaqCategoryCallId = null;
 
-      var responseJson = message.getData(getName(MessageEnum.RestAPIResponceSuccessMessage));
+      let responseJson = message.getData(getName(MessageEnum.RestAPIResponceSuccessMessage));
 
       if (responseJson.data) {
         this.setState({
@@ -80,7 +81,7 @@ export default class FaqResidentController extends BlockComponent<Props, S, SS> 
         });
       }
 
-      var errorResponse = message.getData(getName(MessageEnum.RestAPIResponceErrorMessage));
+      let errorResponse = message.getData(getName(MessageEnum.RestAPIResponceErrorMessage));
       if (responseJson && responseJson.meta && responseJson.meta.token) {
         runEngine.unSubscribeFromMessages(this, this.subScribedMessages);
       } else {
@@ -97,28 +98,15 @@ export default class FaqResidentController extends BlockComponent<Props, S, SS> 
   }
 
   // Get FAQ Category API
-  getFaqCategory = () => {
-    const header = {
-      "Content-Type": configJSON.ApiContentType,
-      token: localStorage.getItem("userToken"),
-    };
-
-    const apiRequest = new Message(getName(MessageEnum.RestAPIRequestMessage));
-
-    this.FaqCategoryCallId = apiRequest.messageId;
-
+  getFaqCategory = async () => {
     const society_id = localStorage.getItem("society_id");
-    apiRequest.addData(
-      getName(MessageEnum.RestAPIResponceEndPointMessage),
-      `society_managements/${society_id}/bx_block_interactive_faqs/interactive_faq_categories`
-    );
+    const dashboard_type = localStorage.getItem("userType");
 
-    apiRequest.addData(getName(MessageEnum.RestAPIRequestHeaderMessage), JSON.stringify(header));
-
-    apiRequest.addData(getName(MessageEnum.RestAPIRequestMethodMessage), configJSON.apiMethodTypeGet);
-
-    runEngine.sendMessage(apiRequest.id, apiRequest);
-    return true;
+    this.FaqCategoryCallId = await apiCall({
+      contentType: "application/json",
+      method: "GET",
+      endPoint: `society_managements/${society_id}/bx_block_interactive_faqs/interactive_faq_categories?dashboard_type=${dashboard_type}`,
+    });
   };
 
   changeFaqState = (number: number) => {

@@ -71,7 +71,7 @@ export const FaqChairmanStyleWeb: any = {
     },
     "& .MuiTypography-body1": {
       fontSize: 15,
-      lineHeight: "25px"
+      lineHeight: "25px",
     },
     "& .contact-us-form ::placeholder": {
       color: "#212121 !important",
@@ -186,6 +186,10 @@ export const FaqChairmanStyleWeb: any = {
     "& .faq-box .icons .MuiSvgIcon-root": {
       color: "#FE8335",
       margin: "0 5px",
+    },
+    "& .no-question-text": {
+      fontWeight: "600",
+      marginBottom: "15px",
     },
     "& .faq-box .MuiTypography-root": {
       width: "93%",

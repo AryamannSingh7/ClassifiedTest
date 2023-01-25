@@ -143,9 +143,9 @@ export default class CollectedVsDueController extends BlockComponent<Props, S, S
     if (selectedFilter === "year") {
       filter = `year=${selectedYear}`;
     } else if (selectedFilter === "month") {
-      filter = `month=${selectedMonth}`;
+      filter = `period=month&month=${selectedMonth}`;
     } else {
-      filter = `quarter=${selectedQuarter}`;
+      filter = `period=quarter&quarter=${selectedQuarter}`;
     }
     const header = {
       "Content-Type": configJSON.ApiContentType,
