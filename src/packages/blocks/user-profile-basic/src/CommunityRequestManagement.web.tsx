@@ -86,10 +86,10 @@ class CommunityRequestManagement extends CommunityUserProfileController {
 
                   {/* Request Management -- */}
                   <Box style={{marginTop:"20px"}}>
-                    <div style={dashBoard.gaMemberCard}>
+                    <div style={dashBoard.cm_gaMemberCard}>
                         <Paper elevation={3} style={dashBoard.cm_managementPaper}
                             onClick={this.handleOpen}>
-                            <div style={dashBoard.invitemember}>
+                            <div style={dashBoard.cm_invitemember}>
                                 <img src= {newMember} style={dashBoard.cm_inviteIcon}/>
                             </div>
                             <div style={{display:"flex", alignItems:"center"}}><Typography variant="h6" style={dashBoard.cm_subHeading}>{t("Invite a new Member")}</Typography>
