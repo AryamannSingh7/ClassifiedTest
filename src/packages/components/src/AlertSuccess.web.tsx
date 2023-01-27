@@ -28,7 +28,7 @@ class SuccessAlert extends PureComponent<Props> {
           <Fade in={this.props.show}>
             <Paper style={successAlertModal.successPaper}>
               {/*@ts-ignore*/}
-              <Box style={alertModal.cancel} onClick={this.props.handleClose}>
+              <Box style={successAlertModal.successCancel} onClick={this.props.handleClose}>
                   <CloseIcon style={{fontSize:"30px"}}/>
               </Box>
               <Box style={{width:"100%",display:'flex',alignItems:'center',justifyContent:'center'}}>

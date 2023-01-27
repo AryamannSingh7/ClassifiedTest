@@ -64,7 +64,7 @@ class ReportDashboard extends ReportDashboardController {
                             <img src={BudgetReportIcon} />
                           </Box>
                           <h4>{t("Budget Reports")}</h4>
-                          <Button className="color-btn">02</Button>
+                          <Button className="color-btn">{this.state.budgetReportCount < 9 ? ("0" + this.state.budgetReportCount) : this.state.budgetReportCount}</Button>
                         </Card>
                       </Link>
                     </Grid>

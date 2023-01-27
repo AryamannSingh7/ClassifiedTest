@@ -83,7 +83,7 @@ class RegisterRentPayment extends RegisterRentPaymentController{
                                 {
                                     this.state.monthList.map((item:any,key:any)=> {
                                         return(
-                                            <option key={key} value={item[0]}>{item[1]}</option>
+                                            <option key={key} value={("0" + item[0]).slice(-2)}>{item[1]}</option>
                                         )
                                     })
                                 }
