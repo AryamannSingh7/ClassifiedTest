@@ -61,13 +61,15 @@ class CreateSurveys extends GenerateBudgetReportController {
                         <Grid container spacing={4}>
                             <Grid item sm={12} md={12} xs={12}>
                                 <Box className="createPSCards">
-                                    <TextField label={t("Enter budget year")} variant="outlined"
+                                    <TextField label={t("Enter budget year Ex: 2023")} variant="outlined"
                                     name="title"
                                     id="BudgetReportYear"
+                                    type="number"
                                     value={this.state.budgetYear}
-                                    onChange={(e)=> this.setState({budgetYear:e.target.value})}
+                                    onChange={(e)=> this.setState({budgetYear:e.target.value,budgetYearError:""})}
                                     inputProps={{
-                                        maxLength: 40
+                                        min:2020,
+                                        max:2099
                                     }}
                                     required fullWidth
                                     />
@@ -169,7 +171,7 @@ class CreateSurveys extends GenerateBudgetReportController {
                             <Box style={{display:'flex',justifyContent:'flex-end',marginTop:"15px"}}>
                                 {/*@ts-ignore*/}
                                 <PreviewReportButton variant="outlined" style={{marginRight:"10px"}} onClick={this.closeDeleteModal}>{t("Cancel")}</PreviewReportButton>
-                                <PublishBudgetButton variant="contained" onClick={this.deleteAudience} >{t("Confirm")}</PublishBudgetButton>
+                                <PublishBudgetButton variant="contained" onClick={this.handleGenerateReport} >{t("Confirm")}</PublishBudgetButton>
                             </Box>
                         </Box>
                     </Fade>

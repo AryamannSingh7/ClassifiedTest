@@ -35,6 +35,7 @@ interface SS {
 export default class BudgetReportController extends CommonApiCallForBlockComponent<Props, S, SS> {
   getBudgetReportDetailsId:string = "";
   approveBudgetReportId:string = "";
+  getDownloadFilesId:string = "";
   constructor(props: Props) {
     super(props);
     this.receive = this.receive.bind(this);
@@ -60,6 +61,16 @@ export default class BudgetReportController extends CommonApiCallForBlockCompone
     this.getBudgetReportDetails()
   }
 
+  manageDownloadFiles = async () => {
+    const societyID = localStorage.getItem("society_id")
+    const {id} = this.props.match.params
+    this.getDownloadFilesId = await this.apiCall({
+      contentType: "application/json",
+      method: "GET",
+      endPoint: `/society_managements/${societyID}/bx_block_report/budget_reports/${id}/download_report.pdf`,
+    });
+  }
+
   async receive(from: string, message: Message) {
     if(getName(MessageEnum.RestAPIResponceMessage) === message.id) {
       const apiRequestCallId = message.getData(getName(MessageEnum.RestAPIResponceDataMessage));
@@ -77,11 +88,19 @@ export default class BudgetReportController extends CommonApiCallForBlockCompone
         console.log("APPROVED",responseJson)
         if(responseJson.message === "Budget Report Successfully verified"){
           this.getBudgetReportDetails()
-          this.setState({
-            ApproveModal:false,
-            showSuccess:true,
-            successMessage:"Budget Approved Successfully!"
-          })
+          if(this.state.rejectReason){
+            this.setState({
+              setOpen:false,
+              showSuccess:true,
+              successMessage:"Budget Rejected Successfully!",
+            })
+          }else{
+            this.setState({
+              ApproveModal:false,
+              showSuccess:true,
+              successMessage:"Budget Approved Successfully!"
+            })
+          }
         }
       }
     }

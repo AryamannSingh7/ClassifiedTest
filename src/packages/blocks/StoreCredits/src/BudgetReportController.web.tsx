@@ -4,7 +4,7 @@ import {Message} from "../../../framework/src/Message";
 import MessageEnum, {getName} from "../../../framework/src/Messages/MessageEnum";
 import {runEngine} from "../../../framework/src/RunEngine";
 import CommonApiCallForBlockComponent from "../../../components/src/ApiCallCommon.web";
-
+const {baseURL} = require("../../../framework/src/config")
 export const configJSON = require("./config.js");
 
 export interface Props {
@@ -20,6 +20,7 @@ interface S {
   budgetReportList:any;
   status:any,
   budgetYear:"",
+  searchName:any;
 }
 
 interface SS {
@@ -27,7 +28,9 @@ interface SS {
 }
 
 export default class BudgetReportController extends CommonApiCallForBlockComponent<Props, S, SS> {
-  getBudgetData:string = ""
+  getBudgetData:string = "";
+  getDownloadFileId:string = "";
+
   constructor(props: Props) {
     super(props);
     this.receive = this.receive.bind(this);
@@ -37,12 +40,13 @@ export default class BudgetReportController extends CommonApiCallForBlockCompone
       budgetReportList:[],
       budgetYear:"",
       status:"",
+      searchName:"",
     };
     runEngine.attachBuildingBlock(this as IBlock, this.subScribedMessages);
   }
 
   async componentDidMount() {
-    this.getBudgetReport(this.state.status,this.state.budgetYear)
+    this.getBudgetReport(this.state.status,this.state.budgetYear,this.state.searchName)
   }
 
   async receive(from: string, message: Message) {
@@ -57,18 +61,55 @@ export default class BudgetReportController extends CommonApiCallForBlockCompone
             budgetReportList:responseJson?.budget_report?.data
           })
         }
+      }if(this.getDownloadFileId === apiRequestCallId){
+        // @ts-ignore
+        responseJson.blob().then(blob => {
+
+        })
       }
     }
   }
 
+  manageSearch = (e:any) => {
+    this.setState({searchName:e.target.value})
+    this.getBudgetReport(this.state.status,this.state.budgetYear,e.target.value)
+  }
 
+  manageDownload = async (id:any) => {
+    const societyID = localStorage.getItem("society_id")
+    const token:any = localStorage.getItem("userToken")
+    const myHeaders = new Headers();
+    myHeaders.append("token",token);
+    let requestOptions:any = {
+      method: 'GET',
+      headers: myHeaders,
+    };
+    const response = await fetch(`${baseURL}/society_managements/${societyID}/bx_block_report/budget_reports/${id}/download_report.pdf`,requestOptions)
+    const resBlob = await response.blob()
+     const url = window.URL.createObjectURL(
+          new Blob([resBlob]),
+      );
+    const link = document.createElement('a');
+      link.href = url;
+      link.setAttribute(
+          'download',
+          `FileName.pdf`,
+      );
+      // Append to html link element page
+      document.body.appendChild(link);
+      // Start download
+      link.click();
+      // Clean up and remove the link
+      // @ts-ignore
+      link.parentNode.removeChild(link);
+  }
 
-  getBudgetReport = async (status:any,year:any) => {
+  getBudgetReport = async (status:any,year:any,search:any) => {
     const societyID = localStorage.getItem("society_id")
     this.getBudgetData = await this.apiCall({
       contentType: "application/json",
       method: "GET",
-      endPoint: `/society_managements/${societyID}/bx_block_report/budget_reports?status=${status}&year=${year}`,
+      endPoint: `/society_managements/${societyID}/bx_block_report/budget_reports?status=${status}&year=${year}&search=${search}`,
     });
   }
 
@@ -76,14 +117,12 @@ export default class BudgetReportController extends CommonApiCallForBlockCompone
     this.setState({
       budgetYear:e.target.value
     })
-    this.getBudgetReport(this.state.status,e.target.value)
   }
 
   handleStatusChange = (e:any) => {
     this.setState({
       status:e.target.value
     })
-    this.getBudgetReport(e.target.value,this.state.budgetYear)
   }
 }
 // Customizable Area End
