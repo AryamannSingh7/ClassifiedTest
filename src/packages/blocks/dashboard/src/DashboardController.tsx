@@ -122,7 +122,7 @@ export default class DashboardController extends BlockComponent<Props, S, SS> {
     }
 
     if (getName(MessageEnum.RestAPIResponceMessage) === message.id) {
-      var responseJson = message.getData(
+      let responseJson = message.getData(
         getName(MessageEnum.RestAPIResponceSuccessMessage)
       );
       if (responseJson && !responseJson.errors && responseJson.data) {
@@ -139,7 +139,7 @@ export default class DashboardController extends BlockComponent<Props, S, SS> {
           });
         }
       } else {
-        var errorReponse = message.getData(
+        let errorReponse = message.getData(
           getName(MessageEnum.RestAPIResponceErrorMessage)
         );
         if (errorReponse === undefined) {

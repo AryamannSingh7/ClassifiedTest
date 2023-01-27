@@ -1313,7 +1313,9 @@
 }
 
 .lease-expiration-modal .MuiInput-root::before,
-.lease-expiration-modal .MuiInput-root::after {
+.lease-expiration-modal .MuiInput-root::after,
+.configuration-dialog .MuiInput-root::before,
+.configuration-dialog .MuiInput-root::after {
   content: "";
   border: 0;
   position: unset;
@@ -1327,4 +1329,23 @@
   border: 1px solid #2b6fec;
   padding: 12px 30px;
   margin: 0;
+}
+
+.configuration-dialog .MuiDialog-scrollPaper {
+  align-items: flex-start;
+}
+
+.configuration-dialog .config-dialog-box {
+  margin: 12px 0;
+  display: flex;
+  align-items: center;
+}
+
+.configuration-dialog .config-dialog-box .MuiInputBase-root {
+  background: #f0f0f0;
+  border: 1px solid #d2d2d2;
+  border-radius: 8px;
+  padding: 8px 15px;
+  width: 125px;
+  margin: 0 8px;
 }

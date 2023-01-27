@@ -297,6 +297,16 @@ export const DashboardStyleWeb: any = {
     "& a": {
       textDecoration: "none !important",
     },
+    "& .configuration-day": {
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "space-between",
+      "& .config": {
+        cursor: "pointer",
+        color: "#2B6FED",
+        fontWeight: "600",
+      },
+    },
     "& .budget-table-content-box": {
       background: "#fff",
       borderRadius: 8,
@@ -389,6 +399,81 @@ export const DashboardStyleWeb: any = {
           },
         },
       },
+    },
+
+    "& .content-boxes": {
+      borderRadius: "8px",
+      background: "white",
+      marginTop: "30px",
+    },
+    "& .content-boxes .top-content": {
+      display: "flex",
+      justifyContent: "space-between",
+      alignItems: "center",
+      padding: "20px",
+    },
+    "& .content-boxes .top-content .right-content": {
+      display: "flex",
+      alignItems: "center",
+      gap: "5px",
+    },
+    "& .content-boxes .top-content .right-content span": {
+      color: "#FC8434",
+      fontWeight: 600,
+    },
+    "& .content-boxes .top-content .heading h2": {
+      fontWeight: 600,
+      fontSize: "22px",
+    },
+    "& .content-boxes .unit-pagination": {
+      padding: "20px",
+      display: "flex",
+      justifyContent: "space-between",
+      alignItems: "center",
+    },
+    "& .content-boxes .unit-pagination p": {
+      fontWeight: 600,
+    },
+    "& .content-boxes .unit-pagination p span": {
+      fontWeight: 600,
+      color: "#FC8434",
+    },
+    "& .content-boxes .unit-table th": {
+      fontWeight: 600,
+    },
+    "& .content-boxes .unit-select": {
+      fontWeight: 600,
+      padding: "12px 40px 12px 10px",
+      borderRadius: "8px",
+      border: "1px solid lightgray",
+    },
+    "& .content-boxes .search-unit .MuiInput-root": {
+      borderRadius: "8px",
+      border: "1px solid lightgray",
+      padding: "5px 10px",
+    },
+    "& .content-boxes .search-unit svg": {
+      fill: "darkgrey",
+    },
+    "& .content-boxes .search-unit .MuiInput-root::after": {
+      content: "",
+      border: 0,
+      outline: "none",
+      position: "unset",
+    },
+    "& .content-boxes .search-unit .MuiInput-root::before": {
+      content: "",
+      border: 0,
+      outline: "none",
+      position: "unset",
+    },
+    "& .content-boxes .MuiTableCell-head": {
+      color: "#9198a3",
+    },
+    "& .content-boxes .MuiPaginationItem-page.Mui-selected": {
+      color: "white",
+      background: "#FC8434",
+      border: "0",
     },
   },
 };
