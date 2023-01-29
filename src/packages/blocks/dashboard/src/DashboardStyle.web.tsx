@@ -400,7 +400,6 @@ export const DashboardStyleWeb: any = {
         },
       },
     },
-
     "& .content-boxes": {
       borderRadius: "8px",
       background: "white",
@@ -474,6 +473,30 @@ export const DashboardStyleWeb: any = {
       color: "white",
       background: "#FC8434",
       border: "0",
+    },
+    "& .content-boxes.ticket-table": {
+      marginTop: "0",
+    },
+    "& .content-boxes.ticket-table input": {
+      width: "220px",
+    },
+    "& .content-boxes.ticket-table .status": {
+      background: "#D4FFE3",
+      color: "#1EC65B",
+      fontWeight: 600,
+      padding: "5px 10px",
+      borderRadius: "25px",
+      fontSize: "14px",
+    },
+    "& .chairman-filter": {
+      display: "flex",
+      justifyContent: "space-between",
+      alignItems: "center",
+      width: "100%",
+      margin: "10px 0 15px 0",
+      "& .action-filter-box": {
+        margin: "0",
+      },
     },
   },
 };
