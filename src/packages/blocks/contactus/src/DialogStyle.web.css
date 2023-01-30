@@ -1296,20 +1296,29 @@
 
 .lease-expiration-modal h6 {
   font-weight: 600;
-  margin-bottom: 18px;
-  font-size: 22px;
+  margin-bottom: 20px;
+  font-size: 20px;
+}
+
+.lease-expiration-modal .MuiDialogContent-root {
+  padding-left: 8px;
+  padding-right: 8px;
 }
 
 .lease-expiration-modal .dialog-select-input {
-  border-radius: 28px;
+  border-radius: 35px;
   border: 1px solid #dedede;
   background-color: #f8f8f8;
   width: 80%;
   margin-bottom: 10px;
+  padding: 18px;
 }
 
 .lease-expiration-modal .MuiSelect-root {
   background-color: #f8f8f8 !important;
+  font-size: 16px;
+  line-height: 20px;
+  padding: 0;
 }
 
 .lease-expiration-modal .MuiInput-root::before,
@@ -1329,6 +1338,10 @@
   border: 1px solid #2b6fec;
   padding: 12px 30px;
   margin: 0;
+}
+
+.lease-expiration-set .dialog-button-group button {
+  width: 175px;
 }
 
 .configuration-dialog .MuiDialog-scrollPaper {

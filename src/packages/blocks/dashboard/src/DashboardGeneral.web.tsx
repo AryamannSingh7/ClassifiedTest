@@ -25,7 +25,7 @@ import { Card, Container, Link, Typography, withStyles } from "@material-ui/core
 import Box from "@material-ui/core/Box";
 import NativeSelect from "@material-ui/core/NativeSelect";
 import Grid from "@material-ui/core/Grid";
-import DashboardController, { Props } from "../../../blocks/dashboard/src/DashboardController";
+import DashboardGeneralController, { Props } from "../../../blocks/dashboard/src/DashboardGeneralController.web";
 import DashboardHeader from "./DashboardHeader.web";
 import ChairmanSidebar from "./ChairmanSidebar.web";
 import { withRouter } from "react-router-dom";
@@ -34,7 +34,7 @@ import { DashboardStyleWeb } from "./DashboardStyle.web";
 import ChairmanNumberCard from "../../../components/src/DashboardCard/ChairmanNumberCard.web";
 import { ROLE } from "../../../framework/src/Enum";
 
-class DashboardGeneral extends DashboardController {
+class DashboardGeneral extends DashboardGeneralController {
   constructor(props: Props) {
     super(props);
   }
@@ -69,7 +69,7 @@ class DashboardGeneral extends DashboardController {
                   <Box className="sub-heading-box">
                     <Typography variant="h5">{t("General Dashboard")}</Typography>
                     {userType === ROLE.CHAIRMAN && (
-                      <NativeSelect className="select-year" value={this.state.Year} onChange={this.handleChange}>
+                      <NativeSelect className="select-year">
                         <option value={2022}>2022</option>
                         <option value={2021}>2021</option>
                         <option value={2020}>2020</option>
