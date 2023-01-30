@@ -1,6 +1,6 @@
 // Customizable Area Start
 import React from "react";
-import { Container, Typography, Link, Button, withStyles, NativeSelect, Card } from "@material-ui/core";
+import { Container, Typography, Button, withStyles, NativeSelect, Card } from "@material-ui/core";
 import Box from "@material-ui/core/Box";
 import Grid from "@material-ui/core/Grid";
 import DashboardActionsController, { Props } from "../../../blocks/dashboard/src/DashboardActionsController.web";
@@ -110,61 +110,6 @@ class DashboardActions extends DashboardActionsController {
                       </Card>
                     </Grid>
                   </Grid>
-                  {/* <Box style={dashBoardActions.Cards}>
-                    <Typography variant="subtitle1" style={dashBoardActions.CardsTitle}>
-                      {t("To schedule a meeting")}
-                    </Typography>
-                    <Typography style={dashBoardActions.Cardspara}>
-                      {t(
-                        "Display information in a way that’s easy to scan, so that users can look for patterns and insights. They can be embedded in primary content, such as cards."
-                      )}
-                    </Typography>
-                    <Button variant="contained" color="primary">
-                      Schedule a meeting
-                    </Button>
-                  </Box>
-
-                  <Box style={dashBoardActions.Cards}>
-                    <Typography variant="subtitle1" style={dashBoardActions.CardsTitle}>
-                      {t("To assign rights to user")}
-                    </Typography>
-                    <Typography style={dashBoardActions.Cardspara}>
-                      {t(
-                        "Display information in a way that’s easy to scan, so that users can look for patterns and insights. They can be embedded in primary content, such as cards."
-                      )}
-                    </Typography>
-                    <Button variant="contained" color="primary">
-                      {t("Assign Rights")}
-                    </Button>
-                  </Box>
-
-                  <Box style={dashBoardActions.Cards}>
-                    <Typography variant="subtitle1" style={dashBoardActions.CardsTitle}>
-                      {t("To start chairman nomination process")}
-                    </Typography>
-                    <Typography style={dashBoardActions.Cardspara}>
-                      {this.toggleState(
-                        "Display information in a way that’s easy to scan, so that users can look for patterns and insights. They can be embedded in primary content, such as cards."
-                      )}
-                    </Typography>
-                    <Button variant="contained" color="primary">
-                      {t("chairman Nomination")}{" "}
-                    </Button>
-                  </Box>
-
-                  <Box style={dashBoardActions.Cards}>
-                    <Typography variant="subtitle1" style={dashBoardActions.CardsTitle}>
-                      {t("To approve budget")}
-                    </Typography>
-                    <Typography style={dashBoardActions.Cardspara}>
-                      {t(
-                        "Display information in a way that’s easy to scan, so that users can look for patterns and insights. They can be embedded in primary content, such as cards."
-                      )}
-                    </Typography>
-                    <Button variant="contained" color="primary">
-                      {t("Approve Budget")}
-                    </Button>
-                  </Box> */}
                 </Box>
               </Container>
             </Grid>
@@ -177,36 +122,4 @@ class DashboardActions extends DashboardActionsController {
 
 // @ts-ignore
 export default withTranslation()(withStyles(DashboardStyleWeb)(withRouter(DashboardActions)));
-
-const dashBoardActions = {
-  SideBar: {
-    background: "#f9f6f6",
-    position: "relative",
-    paddingBottom: 150,
-  },
-  subHeading: {
-    fontWeight: 600,
-    marginTop: 15,
-    marginBottom: 20,
-  },
-  Cards: {
-    paddingTop: 30,
-    paddingLeft: 15,
-    paddingBottom: 25,
-    paddingRight: 5,
-    background: "#fff",
-    borderRadius: 10,
-    marginBottom: 20,
-  },
-  CardsTitle: {
-    fontWeight: 600,
-    fontSize: 16,
-    marginBottom: 10,
-  },
-  Cardspara: {
-    fontSize: 14,
-    marginBottom: 15,
-  },
-};
-
 // Customizable Area End
