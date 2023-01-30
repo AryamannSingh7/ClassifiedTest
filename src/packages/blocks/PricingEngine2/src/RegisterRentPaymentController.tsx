@@ -129,13 +129,30 @@ export default class RegisterRentPaymentController extends CommonApiCallForBlock
 
   rentDueResponse = (responseJson:any) => {
     if(responseJson.hasOwnProperty("data")){
-      this.setState({
-        tenantName:responseJson.data?.attributes?.tenant_name,
-        rentAmount:responseJson.data?.attributes?.rent_amount,
-        partialPaidAmount:responseJson?.data?.attributes?.partial_payment || 0,
-        currency:responseJson.data?.attributes?.currency,
-        contractId:responseJson.data?.attributes?.contract_id
-      })
+      if(responseJson.data.attributes.status === "Rent payments Invoice is not found"){
+        this.setState({
+          showError:true,
+          error:"Invoice not found for selected month!",
+          selectedMonth:"",
+          rentAmount:"",
+        })
+      }else if(responseJson.data.attributes.status === "fully_paid"){
+        this.setState({
+          showError:true,
+          error:"Selected month rent payment is already there!",
+          selectedMonth:"",
+          rentAmount:"",
+        })
+      }else{
+        this.setState({
+          tenantName:responseJson.data?.attributes?.tenant_name,
+          rentAmount:responseJson.data?.attributes?.rent_amount,
+          partialPaidAmount:responseJson?.data?.attributes?.partial_payment || 0,
+          currency:responseJson.data?.attributes?.currency,
+          contractId:responseJson.data?.attributes?.contract_id
+        })
+      }
+
     }
   }
 
@@ -289,7 +306,9 @@ export default class RegisterRentPaymentController extends CommonApiCallForBlock
         create={
           month:this.state.selectedMonth,
           building_management_id:this.state.selectedBuilding,
-          apartment_management_id:this.state.selectedUnit
+          apartment_management_id:this.state.selectedUnit,
+          full_payment:true,
+          year:new Date().getFullYear(),
         }
         this.registerPayment(create)
       }else {
@@ -299,7 +318,8 @@ export default class RegisterRentPaymentController extends CommonApiCallForBlock
               month:this.state.selectedMonth,
               building_management_id:this.state.selectedBuilding,
               apartment_management_id:this.state.selectedUnit,
-              partial_payment:this.state.partialPaymentAmount
+              partial_payment:this.state.partialPaymentAmount,
+              year:new Date().getFullYear(),
             }
             this.registerPayment(create)
           }else{

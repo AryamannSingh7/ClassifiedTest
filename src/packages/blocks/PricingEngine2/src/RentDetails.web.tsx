@@ -108,7 +108,7 @@ class ReceiptDetails extends RentDetailsController{
                                             {t("Amount")}
                                         </Typography>
                                         <Typography variant={"body1"} style={{fontWeight:"bold",marginTop:"5px"}}>
-                                            SR{this.state.rentDetails?.amount?.toLocaleString()}
+                                            SR{this.state.rentDetails?.rent_amount?.toLocaleString()}
                                         </Typography>
                                     </Grid>
                                     <Grid item xs={6} style={{marginTop:"8px"}}>
@@ -116,7 +116,7 @@ class ReceiptDetails extends RentDetailsController{
                                             {t("Rent Amount")}
                                         </Typography>
                                         <Typography variant={"body1"} style={{fontWeight:"bold",marginTop:"5px"}}>
-                                            SR{this.state.rentDetails?.amount?.toLocaleString()}
+                                            SR{this.state.rentDetails?.rent_amount?.toLocaleString()}
                                         </Typography>
                                     </Grid>
                                     <Grid item xs={6} style={{marginTop:"8px"}}>
@@ -132,13 +132,13 @@ class ReceiptDetails extends RentDetailsController{
                                         {
                                             this.state.rentDetails?.status === "partially_paid" &&
                                             <Typography variant={"body1"} style={{fontWeight:"bold",marginTop:"5px"}}>
-                                                SR{(this.state.rentDetails?.amount - this.state.rentDetails?.partial_payment).toLocaleString()}
+                                                SR{(this.state.rentDetails?.rent_amount - this.state.rentDetails?.partial_payment).toLocaleString()}
                                             </Typography>
                                         }
                                         {
                                             this.state.rentDetails?.status !== "partially_paid" && this.state.rentDetails?.status !== "fully_paid" &&
                                             <Typography variant={"body1"} style={{fontWeight:"bold",marginTop:"5px"}}>
-                                                SR{(this.state.rentDetails?.amount - this.state.rentDetails?.partial_payment) || 0}
+                                                SR{(this.state.rentDetails?.rent_amount - this.state.rentDetails?.partial_payment).toLocaleString() || 0}
                                             </Typography>
                                         }
                                     </Grid>

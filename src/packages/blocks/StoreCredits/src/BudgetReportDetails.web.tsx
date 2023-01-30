@@ -40,6 +40,7 @@ import MuiDialogTitle from "@material-ui/core/DialogTitle";
 import {withRouter} from "react-router";
 // @ts-ignore
 import DOMPurify from 'dompurify'
+import AlertSuccess from "../../../components/src/AlertSuccess.web";
 
 class BudgetReportDetails extends BudgetReportDetailsController {
   constructor(props: Props) {
@@ -73,26 +74,40 @@ class BudgetReportDetails extends BudgetReportDetailsController {
                     <Typography variant="h5" className="sub-heading">
                       {t("Budget Report Details")}
                     </Typography>
-                    <span className="pending">{this.state?.budgetDetails?.status}</span>
+                      {
+                          this.state?.budgetDetails?.status == "Pending" &&
+                          <Typography variant="body1" className={"statusOngoingRed"}>Pending Approval</Typography>
+                      }
+                      {
+                          this.state?.budgetDetails?.status == "Rejected" &&
+                          <Typography variant="body1" className={"statusRejected"}>{this.state?.budgetDetails?.status}</Typography>
+                      }
+                      {
+                          this.state?.budgetDetails?.status == "Approved" &&
+                          <Typography variant="body1" className={"statusOngoingGreen"}>{this.state?.budgetDetails?.status}</Typography>
+                      }
                   </Box>
                 </Box>
-                <Box style={{backgroundColor:"white",marginBottom:"30px"}}>
-                  <Grid container spacing={4}>
-                      <Grid item xs={12} sm={7} style={{display:'flex',flexDirection:"column",justifyContent:"space-around"}} >
-                        <Box style={{display:'flex',alignItems:'center',marginLeft:"20px"}}>
-                            <img src={GroupLogo} style={{marginRight:"15px"}} />
-                            <Typography variant="h6" style={{fontWeight:"bold"}}>Building Name</Typography>
-                        </Box>
-                        <Box style={{display:'flex',alignItems:'center',marginLeft:"20px"}}>
-                          <Typography variant="body1">Managed By:</Typography>
-                          <img src={manageLogo} style={{marginLeft:"10px"}}/>
-                        </Box>
-                      </Grid>
-                      <Grid item xs={12} sm={5} >
-                          <img src={buildingLogo.default} width="95%" height="130px"/>
-                      </Grid>
-                  </Grid>
-                </Box>
+                  {
+                      this.state.budgetDetails.status === "check" &&
+                      <Box style={{backgroundColor:"white",marginBottom:"30px"}}>
+                          <Grid container spacing={4}>
+                              <Grid item xs={12} sm={7} style={{display:'flex',flexDirection:"column",justifyContent:"space-around"}} >
+                                  <Box style={{display:'flex',alignItems:'center',marginLeft:"20px"}}>
+                                      <img src={GroupLogo} style={{marginRight:"15px"}} />
+                                      <Typography variant="h6" style={{fontWeight:"bold"}}>Building Name</Typography>
+                                  </Box>
+                                  <Box style={{display:'flex',alignItems:'center',marginLeft:"20px"}}>
+                                      <Typography variant="body1">Managed By:</Typography>
+                                      <img src={manageLogo} style={{marginLeft:"10px"}}/>
+                                  </Box>
+                              </Grid>
+                              <Grid item xs={12} sm={5} >
+                                  <img src={buildingLogo.default} width="95%" height="130px"/>
+                              </Grid>
+                          </Grid>
+                      </Box>
+                  }
                 <Box className="top-bar" />
                 <Grid className="meeting-table" style={{backgroundColor:"white",marginBottom:"20px"}}>
                   <Grid item sm={12} md={12} xs={12}>
@@ -103,9 +118,11 @@ class BudgetReportDetails extends BudgetReportDetailsController {
                     <Table className="table-box">
                       <TableHead>
                         <TableRow >
-                          <TableCell align="left" style={{color:"#181d25",padding:"5px 10px"}}>{t("Name")}</TableCell>
-                          <TableCell align="right"  style={{ padding:"5px 10px", paddingRight: "50px",color:"#181d25" }}>
-                            {t("Amount")}
+                          <TableCell align="left" style={{color:"gray",padding:"10px 10px"}}>
+                              <Typography style={{color:"gray"}} variant="subtitle1">{t("Name")} </Typography>
+                          </TableCell>
+                          <TableCell align="right"  style={{ padding:"10px 10px", paddingRight: "50px",color:"gray" }}>
+                              <Typography style={{color:"gray"}} variant="subtitle1">{t("Amount")}</Typography>
                           </TableCell>
                         </TableRow>
                       </TableHead>
@@ -115,8 +132,8 @@ class BudgetReportDetails extends BudgetReportDetailsController {
                               this.state.budgetDetails?.facilities?.map((item:any,key:any) => {
                                   return(
                                       <TableRow key={key}>
-                                          <TableCell align="left" style={{ display: "flex", alignItems: "center",color:"#181d25",padding:"5px 10px" }}>
-                                              {item.budget_category}
+                                          <TableCell align="left" style={{ display: "flex", alignItems: "center",color:"#181d25",padding:"10px 10px" }}>
+                                              <Typography  variant="subtitle1">{item.budget_category}</Typography>
                                               <HtmlTooltip
                                                   title={
                                                       <React.Fragment>
@@ -136,8 +153,8 @@ class BudgetReportDetails extends BudgetReportDetailsController {
                                                   </IconButton>
                                               </HtmlTooltip>
                                           </TableCell>
-                                          <TableCell align="right" style={{padding:"5px 10px",fontWeight:"bold", paddingRight: "50px" }}>
-                                              {this.state?.budgetDetails?.currency?.currency} {item.allocate_budget?.toLocaleString()}
+                                          <TableCell align="right" style={{padding:"10px 10px",paddingRight: "50px" }}>
+                                              <Typography  variant="subtitle1" style={{fontWeight:"bold"}}>{this.state?.budgetDetails?.currency?.currency} {item.allocate_budget?.toLocaleString()}</Typography>
                                           </TableCell>
                                       </TableRow>
                                   )
@@ -146,33 +163,46 @@ class BudgetReportDetails extends BudgetReportDetailsController {
                                   <TableRow>
                                       <TableCell style={{color:"gray",padding:"5px 10px"}} colSpan={6}>{t("No Budget Details are Available")}</TableCell>
                                   </TableRow>
+                              }
+                          {
+                              this.state.budgetDetails?.facilities?.length > 0 &&
+                              <TableRow>
+                                  <TableCell  align="left" style={{ display: "flex", alignItems: "center",padding:"10px 10px" }}>
+                                      <Typography style={{fontWeight:"bold"}}>Budget Amount</Typography>
+                                  </TableCell>
+                                  <TableCell align="right" style={{ padding:"10px 10px",paddingRight: "50px" }}>
+                                      <Typography style={{fontWeight:"bold",color:"#FC8434",paddingRight:"0px"}}> {this.state?.budgetDetails?.currency?.currency} {this.state?.budgetDetails?.approved_amount?.toLocaleString() || 0} </Typography>
+                                  </TableCell>
+                              </TableRow>
                           }
-                          <TableRow>
-                              <TableCell  align="left" style={{ display: "flex", alignItems: "center",padding:"5px 10px" }}>
-                                  <Typography variant="body1">Budget Amount</Typography>
-                              </TableCell>
-                              <TableCell align="right" style={{ padding:"5px 10px",paddingRight: "50px" }}>
-                                  <Typography variant="body1" style={{fontWeight:"bold",color:"#FC8434",paddingRight:"0px"}}> {this.state?.budgetDetails?.currency?.currency} {this.state?.budgetDetails?.approved_amount?.toLocaleString() || 0} </Typography>
-                              </TableCell>
-                          </TableRow>
                       </TableBody>
                     </Table>
                   </Grid>
                 </Grid>
-                  <Grid className="rejection-box">
-                      <Card>
-                          <h4>{t("Rejection Reason")}</h4>
-                          <p>
-                              Lorem ipsum dolor sit amet consectetur adipisicing elit. Ad, recusandae delectus. Non rem sequi
-                              dignissimos porro incidunt quas quis nam libero, culpa, dolorem architecto quod iure minus
-                              mollitia labore. Id?
-                          </p>
-                      </Card>
-                  </Grid>
-                <Box style={{ display: "flex", justifyContent: "flex-end" }}>
-                  <ApproveButton onClick={() => this.setState({ setOpen: true })}>Reject</ApproveButton>
-                  <RejectButton onClick={() => this.setState({ ApproveModal: true })}>Approve</RejectButton>
-                </Box>
+                  {
+                      this.state?.budgetDetails?.status == "Rejected" &&
+                      <Grid className="rejection-box">
+                          <Card>
+                              <h4>{t("Rejection Reason")}</h4>
+                              <p>
+                                  {this.state?.budgetDetails?.note}
+                              </p>
+                          </Card>
+                      </Grid>
+                  }
+                  {
+                      this.state?.budgetDetails?.status === "Pending" && localStorage.getItem("userType") === "Chairman" &&
+                      <Box style={{ display: "flex", justifyContent: "flex-end" }}>
+                          <ApproveButton onClick={() => this.setState({ setOpen: true })}>Reject</ApproveButton>
+                          <RejectButton onClick={() => this.setState({ ApproveModal: true })}>Approve</RejectButton>
+                      </Box>
+                  }
+                  {
+                      this.state?.budgetDetails?.status !== "Pending" && this.state?.budgetDetails?.status !== "Rejected" &&
+                      <Box style={{ display: "flex", justifyContent: "flex-end" }}>
+                          <RejectButton onClick={this.manageDownloadFiles}>Download Report</RejectButton>
+                      </Box>
+                  }
               </Container>
             </Grid>
 
@@ -193,7 +223,7 @@ class BudgetReportDetails extends BudgetReportDetailsController {
                     <Button className="cancel-button" style={{ width: "200px",marginRight:"15px" }} onClick={() => this.setState({ApproveModal:false})}>
                       {t("Close")}
                     </Button>
-                    <Button style={{ width: "200px" }} className="add-button" onClick={() => this.setState({ApproveModal:false})}>
+                    <Button style={{ width: "200px" }} className="add-button" onClick={this.manageBudgetApproval}>
                       {t("Approve")}
                     </Button>
                   </DialogActions>
@@ -246,7 +276,7 @@ class BudgetReportDetails extends BudgetReportDetailsController {
                     <Grid item xs={12} style={{display:'flex',justifyContent:"flex-end",marginTop:"40px",marginBottom:"10px"}}>
                         <Box>
                             <ApproveButton variant="contained" style={{marginRight:"15px",height:"40px"}} onClick={()=> this.setState({setOpen:false})}>{t("Cancel")}</ApproveButton>
-                            <RejectButton variant="contained" style={{height:"40px"}}>{t("Submit")}</RejectButton>
+                            <RejectButton variant="contained" style={{height:"40px"}} onClick={this.handleRejectBudget}>{t("Submit")}</RejectButton>
                         </Box>
                     </Grid>
                 </div>
@@ -303,6 +333,7 @@ class BudgetReportDetails extends BudgetReportDetailsController {
             </Box>
           </DialogContent>
         </Dialog>
+        <AlertSuccess show={this.state.showSuccess} handleClose={()=> {this.setState({showSuccess:false})}} message={this.state.successMessage} />
       </>
     );
   }

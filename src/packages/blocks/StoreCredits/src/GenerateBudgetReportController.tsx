@@ -90,7 +90,7 @@ export default class GenerateBudgetReportController extends CommonApiCallForBloc
           budgetCategoryError:"",
           allocate_budget:"",
           amountError:"",
-          description:null,
+          description:"",
           descriptionError:"",
           error:false,
           _destroy: "false",
@@ -155,16 +155,17 @@ export default class GenerateBudgetReportController extends CommonApiCallForBloc
 
   handleGenerateReport = (e:any) => {
     e.preventDefault()
-    const data = {
-      budget_report:{
-        year:this.state?.budgetYear,
-        currency_id:this.state.currency?.id,
-        facilities_attributes:this.state?.budgetItems,
-        status:0,
+    if(this.handleValidation()){
+      const data = {
+        budget_report:{
+          year:this.state?.budgetYear,
+          currency_id:this.state.currency?.id,
+          facilities_attributes:this.state?.budgetItems,
+          status:0,
+        }
       }
+      this.addBudgetData(data)
     }
-    this.addBudgetData(data)
-    console.log(data)
   }
 
   createBudgetRepost = (responseJson:any) => {
@@ -183,7 +184,9 @@ export default class GenerateBudgetReportController extends CommonApiCallForBloc
       const errorReponse = message.getData(getName(MessageEnum.RestAPIResponceErrorMessage));
       if(this.createBugetId === apiRequestCallId){
         console.log("ERORR",errorReponse)
-        this.createBudgetRepost(responseJson)
+        if(responseJson.hasOwnProperty("budget_report")){
+          this.props.history.push(`/BudgetReports/${responseJson.budget_report.data.id}`)
+        }
       }
       if(this.getCurrencyId === apiRequestCallId){
         if(responseJson.hasOwnProperty("currencies")){
@@ -238,21 +241,22 @@ export default class GenerateBudgetReportController extends CommonApiCallForBloc
   handleTitleValidation = () => {
     let titleValidation = false
     if(this.state.budgetYear){
-      if(this.state.budgetYear.length >=4){
+      if(this.state.budgetYear.length >=4 && this.state.budgetYear!== "" && /^(19[5-9]\d|20[0-4]\d|2050)$/.test(this.state.budgetYear)){
         this.setState({
           SurveyTitleError:""
         })
         titleValidation = true
       }else{
         this.setState({
-          pollTitleError:"Year not match the minimum requirements."
+          budgetYearError:"Year not match the minimum requirements."
         })
       }
     }else{
       this.setState({
-        pollTitleError:"Year can't be empty."
+        budgetYearError:"Year can't be empty."
       })
     }
+    console.log("TITLE VALIDATION",titleValidation)
     return titleValidation
   }
 
@@ -448,7 +452,7 @@ export default class GenerateBudgetReportController extends CommonApiCallForBloc
         budgetCategoryError:"",
         allocate_budget:"",
         amountError:"",
-        description:null,
+        description:"",
         descriptionError:"",
         error:false,
         _destroy: "false",

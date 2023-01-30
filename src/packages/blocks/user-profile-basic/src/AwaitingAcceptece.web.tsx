@@ -466,10 +466,10 @@ class AwaitingAcceptece extends CommunityUserProfileController {
                                             {val?.name}
                                           </MenuItem>
                                         ))
-                                      } */}
+                                       } */}
 
-                                    </Select>
-                                  </FormControl>
+                                    </Select> 
+                                  </FormControl>   
                               </Box> 
                             </Grid>
                             <Grid container justifyContent="flex-end">

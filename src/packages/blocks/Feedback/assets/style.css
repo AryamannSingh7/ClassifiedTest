@@ -1,0 +1,23 @@
+/* .green-span: {
+    background: #D4FFE3;
+    color: #1EC65B;
+    fontWeight: 600;
+  }
+  .red-span: {
+    background: #FFEAEA !important;
+    color: #F21717 !important;
+    fontWeight: 600;
+  }
+
+   */
+
+   .green-span{
+    background: #D4FFE3 !important;
+    color: #1EC65B !important;
+    font-weight: 600;
+   }
+   .red-span {
+    background: #FFEAEA !important;
+    color: #F21717 !important;
+    font-weight: 600;
+  }

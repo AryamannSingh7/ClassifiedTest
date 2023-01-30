@@ -73,21 +73,21 @@ class BudgetReport extends BudgetReportController {
                       <MenuItem value="" disabled>
                         {t("Select Year")}
                       </MenuItem>
-                      <MenuItem value="scheduled">{(new Date().getFullYear()) - 3}</MenuItem>
-                      <MenuItem value="scheduled">{(new Date().getFullYear()) - 2}</MenuItem>
-                      <MenuItem value="completed">{(new Date().getFullYear()) - 1}</MenuItem>
-                      <MenuItem value="completed">{(new Date().getFullYear())}</MenuItem>
-                      <MenuItem value="completed">{(new Date().getFullYear()) + 1}</MenuItem>
+                      <MenuItem value={(new Date().getFullYear()) - 3}>{(new Date().getFullYear()) - 3}</MenuItem>
+                      <MenuItem value={(new Date().getFullYear()) - 2}>{(new Date().getFullYear()) - 2}</MenuItem>
+                      <MenuItem value={(new Date().getFullYear()) - 1}>{(new Date().getFullYear()) - 1}</MenuItem>
+                      <MenuItem value={(new Date().getFullYear())}>{(new Date().getFullYear())}</MenuItem>
+                      <MenuItem value={(new Date().getFullYear()) + 1}>{(new Date().getFullYear()) + 1}</MenuItem>
                     </Select>
                     <Select displayEmpty className="select-input" value={this.state.status} onChange={this.handleStatusChange}>
                       <MenuItem value="" disabled>
                         {t("Select Status")}
                       </MenuItem>
-                      <MenuItem value="scheduled">{t("Pending")}</MenuItem>
-                      <MenuItem value="completed">{t("Approved")}</MenuItem>
-                      <MenuItem value="cancelled">{t("Rejected")}</MenuItem>
+                      <MenuItem value="Pending">{t("Pending")}</MenuItem>
+                      <MenuItem value="Approved">{t("Approved")}</MenuItem>
+                      <MenuItem value="Rejected">{t("Rejected")}</MenuItem>
                     </Select>
-                    <Button startIcon={<img src={SearchIconImage} />} onClick={() => {}}>
+                    <Button startIcon={<img src={SearchIconImage} />} onClick={() => this.getBudgetReport(this.state.status,this.state.budgetYear,this.state.searchName)}>
                       {t("Search")}
                     </Button>
                   </Box>
@@ -103,7 +103,7 @@ class BudgetReport extends BudgetReportController {
                       <h4>{t("Budget Reports")}</h4>
                       <div className="search-box">
                         <SearchIcon />
-                        <InputBase placeholder={t("Search")} className="search" value="" />
+                        <InputBase placeholder={t("Search")} className="search" value={this.state.searchName} onChange={this.manageSearch} />
                       </div>
                     </Box>
                     <Divider />
@@ -129,7 +129,18 @@ class BudgetReport extends BudgetReportController {
                                       <TableCell>{moment(item?.attributes?.report_generated_on,"DD-MM-YY").format("DD MMM YYYY")}</TableCell>
                                       <TableCell>{item?.attributes?.currency?.currency} {item?.attributes?.amount.toLocaleString()}</TableCell>
                                       <TableCell>
-                                        <span className="Pending">{item?.attributes?.status}</span>
+                                        {
+                                            item?.attributes?.status === "Pending" &&
+                                          <span className="pending">Pending Approval</span>
+                                        }
+                                        {
+                                            item?.attributes?.status === "Approved" &&
+                                            <span className="approved">{item?.attributes?.status}</span>
+                                        }
+                                        {
+                                            item?.attributes?.status === "Rejected" &&
+                                            <span className="cancelled">{item?.attributes?.status}</span>
+                                        }
                                       </TableCell>
                                       <TableCell>
                                         <Menu
@@ -142,7 +153,7 @@ class BudgetReport extends BudgetReportController {
                                           <MenuItem onClick={() => this.props.history.push(`/BudgetReports/${item.id}`)}>
                                             {t("View")}
                                           </MenuItem>
-                                          <MenuItem>{t("Download")}</MenuItem>
+                                          <MenuItem onClick={() => this.manageDownload(item.id)}>{t("Download")}</MenuItem>
                                           <MenuItem>{t("Share")}</MenuItem>
                                         </Menu>
                                       </TableCell>
