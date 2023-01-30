@@ -121,7 +121,7 @@ src= {info} style={{paddingLeft:"10px"}}/>
 </Tooltip>
                                 </div>
                                
-                            <Typography variant="h6" style={dashBoard.cm_subHeading}>{this.state.invitatonCount?.pending}</Typography>
+                            <Typography variant="h6" style={dashBoard.cm_subHeading}>{this.state.invitatonCount?.ragistration_request_pending}</Typography>
                         </Paper>
                         <Paper elevation={3} style={dashBoard.cm_managementPaper} 
                         >
@@ -140,7 +140,7 @@ src= {info} style={{paddingLeft:"10px"}}/>
 </Tooltip>
                                 </div>
                            
-                            <Typography variant="h6" style={dashBoard.cm_subHeading}>{this.state.invitatonCount?.totle_received_requests-this.state.invitatonCount?.accepted}</Typography>
+                            <Typography variant="h6" style={dashBoard.cm_subHeading}>{this.state.invitatonCount?.totle_member_invitation_pending}</Typography>
                         </Paper>
                     </div>
                   </Box>
@@ -159,19 +159,19 @@ src= {info} style={{paddingLeft:"10px"}}/>
                             //@ts-ignore
                             this.props.history.push("/SentInvitation")}}>
                                 <h6>{t("Total Sent Invitations")}</h6>
-                                <Typography variant="h6" style={dashBoard.cm_invitationCont}>{this.state.invitatonCount?.totle_sent_requests}</Typography>
+                                <Typography variant="h6" style={dashBoard.cm_invitationCont}>{this.state.invitatonCount?.totle_member_invitation_sent}</Typography>
                             </div>
                             <div style={dashBoard.cm_facility}>
                                 <h6>{t("Accepted Invitations by users")}</h6>
-                                <Typography variant="h6" style={dashBoard.cm_invitationCont}>{this.state.invitatonCount?.accepted}</Typography>
+                                <Typography variant="h6" style={dashBoard.cm_invitationCont}>{this.state.invitatonCount?.member_invitation_accepted}</Typography>
                             </div>
                             <div style={dashBoard.cm_facility}>
                                 <h6>{t("Rejected Invitation by users")}</h6>
-                                <Typography variant="h6" style={dashBoard.cm_invitationCont}>{this.state.invitatonCount?.rejected}</Typography>
+                                <Typography variant="h6" style={dashBoard.cm_invitationCont}>{this.state.invitatonCount?.member_invitation_rejected}</Typography>
                             </div>
                             <div style={dashBoard.cm_facility}>
                                 <h6 style={dashBoard.cm_inviteTitle}>{t("Total received join requests")}</h6>
-                                <Typography variant="h6" style={dashBoard.cm_invitationCont}>{this.state.invitatonCount?.totle_received_requests}</Typography>
+                                <Typography variant="h6" style={dashBoard.cm_invitationCont}>{this.state.invitatonCount?.member_invitation_rejected}</Typography>
                             </div>
                         </div>
                     </Paper>

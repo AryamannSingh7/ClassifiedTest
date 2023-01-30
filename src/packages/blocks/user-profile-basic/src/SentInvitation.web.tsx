@@ -78,6 +78,7 @@ async componentDidMount() {
   }
 
 render() {
+    console.log(this.state.allInvitation)
     const {t}: any = this.props
     var searchData = rows.filter((item) => {
         if (this.state.dataSearch === "") {
@@ -148,7 +149,7 @@ render() {
                                         </TableRow>
                                     </TableHead>
                                     <TableBody>
-                                        {this.state.allInvitation.map((row:any,i:any) => (
+                                        {this.state.allInvitation && this.state.allInvitation.map((row:any,i:any) => (
                                             <TableRow key={row.id}>
                                                 <TableCell component="th" scope="row">{i+1}</TableCell>
                                                 <TableCell align="left">{row?.attributes?.full_name}</TableCell>
@@ -163,7 +164,7 @@ render() {
                                 </Table>
                             </TableContainer>
                             <Box style={dashBoardActions.TableHeader}>
-                                <Typography  style={dashBoardActions.subHeading}>{t("Showing")} {this.state.allInvitation.length>10 ? '10' : this.state.allInvitation.length} {t("of")} {this.state.allInvitation.length} {t("results")}</Typography>
+                                <Typography  style={dashBoardActions.subHeading}>{t("Showing")} {this.state.allInvitation?.length>10 ? '10' : this.state.allInvitation?.length} {t("of")} {this.state.allInvitation?.length} {t("results")}</Typography>
                                 <Pagination count={10} variant="outlined" shape="rounded" />
                             </Box>
                         </Box> 
