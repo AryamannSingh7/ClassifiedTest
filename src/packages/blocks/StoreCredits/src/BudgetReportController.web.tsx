@@ -61,11 +61,6 @@ export default class BudgetReportController extends CommonApiCallForBlockCompone
             budgetReportList:responseJson?.budget_report?.data
           })
         }
-      }if(this.getDownloadFileId === apiRequestCallId){
-        // @ts-ignore
-        responseJson.blob().then(blob => {
-
-        })
       }
     }
   }

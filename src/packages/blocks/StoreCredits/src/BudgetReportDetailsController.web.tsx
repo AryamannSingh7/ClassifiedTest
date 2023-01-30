@@ -85,23 +85,26 @@ export default class BudgetReportController extends CommonApiCallForBlockCompone
         }
       }
       if(this.approveBudgetReportId === apiRequestCallId) {
-        console.log("APPROVED",responseJson)
-        if(responseJson.message === "Budget Report Successfully verified"){
-          this.getBudgetReportDetails()
-          if(this.state.rejectReason){
-            this.setState({
-              setOpen:false,
-              showSuccess:true,
-              successMessage:"Budget Rejected Successfully!",
-            })
-          }else{
-            this.setState({
-              ApproveModal:false,
-              showSuccess:true,
-              successMessage:"Budget Approved Successfully!"
-            })
-          }
-        }
+        this.bugetReportVerifyResponse(responseJson)
+      }
+    }
+  }
+
+  bugetReportVerifyResponse = (responseJson:any) => {
+    if(responseJson.message === "Budget Report Successfully verified"){
+      this.getBudgetReportDetails()
+      if(this.state.rejectReason){
+        this.setState({
+          setOpen:false,
+          showSuccess:true,
+          successMessage:"Budget Rejected Successfully!",
+        })
+      }else{
+        this.setState({
+          ApproveModal:false,
+          showSuccess:true,
+          successMessage:"Budget Approved Successfully!"
+        })
       }
     }
   }
