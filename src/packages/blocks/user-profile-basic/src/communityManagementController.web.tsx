@@ -470,7 +470,7 @@ this.setState({loading:false,showDialog:false})
   }
   getInvitationRes(responseJson:any,errorReponse:any){
     if (!responseJson.errors) {
-      this.setState({allInvitation:responseJson.member_invitations.data,loading:false},()=>console.log(this.state.allInvitation))
+      this.setState({allInvitation:responseJson.member_invitations.data,loading:false},()=>console.log('123h',this.state.allInvitation))
       
       
                 } else {
