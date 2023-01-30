@@ -76,7 +76,7 @@ class BudgetReportDetails extends BudgetReportDetailsController {
                     </Typography>
                       {
                           this.state?.budgetDetails?.status == "Pending" &&
-                          <Typography variant="body1" className={"statusOngoingRed"}>{this.state?.budgetDetails?.status}</Typography>
+                          <Typography variant="body1" className={"statusOngoingRed"}>Pending Approval</Typography>
                       }
                       {
                           this.state?.budgetDetails?.status == "Rejected" &&
@@ -118,9 +118,11 @@ class BudgetReportDetails extends BudgetReportDetailsController {
                     <Table className="table-box">
                       <TableHead>
                         <TableRow >
-                          <TableCell align="left" style={{color:"#181d25",padding:"5px 10px"}}>{t("Name")}</TableCell>
-                          <TableCell align="right"  style={{ padding:"5px 10px", paddingRight: "50px",color:"#181d25" }}>
-                            {t("Amount")}
+                          <TableCell align="left" style={{color:"gray",padding:"10px 10px"}}>
+                              <Typography style={{color:"gray"}} variant="subtitle1">{t("Name")} </Typography>
+                          </TableCell>
+                          <TableCell align="right"  style={{ padding:"10px 10px", paddingRight: "50px",color:"gray" }}>
+                              <Typography style={{color:"gray"}} variant="subtitle1">{t("Amount")}</Typography>
                           </TableCell>
                         </TableRow>
                       </TableHead>
@@ -130,8 +132,8 @@ class BudgetReportDetails extends BudgetReportDetailsController {
                               this.state.budgetDetails?.facilities?.map((item:any,key:any) => {
                                   return(
                                       <TableRow key={key}>
-                                          <TableCell align="left" style={{ display: "flex", alignItems: "center",color:"#181d25",padding:"5px 10px" }}>
-                                              {item.budget_category}
+                                          <TableCell align="left" style={{ display: "flex", alignItems: "center",color:"#181d25",padding:"10px 10px" }}>
+                                              <Typography  variant="subtitle1">{item.budget_category}</Typography>
                                               <HtmlTooltip
                                                   title={
                                                       <React.Fragment>
@@ -151,8 +153,8 @@ class BudgetReportDetails extends BudgetReportDetailsController {
                                                   </IconButton>
                                               </HtmlTooltip>
                                           </TableCell>
-                                          <TableCell align="right" style={{padding:"5px 10px",fontWeight:"bold", paddingRight: "50px" }}>
-                                              {this.state?.budgetDetails?.currency?.currency} {item.allocate_budget?.toLocaleString()}
+                                          <TableCell align="right" style={{padding:"10px 10px",paddingRight: "50px" }}>
+                                              <Typography  variant="subtitle1" style={{fontWeight:"bold"}}>{this.state?.budgetDetails?.currency?.currency} {item.allocate_budget?.toLocaleString()}</Typography>
                                           </TableCell>
                                       </TableRow>
                                   )
@@ -161,15 +163,18 @@ class BudgetReportDetails extends BudgetReportDetailsController {
                                   <TableRow>
                                       <TableCell style={{color:"gray",padding:"5px 10px"}} colSpan={6}>{t("No Budget Details are Available")}</TableCell>
                                   </TableRow>
+                              }
+                          {
+                              this.state.budgetDetails?.facilities?.length > 0 &&
+                              <TableRow>
+                                  <TableCell  align="left" style={{ display: "flex", alignItems: "center",padding:"10px 10px" }}>
+                                      <Typography style={{fontWeight:"bold"}}>Budget Amount</Typography>
+                                  </TableCell>
+                                  <TableCell align="right" style={{ padding:"10px 10px",paddingRight: "50px" }}>
+                                      <Typography style={{fontWeight:"bold",color:"#FC8434",paddingRight:"0px"}}> {this.state?.budgetDetails?.currency?.currency} {this.state?.budgetDetails?.approved_amount?.toLocaleString() || 0} </Typography>
+                                  </TableCell>
+                              </TableRow>
                           }
-                          <TableRow>
-                              <TableCell  align="left" style={{ display: "flex", alignItems: "center",padding:"5px 10px" }}>
-                                  <Typography variant="body1">Budget Amount</Typography>
-                              </TableCell>
-                              <TableCell align="right" style={{ padding:"5px 10px",paddingRight: "50px" }}>
-                                  <Typography variant="body1" style={{fontWeight:"bold",color:"#FC8434",paddingRight:"0px"}}> {this.state?.budgetDetails?.currency?.currency} {this.state?.budgetDetails?.approved_amount?.toLocaleString() || 0} </Typography>
-                              </TableCell>
-                          </TableRow>
                       </TableBody>
                     </Table>
                   </Grid>
@@ -195,7 +200,7 @@ class BudgetReportDetails extends BudgetReportDetailsController {
                   {
                       this.state?.budgetDetails?.status !== "Pending" && this.state?.budgetDetails?.status !== "Rejected" &&
                       <Box style={{ display: "flex", justifyContent: "flex-end" }}>
-                          <RejectButton onClick={() => this.setState({ ApproveModal: true })}>Download Report</RejectButton>
+                          <RejectButton onClick={this.manageDownloadFiles}>Download Report</RejectButton>
                       </Box>
                   }
               </Container>
