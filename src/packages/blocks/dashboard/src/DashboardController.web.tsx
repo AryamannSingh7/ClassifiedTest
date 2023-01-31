@@ -3,6 +3,7 @@ import { Message } from "../../../framework/src/Message";
 import { BlockComponent } from "../../../framework/src/BlockComponent";
 import MessageEnum, { getName } from "../../../framework/src/Messages/MessageEnum";
 import { runEngine } from "../../../framework/src/RunEngine";
+import { apiCall } from "../../../components/src/APICallComponent/index.web";
 
 // Customizable Area Start
 // Customizable Area End
@@ -38,6 +39,8 @@ interface S {
     unit: string;
     company: string;
   };
+
+  isNewNotification: boolean;
   // Customizable Area End
 }
 interface SS {
@@ -51,6 +54,7 @@ export default class DashboardController extends BlockComponent<Props, S, SS> {
   apiGetQueryStrinurl: any = "";
   getProfileDataAPiCallId: any = "";
   getUnreadCountAPIId: any = "";
+  GetNotificationCallId: any = "";
   GetManagerRequestCallId: any;
   // Customizable Area End
 
@@ -88,6 +92,8 @@ export default class DashboardController extends BlockComponent<Props, S, SS> {
         unit: "",
         company: "",
       },
+
+      isNewNotification: false,
     };
     // Customizable Area End
     runEngine.attachBuildingBlock(this as IBlock, this.subScribedMessages);
@@ -106,6 +112,8 @@ export default class DashboardController extends BlockComponent<Props, S, SS> {
     if (window.location.pathname.split("/")[1] === "OwnerDashboard") {
       this.getManagerRequestList();
     }
+
+    this.getNotification();
   }
 
   getToken = () => {
@@ -135,6 +143,18 @@ export default class DashboardController extends BlockComponent<Props, S, SS> {
     // Customizable Area End
   };
 
+  getNotification = async () => {
+    this.GetNotificationCallId = await apiCall({
+      contentType: "application/json",
+      method: "GET",
+      endPoint: `bx_block_notifications/notifications/new_notification`,
+    });
+  }
+
+  handleNewNotificationResponse = (responseJson: any) => {
+    this.setState({isNewNotification: responseJson.new_notification})
+  }
+ 
   async receive(from: string, message: Message) {
     // Customizable Area Start
     if (getName(MessageEnum.SessionResponseMessage) === message.id) {
@@ -168,6 +188,9 @@ export default class DashboardController extends BlockComponent<Props, S, SS> {
         case this.GetManagerRequestCallId:
           this.GetManagerRequestCallId = null;
           this.getManagerRequestListResponse(responseJson);
+          break;
+        case this.GetNotificationCallId:
+          this.handleNewNotificationResponse(responseJson);
           break;
       }
       if (responseJson && !responseJson?.errors && responseJson?.data) {

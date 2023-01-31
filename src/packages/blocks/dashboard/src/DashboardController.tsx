@@ -29,6 +29,8 @@ interface S {
 
   isMenuOpen: boolean;
   isLogoutModalOpen: boolean;
+
+  isNewNotification: boolean;
   // Customizable Area End
 }
 interface SS {
@@ -63,6 +65,8 @@ export default class DashboardController extends BlockComponent<Props, S, SS> {
 
       isLogoutModalOpen: false,
       isMenuOpen: false,
+
+      isNewNotification: false,
     };
     // Customizable Area End
     runEngine.attachBuildingBlock(this as IBlock, this.subScribedMessages);
@@ -122,37 +126,17 @@ export default class DashboardController extends BlockComponent<Props, S, SS> {
     }
 
     if (getName(MessageEnum.RestAPIResponceMessage) === message.id) {
-      var responseJson = message.getData(
+      let responseJson = message.getData(
         getName(MessageEnum.RestAPIResponceSuccessMessage)
       );
       if (responseJson && !responseJson.errors && responseJson.data) {
-        if (responseJson.data.length === 0) {
-          this.setState({
-            errorMsg: "Data Not Found",
-            loading: false
-          });
-        } else {
-          this.setState({
-            dashboardData: responseJson.data,
-            errorMsg: "",
-            loading: false
-          });
-        }
+        this.handleChairmanResponse(responseJson);
       } else {
-        var errorReponse = message.getData(
+        let errorResponse = message.getData(
           getName(MessageEnum.RestAPIResponceErrorMessage)
         );
-        if (errorReponse === undefined) {
-          this.setState({
-            errorMsg: "Something went wrong",
-            loading: false
-          });
-        } else {
-          this.setState({
-            errorMsg: errorReponse,
-            loading: false
-          });
-        }
+
+        this.handleChairmanErrorResponse(errorResponse);
       }
     }
     // Customizable Area End
@@ -166,6 +150,26 @@ export default class DashboardController extends BlockComponent<Props, S, SS> {
   handleAccordinoChange = (panel:string) => (event:any, isExpanded:boolean) => {
     this.setState({ expanded: isExpanded ? panel : '' });
   };
+
+  handleChairmanResponse = (responseJson: any) => {
+    if (responseJson?.data?.length === 0) {
+      this.setState({ errorMsg: "Data Not Found", loading: false });
+    } else {
+      this.setState({ dashboardData: responseJson.data, errorMsg: "", loading: false });
+    }
+  }
+
+  handleChairmanErrorResponse = (errorResponse: any) => {
+    if (errorResponse === undefined) {
+      this.setState({ errorMsg: "Something went wrong", loading: false });
+    } else {
+      this.setState({ errorMsg: errorResponse, loading: false });
+    }
+  }
+
+  handleNewNotificationChairmanResponse = (responseJson: any) => {
+    this.setState({isNewNotification: responseJson.new_notification})
+  }
   // Customizable Area End
 
 }

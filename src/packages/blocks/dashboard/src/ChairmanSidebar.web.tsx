@@ -51,21 +51,11 @@ class ChairmanSidebar extends DashboardController {
             <AccordionDetails
               onClick={() => {
                 //@ts-ignore
-                this.props.history.push("/mv");
-              }}
-            >
-              <Typography variant="body2" className="cursor-pointer">
-                {t("Vehicle")}
-              </Typography>
-            </AccordionDetails>
-            <AccordionDetails
-              onClick={() => {
-                //@ts-ignore
                 this.props.history.push("/DashboardTicket");
               }}
             >
               <Typography variant="body2" className="cursor-pointer">
-                {t("Budget Dashboard")}
+                {t("Ticket Dashboard")}
               </Typography>
             </AccordionDetails>
             <AccordionDetails
@@ -380,7 +370,9 @@ class ChairmanSidebar extends DashboardController {
               </Box>
               {t("Plan")}
             </Typography>
-            <Typography style={{ fontSize: 12, marginTop: 10 }}>{t("Expires in")} 125 {t("days")}</Typography>
+            <Typography style={{ fontSize: 12, marginTop: 10 }}>
+              {t("Expires in")} 125 {t("days")}
+            </Typography>
           </Box>
           <Box>
             <img src={TenantLogo.default} alt="TenantLogo" width={110} />

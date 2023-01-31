@@ -6,6 +6,7 @@ import { runEngine } from "../../../framework/src/RunEngine";
 import { ApiCatchErrorResponse, ApiErrorResponse } from "../../../components/src/APIErrorResponse";
 import toast from "react-hot-toast";
 import { ROLE } from "../../../framework/src/Enum";
+import { apiCall } from "../../../components/src/APICallComponent/index.web";
 
 export const configJSON = require("./config");
 
@@ -41,6 +42,7 @@ export default class OwnerNotificationController extends BlockComponent<Props, S
   GetNotificationListCallId: any;
   DeleteNotificationCallId: any;
   GetNotificationTypeCallId: any;
+  MarkAsReadNotificationCallId: any;
 
   constructor(props: Props) {
     super(props);
@@ -89,6 +91,8 @@ export default class OwnerNotificationController extends BlockComponent<Props, S
         case this.GetNotificationTypeCallId:
           this.handleGetNotificationTypeResponse(responseJson);
           break;
+        case this.MarkAsReadNotificationCallId:
+          break;
         default:
           break;
       }
@@ -105,6 +109,7 @@ export default class OwnerNotificationController extends BlockComponent<Props, S
   async componentDidMount(): Promise<void> {
     this.getAllNotification();
     this.getNotificationType();
+    this.markReadNotification();
   }
 
   async componentDidUpdate(prevProps: any, prevState: any): Promise<void> {
@@ -113,29 +118,14 @@ export default class OwnerNotificationController extends BlockComponent<Props, S
     }
   }
 
-  getAllNotification = () => {
+  getAllNotification = async () => {
     const { filterType } = this.state;
 
-    const header = {
-      "Content-Type": configJSON.apiContentType,
-      token: localStorage.getItem("userToken"),
-    };
-
-    const apiRequest = new Message(getName(MessageEnum.RestAPIRequestMessage));
-
-    this.GetNotificationListCallId = apiRequest.messageId;
-
-    apiRequest.addData(
-      getName(MessageEnum.RestAPIResponceEndPointMessage),
-      `bx_block_notifications/notifications?notification_type=${filterType}`
-    );
-
-    apiRequest.addData(getName(MessageEnum.RestAPIRequestHeaderMessage), JSON.stringify(header));
-
-    apiRequest.addData(getName(MessageEnum.RestAPIRequestMethodMessage), configJSON.getDataMethod);
-
-    runEngine.sendMessage(apiRequest.id, apiRequest);
-    return true;
+    this.GetNotificationListCallId = await apiCall({
+      contentType: "application/json",
+      method: "GET",
+      endPoint: `bx_block_notifications/notifications?notification_type=${filterType}`,
+    });
   };
 
   handleGetAllNotificationResponse = (responseJson: any) => {
@@ -144,50 +134,28 @@ export default class OwnerNotificationController extends BlockComponent<Props, S
     }
   };
 
-  deleteNotification = () => {
-    const header = {
-      "Content-Type": configJSON.apiContentType,
-      token: localStorage.getItem("userToken"),
-    };
-
-    const apiRequest = new Message(getName(MessageEnum.RestAPIRequestMessage));
-
-    this.DeleteNotificationCallId = apiRequest.messageId;
-
-    apiRequest.addData(
-      getName(MessageEnum.RestAPIResponceEndPointMessage),
-      `bx_block_notifications/notifications/multiple_delete_notification?notification_ids[]=${this.state.selectedNotification.toString()}`
-    );
-
-    apiRequest.addData(getName(MessageEnum.RestAPIRequestHeaderMessage), JSON.stringify(header));
-
-    apiRequest.addData(getName(MessageEnum.RestAPIRequestMethodMessage), configJSON.deleteText);
-
-    runEngine.sendMessage(apiRequest.id, apiRequest);
-    return true;
+  deleteNotification = async () => {
+    this.DeleteNotificationCallId = await apiCall({
+      contentType: "application/json",
+      method: "DELETE",
+      endPoint: `bx_block_notifications/notifications/multiple_delete_notification?notification_ids[]=${this.state.selectedNotification.toString()}`,
+    });
   };
 
-  getNotificationType = () => {
-    const header = {
-      "Content-Type": configJSON.apiContentType,
-      token: localStorage.getItem("userToken"),
-    };
+  getNotificationType = async () => {
+    this.GetNotificationTypeCallId = await apiCall({
+      contentType: "application/json",
+      method: "GET",
+      endPoint: `bx_block_notifications/notifications/notification_type`,
+    });
+  };
 
-    const apiRequest = new Message(getName(MessageEnum.RestAPIRequestMessage));
-
-    this.GetNotificationTypeCallId = apiRequest.messageId;
-
-    apiRequest.addData(
-      getName(MessageEnum.RestAPIResponceEndPointMessage),
-      `bx_block_notifications/notifications/notification_type`
-    );
-
-    apiRequest.addData(getName(MessageEnum.RestAPIRequestHeaderMessage), JSON.stringify(header));
-
-    apiRequest.addData(getName(MessageEnum.RestAPIRequestMethodMessage), configJSON.getDataMethod);
-
-    runEngine.sendMessage(apiRequest.id, apiRequest);
-    return true;
+  markReadNotification = async () => {
+    this.MarkAsReadNotificationCallId = await apiCall({
+      contentType: "application/json",
+      method: "GET",
+      endPoint: `bx_block_notifications/notifications/mark_as_read`,
+    });
   };
 
   handleGetNotificationTypeResponse = (responseJson: any) => {
