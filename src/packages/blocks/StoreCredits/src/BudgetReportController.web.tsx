@@ -55,10 +55,13 @@ export default class BudgetReportController extends CommonApiCallForBlockCompone
       const responseJson = message.getData(getName(MessageEnum.RestAPIResponceSuccessMessage));
       const errorResponse = message.getData(getName(MessageEnum.RestAPIResponceErrorMessage));
       if(this.getBudgetData === apiRequestCallId ){
-        console.log("CHECK",responseJson,errorResponse)
         if(responseJson.hasOwnProperty("budget_report")){
           this.setState({
             budgetReportList:responseJson?.budget_report?.data
+          })
+        }else{
+          this.setState({
+            budgetReportList:[]
           })
         }
       }
