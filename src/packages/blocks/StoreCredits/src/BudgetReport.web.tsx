@@ -70,7 +70,7 @@ class BudgetReport extends BudgetReportController {
                 <Box className="top-bar">
                   <Box className="filter">
                     <Select displayEmpty className="select-input" value={this.state.budgetYear} onChange={this.handleYearChange} >
-                      <MenuItem value="" disabled>
+                      <MenuItem value="">
                         {t("Select Year")}
                       </MenuItem>
                       <MenuItem value={(new Date().getFullYear()) - 3}>{(new Date().getFullYear()) - 3}</MenuItem>
@@ -80,7 +80,7 @@ class BudgetReport extends BudgetReportController {
                       <MenuItem value={(new Date().getFullYear()) + 1}>{(new Date().getFullYear()) + 1}</MenuItem>
                     </Select>
                     <Select displayEmpty className="select-input" value={this.state.status} onChange={this.handleStatusChange}>
-                      <MenuItem value="" disabled>
+                      <MenuItem value="">
                         {t("Select Status")}
                       </MenuItem>
                       <MenuItem value="Pending">{t("Pending")}</MenuItem>
