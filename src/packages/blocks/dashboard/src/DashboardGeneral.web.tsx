@@ -33,6 +33,7 @@ import { withTranslation } from "react-i18next";
 import { DashboardStyleWeb } from "./DashboardStyle.web";
 import ChairmanNumberCard from "../../../components/src/DashboardCard/ChairmanNumberCard.web";
 import { ROLE } from "../../../framework/src/Enum";
+import moment from "moment";
 
 class DashboardGeneral extends DashboardGeneralController {
   constructor(props: Props) {
@@ -43,6 +44,8 @@ class DashboardGeneral extends DashboardGeneralController {
     const { t, classes }: any = this.props;
 
     const userType = localStorage.getItem("userType");
+
+    console.log(this.state);
 
     return (
       <>
@@ -69,11 +72,14 @@ class DashboardGeneral extends DashboardGeneralController {
                   <Box className="sub-heading-box">
                     <Typography variant="h5">{t("General Dashboard")}</Typography>
                     {userType === ROLE.CHAIRMAN && (
-                      <NativeSelect className="select-year">
-                        <option value={2022}>2022</option>
-                        <option value={2021}>2021</option>
-                        <option value={2020}>2020</option>
-                        <option value={2019}>2019</option>
+                      <NativeSelect className="select-year" value={this.state.filterYear}>
+                        {this.state.yearList.map((year: any) => {
+                          return (
+                            <option value={year} key={year}>
+                              {year}
+                            </option>
+                          );
+                        })}
                       </NativeSelect>
                     )}
                   </Box>
@@ -221,47 +227,51 @@ class DashboardGeneral extends DashboardGeneralController {
                     {t("Upcoming Events")}
                   </Typography>
                   <Grid container spacing={4}>
-                    <Grid item sm={6}>
-                      <Card className="event-card">
-                        <Box className="event-heading">
-                          <Box>
-                            <h4>Meeting Title</h4>
-                            <p>To discuss something...</p>
-                          </Box>
-                          <Box>
-                            <span>SR 250</span>
-                          </Box>
-                        </Box>
-                        <Box className="event-content-box">
-                          <Box className="event-content">
-                            <img src={location} alt="location" />
-                            <p>Center park common hall</p>
-                          </Box>
-                          <Box className="event-content">
-                            <img src={Cardcalendar} alt="calendar" />
-                            <p>05-08-2022 18:00 to 20:00</p>
-                          </Box>
-                          <Box className="event-content">
-                            <img src={account} alt="calendar" />
-                            <p>John Doe</p>
-                          </Box>
-                          <Box className="meeting-state-box">
-                            <Box className="meeting-state">
-                              <img src={awated} alt="calendar" />
-                              <p>84</p>
+                    {this.state.meetingList.map((meeting: any) => {
+                      return (
+                        <Grid item sm={6} key={meeting.id}>
+                          <Card className="event-card">
+                            <Box className="event-heading">
+                              <Box>
+                                <h4>{meeting.title}</h4>
+                                <p>{meeting.agenda}</p>
+                              </Box>
+                              <Box>
+                                <span>SR 250</span>
+                              </Box>
                             </Box>
-                            <Box className="meeting-state">
-                              <img src={Check_Mark} alt="calendar" />
-                              <p>25</p>
+                            <Box className="event-content-box">
+                              <Box className="event-content">
+                                <img src={location} alt="location" />
+                                <p>{meeting.place}</p>
+                              </Box>
+                              <Box className="event-content">
+                                <img src={Cardcalendar} alt="calendar" />
+                                <p>{moment(meeting.time).format("MMMM DD, YYYY")}</p>
+                              </Box>
+                              <Box className="event-content">
+                                <img src={account} alt="calendar" />
+                                <p>John Doe</p>
+                              </Box>
+                              <Box className="meeting-state-box">
+                                <Box className="meeting-state">
+                                  <img src={awated} alt="calendar" />
+                                  <p>84</p>
+                                </Box>
+                                <Box className="meeting-state">
+                                  <img src={Check_Mark} alt="calendar" />
+                                  <p>25</p>
+                                </Box>
+                                <Box className="meeting-state">
+                                  <img src={xmark} alt="calendar" />
+                                  <p>108</p>
+                                </Box>
+                              </Box>
                             </Box>
-                            <Box className="meeting-state">
-                              <img src={xmark} alt="calendar" />
-                              <p>108</p>
-                            </Box>
-                          </Box>
-                        </Box>
-                      </Card>
-                    </Grid>
+                          </Card>
+                        </Grid>
+                      );
+                    })}
                   </Grid>
                 </Box>
               </Container>
