@@ -69,6 +69,7 @@ import Customform from '../../blocks/customform/src/Customform';
 import PhoneNumberInput from '../../blocks/mobile-account-registration/src/PhoneNumberInput';
 import AdditionalDetailForm from '../../blocks/mobile-account-registration/src/AdditionalDetailForm';
 import Settings5 from '../../blocks/Settings5/src/Settings5';
+import EmailAlerts from '../../blocks/Settings5/src/EmailAlerts.web';
 import UserProfileBasicBlock from '../../blocks/user-profile-basic/src/UserProfileBasicBlock';
 import './assets/css/constants/base/global.scss';
 import LandingPage from '../../blocks/landingpage/src/LandingPage.web';
@@ -86,6 +87,8 @@ import RegistrationRequest from '../../blocks/email-account-login/src/Registrati
 import ChairmanRegistrationRequest from '../../blocks/email-account-login/src/ChairmanRegistrationRequest.web';
 import DashboardGeneral from '../../blocks/dashboard/src/DashboardGeneral.web';
 import DashboardTicket from '../../blocks/dashboard/src/DashboardTicket.web';
+import TicketGeneratedYear from '../../blocks/dashboard/src/TicketGeneratedYear.web';
+import TicketGeneratedDays from '../../blocks/dashboard/src/TicketGeneratedDays.web';
 import DashboardActions from '../../blocks/dashboard/src/DashboardActions.web';
 import DashboardBudget from '../../blocks/dashboard/src/DashboardBudget.web';
 import BudgetDetails from '../../blocks/dashboard/src/BudgetDetails.web';
@@ -1271,12 +1274,26 @@ const routeMap = {
 
   DashboardTicket: {
     component: DashboardTicket,
-    path: '/DashboardTicket'
+    path: '/DashboardTicket',
+    roles: [ROLE.CHAIRMAN, ROLE.MANAGER],
+    exact: true
   },
-
+  TicketGeneratedYear: {
+    component: TicketGeneratedYear,
+    path: '/DashboardTicket/Year/:year',
+    roles: [ROLE.CHAIRMAN, ROLE.MANAGER],
+    exact: true
+  },
+  TicketGeneratedDays: {
+    component: TicketGeneratedDays,
+    path: '/DashboardTicket/Days/:days',
+    roles: [ROLE.CHAIRMAN, ROLE.MANAGER],
+    exact: true
+  },
   DashboardActions: {
     component: DashboardActions,
-    path: '/DashboardActions'
+    path: '/DashboardActions',
+    roles: [ROLE.CHAIRMAN, ROLE.MANAGER]
   },
 
   DashboardBudget: {

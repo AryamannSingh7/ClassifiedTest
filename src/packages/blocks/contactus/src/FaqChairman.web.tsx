@@ -1,6 +1,5 @@
 // Customizable Area Start
 //@ts-nocheck
-//@ts-ignore
 
 import React from "react";
 import {
@@ -28,17 +27,11 @@ import AddIcon from "@material-ui/icons/Add";
 import Grid from "@material-ui/core/Grid";
 import FaqChairmanController, { Props } from "./FaqChairmanController.web";
 import DashboardHeader from "../../dashboard/src/DashboardHeader.web";
-import ChairmanSidebarWeb from "../../dashboard/src/ChairmanSidebar.web";
 import { FaqChairmanStyleWeb } from "./FaqChairmanStyle.web";
-
-import CommentImage from "../assets/comment.png";
-import QuestionImage from "../assets/question.png";
 import "./DialogStyle.web.css";
-import { withTranslation } from 'react-i18next';
-import '../../../web/src/i18n.js';
-import VisitorsSidebar from "../../dashboard/src/VisitorsSidebar.web";
+import { withTranslation } from "react-i18next";
 import GeneralSideBarWeb from "../../dashboard/src/GeneralSideBar.web";
-
+import { CommentImage, QuestionImage } from "./assets";
 
 class FaqChairman extends FaqChairmanController {
   constructor(props: Props) {
@@ -46,19 +39,16 @@ class FaqChairman extends FaqChairmanController {
   }
 
   render() {
-    const {t} = this.props
-    const { classes } = this.props;
-    const userType  = localStorage.getItem("userType");
+    const { t, classes }: any = this.props;
+    const userType = localStorage.getItem("userType");
 
     return (
       <>
         <Box style={{ background: "#F4F7FF" }} className={classes.faqChairman}>
-          {/* Dashboard Header -- */}
           <DashboardHeader {...this.props} />
           <Box style={{ display: "flex" }}>
             <Grid item xs={3} md={3} sm={3} className="SideBar">
-              {/* Chairman Sidebar -- */}
-              <GeneralSideBarWeb {...this.props}></GeneralSideBarWeb>
+              <GeneralSideBarWeb {...this.props} />
             </Grid>
 
             <Grid item xs={9} md={9} sm={9} style={{ paddingTop: 35 }}>
@@ -76,7 +66,7 @@ class FaqChairman extends FaqChairmanController {
                     </Typography>
                   </Box>
                 </Box>
-        
+
                 <Box className="category-box">
                   <Box className="category">
                     {this.state.catagoriesList.map((category: any) => {
@@ -86,7 +76,6 @@ class FaqChairman extends FaqChairmanController {
                           onClick={() => {
                             this.setState(
                               {
-                                ...this.state,
                                 faqList: category.attributes.FAQ,
                                 selectedCategoryId: category.id,
                                 createCategoryId: category.id,
@@ -98,55 +87,38 @@ class FaqChairman extends FaqChairmanController {
                             );
                           }}
                           label={category.attributes.name}
-                          className={
-                            category.id === this.state.selectedCategoryId
-                              ? "active"
-                              : ""
-                          }
+                          className={category.id === this.state.selectedCategoryId ? "active" : ""}
                         />
                       );
                     })}
                   </Box>
-                  {
-                     userType === "Security"  ? null
-                     :
-                     <Button
-                       startIcon={<AddIcon />}
-                       variant="contained"
-                       onClick={() => this.handleAddCategoryModal()}
-                     >
-                       {t("Add New Category")}
-                     </Button>
-                  }
-                 
+                  {userType !== "Security" && (
+                    <Button startIcon={<AddIcon />} variant="contained" onClick={() => this.handleAddCategoryModal()}>
+                      {t("Add New Category")}
+                    </Button>
+                  )}
                 </Box>
 
                 {this.state.faqList.length === 0 && (
                   <Box className="empty-box">
                     <img src={QuestionImage} alt="no questions" />
-                    <Typography
-                      variant="h6"
-                      style={{ fontWeight: "600", marginBottom: "15px" }}
-                    >
+                    <Typography variant="h6" className="no-question-text">
                       {t("No Question Added")}
                     </Typography>
                   </Box>
                 )}
                 <Box className="faq-box">
-                  {this.state.faqList.length >= 0 &&
-                    this.state.faqList.map((faq: any) => {
-                      return (
-                        <Accordion square key={faq.id}>
-                          <AccordionSummary expandIcon={<ExpandMoreIcon />}>
-                            <Typography
-                              expanded={this.state.expanded === faq.title}
-                              onClick={this.handleChange(faq.title)}
-                            >
-                              {faq.title}
-                            </Typography>
-                            {userType === "Security" ? 
-                            null
-                            :
+                  {this.state.faqList.map((faq: any) => {
+                    return (
+                      <Accordion square key={faq.id}>
+                        <AccordionSummary expandIcon={<ExpandMoreIcon />}>
+                          <Typography
+                            expanded={this.state.expanded === faq.title}
+                            onClick={() => this.handleChange(faq.title)}
+                          >
+                            {faq.title}
+                          </Typography>
+                          {userType === "Security" ? null : (
                             <Box className="icons">
                               <DeleteOutlineIcon
                                 onClick={() => {
@@ -159,22 +131,17 @@ class FaqChairman extends FaqChairmanController {
                                 }}
                               />
                             </Box>
-                            }
-                            
-                          </AccordionSummary>
-                          <AccordionDetails>
-                            <Typography>{faq.content}</Typography>
-                          </AccordionDetails>
-                        </Accordion>
-                      );
-                    })}
+                          )}
+                        </AccordionSummary>
+                        <AccordionDetails>
+                          <Typography>{faq.content}</Typography>
+                        </AccordionDetails>
+                      </Accordion>
+                    );
+                  })}
                 </Box>
                 <Box className="bottom-buttons">
-                  {
-                  userType === "Security" ? 
-                  null
-                  :
-                  this.state.selectedCategoryName ? (
+                  {userType !== "Security" && this.state.selectedCategoryName && (
                     <Button
                       className="remove-cat-button"
                       variant="outlined"
@@ -182,22 +149,16 @@ class FaqChairman extends FaqChairmanController {
                     >
                       {t("Remove")} {this.state.selectedCategoryName} {t("Faq")}
                     </Button>
-                  ) : (
-                    <div />
                   )}
-                  {
-                     userType === "Security" ? 
-                     null
-                     :
-                     <Button
-                     disabled={this.state.catagoriesList.length === 0}
-                     variant="contained"
-                     onClick={() => this.handleAddQuestionModal()}
-                   >
-                     {t("Add Questions")}
-                   </Button>
-                  }
-                 
+                  {userType === "Security" ? null : (
+                    <Button
+                      disabled={this.state.catagoriesList.length === 0}
+                      variant="contained"
+                      onClick={() => this.handleAddQuestionModal()}
+                    >
+                      {t("Add Questions")}
+                    </Button>
+                  )}
                 </Box>
               </Container>
             </Grid>
@@ -231,7 +192,7 @@ class FaqChairman extends FaqChairmanController {
                   </option>
                   {this.state.catagoriesList.map((category: any) => {
                     return (
-                      <option value={category.id}>
+                      <option value={category.id} key={category.id}>
                         {category.attributes.name}
                       </option>
                     );
@@ -251,9 +212,7 @@ class FaqChairman extends FaqChairmanController {
                   className="dialog-input"
                 />
                 {this.state.createQuestion.length > 500 && (
-                  <span className="error">
-                    {t("Maximum length of title should be 500 character")}
-                  </span>
+                  <span className="error">{t("Maximum length of title should be 500 character")}</span>
                 )}
               </FormControl>
               <FormControl fullWidth>
@@ -271,10 +230,7 @@ class FaqChairman extends FaqChairmanController {
               </FormControl>
             </DialogContent>
             <DialogActions className="dialog-button-group">
-              <Button
-                className="cancel-button"
-                onClick={() => this.handleAddQuestionModal()}
-              >
+              <Button className="cancel-button" onClick={() => this.handleAddQuestionModal()}>
                 {t("Cancel")}
               </Button>
               <Button
@@ -320,7 +276,7 @@ class FaqChairman extends FaqChairmanController {
                   </option>
                   {this.state.catagoriesList.map((category: any) => {
                     return (
-                      <option value={category.id}>
+                      <option value={category.id} key={category.id}>
                         {category.attributes.name}
                       </option>
                     );
@@ -340,9 +296,7 @@ class FaqChairman extends FaqChairmanController {
                   placeholder="Title Questions"
                 />
                 {this.state.editQuestion.length > 500 && (
-                  <span className="error">
-                    {t("Maximum length of title should be 500 character")}
-                  </span>
+                  <span className="error">{t("Maximum length of title should be 500 character")}</span>
                 )}
               </FormControl>
               <FormControl fullWidth>
@@ -360,10 +314,7 @@ class FaqChairman extends FaqChairmanController {
               </FormControl>
             </DialogContent>
             <DialogActions className="dialog-button-group">
-              <Button
-                onClick={() => this.handleEditQuestionModal()}
-                className="cancel-button"
-              >
+              <Button onClick={() => this.handleEditQuestionModal()} className="cancel-button">
                 {t("Cancel")}
               </Button>
               <Button
@@ -381,11 +332,7 @@ class FaqChairman extends FaqChairmanController {
             </DialogActions>
           </Dialog>
 
-          <Dialog
-            fullWidth
-            onClose={() => this.handleAddCategoryModal()}
-            open={this.state.isAddCategoryModalOpen}
-          >
+          <Dialog fullWidth onClose={() => this.handleAddCategoryModal()} open={this.state.isAddCategoryModalOpen}>
             <MuiDialogTitle className="dialog-heading" disableTypography>
               <Typography variant="h6">{t("Add Category")}</Typography>
               <IconButton onClick={() => this.handleAddCategoryModal()}>
@@ -393,6 +340,24 @@ class FaqChairman extends FaqChairmanController {
               </IconButton>
             </MuiDialogTitle>
             <DialogContent dividers>
+              <FormControl fullWidth>
+                <select
+                  className="category dialog-select-input"
+                  onChange={(e: any) => this.setState({ dashboardType: e.target.value })}
+                  value={this.state.dashboardType}
+                >
+                  <option aria-label="None" value="">
+                    {t("Select Dashboard")}
+                  </option>
+                  {this.state.dashboardTypeList.map((type: any) => {
+                    return (
+                      <option value={type.title} key={type.id}>
+                        {type.title}
+                      </option>
+                    );
+                  })}
+                </select>
+              </FormControl>
               <FormControl fullWidth>
                 <input
                   value={this.state.categoryName}
@@ -408,14 +373,11 @@ class FaqChairman extends FaqChairmanController {
               </FormControl>
             </DialogContent>
             <DialogActions className="dialog-button-group">
-              <Button
-                onClick={() => this.handleAddCategoryModal()}
-                className="cancel-button"
-              >
+              <Button onClick={() => this.handleAddCategoryModal()} className="cancel-button">
                 {t("Cancel")}
               </Button>
               <Button
-                disabled={this.state.categoryName.length === 0}
+                disabled={this.state.categoryName.length === 0 || this.state.dashboardType.length === 0}
                 onClick={() => {
                   this.createCategory();
                 }}
@@ -434,14 +396,8 @@ class FaqChairman extends FaqChairmanController {
           >
             <DialogContent style={{ margin: "15px 0" }}>
               <Box textAlign="center">
-                <img
-                  className="comment-image"
-                  src={CommentImage}
-                  alt="comment"
-                />
-                <Typography variant="h6">
-                  {t("Do you want to delete the category?")}
-                </Typography>
+                <img className="comment-image" src={CommentImage.default} alt="comment" />
+                <Typography variant="h6">{t("Do you want to delete the category?")}</Typography>
                 <Typography variant="body1" style={{ marginBottom: "0px" }}>
                   {t("Are you sure want to delete the category")}
                   {this.state.selectedCategoryName}"?
@@ -479,14 +435,8 @@ class FaqChairman extends FaqChairmanController {
           >
             <DialogContent style={{ margin: "15px 0" }}>
               <Box textAlign="center">
-                <img
-                  className="comment-image"
-                  src={CommentImage}
-                  alt="comment"
-                />
-                <Typography variant="h6">
-                  {t("Do you want to delete the question?")}
-                </Typography>
+                <img className="comment-image" src={CommentImage.default} alt="comment" />
+                <Typography variant="h6">{t("Do you want to delete the question?")}</Typography>
                 <Typography variant="body1" style={{ marginBottom: "15px" }}>
                   {t("Are you sure want to delete the question?")}
                 </Typography>

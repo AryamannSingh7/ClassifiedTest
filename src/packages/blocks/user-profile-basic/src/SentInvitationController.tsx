@@ -84,7 +84,7 @@ export default class SentInvitationController extends BlockComponent<
 
        if (apiRequestCallId === this.getInvitationAPICall) {
         if (!responseJson.errors) {
-this.setState({allInvitation:responseJson.data,loading:false})
+this.setState({allInvitation:responseJson.member_invitations.data,loading:false})
 
 
         } else {

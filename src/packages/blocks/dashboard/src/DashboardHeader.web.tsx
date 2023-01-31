@@ -22,6 +22,7 @@ import {
   globalIcon,
   notification,
   LogoutDialogIcon,
+  NewNotification,
 } from "./assets";
 import { Menu } from "@szhsin/react-menu";
 import "@szhsin/react-menu/dist/core.css";
@@ -92,7 +93,11 @@ class DashboardHeader extends DashboardController {
                 </Menu>
               </Box>
               <Link href="/AdminNotification">
-                <img src={notification} alt="GlobalIcon" style={{ marginLeft: "10px" }} />
+                {this.state.isNewNotification ? (
+                  <img src={NewNotification} alt="GlobalIcon" />
+                ) : (
+                  <img src={notification} alt="GlobalIcon" />
+                )}
               </Link>
             </div>
 

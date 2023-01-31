@@ -3,13 +3,11 @@ import { withTranslation } from "react-i18next";
 import EmailAlertsController, { Props } from "./EmailAlertsController.web";
 import {
   Box,
-  Card,
   Container,
   Grid,
   IconButton,
   Link,
   withStyles,
-  Switch,
   Dialog,
   DialogActions,
   DialogContent,
@@ -22,6 +20,7 @@ import KeyboardBackspaceIcon from "@material-ui/icons/KeyboardBackspace";
 import SidebarImageComponent from "../../../components/src/OwnerSidebarImage.web";
 import { EmailAlertsStyle } from "./EmailAlertsStyle.web";
 import { TimeIcon } from "./assets";
+import NotificationCard from "../../../components/src/EmailAlertComponent/NotificationCard.web";
 
 class EmailAlerts extends EmailAlertsController {
   constructor(props: Props) {
@@ -37,7 +36,7 @@ class EmailAlerts extends EmailAlertsController {
           <Grid container>
             <Grid item xs={12} md={7}>
               <Box className="faq-step">
-                <Box display={{ xs: "flex", md: "flex" }} className="top-bar">
+                <Box display={{ xs: "flex", md: "flex" }} className="top-bar-navigation">
                   <Box className="left-icon">
                     <Link href="/OwnerDashboard">
                       <IconButton>
@@ -48,57 +47,97 @@ class EmailAlerts extends EmailAlertsController {
                   </Box>
                 </Box>
                 <Container>
-                  <Box className="setting-page">
+                  <Box className="setting-page-email">
                     <Grid container spacing={2}>
                       <Grid item xs={12}>
-                        <Card className="main-setting-box">
-                          <Box className="card-box-setting">
-                            <Box className="setting-content-box">
-                              <h4>{t("Lease Expiration Alert")}</h4>
-                              <Switch checked={false} onChange={() => {}} name="lease" color="primary" />
-                            </Box>
-                            <Box className="setting-on-box">
-                              <p>
-                                Lease expiration alert will be sent 30 days before lease expires to you and your tenant.
-                              </p>
-                              <span className="setting-text" onClick={() => this.handleLeaseExpirationModal()}>
-                                {t("Change Settings")}
-                              </span>
-                            </Box>
-                          </Box>
-                        </Card>
+                        <NotificationCard
+                          heading={this.state.alertList[0]}
+                          emailAlert={this.state.leaseDetails}
+                          t={t}
+                          updateStatus={(e: any) => {
+                            this.setState(
+                              {
+                                leaseDetails: {
+                                  ...this.state.leaseDetails,
+                                  activated: e.target.checked,
+                                },
+                              },
+                              () => {
+                                this.updateStatus(this.state.leaseDetails.activated, this.state.leaseDetails.id);
+                              }
+                            );
+                          }}
+                          updateTime={() => {
+                            this.openLeaseExpirationModal(
+                              this.state.alertList[0],
+                              this.state.leaseDetails.id,
+                              this.state.leaseDetails.timeLimit
+                            );
+                          }}
+                          message={`Lease expiration alert will be sent ${
+                            this.state.leaseDetails.timeLimit
+                          } days before lease expires to you and your tenant.`}
+                        />
                       </Grid>
                       <Grid item xs={12}>
-                        <Card className="main-setting-box">
-                          <Box className="card-box-setting">
-                            <Box className="setting-content-box">
-                              <h4>{t("Rent Due Alert")}</h4>
-                              <Switch checked={false} onChange={() => {}} name="lease" color="primary" />
-                            </Box>
-                            <Box className="setting-on-box">
-                              <p>
-                                Lease expiration alert will be sent 30 days before lease expires to you and your tenant.
-                              </p>
-                              <span className="setting-text">Change Settings</span>
-                            </Box>
-                          </Box>
-                        </Card>
+                        <NotificationCard
+                          heading={this.state.alertList[1]}
+                          emailAlert={this.state.rentDetails}
+                          t={t}
+                          updateStatus={(e: any) => {
+                            this.setState(
+                              {
+                                rentDetails: {
+                                  ...this.state.rentDetails,
+                                  activated: e.target.checked,
+                                },
+                              },
+                              () => {
+                                this.updateStatus(this.state.rentDetails.activated, this.state.rentDetails.id);
+                              }
+                            );
+                          }}
+                          updateTime={() => {
+                            this.openLeaseExpirationModal(
+                              this.state.alertList[1],
+                              this.state.rentDetails.id,
+                              this.state.rentDetails.timeLimit
+                            );
+                          }}
+                          message={`Rent due alert will be sent ${
+                            this.state.rentDetails.timeLimit
+                          } days before rent expires to you and your tenant.`}
+                        />
                       </Grid>
                       <Grid item xs={12}>
-                        <Card className="main-setting-box">
-                          <Box className="card-box-setting">
-                            <Box className="setting-content-box">
-                              <h4>{t("Management Fee Due")}</h4>
-                              <Switch checked={false} onChange={() => {}} name="lease" color="primary" />
-                            </Box>
-                            <Box className="setting-on-box">
-                              <p>
-                                Lease expiration alert will be sent 30 days before lease expires to you and your tenant.
-                              </p>
-                              <span className="setting-text">Change Settings</span>
-                            </Box>
-                          </Box>
-                        </Card>
+                        <NotificationCard
+                          heading={this.state.alertList[2]}
+                          emailAlert={this.state.feeDetails}
+                          t={t}
+                          updateStatus={(e: any) => {
+                            this.setState(
+                              {
+                                feeDetails: {
+                                  ...this.state.feeDetails,
+                                  activated: e.target.checked,
+                                },
+                              },
+                              () => {
+                                this.updateStatus(this.state.feeDetails.activated, this.state.feeDetails.id);
+                              }
+                            );
+                          }}
+                          updateTime={() => {
+                            this.openLeaseExpirationModal(
+                              this.state.alertList[2],
+                              this.state.feeDetails.id,
+                              this.state.feeDetails.timeLimit
+                            );
+                          }}
+                          message={`Management fee alert will be sent ${
+                            this.state.feeDetails.timeLimit
+                          } days before management fee due.`}
+                        />
                       </Grid>
                     </Grid>
                   </Box>
@@ -114,16 +153,18 @@ class EmailAlerts extends EmailAlertsController {
         <Dialog
           className="lease-expiration-modal personal"
           fullWidth
-          onClose={() => this.handleLeaseExpirationModal()}
+          onClose={() => this.closeLeaseExpirationModal()}
           open={this.state.isLeaseExpirationModal}
         >
           <DialogContent>
             <Box textAlign="center">
-              <Typography variant="h6">Lease Expiration Alert Settings</Typography>
+              <Typography variant="h6">
+                {this.state.title} {t("Settings")}
+              </Typography>
               <Box>
                 <Select
-                  value=""
-                  onChange={(e: any) => {}}
+                  value={this.state.time}
+                  onChange={(e: any) => this.setState({ time: e.target.value })}
                   name="meetingType"
                   displayEmpty
                   className="dialog-select-input"
@@ -131,13 +172,21 @@ class EmailAlerts extends EmailAlertsController {
                   <MenuItem value="" disabled>
                     {t("Select Time")}
                   </MenuItem>
-                  <MenuItem value="ga_meeting">{t("GA Meeting")}</MenuItem>
-                  <MenuItem value="regular_meeting">{t("Regular Meeting")}</MenuItem>
+                  <MenuItem value="7">7 {t("Days")}</MenuItem>
+                  <MenuItem value="15">15 {t("Days")}</MenuItem>
+                  <MenuItem value="30">30 {t("Days")}</MenuItem>
                 </Select>
               </Box>
               <DialogActions className="dialog-button-group">
-                <Button>{t("Submit")}</Button>
-                <Button onClick={() => this.handleLeaseExpirationModal()}>{t("Cancel")}</Button>
+                <Button
+                  onClick={() => {
+                    this.updateEmailTime();
+                    this.closeLeaseExpirationModal();
+                  }}
+                >
+                  {t("Submit")}
+                </Button>
+                <Button onClick={() => this.closeLeaseExpirationModal()}>{t("Cancel")}</Button>
               </DialogActions>
             </Box>
           </DialogContent>
@@ -152,13 +201,23 @@ class EmailAlerts extends EmailAlertsController {
           <DialogContent>
             <Box textAlign="center">
               <img src={TimeIcon} alt="delete" />
-              <Typography variant="h6">Lease Expiration Alert Set</Typography>
+              <Typography variant="h6">{this.state.title} Set</Typography>
               <Typography variant="body1">
-                Your lease expiration alert has been set. 30 days before lease expires you and tenant will receive email
-                notification for the same.
+                {this.state.title === this.state.alertList[0] &&
+                  `Your lease expiration alert has been set. ${this.state.time} days before lease expires you and tenant
+                will receive email notification for the same.`}
+                {this.state.title === this.state.alertList[1] &&
+                  `Your rent due alert has been set. ${this.state.time} days before rent expires you and tenant
+                will receive email notification for the same.`}
+                {this.state.title === this.state.alertList[2] &&
+                  `Your management fee alert has been set. ${
+                    this.state.time
+                  } days before management fee due you will receive email notification.`}
               </Typography>
               <DialogActions className="dialog-button-group">
-                <Button className="okay">{t("Okay")}</Button>
+                <Button className="okay" onClick={() => this.handleLeaseExpirationSetModal()}>
+                  {t("Okay")}
+                </Button>
               </DialogActions>
             </Box>
           </DialogContent>
