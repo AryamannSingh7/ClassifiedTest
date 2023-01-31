@@ -55,10 +55,13 @@ export default class BudgetReportController extends CommonApiCallForBlockCompone
       const responseJson = message.getData(getName(MessageEnum.RestAPIResponceSuccessMessage));
       const errorResponse = message.getData(getName(MessageEnum.RestAPIResponceErrorMessage));
       if(this.getBudgetData === apiRequestCallId ){
-        console.log("CHECK",responseJson,errorResponse)
         if(responseJson.hasOwnProperty("budget_report")){
           this.setState({
             budgetReportList:responseJson?.budget_report?.data
+          })
+        }else{
+          this.setState({
+            budgetReportList:[]
           })
         }
       }
@@ -72,31 +75,7 @@ export default class BudgetReportController extends CommonApiCallForBlockCompone
 
   manageDownload = async (id:any) => {
     const societyID = localStorage.getItem("society_id")
-    const token:any = localStorage.getItem("userToken")
-    const myHeaders = new Headers();
-    myHeaders.append("token",token);
-    let requestOptions:any = {
-      method: 'GET',
-      headers: myHeaders,
-    };
-    const response = await fetch(`${baseURL}/society_managements/${societyID}/bx_block_report/budget_reports/${id}/download_report.pdf`,requestOptions)
-    const resBlob = await response.blob()
-     const url = window.URL.createObjectURL(
-          new Blob([resBlob]),
-      );
-    const link = document.createElement('a');
-      link.href = url;
-      link.setAttribute(
-          'download',
-          `FileName.pdf`,
-      );
-      // Append to html link element page
-      document.body.appendChild(link);
-      // Start download
-      link.click();
-      // Clean up and remove the link
-      // @ts-ignore
-      link.parentNode.removeChild(link);
+    await this.downloadPdf(`/society_managements/${societyID}/bx_block_report/budget_reports/${id}/download_report.pdf`,"BudgetReport.pdf")
   }
 
   getBudgetReport = async (status:any,year:any,search:any) => {
