@@ -79,6 +79,17 @@ export default class CoverImageController extends CommonApiCallForBlockComponent
     });
   };
 
+  manageDownloadReceipt = async () => {
+    const {id} = this.props.match.params
+    await this.downloadPdf(`bx_block_fees_payment/receipts/${id}/download_receipt`,"Receipt.pdf")
+  }
+
+  manageDownloadInvoice = async () => {
+    const {id} = this.props.match.params
+    await this.downloadPdf(`bx_block_fees_payment/invoices/${id}/download_invoice`,"Invoice.pdf")
+  }
+
+
   async receive(from: string, message: Message) {
     if(getName(MessageEnum.RestAPIResponceMessage) === message.id) {
       const apiRequestCallId = message.getData(getName(MessageEnum.RestAPIResponceDataMessage));

@@ -151,7 +151,7 @@ class ReceiptDetails extends RentDetailsController{
                                 this.state.rentDetails?.status === "partially_paid" || this.state.rentDetails?.status === "fully_paid" &&
                                 <Grid container spacing={2} style={{width:"95%",display:'flex',alignItems:'center'}}>
                                     <Grid item xs={10}>
-                                        <Button2 fullWidth>
+                                        <Button2 fullWidth onClick={this.manageDownloadReceipt}>
                                             {t("DOWNLOAD RECEIPT")}
                                         </Button2>
                                     </Grid>
@@ -164,7 +164,7 @@ class ReceiptDetails extends RentDetailsController{
                             }
                             <Grid container spacing={2} style={{width:"95%",display:'flex',alignItems:'center',marginTop:"10px"}}>
                                 <Grid item xs={10}>
-                                    <Button1 fullWidth>
+                                    <Button1 fullWidth onClick={this.manageDownloadInvoice}>
                                         {t("DOWNLOAD Invoice")}
                                     </Button1>
                                 </Grid>

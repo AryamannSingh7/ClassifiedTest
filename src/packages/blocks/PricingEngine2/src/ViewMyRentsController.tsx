@@ -107,10 +107,10 @@ export default class CoverImageController extends CommonApiCallForBlockComponent
       paymentAmount:item.attributes.rent_amount,
       rentUpdateId:item.id,
       paymentMonth:`${item?.attributes?.month} ${item?.attributes?.year}`,
-      buildingName:item.attributes.building_name,
-      unitName:item.attributes.apartment_name,
-      tenantName:item.attributes.tenant_name,
-      partialAmount:item.attributes.partial_payment,
+      buildingName:item.attributes?.building_name,
+      unitName:item.attributes?.apartment_name,
+      tenantName:item.attributes?.tenant_name,
+      partialAmount:item.attributes?.acknowledge_rentpayment,
     })
   }
 
