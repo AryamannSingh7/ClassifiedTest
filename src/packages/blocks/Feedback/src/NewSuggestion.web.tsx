@@ -124,7 +124,7 @@ class Suggestion extends SuggestionController {
                           >
 
 
-                            <textarea
+                            <Field
                             rows={10}
                               className="formInput"
                               name="description"
