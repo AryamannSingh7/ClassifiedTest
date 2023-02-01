@@ -143,7 +143,7 @@ class AwaitingAcceptece extends CommunityUserProfileController {
                             <option value={2022}>{t("Select Building")}</option>
                             {
                               this.state.allBuilding.map((item:any)=><>
-                              <option value={item.name}>{item.name}</option>
+                              <option value={item.id}>{item.name}</option>
                               </>)
                             }
                             
@@ -175,10 +175,10 @@ class AwaitingAcceptece extends CommunityUserProfileController {
                             onChange={this.handleChange}
                           >
                             <option value={2022}>{t("Select User Type")}</option>
-                            <option value={'ga_member'}>ga_member</option>
+                            <option value={'ga_member'}>ga member</option>
                             <option value={'resident'}>resident</option>
                             <option value={'owner'}>owner</option>
-                            <option value={'property_manager'}>property_manager</option>
+                            <option value={'property_manager'}>property manager</option>
                           </NativeSelect>
                       </FormControl>
                       </Grid>
