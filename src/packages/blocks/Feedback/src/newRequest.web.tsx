@@ -46,7 +46,7 @@ class NewRequestSuggestion extends SuggestionController {
                     <h1>Suggestion Sent 
 <br></br>Successfully</h1>
                     <p>Your suggestion has been sent successfully. 
-Your ticket id for sent suggestion is {data?.id}. </p>
+Your ticket id for sent suggestion is {data?.data?.id}. </p>
                   </Box>
                 </Box>
                 <Box className="footer-block desktop-ui">

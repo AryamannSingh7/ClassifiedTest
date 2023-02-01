@@ -185,7 +185,7 @@ class PublicView extends ProfileController {
                               <div>
                                 <label htmlFor="loginCheckboxh" className="checkboxLabel">Hobbies</label>
                                 <p style={{ marginTop: '0.25rem' }}>
-                                  {profileData.attributes.hobbies.hobbies.join(',')}
+                                  {profileData?.attributes?.hobbies?.hobbies?.join(',')}
                                 </p>
                               </div>
                               <div>
