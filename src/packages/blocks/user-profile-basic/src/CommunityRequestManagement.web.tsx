@@ -406,7 +406,7 @@ src= {info} style={{paddingLeft:"10px"}}/>
                                         {t("Select Unit")}
                                       </MenuItem>
                                       {
-                                        this.state.allUnit.map((item:any)=> <MenuItem value={item.id}>{item?.apartment_name}</MenuItem>)
+                                        this.state.allUnit.map((item:any)=> <MenuItem value={item.id}>{item?.attributes?.apartment_name}</MenuItem>)
                                       }
                                       
 
