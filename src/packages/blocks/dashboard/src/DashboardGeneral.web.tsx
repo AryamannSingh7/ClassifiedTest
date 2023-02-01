@@ -42,10 +42,7 @@ class DashboardGeneral extends DashboardGeneralController {
 
   render() {
     const { t, classes }: any = this.props;
-
     const userType = localStorage.getItem("userType");
-
-    console.log(this.state);
 
     return (
       <>
@@ -72,7 +69,11 @@ class DashboardGeneral extends DashboardGeneralController {
                   <Box className="sub-heading-box">
                     <Typography variant="h5">{t("General Dashboard")}</Typography>
                     {userType === ROLE.CHAIRMAN && (
-                      <NativeSelect className="select-year" value={this.state.filterYear}>
+                      <NativeSelect
+                        className="select-year"
+                        value={this.state.filterYear}
+                        onChange={(e: any) => this.setState({ filterYear: e.target.value })}
+                      >
                         {this.state.yearList.map((year: any) => {
                           return (
                             <option value={year} key={year}>
@@ -93,9 +94,9 @@ class DashboardGeneral extends DashboardGeneralController {
                           image={keyhand}
                           heading={t("Building Ownership Rate")}
                           titleOne={t("Sold")}
-                          valueOne="75%"
+                          valueOne={this.state.ownershipRate.sold + "%"}
                           titleTwo={t("Unsold")}
-                          valueTwo="25%"
+                          valueTwo={this.state.ownershipRate.unsold + "%"}
                         />
                       </Grid>
                       <Grid item sm={4}>
@@ -103,7 +104,7 @@ class DashboardGeneral extends DashboardGeneralController {
                           image={keyrented}
                           heading={t("Rented Out Apartments")}
                           titleOne=""
-                          valueOne="12/13"
+                          valueOne={`${this.state.rentedApartment.rented}/${this.state.rentedApartment.total}`}
                           titleTwo=""
                           valueTwo=""
                         />
@@ -113,7 +114,7 @@ class DashboardGeneral extends DashboardGeneralController {
                           image={money}
                           heading={t("Management Fee Collected")}
                           titleOne=""
-                          valueOne="58%"
+                          valueOne="n/A"
                           titleTwo=""
                           valueTwo=""
                         />
@@ -123,7 +124,7 @@ class DashboardGeneral extends DashboardGeneralController {
                           image={registered}
                           heading={t("Registered Residents/Owners")}
                           titleOne=""
-                          valueOne="195"
+                          valueOne={this.state.registeredUser.count + ""}
                           titleTwo=""
                           valueTwo=""
                         />
@@ -133,7 +134,7 @@ class DashboardGeneral extends DashboardGeneralController {
                           image={activemembers}
                           heading={t("Active Registered Members")}
                           titleOne=""
-                          valueOne="77"
+                          valueOne={this.state.activeMember.count + ""}
                           titleTwo=""
                           valueTwo=""
                         />
@@ -143,7 +144,7 @@ class DashboardGeneral extends DashboardGeneralController {
                           image={members}
                           heading={t("Members Never Logged in")}
                           titleOne=""
-                          valueOne="123"
+                          valueOne={this.state.memberNotLogin.count + ""}
                           titleTwo=""
                           valueTwo=""
                         />
@@ -153,7 +154,7 @@ class DashboardGeneral extends DashboardGeneralController {
                           image={overdue}
                           heading={t("Overdue Management Fee")}
                           titleOne=""
-                          valueOne="84"
+                          valueOne="n/A"
                           titleTwo={t("Members")}
                           valueTwo=""
                         />
@@ -168,9 +169,9 @@ class DashboardGeneral extends DashboardGeneralController {
                             image={ManagerClassified}
                             heading={t("Classifieds")}
                             titleOne={t("Active")}
-                            valueOne="12"
+                            valueOne={this.state.classified.active + ""}
                             titleTwo={t("Pending")}
-                            valueTwo="12"
+                            valueTwo={this.state.classified.pending + ""}
                           />
                         </Link>
                       </Grid>
@@ -180,9 +181,9 @@ class DashboardGeneral extends DashboardGeneralController {
                             image={ManagerCollection}
                             heading={t("Incidents")}
                             titleOne={t("Resolved")}
-                            valueOne="12"
+                            valueOne={this.state.incidents.resolved + ""}
                             titleTwo={t("Unresolved")}
-                            valueTwo="12"
+                            valueTwo={this.state.incidents.unresolved + ""}
                           />
                         </Link>
                       </Grid>
@@ -191,9 +192,9 @@ class DashboardGeneral extends DashboardGeneralController {
                           image={ManagerIncident}
                           heading={t("Facility")}
                           titleOne={t("Reservation")}
-                          valueOne="12"
+                          valueOne={this.state.facility.reservation + ""}
                           titleTwo={t("Pending")}
-                          valueTwo="12"
+                          valueTwo={this.state.facility.pending + ""}
                         />
                       </Grid>
                       <Grid item sm={4}>
@@ -202,9 +203,9 @@ class DashboardGeneral extends DashboardGeneralController {
                             image={ManagerVehicle}
                             heading={t("Vehicles")}
                             titleOne={t("Registered")}
-                            valueOne="12"
+                            valueOne={this.state.vehicle.registered + ""}
                             titleTwo={t("Pending")}
-                            valueTwo="12"
+                            valueTwo={this.state.vehicle.pending + ""}
                           />
                         </Link>
                       </Grid>
@@ -213,16 +214,16 @@ class DashboardGeneral extends DashboardGeneralController {
                           image={ManagerFacility}
                           heading={t("Collection")}
                           titleOne={t("Planned")}
-                          valueOne="122"
+                          valueOne="n/A"
                           titleTwo={t("Received")}
-                          valueTwo="12"
+                          valueTwo="n/A"
                         />
                       </Grid>
                     </>
                   )}
                 </Grid>
 
-                <Box>
+                <Box className="upcoming-events-box">
                   <Typography variant="h5" style={dashBoard.EventsHeading}>
                     {t("Upcoming Events")}
                   </Typography>
@@ -233,8 +234,8 @@ class DashboardGeneral extends DashboardGeneralController {
                           <Card className="event-card">
                             <Box className="event-heading">
                               <Box>
-                                <h4>{meeting.title}</h4>
-                                <p>{meeting.agenda}</p>
+                                <h4>{meeting.attributes.title}</h4>
+                                <p>{meeting.attributes.agenda}</p>
                               </Box>
                               <Box>
                                 <span>SR 250</span>
@@ -243,11 +244,15 @@ class DashboardGeneral extends DashboardGeneralController {
                             <Box className="event-content-box">
                               <Box className="event-content">
                                 <img src={location} alt="location" />
-                                <p>{meeting.place}</p>
+                                <p>{meeting.attributes.place}</p>
                               </Box>
                               <Box className="event-content">
                                 <img src={Cardcalendar} alt="calendar" />
-                                <p>{moment(meeting.time).format("MMMM DD, YYYY")}</p>
+                                <p>
+                                  {moment(meeting.attributes.meeting_date_time, "DD-MM-YYYY HH:mm").format(
+                                    "MMMM DD, YYYY"
+                                  )}
+                                </p>
                               </Box>
                               <Box className="event-content">
                                 <img src={account} alt="calendar" />
@@ -256,15 +261,15 @@ class DashboardGeneral extends DashboardGeneralController {
                               <Box className="meeting-state-box">
                                 <Box className="meeting-state">
                                   <img src={awated} alt="calendar" />
-                                  <p>84</p>
+                                  <p>{meeting.attributes.meeting_responses.awaited}</p>
                                 </Box>
                                 <Box className="meeting-state">
                                   <img src={Check_Mark} alt="calendar" />
-                                  <p>25</p>
+                                  <p>{meeting.attributes.meeting_responses.accepted}</p>
                                 </Box>
                                 <Box className="meeting-state">
                                   <img src={xmark} alt="calendar" />
-                                  <p>108</p>
+                                  <p>{meeting.attributes.meeting_responses.rejected}</p>
                                 </Box>
                               </Box>
                             </Box>
