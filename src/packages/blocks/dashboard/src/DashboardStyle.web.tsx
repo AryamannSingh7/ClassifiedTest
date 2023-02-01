@@ -498,5 +498,8 @@ export const DashboardStyleWeb: any = {
         margin: "0",
       },
     },
+    "& .upcoming-events-box": {
+      marginBottom: "30px",
+    },
   },
 };
