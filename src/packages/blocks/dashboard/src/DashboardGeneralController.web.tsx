@@ -27,6 +27,16 @@ interface S {
   filterYear: any;
 
   generalDashboard: any;
+  classified: any;
+  facility: any;
+  incidents: any;
+  vehicle: any;
+  ownershipRate: any;
+  rentedApartment: any;
+  activeMember: any;
+  memberNotLogin: any;
+  registeredUser: any;
+
   meetingList: any[];
   facilityList: any[];
   // Customizable Area End
@@ -54,18 +64,18 @@ export default class DashboardBudgetController extends BlockComponent<Props, S, 
       yearList: [],
       filterYear: moment().year(),
 
+      classified: { active: 0, pending: 0 },
+      facility: { reservation: 0, pending: 0 },
+      incidents: { resolved: 0, unresolved: 2 },
+      vehicle: { registered: 0, pending: 1 },
+      ownershipRate: { sold: 0, unsold: 0 },
+      rentedApartment: { rented: 0, total: 0 },
+      activeMember: { count: 0 },
+      memberNotLogin: { count: 0 },
+      registeredUser: { count: 0 },
       generalDashboard: {
-        ownershipRate: null,
-        rentedApartment: null,
         managementFee: null,
-        registeredUser: null,
-        activeMember: null,
-        memberNotLogin: null,
         overdueFee: null,
-        classified: null,
-        incidents: null,
-        facility: null,
-        vehicle: null,
         collection: null,
       },
       meetingList: [],
@@ -112,37 +122,69 @@ export default class DashboardBudgetController extends BlockComponent<Props, S, 
     this.getGeneralDashboardYearList();
   }
 
+  async componentDidUpdate(prevProps: any, prevState: any): Promise<void> {
+    if (prevState.filterYear !== this.state.filterYear) {
+      await this.getGeneralDashboardData();
+    }
+  }
+
   getGeneralDashboardData = async () => {
     const society_id = localStorage.getItem("society_id");
 
     this.GetGeneralDashboardCallId = await apiCall({
       contentType: "application/json",
       method: "GET",
-      endPoint: `bx_block_settings/dashbords/general_dashbord?society_management_id=${society_id}`,
+      endPoint: `bx_block_settings/dashbords/general_dashbord?society_management_id=${society_id}&year=${
+        this.state.filterYear
+      }`,
     });
   };
 
   handleGetGeneralDashboardResponse = (responseJson: any) => {
     if (responseJson && responseJson.data) {
       const dashboardInfo = responseJson.data.attributes;
-      this.setState({
-        generalDashboard: {
-          ownershipRate: dashboardInfo.general_dashbord.building_ownership_rate,
-          rentedApartment: dashboardInfo.general_dashbord.rented_out_apartment,
-          managementFee: dashboardInfo.general_dashbord.management_fees_collected,
-          registeredUser: dashboardInfo.general_dashbord.Registered_residents_owners,
-          activeMember: dashboardInfo.general_dashbord.active_registered_member,
-          memberNeverLogin: dashboardInfo.general_dashbord.member_never_looged_in,
-          overdueFee: dashboardInfo.general_dashbord.overdue_management_fees,
-          classified: dashboardInfo.general_dashbord.classified,
-          incidents: dashboardInfo.general_dashbord.incident,
-          facility: dashboardInfo.general_dashbord.facility,
-          vehicle: dashboardInfo.general_dashbord.vehicle,
-          collection: null,
+      const general_dashboard = responseJson.data.attributes.general_dashbord;
+      this.setState(
+        {
+          generalDashboard: {
+            managementFee: dashboardInfo.general_dashbord.management_fees_collected,
+            overdueFee: dashboardInfo.general_dashbord.overdue_management_fees,
+            collection: null,
+          },
+          registeredUser: { count: general_dashboard.Registered_residents_owners.count },
+          memberNotLogin: { count: general_dashboard.member_never_looged_in.count },
+          activeMember: { count: general_dashboard.active_registered_member.count },
+          rentedApartment: {
+            rented: general_dashboard.rented_out_apartment.rented,
+            total: general_dashboard.rented_out_apartment.totle,
+          },
+          ownershipRate: {
+            sold: general_dashboard.building_ownership_rate.sold,
+            unsold: general_dashboard.building_ownership_rate.unsold,
+          },
+          classified: {
+            active: general_dashboard.classified.Active,
+            pending: general_dashboard.classified.Pending,
+          },
+          facility: {
+            reservation: general_dashboard.facility.Reservation,
+            pending: general_dashboard.facility.Pending,
+          },
+          incidents: {
+            resolved: general_dashboard.incident.Resolved,
+            unresolved: general_dashboard.incident.Unresolved,
+          },
+          vehicle: {
+            registered: general_dashboard.vehicle.Registered,
+            pending: general_dashboard.vehicle.Pending,
+          },
+          meetingList: dashboardInfo.upcoming_events.meetings.data,
+          facilityList: dashboardInfo.upcoming_events.facility,
         },
-        meetingList: dashboardInfo.upcoming_events.meetings,
-        facilityList: dashboardInfo.upcoming_events.facility,
-      });
+        () => {
+          console.log(this.state);
+        }
+      );
     }
   };
 
