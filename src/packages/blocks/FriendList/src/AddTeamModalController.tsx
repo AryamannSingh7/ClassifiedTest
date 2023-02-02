@@ -131,25 +131,14 @@ export default class FriendListController extends BlockComponent<
   handleSubmit = () => {
     if(this.state.userId !== "" && this.state.roleId !== ""){
       const data = {
-        "email":this.state.selectedUser.email,
         "account_id": this.state.userId,
-        "building_management_id": this.state.selectedUser.buildingId,
         "role_id": this.state.roleId,
-        "apartment_management_id": this.state.selectedUser.unitId
       }
-      let formdata = new FormData();
-      formdata.append("team_member[email]",  this.state.selectedUser.email);
-      formdata.append("team_member[role_id]", this.state.roleId);
-      formdata.append("team_member[phone_number]", this.state.selectedUser.phone);
-      formdata.append("team_member[building_management_id]", this.state.selectedUser.buildingId);
-      formdata.append("team_member[account_id]", this.state.userId);
-      formdata.append("team_member[apartment_management_id]", this.state.selectedUser.unitId);
       if(this.props.editId){
         this.updateTeamMember(this.props.editId.id,this.state.roleId)
       }else{
         this.createTeamMember(data)
       }
-
     }else{
       if(this.state.userId !== ""){
         this.setState({
@@ -262,9 +251,17 @@ export default class FriendListController extends BlockComponent<
       var errorReponse = message.getData(getName(MessageEnum.RestAPIResponceErrorMessage));
       if(apiRequestCallId === this.getUserListId){
         if(responseJson.hasOwnProperty("data")){
-          this.setState({
-            userList:responseJson?.data
-          })
+          if(this.props.editId){
+            this.setState({
+              userList:responseJson?.data,
+              userId:this.props.editId.userId,
+            })
+            console.log("USER ID IS ",this.props.editId.userId)
+          }else{
+            this.setState({
+              userList:responseJson?.data
+            })
+          }
         }else{
           this.setState({
             userList:[]
@@ -276,7 +273,7 @@ export default class FriendListController extends BlockComponent<
           if(this.props.editId){
             console.log("EDIT ID",this.props.editId)
             this.setState({
-              roleList:responseJson?.data?.roles,
+              roleList:responseJson?.data,
               roleId:this.props.editId.roleId,
               selectedUser:{
                 email:this.props.editId.email,
@@ -286,7 +283,6 @@ export default class FriendListController extends BlockComponent<
                 unitName:this.props.editId.unitName,
                 unitId:this.props.editId.unitId
               },
-              userId:this.props.editId.userId,
             })
           }else{
             this.setState({

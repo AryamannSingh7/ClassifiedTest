@@ -349,6 +349,21 @@ class ResidentDashboard extends DashboardController {
                     </Link>
                   </Grid>
                   <Grid item xs={6} sm={6}>
+                    <Link href="/AddRentPayment">
+                      <DashboardCard image={keyhand} heading={t("Register Rent Payment")} title={t("Register Rent")} value="75" />
+                    </Link>
+                  </Grid>
+                  <Grid item xs={6} sm={6}>
+                    <Link href="/AddRentPayment">
+                      <DashboardCard
+                          image={keyhand}
+                          heading={t("Register Rent Payment")}
+                          title={t("Register Rent Payment")}
+                          value=""
+                      />
+                    </Link>
+                  </Grid>
+                  <Grid item xs={6} sm={6}>
                     <Link href="/FacilityReservation">
                       <DashboardCard
                         image={DashboardDocument}

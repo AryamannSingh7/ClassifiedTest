@@ -102,15 +102,11 @@ export default class FriendListController extends BlockComponent<
 
   handleEdit = (user:any) => {
     const editData = {
-      id:user.id,
-      roleId:user.role_id,
-      email:user.email,
-      phone:user.phone_number,
-      buildingId:user.building_management.building_management_id,
-      buildingName:user.building_management.building_name,
-      unitName:user.apartment_management.apartment_management_id,
-      unitId:user.apartment_management.apartment_name,
-      userId:user.account.id
+      id:user?.id,
+      roleId:user?.role_id,
+      email:user?.email,
+      phone:user?.phone_number,
+      userId:user?.account?.id,
     }
     this.setState({
       setOpen:true,
@@ -276,17 +272,17 @@ export default class FriendListController extends BlockComponent<
             }
           })
           const coreMembers = responseJson.data.filter((item:any)=> {
-            if(item.attributes.team_member_type === "CoreMember" && item.attributes.status !== "Pending Approval"){
+            if(item.attributes.team_member_type === "Core_member" && item.attributes.status !== "Pending Approval"){
               return item
             }
           })
           const subTeam = responseJson.data.filter((item:any)=> {
-            if(item.attributes.team_member_type === "SubTeam" && item.attributes.status !== "Pending Approval"){
+            if(item.attributes.team_member_type === "Sub_team" && item.attributes.status !== "Pending Approval"){
               return item
             }
           })
           const ServiceProvider = responseJson.data.filter((item:any)=> {
-            if(item.attributes.team_member_type === "ServiceProvider" && item.attributes.status !== "Pending Approval"){
+            if(item.attributes.team_member_type === "Service_provider" && item.attributes.status !== "Pending Approval"){
               return item
             }
           })
