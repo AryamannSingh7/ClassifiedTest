@@ -299,7 +299,6 @@ export default class RegisterRentPaymentController extends CommonApiCallForBlock
 
   createPayment = () => {
     let create ={}
-    const date = new Date();
     if(this.checkValues()){
       this.manageErrors()
     }else{

@@ -61,14 +61,10 @@ export default class BudgetReportController extends CommonApiCallForBlockCompone
     this.getBudgetReportDetails()
   }
 
-  manageDownloadFiles = async () => {
+  manageDownloadFile = async () => {
     const societyID = localStorage.getItem("society_id")
     const {id} = this.props.match.params
-    this.getDownloadFilesId = await this.apiCall({
-      contentType: "application/json",
-      method: "GET",
-      endPoint: `/society_managements/${societyID}/bx_block_report/budget_reports/${id}/download_report.pdf`,
-    });
+    await this.downloadPdf(`/society_managements/${societyID}/bx_block_report/budget_reports/${id}/download_report.pdf`,"BudgetReport.pdf")
   }
 
   async receive(from: string, message: Message) {

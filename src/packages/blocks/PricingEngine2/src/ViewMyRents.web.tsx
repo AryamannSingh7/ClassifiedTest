@@ -12,7 +12,6 @@ import ViewMyInvoicesController, {
 } from "./ViewMyRentsController";
 import './style.css'
 import {withTranslation} from "react-i18next";
-import ArrowForwardIosIcon from '@material-ui/icons/ArrowForwardIos';
 import {exclamation,currency} from "./assets";
 
 class ViewMyRents extends ViewMyInvoicesController{

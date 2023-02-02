@@ -234,8 +234,105 @@ export default class FriendListController extends BlockComponent<
     this.setState({teamAddData:values})
   }
 
+  getUserListResponse = (responseJson:any) => {
+    if(responseJson.hasOwnProperty("data")){
+      this.setState({
+        userList:responseJson?.data
+      })
+    }else{
+      this.setState({
+        userList:[]
+      })
+    }
+  }
+
+  getMyTeamListResponse = (responseJson:any) => {
+    if(responseJson.hasOwnProperty("data")){
+      const pendingReq = responseJson.data.filter((item:any)=> {
+        if(item.attributes.status === "Pending Approval"){
+          return item
+        }
+      })
+      const coreMembers = responseJson.data.filter((item:any)=> {
+        if(item.attributes.team_member_type === "Core_member" && item.attributes.status !== "Pending Approval"){
+          return item
+        }
+      })
+      const subTeam = responseJson.data.filter((item:any)=> {
+        if(item.attributes.team_member_type === "Sub_team" && item.attributes.status !== "Pending Approval"){
+          return item
+        }
+      })
+      const ServiceProvider = responseJson.data.filter((item:any)=> {
+        if(item.attributes.team_member_type === "Service_provider" && item.attributes.status !== "Pending Approval"){
+          return item
+        }
+      })
+      this.setState({
+        coreMembers:coreMembers,
+        subTeam:subTeam,
+        providers:ServiceProvider,
+        pendingReq:pendingReq,
+        loading:false,
+      })
+    }
+  }
+
+  getRolesListResponse = (responseJson:any) => {
+    if(responseJson.hasOwnProperty("data")){
+      this.setState({
+        roleList:responseJson?.data?.roles
+      })
+    }else{
+      this.setState({
+        roleList:[]
+      })
+    }
+  }
+
+  createChatRoomAPIResponse = (responseJson:any) => {
+    if(responseJson.hasOwnProperty("data")){
+      localStorage.setItem('selectedChat',JSON.stringify(responseJson.data))
+      //
+      this.props.history.push({
+        pathname: '/chairmanchat',
+        state: { data: responseJson.data }
+      })
+    }else{
+      //
+    }
+  }
+
+  manageApprovalResponse = (responseJson:any) => {
+    if(responseJson.hasOwnProperty('data')){
+      this.getMyTeamList()
+    }
+  }
+
+  deleteMemberResponse = (responseJson:any) => {
+    if(responseJson.message === "Successfully deleted"){
+      if(this.props.match.params.type){
+        this.getMySelectedTeamList()
+      }else{
+        this.getMyTeamList()
+      }
+      this.setState({
+        deleteModal:false,
+        deleteId:""
+      })
+    }
+  }
+
+  getMySelectedTeamListResponse = (responseJson:any) => {
+    if(responseJson.hasOwnProperty("data")){
+      this.setState({
+        loading:false,
+        teamList:responseJson.data,
+      })
+    }
+  }
+
   async receive(from: string, message: Message) {
-    runEngine.debugLog("Message Recived", message);
     if(getName(MessageEnum.PostDetailDataMessage)=== message.id){
       if(message.properties.text === "CLOSE_CREATE_TEAM_MODAL"){
         this.setState({
@@ -252,109 +349,27 @@ export default class FriendListController extends BlockComponent<
     if(getName(MessageEnum.RestAPIResponceMessage) === message.id) {
       const apiRequestCallId = message.getData(getName(MessageEnum.RestAPIResponceDataMessage));
       const responseJson = message.getData(getName(MessageEnum.RestAPIResponceSuccessMessage));
-      var errorReponse = message.getData(getName(MessageEnum.RestAPIResponceErrorMessage));
       if(apiRequestCallId === this.getUserListId){
-        if(responseJson.hasOwnProperty("data")){
-          this.setState({
-            userList:responseJson?.data
-          })
-        }else{
-          this.setState({
-            userList:[]
-          })
-        }
+        this.getUserListResponse(responseJson)
       }
       if(apiRequestCallId === this.getMyTeamListId){
-        if(responseJson.hasOwnProperty("data")){
-          const pendingReq = responseJson.data.filter((item:any)=> {
-            if(item.attributes.status === "Pending Approval"){
-              return item
-            }
-          })
-          const coreMembers = responseJson.data.filter((item:any)=> {
-            if(item.attributes.team_member_type === "Core_member" && item.attributes.status !== "Pending Approval"){
-              return item
-            }
-          })
-          const subTeam = responseJson.data.filter((item:any)=> {
-            if(item.attributes.team_member_type === "Sub_team" && item.attributes.status !== "Pending Approval"){
-              return item
-            }
-          })
-          const ServiceProvider = responseJson.data.filter((item:any)=> {
-            if(item.attributes.team_member_type === "Service_provider" && item.attributes.status !== "Pending Approval"){
-              return item
-            }
-          })
-          this.setState({
-            coreMembers:coreMembers,
-            subTeam:subTeam,
-            providers:ServiceProvider,
-            pendingReq:pendingReq,
-            loading:false,
-          })
-        }
+        this.getMyTeamListResponse(responseJson)
       }
       if(apiRequestCallId === this.getMySelectedTeamListId){
-        if(responseJson.hasOwnProperty("data")){
-          this.setState({
-            loading:false,
-            teamList:responseJson.data,
-          })
-        }
+        this.getMySelectedTeamListResponse(responseJson)
       }
       if(apiRequestCallId === this.getRolesListId){
-        if(responseJson.hasOwnProperty("data")){
-          this.setState({
-            roleList:responseJson?.data?.roles
-          })
-        }else{
-          this.setState({
-            roleList:[]
-          })
-        }
+        this.getRolesListResponse(responseJson)
       }
       if(apiRequestCallId === this.createChatRoomAPIId){
-        if(responseJson.hasOwnProperty("data")){
-          localStorage.setItem('selectedChat',JSON.stringify(responseJson.data))
-          //
-          this.props.history.push({
-            pathname: '/chairmanchat',
-            state: { data: responseJson.data }
-          })
-        }else{
-          //
-        }
+        this.createChatRoomAPIResponse(responseJson)
       }
       if(this.manageApprovalId === apiRequestCallId){
-        if(responseJson.hasOwnProperty('data')){
-          this.getMyTeamList()
-        }
+        this.manageApprovalResponse(responseJson)
       }
       if(this.deleteMemberId === apiRequestCallId){
-        if(responseJson.message === "Successfully deleted"){
-          if(this.props.match.params.type){
-            this.getMySelectedTeamList()
-          }else{
-            this.getMyTeamList()
-          }
-          this.setState({
-            deleteModal:false,
-            deleteId:""
-          })
-        }
+        this.deleteMemberResponse(responseJson)
       }
-      if(apiRequestCallId === this.createTeamMemberId){
-        console.log("TEAM Member created",responseJson)
-      }
-    }
-    if (message.id === getName(MessageEnum.AccoutLoginSuccess)) {
-      let value = message.getData(getName(MessageEnum.AuthTokenDataMessage));
-      this.showAlert(
-        "Change Value",
-        "From: " + this.state.txtSavedValue + " To: " + value
-      );
-      this.setState({ txtSavedValue: value });
     }
   }
 

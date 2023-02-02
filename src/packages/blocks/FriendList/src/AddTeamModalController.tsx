@@ -243,6 +243,70 @@ export default class FriendListController extends BlockComponent<
     this.setState({teamAddData:values})
   }
 
+  getUserListResponse = (responseJson:any) => {
+    if(responseJson.hasOwnProperty("data")){
+      if(this.props.editId){
+        this.setState({
+          userList:responseJson?.data,
+          userId:this.props.editId.userId,
+        })
+        console.log("USER ID IS ",this.props.editId.userId)
+      }else{
+        this.setState({
+          userList:responseJson?.data
+        })
+      }
+    }else{
+      this.setState({
+        userList:[]
+      })
+    }
+  }
+
+  getRoleListResponse = (responseJson: any) => {
+    if(responseJson.hasOwnProperty("data")){
+      if(this.props.editId){
+        this.setState({
+          roleList:responseJson?.data,
+          roleId:this.props.editId.roleId,
+          selectedUser:{
+            email:this.props.editId.email,
+            phone:this.props.editId.phone,
+            buildingName:this.props.editId.buildingName,
+            buildingId:this.props.editId.buildingId,
+            unitName:this.props.editId.unitName,
+            unitId:this.props.editId.unitId
+          },
+        })
+      }else{
+        this.setState({
+          roleList:responseJson?.data,
+        })
+      }
+    }else{
+      this.setState({
+        roleList:[]
+      })
+    }
+  }
+
+  createTeamMemberResponse =(responseJson: any) => {
+    if(responseJson.hasOwnProperty("data")){
+      this.sentMessage("TEAM_MEMBER_ADDED_SUCCESS")
+
+    }else{
+      console.log("Error",responseJson)
+    }
+  }
+
+  updateTeamMemberResponse = (responseJson:any) => {
+    if(responseJson.hasOwnProperty("data")){
+      this.sentMessage("TEAM_MEMBER_ADDED_SUCCESS")
+    }else{
+      console.log("Error",responseJson)
+    }
+  }
+
   async receive(from: string, message: Message) {
     runEngine.debugLog("Message Recived", message);
     if(getName(MessageEnum.RestAPIResponceMessage) === message.id) {
@@ -250,76 +314,17 @@ export default class FriendListController extends BlockComponent<
       const responseJson = message.getData(getName(MessageEnum.RestAPIResponceSuccessMessage));
       var errorReponse = message.getData(getName(MessageEnum.RestAPIResponceErrorMessage));
       if(apiRequestCallId === this.getUserListId){
-        if(responseJson.hasOwnProperty("data")){
-          if(this.props.editId){
-            this.setState({
-              userList:responseJson?.data,
-              userId:this.props.editId.userId,
-            })
-            console.log("USER ID IS ",this.props.editId.userId)
-          }else{
-            this.setState({
-              userList:responseJson?.data
-            })
-          }
-        }else{
-          this.setState({
-            userList:[]
-          })
-        }
+        this.getUserListResponse(responseJson)
       }
       if(apiRequestCallId === this.getRolesListId){
-        if(responseJson.hasOwnProperty("data")){
-          if(this.props.editId){
-            console.log("EDIT ID",this.props.editId)
-            this.setState({
-              roleList:responseJson?.data,
-              roleId:this.props.editId.roleId,
-              selectedUser:{
-                email:this.props.editId.email,
-                phone:this.props.editId.phone,
-                buildingName:this.props.editId.buildingName,
-                buildingId:this.props.editId.buildingId,
-                unitName:this.props.editId.unitName,
-                unitId:this.props.editId.unitId
-              },
-            })
-          }else{
-            this.setState({
-              roleList:responseJson?.data,
-            })
-          }
-        }else{
-          this.setState({
-            roleList:[]
-          })
-        }
+        this.getRoleListResponse(responseJson)
       }
       if(apiRequestCallId === this.createTeamMemberId){
-        if(responseJson.hasOwnProperty("data")){
-          this.sentMessage("TEAM_MEMBER_ADDED_SUCCESS")
-
-        }else{
-          console.log("Error",errorReponse,responseJson)
-        }
+        this.createTeamMemberResponse(responseJson)
       }
       if(apiRequestCallId === this.updateTeamMemberId){
-        if(responseJson.hasOwnProperty("data")){
-          this.sentMessage("TEAM_MEMBER_ADDED_SUCCESS")
-        }else{
-          console.log("Error",errorReponse,responseJson)
-        }
+        this.updateTeamMemberResponse(responseJson)
       }
-    }
-    if (message.id === getName(MessageEnum.AccoutLoginSuccess)) {
-      let value = message.getData(getName(MessageEnum.AuthTokenDataMessage));
-
-      this.showAlert(
-        "Change Value",
-        "From: " + this.state.txtSavedValue + " To: " + value
-      );
-
-      this.setState({ txtSavedValue: value });
     }
   }
 
