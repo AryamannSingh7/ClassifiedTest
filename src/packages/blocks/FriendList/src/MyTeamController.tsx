@@ -4,11 +4,8 @@ import {Message} from "../../../framework/src/Message";
 import {BlockComponent} from "../../../framework/src/BlockComponent";
 import MessageEnum, {getName,} from "../../../framework/src/Messages/MessageEnum";
 import {runEngine} from "../../../framework/src/RunEngine";
-
-
 import {imgPasswordInVisible, imgPasswordVisible} from "./assets";
 import * as Yup from "yup";
-import {message} from "components/dist/blocks/user-profile-basic/assets/assets";
 
 
 export const configJSON = require("./config");
