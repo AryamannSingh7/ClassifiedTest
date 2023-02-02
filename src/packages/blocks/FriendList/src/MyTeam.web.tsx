@@ -96,7 +96,7 @@ class MyTeam extends MyTeamController {
                     <Typography className="Recenttitle">Core Members({this.state.coreMembers.length})</Typography>
                     {
                         this.state.coreMembers.length > 3 &&
-                        <Link href="/TeamMembers/CoreMember" >
+                        <Link href="/TeamMembers/Core_member" >
                             <Typography className="ViewAll">{t("View All")}</Typography>
                         </Link>
                     }
@@ -123,7 +123,7 @@ class MyTeam extends MyTeamController {
                     <Typography className="Recenttitle">Sub Team ({this.state.subTeam.length})</Typography>
                     {
                         this.state.subTeam.length > 3 &&
-                        <Link href="/TeamMembers/SubTeam" >
+                        <Link href="/TeamMembers/Sub_team" >
                             <Typography className="ViewAll">{t("View All")}</Typography>
                         </Link>
                     }
@@ -132,9 +132,10 @@ class MyTeam extends MyTeamController {
                     {
                         this.state.subTeam.length > 0 ?
                             this.state.subTeam.map((item:any,key:any)=> {
+                                console.log("SUB TEAM",item)
                                 if(key < 4) {
                                     return (
-                                        <TeamCard key={key} date={item.attributes} history={this.props.history} approval={false} handleDelete={(id:any) => this.handleDeleteModal(id)} openChat={this.openChat} handleEdit={(id:any) => this.handleEdit(id)}/>
+                                        <TeamCard key={key} data={item.attributes} history={this.props.history} approval={false} handleDelete={(id:any) => this.handleDeleteModal(id)} openChat={this.openChat} handleEdit={(id:any) => this.handleEdit(id)}/>
                                     )
                                 }
                             })
@@ -150,7 +151,7 @@ class MyTeam extends MyTeamController {
                     <Typography className="Recenttitle">{t("Service Providers")}({this.state.providers.length})</Typography>
                     {
                         this.state.providers.length > 3 &&
-                            <Link href="/TeamMembers/ServiceProvider" >
+                            <Link href="/TeamMembers/Service_provider" >
                                 <Typography className="ViewAll">{t("View All")}</Typography>
                             </Link>
                     }
@@ -338,7 +339,7 @@ const TeamCard = (props:any) => {
     const handleClick = (event:any) => {
         setAnchorEl(event.currentTarget);
     };
-
+    console.log("DATA",data)
     const handleClose = () => {
         setAnchorEl(null);
     };
@@ -372,16 +373,18 @@ const TeamCard = (props:any) => {
                     }
                     <img src={profileExp} height="60px" width="60px" style={{borderRadius:"100px"}}  />
                     <Typography variant="h6" style={{fontWeight:"bold",marginBottom:"5px"}}>{data?.role}</Typography>
-                    <Typography variant="h6" gutterBottom style={{marginBottom:"10px"}}>{data?.account?.attributes?.full_name?.name}</Typography>
+                    <Typography variant="h6" gutterBottom style={{marginBottom:"10px"}}>{data?.name}</Typography>
                     <Grid container spacing={1} style={{width:"100%",display:"flex",alignItems:"center",justifyContent:"center"}}>
                         {
-                            data?.account_roles?.length > 0 &&
-                                data?.account_roles?.map((item:any,key:any)=> {
-                                    return(
-                                        <Grid item style={{marginBottom:"15px"}}>
-                                            <Typography  key={key} variant="subtitle2" className={"statusOngoingBlue"} gutterBottom>{item.name}</Typography>
-                                        </Grid>
-                                    )
+                            data?.role_list?.length > 0 &&
+                                data?.role_list?.map((item:any,key:any)=> {
+                                    if(key < 3){
+                                        return(
+                                            <Grid item key={key} style={{marginBottom:"10px"}}>
+                                                <Typography  key={key} variant="subtitle2" className={"statusOngoingBlue"} gutterBottom>{item}</Typography>
+                                            </Grid>
+                                        )
+                                    }
                                 })
                         }
                     </Grid>

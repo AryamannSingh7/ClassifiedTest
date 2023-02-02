@@ -110,7 +110,8 @@ export default class CoverImageController extends CommonApiCallForBlockComponent
       buildingName:item.attributes?.building_name,
       unitName:item.attributes?.apartment_name,
       tenantName:item.attributes?.tenant_name,
-      partialAmount:item.attributes?.acknowledge_rentpayment,
+      partialAmount:item.attributes?.partial_payment,
+      partialPayment:item.attributes?.partial_payment
     })
   }
 
@@ -187,9 +188,15 @@ export default class CoverImageController extends CommonApiCallForBlockComponent
       }
       if(this.fullPaymentUpdateId === apiRequestCallId){
         this.fullPaymentResponse(responseJson)
+        this.setState({
+          paymentConfirmModal:false
+        })
       }
       if(this.partialPaymentUpdateId === apiRequestCallId){
         this.partialPaymentResponse(responseJson)
+        this.setState({
+          paymentConfirmModal:false
+        })
       }
     }
   }
