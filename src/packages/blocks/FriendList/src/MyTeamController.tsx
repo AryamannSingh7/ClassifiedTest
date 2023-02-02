@@ -8,6 +8,7 @@ import {runEngine} from "../../../framework/src/RunEngine";
 
 import {imgPasswordInVisible, imgPasswordVisible} from "./assets";
 import * as Yup from "yup";
+import {message} from "components/dist/blocks/user-profile-basic/assets/assets";
 
 
 export const configJSON = require("./config");
@@ -347,34 +348,37 @@ export default class FriendListController extends BlockComponent<
     }
   }
 
+  restAPIResponse = (message:any) => {
+    const apiRequestCallId = message.getData(getName(MessageEnum.RestAPIResponceDataMessage));
+    const responseJson = message.getData(getName(MessageEnum.RestAPIResponceSuccessMessage));
+    if(apiRequestCallId === this.getUserListId){
+      this.getUserListResponse(responseJson)
+    }
+    if(apiRequestCallId === this.getMyTeamListId){
+      this.getMyTeamListResponse(responseJson)
+    }
+    if(apiRequestCallId === this.getMySelectedTeamListId){
+      this.getMySelectedTeamListResponse(responseJson)
+    }
+    if(apiRequestCallId === this.getRolesListId){
+      this.getRolesListResponse(responseJson)
+    }
+    if(apiRequestCallId === this.createChatRoomAPIId){
+      this.createChatRoomAPIResponse(responseJson)
+    }
+    if(this.manageApprovalId === apiRequestCallId){
+      this.manageApprovalResponse(responseJson)
+    }
+    if(this.deleteMemberId === apiRequestCallId){
+      this.deleteMemberResponse(responseJson)
+    }
+  }
   async receive(from: string, message: Message) {
     if(getName(MessageEnum.PostDetailDataMessage)=== message.id){
       this.manageMessage(message)
     }
     if(getName(MessageEnum.RestAPIResponceMessage) === message.id) {
-      const apiRequestCallId = message.getData(getName(MessageEnum.RestAPIResponceDataMessage));
-      const responseJson = message.getData(getName(MessageEnum.RestAPIResponceSuccessMessage));
-      if(apiRequestCallId === this.getUserListId){
-        this.getUserListResponse(responseJson)
-      }
-      if(apiRequestCallId === this.getMyTeamListId){
-        this.getMyTeamListResponse(responseJson)
-      }
-      if(apiRequestCallId === this.getMySelectedTeamListId){
-        this.getMySelectedTeamListResponse(responseJson)
-      }
-      if(apiRequestCallId === this.getRolesListId){
-        this.getRolesListResponse(responseJson)
-      }
-      if(apiRequestCallId === this.createChatRoomAPIId){
-        this.createChatRoomAPIResponse(responseJson)
-      }
-      if(this.manageApprovalId === apiRequestCallId){
-        this.manageApprovalResponse(responseJson)
-      }
-      if(this.deleteMemberId === apiRequestCallId){
-        this.deleteMemberResponse(responseJson)
-      }
+      this.restAPIResponse(message)
     }
   }
 
