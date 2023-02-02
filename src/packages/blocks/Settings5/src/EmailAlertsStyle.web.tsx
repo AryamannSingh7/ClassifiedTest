@@ -56,6 +56,12 @@ export const EmailAlertsStyle: any = {
           color: "#FC8434",
           fontWeight: "600",
           cursor: "pointer",
+          fontSize: "14px",
+        },
+        "& .setting-on-box p": {
+          fontSize: "15px",
+          marginBottom: "8px",
+          lineHeight: "20px",
         },
       },
     },

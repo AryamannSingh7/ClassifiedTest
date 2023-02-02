@@ -156,7 +156,7 @@ export default class SuggestionController extends BlockComponent<
     if (responseJson?.data ) {
       console.log("createData ========================>",responseJson)
      //@ts-ignore
-     localStorage.setItem('selectSuggestion',responseJson)
+     localStorage.setItem('selectSuggestion',JSON.stringify(responseJson))
   this.props.history.push("/NewRequestSuggestion");
       this.setState({loading: false})
       } else if (responseJson?.errors) {
@@ -468,7 +468,7 @@ confirmOrRejectIncident =(id : any,val : any)=>{
       this.getSuggestionListingApiCallId = requestMessage.messageId;
       this.setState({ loading: true });
 
-     const  getSortByOrStatus = `bx_block_suggestion/suggestions?society_id=${localStorage.getItem('society_id')}`
+     const  getSortByOrStatus = `bx_block_suggestion/suggestions?society_id=${localStorage.getItem('society_id')}&chairman=false`
 
       requestMessage.addData(
         getName(MessageEnum.RestAPIResponceEndPointMessage),

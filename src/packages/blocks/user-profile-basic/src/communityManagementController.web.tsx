@@ -119,6 +119,7 @@ export default class CommunityUserProfileController extends BlockComponent<
   getBuildingApiCallId: any;
   createChatRoomAPIId:any;
   getUnitApiCallId: any;
+  getUnitApiCallId2: any;
   createVehicleApiCallId:any;
   deleteVehicleAPICallId:any;
   getProfileDataAPiCallId:any;
@@ -326,6 +327,10 @@ const profileData = JSON.parse(localStorage.getItem('profileData') ||'{}')
     }else if(apiRequestCallId ===this.getRequestDataAPICall){
       
         this.getRequestDataRes(responseJson,errorReponse)
+      }
+      else if (apiRequestCallId === this.getUnitApiCallId2) {
+        this.getUnitApiRes2(responseJson,errorReponse)
+        
       }
   }
   deleteReqRes(responseJson:any,errorReponse:any){
@@ -568,7 +573,21 @@ this.setState({loading:false,showDialog:false})
       //@ts-ignore
       //@ts-nocheck
 
-      this.setState({ allUnit: responseJson.data.unit_apartments })
+      this.setState({ allUnit: responseJson.data?.unit_apartments })
+    } else {
+      //Check Error Response
+      this.parseApiErrorResponse(responseJson);
+    }
+
+    this.parseApiCatchErrorResponse(errorReponse);
+  }
+  getUnitApiRes2(responseJson:any,errorReponse:any){
+    if (!responseJson.errors) {
+      console.log(responseJson)
+      //@ts-ignore
+      //@ts-nocheck
+
+      this.setState({ allUnit: responseJson?.apartment_managements.data})
     } else {
       //Check Error Response
       this.parseApiErrorResponse(responseJson);
@@ -1371,8 +1390,8 @@ this.setState({loading:true})
       getName(MessageEnum.RestAPIResponceEndPointMessage),
       //@ts-ignore
       //@ts-nocheck
-       `bx_block_settings/apartment_managements/unit_list?society_management_id=${localStorage.getItem('society_id')}&building_management_id=${this.state.selectedBUilding}`
-      // `bx_block_address/apartment_list?id=${this.state.selectBuilding.id}`
+      //  `bx_block_settings/apartment_managements/unit_list?society_management_id=${localStorage.getItem('society_id')}&building_management_id=${this.state.selectedBUilding}`
+      `bx_block_address/apartment_list?id=${this.state.selectedBUilding}`
 
     );
 
@@ -1401,12 +1420,13 @@ this.setState({loading:true})
     );
 
 
-    this.getUnitApiCallId = requestMessage.messageId;
+    this.getUnitApiCallId2 = requestMessage.messageId;
     requestMessage.addData(
       getName(MessageEnum.RestAPIResponceEndPointMessage),
       //@ts-ignore
       //@ts-nocheck
-       `bx_block_address/apartment_list?id=${value}`
+      //  `bx_block_address/apartment_list?id=${value}`
+       `bx_block_settings/apartment_managements/apartment_list?building_management_id=${value}&status=No-Own`
       // `bx_block_address/apartment_list?id=${this.state.selectBuilding.id}`
 
     );
