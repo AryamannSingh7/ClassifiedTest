@@ -246,6 +246,13 @@ export default class FriendListController extends BlockComponent<
     }
   }
 
+  manageDataFilter = (item:any,teamType:any) => {
+    if(item.attributes.team_member_type === teamType && item.attributes.status !== "Pending Approval"){
+      console.log("DID I CAME HERE ?",item,teamType)
+      return item
+    }
+  }
+
   getMyTeamListResponse = (responseJson:any) => {
     if(responseJson.hasOwnProperty("data")){
       const pendingReq = responseJson.data.filter((item:any)=> {
@@ -254,19 +261,13 @@ export default class FriendListController extends BlockComponent<
         }
       })
       const coreMembers = responseJson.data.filter((item:any)=> {
-        if(item.attributes.team_member_type === "Core_member" && item.attributes.status !== "Pending Approval"){
-          return item
-        }
+        return this.manageDataFilter(item,"Core_member")
       })
       const subTeam = responseJson.data.filter((item:any)=> {
-        if(item.attributes.team_member_type === "Sub_team" && item.attributes.status !== "Pending Approval"){
-          return item
-        }
+        return this.manageDataFilter(item,"Sub_team")
       })
       const ServiceProvider = responseJson.data.filter((item:any)=> {
-        if(item.attributes.team_member_type === "Service_provider" && item.attributes.status !== "Pending Approval"){
-          return item
-        }
+        return this.manageDataFilter(item,"Service_provider")
       })
       this.setState({
         coreMembers:coreMembers,
