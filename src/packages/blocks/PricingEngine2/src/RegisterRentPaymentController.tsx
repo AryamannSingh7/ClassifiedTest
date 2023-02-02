@@ -296,12 +296,9 @@ export default class RegisterRentPaymentController extends CommonApiCallForBlock
       })
     }
   }
-
-  createPayment = () => {
-    let create ={}
+  yearLogic = (selectedMonth:any) => {
     const currentMonth = new Date().getMonth() + 1
     const currentYear = new Date().getFullYear()
-    const selectedMonth = this.state.selectedMonth
     let year
     if(parseInt(selectedMonth)> 6){
       if(currentMonth > 6){
@@ -312,6 +309,12 @@ export default class RegisterRentPaymentController extends CommonApiCallForBlock
     }else{
       year = currentYear
     }
+    return year
+  }
+
+  createPayment = () => {
+    let create ={}
+    const year = this.yearLogic(this.state.selectedMonth)
     if(this.checkValues()){
       this.manageErrors()
     }else{

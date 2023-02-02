@@ -1,6 +1,6 @@
 // Customizable Area Start
 import React from "react";
-import {Container, Typography, withStyles, Divider, Box, Grid, Card, MenuItem} from "@material-ui/core";
+import {Container, Typography, withStyles, Divider, Box, Grid, Card} from "@material-ui/core";
 import InvitationReportController, { Props } from "./InvitationReportController.web";
 import DashboardHeader from "../../dashboard/src/DashboardHeader.web";
 import ChairmanSidebarWeb from "../../dashboard/src/ChairmanSidebar.web";
