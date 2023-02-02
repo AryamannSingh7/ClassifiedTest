@@ -156,7 +156,7 @@ class ViewMyRents extends ViewMyInvoicesController{
                                                             </Grid>
                                                         }
                                                         {
-                                                            item.attributes.payment_type === "fully_paid" &&
+                                                            item.attributes.payment_type === "Fully_payment" &&
                                                             <Grid item xs={12}>
                                                                 <FullButton fullWidth
                                                                             onClick={() => this.handlePaymentClick(item, false)}>Full

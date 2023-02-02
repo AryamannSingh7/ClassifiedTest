@@ -127,22 +127,27 @@ render() {
                         <Box className="top-bar">
                             <Box className="filter">
                                 <Select displayEmpty  value={""} className="select-input">
-                                    <MenuItem value="" disabled>
+                                    <MenuItem value="">
+                                        {t("Select Building")}
+                                    </MenuItem>
+                                </Select>
+                                <Select displayEmpty  value={""} className="select-input">
+                                    <MenuItem value="">
                                         {t("Select Floor")}
                                     </MenuItem>
                                 </Select>
                                 <Select displayEmpty value={""} className="select-input">
-                                    <MenuItem value="" disabled>
+                                    <MenuItem value="">
                                         {t("Select Unit")}
                                     </MenuItem>
                                 </Select>
                                 <Select displayEmpty value={""} className="select-input">
-                                    <MenuItem value="" disabled>
-                                        {t("Select Type")}
-                                    </MenuItem>
+                                    <MenuItem value="">{t("Select Type")}</MenuItem>
+                                    <MenuItem value="">{t("Management Fee")}</MenuItem>
+                                    <MenuItem value="">{t("Rent Payments")}</MenuItem>
                                 </Select>
                                 <Select displayEmpty value={""} className="select-input">
-                                    <MenuItem value="" disabled>
+                                    <MenuItem value="">
                                         {t("Select Status")}
                                     </MenuItem>
                                 </Select>

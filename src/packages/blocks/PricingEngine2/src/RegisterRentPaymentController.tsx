@@ -299,6 +299,19 @@ export default class RegisterRentPaymentController extends CommonApiCallForBlock
 
   createPayment = () => {
     let create ={}
+    const currentMonth = new Date().getMonth() + 1
+    const currentYear = new Date().getFullYear()
+    const selectedMonth = this.state.selectedMonth
+    let year
+    if(parseInt(selectedMonth)> 6){
+      if(currentMonth > 6){
+        year = currentYear
+      }else{
+        year = currentYear - 1
+      }
+    }else{
+      year = currentYear
+    }
     if(this.checkValues()){
       this.manageErrors()
     }else{
@@ -309,17 +322,19 @@ export default class RegisterRentPaymentController extends CommonApiCallForBlock
           apartment_management_id:parseInt(this.state.selectedUnit),
           contract_id:this.state.contractId,
           full_payment:"true",
+          year:year
         }
         this.registerPayment(create)
       }else {
         if(this.state.rentAmount >= this.state.partialPaymentAmount){
           if(this.state.partialPaymentAmount !== 0){
             create = {
-              month:parseInt(this.state.selectedMonth),
+              month:this.state.selectedMonth,
               building_management_id:this.state.selectedBuilding,
               apartment_management_id:this.state.selectedUnit,
               contract_id:this.state.contractId,
               partial_payment:this.state.partialPaymentAmount,
+              year:year
             }
             this.registerPayment(create)
           }else{

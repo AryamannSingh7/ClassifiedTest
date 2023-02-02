@@ -21,6 +21,9 @@ interface S {
   status:any;
   searchUnit:any;
   feeListing:any;
+  count:any;
+  page:any;
+  buildingList:any;
 }
 
 interface SS {
@@ -29,6 +32,7 @@ interface SS {
 
 export default class ManagementFeeReportController extends CommonApiCallForBlockComponent<Props, S, SS> {
   getManagementFeeListId:string = "";
+  getBuildingListId:string = "";
   constructor(props: Props) {
     super(props);
     this.receive = this.receive.bind(this);
@@ -42,13 +46,21 @@ export default class ManagementFeeReportController extends CommonApiCallForBlock
       status:"",
       searchUnit:"",
       feeListing:[],
+      count:10,
+      page:1,
+      buildingList:[],
     };
 
     runEngine.attachBuildingBlock(this as IBlock, this.subScribedMessages);
   }
 
   async componentDidMount() {
-    await this.getManagementFeeList(this.state.status,this.state.filterYear,this.state.searchUnit,this.state.buildingId)
+    await this.getManagementFeeList(this.state.status,this.state.filterYear,this.state.searchUnit,this.state.buildingId,this.state.filterMonth,this.state.page,this.state.count)
+    await this.getBuildingList()
+  }
+
+  searchButtonManage = async () => {
+    await this.getManagementFeeList(this.state.status,this.state.filterYear,this.state.searchUnit,this.state.buildingId,this.state.filterMonth,this.state.page,this.state.count)
   }
 
   async receive(from: string, message: Message) {
@@ -56,13 +68,20 @@ export default class ManagementFeeReportController extends CommonApiCallForBlock
       const apiRequestCallId = message.getData(getName(MessageEnum.RestAPIResponceDataMessage));
       const responseJson = message.getData(getName(MessageEnum.RestAPIResponceSuccessMessage));
       if(apiRequestCallId === this.getManagementFeeListId){
-        if(responseJson.hasOwnProperty("management_fee")){
+        if(responseJson.hasOwnProperty("management_fees")){
           this.setState({
-            feeListing:responseJson?.management_fee?.data
+            feeListing:responseJson?.management_fees?.data
           })
         }else{
           this.setState({
             feeListing:[]
+          })
+        }
+      }
+      if(apiRequestCallId === this.getBuildingListId){
+        if(responseJson.hasOwnProperty("buildings")){
+          this.setState({
+            buildingList:responseJson?.buildings
           })
         }
       }
@@ -71,15 +90,24 @@ export default class ManagementFeeReportController extends CommonApiCallForBlock
 
   manageUnitSearch = (e:any) => {
     this.setState({searchUnit:e.target.value})
-    this.getManagementFeeList(this.state.status,this.state.filterYear,e.target.value,this.state.buildingId)
+    this.getManagementFeeList(this.state.status,this.state.filterYear,e.target.value,this.state.buildingId,this.state.filterMonth,this.state.page,this.state.count)
   }
 
-  getManagementFeeList = async (status:any,year:any,search:any,buildingId:any) => {
+  getManagementFeeList = async (status:any,year:any,search:any,buildingId:any,month:any,page:any,count:any) => {
     const societyID = localStorage.getItem("society_id")
     this.getManagementFeeListId = await this.apiCall({
       contentType: "application/json",
       method: "GET",
       endPoint: `society_managements/${societyID}/bx_block_report/management_fees?search_building=${buildingId}&search_year=${year}&search_status=${status}&search_by_apartment=${search}`,
+    });
+  }
+
+  getBuildingList = async () => {
+    const societyID = localStorage.getItem("society_id")
+    this.getBuildingListId = await this.apiCall({
+      contentType: "application/json",
+      method: "GET",
+      endPoint: `society_managements/${societyID}/bx_block_report/management_fees/building_list`,
     });
   }
 
