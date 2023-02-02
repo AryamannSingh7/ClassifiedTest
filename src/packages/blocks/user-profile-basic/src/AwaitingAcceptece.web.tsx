@@ -208,6 +208,18 @@ class AwaitingAcceptece extends CommunityUserProfileController {
                               />
                               <CardContent style={{padding:"0px 16px 16px 16px"}}>
                               <span style={{position:"absolute", right:"10px", top:"10px"}} onClick={(e: any) => this.handleMoreClick(e)}><MoreVertIcon color='disabled' /></span>
+                              <Menu
+                      id="simple-menu"
+                      anchorEl={this.state.anchorEl1}
+                      keepMounted
+                      open={Boolean(this.state.anchorEl1)}
+                      onClose={this.handleMoreClose}
+                      style={{padding:"0px", cursor:'pointer'}}
+                      >
+                      <MenuItem onClick={()=>this.handleDeleteRequestOpen(item)} style={{margin:"7px", cursor:'pointer'}}>{t("Resend Request")}{item?.id}</MenuItem>
+                      <hr style={{margin:"0px"}}/>
+                      <MenuItem onClick={()=>this.handleResendRequest(item)} style={{margin:"7px", cursor:'pointer'}}>{t("Delete Invitation Request")}</MenuItem>
+                  </Menu>
                               <Typography variant="h6"
                               //@ts-ignore 
                               style={dashBoard.unitno}>{item.attributes.apartment_management?.apartment_name}</Typography>
@@ -219,18 +231,7 @@ class AwaitingAcceptece extends CommunityUserProfileController {
                               </CardContent>
                             </CardActionArea>
                           </Card>
-                          <Menu
-                      id="simple-menu"
-                      anchorEl={this.state.anchorEl1}
-                      keepMounted
-                      open={Boolean(this.state.anchorEl1)}
-                      onClose={this.handleMoreClose}
-                      style={{padding:"0px", cursor:'pointer'}}
-                      >
-                      <MenuItem onClick={()=>this.handleDeleteRequestOpen(item)} style={{margin:"7px", cursor:'pointer'}}>{t("Resend Request")}</MenuItem>
-                      <hr style={{margin:"0px"}}/>
-                      <MenuItem onClick={()=>this.handleResendRequest(item)} style={{margin:"7px", cursor:'pointer'}}>{t("Delete Invitation Request")}</MenuItem>
-                  </Menu>
+                       
                           </div>
                         )
 
