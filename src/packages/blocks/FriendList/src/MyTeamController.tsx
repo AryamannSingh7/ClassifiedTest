@@ -332,19 +332,23 @@ export default class FriendListController extends BlockComponent<
     }
   }
 
+  manageMessage = (message:any) => {
+    if(message.properties.text === "CLOSE_CREATE_TEAM_MODAL"){
+      this.setState({
+        setOpen:false
+      })
+    }
+    if(message.properties.text === "TEAM_MEMBER_ADDED_SUCCESS"){
+      this.getMyTeamList()
+      this.setState({
+        setOpen:false
+      })
+    }
+  }
+
   async receive(from: string, message: Message) {
     if(getName(MessageEnum.PostDetailDataMessage)=== message.id){
-      if(message.properties.text === "CLOSE_CREATE_TEAM_MODAL"){
-        this.setState({
-          setOpen:false
-        })
-      }
-      if(message.properties.text === "TEAM_MEMBER_ADDED_SUCCESS"){
-        this.getMyTeamList()
-        this.setState({
-          setOpen:false
-        })
-      }
+      this.manageMessage(message)
     }
     if(getName(MessageEnum.RestAPIResponceMessage) === message.id) {
       const apiRequestCallId = message.getData(getName(MessageEnum.RestAPIResponceDataMessage));
