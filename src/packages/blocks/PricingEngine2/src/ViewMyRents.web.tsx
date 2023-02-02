@@ -12,7 +12,6 @@ import ViewMyInvoicesController, {
 } from "./ViewMyRentsController";
 import './style.css'
 import {withTranslation} from "react-i18next";
-import ArrowForwardIosIcon from '@material-ui/icons/ArrowForwardIos';
 import {exclamation,currency} from "./assets";
 
 class ViewMyRents extends ViewMyInvoicesController{
@@ -148,16 +147,22 @@ class ViewMyRents extends ViewMyInvoicesController{
                                                 {
                                                     item.attributes.status !== "fully_paid" &&
                                                     <Grid container spacing={2} style={{marginTop: "10px"}}>
-                                                        <Grid item xs={6}>
-                                                            <PartialButton fullWidth
-                                                                           onClick={() => this.handlePaymentClick(item, true)}>Partial
-                                                                Payment</PartialButton>
-                                                        </Grid>
-                                                        <Grid item xs={6}>
-                                                            <FullButton fullWidth
-                                                                        onClick={() => this.handlePaymentClick(item, false)}>Full
-                                                                Payment</FullButton>
-                                                        </Grid>
+                                                        {
+                                                            item.attributes?.payment_type === "partial_payment" && item.attributes?.partial_payment!== 0 &&
+                                                            <Grid item xs={12}>
+                                                                <PartialButton fullWidth
+                                                                               onClick={() => this.handlePaymentClick(item, true)}>Partial
+                                                                    Payment</PartialButton>
+                                                            </Grid>
+                                                        }
+                                                        {
+                                                            item.attributes.payment_type === "fully_paid" &&
+                                                            <Grid item xs={12}>
+                                                                <FullButton fullWidth
+                                                                            onClick={() => this.handlePaymentClick(item, false)}>Full
+                                                                    Payment</FullButton>
+                                                            </Grid>
+                                                        }
                                                     </Grid>
                                                 }
                                             </Box>
@@ -217,6 +222,7 @@ class ViewMyRents extends ViewMyInvoicesController{
                                                 value={this.state.partialPayment}
                                                 onChange={(e:any)=> this.setState({partialPayment:e.target.value})}
                                                 disableUnderline
+                                                disabled
                                                 placeholder="Enter Partial paid amount"
                                                 fullWidth
                                                 startAdornment={
