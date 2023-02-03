@@ -129,7 +129,7 @@ class MyTeamCore extends MyTeamUserDetailsController {
                                                 </Grid>
                                                 <Grid item xs={12} sm={3}>
                                                     {
-                                                        this.state.selectedUserr?.user_profile?.data?.attributes?.hobbies?.hobbies &&
+                                                        this.state.selectedUser?.user_profile?.data?.attributes?.hobbies?.hobbies &&
                                                         <Box style={{margin:"0px 20px"}}>
                                                             <Typography variant="subtitle1" color="textSecondary">{t("Hobbies")}</Typography>
                                                             <Box className="hobbies">
