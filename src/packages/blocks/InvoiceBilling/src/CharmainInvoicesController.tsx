@@ -99,7 +99,7 @@ export default class CharmainInvoicesController extends CommonApiCallForBlockCom
       const responseJson = message.getData(getName(MessageEnum.RestAPIResponceSuccessMessage));
       if(apiRequestCallId === this.getInvoiceListId){
         if(responseJson.hasOwnProperty("invoices")){
-
+          console.log("RESPONSE  JSON",responseJson)
         }
       }
     }
@@ -120,6 +120,7 @@ export default class CharmainInvoicesController extends CommonApiCallForBlockCom
 
   getInvoiceList = async (data:any) => {
     const {buildingId,floorNo,unitId,paymentType,status,searchKey,page,count} = data
+    console.log("Page",page,count)
     this.getInvoiceListId = await this.apiCall({
       contentType: "application/json",
       method: "GET",
