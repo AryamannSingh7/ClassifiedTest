@@ -75,6 +75,7 @@ export interface S {
   setRequestOpen:boolean;
   allBuilding:any;
   selectedBUilding:any;
+  selectedBUildingId:any;
   selctedUnit:any;
   selectedUserType:any;
   query:any;
@@ -215,6 +216,7 @@ const profileData = JSON.parse(localStorage.getItem('profileData') ||'{}')
   setRequestOpen:false,
   allBuilding:[],
   selectedBUilding:null,
+  selectedBUildingId:null,
   selctedUnit:null,
   selectedUserType:null,
   query:null,
