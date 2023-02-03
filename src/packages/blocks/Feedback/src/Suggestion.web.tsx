@@ -49,7 +49,7 @@ class Suggestion extends SuggestionController {
 
                   </Box>
                 </Box>
-                <Box className="content-block-wrapper common-incident-block" style={{background:'#F8F9FE'}}>
+                <Box className="content-block-wrapper common-incident-block" style={{background:'#F8F9FE',display:'flex',height:'100%',flexDirection:'column',justifyContent:'space-between'}}>
                   <Box className="incident-content-wrapper">
                     {
                       this.state.suggestionList.map((item:any)=>{
