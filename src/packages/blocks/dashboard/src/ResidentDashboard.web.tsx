@@ -24,6 +24,7 @@ import CloseIcon from "@material-ui/icons/Close";
 import ArrowForwardIosOutlinedIcon from "@material-ui/icons/ArrowForwardIosOutlined";
 import DashboardController, { Props } from "./DashboardController.web";
 import {
+  keyhand,
   BuildingLogo,
   hamburgerIcon,
   globalIcon,
