@@ -91,6 +91,14 @@ class ManagementFeeReport extends ManagementFeeReportController {
                         <MenuItem value="">
                           {t("Select Building")}
                         </MenuItem>
+                        {
+                          this.state.buildingList.length > 0 &&
+                            this.state.buildingList.map((item:any,key:any)=> {
+                              return(
+                                  <MenuItem key={key} value={item.id}>{item.name}</MenuItem>
+                              )
+                            })
+                        }
                       </Select>
                     )}
                     <Select displayEmpty className="select-input" value={this.state.filterYear} onChange={(e:any) => this.setState({filterYear:e.target.value})}>
@@ -124,7 +132,7 @@ class ManagementFeeReport extends ManagementFeeReportController {
                       <MenuItem value="paid">{t("Paid")}</MenuItem>
                       <MenuItem value="partially_paid">{t("Partially Paid")}</MenuItem>
                     </Select>
-                    <Button startIcon={<img src={SearchIconImage} />} onClick={() => {}}>
+                    <Button startIcon={<img src={SearchIconImage} />} onClick={this.searchButtonManage}>
                       {t("Search")}
                     </Button>
                   </Box>
