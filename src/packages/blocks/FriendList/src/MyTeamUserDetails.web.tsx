@@ -65,9 +65,9 @@ class MyTeamCore extends MyTeamUserDetailsController {
                     <Box>
 
                         <Typography variant="body1" >
-                            {t("My Team")} / {t("Team Members")} / <Box component="span" style={{color: "blue"}}>{this.state.selectedUser?.account?.attributes?.full_name?.name}</Box>
+                            {t("My Team")} / {t("Team Members")} / <Box component="span" style={{color: "blue"}}>{this.state.selectedUser?.name}</Box>
                         </Typography>
-                        <Typography variant="h4" className="subHeading" >{this.state.selectedUser?.account?.attributes?.full_name?.name}</Typography>
+                        <Typography variant="h4" className="subHeading" >{this.state.selectedUser?.name}</Typography>
                         <Typography variant="h5" className="subHeading" >{t("General Details")}</Typography>
                     </Box>
                 </Box>
@@ -78,15 +78,15 @@ class MyTeamCore extends MyTeamUserDetailsController {
                                 <Grid item xs={12} sm={3} style={{borderRight: "1px solid gray"}}>
                                     <Box style={{width:"100%",display:'flex',justifyContent:"center",flexDirection:"column",margin:"30px 20px"}}>
                                         <img src={this.state.selectedUser?.account?.attributes?.profile_pic || profileExp} height="100px" width="100px" style={{borderRadius:"100px"}}  />
-                                        <Typography variant="h6" style={{fontWeight:"bold",marginBottom:"5px"}}>{this.state.selectedUser?.account?.attributes?.full_name?.name}</Typography>
-                                        <Typography variant="h6" gutterBottom style={{marginBottom:"10px"}}>{this.state.selectedUser?.apartment_management?.apartment_name}</Typography>
+                                        <Typography variant="h6" style={{fontWeight:"bold",marginBottom:"5px"}}>{this.state.selectedUser?.name}</Typography>
+                                        <Typography variant="h6" gutterBottom style={{marginBottom:"10px"}}>{this.state.selectedUser?.user_profile?.data?.attributes?.apartment_number?.apartment_number}</Typography>
                                         <Grid container spacing={2} style={{width:"95%",display:"flex",alignItems:"center",marginTop:"5px"}}>
                                             {
-                                                this.state.selectedUser?.account_roles?.length > 0 &&
-                                                this.state.selectedUser?.account_roles.map((item:any,key:any)=> {
+                                                this.state.selectedUser?.role_list?.length > 0 &&
+                                                this.state.selectedUser?.role_list.map((item:any,key:any)=> {
                                                     return(
                                                         <Grid key={key} item>
-                                                            <Typography variant="subtitle2" className={"statusOngoingBlue"} gutterBottom>{item.name}</Typography>
+                                                            <Typography variant="subtitle2" className={"statusOngoingBlue"} gutterBottom>{item}</Typography>
                                                         </Grid>
                                                     )
                                                 })
@@ -112,7 +112,7 @@ class MyTeamCore extends MyTeamUserDetailsController {
                                         <Grid item xs={12}>
                                             <Box style={{margin:"30px 20px"}}>
                                                 <Typography variant="subtitle1" color="textSecondary">{t("About")}</Typography>
-                                                <Typography variant="subtitle1" color="textPrimary">{this.state.selectedUser?.account?.attributes?.bio?.bio || "NA"}</Typography>
+                                                <Typography variant="subtitle1" color="textPrimary">{this.state.selectedUser.user_profile?.data?.attributes?.bio?.bio || "NA"}</Typography>
                                             </Box>
                                         </Grid>
                                         <Grid item xs={12}>
@@ -120,23 +120,23 @@ class MyTeamCore extends MyTeamUserDetailsController {
                                                 <Grid item xs={12} sm={3}>
                                                     <Box style={{margin:"0px 20px"}}>
                                                         <Typography variant="subtitle1" color="textSecondary">{t("Gender")}</Typography>
-                                                        <Typography variant="subtitle1" color="textPrimary">{this.state.selectedUser?.account?.attributes?.gender?.gender || "NA"}</Typography>                                                    </Box>
+                                                        <Typography variant="subtitle1" color="textPrimary">{this.state.selectedUser?.user_profile?.data?.attributes?.gender?.gender || "NA"}</Typography>                                                    </Box>
                                                 </Grid>
                                                 <Grid item xs={12} sm={3}>
                                                     <Box style={{margin:"0px 20px"}}>
                                                         <Typography variant="subtitle1" color="textSecondary">{t("DOB")}</Typography>
-                                                        <Typography variant="subtitle1" color="textPrimary">{this.state.selectedUser?.account?.attributes?.date_of_birth?.date_of_birth || "NA"}</Typography>                                                    </Box>
+                                                        <Typography variant="subtitle1" color="textPrimary">{this.state.selectedUser?.user_profile?.data?.attributes?.date_of_birth?.date_of_birth || "NA"}</Typography>                                                    </Box>
                                                 </Grid>
                                                 <Grid item xs={12} sm={3}>
                                                     {
-                                                        this.state.selectedUser?.account?.attributes?.hobbies?.hobbies &&
+                                                        this.state.selectedUserr?.user_profile?.data?.attributes?.hobbies?.hobbies &&
                                                         <Box style={{margin:"0px 20px"}}>
                                                             <Typography variant="subtitle1" color="textSecondary">{t("Hobbies")}</Typography>
                                                             <Box className="hobbies">
                                                                 {
                                                                     <>
                                                                         {
-                                                                            this.state.selectedUser?.account?.attributes?.hobbies?.hobbies.map((item:any) =>
+                                                                            this.state.selectedUser?.user_profile?.data?.hobbies?.hobbies.map((item:any) =>
                                                                                 <>
                                                                                     <span key={item}>
                                                                                       {item}
@@ -157,27 +157,27 @@ class MyTeamCore extends MyTeamUserDetailsController {
                                                 <Typography variant="subtitle1" color="textSecondary">{t("Social Media")}</Typography>
                                                 <Box style={{display:'flex'}}>
                                                     {
-                                                        this.state.selectedUser?.account?.attributes?.website[0]?.twitter_link &&
-                                                        <IconButton style={{backgroundColor:"rgba(252,52,52,.1)",marginRight:"8px",padding:"2px"}}>
+                                                        this.state.selectedUser?.user_profile?.data?.attributes?.website[0]?.twitter_link &&
+                                                        <IconButton style={{backgroundColor:"rgba(252,52,52,.1)",marginRight:"8px",padding:"2px"}} onClick={()=> window.open(this.state.selectedUser?.user_profile?.data?.attributes?.website[0]?.twitter_link,"_blank")}>
                                                             <img src={TwitterIcon} />
                                                         </IconButton>
                                                     }
                                                     {
-                                                        this.state.selectedUser?.account?.attributes?.website[1]?.instagram_link &&
-                                                        <IconButton style={{backgroundColor:"rgba(252,52,52,.1)",marginRight:"8px",padding:"2px"}}>
+                                                        this.state.selectedUser?.user_profile?.data?.attributes?.website[1]?.instagram_link &&
+                                                        <IconButton style={{backgroundColor:"rgba(252,52,52,.1)",marginRight:"8px",padding:"2px"}} onClick={()=> window.open(this.state.selectedUser?.user_profile?.data?.attributes?.website[1]?.instagram_link,"_blank")}>
                                                             <img src={InstagramIcon} />
                                                         </IconButton>
                                                     }
                                                     {
-                                                        this.state.selectedUser?.account?.attributes?.website[2]?.fb_link &&
-                                                        <IconButton style={{backgroundColor:"rgba(252,52,52,.1)",padding:"2px"}}>
+                                                        this.state.selectedUser?.user_profile?.data?.attributes?.website[2]?.fb_link &&
+                                                        <IconButton style={{backgroundColor:"rgba(252,52,52,.1)",padding:"2px",marginRight:"8px"}} onClick={()=> window.open(this.state.selectedUser?.user_profile?.data?.attributes?.website[2]?.fb_link,"_blank")}>
                                                             <img src={FacebookIcon} />
                                                         </IconButton>
                                                     }
                                                     {
-                                                        this.state.selectedUser?.account?.attributes?.website[2]?.fb_link &&
-                                                        <IconButton style={{backgroundColor:"rgba(252,52,52,.1)",padding:"2px"}}>
-                                                            <img src={FacebookIcon} />
+                                                        this.state.selectedUser?.user_profile?.data?.attributes?.website[3]?.snapchat_link &&
+                                                        <IconButton style={{backgroundColor:"rgba(252,52,52,.1)",padding:"2px"}} href={this.state.selectedUser.user_profile?.data?.attributes?.website[3]?.snapchat_link} target="_blank">
+                                                            <img src={SnapchatIcon} />
                                                         </IconButton>
                                                     }
                                                 </Box>

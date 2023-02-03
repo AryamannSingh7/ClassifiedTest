@@ -99,7 +99,10 @@ export default class CharmainInvoicesController extends CommonApiCallForBlockCom
       const responseJson = message.getData(getName(MessageEnum.RestAPIResponceSuccessMessage));
       if(apiRequestCallId === this.getInvoiceListId){
         if(responseJson.hasOwnProperty("invoices")){
-          console.log("RESPONSE  JSON",responseJson)
+          this.setState({
+            invoicesList:responseJson.invoices.data,
+            pagination:responseJson.meta.pagination,
+          })
         }
       }
     }

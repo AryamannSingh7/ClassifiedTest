@@ -203,7 +203,7 @@ render() {
                                         <Typography style={{fontWeight:"bold"}}>50</Typography>
                                     </Box>
                                     <Box style={{marginRight:"10px"}}>
-                                        <Pagination count={10} variant="outlined" shape="rounded" />
+                                        <Pagination count={this.state.pagination?.total_count} variant="outlined" shape="rounded" />
                                     </Box>
                                 </Box>
                             </Grid>
