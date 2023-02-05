@@ -93,20 +93,20 @@ export default class AuditorController extends BlockComponent<Props, S, SS> {
     runEngine.attachBuildingBlock(this as IBlock, this.subScribedMessages);
   }
 
-  async componentDidMount(): Promise<void> {
-    super.componentDidMount();
-    this.getToken();
-    if (this.isPlatformWeb() === false) {
-      this.props.navigation.addListener("willFocus", async () => {
-        this.getToken();
-      });
-    }
-    this.getProfile();
+  // async componentDidMount(): Promise<void> {
+  //   super.componentDidMount();
+  //   this.getToken();
+  //   if (this.isPlatformWeb() === false) {
+  //     this.props.navigation.addListener("willFocus", async () => {
+  //       this.getToken();
+  //     });
+  //   }
+  //   this.getProfile();
 
-    if (window.location.pathname.split("/")[1] === "OwnerDashboard") {
-      this.getManagerRequestList();
-    }
-  }
+  //   if (window.location.pathname.split("/")[1] === "OwnerDashboard") {
+  //     this.getManagerRequestList();
+  //   }
+  // }
 
   getToken = () => {
     const msg: Message = new Message(getName(MessageEnum.SessionRequestMessage));
@@ -137,12 +137,12 @@ export default class AuditorController extends BlockComponent<Props, S, SS> {
 
   async receive(from: string, message: Message) {
     // Customizable Area Start
-    if (getName(MessageEnum.SessionResponseMessage) === message.id) {
-      let token = message.getData(getName(MessageEnum.SessionResponseToken));
-      this.setState({ token: token, loading: true }, () => {
-        this.getDashboardData();
-      });
-    }
+    // if (getName(MessageEnum.SessionResponseMessage) === message.id) {
+    //   let token = message.getData(getName(MessageEnum.SessionResponseToken));
+    //   this.setState({ token: token, loading: true }, () => {
+    //     // this.getDashboardData();
+    //   });
+    // }
 
     if (getName(MessageEnum.RestAPIResponceMessage) === message.id) {
       let responseJson: any = message.getData(getName(MessageEnum.RestAPIResponceSuccessMessage));

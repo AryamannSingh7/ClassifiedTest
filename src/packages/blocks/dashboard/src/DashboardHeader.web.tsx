@@ -52,7 +52,13 @@ class DashboardHeader extends DashboardController {
   };
 
   gotoProfilePage = () => {
-    this.props.navigation.navigate("ChairmanProfile");
+    if(localStorage.getItem('selectUserType')=='Auditor'){
+
+    this.props.navigation.navigate("AuditorProfile");
+    }else{
+
+      this.props.navigation.navigate("ChairmanProfile");
+    }
   };
 
   render() {

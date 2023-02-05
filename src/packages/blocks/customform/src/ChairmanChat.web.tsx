@@ -59,6 +59,7 @@ import AttachFileIcon from '@material-ui/icons/AttachFile';
 
 import '../assets/css/style.scss'
 import { withTranslation } from "react-i18next";
+import AuditorSideBarWeb from "./AuditorSideBar.web";
 class ChairmanChat extends InboxController {
   constructor(props: Props) {
     super(props);
@@ -202,7 +203,9 @@ const currentAccountId = localStorage.getItem('userId')
           <Box style={{ display: "flex" }}>
             <Grid item xs={3} md={3} sm={3} className="SideBar">
               {/* Chairman Sidebar -- */}
-              <ChairmanSidebarWeb {...this.props} />
+              {
+                localStorage.getItem('selectUserType') == 'Auditor' ?   <AuditorSideBarWeb {...this.props} /> :    <ChairmanSidebarWeb {...this.props} />
+              }
             </Grid>
             <Grid item xs={9}>
             <Grid container>

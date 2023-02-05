@@ -229,6 +229,7 @@ import ReceiptsDetails from '../../blocks/InvoiceBilling/src/ReceiptsDetails.web
 import CharmainInvoices from '../../blocks/InvoiceBilling/src/CharmainInvoices.web';
 
 import ChairmanProfile from '../../blocks/Settings5/src/ChairmanProfile.web';
+
 import Profile from '../../blocks/user-profile-basic/src/Profile.web';
 import ChairmenProfile from '../../blocks/user-profile-basic/src/ChairmenProfile.web';
 
@@ -285,6 +286,7 @@ import EditTenant from '../../blocks/RequestManagement/src/EditTenant.web';
 
 // My Team Imports
 import MyTeam from '../../blocks/FriendList/src/MyTeam.web';
+import MyTeamAudi from '../../blocks/FriendList/src/AuditorMyTeam.web';
 import MyTeamCore from '../../blocks/FriendList/src/MyTeamCore.web';
 import MyTeamUserDetails from '../../blocks/FriendList/src/MyTeamUserDetails.web';
 import ChairmanNominationMain from '../../blocks/FriendList/src/ChairmanNominationMain.web';
@@ -431,16 +433,21 @@ const routeMap = {
     path: '/ChairmanChat',
     exact: true
   },
+  ChairmanChat: {
+    component: ChairmanChat,
+    path: '/AuditorChat',
+    exact: true
+  },
   Chatbox: {
     component: Chatbox,
     path: '/Chatbox',
     exact: true
   },
-  LandingPage2: {
-    component: LandingPage,
-    path: '/owner',
-    exact: true
-  },
+  // LandingPage2: {
+  //   component: LandingPage,
+  //   path: '/owner',
+  //   exact: true
+  // },
   NeighboursListing: {
     component: NeighboursListing,
     path: '/NeighboursListing',
@@ -556,7 +563,7 @@ const routeMap = {
   },
   AuditorDas: {
     component: AuditorDashboardGeneral,
-    path: '/AuditorDas',
+    path: '/AuditorDashboard',
     exact: true
   },
   ChairmanChangePassword: {
@@ -1086,6 +1093,11 @@ const routeMap = {
     path: '/ChairmanProfile',
     exact: true
   },
+  AuditorProfile: {
+    component: ChairmanProfile,
+    path: '/AuditorProfile',
+    exact: true
+  },
   Customisableusersubscriptions: {
     component: Customisableusersubscriptions,
     path: '/Customisableusersubscriptions'
@@ -1300,7 +1312,7 @@ const routeMap = {
   DashboardActions: {
     component: DashboardActions,
     path: '/DashboardActions',
-    roles: [ROLE.CHAIRMAN, ROLE.MANAGER]
+    roles: [ROLE.CHAIRMAN, ROLE.MANAGER,ROLE.AUDITOR]
   },
 
   DashboardBudget: {
@@ -1746,6 +1758,11 @@ const routeMap = {
   MyTeam: {
     component: MyTeam,
     path: '/TeamMembers',
+    exact: true
+  },
+  MyTeamAudi: {
+    component: MyTeamAudi,
+    path: '/AudiTeamMembers',
     exact: true
   },
 

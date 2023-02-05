@@ -45,6 +45,7 @@ import ChipInput from "material-ui-chip-input";
 import { AvatarIcon, CallIcon, ChatIcon, EmailIcon, FacebookIcon, InstagramIcon, SettingIcon, SnapchatIcon, TwitterIcon } from "./assets";
 import OtpInput from "react-otp-input";
 import { withRouter } from 'react-router';
+import AuditorSideBarWeb from "../../customform/src/AuditorSideBar.web";
 
 class ChairmanProfile extends ProfileController {
   constructor(props: Props) {
@@ -55,7 +56,15 @@ class ChairmanProfile extends ProfileController {
         // this.getVehicle()
     
       }
-
+      gotoChatPage = () => {
+        if(localStorage.getItem('selectUserType')=='Auditor'){
+    
+        this.props.history.push("/AuditorChat");
+        }else{
+    
+          this.props.history.push("/ChairmanChat");
+        }
+      };
   render() {
      //@ts-ignore
             //@ts-nocheck
@@ -74,7 +83,9 @@ class ChairmanProfile extends ProfileController {
           <Box style={{ display: "flex" }}>
             <Grid item xs={3} md={3} sm={3} className="SideBar">
               {/* Chairman Sidebar -- */}
-              <ChairmanSidebarWeb {...this.props} />
+              {
+                localStorage.getItem('selectUserType') == 'Auditor' ?   <AuditorSideBarWeb {...this.props} /> :    <ChairmanSidebarWeb {...this.props} />
+              }
             </Grid>
 
             <Grid item xs={9} md={9} sm={9} style={{ paddingTop: 35 }}>
@@ -105,7 +116,7 @@ class ChairmanProfile extends ProfileController {
                     <Grid container>
                       <Grid item xs={3} className="left-side" style={{padding:20}}>
                        
-                        <SectionOne profileData={profileData} handleClick={()=>this.props.history.push('/chairmanchat')}/>
+                        <SectionOne profileData={profileData} handleClick={()=>this.gotoChatPage()}/>
                       </Grid>
                       <Grid item xs={1} className="border" />
                       <Grid item xs={8} className="right-side" style={{padding:20}}>

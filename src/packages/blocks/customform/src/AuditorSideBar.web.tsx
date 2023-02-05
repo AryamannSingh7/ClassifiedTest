@@ -44,51 +44,18 @@ class AuditorSideBar extends AuditorController {
               <Typography className="ListItemText">{t("My Dashboard")}</Typography>
             </AccordionSummary>
 
-            <AccordionDetails onClick={() => this.props.navigation.navigate("DashboardGeneral")}>
+            <AccordionDetails onClick={() => {
+              //@ts-ignore
+              this.props.history.push("/AuditorDashboard");
+            }}>
               <Typography variant="body2" className="cursor-pointer">
                 General Dashboard
               </Typography>
             </AccordionDetails>
-            <AccordionDetails
-              onClick={() => {
-                //@ts-ignore
-                // this.props.history.push("/mv");
-              }}
-            >
-              <Typography variant="body2" className="cursor-pointer">
-                {t("Actions Assigned to me")}
-              </Typography>
-            </AccordionDetails>
-            <AccordionDetails
-              onClick={() => {
-                //@ts-ignore
-                this.props.history.push("/DashboardTicket");
-              }}
-            >
-              <Typography variant="body2" className="cursor-pointer">
-                {t("Budget Dashboard")}
-              </Typography>
-            </AccordionDetails>
-            <AccordionDetails
-                onClick={() => {
-                  //@ts-ignore
-                  this.props.history.push("/VisitorList");
-                }}
-            >
-              <Typography variant="body2" className="cursor-pointer">
-                {t("Visitors Dashboard")}
-              </Typography>
-            </AccordionDetails>
-            <AccordionDetails
-              onClick={() => {
-                //@ts-ignore
-                this.props.history.push("/DashboardBudget");
-              }}
-            >
-              <Typography variant="body2" className="cursor-pointer">
-                Budget Dashboard
-              </Typography>
-            </AccordionDetails>
+          
+           
+          
+          
             <AccordionDetails
               onClick={() => {
                 //@ts-ignore
@@ -101,48 +68,20 @@ class AuditorSideBar extends AuditorController {
             </AccordionDetails>
           </Accordion>
           {/* My Team */}
-          <Accordion expanded={this.state.expanded == `panel2`} onChange={this.handleAccordinoChange(`panel2`)}>
-            <AccordionSummary
-              expandIcon={<ArrowForwardIosOutlinedIcon style={{ width: 16, height: 16 }} />}
-              id="ListItem"
-              className="ListItem"
-            >
-              <Typography>
-                <img src={myTeam} alt="" />
-              </Typography>
-              <Typography className="ListItemText">{t("Buildings' Management")}</Typography>
-            </AccordionSummary>
-            <AccordionDetails
+          <Box className="SingleLink">
+            <Typography className="SingleLinkSize">
+              <DashboardOutlinedIcon />
+            </Typography>
+            <div
               onClick={() => {
                 //@ts-ignore
-                this.props.history.push("/TeamMembers");
+                this.props.history.push("/AudiTeamMembers");
               }}
             >
-              <Typography variant="body2" className="cursor-pointer">
-                {t("Team Members")}
-              </Typography>
-            </AccordionDetails>
-            <AccordionDetails
-              onClick={() => {
-                //@ts-ignore
-                this.props.history.push("/Nominations");
-              }}
-            >
-              <Typography variant="body2" className="cursor-pointer">
-                {t("Chairman and Vice Chairman Nomination")}
-              </Typography>
-            </AccordionDetails>
-            <AccordionDetails
-              onClick={() => {
-                //@ts-ignore
-                this.props.history.push("/TaskManagement");
-              }}
-            >
-              <Typography variant="body2" className="cursor-pointer">
-                {t("Task Management")}
-              </Typography>
-            </AccordionDetails>
-          </Accordion>
+              <Typography className="SingleLinkSize">{t("Buildings' Management")}</Typography>
+            </div>
+          </Box>
+        
           {/* Community Management */}
           <Accordion expanded={this.state.expanded == `panel3`} onChange={this.handleAccordinoChange(`panel3`)}>
             <AccordionSummary
@@ -230,7 +169,7 @@ class AuditorSideBar extends AuditorController {
             <div
               onClick={() => {
                 //@ts-ignore
-                this.props.history.push("/chairmanchat");
+                this.props.history.push("/AuditorChat");
               }}
             >
               <Typography className="SingleLinkSize">{t("Chat")}</Typography>
