@@ -24,12 +24,12 @@ import CloseIcon from "@material-ui/icons/Close";
 import ArrowForwardIosOutlinedIcon from "@material-ui/icons/ArrowForwardIosOutlined";
 import DashboardController, { Props } from "./DashboardController.web";
 import {
+  keyhand,
   BuildingLogo,
   hamburgerIcon,
   globalIcon,
   notification,
   chatIcon,
-  keyhand,
   SidebarProfile,
   SidebarFee,
   SidebarNeighbor,
@@ -51,9 +51,9 @@ import {
   DashboardFamily,
   DashboardSuggestion,
   DashboardVehicle,
+  NewNotification,
 } from "./assets";
 import { withTranslation } from "react-i18next";
-import "../../../web/src/i18n.js";
 import i18next from "i18next";
 import { Menu } from "@szhsin/react-menu";
 import "@szhsin/react-menu/dist/core.css";
@@ -111,8 +111,7 @@ class ResidentDashboard extends DashboardController {
   };
 
   render() {
-    const { t }: any = this.props;
-    const { classes }: any = this.props;
+    const { t,classes }: any = this.props;
 
     return (
       <>
@@ -198,7 +197,11 @@ class ResidentDashboard extends DashboardController {
                   </div>
                   <div>
                     <Link href="/Notifications">
-                      <img src={notification} alt="GlobalIcon" />
+                      {this.state.isNewNotification ? (
+                        <img src={NewNotification} alt="GlobalIcon" />
+                      ) : (
+                        <img src={notification} alt="GlobalIcon" />
+                      )}
                     </Link>
                   </div>
                 </div>
@@ -345,6 +348,21 @@ class ResidentDashboard extends DashboardController {
                         heading={t("My Documents")}
                         title={t("Last Uploaded")}
                         value="NA"
+                      />
+                    </Link>
+                  </Grid>
+                  <Grid item xs={6} sm={6}>
+                    <Link href="/AddRentPayment">
+                      <DashboardCard image={keyhand} heading={t("Register Rent Payment")} title={t("Register Rent")} value="75" />
+                    </Link>
+                  </Grid>
+                  <Grid item xs={6} sm={6}>
+                    <Link href="/AddRentPayment">
+                      <DashboardCard
+                          image={keyhand}
+                          heading={t("Register Rent Payment")}
+                          title={t("Register Rent Payment")}
+                          value=""
                       />
                     </Link>
                   </Grid>

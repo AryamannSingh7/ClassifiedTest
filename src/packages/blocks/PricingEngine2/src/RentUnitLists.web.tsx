@@ -50,13 +50,13 @@ class RentUnitLists extends RentUnitListController{
                                         marginTop='1.5rem'
                                         padding='1.5rem'
                                         style={{boxShadow:"rgba(99, 99, 99, 0.2) 0px 2px 8px 0px"}}
-                                        onClick={()=>this.props.history.push(`/UnitRentList/${item.attributes.apartment_management.id}`)}
+                                        onClick={()=>this.props.history.push(`/UnitRentList/${item?.id}`)}
                                     >
                                         <Box style={{minWidth:"100%"}}>
                                             <Box style={{display:"flex",alignItems:"center",justifyContent:"space-between"}}>
                                                 <Box>
                                                     <Typography variant={"body1"} style={{fontWeight:"bold",marginTop:"5px"}}>
-                                                        {item.attributes.apartment_management.apartment_name}
+                                                        {item.attributes?.apartment_management?.apartment_name}
                                                     </Typography>
                                                 </Box>
                                                 <ArrowForwardIosIcon fontSize="small" style={{color:"#BFBFBF",fontSize:"25px"}}/>
@@ -68,11 +68,14 @@ class RentUnitLists extends RentUnitListController{
                             })
                         }
                     </Grid>
-                     <Box style={{width:"90%",marginBottom:"50px",marginTop:"10px"}}>
-                        <CloseButton className="RegisterRentPayment" variant="contained" fullWidth size="large" onClick={()=> this.props.history.push("/AddRentPayment")}>
-                            {t("Register Rent Payment")}
-                        </CloseButton>
-                    </Box>
+                    {
+                        this.state?.UnitListing === "test" &&
+                        <Box style={{width:"90%",marginBottom:"50px",marginTop:"10px"}}>
+                            <CloseButton className="RegisterRentPayment" variant="contained" fullWidth size="large" onClick={()=> this.props.history.push("/AddRentPayment")}>
+                                {t("Register Rent Payment")}
+                            </CloseButton>
+                        </Box>
+                    }
                 </Box>
             </Grid>
         </>

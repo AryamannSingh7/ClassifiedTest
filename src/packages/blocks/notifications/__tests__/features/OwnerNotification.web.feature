@@ -13,3 +13,4 @@ Feature: OwnerNotification
         And Should select all notification for delete
         And Should delete the notification
         And Should able to select notification
+        And Should load the notification type

@@ -1,32 +1,25 @@
-//@ts-ignore
-//@ts-nocheck
-
+// Customizable Area Start
 import { IBlock } from "../../../framework/src/IBlock";
 import { Message } from "../../../framework/src/Message";
-import { BlockComponent } from "../../../framework/src/BlockComponent";
 import MessageEnum, {
   getName,
 } from "../../../framework/src/Messages/MessageEnum";
 import { runEngine } from "../../../framework/src/RunEngine";
-
-// Customizable Area Start
 import { imgPasswordInVisible, imgPasswordVisible } from "../../dashboard/src/assets";
-// Customizable Area End
+import CommonApiCallForBlockComponent from "../../../components/src/ApiCallCommon.web";
+
 
 export const configJSON = require("../../dashboard/src/config");
 
 export interface Props {
   navigation: any;
   id: string;
-  // Customizable Area Start
-  // Customizable Area End
 }
 
 interface S {
   txtInputValue: string;
   txtSavedValue: string;
   enableField: boolean;
-  // Customizable Area Start
   loading: boolean;
   anchorEl: any;
   openModal: boolean;
@@ -35,40 +28,39 @@ interface S {
   paymentType:any;
   confirmPaymentModal:boolean;
   paymentAmount:any;
-  // Customizable Area End
+  invoicesList:any;
+  invoiceData:any;
+  filterBuilding:any;
+  filterFloor:any;
+  filterUnit:any;
+  filterStatus:any;
+  filterType:any;
+  searchKey:any;
+  buildingList:any;
+  unitList:any;
+  floorList:any;
+  page:any
+  count:any;
+  pagination:any;
 }
 
 interface SS {
   id: any;
-  // Customizable Area Start
-  // Customizable Area End
 }
 
-export default class CharmainInvoicesController extends BlockComponent<
-  Props,
-  S,
-  SS
-> {
-  // Customizable Area Start
+export default class CharmainInvoicesController extends CommonApiCallForBlockComponent<Props,S,SS> {
   getInvoiceBillingApiCallId: any
-  // Customizable Area End
-
+  getInvoiceListId:any
   constructor(props: Props) {
     super(props);
     this.receive = this.receive.bind(this);
-
-    // Customizable Area Start
     this.subScribedMessages = [
       getName(MessageEnum.AccoutLoginSuccess),
-      // Customizable Area Start
-      // Customizable Area End
     ];
-
     this.state = {
       txtInputValue: "",
       txtSavedValue: "A",
       enableField: false,
-      // Customizable Area Start
       loading: false,
       anchorEl:null,
       openModal: true,
@@ -77,31 +69,65 @@ export default class CharmainInvoicesController extends BlockComponent<
       paymentType:"",
       confirmPaymentModal:false,
       paymentAmount:"",
-      // Customizable Area End
+      invoicesList:[],
+      invoiceData:{},
+      filterBuilding:"",
+      filterFloor:"",
+      filterStatus:"",
+      filterType:"",
+      filterUnit:"",
+      searchKey:"",
+      buildingList:[],
+      floorList:[],
+      unitList:[],
+      page:1,
+      count:10,
+      pagination:{
+        "current_page": 1,
+        "next_page": null,
+        "prev_page": null,
+        "total_pages": 1,
+        "total_count": 0
+      }
     };
     runEngine.attachBuildingBlock(this as IBlock, this.subScribedMessages);
-
-    // Customizable Area Start
-    // Customizable Area End
   }
 
   async receive(from: string, message: Message) {
-    runEngine.debugLog("Message Recived", message);
-
-    if (message.id === getName(MessageEnum.AccoutLoginSuccess)) {
-      let value = message.getData(getName(MessageEnum.AuthTokenDataMessage));
-
-      this.showAlert(
-        "Change Value",
-        "From: " + this.state.txtSavedValue + " To: " + value
-      );
-
-      this.setState({ txtSavedValue: value });
+    if(getName(MessageEnum.RestAPIResponceMessage) === message.id) {
+      const apiRequestCallId = message.getData(getName(MessageEnum.RestAPIResponceDataMessage));
+      const responseJson = message.getData(getName(MessageEnum.RestAPIResponceSuccessMessage));
+      if(apiRequestCallId === this.getInvoiceListId){
+        if(responseJson.hasOwnProperty("invoices")){
+          console.log("RESPONSE  JSON",responseJson)
+        }
+      }
     }
-
-    // Customizable Area Start
-    // Customizable Area End
   }
+
+  async componentDidMount(): Promise<void> {
+    this.getInvoiceList({
+      buildingId:this.state.filterBuilding,
+      floorNo:this.state.filterFloor,
+      unitId:this.state.filterUnit,
+      paymentType:this.state.filterType,
+      status:this.state.filterStatus,
+      searchKey:this.state.searchKey,
+      page:this.state.page,
+      count:this.state.count
+    })
+  }
+
+  getInvoiceList = async (data:any) => {
+    const {buildingId,floorNo,unitId,paymentType,status,searchKey,page,count} = data
+    console.log("Page",page,count)
+    this.getInvoiceListId = await this.apiCall({
+      contentType: "application/json",
+      method: "GET",
+      endPoint: `/bx_block_fees_payment/invoices?search=${searchKey|| ""}&unit_id=${unitId|| ""}&building_id=${buildingId|| ""}&floor_number=${floorNo|| ""}&select_status=${status|| ""}&select_type=${paymentType|| ""}`,
+    });
+    return true
+  };
 
   txtInputWebProps = {
     onChangeText: (text: string) => {
@@ -149,8 +175,6 @@ export default class CharmainInvoicesController extends BlockComponent<
     this.send(msg);
   }
 
-  // Customizable Area Start
-
     handleClick = (e: any) => {
         this.setState({anchorEl:e.currentTarget});
     };
@@ -172,5 +196,6 @@ export default class CharmainInvoicesController extends BlockComponent<
       console.log("select===>")
       this.setState({payment_type:e.target.value})
     }
-  // Customizable Area End
+
 }
+// Customizable Area End

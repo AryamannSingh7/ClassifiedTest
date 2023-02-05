@@ -96,6 +96,10 @@
   background-color: white;
 }
 
+.category.dialog-select-input {
+  margin-bottom: 20px;
+}
+
 .dialog-textarea-input {
   border-radius: 5px;
   border: 1px solid lightgray;
@@ -1288,4 +1292,73 @@
 
 .edit-unit-modal-config .select-input .MuiSelect-root {
   background: #f9f9f9;
+}
+
+.lease-expiration-modal h6 {
+  font-weight: 600;
+  margin-bottom: 20px;
+  font-size: 20px;
+}
+
+.lease-expiration-modal .MuiDialogContent-root {
+  padding-left: 8px;
+  padding-right: 8px;
+}
+
+.lease-expiration-modal .dialog-select-input {
+  border-radius: 35px;
+  border: 1px solid #dedede;
+  background-color: #f8f8f8;
+  width: 80%;
+  margin-bottom: 10px;
+  padding: 18px;
+}
+
+.lease-expiration-modal .MuiSelect-root {
+  background-color: #f8f8f8 !important;
+  font-size: 16px;
+  line-height: 20px;
+  padding: 0;
+}
+
+.lease-expiration-modal .MuiInput-root::before,
+.lease-expiration-modal .MuiInput-root::after,
+.configuration-dialog .MuiInput-root::before,
+.configuration-dialog .MuiInput-root::after {
+  content: "";
+  border: 0;
+  position: unset;
+}
+
+.lease-expiration-set .dialog-button-group button.okay {
+  background-color: #2b6fec;
+  border-radius: 25px;
+  color: white;
+  font-weight: 600;
+  border: 1px solid #2b6fec;
+  padding: 12px 30px;
+  margin: 0;
+}
+
+.lease-expiration-set .dialog-button-group button {
+  width: 175px;
+}
+
+.configuration-dialog .MuiDialog-scrollPaper {
+  align-items: flex-start;
+}
+
+.configuration-dialog .config-dialog-box {
+  margin: 12px 0;
+  display: flex;
+  align-items: center;
+}
+
+.configuration-dialog .config-dialog-box .MuiInputBase-root {
+  background: #f0f0f0;
+  border: 1px solid #d2d2d2;
+  border-radius: 8px;
+  padding: 8px 15px;
+  width: 125px;
+  margin: 0 8px;
 }

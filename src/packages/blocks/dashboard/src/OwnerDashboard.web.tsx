@@ -53,6 +53,7 @@ import {
   voting,
   NotificationGreen,
   ExclamationIcon,
+  NewNotification,
 } from "./assets";
 import { DashboardStyleWeb } from "./DashboardStyle.web";
 import DashboardCard from "../../../components/src/DashboardCard";
@@ -90,7 +91,7 @@ const MenuList = [
   },
   {
     name: "Email Alerts",
-    url: "",
+    url: "/EmailAlerts",
     img: SidebarEmail,
   },
   {
@@ -136,10 +137,7 @@ class OwnerDashboard extends DashboardController {
   };
 
   render() {
-    const { t }: any = this.props;
-    const { classes }: any = this.props;
-
-    console.log(this.state);
+    const { t, classes }: any = this.props;
 
     return (
       <>
@@ -225,7 +223,11 @@ class OwnerDashboard extends DashboardController {
                   </div>
                   <div>
                     <Link href="/Notifications">
-                      <img src={notification} alt="GlobalIcon" />
+                      {this.state.isNewNotification ? (
+                        <img src={NewNotification} alt="GlobalIcon" />
+                      ) : (
+                        <img src={notification} alt="GlobalIcon" />
+                      )}
                     </Link>
                   </div>
                 </div>
@@ -411,16 +413,7 @@ class OwnerDashboard extends DashboardController {
                       />
                     </Link>
                   </Grid>
-                  <Grid item xs={6} sm={6}>
-                    <Link href="">
-                      <DashboardCard
-                        image={keyhand}
-                        heading={t("Facility Reservation")}
-                        title={t("Last Updated")}
-                        value="75"
-                      />
-                    </Link>
-                  </Grid>
+                
                 </Grid>
                 <Grid container spacing={1} style={{ marginTop: 15 }}>
                   <Grid item xs={12} sm={12} className="title">

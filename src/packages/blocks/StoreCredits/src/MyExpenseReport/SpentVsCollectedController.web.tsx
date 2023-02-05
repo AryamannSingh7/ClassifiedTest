@@ -143,9 +143,9 @@ export default class SpentVsCollectedController extends BlockComponent<Props, S,
     if (selectedFilter === "year") {
       filter = `year=${selectedYear}`;
     } else if (selectedFilter === "month") {
-      filter = `month=${selectedMonth}`;
+      filter = `period=month&month=${selectedMonth}`;
     } else {
-      filter = `quarter=${selectedQuarter}`;
+      filter = `period=quarter&quarter=${selectedQuarter}`;
     }
 
     const header = {

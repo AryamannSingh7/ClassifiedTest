@@ -6,6 +6,7 @@ import { runEngine } from "../../../framework/src/RunEngine";
 import { ApiCatchErrorResponse, ApiErrorResponse } from "../../../components/src/APIErrorResponse";
 import toast from "react-hot-toast";
 import { ROLE } from "../../../framework/src/Enum";
+import { apiCall } from "../../../components/src/APICallComponent/index.web";
 
 export const configJSON = require("./config");
 
@@ -24,8 +25,11 @@ interface S {
   isDeleteOpen: boolean;
 
   notificationList: any[];
+  notificationTypeList: any[];
 
   selectedNotification: any[];
+
+  filterType: string;
 }
 
 interface SS {
@@ -37,6 +41,8 @@ interface SS {
 export default class OwnerNotificationController extends BlockComponent<Props, S, SS> {
   GetNotificationListCallId: any;
   DeleteNotificationCallId: any;
+  GetNotificationTypeCallId: any;
+  MarkAsReadNotificationCallId: any;
 
   constructor(props: Props) {
     super(props);
@@ -52,8 +58,11 @@ export default class OwnerNotificationController extends BlockComponent<Props, S
       isDeleteOpen: false,
 
       notificationList: [],
+      notificationTypeList: [],
 
       selectedNotification: [],
+
+      filterType: "",
     };
     runEngine.attachBuildingBlock(this as IBlock, this.subScribedMessages);
   }
@@ -71,15 +80,18 @@ export default class OwnerNotificationController extends BlockComponent<Props, S
       switch (apiRequestCallId) {
         case this.GetNotificationListCallId:
           this.setState({ loading: false }, () => {
-            if (responseJson && responseJson.data) {
-              this.setState({ notificationList: responseJson.data });
-            }
+            this.handleGetAllNotificationResponse(responseJson);
           });
           break;
         case this.DeleteNotificationCallId:
           this.setState({ loading: false }, () => {
             this.getAllNotification();
           });
+          break;
+        case this.GetNotificationTypeCallId:
+          this.handleGetNotificationTypeResponse(responseJson);
+          break;
+        case this.MarkAsReadNotificationCallId:
           break;
         default:
           break;
@@ -96,49 +108,60 @@ export default class OwnerNotificationController extends BlockComponent<Props, S
 
   async componentDidMount(): Promise<void> {
     this.getAllNotification();
+    this.getNotificationType();
+    this.markReadNotification();
   }
 
-  getAllNotification = () => {
-    const header = {
-      "Content-Type": configJSON.apiContentType,
-      token: localStorage.getItem("userToken"),
-    };
+  async componentDidUpdate(prevProps: any, prevState: any): Promise<void> {
+    if (prevState.filterType !== this.state.filterType) {
+      await this.getAllNotification();
+    }
+  }
 
-    const apiRequest = new Message(getName(MessageEnum.RestAPIRequestMessage));
+  getAllNotification = async () => {
+    const { filterType } = this.state;
 
-    this.GetNotificationListCallId = apiRequest.messageId;
-
-    apiRequest.addData(getName(MessageEnum.RestAPIResponceEndPointMessage), `bx_block_notifications/notifications`);
-
-    apiRequest.addData(getName(MessageEnum.RestAPIRequestHeaderMessage), JSON.stringify(header));
-
-    apiRequest.addData(getName(MessageEnum.RestAPIRequestMethodMessage), configJSON.getDataMethod);
-
-    runEngine.sendMessage(apiRequest.id, apiRequest);
-    return true;
+    this.GetNotificationListCallId = await apiCall({
+      contentType: "application/json",
+      method: "GET",
+      endPoint: `bx_block_notifications/notifications?notification_type=${filterType}`,
+    });
   };
 
-  deleteNotification = () => {
-    const header = {
-      "Content-Type": configJSON.apiContentType,
-      token: localStorage.getItem("userToken"),
-    };
+  handleGetAllNotificationResponse = (responseJson: any) => {
+    if (responseJson && responseJson.data) {
+      this.setState({ notificationList: responseJson.data });
+    }
+  };
 
-    const apiRequest = new Message(getName(MessageEnum.RestAPIRequestMessage));
+  deleteNotification = async () => {
+    this.DeleteNotificationCallId = await apiCall({
+      contentType: "application/json",
+      method: "DELETE",
+      endPoint: `bx_block_notifications/notifications/multiple_delete_notification?notification_ids[]=${this.state.selectedNotification.toString()}`,
+    });
+  };
 
-    this.DeleteNotificationCallId = apiRequest.messageId;
+  getNotificationType = async () => {
+    this.GetNotificationTypeCallId = await apiCall({
+      contentType: "application/json",
+      method: "GET",
+      endPoint: `bx_block_notifications/notifications/notification_type`,
+    });
+  };
 
-    apiRequest.addData(
-      getName(MessageEnum.RestAPIResponceEndPointMessage),
-      `bx_block_notifications/notifications/multiple_delete_notification?notification_ids[]=${this.state.selectedNotification.toString()}`
-    );
+  markReadNotification = async () => {
+    this.MarkAsReadNotificationCallId = await apiCall({
+      contentType: "application/json",
+      method: "GET",
+      endPoint: `bx_block_notifications/notifications/mark_as_read`,
+    });
+  };
 
-    apiRequest.addData(getName(MessageEnum.RestAPIRequestHeaderMessage), JSON.stringify(header));
-
-    apiRequest.addData(getName(MessageEnum.RestAPIRequestMethodMessage), configJSON.deleteText);
-
-    runEngine.sendMessage(apiRequest.id, apiRequest);
-    return true;
+  handleGetNotificationTypeResponse = (responseJson: any) => {
+    if (responseJson && responseJson.notification_type) {
+      this.setState({ notificationTypeList: responseJson.notification_type });
+    }
   };
 
   handleDeleteNotificationModal = () => {

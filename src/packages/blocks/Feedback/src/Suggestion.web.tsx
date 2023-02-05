@@ -21,6 +21,7 @@ import Loader from "../../../components/src/Loader.web";
 import SuggestionController,{Props} from './SuggestionController.web';
 import { Building1 } from '../../ContentManagement/src/assets';
 import { Claender } from './assets';
+import '../assets/style.css'
 
 class Suggestion extends SuggestionController {
   constructor(props: Props) {
@@ -48,7 +49,7 @@ class Suggestion extends SuggestionController {
 
                   </Box>
                 </Box>
-                <Box className="content-block-wrapper common-incident-block" style={{background:'#F8F9FE'}}>
+                <Box className="content-block-wrapper common-incident-block" style={{background:'#F8F9FE',display:'flex',height:'100%',flexDirection:'column',justifyContent:'space-between'}}>
                   <Box className="incident-content-wrapper">
                     {
                       this.state.suggestionList.map((item:any)=>{
@@ -76,7 +77,7 @@ class Suggestion extends SuggestionController {
                   <img src={Claender}/>   {item?.attributes?.sent_on}
                     </Typography>
                     <Box className="customButton">
-                      <Button variant="contained" className="contain blue" type="submit" >{item?.attributes?.response.length>0 ? item?.attributes?.response.length:'0'} Response</Button>
+                      <Button variant="contained"  type="submit" className={item?.attributes?.response.length>0?"contain green-span":"contain red-span"} >{item?.attributes?.response.length>0 ? item?.attributes?.response.length:'0'} Response</Button>
                     </Box>
                     {/* <Button className="success">Resolved</Button> */}
                   </CardActions>
@@ -95,7 +96,7 @@ class Suggestion extends SuggestionController {
                   <h6 className="bottom-text">POWERED BY</h6>
                   <img src={Tenant_Logo.default} className="tenant-logo" alt="" />
                 </Box> */}
-              </Box>
+              </Box>               
             </Grid>
             {/* desktop footer block */}
             <Grid item xs={12} md={5} className="auth-cols">

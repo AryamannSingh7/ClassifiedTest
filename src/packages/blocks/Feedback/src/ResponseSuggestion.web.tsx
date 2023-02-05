@@ -92,7 +92,7 @@ render() {
 
 
                   
-                <Box className="customButton add-incident">
+                <Box className="customButton" style={{backgroundColor:'white'}}>
               
                 <Button variant="contained" onClick={() => { this.setState({ loading: true });//@ts-ignore
                 window.history.back() }} >Close</Button>

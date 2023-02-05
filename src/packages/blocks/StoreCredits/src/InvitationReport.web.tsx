@@ -1,6 +1,6 @@
 // Customizable Area Start
 import React from "react";
-import { Container, Typography, withStyles, Divider, Box, Grid, Card } from "@material-ui/core";
+import {Container, Typography, withStyles, Divider, Box, Grid, Card} from "@material-ui/core";
 import InvitationReportController, { Props } from "./InvitationReportController.web";
 import DashboardHeader from "../../dashboard/src/DashboardHeader.web";
 import ChairmanSidebarWeb from "../../dashboard/src/ChairmanSidebar.web";
@@ -40,13 +40,11 @@ class InvitationReport extends InvitationReportController {
                     <Typography variant="h5" className="sub-heading">
                       {t("Invitations Reports")}
                     </Typography>
-                    <select name="" id="">
-                      <option value="">2021</option>
-                      <option value="">2022</option>
-                      <option value="">2023</option>
-                      <option value="">2024</option>
-                      <option value="">2025</option>
-                      <option value="">2026</option>
+                    <select name="" id="" value={this.state.selectedYear} onChange={this.manageChangeYear}>
+                      <option value={(new Date().getFullYear()) - 3}>{(new Date().getFullYear()) - 3}</option>
+                      <option value={(new Date().getFullYear()) - 2}>{(new Date().getFullYear()) - 2}</option>
+                      <option value={(new Date().getFullYear()) - 1}>{(new Date().getFullYear()) - 1}</option>
+                      <option value={(new Date().getFullYear())}>{(new Date().getFullYear())}</option>
                     </select>
                   </Box>
                 </Box>
@@ -65,27 +63,27 @@ class InvitationReport extends InvitationReportController {
                       <hr />
                       <Box className="audit-line">
                         <p>Total Sent Invitations</p>
-                        <span>12 </span>
+                        <span>{this.state.invitationData?.total_member_invitation_sent|| 0} </span>
                       </Box>
                       <hr />
                       <Box className="audit-line">
                         <p>Accepted Invitations by users</p>
-                        <span>2022</span>
+                        <span>{this.state.invitationData?.member_invitation_accepted || 0}</span>
                       </Box>
                       <hr />
                       <Box className="audit-line">
                         <p>Rejected Invitation by users</p>
-                        <span>2022</span>
+                        <span>{this.state.invitationData?.member_invitation_rejected || 0}</span>
                       </Box>
                       <hr />
                       <Box className="audit-line">
                         <p>Total Received Invitations</p>
-                        <span>2022</span>
+                        <span>{this.state.invitationData?.total_ragistration_request || 0}</span>
                       </Box>
                       <hr />
                       <Box className="audit-line">
                         <p>Pending join requests</p>
-                        <span>2022</span>
+                        <span>{this.state.invitationData?.total_member_invitation_pending || 0}</span>
                       </Box>
                       <hr />
                       <Box className="audit-line">

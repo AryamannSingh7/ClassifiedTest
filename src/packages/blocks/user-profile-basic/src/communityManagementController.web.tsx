@@ -75,11 +75,17 @@ export interface S {
   setRequestOpen:boolean;
   allBuilding:any;
   selectedBUilding:any;
+  selectedBUildingId:any;
   selctedUnit:any;
   selectedUserType:any;
   query:any;
   allProfileKeys:any;
   invitatonCount:any;
+  open:boolean;
+  open2:boolean;
+  open3:boolean;
+
+
   // Customizable Area End
 }
 
@@ -114,6 +120,7 @@ export default class CommunityUserProfileController extends BlockComponent<
   getBuildingApiCallId: any;
   createChatRoomAPIId:any;
   getUnitApiCallId: any;
+  getUnitApiCallId2: any;
   createVehicleApiCallId:any;
   deleteVehicleAPICallId:any;
   getProfileDataAPiCallId:any;
@@ -135,6 +142,7 @@ export default class CommunityUserProfileController extends BlockComponent<
   btnTextSignUp: string;
   getInvitationCountApiCallId:any
   currentCountryCode: any;
+  getRequestDataAPICall:any
   // createInvitationAPICallId:any;
   // Customizable Area End
 
@@ -208,11 +216,16 @@ const profileData = JSON.parse(localStorage.getItem('profileData') ||'{}')
   setRequestOpen:false,
   allBuilding:[],
   selectedBUilding:null,
+  selectedBUildingId:null,
   selctedUnit:null,
   selectedUserType:null,
   query:null,
   allProfileKeys:[],
-  invitatonCount:null
+  invitatonCount:null,
+  open:false,
+  open2:false,
+  open3:false,
+
 
       // Customizable Area End
     };
@@ -313,10 +326,30 @@ const profileData = JSON.parse(localStorage.getItem('profileData') ||'{}')
     else if (apiRequestCallId === this.deleteVehicleAPICallId) {
       this.deleteReqRes(responseJson,errorReponse)
       
-    }
+    }else if(apiRequestCallId ===this.getRequestDataAPICall){
+      
+        this.getRequestDataRes(responseJson,errorReponse)
+      }
+      else if (apiRequestCallId === this.getUnitApiCallId2) {
+        this.getUnitApiRes2(responseJson,errorReponse)
+        
+      }
   }
   deleteReqRes(responseJson:any,errorReponse:any){
     window.location.reload()
+
+  }
+  getRequestDataRes(responseJson:any,errorReponse:any){
+    if (!responseJson.errors) {
+      this.setState({allInvitation:responseJson.data,loading:false},()=>console.log(this.state.allInvitation))
+      
+      
+                } else {
+                  //Check Error Response
+                  this.parseApiErrorResponse(responseJson);
+                }
+      
+                this.parseApiCatchErrorResponse(errorReponse);
 
   }
   verifyOTPRes(responseJson:any,errorReponse:any){
@@ -349,7 +382,7 @@ const profileData = JSON.parse(localStorage.getItem('profileData') ||'{}')
   getInvitationCountRes(responseJson:any,errorReponse:any){
     if (!responseJson.errors) {
       console.log(responseJson)
-      this.setState({ invitatonCount:responseJson,loading: false })
+      this.setState({ invitatonCount:responseJson,loading: false },()=>console.log('123',this.state.invitatonCount))
     } 
     else if (responseJson?.errors) {
 
@@ -444,7 +477,7 @@ this.setState({loading:false,showDialog:false})
   }
   getInvitationRes(responseJson:any,errorReponse:any){
     if (!responseJson.errors) {
-      this.setState({allInvitation:responseJson.member_invitations.data,loading:false},()=>console.log(this.state.allInvitation))
+      this.setState({allInvitation:responseJson.member_invitations.data,loading:false},()=>console.log('123h',this.state.allInvitation))
       
       
                 } else {
@@ -542,7 +575,21 @@ this.setState({loading:false,showDialog:false})
       //@ts-ignore
       //@ts-nocheck
 
-      this.setState({ allUnit: responseJson.data.unit_apartments })
+      this.setState({ allUnit: responseJson.data?.unit_apartments })
+    } else {
+      //Check Error Response
+      this.parseApiErrorResponse(responseJson);
+    }
+
+    this.parseApiCatchErrorResponse(errorReponse);
+  }
+  getUnitApiRes2(responseJson:any,errorReponse:any){
+    if (!responseJson.errors) {
+      console.log(responseJson)
+      //@ts-ignore
+      //@ts-nocheck
+
+      this.setState({ allUnit: responseJson?.apartment_managements.data})
     } else {
       //Check Error Response
       this.parseApiErrorResponse(responseJson);
@@ -1345,8 +1392,8 @@ this.setState({loading:true})
       getName(MessageEnum.RestAPIResponceEndPointMessage),
       //@ts-ignore
       //@ts-nocheck
-       `bx_block_settings/apartment_managements/unit_list?society_management_id=${localStorage.getItem('society_id')}&building_management_id=${this.state.selectedBUilding}`
-      // `bx_block_address/apartment_list?id=${this.state.selectBuilding.id}`
+      //  `bx_block_settings/apartment_managements/unit_list?society_management_id=${localStorage.getItem('society_id')}&building_management_id=${this.state.selectedBUilding}`
+      `bx_block_address/apartment_list?id=${this.state.selectedBUilding}`
 
     );
 
@@ -1375,12 +1422,13 @@ this.setState({loading:true})
     );
 
 
-    this.getUnitApiCallId = requestMessage.messageId;
+    this.getUnitApiCallId2 = requestMessage.messageId;
     requestMessage.addData(
       getName(MessageEnum.RestAPIResponceEndPointMessage),
       //@ts-ignore
       //@ts-nocheck
-       `bx_block_address/apartment_list?id=${value}`
+      //  `bx_block_address/apartment_list?id=${value}`
+       `bx_block_settings/apartment_managements/apartment_list?building_management_id=${value}&status=No-Own`
       // `bx_block_address/apartment_list?id=${this.state.selectBuilding.id}`
 
     );
@@ -1570,7 +1618,7 @@ this.setState({loading:true})
     this.getInvitationCountApiCallId = requestMessage.messageId;
     requestMessage.addData(
       getName(MessageEnum.RestAPIResponceEndPointMessage),
-      `bx_block_request_management/member_invitations/request_count`
+      `bx_block_request_management/member_invitations/request_count?society_id=${localStorage.getItem('society_id')}`
     );
 
     requestMessage.addData(
@@ -2102,12 +2150,12 @@ let userType=localStorage.getItem('userType')
       const requestMessage = new Message(
         getName(MessageEnum.RestAPIRequestMessage)
       );
-      this.getInvitationAPICall = requestMessage.messageId;
+      this.getRequestDataAPICall = requestMessage.messageId;
       this.setState({ loading: true });
 
       requestMessage.addData(
         getName(MessageEnum.RestAPIResponceEndPointMessage),
-        `https://ti1finalleap-158677-ruby.b158677.dev.eastus.az.svc.builder.cafe/bx_block_request_management/request_data?society_management_id=6`
+        `https://ti1finalleap-158677-ruby.b158677.dev.eastus.az.svc.builder.cafe/bx_block_request_management/request_data?society_management_id=${localStorage.getItem('society_id')}`
       );
 
       requestMessage.addData(
@@ -2462,6 +2510,28 @@ let userType=localStorage.getItem('userType')
     } catch (error) {
       console.log(error);
     }
+  }
+  handleTooltipClose=(value:any)=>{
+    if(value===1){
+      this.setState({open:false})
+    }else if(value==2){
+      this.setState({open2:false})
+    
+    }else{
+      this.setState({open3:false})
+    
+    }
+  }
+  handleTooltipOpen=(value:any)=>{
+if(value===1){
+  this.setState({open:true})
+}else if(value==2){
+  this.setState({open2:true})
+
+}else{
+  this.setState({open3:true})
+
+}
   }
   // Customizable Area End
 }

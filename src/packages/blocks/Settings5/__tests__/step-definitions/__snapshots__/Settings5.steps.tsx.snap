@@ -94,7 +94,7 @@ exports[`Settings5 User navigates to Settings5 1`] = `
           <Image
             source={
               Object {
-                "testUri": "../../../packages/blocks/Settings5/assets/ic_password_invisible.png",
+                "testUri": "../../../packages/blocks/Settings5/assets/ic_password_visible.png",
               }
             }
             style={Object {}}
@@ -206,7 +206,7 @@ exports[`Settings5 User navigates to Settings5 2`] = `
           <Image
             source={
               Object {
-                "testUri": "../../../packages/blocks/Settings5/assets/ic_password_invisible.png",
+                "testUri": "../../../packages/blocks/Settings5/assets/ic_password_visible.png",
               }
             }
             style={Object {}}
@@ -318,7 +318,7 @@ exports[`Settings5 User navigates to Settings5 3`] = `
           <Image
             source={
               Object {
-                "testUri": "../../../packages/blocks/Settings5/assets/ic_password_invisible.png",
+                "testUri": "../../../packages/blocks/Settings5/assets/ic_password_visible.png",
               }
             }
             style={Object {}}
@@ -430,7 +430,7 @@ exports[`Settings5 User navigates to Settings5 4`] = `
           <Image
             source={
               Object {
-                "testUri": "../../../packages/blocks/Settings5/assets/ic_password_invisible.png",
+                "testUri": "../../../packages/blocks/Settings5/assets/ic_password_visible.png",
               }
             }
             style={Object {}}

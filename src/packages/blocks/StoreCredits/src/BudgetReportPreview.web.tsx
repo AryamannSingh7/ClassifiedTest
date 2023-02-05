@@ -78,13 +78,13 @@ class SurveyPreview extends GenerateBudgetReportController {
                                                       return(
                                                           <TableRow key={key}>
                                                               <TableCell align="left" style={{ display: "flex", alignItems: "center" }}>
-                                                                  {item.budgetCategory}
+                                                                  {item.budget_category}
                                                                   <HtmlTooltip
                                                                       title={
                                                                           <React.Fragment>
                                                                               <Box style={{ margin: "10px" }}>
                                                                                   <Typography variant="h6" style={{ fontWeight: "bold", marginBottom: "10px" }}>
-                                                                                      {item.budgetCategory}
+                                                                                      {item.budget_category}
                                                                                   </Typography>
                                                                                   <Typography variant="subtitle2"
                                                                                               dangerouslySetInnerHTML={
@@ -100,7 +100,7 @@ class SurveyPreview extends GenerateBudgetReportController {
                                                                   </HtmlTooltip>
                                                               </TableCell>
                                                               <TableCell align="right" style={{ paddingRight: "50px" }}>
-                                                                  SR {item.amount}
+                                                                  SR {item.allocate_budget}
                                                               </TableCell>
                                                           </TableRow>
                                                       )
@@ -124,7 +124,7 @@ class SurveyPreview extends GenerateBudgetReportController {
                                           <AudienceButton onClick={this.handlePreviewForm} variant="contained" color="primary">{t("Edit")}</AudienceButton>
                                       </Box>
                                       <Box className="Publishbtn">
-                                          <PublishButton onClick={this.handleSurveyDataSubmit} type="submit" variant="outlined" color="primary">{t("PUBLISH")}</PublishButton>
+                                          <PublishButton onClick={this.handleGenerateReport} type="submit" variant="outlined" color="primary">{t("PUBLISH")}</PublishButton>
                                       </Box>
                                   </Box>
                               </Grid>
