@@ -19,16 +19,16 @@ import {
   Backdrop,
   FormControl,
   NativeSelect,
-  Menu,
-  MenuItem,
   FormLabel,
   Select,
   InputLabel
 } from "@material-ui/core";
 import SearchIcon from "@material-ui/icons/Search";
 import MoreVertIcon from '@material-ui/icons/MoreVert';
-
+import { Menu, MenuItem, MenuButton, SubMenu } from "@szhsin/react-menu";
+import "@szhsin/react-menu/dist/core.css";
 import '../../dashboard/src/Dashboard.web.css';
+import '../assets/css/style.scss'
 
 import Box from '@material-ui/core/Box';
 import Grid from '@material-ui/core/Grid';
@@ -207,19 +207,25 @@ class AwaitingAcceptece extends CommunityUserProfileController {
                                 style={dashBoard.profileImage}
                               />
                               <CardContent style={{padding:"0px 16px 16px 16px"}}>
-                              <span style={{position:"absolute", right:"10px", top:"10px"}} onClick={(e: any) => this.handleMoreClick(e)}><MoreVertIcon color='disabled' /></span>
-                              <Menu
+                              <span style={{position:"absolute", right:"10px", top:"10px"}} > <Menu menuButton={<MoreVertIcon color='disabled' />}>
+        <MenuItem onClick={()=>this.handleDeleteRequestOpen(item)}>{t("Resend Request")}</MenuItem>
+        <MenuItem onClick={()=>this.handleResendRequest(item)}>{t("Delete Invitation Request")}</MenuItem>
+        
+      </Menu></span>
+                              {/* <Menu
                       id="simple-menu"
+                      key={index}
                       anchorEl={this.state.anchorEl1}
                       keepMounted
                       open={Boolean(this.state.anchorEl1)}
                       onClose={this.handleMoreClose}
                       style={{padding:"0px", cursor:'pointer'}}
                       >
-                      <MenuItem onClick={()=>this.handleDeleteRequestOpen(item)} style={{margin:"7px", cursor:'pointer'}}>{t("Resend Request")}{item?.id}</MenuItem>
+                      <MenuItem onClick={()=>this.handleDeleteRequestOpen(item.id)} style={{margin:"7px", cursor:'pointer'}}>{t("Resend Request")}{item?.id}</MenuItem>
                       <hr style={{margin:"0px"}}/>
-                      <MenuItem onClick={()=>this.handleResendRequest(item)} style={{margin:"7px", cursor:'pointer'}}>{t("Delete Invitation Request")}</MenuItem>
-                  </Menu>
+                      <MenuItem onClick={()=>this.handleResendRequest(item.id)} style={{margin:"7px", cursor:'pointer'}}>{t("Delete Invitation Request")}</MenuItem>
+                  </Menu> */}
+              
                               <Typography variant="h6"
                               //@ts-ignore 
                               style={dashBoard.unitno}>{item.attributes.apartment_management?.apartment_name}</Typography>
