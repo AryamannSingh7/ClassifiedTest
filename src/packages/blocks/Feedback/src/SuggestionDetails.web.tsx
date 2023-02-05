@@ -53,7 +53,7 @@ class SuggestionDetails extends SuggestionController {
                   Suggestion Details
                     </Typography>
                     <Box className="customButton">
-                      <Button variant="contained" className={data?.attributes?.response.length>0?"contain green-span":"contain red-span"} type="submit" >{data?.attributes?.response.length>0 ? data?.attributes?.response.length:'0'} Response</Button>
+                      <Button variant="contained" className={data?.attributes?.response ?data?.attributes?.response.length>0?"contain green-span":"contain red-span":"contain red-span"} type="submit" >{data?.attributes?.response ? data?.attributes?.response.length>0 ? data?.attributes?.response.length:'0':0} Response</Button>
                     </Box>
                     </Box>
                     <Box style={{border:'1px solid #F3F3F4',borderRadius:15,padding:'1rem'}}>
@@ -117,10 +117,13 @@ class SuggestionDetails extends SuggestionController {
 
                     
                   <Box className="customButton">
-                  {data?.attributes?.response.length>0 ?
+                  {data?.attributes?.response ?data?.attributes?.response.length>0 ?
                   
                     <Button variant="contained" onClick={() => { this.setState({ loading: true });//@ts-ignore
                     this.props.history.push("/ResponseSuggestion") }} >VIEW RESPONSE</Button>
+                    :
+                    <Button variant="contained" onClick={() => { this.setState({ loading: true });//@ts-ignore
+                    window.history.back() }} >Close</Button>
                     :
                     <Button variant="contained" onClick={() => { this.setState({ loading: true });//@ts-ignore
                     window.history.back() }} >Close</Button>
