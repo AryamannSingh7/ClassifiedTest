@@ -52,7 +52,7 @@ class SuggestionDetails extends SuggestionsController {
                         <p>
                           Suggestion is related to: <span>{item?.attributes?.suggestion_related?.related_to}</span>
                         </p>
-                        <span className={item?.attributes?.response ? item?.attributes?.response.length>0?"green-span":"red-span" :"red-span"}>{item?.attributes?.response ? item?.attributes?.response.length:0} Response</span>
+                        <span className={item?.attributes?.response ? "green-span":"red-span"}>{item?.attributes?.response ? item?.attributes?.response.length:0} Response</span>
                       </Box>
                       <p>Description</p>
                       <p>
