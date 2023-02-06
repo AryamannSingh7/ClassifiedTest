@@ -237,9 +237,6 @@ class DashboardGeneral extends DashboardGeneralController {
                                 <h4>{meeting.attributes.title}</h4>
                                 <p>{meeting.attributes.agenda}</p>
                               </Box>
-                              <Box>
-                                <span>SR 250</span>
-                              </Box>
                             </Box>
                             <Box className="event-content-box">
                               <Box className="event-content">
@@ -254,10 +251,6 @@ class DashboardGeneral extends DashboardGeneralController {
                                   )}
                                 </p>
                               </Box>
-                              <Box className="event-content">
-                                <img src={account} alt="calendar" />
-                                <p>John Doe</p>
-                              </Box>
                               <Box className="meeting-state-box">
                                 <Box className="meeting-state">
                                   <img src={awated} alt="calendar" />
@@ -271,6 +264,42 @@ class DashboardGeneral extends DashboardGeneralController {
                                   <img src={xmark} alt="calendar" />
                                   <p>{meeting.attributes.meeting_responses.rejected}</p>
                                 </Box>
+                              </Box>
+                            </Box>
+                          </Card>
+                        </Grid>
+                      );
+                    })}
+                    {this.state.facilityList.map((facility: any) => {
+                      return (
+                        <Grid item sm={6} key={facility.id}>
+                          <Card className="event-card">
+                            <Box className="event-heading">
+                              <Box>
+                                <h4>{t("Facility Reservation")}</h4>
+                                <p>{"Payment status"}: n/A</p>
+                              </Box>
+                              <Box>
+                                <span>
+                                  {facility.attributes.currency.currency} {facility.attributes.rent || 0}
+                                </span>
+                              </Box>
+                            </Box>
+                            <Box className="event-content-box">
+                              <Box className="event-content">
+                                <img src={location} alt="location" />
+                                <p>{facility.attributes.common_area.name}</p>
+                              </Box>
+                              <Box className="event-content">
+                                <img src={Cardcalendar} alt="calendar" />
+                                <p>
+                                  {moment(facility.attributes.date, "YYYY-MMM-DD").format("MMMM DD, YYYY")}{" "}
+                                  {facility.attributes.start_time} {t("to")} {facility.attributes.end_time}
+                                </p>
+                              </Box>
+                              <Box className="event-content">
+                                <img src={account} alt="calendar" />
+                                <p>{facility.attributes.Owner_name}</p>
                               </Box>
                             </Box>
                           </Card>

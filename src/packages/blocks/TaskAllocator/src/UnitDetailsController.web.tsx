@@ -215,7 +215,11 @@ export default class UnitDetailsController extends BlockComponent<Props, S, SS> 
         },
         rentDetails: {
           status: unit.attributes.status,
-          tenantId: unit.attributes.rent_status.data ? unit.attributes.rent_status.data.attributes.tenant.data.id : "",
+          tenantId: unit.attributes.rent_status.data
+            ? unit.attributes.rent_status.data.attributes.tenant
+              ? unit.attributes.rent_status.data.attributes.tenant.data.id
+              : ""
+            : "",
           tenantName: unit.attributes.rent_status.data ? unit.attributes.rent_status.data.attributes.tenant_name : "",
           startDate: unit.attributes.rent_status.data ? unit.attributes.rent_status.data.attributes.start_date : "",
           endDate: unit.attributes.rent_status.data ? unit.attributes.rent_status.data.attributes.end_date : "",
