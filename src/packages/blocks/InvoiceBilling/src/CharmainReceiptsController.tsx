@@ -5,7 +5,6 @@ import MessageEnum, {
   getName,
 } from "../../../framework/src/Messages/MessageEnum";
 import { runEngine } from "../../../framework/src/RunEngine";
-import { imgPasswordInVisible, imgPasswordVisible } from "../../dashboard/src/assets";
 import CommonApiCallForBlockComponent from "../../../components/src/ApiCallCommon.web";
 
 
