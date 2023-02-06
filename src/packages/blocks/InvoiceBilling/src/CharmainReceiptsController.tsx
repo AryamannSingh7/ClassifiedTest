@@ -5,7 +5,6 @@ import MessageEnum, {
   getName,
 } from "../../../framework/src/Messages/MessageEnum";
 import { runEngine } from "../../../framework/src/RunEngine";
-import { imgPasswordInVisible, imgPasswordVisible } from "../../dashboard/src/assets";
 import CommonApiCallForBlockComponent from "../../../components/src/ApiCallCommon.web";
 
 
@@ -28,17 +27,17 @@ interface S {
   paymentType:any;
   confirmPaymentModal:boolean;
   paymentAmount:any;
-  invoicesList:any;
+  receiptsList:any;
   invoiceData:any;
-  filterBuilding:any;
-  filterFloor:any;
-  filterUnit:any;
-  filterStatus:any;
-  filterType:any;
-  searchKey:any;
-  buildingList:any;
-  unitList:any;
-  floorList:any;
+  filterReceiptBuilding:any;
+  filterReceiptFloor:any;
+  filterReceiptUnit:any;
+  filterReceiptStatus:any;
+  filterReceiptType:any;
+  searchReceiptKey:any;
+  buildingReceiptList:any;
+  unitReceiptList:any;
+  floorReceiptList:any;
   page:any
   count:any;
   pagination:any;
@@ -50,10 +49,10 @@ interface SS {
 
 export default class CharmainInvoicesController extends CommonApiCallForBlockComponent<Props,S,SS> {
   getInvoiceBillingApiCallId: any
-  getInvoiceListId:any
-  getBuildingListId:any
-  getUnitListId:any;
-  getFloorList:any;
+  getReceiptListId:any
+  getBuildingListReceiptId:any
+  getUnitListReceiptId:any;
+  getFloorReceiptList:any;
   constructor(props: Props) {
     super(props);
     this.receive = this.receive.bind(this);
@@ -72,17 +71,17 @@ export default class CharmainInvoicesController extends CommonApiCallForBlockCom
       paymentType:"",
       confirmPaymentModal:false,
       paymentAmount:"",
-      invoicesList:[],
+      receiptsList:[],
       invoiceData:{},
-      filterBuilding:"",
-      filterFloor:"",
-      filterStatus:"",
-      filterType:"",
-      filterUnit:"",
-      searchKey:"",
-      buildingList:[],
-      floorList:[],
-      unitList:[],
+      filterReceiptBuilding:"",
+      filterReceiptFloor:"",
+      filterReceiptStatus:"",
+      filterReceiptType:"",
+      filterReceiptUnit:"",
+      searchReceiptKey:"",
+      buildingReceiptList:[],
+      floorReceiptList:[],
+      unitReceiptList:[],
       page:1,
       count:10,
       pagination:{
@@ -96,42 +95,42 @@ export default class CharmainInvoicesController extends CommonApiCallForBlockCom
 
   async componentDidMount(): Promise<void> {
     this.getBuildingList()
-    this.getInvoiceList({
-      buildingId:this.state.filterBuilding,
-      floorNo:this.state.filterFloor,
-      unitId:this.state.filterUnit,
-      paymentType:this.state.filterType,
-      status:this.state.filterStatus,
-      searchKey:this.state.searchKey,
+    this.getReceiptList({
+      buildingId:this.state.filterReceiptBuilding,
+      floorNo:this.state.filterReceiptFloor,
+      unitId:this.state.filterReceiptUnit,
+      paymentType:this.state.filterReceiptType,
+      status:this.state.filterReceiptStatus,
+      searchKey:this.state.searchReceiptKey,
       page:this.state.page,
     })
   }
 
-  getInvoicesListResponse = (responseJson:any) => {
-    if(responseJson.hasOwnProperty("invoices")){
+  getReceiptListResponse = (responseJson:any) => {
+    if(responseJson.hasOwnProperty("receipts")){
       this.setState({
-        invoicesList:responseJson.invoices.data,
+        receiptsList:responseJson?.receipts?.data,
         pagination:responseJson.meta.pagination,
       })
     }
   }
 
-  getBuildingListResponse = (responseJson:any) => {
+  getBuildingListReceiptResponse = (responseJson:any) => {
     if(responseJson?.hasOwnProperty("buildings")){
       this.setState({
-        buildingList:responseJson?.buildings
+        buildingReceiptList:responseJson?.buildings
       })
     }
   }
 
-  getUnitListResponse = (responseJson:any) => {
+  getUnitListReceiptResponse = (responseJson:any) => {
     if(responseJson?.hasOwnProperty("units")){
       this.setState({
-        unitList:responseJson.units
+        unitReceiptList:responseJson.units
       })
     }else{
       this.setState({
-        unitList:[]
+        unitReceiptList:[]
       })
     }
   }
@@ -140,38 +139,38 @@ export default class CharmainInvoicesController extends CommonApiCallForBlockCom
     if(getName(MessageEnum.RestAPIResponceMessage) === message.id) {
       const apiRequestCallId = message.getData(getName(MessageEnum.RestAPIResponceDataMessage));
       const responseJson = message.getData(getName(MessageEnum.RestAPIResponceSuccessMessage));
-      if(apiRequestCallId === this.getInvoiceListId){
-        this.getInvoicesListResponse(responseJson)
+      if(apiRequestCallId === this.getReceiptListId){
+        this.getReceiptListResponse(responseJson)
       }
-      if(apiRequestCallId === this.getBuildingListId){
-        this.getBuildingListResponse(responseJson)
+      if(apiRequestCallId === this.getBuildingListReceiptId){
+        this.getBuildingListReceiptResponse(responseJson)
       }
-      if(apiRequestCallId === this.getUnitListId){
-        this.getUnitListResponse(responseJson)
+      if(apiRequestCallId === this.getUnitListReceiptId){
+        this.getUnitListReceiptResponse(responseJson)
       }
     }
   }
 
-  getInvoiceList = async (data:any) => {
+  getReceiptList = async (data:any) => {
     const {buildingId,floorNo,unitId,paymentType,status,searchKey,page} = data
     console.log("Page",page)
-    this.getInvoiceListId = await this.apiCall({
+    this.getReceiptListId = await this.apiCall({
       contentType: "application/json",
       method: "GET",
-      endPoint: `/bx_block_fees_payment/invoices?search=${searchKey|| ""}&unit_id=${unitId|| ""}&building_id=${buildingId|| ""}&floor_number=${floorNo|| ""}&select_status=${status|| ""}&select_type=${paymentType|| ""}&page=${page}`,
+      endPoint: `bx_block_fees_payment/receipts?search=${searchKey|| ""}&unit_id=${unitId|| ""}&building_id=${buildingId|| ""}&floor_number=${floorNo|| ""}&select_status=${status|| ""}&select_type=${paymentType|| ""}&page=${page}`,
     });
     return true
   };
 
   selectBuilding = (e:any) => {
     this.setState({
-      filterBuilding:e.target.value,
+      filterReceiptBuilding:e.target.value,
     })
     this.getUnitList(e.target.value)
   }
 
   getBuildingList = async () => {
-    this.getBuildingListId = await this.apiCall({
+    this.getBuildingListReceiptId = await this.apiCall({
       contentType: "application/json",
       method: "GET",
       endPoint: `bx_block_fees_payment/invoices/buiding_list`,
@@ -180,7 +179,7 @@ export default class CharmainInvoicesController extends CommonApiCallForBlockCom
   };
 
   getUnitList = async (buildingId:any) => {
-    this.getUnitListId = await this.apiCall({
+    this.getUnitListReceiptId = await this.apiCall({
       contentType: "application/json",
       method: "GET",
       endPoint: `bx_block_fees_payment/invoices/unit_list?building_management_id=${buildingId}`,
@@ -188,73 +187,21 @@ export default class CharmainInvoicesController extends CommonApiCallForBlockCom
     return true
   };
 
-  txtInputWebProps = {
-    onChangeText: (text: string) => {
-      this.setState({ txtInputValue: text });
-    },
-    secureTextEntry: false,
-  };
-
-  txtInputMobileProps = {
-    ...this.txtInputWebProps,
-    autoCompleteType: "email",
-    keyboardType: "email-address",
-  };
-
-  txtInputProps = this.isPlatformWeb()
-    ? this.txtInputWebProps
-    : this.txtInputMobileProps;
-
-  btnShowHideProps = {
-    onPress: () => {
-      this.setState({ enableField: !this.state.enableField });
-      this.txtInputProps.secureTextEntry = !this.state.enableField;
-      this.btnShowHideImageProps.source = this.txtInputProps.secureTextEntry
-        ? imgPasswordVisible
-        : imgPasswordInVisible;
-    },
-  };
-
-  btnShowHideImageProps = {
-    source: this.txtInputProps.secureTextEntry
-      ? imgPasswordVisible
-      : imgPasswordInVisible,
-  };
-
-  btnExampleProps = {
-    onPress: () => this.doButtonPressed(),
-  };
-
-  doButtonPressed() {
-    let msg = new Message(getName(MessageEnum.AccoutLoginSuccess));
-    msg.addData(
-      getName(MessageEnum.AuthTokenDataMessage),
-      this.state.txtInputValue
-    );
-    this.send(msg);
-  }
-
-    handleClick = (e: any) => {
+    handleClickReceipt = (e: any) => {
         this.setState({anchorEl:e.currentTarget});
     };
 
-    handleClose = () => {
+    handleCloseReceipt = () => {
         this.setState({anchorEl:null});
     };
 
-    handleModalOpen = () => {
+    handleModalOpenReceipt = () => {
         this.setState({openModal:true});
     };
     
-    handleModalClose = () => {
+    handleModalCloseReceipt = () => {
       this.setState({openModal:false});
       console.log("close---->")
     };
-
-    handleSelect = (e: any) => {
-      console.log("select===>")
-      this.setState({payment_type:e.target.value})
-    }
-
 }
 // Customizable Area End

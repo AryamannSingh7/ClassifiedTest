@@ -24,6 +24,7 @@ interface S {
   count:any;
   page:any;
   buildingList:any;
+  pagination:any;
 }
 
 interface SS {
@@ -49,18 +50,23 @@ export default class ManagementFeeReportController extends CommonApiCallForBlock
       count:10,
       page:1,
       buildingList:[],
+      pagination:{
+        current_page:1,
+        total_count:0,
+        total_pages:1,
+      },
     };
 
     runEngine.attachBuildingBlock(this as IBlock, this.subScribedMessages);
   }
 
   async componentDidMount() {
-    await this.getManagementFeeList(this.state.status,this.state.filterYear,this.state.searchUnit,this.state.buildingId,this.state.filterMonth,this.state.page,this.state.count)
+    await this.getManagementFeeList(this.state.status,this.state.filterYear,this.state.searchUnit,this.state.buildingId,this.state.filterMonth,this.state.page)
     await this.getBuildingList()
   }
 
   searchButtonManage = async () => {
-    await this.getManagementFeeList(this.state.status,this.state.filterYear,this.state.searchUnit,this.state.buildingId,this.state.filterMonth,this.state.page,this.state.count)
+    await this.getManagementFeeList(this.state.status,this.state.filterYear,this.state.searchUnit,this.state.buildingId,this.state.filterMonth,this.state.page)
   }
 
   async receive(from: string, message: Message) {
@@ -70,7 +76,8 @@ export default class ManagementFeeReportController extends CommonApiCallForBlock
       if(apiRequestCallId === this.getManagementFeeListId){
         if(responseJson.hasOwnProperty("management_fees")){
           this.setState({
-            feeListing:responseJson?.management_fees?.data
+            feeListing:responseJson?.management_fees?.data,
+            pagination:responseJson?.meta?.pagination
           })
         }else{
           this.setState({
@@ -90,15 +97,22 @@ export default class ManagementFeeReportController extends CommonApiCallForBlock
 
   manageUnitSearch = (e:any) => {
     this.setState({searchUnit:e.target.value})
-    this.getManagementFeeList(this.state.status,this.state.filterYear,e.target.value,this.state.buildingId,this.state.filterMonth,this.state.page,this.state.count)
+    this.getManagementFeeList(this.state.status,this.state.filterYear,e.target.value,this.state.buildingId,this.state.filterMonth,this.state.page)
   }
 
-  getManagementFeeList = async (status:any,year:any,search:any,buildingId:any,month:any,page:any,count:any) => {
+  handleManagementFeePagination = (e:any,value:any) => {
+    this.getManagementFeeList(this.state.status,this.state.filterYear,e.target.value,this.state.buildingId,this.state.filterMonth,value)
+    this.setState({
+      page:value
+    })
+  }
+
+  getManagementFeeList = async (status:any,year:any,search:any,buildingId:any,month:any,page:any) => {
     const societyID = localStorage.getItem("society_id")
     this.getManagementFeeListId = await this.apiCall({
       contentType: "application/json",
       method: "GET",
-      endPoint: `society_managements/${societyID}/bx_block_report/management_fees?search_building=${buildingId}&search_year=${year}&search_status=${status}&search_by_apartment=${search}`,
+      endPoint: `society_managements/${societyID}/bx_block_report/management_fees?search_building=${buildingId}&search_year=${year}&search_status=${status}&search_by_apartment=${search}&search_month=${month}&page=${page}`,
     });
   }
 

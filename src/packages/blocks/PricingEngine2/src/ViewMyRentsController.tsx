@@ -191,12 +191,14 @@ export default class CoverImageController extends CommonApiCallForBlockComponent
         this.setState({
           paymentConfirmModal:false
         })
+        this.getRentUnitList()
       }
       if(this.partialPaymentUpdateId === apiRequestCallId){
         this.partialPaymentResponse(responseJson)
         this.setState({
           paymentConfirmModal:false
         })
+        this.getRentUnitList()
       }
     }
   }
