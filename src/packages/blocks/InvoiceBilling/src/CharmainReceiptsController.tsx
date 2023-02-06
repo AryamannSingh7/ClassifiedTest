@@ -51,9 +51,9 @@ interface SS {
 export default class CharmainInvoicesController extends CommonApiCallForBlockComponent<Props,S,SS> {
   getInvoiceBillingApiCallId: any
   getReceiptListId:any
-  getBuildingListId:any
-  getUnitListId:any;
-  getFloorList:any;
+  getBuildingListReceiptId:any
+  getUnitListReceiptId:any;
+  getFloorReceiptList:any;
   constructor(props: Props) {
     super(props);
     this.receive = this.receive.bind(this);
@@ -116,7 +116,7 @@ export default class CharmainInvoicesController extends CommonApiCallForBlockCom
     }
   }
 
-  getBuildingListResponse = (responseJson:any) => {
+  getBuildingListReceiptResponse = (responseJson:any) => {
     if(responseJson?.hasOwnProperty("buildings")){
       this.setState({
         buildingList:responseJson?.buildings
@@ -124,7 +124,7 @@ export default class CharmainInvoicesController extends CommonApiCallForBlockCom
     }
   }
 
-  getUnitListResponse = (responseJson:any) => {
+  getUnitListReceiptResponse = (responseJson:any) => {
     if(responseJson?.hasOwnProperty("units")){
       this.setState({
         unitList:responseJson.units
@@ -143,11 +143,11 @@ export default class CharmainInvoicesController extends CommonApiCallForBlockCom
       if(apiRequestCallId === this.getReceiptListId){
         this.getReceiptListResponse(responseJson)
       }
-      if(apiRequestCallId === this.getBuildingListId){
-        this.getBuildingListResponse(responseJson)
+      if(apiRequestCallId === this.getBuildingListReceiptId){
+        this.getBuildingListReceiptResponse(responseJson)
       }
-      if(apiRequestCallId === this.getUnitListId){
-        this.getUnitListResponse(responseJson)
+      if(apiRequestCallId === this.getUnitListReceiptId){
+        this.getUnitListReceiptResponse(responseJson)
       }
     }
   }
@@ -171,7 +171,7 @@ export default class CharmainInvoicesController extends CommonApiCallForBlockCom
   }
 
   getBuildingList = async () => {
-    this.getBuildingListId = await this.apiCall({
+    this.getBuildingListReceiptId = await this.apiCall({
       contentType: "application/json",
       method: "GET",
       endPoint: `bx_block_fees_payment/invoices/buiding_list`,
@@ -180,7 +180,7 @@ export default class CharmainInvoicesController extends CommonApiCallForBlockCom
   };
 
   getUnitList = async (buildingId:any) => {
-    this.getUnitListId = await this.apiCall({
+    this.getUnitListReceiptId = await this.apiCall({
       contentType: "application/json",
       method: "GET",
       endPoint: `bx_block_fees_payment/invoices/unit_list?building_management_id=${buildingId}`,

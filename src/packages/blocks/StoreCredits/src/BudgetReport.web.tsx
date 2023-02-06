@@ -33,6 +33,7 @@ import { ROLE } from "../../../framework/src/Enum";
 import { ReportsStyleWeb } from "./ReportsStyle.web";
 import { SearchIconImage } from "./assets";
 import moment from "moment"
+import PaginationModule from "./PaginationModule.web";
 class BudgetReport extends BudgetReportController {
   constructor(props: Props) {
     super(props);
@@ -123,7 +124,7 @@ class BudgetReport extends BudgetReportController {
                           this.state.budgetReportList?.length > 0 ?
                               this.state.budgetReportList.map((item:any,key:any)=> {
                                 return(
-                                    <TableRow>
+                                    <TableRow key={key}>
                                       <TableCell>{key+1}</TableCell>
                                       <TableCell>{item?.attributes?.year}</TableCell>
                                       <TableCell>{moment(item?.attributes?.report_generated_on,"DD-MM-YY").format("DD MMM YYYY")}</TableCell>
@@ -169,13 +170,7 @@ class BudgetReport extends BudgetReportController {
                     </Table>
                     <Divider />
                     <Box className="table-bottom">
-                      <Box style={{display:"flex",marginLeft:"15px"}}>
-                        <Typography style={{marginRight:"5px"}}>{t("Showing")} </Typography>
-                        <Typography style={{marginRight:"5px",fontWeight:"bold",color:"#FC8434"}}>{this.state.pagination.total_count < 10 ? this.state.pagination.total_count : (10 * this.state.page)} </Typography>
-                        <Typography style={{marginRight:"5px"}}> {t("of")} </Typography>
-                        <Typography style={{fontWeight:"bold"}}>{this.state.pagination.total_count} </Typography>
-                      </Box>
-                      <Pagination count={this.state.pagination.total_pages} onChange={this.handleBudgetReportPagination} variant="outlined" shape="rounded" />
+                      <PaginationModule handlePagination={this.handleBudgetReportPagination} pagination={this.state.pagination} page={this.state.page}/>
                     </Box>
                   </Grid>
                 </Grid>

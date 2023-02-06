@@ -31,6 +31,7 @@ import { withTranslation } from "react-i18next";
 import { ROLE } from "../../../framework/src/Enum";
 import { ReportsStyleWeb } from "./ReportsStyle.web";
 import { SearchIconImage } from "./assets";
+import PaginationModule from "./PaginationModule.web";
 
 const month = [
     "January",
@@ -199,13 +200,7 @@ class ManagementFeeReport extends ManagementFeeReportController {
                     </Table>
                     <Divider />
                     <Box className="table-bottom">
-                      <Box style={{display:"flex",marginLeft:"15px"}}>
-                        <Typography style={{marginRight:"5px"}}>{t("Showing")} </Typography>
-                        <Typography style={{marginRight:"5px",fontWeight:"bold",color:"#FC8434"}}>{this.state.pagination.total_count < 10 ? this.state.pagination.total_count : (10 * this.state.page)} </Typography>
-                        <Typography style={{marginRight:"5px"}}> {t("of")} </Typography>
-                        <Typography style={{fontWeight:"bold"}}>{this.state.pagination.total_count} </Typography>
-                      </Box>
-                      <Pagination count={this.state.pagination.total_pages} onChange={this.handleManagementFeePagination} variant="outlined" shape="rounded" />
+                      <PaginationModule handlePagination={this.handleManagementFeePagination} pagination={this.state.pagination} page={this.state.page}/>
                     </Box>
                   </Grid>
                 </Grid>
