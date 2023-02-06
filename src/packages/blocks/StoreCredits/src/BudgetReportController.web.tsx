@@ -21,6 +21,8 @@ interface S {
   status:any,
   budgetYear:"",
   searchName:any;
+  pagination:any;
+  page:any;
 }
 
 interface SS {
@@ -41,12 +43,18 @@ export default class BudgetReportController extends CommonApiCallForBlockCompone
       budgetYear:"",
       status:"",
       searchName:"",
+      page:1,
+      pagination:{
+        current_page:1,
+        total_count:0,
+        total_pages:1,
+      },
     };
     runEngine.attachBuildingBlock(this as IBlock, this.subScribedMessages);
   }
 
   async componentDidMount() {
-    this.getBudgetReport(this.state.status,this.state.budgetYear,this.state.searchName)
+    this.getBudgetReport(this.state.status,this.state.budgetYear,this.state.searchName,this.state.page)
   }
 
   async receive(from: string, message: Message) {
@@ -57,7 +65,8 @@ export default class BudgetReportController extends CommonApiCallForBlockCompone
       if(this.getBudgetData === apiRequestCallId ){
         if(responseJson.hasOwnProperty("budget_report")){
           this.setState({
-            budgetReportList:responseJson?.budget_report?.data
+            budgetReportList:responseJson?.budget_report?.data,
+            pagination:responseJson.meta.pagination
           })
         }else{
           this.setState({
@@ -68,9 +77,16 @@ export default class BudgetReportController extends CommonApiCallForBlockCompone
     }
   }
 
+  handleBudgetReportPagination = (e:any,value:any) => {
+    this.getBudgetReport(this.state.status,this.state.budgetYear,this.state.searchName,value)
+    this.setState({
+      page:value
+    })
+  }
+
   manageSearch = (e:any) => {
-    this.setState({searchName:e.target.value})
-    this.getBudgetReport(this.state.status,this.state.budgetYear,e.target.value)
+    this.setState({searchName:e.target.value,page:1})
+    this.getBudgetReport(this.state.status,this.state.budgetYear,e.target.value,1)
   }
 
   manageDownload = async (id:any) => {
@@ -78,12 +94,12 @@ export default class BudgetReportController extends CommonApiCallForBlockCompone
     await this.downloadPdf(`/society_managements/${societyID}/bx_block_report/budget_reports/${id}/download_report.pdf`,"BudgetReport.pdf")
   }
 
-  getBudgetReport = async (status:any,year:any,search:any) => {
+  getBudgetReport = async (status:any,year:any,search:any,page:any) => {
     const societyID = localStorage.getItem("society_id")
     this.getBudgetData = await this.apiCall({
       contentType: "application/json",
       method: "GET",
-      endPoint: `/society_managements/${societyID}/bx_block_report/budget_reports?status=${status}&year=${year}&search=${search}`,
+      endPoint: `/society_managements/${societyID}/bx_block_report/budget_reports?status=${status}&year=${year}&search=${search}&page=${page}`,
     });
   }
 

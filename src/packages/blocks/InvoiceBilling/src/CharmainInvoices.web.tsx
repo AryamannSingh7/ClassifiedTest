@@ -4,60 +4,54 @@ import React from "react";
 
 //components
 import {
+    Backdrop,
     Box,
-    TextField,
-    InputAdornment,
-    Typography,
-    Grid,
+    Button,
     Container,
-    TableContainer,
+    Divider,
+    Fade,
+    Grid,
+    IconButton,
+    InputBase,
+    Menu,
+    MenuItem,
+    Modal,
+    Paper,
     Table,
     TableBody,
     TableCell,
     TableHead,
     TableRow,
-    Menu,
-    MenuItem,
-    Fade,
-    Backdrop,
-    Modal,
-    Paper,
-    Button,
-    withStyles, InputBase, Divider, IconButton
+    TextField,
+    Typography,
+    withStyles
 } from "@material-ui/core";
-import { makeStyles } from '@material-ui/core/styles';
-import SearchOutlinedIcon from '@material-ui/icons/SearchOutlined';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
-import GetAppOutlinedIcon from '@material-ui/icons/GetAppOutlined';
 import Pagination from '@material-ui/lab/Pagination';
-import KeyboardBackspaceIcon from '@material-ui/icons/KeyboardBackspace';
 import Radio from '@material-ui/core/Radio';
 import RadioGroup from '@material-ui/core/RadioGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import FormControl from '@material-ui/core/FormControl';
-import FormLabel from '@material-ui/core/FormLabel';
 import Select from '@material-ui/core/Select';
-import { withRouter } from 'react-router-dom';
+import {withRouter} from 'react-router-dom';
 
-import CharmainInvoicesController, { Props } from "./CharmainInvoicesController";
+import CharmainInvoicesController, {Props} from "./CharmainInvoicesController";
 import DashboardHeader from "../../dashboard/src/DashboardHeader.web";
 import ChairmanSidebar from "../../dashboard/src/ChairmanSidebar.web";
-import { withTranslation } from 'react-i18next';
+import {withTranslation} from 'react-i18next';
 import {SearchIconImage} from "../../user-profile-basic/src/assets"
-import { SuggestionStyleWeb } from "../../user-profile-basic/src/SuggestionStyle.web";
-import {DownloadIcon,confirmIcon} from "./assets"
+import {SuggestionStyleWeb} from "../../user-profile-basic/src/SuggestionStyle.web";
+import {confirmIcon, DownloadIcon} from "./assets"
 import CloseIcon from '@material-ui/icons/Close';
 import SearchIcon from "@material-ui/icons/Search";
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import RadioButtonUncheckedIcon from '@material-ui/icons/RadioButtonUnchecked';
 import RadioButtonCheckedIcon from '@material-ui/icons/RadioButtonChecked';
 import 'web/src/i18n.js';
-
+import {CloseButton, dashBoardActions, PublishButton} from "./chairmanUIStyles"
 //resorces
 // import { Bank_Icon, Building1, Grid_Icon, Filter_Icon } from "../src/assets";
 import '../../dashboard/src/style.css'
-
-import moment from "moment";
 
 function createData( no:any, name:any, unit:any, title:any, amount:any, type:any, status:any, more:any) {
     return { no, name, unit, title, amount, type, status, more };
@@ -126,30 +120,52 @@ render() {
                         </Box>
                         <Box className="top-bar">
                             <Box className="filter">
-                                <Select displayEmpty  value={""} className="select-input">
+                                <Select displayEmpty value={this.state.filterBuilding || ""} className="select-input" onChange={this.selectBuilding}>
                                     <MenuItem value="">
                                         {t("Select Building")}
                                     </MenuItem>
+                                    {
+                                        this.state.buildingList?.map((item:any,key:any)=> {
+                                            return(
+                                                <MenuItem key={key} value={item.id}>
+                                                    {item.name}
+                                                </MenuItem>
+                                            )
+                                        })
+                                    }
                                 </Select>
-                                <Select displayEmpty  value={""} className="select-input">
+                                <Select displayEmpty  value={this.state.filterFloor || ""} className="select-input" onChange={(e) => this.setState({filterFloor:e.target.value})}>
                                     <MenuItem value="">
                                         {t("Select Floor")}
                                     </MenuItem>
                                 </Select>
-                                <Select displayEmpty value={""} className="select-input">
+                                <Select displayEmpty value={this.state.filterUnit || ""} className="select-input" onChange={(e:any) => this.setState({filterUnit:e.target.value})}>
                                     <MenuItem value="">
                                         {t("Select Unit")}
                                     </MenuItem>
+                                    {
+                                        this.state.unitList?.map((item:any,key:any)=> {
+                                            return(
+                                                <MenuItem key={key} value={item.id}>
+                                                    {item.apartment_name}
+                                                </MenuItem>
+                                            )
+                                        })
+                                    }
                                 </Select>
                                 <Select displayEmpty value={""} className="select-input">
                                     <MenuItem value="">{t("Select Type")}</MenuItem>
-                                    <MenuItem value="">{t("Management Fee")}</MenuItem>
-                                    <MenuItem value="">{t("Rent Payments")}</MenuItem>
+                                    <MenuItem value="management_fees">{t("Management Fee")}</MenuItem>
+                                    <MenuItem value="rent_payments">{t("Rent Payments")}</MenuItem>
                                 </Select>
                                 <Select displayEmpty value={""} className="select-input">
                                     <MenuItem value="">
                                         {t("Select Status")}
                                     </MenuItem>
+                                    <MenuItem value="due">{t("Due")}</MenuItem>
+                                    <MenuItem value="over_due">{t("Over Due")}</MenuItem>
+                                    <MenuItem value="paid">{t("Paid")}</MenuItem>
+                                    <MenuItem value="partially_paid">{t("Partially Paid")}</MenuItem>
                                 </Select>
                                 <Button onClick={this.handleFilterBy} startIcon={<img src={SearchIconImage} />}>{t("Search")}</Button>
                             </Box>
@@ -203,7 +219,7 @@ render() {
                                         <Typography style={{fontWeight:"bold"}}>50</Typography>
                                     </Box>
                                     <Box style={{marginRight:"10px"}}>
-                                        <Pagination count={10} variant="outlined" shape="rounded" />
+                                        <Pagination count={this.state.pagination?.total_count} variant="outlined" shape="rounded" />
                                     </Box>
                                 </Box>
                             </Grid>
@@ -446,149 +462,7 @@ render() {
 export default withTranslation()(withStyles(SuggestionStyleWeb)(withRouter(CharmainInvoices)));
 
 // Customizable Area Start
-const dashBoardActions = {
-    navigation:{
-        display: "flex",
-        justifyContent: "space-between",
-    },
-    subHeading: {
-        fontWeight:600,
-        marginTop:15,
-        marginBottom: 20,
-        marginLeft:10
-    },
-    YearMain:{
-        background: "#fff",
-        border: "1px solid #dfd4d4",
-        borderRadius: 5,
-        paddingLeft:15,
-        paddingRight: 15,
-    },
-    Cards: {
-        paddingTop: 30,
-        paddingLeft: 15,
-        paddingBottom: 25,
-        background: "#fff",
-        borderRadius: 10,
-    },
-    CardsIcons:{
-        border: "1px solid #d9d4d3",
-        borderRadius: "50%",
-        width: 25,
-        height: 25,
-        padding: 15,
-        color:"#054c94",
-    },
-    bottomColor:{
-        color: "red"
-    },
-    bottomTwoSpan:{
-        display: "flex", 
-        gap: 5, 
-        marginTop: 10
-    },
-    TableHeader:{
-        display: "flex",
-        borderBottom: "1px solid grey",
-        justifyContent: "space-between",
-        alignItems: "center",
-        paddingLeft: 15,
-        paddingRight: 55,
-    },
-    modal: {
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-    },
-    paper: {
-        backgroundColor: "#fff",
-        borderRadius: '10px',
-        // boxShadow: theme.shadows[5],
-        padding: "16px 32px 24px",
-        width:"700px",
-        overflow:"hidden",
-        minHeight:"500px"
-    },
-    modalHeader: {
-        display: "flex",
-        justifyContent: "space-between",
-        alignItems: "center",
-        margin:"10px 0px 20px 0px"
-    },
-    subHeadingFont:{
-        fontWeight:600
-    },
-    genrateReceipt:{
-        display: "flex",
-        alignItems:'center'
-    },
-    commonColor:{
-        color:"#181d257a"
-    },
-    residetails:{
-        marginTop:15
-    },
-    summary:{
-        backgroundColor:"#F9F9F9",
-        padding:"10px 20px 20px",
-        marginTop:15,
-        boxShadow:"0px"
-    },
-    receiptbtn:{
-        borderRadius:8,
-        width:"100%",
-        backgroundColor:"#2b6fed",
-        height:45,
-        fontWeight:600,
-        color:"#fff"
-    },
-    paymentbtn:{
-        borderRadius:8,
-        width:"170px",
-        backgroundColor:"#2b6fed",
-        height:45,
-        fontWeight:600,
-        color:"#fff"
-    },
-    receiptCancel:{
-        borderRadius:8,
-        width:"170px",
-        backgroundColor:"white",
-        height:45,
-        fontWeight:600,
-        color:"#2b6fed",
-        marginRight:"15px",
-        border:"1px solid #2b6fed"
-    }
-};
 
-const CloseButton = withStyles((theme) => ({
-    root: {
-        color: "white",
-        backgroundColor: "#2b6fed",
-        width:"175px",
-        fontWeight:"bold",
-        borderRadius:"8px",
-        height:"55px",
-        '&:hover': {
-            backgroundColor: "#2b6fef",
-        },
-    },
-}))(Button);
 
-const PublishButton = withStyles((theme) => ({
-    root: {
-        color: "#2b6fed",
-        backgroundColor: "white",
-        width:"175px",
-        fontWeight:"bold",
-        borderRadius:"8px",
-        border:"1px solid #2b6fed",
-        height:"55px",
-        '&:hover': {
-            color: "#2b6fef",
-        },
-    },
-}))(Button);
 
   // Customizable Area End
