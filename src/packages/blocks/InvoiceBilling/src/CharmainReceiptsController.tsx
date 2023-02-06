@@ -30,15 +30,15 @@ interface S {
   paymentAmount:any;
   receiptsList:any;
   invoiceData:any;
-  filterBuilding:any;
-  filterFloor:any;
-  filterUnit:any;
-  filterStatus:any;
-  filterType:any;
-  searchKey:any;
-  buildingList:any;
-  unitList:any;
-  floorList:any;
+  filterReceiptBuilding:any;
+  filterReceiptFloor:any;
+  filterReceiptUnit:any;
+  filterReceiptStatus:any;
+  filterReceiptType:any;
+  searchReceiptKey:any;
+  buildingReceiptList:any;
+  unitReceiptList:any;
+  floorReceiptList:any;
   page:any
   count:any;
   pagination:any;
@@ -74,15 +74,15 @@ export default class CharmainInvoicesController extends CommonApiCallForBlockCom
       paymentAmount:"",
       receiptsList:[],
       invoiceData:{},
-      filterBuilding:"",
-      filterFloor:"",
-      filterStatus:"",
-      filterType:"",
-      filterUnit:"",
-      searchKey:"",
-      buildingList:[],
-      floorList:[],
-      unitList:[],
+      filterReceiptBuilding:"",
+      filterReceiptFloor:"",
+      filterReceiptStatus:"",
+      filterReceiptType:"",
+      filterReceiptUnit:"",
+      searchReceiptKey:"",
+      buildingReceiptList:[],
+      floorReceiptList:[],
+      unitReceiptList:[],
       page:1,
       count:10,
       pagination:{
@@ -97,12 +97,12 @@ export default class CharmainInvoicesController extends CommonApiCallForBlockCom
   async componentDidMount(): Promise<void> {
     this.getBuildingList()
     this.getReceiptList({
-      buildingId:this.state.filterBuilding,
-      floorNo:this.state.filterFloor,
-      unitId:this.state.filterUnit,
-      paymentType:this.state.filterType,
-      status:this.state.filterStatus,
-      searchKey:this.state.searchKey,
+      buildingId:this.state.filterReceiptBuilding,
+      floorNo:this.state.filterReceiptFloor,
+      unitId:this.state.filterReceiptUnit,
+      paymentType:this.state.filterReceiptType,
+      status:this.state.filterReceiptStatus,
+      searchKey:this.state.searchReceiptKey,
       page:this.state.page,
     })
   }
@@ -119,7 +119,7 @@ export default class CharmainInvoicesController extends CommonApiCallForBlockCom
   getBuildingListReceiptResponse = (responseJson:any) => {
     if(responseJson?.hasOwnProperty("buildings")){
       this.setState({
-        buildingList:responseJson?.buildings
+        buildingReceiptList:responseJson?.buildings
       })
     }
   }
@@ -127,11 +127,11 @@ export default class CharmainInvoicesController extends CommonApiCallForBlockCom
   getUnitListReceiptResponse = (responseJson:any) => {
     if(responseJson?.hasOwnProperty("units")){
       this.setState({
-        unitList:responseJson.units
+        unitReceiptList:responseJson.units
       })
     }else{
       this.setState({
-        unitList:[]
+        unitReceiptList:[]
       })
     }
   }
@@ -165,7 +165,7 @@ export default class CharmainInvoicesController extends CommonApiCallForBlockCom
 
   selectBuilding = (e:any) => {
     this.setState({
-      filterBuilding:e.target.value,
+      filterReceiptBuilding:e.target.value,
     })
     this.getUnitList(e.target.value)
   }
@@ -188,73 +188,21 @@ export default class CharmainInvoicesController extends CommonApiCallForBlockCom
     return true
   };
 
-  txtInputWebProps = {
-    onChangeText: (text: string) => {
-      this.setState({ txtInputValue: text });
-    },
-    secureTextEntry: false,
-  };
-
-  txtInputMobileProps = {
-    ...this.txtInputWebProps,
-    autoCompleteType: "email",
-    keyboardType: "email-address",
-  };
-
-  txtInputProps = this.isPlatformWeb()
-    ? this.txtInputWebProps
-    : this.txtInputMobileProps;
-
-  btnShowHideProps = {
-    onPress: () => {
-      this.setState({ enableField: !this.state.enableField });
-      this.txtInputProps.secureTextEntry = !this.state.enableField;
-      this.btnShowHideImageProps.source = this.txtInputProps.secureTextEntry
-        ? imgPasswordVisible
-        : imgPasswordInVisible;
-    },
-  };
-
-  btnShowHideImageProps = {
-    source: this.txtInputProps.secureTextEntry
-      ? imgPasswordVisible
-      : imgPasswordInVisible,
-  };
-
-  btnExampleProps = {
-    onPress: () => this.doButtonPressed(),
-  };
-
-  doButtonPressed() {
-    let msg = new Message(getName(MessageEnum.AccoutLoginSuccess));
-    msg.addData(
-      getName(MessageEnum.AuthTokenDataMessage),
-      this.state.txtInputValue
-    );
-    this.send(msg);
-  }
-
-    handleClick = (e: any) => {
+    handleClickReceipt = (e: any) => {
         this.setState({anchorEl:e.currentTarget});
     };
 
-    handleClose = () => {
+    handleCloseReceipt = () => {
         this.setState({anchorEl:null});
     };
 
-    handleModalOpen = () => {
+    handleModalOpenReceipt = () => {
         this.setState({openModal:true});
     };
     
-    handleModalClose = () => {
+    handleModalCloseReceipt = () => {
       this.setState({openModal:false});
       console.log("close---->")
     };
-
-    handleSelect = (e: any) => {
-      console.log("select===>")
-      this.setState({payment_type:e.target.value})
-    }
-
 }
 // Customizable Area End

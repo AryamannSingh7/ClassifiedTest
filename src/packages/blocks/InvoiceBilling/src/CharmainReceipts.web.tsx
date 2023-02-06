@@ -112,12 +112,12 @@ render() {
                         </Box>
                         <Box className="top-bar">
                             <Box className="filter">
-                                <Select displayEmpty value={this.state.filterBuilding || ""} className="select-input" onChange={this.selectBuilding}>
+                                <Select displayEmpty value={this.state.filterReceiptBuilding || ""} className="select-input" onChange={this.selectBuilding}>
                                     <MenuItem value="">
                                         {t("Select Building")}
                                     </MenuItem>
                                     {
-                                        this.state.buildingList?.map((item:any,key:any)=> {
+                                        this.state.buildingReceiptList?.map((item:any,key:any)=> {
                                             return(
                                                 <MenuItem key={key} value={item.id}>
                                                     {item.name}
@@ -126,17 +126,17 @@ render() {
                                         })
                                     }
                                 </Select>
-                                <Select displayEmpty  value={this.state.filterFloor || ""} className="select-input" onChange={(e) => this.setState({filterFloor:e.target.value})}>
+                                <Select displayEmpty  value={this.state.filterReceiptFloor || ""} className="select-input" onChange={(e) => this.setState({filterReceiptFloor:e.target.value})}>
                                     <MenuItem value="">
                                         {t("Select Floor")}
                                     </MenuItem>
                                 </Select>
-                                <Select displayEmpty value={this.state.filterUnit || ""} className="select-input" onChange={(e:any) => this.setState({filterUnit:e.target.value})}>
+                                <Select displayEmpty value={this.state.filterReceiptUnit || ""} className="select-input" onChange={(e:any) => this.setState({filterReceiptUnit:e.target.value})}>
                                     <MenuItem value="">
                                         {t("Select Unit")}
                                     </MenuItem>
                                     {
-                                        this.state.unitList?.map((item:any,key:any)=> {
+                                        this.state.unitReceiptList?.map((item:any,key:any)=> {
                                             return(
                                                 <MenuItem key={key} value={item.id}>
                                                     {item.apartment_name}
@@ -147,17 +147,17 @@ render() {
                                 </Select>
                                 <Select displayEmpty value={""} className="select-input">
                                     <MenuItem value="">{t("Select Type")}</MenuItem>
-                                    <MenuItem value="management_fees">{t("Management Fee")}</MenuItem>
-                                    <MenuItem value="rent_payments">{t("Rent Payments")}</MenuItem>
+                                    <MenuItem value="management_fees_receipt">{t("Management Fee")}</MenuItem>
+                                    <MenuItem value="rent_payments_receipt">{t("Rent Payments")}</MenuItem>
                                 </Select>
                                 <Select displayEmpty value={""} className="select-input">
                                     <MenuItem value="">
                                         {t("Select Status")}
                                     </MenuItem>
                                     <MenuItem value="due">{t("Due")}</MenuItem>
-                                    <MenuItem value="over_due">{t("Over Due")}</MenuItem>
-                                    <MenuItem value="paid">{t("Paid")}</MenuItem>
-                                    <MenuItem value="partially_paid">{t("Partially Paid")}</MenuItem>
+                                    <MenuItem value="over_due_receipt">{t("Over Due")}</MenuItem>
+                                    <MenuItem value="paid_receipt">{t("Paid")}</MenuItem>
+                                    <MenuItem value="partially_paid_receipt">{t("Partially Paid")}</MenuItem>
                                 </Select>
                                 <Button onClick={this.handleFilterBy} startIcon={<img src={SearchIconImage} />}>{t("Search")}</Button>
                             </Box>
@@ -197,7 +197,7 @@ render() {
                                                 <TableCell align="center">{row.amount}</TableCell>
                                                 <TableCell align="center">{row.type}</TableCell>
                                                 <TableCell align="center">{row.status}</TableCell>
-                                                <TableCell align="center" onClick={(e: any) => this.handleClick(e)}>{row.more}</TableCell>
+                                                <TableCell align="center" onClick={(e: any) => this.handleClickReceipt(e)}>{row.more}</TableCell>
                                             </TableRow>
                                         ))}
                                     </TableBody>
@@ -221,14 +221,14 @@ render() {
                             anchorEl={this.state.anchorEl}
                             keepMounted
                             open={Boolean(this.state.anchorEl)}
-                            onClose={this.handleClose}
+                            onClose={this.handleCloseReceipt}
                             style={{padding:"0px", cursor:'pointer'}}
                             >
-                            <MenuItem onClick={this.handleClose} style={{margin:"7px", cursor:'pointer'}} onClick={this.handleModalOpen}>{t("View")}</MenuItem>
+                            <MenuItem onClick={this.handleCloseReceipt} style={{margin:"7px", cursor:'pointer'}} onClick={this.handleModalOpenReceipt}>{t("View")}</MenuItem>
                             <Divider style={{margin:"0px"}}/>
-                            <MenuItem onClick={this.handleClose} style={{margin:"7px", cursor:'pointer'}}>{t("Download")}</MenuItem>
+                            <MenuItem onClick={this.handleCloseReceipt} style={{margin:"7px", cursor:'pointer'}}>{t("Download")}</MenuItem>
                             <Divider style={{margin:"0px"}}/>
-                            <MenuItem onClick={this.handleClose} style={{margin:"7px", cursor:'pointer'}}>{t("Share")}</MenuItem>
+                            <MenuItem onClick={this.handleCloseReceipt} style={{margin:"7px", cursor:'pointer'}}>{t("Share")}</MenuItem>
                             </Menu>
 
                             <Modal
@@ -245,7 +245,7 @@ render() {
                                 <div style={dashBoardActions.paper}>
                                     <div style={dashBoardActions.modalHeader}>
                                     <Typography variant="h5" style={dashBoardActions.subHeadingFont}>{t("Management Fee Invoice")} - May 2022</Typography>
-                                        <IconButton onClick={this.handleModalClose}>
+                                        <IconButton onClick={this.handleModalCloseReceipt}>
                                             <CloseIcon/>
                                         </IconButton>
                                     </div>
