@@ -200,7 +200,7 @@ class BudgetReportDetails extends BudgetReportDetailsController {
                   {
                       this.state?.budgetDetails?.status !== "Pending" && this.state?.budgetDetails?.status !== "Rejected" &&
                       <Box style={{ display: "flex", justifyContent: "flex-end" }}>
-                          <RejectButton onClick={this.manageDownloadFiles}>Download Report</RejectButton>
+                          <RejectButton onClick={this.manageDownloadFile}>Download Report</RejectButton>
                       </Box>
                   }
               </Container>

@@ -121,7 +121,8 @@ src= {info} style={{paddingLeft:"10px"}}/>
 </Tooltip>
                                 </div>
                                
-                            <Typography variant="h6" style={dashBoard.cm_subHeading}>{this.state.invitatonCount?.ragistration_request_pending}</Typography>
+                            <Typography variant="h6" style={dashBoard.cm_subHeading}>{this.state.invitatonCount?.totle_ragistration_request
+}</Typography>
                         </Paper>
                         <Paper elevation={3} style={dashBoard.cm_managementPaper} 
                         >

@@ -136,7 +136,7 @@ export default class RegisterRentPaymentController extends CommonApiCallForBlock
           selectedMonth:"",
           rentAmount:"",
         })
-      }else if(responseJson.data.attributes.status === "fully_paid"){
+      }else if(responseJson.data.attributes.payment_type === "Fully_payment"){
         this.setState({
           showError:true,
           error:"Selected month rent payment is already there!",
@@ -296,19 +296,36 @@ export default class RegisterRentPaymentController extends CommonApiCallForBlock
       })
     }
   }
+  yearLogic = (selectedMonth:any) => {
+    const currentMonth = new Date().getMonth() + 1
+    const currentYear = new Date().getFullYear()
+    let year
+    if(parseInt(selectedMonth)> 6){
+      if(currentMonth > 6){
+        year = currentYear
+      }else{
+        year = currentYear - 1
+      }
+    }else{
+      year = currentYear
+    }
+    return year
+  }
 
   createPayment = () => {
     let create ={}
+    const year = this.yearLogic(this.state.selectedMonth)
     if(this.checkValues()){
       this.manageErrors()
     }else{
       if(this.state.paymentType ==="full"){
         create={
           month:this.state.selectedMonth,
-          building_management_id:this.state.selectedBuilding,
-          apartment_management_id:this.state.selectedUnit,
-          full_payment:true,
-          year:new Date().getFullYear(),
+          building_management_id:parseInt(this.state.selectedBuilding),
+          apartment_management_id:parseInt(this.state.selectedUnit),
+          contract_id:this.state.contractId,
+          full_payment:"true",
+          year:year
         }
         this.registerPayment(create)
       }else {
@@ -318,8 +335,9 @@ export default class RegisterRentPaymentController extends CommonApiCallForBlock
               month:this.state.selectedMonth,
               building_management_id:this.state.selectedBuilding,
               apartment_management_id:this.state.selectedUnit,
+              contract_id:this.state.contractId,
               partial_payment:this.state.partialPaymentAmount,
-              year:new Date().getFullYear(),
+              year:year
             }
             this.registerPayment(create)
           }else{

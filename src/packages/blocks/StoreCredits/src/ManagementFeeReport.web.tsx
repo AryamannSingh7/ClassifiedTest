@@ -32,6 +32,21 @@ import { ROLE } from "../../../framework/src/Enum";
 import { ReportsStyleWeb } from "./ReportsStyle.web";
 import { SearchIconImage } from "./assets";
 
+const month = [
+    "January",
+    "February",
+    "March",
+    "April",
+    "May",
+    "June",
+    "July",
+    "August",
+    "September",
+    "October",
+    "November",
+    "December"
+];
+
 class ManagementFeeReport extends ManagementFeeReportController {
   constructor(props: Props) {
     super(props);
@@ -72,37 +87,52 @@ class ManagementFeeReport extends ManagementFeeReportController {
                 <Box className="top-bar">
                   <Box className="filter">
                     {localStorage.getItem("userType") === ROLE.MANAGER && (
-                      <Select displayEmpty value="" className="select-input">
-                        <MenuItem value="" disabled>
+                      <Select displayEmpty value={this.state.buildingId} className="select-input" onChange={(e:any) => this.setState({buildingId:e.target.value})}>
+                        <MenuItem value="">
                           {t("Select Building")}
                         </MenuItem>
+                        {
+                          this.state.buildingList.length > 0 &&
+                            this.state.buildingList.map((item:any,key:any)=> {
+                              return(
+                                  <MenuItem key={key} value={item.id}>{item.name}</MenuItem>
+                              )
+                            })
+                        }
                       </Select>
                     )}
-                    <Select displayEmpty className="select-input" value="">
-                      <MenuItem value="" disabled>
+                    <Select displayEmpty className="select-input" value={this.state.filterYear} onChange={(e:any) => this.setState({filterYear:e.target.value})}>
+                      <MenuItem value="">
                         {t("Select Year")}
                       </MenuItem>
-                      <MenuItem value="scheduled">{t("Scheduled")}</MenuItem>
-                      <MenuItem value="completed">{t("Completed")}</MenuItem>
-                      <MenuItem value="cancelled">{t("Cancelled")}</MenuItem>
+                      <MenuItem value={(new Date().getFullYear()) - 3}>{(new Date().getFullYear()) - 3}</MenuItem>
+                      <MenuItem value={(new Date().getFullYear()) - 2}>{(new Date().getFullYear()) - 2}</MenuItem>
+                      <MenuItem value={(new Date().getFullYear()) - 1}>{(new Date().getFullYear()) - 1}</MenuItem>
+                      <MenuItem value={(new Date().getFullYear())}>{(new Date().getFullYear())}</MenuItem>
                     </Select>
-                    <Select displayEmpty className="select-input" value="">
-                      <MenuItem value="" disabled>
+                    <Select displayEmpty className="select-input" value={this.state.filterMonth} onChange={(e:any) => this.setState({filterMonth:e.target.value})}>
+                      <MenuItem value="">
                         {t("Select Month")}
                       </MenuItem>
-                      <MenuItem value="scheduled">{t("Scheduled")}</MenuItem>
-                      <MenuItem value="completed">{t("Completed")}</MenuItem>
-                      <MenuItem value="cancelled">{t("Cancelled")}</MenuItem>
+                      {
+                        month.map((item,key)=> {
+                          return(
+                              <MenuItem key={key} value={key + 1}>{item}</MenuItem>
+                          )
+                        })
+                      }
+
                     </Select>
-                    <Select displayEmpty className="select-input" value="">
-                      <MenuItem value="" disabled>
+                    <Select displayEmpty className="select-input" value={this.state.status} onChange={(e:any) => this.setState({status:e.target.value})}>
+                      <MenuItem value="">
                         {t("Select Status")}
                       </MenuItem>
-                      <MenuItem value="scheduled">{t("Pending")}</MenuItem>
-                      <MenuItem value="completed">{t("Approved")}</MenuItem>
-                      <MenuItem value="cancelled">{t("Rejected")}</MenuItem>
+                      <MenuItem value="due">{t("Due")}</MenuItem>
+                      <MenuItem value="over_due">{t("Over Due")}</MenuItem>
+                      <MenuItem value="paid">{t("Paid")}</MenuItem>
+                      <MenuItem value="partially_paid">{t("Partially Paid")}</MenuItem>
                     </Select>
-                    <Button startIcon={<img src={SearchIconImage} />} onClick={() => {}}>
+                    <Button startIcon={<img src={SearchIconImage} />} onClick={this.searchButtonManage}>
                       {t("Search")}
                     </Button>
                   </Box>
@@ -113,7 +143,7 @@ class ManagementFeeReport extends ManagementFeeReportController {
                       <h4>{t("Management Fee Reports")}</h4>
                       <div className="search-box">
                         <SearchIcon />
-                        <InputBase placeholder={t("Search by unit number")} className="search" value="" />
+                        <InputBase placeholder={t("Search by unit number")} className="search" value={this.state.searchUnit} onChange={this.manageUnitSearch}/>
                       </div>
                     </Box>
                     <Divider />
@@ -131,33 +161,40 @@ class ManagementFeeReport extends ManagementFeeReportController {
                         </TableRow>
                       </TableHead>
                       <TableBody>
-                        <TableRow>
-                          <TableCell colSpan={8}>{t("No Management Fee Reports Available")}</TableCell>
-                        </TableRow>
-                        <TableRow>
-                          <TableCell>1</TableCell>
-                          <TableCell>A-2022</TableCell>
-                          <TableCell>12 Dec 2022</TableCell>
-                          <TableCell>John Doe</TableCell>
-                          <TableCell>January-2022</TableCell>
-                          <TableCell>SR 12,000</TableCell>
-                          <TableCell>
-                            <span className="Due">Due</span>
-                          </TableCell>
-                          <TableCell>
-                            <Menu
-                              menuButton={
-                                <IconButton>
-                                  <MoreVertIcon />
-                                </IconButton>
-                              }
-                            >
-                              <MenuItem>{t("View")}</MenuItem>
-                              <MenuItem>{t("Download")}</MenuItem>
-                              <MenuItem>{t("Share")}</MenuItem>
-                            </Menu>
-                          </TableCell>
-                        </TableRow>
+                        {
+                          this.state.feeListing?.length > 0 ?
+                              this.state.feeListing.map((item:any,key:any)=> {
+                                return(
+                                    <TableRow key={key}>
+                                      <TableCell>{key+1}</TableCell>
+                                      <TableCell>{item.attributes.unit_number}</TableCell>
+                                      <TableCell>{item.attributes.paid_on}</TableCell>
+                                      <TableCell>{item.attributes.paid_by}</TableCell>
+                                      <TableCell>{item.attributes.Month_year}</TableCell>
+                                      <TableCell>SR {item.attributes.amount}</TableCell>
+                                      <TableCell>
+                                        <span className="Due">{item.attributes.status}</span>
+                                      </TableCell>
+                                      <TableCell>
+                                        <Menu
+                                            menuButton={
+                                              <IconButton>
+                                                <MoreVertIcon />
+                                              </IconButton>
+                                            }
+                                        >
+                                          <MenuItem>{t("Download")}</MenuItem>
+                                          <MenuItem>{t("Share")}</MenuItem>
+                                        </Menu>
+                                      </TableCell>
+                                    </TableRow>
+                                )
+                              })
+                              :
+                            <TableRow>
+                              <TableCell colSpan={8}>{t("No Management Fee Reports Available")}</TableCell>
+                            </TableRow>
+                        }
                       </TableBody>
                     </Table>
                     <Divider />

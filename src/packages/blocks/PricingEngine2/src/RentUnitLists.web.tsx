@@ -68,11 +68,14 @@ class RentUnitLists extends RentUnitListController{
                             })
                         }
                     </Grid>
-                     <Box style={{width:"90%",marginBottom:"50px",marginTop:"10px"}}>
-                        <CloseButton className="RegisterRentPayment" variant="contained" fullWidth size="large" onClick={()=> this.props.history.push("/AddRentPayment")}>
-                            {t("Register Rent Payment")}
-                        </CloseButton>
-                    </Box>
+                    {
+                        this.state?.UnitListing === "test" &&
+                        <Box style={{width:"90%",marginBottom:"50px",marginTop:"10px"}}>
+                            <CloseButton className="RegisterRentPayment" variant="contained" fullWidth size="large" onClick={()=> this.props.history.push("/AddRentPayment")}>
+                                {t("Register Rent Payment")}
+                            </CloseButton>
+                        </Box>
+                    }
                 </Box>
             </Grid>
         </>

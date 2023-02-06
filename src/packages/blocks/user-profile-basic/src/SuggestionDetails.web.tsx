@@ -52,7 +52,7 @@ class SuggestionDetails extends SuggestionsController {
                         <p>
                           Suggestion is related to: <span>{item?.attributes?.suggestion_related?.related_to}</span>
                         </p>
-                        <span className={item?.attributes?.response.length>0?"green-span":"red-span"}>{item?.attributes?.response.length} Response</span>
+                        <span className={item?.attributes?.response ? "green-span":"red-span"}>{item?.attributes?.response ? item?.attributes?.response.length:0} Response</span>
                       </Box>
                       <p>Description</p>
                       <p>
@@ -93,14 +93,14 @@ class SuggestionDetails extends SuggestionsController {
                   </Box>
                   <Box className="responses-box">
                     {
-                      item?.attributes?.response.length>0 && 
+                     item?.attributes?.response !=null && 
                       item?.attributes?.response.map((data:any)=><>
                        <Card>
                       <Box className="response">
                         <p>
                           Response By: <span>{item?.attributes?.sent_by?.name || 'N/A'}</span>
                         </p>
-                        <pre>{data}</pre>
+                        <pre>{data?.description}</pre>
                       </Box>
                     </Card>
                       </>)

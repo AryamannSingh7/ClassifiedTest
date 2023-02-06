@@ -413,16 +413,7 @@ class OwnerDashboard extends DashboardController {
                       />
                     </Link>
                   </Grid>
-                  <Grid item xs={6} sm={6}>
-                    <Link href="">
-                      <DashboardCard
-                        image={keyhand}
-                        heading={t("Facility Reservation")}
-                        title={t("Last Updated")}
-                        value="75"
-                      />
-                    </Link>
-                  </Grid>
+                
                 </Grid>
                 <Grid container spacing={1} style={{ marginTop: 15 }}>
                   <Grid item xs={12} sm={12} className="title">

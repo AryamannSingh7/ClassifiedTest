@@ -75,6 +75,7 @@ export interface S {
   setRequestOpen:boolean;
   allBuilding:any;
   selectedBUilding:any;
+  selectedBUildingId:any;
   selctedUnit:any;
   selectedUserType:any;
   query:any;
@@ -215,6 +216,7 @@ const profileData = JSON.parse(localStorage.getItem('profileData') ||'{}')
   setRequestOpen:false,
   allBuilding:[],
   selectedBUilding:null,
+  selectedBUildingId:null,
   selctedUnit:null,
   selectedUserType:null,
   query:null,
@@ -2308,6 +2310,7 @@ let userType=localStorage.getItem('userType')
     this.setState({setAcceptOpen:true,selectInvitation:data});
   };
   handleResendRequest = (data:any) => {
+    console.log(data)
     
     this.setState({setRequestOpen:true,selectInvitation:data})
     this.setState({anchorEl1:null});

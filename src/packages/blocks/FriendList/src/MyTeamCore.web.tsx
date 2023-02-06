@@ -78,13 +78,13 @@ class MyTeamCore extends MyTeamController {
                                 {this.props.match.params.type === "ServiceProvider" && t("Service Providers")}
                             </Box>
                         </Typography>
-                        {this.props.match.params.type === "CoreMember" &&
+                        {this.props.match.params.type === "Core_member" &&
                             <Typography variant="h5" className="subHeading"  >{t("Core Members")}</Typography>
                         }
-                        {this.props.match.params.type === "SubTeam" &&
+                        {this.props.match.params.type === "Sub_team" &&
                             <Typography variant="h5" className="subHeading"  >{t("Sub Team")}</Typography>
                         }
-                        {this.props.match.params.type === "ServiceProvider" &&
+                        {this.props.match.params.type === "Service_provider" &&
                             <Typography variant="h5" className="subHeading"  >{t("Service Providers")}</Typography>
                         }
                     </Box>
@@ -318,16 +318,19 @@ const TeamCard = (props:any) => {
                     }
                     <img src={profileExp} height="60px" width="60px" style={{borderRadius:"100px"}}  />
                     <Typography variant="h6" style={{fontWeight:"bold",marginBottom:"5px"}}>{data?.role}</Typography>
-                    <Typography variant="h6" gutterBottom style={{marginBottom:"10px"}}>{data?.account?.attributes?.full_name?.name}</Typography>
+                    <Typography variant="h6" gutterBottom style={{marginBottom:"10px"}}>{data?.name}</Typography>
                     <Grid container spacing={1} style={{width:"100%",display:"flex",alignItems:"center",justifyContent:"center"}}>
                         {
-                            data.account_roles.length > 0 &&
-                            data.account_roles.map((item:any,key:any)=> {
-                                return(
-                                    <Grid item style={{marginBottom:"15px"}}>
-                                        <Typography  key={key} variant="subtitle2" className={"statusOngoingBlue"} gutterBottom>{item.name}</Typography>
-                                    </Grid>
-                                )
+                            data.role_list.length > 0 &&
+                            data.role_list.map((item:any,key:any)=> {
+                                if(key < 3) {
+                                    return (
+                                        <Grid item key={key} style={{marginBottom: "15px"}}>
+                                            <Typography key={key} variant="subtitle2" className={"statusOngoingBlue"}
+                                                        gutterBottom>{item}</Typography>
+                                        </Grid>
+                                    )
+                                }
                             })
                         }
                     </Grid>

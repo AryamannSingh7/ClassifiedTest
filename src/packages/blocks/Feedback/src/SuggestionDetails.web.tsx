@@ -53,9 +53,11 @@ class SuggestionDetails extends SuggestionController {
                   Suggestion Details
                     </Typography>
                     <Box className="customButton">
-                      <Button variant="contained" className="contain blue" type="submit" >{data?.attributes?.response.length>0 ? data?.attributes?.response.length:'0'} Response</Button>
+                      <Button variant="contained" className={data?.attributes?.response ?"contain green-span":"contain red-span"} type="submit" >{data?.attributes?.response ? data?.attributes?.response.length:'0'} Response</Button>
                     </Box>
                     </Box>
+                    <Box style={{border:'1px solid #F3F3F4',borderRadius:15,padding:'1rem'}}>
+
                     <Box>
                     <Typography  variant="caption">
                     Suggestion is related to: 
@@ -73,7 +75,6 @@ class SuggestionDetails extends SuggestionController {
                     {data?.attributes?.description}
                     </Typography>
                     </Box>
-
                     <br/>
                     <Box>
                     <Typography  variant="caption">
@@ -83,6 +84,8 @@ class SuggestionDetails extends SuggestionController {
                     {data?.attributes?.status}
                     </Typography>
                     </Box>
+                    </Box>
+
                     <Box style={{display:'flex',justifyContent:'space-between'}}>
 
                     <Typography  className="sub-title h5-title" component="h5" style={{fontWeight:600,marginTop:'2rem'}}>
@@ -91,7 +94,7 @@ class SuggestionDetails extends SuggestionController {
                     
                     
                     </Box>
-                    <Box style={{display:'flex',justifyContent:'space-between'}}>
+                    <Box style={{display:'flex',justifyContent:'space-between',border:'1px solid #F3F3F4',borderRadius:15,padding:'1rem'}}>
 
                     <Typography className="sub-title h5-title" component="h5">
 <img src={Claender}/> Sent To:
@@ -113,14 +116,15 @@ class SuggestionDetails extends SuggestionController {
 
 
                     
-                  <Box className="customButton add-incident">
-                  {data?.attributes?.response.length>0 ?
+                  <Box className="customButton">
+                  {data?.attributes?.response ?
                   
                     <Button variant="contained" onClick={() => { this.setState({ loading: true });//@ts-ignore
                     this.props.history.push("/ResponseSuggestion") }} >VIEW RESPONSE</Button>
                     :
                     <Button variant="contained" onClick={() => { this.setState({ loading: true });//@ts-ignore
                     window.history.back() }} >Close</Button>
+                    
                   }
                   </Box>
                 </Box>

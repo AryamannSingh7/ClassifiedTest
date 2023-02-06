@@ -24,6 +24,7 @@ import CloseIcon from "@material-ui/icons/Close";
 import ArrowForwardIosOutlinedIcon from "@material-ui/icons/ArrowForwardIosOutlined";
 import DashboardController, { Props } from "./DashboardController.web";
 import {
+  keyhand,
   BuildingLogo,
   hamburgerIcon,
   globalIcon,
@@ -347,6 +348,21 @@ class ResidentDashboard extends DashboardController {
                         heading={t("My Documents")}
                         title={t("Last Uploaded")}
                         value="NA"
+                      />
+                    </Link>
+                  </Grid>
+                  <Grid item xs={6} sm={6}>
+                    <Link href="/AddRentPayment">
+                      <DashboardCard image={keyhand} heading={t("Register Rent Payment")} title={t("Register Rent")} value="75" />
+                    </Link>
+                  </Grid>
+                  <Grid item xs={6} sm={6}>
+                    <Link href="/AddRentPayment">
+                      <DashboardCard
+                          image={keyhand}
+                          heading={t("Register Rent Payment")}
+                          title={t("Register Rent Payment")}
+                          value=""
                       />
                     </Link>
                   </Grid>
