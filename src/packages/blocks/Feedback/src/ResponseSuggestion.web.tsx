@@ -70,14 +70,14 @@ render() {
                
                <Box>
                {
-                      data?.attributes?.response.length>0 && 
+                      data?.attributes?.response !=null && 
                       data?.attributes?.response.map((item:any)=><>
                        <Card style={{marginTop:'1rem'}}>
                       <Box className="response" style={{padding:'2rem'}}>
                         <p>
                           Response By: <span>{data?.attributes?.sent_by?.name || 'N/A'}</span>
                         </p>
-                        <pre>{item}</pre>
+                        <pre>{item?.description}</pre>
                       </Box>
                     </Card>
                       </>)
