@@ -1,6 +1,6 @@
 import { defineFeature, loadFeature } from "jest-cucumber";
 import React from "react";
-import { mount, shallow } from "enzyme";
+import { mount } from "enzyme";
 import { componentProps } from "../../../../components/src/TestCase/ComponentProps.web";
 import { BrowserRouter } from "react-router-dom";
 import { DashboardStyleWeb } from "../../src/DashboardStyle.web";
@@ -20,7 +20,7 @@ defineFeature(feature, (test) => {
     let instance: any;
 
     given("I am a User loading DashboardTicket", () => {
-      DashboardTicketMountWrapper = shallow(<DashboardTicket {...DashboardTicketProps} />, {
+      DashboardTicketMountWrapper = mount(<DashboardTicket {...DashboardTicketProps} />, {
         wrappingComponent: BrowserRouter,
       });
     });
