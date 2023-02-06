@@ -2310,6 +2310,7 @@ let userType=localStorage.getItem('userType')
     this.setState({setAcceptOpen:true,selectInvitation:data});
   };
   handleResendRequest = (data:any) => {
+    console.log(data)
     
     this.setState({setRequestOpen:true,selectInvitation:data})
     this.setState({anchorEl1:null});
