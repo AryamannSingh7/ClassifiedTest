@@ -28,7 +28,7 @@ interface S {
   paymentType:any;
   confirmPaymentModal:boolean;
   paymentAmount:any;
-  invoicesList:any;
+  receiptsList:any;
   invoiceData:any;
   filterBuilding:any;
   filterFloor:any;
@@ -50,7 +50,7 @@ interface SS {
 
 export default class CharmainInvoicesController extends CommonApiCallForBlockComponent<Props,S,SS> {
   getInvoiceBillingApiCallId: any
-  getInvoiceListId:any
+  getReceiptListId:any
   getBuildingListId:any
   getUnitListId:any;
   getFloorList:any;
@@ -72,7 +72,7 @@ export default class CharmainInvoicesController extends CommonApiCallForBlockCom
       paymentType:"",
       confirmPaymentModal:false,
       paymentAmount:"",
-      invoicesList:[],
+      receiptsList:[],
       invoiceData:{},
       filterBuilding:"",
       filterFloor:"",
@@ -96,7 +96,7 @@ export default class CharmainInvoicesController extends CommonApiCallForBlockCom
 
   async componentDidMount(): Promise<void> {
     this.getBuildingList()
-    this.getInvoiceList({
+    this.getReceiptList({
       buildingId:this.state.filterBuilding,
       floorNo:this.state.filterFloor,
       unitId:this.state.filterUnit,
@@ -111,10 +111,10 @@ export default class CharmainInvoicesController extends CommonApiCallForBlockCom
     if(getName(MessageEnum.RestAPIResponceMessage) === message.id) {
       const apiRequestCallId = message.getData(getName(MessageEnum.RestAPIResponceDataMessage));
       const responseJson = message.getData(getName(MessageEnum.RestAPIResponceSuccessMessage));
-      if(apiRequestCallId === this.getInvoiceListId){
-        if(responseJson.hasOwnProperty("invoices")){
+      if(apiRequestCallId === this.getReceiptListId){
+        if(responseJson.hasOwnProperty("receipts")){
           this.setState({
-            invoicesList:responseJson.invoices.data,
+            receiptsList:responseJson?.receipts?.data,
             pagination:responseJson.meta.pagination,
           })
         }
@@ -140,13 +140,13 @@ export default class CharmainInvoicesController extends CommonApiCallForBlockCom
     }
   }
 
-  getInvoiceList = async (data:any) => {
+  getReceiptList = async (data:any) => {
     const {buildingId,floorNo,unitId,paymentType,status,searchKey,page} = data
     console.log("Page",page)
-    this.getInvoiceListId = await this.apiCall({
+    this.getReceiptListId = await this.apiCall({
       contentType: "application/json",
       method: "GET",
-      endPoint: `/bx_block_fees_payment/invoices?search=${searchKey|| ""}&unit_id=${unitId|| ""}&building_id=${buildingId|| ""}&floor_number=${floorNo|| ""}&select_status=${status|| ""}&select_type=${paymentType|| ""}&page=${page}`,
+      endPoint: `bx_block_fees_payment/receipts?search=${searchKey|| ""}&unit_id=${unitId|| ""}&building_id=${buildingId|| ""}&floor_number=${floorNo|| ""}&select_status=${status|| ""}&select_type=${paymentType|| ""}&page=${page}`,
     });
     return true
   };

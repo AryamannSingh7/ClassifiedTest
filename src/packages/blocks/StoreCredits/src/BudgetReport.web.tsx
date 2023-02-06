@@ -87,7 +87,7 @@ class BudgetReport extends BudgetReportController {
                       <MenuItem value="Approved">{t("Approved")}</MenuItem>
                       <MenuItem value="Rejected">{t("Rejected")}</MenuItem>
                     </Select>
-                    <Button startIcon={<img src={SearchIconImage} />} onClick={() => this.getBudgetReport(this.state.status,this.state.budgetYear,this.state.searchName)}>
+                    <Button startIcon={<img src={SearchIconImage} />} onClick={() => this.getBudgetReport(this.state.status,this.state.budgetYear,this.state.searchName,1)}>
                       {t("Search")}
                     </Button>
                   </Box>
@@ -169,11 +169,13 @@ class BudgetReport extends BudgetReportController {
                     </Table>
                     <Divider />
                     <Box className="table-bottom">
-                      <p>
-                        Showing <span className="current-page">{0}</span> of <span className="total-page">0</span>{" "}
-                        results
-                      </p>
-                      <Pagination siblingCount={2} variant="outlined" shape="rounded" />
+                      <Box style={{display:"flex",marginLeft:"15px"}}>
+                        <Typography style={{marginRight:"5px"}}>{t("Showing")} </Typography>
+                        <Typography style={{marginRight:"5px",fontWeight:"bold",color:"#FC8434"}}>{this.state.pagination.total_count < 10 ? this.state.pagination.total_count : (10 * this.state.page)} </Typography>
+                        <Typography style={{marginRight:"5px"}}> {t("of")} </Typography>
+                        <Typography style={{fontWeight:"bold"}}>{this.state.pagination.total_count} </Typography>
+                      </Box>
+                      <Pagination count={this.state.pagination.total_pages} onChange={this.handleBudgetReportPagination} variant="outlined" shape="rounded" />
                     </Box>
                   </Grid>
                 </Grid>

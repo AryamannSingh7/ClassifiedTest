@@ -126,30 +126,52 @@ render() {
                         </Box>
                         <Box className="top-bar">
                             <Box className="filter">
-                                <Select displayEmpty  value={""} className="select-input">
+                                <Select displayEmpty value={this.state.filterBuilding || ""} className="select-input" onChange={this.selectBuilding}>
                                     <MenuItem value="">
                                         {t("Select Building")}
                                     </MenuItem>
+                                    {
+                                        this.state.buildingList?.map((item:any,key:any)=> {
+                                            return(
+                                                <MenuItem key={key} value={item.id}>
+                                                    {item.name}
+                                                </MenuItem>
+                                            )
+                                        })
+                                    }
                                 </Select>
-                                <Select displayEmpty  value={""} className="select-input">
+                                <Select displayEmpty  value={this.state.filterFloor || ""} className="select-input" onChange={(e) => this.setState({filterFloor:e.target.value})}>
                                     <MenuItem value="">
                                         {t("Select Floor")}
                                     </MenuItem>
                                 </Select>
-                                <Select displayEmpty value={""} className="select-input">
+                                <Select displayEmpty value={this.state.filterUnit || ""} className="select-input" onChange={(e:any) => this.setState({filterUnit:e.target.value})}>
                                     <MenuItem value="">
                                         {t("Select Unit")}
                                     </MenuItem>
+                                    {
+                                        this.state.unitList?.map((item:any,key:any)=> {
+                                            return(
+                                                <MenuItem key={key} value={item.id}>
+                                                    {item.apartment_name}
+                                                </MenuItem>
+                                            )
+                                        })
+                                    }
                                 </Select>
                                 <Select displayEmpty value={""} className="select-input">
                                     <MenuItem value="">{t("Select Type")}</MenuItem>
-                                    <MenuItem value="">{t("Management Fee")}</MenuItem>
-                                    <MenuItem value="">{t("Rent Payments")}</MenuItem>
+                                    <MenuItem value="management_fees">{t("Management Fee")}</MenuItem>
+                                    <MenuItem value="rent_payments">{t("Rent Payments")}</MenuItem>
                                 </Select>
                                 <Select displayEmpty value={""} className="select-input">
                                     <MenuItem value="">
                                         {t("Select Status")}
                                     </MenuItem>
+                                    <MenuItem value="due">{t("Due")}</MenuItem>
+                                    <MenuItem value="over_due">{t("Over Due")}</MenuItem>
+                                    <MenuItem value="paid">{t("Paid")}</MenuItem>
+                                    <MenuItem value="partially_paid">{t("Partially Paid")}</MenuItem>
                                 </Select>
                                 <Button onClick={this.handleFilterBy} startIcon={<img src={SearchIconImage} />}>{t("Search")}</Button>
                             </Box>

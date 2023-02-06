@@ -25,21 +25,12 @@ import {
     Button,
     withStyles, InputBase, Divider, IconButton
 } from "@material-ui/core";
-import { makeStyles } from '@material-ui/core/styles';
-import SearchOutlinedIcon from '@material-ui/icons/SearchOutlined';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
-import GetAppOutlinedIcon from '@material-ui/icons/GetAppOutlined';
 import Pagination from '@material-ui/lab/Pagination';
-import KeyboardBackspaceIcon from '@material-ui/icons/KeyboardBackspace';
-import Radio from '@material-ui/core/Radio';
-import RadioGroup from '@material-ui/core/RadioGroup';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import FormControl from '@material-ui/core/FormControl';
-import FormLabel from '@material-ui/core/FormLabel';
 import Select from '@material-ui/core/Select';
 import { withRouter } from 'react-router-dom';
 
-import CharmainInvoicesController, { Props } from "./CharmainInvoicesController";
+import CharmainReceiptsController, { Props } from "./CharmainReceiptsController";
 import DashboardHeader from "../../dashboard/src/DashboardHeader.web";
 import ChairmanSidebar from "../../dashboard/src/ChairmanSidebar.web";
 import { withTranslation } from 'react-i18next';
@@ -76,7 +67,7 @@ function createData( no:any, name:any, unit:any, title:any, amount:any, type:any
     createData(10, 'Gingerbread', 356,'May - 2022 invoices', 'SR 300', 'Managment Fees', 'partialy Paid', <MoreVertIcon color='disabled' />),
   ];
 
-class CharmainInvoices extends CharmainInvoicesController {
+class CharmainInvoices extends CharmainReceiptsController {
 constructor(props: Props) {
     super(props);
     // Customizable Area Start
@@ -126,25 +117,52 @@ render() {
                         </Box>
                         <Box className="top-bar">
                             <Box className="filter">
-                                <Select displayEmpty  value={""} className="select-input">
-                                    <MenuItem value="" disabled>
+                                <Select displayEmpty value={this.state.filterBuilding || ""} className="select-input" onChange={this.selectBuilding}>
+                                    <MenuItem value="">
+                                        {t("Select Building")}
+                                    </MenuItem>
+                                    {
+                                        this.state.buildingList?.map((item:any,key:any)=> {
+                                            return(
+                                                <MenuItem key={key} value={item.id}>
+                                                    {item.name}
+                                                </MenuItem>
+                                            )
+                                        })
+                                    }
+                                </Select>
+                                <Select displayEmpty  value={this.state.filterFloor || ""} className="select-input" onChange={(e) => this.setState({filterFloor:e.target.value})}>
+                                    <MenuItem value="">
                                         {t("Select Floor")}
                                     </MenuItem>
                                 </Select>
-                                <Select displayEmpty value={""} className="select-input">
-                                    <MenuItem value="" disabled>
+                                <Select displayEmpty value={this.state.filterUnit || ""} className="select-input" onChange={(e:any) => this.setState({filterUnit:e.target.value})}>
+                                    <MenuItem value="">
                                         {t("Select Unit")}
                                     </MenuItem>
+                                    {
+                                        this.state.unitList?.map((item:any,key:any)=> {
+                                            return(
+                                                <MenuItem key={key} value={item.id}>
+                                                    {item.apartment_name}
+                                                </MenuItem>
+                                            )
+                                        })
+                                    }
                                 </Select>
                                 <Select displayEmpty value={""} className="select-input">
-                                    <MenuItem value="" disabled>
-                                        {t("Select Type")}
-                                    </MenuItem>
+                                    <MenuItem value="">{t("Select Type")}</MenuItem>
+                                    <MenuItem value="management_fees">{t("Management Fee")}</MenuItem>
+                                    <MenuItem value="rent_payments">{t("Rent Payments")}</MenuItem>
                                 </Select>
                                 <Select displayEmpty value={""} className="select-input">
-                                    <MenuItem value="" disabled>
+                                    <MenuItem value="">
                                         {t("Select Status")}
                                     </MenuItem>
+                                    <MenuItem value="due">{t("Due")}</MenuItem>
+                                    <MenuItem value="over_due">{t("Over Due")}</MenuItem>
+                                    <MenuItem value="paid">{t("Paid")}</MenuItem>
+                                    <MenuItem value="partially_paid">{t("Partially Paid")}</MenuItem>
                                 </Select>
                                 <Button onClick={this.handleFilterBy} startIcon={<img src={SearchIconImage} />}>{t("Search")}</Button>
                             </Box>
