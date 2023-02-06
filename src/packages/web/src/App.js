@@ -433,7 +433,7 @@ const routeMap = {
     path: '/ChairmanChat',
     exact: true
   },
-  ChairmanChat: {
+  ChairmanChat2: {
     component: ChairmanChat,
     path: '/AuditorChat',
     exact: true
