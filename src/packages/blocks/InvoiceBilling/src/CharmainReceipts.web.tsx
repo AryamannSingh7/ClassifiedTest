@@ -224,7 +224,7 @@ render() {
                             onClose={this.handleCloseReceipt}
                             style={{padding:"0px", cursor:'pointer'}}
                             >
-                            <MenuItem onClick={this.handleCloseReceipt} style={{margin:"7px", cursor:'pointer'}} onClick={this.handleModalOpenReceipt}>{t("View")}</MenuItem>
+                            <MenuItem onClick={this.handleCloseReceipt} style={{margin:"7px", cursor:'pointer'}}>{t("View")}</MenuItem>
                             <Divider style={{margin:"0px"}}/>
                             <MenuItem onClick={this.handleCloseReceipt} style={{margin:"7px", cursor:'pointer'}}>{t("Download")}</MenuItem>
                             <Divider style={{margin:"0px"}}/>
