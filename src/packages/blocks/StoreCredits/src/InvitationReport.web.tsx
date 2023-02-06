@@ -88,7 +88,7 @@ class InvitationReport extends InvitationReportController {
                       <hr />
                       <Box className="audit-line">
                         <p>Sent invitations awaiting acceptance</p>
-                        <span>2022</span>
+                        <span>{this.state.invitationData?.total_member_invitation_pending || 0}</span>
                       </Box>
                     </Box>
                   </Card>
