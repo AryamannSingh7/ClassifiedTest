@@ -4,51 +4,46 @@ import React from "react";
 
 //components
 import {
+    Backdrop,
     Box,
-    TextField,
-    InputAdornment,
-    Typography,
-    Grid,
+    Button,
     Container,
-    TableContainer,
+    Divider,
+    Fade,
+    Grid,
+    IconButton,
+    InputBase,
+    Menu,
+    MenuItem,
+    Modal,
+    Paper,
     Table,
     TableBody,
     TableCell,
     TableHead,
     TableRow,
-    Menu,
-    MenuItem,
-    Fade,
-    Backdrop,
-    Modal,
-    Paper,
-    Button,
-    withStyles, InputBase, Divider, IconButton
+    Typography,
+    withStyles
 } from "@material-ui/core";
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 import Pagination from '@material-ui/lab/Pagination';
 import Select from '@material-ui/core/Select';
-import { withRouter } from 'react-router-dom';
+import {withRouter} from 'react-router-dom';
 
-import CharmainReceiptsController, { Props } from "./CharmainReceiptsController";
+import CharmainReceiptsController, {Props} from "./CharmainReceiptsController";
 import DashboardHeader from "../../dashboard/src/DashboardHeader.web";
 import ChairmanSidebar from "../../dashboard/src/ChairmanSidebar.web";
-import { withTranslation } from 'react-i18next';
+import {withTranslation} from 'react-i18next';
 import {SearchIconImage} from "../../user-profile-basic/src/assets"
-import { SuggestionStyleWeb } from "../../user-profile-basic/src/SuggestionStyle.web";
-import {DownloadIcon,confirmIcon} from "./assets"
+import {SuggestionStyleWeb} from "../../user-profile-basic/src/SuggestionStyle.web";
+import {confirmIcon, DownloadIcon} from "./assets"
 import CloseIcon from '@material-ui/icons/Close';
 import SearchIcon from "@material-ui/icons/Search";
-import ArrowBackIcon from '@material-ui/icons/ArrowBack';
-import RadioButtonUncheckedIcon from '@material-ui/icons/RadioButtonUnchecked';
-import RadioButtonCheckedIcon from '@material-ui/icons/RadioButtonChecked';
 import 'web/src/i18n.js';
-
+import {CloseButton, dashBoardActions, PublishButton} from "./chairmanUIStyles"
 //resorces
 // import { Bank_Icon, Building1, Grid_Icon, Filter_Icon } from "../src/assets";
 import '../../dashboard/src/style.css'
-
-import moment from "moment";
 
 function createData( no:any, name:any, unit:any, title:any, amount:any, type:any, status:any, more:any) {
     return { no, name, unit, title, amount, type, status, more };
@@ -330,24 +325,6 @@ render() {
                                                 </Grid>
                                             </Grid>
                                         </Box>
-                                    {/* <div style={dashBoardActions.genrateReceipt}>
-                                        <KeyboardBackspaceIcon style={{marginTop:"-3px"}}/><Typography  style={dashBoardActions.subHeading}>Generate Receipts</Typography>
-                                    </div>
-                                    <Typography>Do you want to register the payment for this invoice and and generate a receipt for the 
-                                        payment? you can chose to recognize the full payment or partial payment by selecting one of the two payment option below.
-                                    </Typography>
-                                    <Typography style={dashBoardActions.commonColor} component="h5">Resident ID: <b style={{color:"#000"}}>3030304</b> </Typography>
-                                    <Typography style={dashBoardActions.commonColor} component="h5">Resident Name: <b style={{color:"#000"}}>Jenil Patel</b> </Typography>
-                                    <Typography>Total amount to be paid: <b style={{color:"#FC8434"}}>SR, 1303</b></Typography>
-
-                                    <FormControl component="fieldset">
-                                        <FormLabel component="legend">Select Payment Type</FormLabel>
-                                        <RadioGroup aria-label="gender" name="gender1" value={this.state.payment_type} onChange={this.handleSelect}>
-                                            {console.log("selectvalue--->", this.state.payment_type)}
-                                            <FormControlLabel value="fullpayment" control={<Radio />} label="Register Full Payments" />
-                                            <FormControlLabel value="partialpayment" control={<Radio />} label="Register Partial Payments" />
-                                        </RadioGroup>
-                                    </FormControl> */}
                                 </div>
                                 </Fade>
                             </Modal>
@@ -400,149 +377,6 @@ render() {
 export default withTranslation()(withStyles(SuggestionStyleWeb)(withRouter(CharmainInvoices)));
 
 // Customizable Area Start
-const dashBoardActions = {
-    navigation:{
-        display: "flex",
-        justifyContent: "space-between",
-    },
-    subHeading: {
-        fontWeight:600,
-        marginTop:15,
-        marginBottom: 20,
-        marginLeft:10
-    },
-    YearMain:{
-        background: "#fff",
-        border: "1px solid #dfd4d4",
-        borderRadius: 5,
-        paddingLeft:15,
-        paddingRight: 15,
-    },
-    Cards: {
-        paddingTop: 30,
-        paddingLeft: 15,
-        paddingBottom: 25,
-        background: "#fff",
-        borderRadius: 10,
-    },
-    CardsIcons:{
-        border: "1px solid #d9d4d3",
-        borderRadius: "50%",
-        width: 25,
-        height: 25,
-        padding: 15,
-        color:"#054c94",
-    },
-    bottomColor:{
-        color: "red"
-    },
-    bottomTwoSpan:{
-        display: "flex", 
-        gap: 5, 
-        marginTop: 10
-    },
-    TableHeader:{
-        display: "flex",
-        borderBottom: "1px solid grey",
-        justifyContent: "space-between",
-        alignItems: "center",
-        paddingLeft: 15,
-        paddingRight: 55,
-    },
-    modal: {
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-    },
-    paper: {
-        backgroundColor: "#fff",
-        borderRadius: '10px',
-        // boxShadow: theme.shadows[5],
-        padding: "16px 32px 24px",
-        width:"700px",
-        overflow:"hidden",
-        minHeight:"500px"
-    },
-    modalHeader: {
-        display: "flex",
-        justifyContent: "space-between",
-        alignItems: "center",
-        margin:"10px 0px 20px 0px"
-    },
-    subHeadingFont:{
-        fontWeight:600
-    },
-    genrateReceipt:{
-        display: "flex",
-        alignItems:'center'
-    },
-    commonColor:{
-        color:"#181d257a"
-    },
-    residetails:{
-        marginTop:15
-    },
-    summary:{
-        backgroundColor:"#F9F9F9",
-        padding:"10px 20px 20px",
-        marginTop:15,
-        boxShadow:"0px"
-    },
-    receiptbtn:{
-        borderRadius:8,
-        width:"100%",
-        backgroundColor:"#2b6fed",
-        height:45,
-        fontWeight:600,
-        color:"#fff"
-    },
-    paymentbtn:{
-        borderRadius:8,
-        width:"170px",
-        backgroundColor:"#2b6fed",
-        height:45,
-        fontWeight:600,
-        color:"#fff"
-    },
-    receiptCancel:{
-        borderRadius:8,
-        width:"170px",
-        backgroundColor:"white",
-        height:45,
-        fontWeight:600,
-        color:"#2b6fed",
-        marginRight:"15px",
-        border:"1px solid #2b6fed"
-    }
-};
 
-const CloseButton = withStyles((theme) => ({
-    root: {
-        color: "white",
-        backgroundColor: "#2b6fed",
-        width:"175px",
-        fontWeight:"bold",
-        borderRadius:"8px",
-        height:"55px",
-        '&:hover': {
-            backgroundColor: "#2b6fef",
-        },
-    },
-}))(Button);
-
-const PublishButton = withStyles((theme) => ({
-    root: {
-        color: "#2b6fed",
-        backgroundColor: "white",
-        width:"175px",
-        fontWeight:"bold",
-        borderRadius:"8px",
-        border:"1px solid #2b6fed",
-        height:"55px",
-        '&:hover': {
-            color: "#2b6fef",
-        },
-    },
-}))(Button);
 
   // Customizable Area End

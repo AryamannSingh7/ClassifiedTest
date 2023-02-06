@@ -107,35 +107,47 @@ export default class CharmainInvoicesController extends CommonApiCallForBlockCom
     })
   }
 
+  getReceiptListResponse = (responseJson:any) => {
+    if(responseJson.hasOwnProperty("receipts")){
+      this.setState({
+        receiptsList:responseJson?.receipts?.data,
+        pagination:responseJson.meta.pagination,
+      })
+    }
+  }
+
+  getBuildingListResponse = (responseJson:any) => {
+    if(responseJson?.hasOwnProperty("buildings")){
+      this.setState({
+        buildingList:responseJson?.buildings
+      })
+    }
+  }
+
+  getUnitListResponse = (responseJson:any) => {
+    if(responseJson?.hasOwnProperty("units")){
+      this.setState({
+        unitList:responseJson.units
+      })
+    }else{
+      this.setState({
+        unitList:[]
+      })
+    }
+  }
+
   async receive(from: string, message: Message) {
     if(getName(MessageEnum.RestAPIResponceMessage) === message.id) {
       const apiRequestCallId = message.getData(getName(MessageEnum.RestAPIResponceDataMessage));
       const responseJson = message.getData(getName(MessageEnum.RestAPIResponceSuccessMessage));
       if(apiRequestCallId === this.getReceiptListId){
-        if(responseJson.hasOwnProperty("receipts")){
-          this.setState({
-            receiptsList:responseJson?.receipts?.data,
-            pagination:responseJson.meta.pagination,
-          })
-        }
+        this.getReceiptListResponse(responseJson)
       }
       if(apiRequestCallId === this.getBuildingListId){
-        if(responseJson?.hasOwnProperty("buildings")){
-          this.setState({
-            buildingList:responseJson?.buildings
-          })
-        }
+        this.getBuildingListResponse(responseJson)
       }
       if(apiRequestCallId === this.getUnitListId){
-        if(responseJson?.hasOwnProperty("units")){
-          this.setState({
-            unitList:responseJson.units
-          })
-        }else{
-          this.setState({
-            unitList:[]
-          })
-        }
+        this.getUnitListResponse(responseJson)
       }
     }
   }
