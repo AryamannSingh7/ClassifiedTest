@@ -1,7 +1,9 @@
 // App.js - WEB
 import React, { useEffect, useState } from 'react';
 import { View } from 'react-native';
-import { connect } from 'react-firebase';
+
+import { getFirebaseToken } from './firebase';
+import { baseURL } from '../../framework/src/config';
 
 import WebRoutesGenerator from '../../components/src/NativeWebRouteWrapper';
 import { ModalContainer } from 'react-router-modal';
@@ -85,6 +87,8 @@ import RegistrationRequest from '../../blocks/email-account-login/src/Registrati
 import ChairmanRegistrationRequest from '../../blocks/email-account-login/src/ChairmanRegistrationRequest.web';
 import DashboardGeneral from '../../blocks/dashboard/src/DashboardGeneral.web';
 import DashboardTicket from '../../blocks/dashboard/src/DashboardTicket.web';
+import TicketGeneratedYear from '../../blocks/dashboard/src/TicketGeneratedYear.web';
+import TicketGeneratedDays from '../../blocks/dashboard/src/TicketGeneratedDays.web';
 import DashboardActions from '../../blocks/dashboard/src/DashboardActions.web';
 import DashboardBudget from '../../blocks/dashboard/src/DashboardBudget.web';
 import BudgetDetails from '../../blocks/dashboard/src/BudgetDetails.web';
@@ -376,9 +380,6 @@ import RentedAndEmpty from '../../blocks/StoreCredits/src/MyExpenseReport/Rented
 import CityWiseRentedVsEmpty from '../../blocks/StoreCredits/src/MyExpenseReport/CityWiseRentedVsEmpty.web';
 import CollectedVsDue from '../../blocks/StoreCredits/src/MyExpenseReport/CollectedVsDue.web';
 import SpentVsCollected from '../../blocks/StoreCredits/src/MyExpenseReport/SpentVsCollected.web';
-
-import { getFirebaseToken } from './firebase';
-import { baseURL } from '../../framework/src/config';
 
 const routeMap = {
   //done
@@ -1273,12 +1274,26 @@ const routeMap = {
 
   DashboardTicket: {
     component: DashboardTicket,
-    path: '/DashboardTicket'
+    path: '/DashboardTicket',
+    roles: [ROLE.CHAIRMAN, ROLE.MANAGER],
+    exact: true
   },
-
+  TicketGeneratedYear: {
+    component: TicketGeneratedYear,
+    path: '/DashboardTicket/Year/:year',
+    roles: [ROLE.CHAIRMAN, ROLE.MANAGER],
+    exact: true
+  },
+  TicketGeneratedDays: {
+    component: TicketGeneratedDays,
+    path: '/DashboardTicket/Days/:days',
+    roles: [ROLE.CHAIRMAN, ROLE.MANAGER],
+    exact: true
+  },
   DashboardActions: {
     component: DashboardActions,
-    path: '/DashboardActions'
+    path: '/DashboardActions',
+    roles: [ROLE.CHAIRMAN, ROLE.MANAGER]
   },
 
   DashboardBudget: {
@@ -2307,6 +2322,7 @@ const App = () => {
       <ModalContainer />
     </View>
   );
+  // }
 };
 
 export default App;
