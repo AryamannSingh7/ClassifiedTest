@@ -1,7 +1,6 @@
 // App.js - WEB
-import React, { Component } from 'react';
+import React, { useEffect, useState } from 'react';
 import { View } from 'react-native';
-import firebase from 'firebase';
 import { connect } from 'react-firebase';
 
 import WebRoutesGenerator from '../../components/src/NativeWebRouteWrapper';
@@ -86,8 +85,6 @@ import RegistrationRequest from '../../blocks/email-account-login/src/Registrati
 import ChairmanRegistrationRequest from '../../blocks/email-account-login/src/ChairmanRegistrationRequest.web';
 import DashboardGeneral from '../../blocks/dashboard/src/DashboardGeneral.web';
 import DashboardTicket from '../../blocks/dashboard/src/DashboardTicket.web';
-import TicketGeneratedYear from '../../blocks/dashboard/src/TicketGeneratedYear.web';
-import TicketGeneratedDays from '../../blocks/dashboard/src/TicketGeneratedDays.web';
 import DashboardActions from '../../blocks/dashboard/src/DashboardActions.web';
 import DashboardBudget from '../../blocks/dashboard/src/DashboardBudget.web';
 import BudgetDetails from '../../blocks/dashboard/src/BudgetDetails.web';
@@ -379,6 +376,9 @@ import RentedAndEmpty from '../../blocks/StoreCredits/src/MyExpenseReport/Rented
 import CityWiseRentedVsEmpty from '../../blocks/StoreCredits/src/MyExpenseReport/CityWiseRentedVsEmpty.web';
 import CollectedVsDue from '../../blocks/StoreCredits/src/MyExpenseReport/CollectedVsDue.web';
 import SpentVsCollected from '../../blocks/StoreCredits/src/MyExpenseReport/SpentVsCollected.web';
+
+import { getFirebaseToken } from './firebase';
+import { baseURL } from '../../framework/src/config';
 
 const routeMap = {
   //done
@@ -1273,26 +1273,12 @@ const routeMap = {
 
   DashboardTicket: {
     component: DashboardTicket,
-    path: '/DashboardTicket',
-    roles: [ROLE.CHAIRMAN, ROLE.MANAGER],
-    exact: true
+    path: '/DashboardTicket'
   },
-  TicketGeneratedYear: {
-    component: TicketGeneratedYear,
-    path: '/DashboardTicket/Year/:year',
-    roles: [ROLE.CHAIRMAN, ROLE.MANAGER],
-    exact: true
-  },
-  TicketGeneratedDays: {
-    component: TicketGeneratedDays,
-    path: '/DashboardTicket/Days/:days',
-    roles: [ROLE.CHAIRMAN, ROLE.MANAGER],
-    exact: true
-  },
+
   DashboardActions: {
     component: DashboardActions,
-    path: '/DashboardActions',
-    roles: [ROLE.CHAIRMAN, ROLE.MANAGER]
+    path: '/DashboardActions'
   },
 
   DashboardBudget: {
@@ -2280,30 +2266,47 @@ const routeMap = {
   }
 };
 
-const firebaseAPI = firebase.initializeApp({
-  apiKey: 'AIzaSyDgl9aTbKMdRZ9-ijSZRionh3V591gMJl4',
-  authDomain: 'rnmasterapp-c11e9.firebaseapp.com',
-  databaseURL: 'https://rnmasterapp-c11e9.firebaseio.com',
-  projectId: 'rnmasterapp-c11e9',
-  storageBucket: 'rnmasterapp-c11e9.appspot.com',
-  messagingSenderId: '649592030497',
-  appId: '1:649592030497:web:7728bee3f2baef208daa60',
-  measurementId: 'G-FYBCF3Z2W3'
-});
+const App = () => {
+  const [notificationToken, setNotificationToken] = useState('');
 
-class App extends Component {
-  render() {
-    const defaultAnalytics = firebaseAPI.analytics();
-    defaultAnalytics.logEvent('APP_Loaded');
+  useEffect(() => {
+    if (notificationToken) return;
+    (async () => {
+      try {
+        const res = await getFirebaseToken();
+        setNotificationToken(res);
 
-    return (
-      <View style={{ height: '100%', width: '100%' }}>
-        <Toaster className="toast" position="top-right" reverseOrder={false} />
-        {WebRoutesGenerator({ routeMap })}
-        <ModalContainer />
-      </View>
-    );
-  }
-}
+        if (localStorage.getItem('userToken')) {
+          notificationApiCall(res);
+        }
+      } catch (e) {
+        console.error(e);
+      }
+    })();
+  }, [notificationToken]);
+
+  const notificationApiCall = token => {
+    let requestOptions = {
+      method: 'GET',
+      headers: { token: localStorage.getItem('userToken') }
+    };
+
+    fetch(
+      `${baseURL}/bx_block_notifications/notifications/update_device_id?device_id=${token}`,
+      requestOptions
+    )
+      .then(response => response.text())
+      .then(result => console.log(JSON.stringify(result)))
+      .catch(error => console.log('error', error));
+  };
+
+  return (
+    <View style={{ height: '100%', width: '100%' }}>
+      <Toaster className="toast" position="top-right" reverseOrder={false} />
+      {WebRoutesGenerator({ routeMap })}
+      <ModalContainer />
+    </View>
+  );
+};
 
 export default App;
