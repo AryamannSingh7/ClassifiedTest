@@ -2,32 +2,24 @@
 import React from "react";
 import "./MyTeam.web.css"
 // @ts-ignore
-import DOMPurify from 'dompurify'
 import {
     Container,
     Typography,
     Link,
     Button,
-    FormControl,
     Dialog,
-    DialogActions,
-    DialogTitle, IconButton, DialogContent, Backdrop, Fade, FormLabel, InputLabel, Modal, Card,
+    DialogActions
+    , IconButton, DialogContent, Backdrop, Fade, Modal, Card,
 } from "@material-ui/core";
 import Box from '@material-ui/core/Box';
 import Grid from '@material-ui/core/Grid';
-import Select from "@material-ui/core/Select";
-import NativeSelect from "@material-ui/core/NativeSelect";
 import {chat, email, profileExp, telephone} from "./assets"
-import {building, cancle, CheckIcon, email_icon, phone_icon, unit, user_icon} from "../../user-profile-basic/src/assets"
-import Divider from '@material-ui/core/Divider';
 // Icons
-import DateRangeOutlinedIcon from '@material-ui/icons/DateRangeOutlined';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 // Icons
 
 import MyTeamController, {
-  Props,
-  configJSON,
+  Props
 } from "./MyTeamController";
 import ChairmanSidebar from "../../dashboard/src/ChairmanSidebar.web";
 import DashboardHeader from "../../dashboard/src/DashboardHeader.web";
@@ -39,7 +31,6 @@ import '../../../web/src/i18n.js';
 import MenuItem from "@material-ui/core/MenuItem";
 import Menu from "@material-ui/core/Menu";
 import {withStyles} from "@material-ui/core/styles";
-import {Field, Form, Formik} from "formik";
 import AddTeamModal from "./AddTeamModal.web";
 import AuditorSideBarWeb from "../../customform/src/AuditorSideBar.web";
 class MyTeamAudi extends MyTeamController {

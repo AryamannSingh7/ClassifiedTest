@@ -1,7 +1,7 @@
 // Customizable Area Start
 import React from "react";
 import "../../dashboard/src/Dashboard.web.css";
-import { Typography, Link, withStyles } from "@material-ui/core";
+import { Typography, withStyles } from "@material-ui/core";
 import Box from "@material-ui/core/Box";
 import Accordion from "@material-ui/core/Accordion";
 import AccordionDetails from "@material-ui/core/AccordionDetails";
@@ -12,8 +12,7 @@ import { withRouter } from "react-router-dom";
 
 import { withTranslation } from "react-i18next";
 import "../../../web/src/i18n.js";
-import i18next from "i18next";
-import { communityManagement, myTeam, TenantLogo } from "../../dashboard/src/assets";
+import { communityManagement, TenantLogo } from "../../dashboard/src/assets";
 import AuditorController,{Props} from "./AuditorDasController.web";
 
 class AuditorSideBar extends AuditorController {
@@ -23,7 +22,6 @@ class AuditorSideBar extends AuditorController {
 
   render() {
     const { t }: any = this.props;
-    const { classes }: any = this.props;
 
    
    

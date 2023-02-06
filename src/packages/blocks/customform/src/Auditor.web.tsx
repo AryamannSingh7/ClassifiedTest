@@ -4,13 +4,11 @@
 
 import React from "react";
 import "../../dashboard/src/Dashboard.web.css";
-import { Container, Typography, Link, FormControl, withStyles } from "@material-ui/core";
+import { Container, Typography, FormControl, withStyles } from "@material-ui/core";
 import Box from "@material-ui/core/Box";
-import Select from "@material-ui/core/Select";
 import NativeSelect from "@material-ui/core/NativeSelect";
 import Grid from "@material-ui/core/Grid";
 import DashboardHeader from "../../dashboard/src/DashboardHeader.web";
-import ChairmanSidebar from "./ChairmanSidebar.web";
 import { withRouter } from 'react-router-dom';
 import { withTranslation } from 'react-i18next';
 import '../../../web/src/i18n.js';
