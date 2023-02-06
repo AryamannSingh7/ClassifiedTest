@@ -4,4 +4,6 @@ export const Claender = require("../assets/Calendar.png");
 export const Book = require("../assets/Book.png");
 export const Layout = require("../assets/Layout.png");
 export const Clipboard = require("../assets/Clipboard.png");
+export const User = require("../assets/User 2.png");
+
 

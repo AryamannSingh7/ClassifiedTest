@@ -71,13 +71,13 @@ render() {
                <Box>
                {
                       data?.attributes?.response !=null && 
-                      data?.attributes?.response.map((item:any)=><>
+                      data?.attributes?.response.data.map((item:any)=><>
                        <Card style={{marginTop:'1rem'}}>
                       <Box className="response" style={{padding:'2rem'}}>
                         <p>
-                          Response By: <span>{data?.attributes?.sent_by?.name || 'N/A'}</span>
+                          Response By: <span>{item?.attributes.account?.full_name || 'N/A'}</span>
                         </p>
-                        <pre>{item?.description}</pre>
+                        <pre style={{whiteSpace:'break-spaces'}}>{item?.attributes?.description}</pre>
                       </Box>
                     </Card>
                       </>)
