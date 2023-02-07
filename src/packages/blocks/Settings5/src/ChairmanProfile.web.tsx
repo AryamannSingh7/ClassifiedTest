@@ -65,6 +65,17 @@ class ChairmanProfile extends ProfileController {
           this.props.history.push("/ChairmanChat");
         }
       };
+      checkSideBar(){
+        {
+          if(localStorage.getItem('selectUserType') == 'Auditor') {
+
+            return <AuditorSideBarWeb {...this.props} />  
+          } else{
+
+            return <ChairmanSidebarWeb {...this.props} />
+          }
+        }
+      }
   render() {
      //@ts-ignore
             //@ts-nocheck
@@ -83,9 +94,7 @@ class ChairmanProfile extends ProfileController {
           <Box style={{ display: "flex" }}>
             <Grid item xs={3} md={3} sm={3} className="SideBar">
               {/* Chairman Sidebar -- */}
-              {
-                localStorage.getItem('selectUserType') == 'Auditor' ?   <AuditorSideBarWeb {...this.props} /> :    <ChairmanSidebarWeb {...this.props} />
-              }
+              {checkSideBar()}
             </Grid>
 
             <Grid item xs={9} md={9} sm={9} style={{ paddingTop: 35 }}>
@@ -134,588 +143,8 @@ class ChairmanProfile extends ProfileController {
               </Container>
             </Grid>
           </Box>
-
-          <Dialog
-          open={this.state.showDialog}
-          onClose={() => this.setState({ showDialog: false })}
-          aria-labelledby="alert-dialog-title"
-          aria-describedby="alert-dialog-description"
-          className="diloag-wrapper"
-          PaperProps={{
-            style: {
-              borderRadius: '15px',
-              maxWidth:650
-              
-            },
-          }}
-        >
-          <Grid container>
-            <Grid xs={12} style={{borderBottom:'1px solid #e9dede',padding: '1rem'}}>
-              <Box display='flex' justifyContent='space-between'>
-                <p style={{fontWeight:600}}>
-                  Edit My Profile
-                </p>
-                <p onClick={()=>this.setState({ showDialog: false })} style={{cursor:'pointer'}}>
-                  X
-                </p>
-              </Box>
-            </Grid>
-          </Grid>
+<DialogContenty profileData={profileData}/>
           
-          <Grid container className="main-content-block" style={{marginTop:'1.5rem',padding: '1rem'}}>
-                <Grid xs={12}>
-                  <Formik initialValues={{
-                    bannerUrl: profileData?.attributes?.profile_pic,
-                    full_name: profileData?.attributes?.full_name?.name,
-                    banner:'',
-                    phone: profileData?.attributes?.full_phone_number?.phone_number,
-                    email: profileData?.attributes?.email?.email,
-                    male: profileData?.attributes?.gender?.gender === 'Male' ? true : false,
-                    female: profileData?.attributes?.gender?.gender === 'Female' ? true : false,
-                    DOB: profileData?.attributes?.date_of_birth?.date_of_birth,
-                    gender: profileData?.attributes?.gender?.gender,
-                    hobbies: profileData?.attributes?.hobbies?.hobbies ? profileData?.attributes?.hobbies?.hobbies :[] ,
-                    twitter: profileData?.attributes?.website[0].twitter_link,
-                    fb: profileData?.attributes?.website[2].fb_link,
-                    insta: profileData?.attributes?.website[1].instagram_link,
-                    snap: profileData?.attributes?.website[3].snapchat_link,
-                    bio: profileData?.attributes?.bio?.bio
-                  }}
-                    validationSchema={this.profileSchema()}
-                    validateOnMount={true}
-                    onSubmit={(values) => { this.updateChairmenProfile(values) }}
-                  >
-                    {({ values,
-                      errors,
-                      touched,
-                      isValid, handleChange,
-                      setFieldValue, setFieldError }) => (
-                      <Form className="commonForm" translate="yes" >
-                        <Box className='formGroup' style={{ height: '91%' }}>
-                          <Box style={{
-                            display: 'flex',
-                            alignItems: 'center',
-                            gap: '1rem',
-                            marginTop: '1rem',
-                            marginBottom: '1.5rem',
-                            flexDirection:'column',
-                          }}>
-                            {
-                                values.bannerUrl?
-                                
-                                <Avatar src={values.bannerUrl} />
-                                :
-                                <img src={NoProfile_Img}/>
-                            }
-
-                            <label htmlFor="file1"
-                              style={{ color: '#FC8434', fontWeight: 'bold' }}>
-                              Add Profile Picture
-                            </label>
-                            <input
-                              id="file1"
-                              type="file"
-                              onChange={(e: any) => {
-                                this.handleSelectBanner(
-                                  e,
-                                  setFieldValue,
-                                  setFieldError
-                                );
-                              }}
-                              style={{
-                                position: "absolute",
-                                zIndex: 2,
-                                cursor: "pointer",
-                                opacity: 0
-                              }}
-                              accept="image/png, image/jpeg, image/jpg"
-                            />
-                          </Box>
-                          {errors.banner && touched.banner ? (
-                            <Typography
-                              style={{
-                                color: "#F14E24",
-                                fontFamily: "Poppins",
-                                fontWeight: 300,
-                                fontSize: 14,
-                                marginTop: 5,
-                                marginLeft: 10
-                              }}
-                            >
-                              <ErrorMessage className="text-error" component="Typography" name="banner" />
-                            </Typography>
-                          ) : null}
-                          {errors.bannerUrl && touched.bannerUrl ? (
-                            <Typography
-                              style={{
-                                color: "#F14E24",
-                                fontFamily: "Poppins",
-                                fontWeight: 300,
-                                fontSize: 14,
-                                marginTop: 5
-                              }}
-                            >
-                              {errors.bannerUrl}
-                            </Typography>
-                          ) : null}
-
-                          <Box style={{display:'flex',justifyContent:'space-between',width:'100%'}}>
-                            {/* name */}
-
-                          <Box
-                            className="formInputGrp"
-                            style={{width:'50%'}}
-                          >
-
-
-                            <Field
-                              className="formInput"
-                              name="full_name"
-                              value={values.full_name}
-                              placeholder={"Enter your name"}
-
-                            />
-                            <span className="frmLeftIcons" style={{top:'22%'}}>
-                              <img src={user} />
-                            </span>
-                          </Box>
-                          {errors.full_name && touched.full_name ? (
-                            <Typography
-                              style={{
-                                color: "#F14E24",
-
-                                fontWeight: 300,
-                                fontSize: 14,
-                                marginTop: 5,
-                                marginLeft: 10
-                              }}
-                            >
-                              <ErrorMessage className="text-error" component="Typography" name="full_name" />
-                            </Typography>
-                          ) : null}
-
-{/* phone */}
-<Box>
-
-                          <Box
-                            marginTop='1rem'
-                            className='formInputGrp'
-                            display="flex"
-                            overflow="hidden"
-                            alignItems="center"
-                            height="56px"
-                            border="0.1px solid rgb(209 209 209 / 44%)"
-                            borderRadius="25px"
-                            bgcolor="#f9f9f9" 
-                            style={{width:'100%'}}
-                          >
-                            <Box>
-                              <FormControl variant="outlined" >
-                             
-                                <Select
-                                  name='selectCode'
-                                  labelId="demo-simple-select-outlined-label"
-
-                                  id="demo-simple-select-outlined"
-                                  onChange={this.handleChange}
-                                  label="Unit"
-                                  disabled
-                                  value={this.state.selectCode3}
-                                >
-                                  <MenuItem value="">
-                                    <em>None</em>
-                                  </MenuItem>
-                                  {dailCode.map((item) =>
-                                    <MenuItem key={item.dial_code} value={item.dial_code}> <img src={`https://cdn.jsdelivr.net/npm/country-flag-emoji-json@2.0.0/dist/images/${item.code}.svg`} width='15' height='15' style={{ marginRight: '5px' }} />
-                                      {item.dial_code}</MenuItem>
-
-                                  )
-                                  }
-
-                                </Select>
-                              </FormControl>
-
-                            </Box>
-
-                            <Field
-                              name="phone"
-                              id="mobile"
-                              disabled
-                              value={values.phone}
-                              placeholder={"Mobile"}
-                              style={{
-                                border: "none",
-                                height: "42%",
-                                width: "80%",
-                                color: "rgba(0, 0, 0, 0.6)",
-                                fontWeight: 400,
-                                fontSize: 16,
-                                marginRight: 10,
-                                marginLeft: 21,
-                                outline: "none",
-                                backgroundColor: '#f9f9f9'
-                              }}
-                            />
-                          </Box>
-
-                          {errors.phone && touched.phone ? (
-                            <Typography
-                              style={{
-                                color: "#F14E24",
-                                fontWeight: 300,
-                                fontSize: 14,
-                                marginTop: 5,
-                                marginLeft: 10
-                              }}
-                            >
-                              <ErrorMessage className="text-error" component="Typography" name="phone" />
-                            </Typography>
-                          ) : null}
-                          <p style={{ color:'#FC8434',textAlign:'right',fontWeight:'bold',cursor:'pointer'}} onClick={()=>this.setState({showDialog1:true})}>
-                            Update phone number
-                          </p>
-</Box>
-                          </Box>
-
-                          {/* email */}
-                          <Box
-                            className="formInputGrp"
-                            style={{width:'50%'}}
-                          >
-                                                        <Field
-                              className="formInput"
-                              value={values.email}
-
-                              name="email"
-                              placeholder={"Email ID"}
-
-                            />
-                            <span className="frmLeftIcons">
-                              <img src={emailedit} />
-                            </span>
-                          </Box>
-                          {errors.email && touched.email ? (
-                            <Typography
-                              style={{
-                                color: "#F14E24",
-
-                                fontWeight: 300,
-                                fontSize: 14,
-                                marginTop: 5,
-                                marginLeft: 10
-                              }}
-                            >
-                              <ErrorMessage className="text-error" component="Typography" name="email" />
-                            </Typography>
-                          ) : null}
-                          {/* Bio */}
-                          <Box
-                            className="formInputGrp"
-                          >
-
-
-                            <Field
-                              className="formInput"
-                              name="bio"
-                              value={values.bio}
-                              placeholder={"Enter your bio"}
-
-                            />
-                            <span className="frmLeftIcons">
-                              <img src={message} />
-                            </span>
-                          </Box>
-                          {errors.bio && touched.bio ? (
-                            <Typography
-                              style={{
-                                color: "#F14E24",
-
-                                fontWeight: 300,
-                                fontSize: 14,
-                                marginTop: 5,
-                                marginLeft: 10
-                              }}
-                            >
-                              <ErrorMessage className="text-error" component="Typography" name="bio" />
-                            </Typography>
-                          ) : null}
-{/* gender */}
-                          <Box className="formGroup formCheckbox" style={{flexDirection:'column',marginTop:'1rem',marginLeft:'1rem',fontWeight:'bold'}}>
-                            <div>
-                              Gender
-                            </div>
-
-                            <div style={{display:'flex',width:'100%'}}>
-                              <div style={{width:'100%'}}>
-                                <RadioGroup
-                                  aria-labelledby="demo-radio-buttons-group-label"
-                                  name="radio-buttons-group"
-                                  defaultValue={values.gender}
-                                  style={{ display: 'flex',flexDirection:'row',marginTop:'0.25rem',width:'100%' }}
-                                >
-                                  {/* <FormControlLabel name={values.gender} value="Female" control={<Radio />} label="Female" /> */}
-                                  <FormControlLabel className={values.gender == 'Female' ? 'active':'unactive'} name='gender' onChange={handleChange} value="Female" control={<Radio/>} label="Female" style={{ padding:'7px 42px 7px 10px', borderRadius: 25, border: '1px solid #e9dede',width:'40%',background:'#F9F9F9' }}  />
-                                  <FormControlLabel
-                                    className={values.gender == 'Male' ? 'active' : 'unactive'} name='gender' onChange={handleChange} value="Male" control={<Radio />} label="Male" style={{ padding:'7px 42px 7px 10px', borderRadius: 25, border: '1px solid #e9dede',width:'40%',background:'#F9F9F9' }} />
-
-                                </RadioGroup>
-                             
-                              </div>
-
-                              </div>
-                           </Box>
-<Box style={{display:'flex',justifyContent:'space-between'}}>
-                          {/* DOB */}
-                          <Box
-                            className="formInputGrp"
-                            style={{width:'46%'}}
-                          >
-
-
-                            <Field
-                              className="formInput"
-                              name="DOB"
-                              placeholder={"Date of Birth"}
-
-                            />
-                            <span className="frmLeftIcons" style={{top:'12%'}}>
-                              <img src={calendar} />
-                            </span>
-                          </Box>
-                          {errors.DOB && touched.DOB ? (
-                            <Typography
-                              style={{
-                                color: "#F14E24",
-
-                                fontWeight: 300,
-                                fontSize: 14,
-                                marginTop: 5,
-                                marginLeft: 10
-                              }}
-                            >
-                              <ErrorMessage className="text-error" component="Typography" name="DOB" />
-                            </Typography>
-                          ) : null}
-
-                          {/* Hobbies */}
-                          <Box
-                            className="formInputGrp"
-                            style={{width:'50%'}}
-                          >
-
-
-                         
-                            <ChipInput
-                              className="formInput"
-                              placeholder="Hobbies"
-                              style={{ padding:'10px 0px 6px 50px',width:'85%'}}
-                              disableUnderline={true}
-                              value={values.hobbies}
-                              // onChange={(chip) => setFieldValue('hobbies', chip)}
-                              onAdd={(chip:any) => this.handleAddChip(setFieldValue, chip, values.hobbies)}
-                              onDelete={(chip:any, index:any) => this.handleDeleteChip(setFieldValue, chip, values.hobbies, index)}
-
-                            />
-                            <span className="frmLeftIcons">
-                              <img src={heart} />
-                            </span>
-                          </Box>
-                          {errors.hobbies && touched.hobbies ? (
-                            <Typography
-                              style={{
-                                color: "#F14E24",
-
-                                fontWeight: 300,
-                                fontSize: 14,
-                                marginTop: 5,
-                                marginLeft: 10
-                              }}
-                            >
-                              <ErrorMessage className="text-error" component="Typography" name="hobbies" />
-                            </Typography>
-                          ) : null}
-</Box>
-<Box style={{display:'flex',justifyContent:'space-between',width:'100%',gap:'1rem'}}>
-<div style={{display:'flex',flexDirection:'column',width:'50%'}}>
-  
-                          {/* Twitter */}
-                          <Box
-                            className="formInputGrp"
-                          >
-
-
-                            <Field
-                              className="formInput"
-                              name="twitter"
-                              type='url'
-                              value={values.twitter}
-                              placeholder={"Twitter profile link"}
-
-                            />
-                            <span className="frmLeftIcons">
-                              <img src={twitteredit} />
-                            </span>
-                          </Box>
-                          {errors.twitter && touched.twitter ? (
-                            <Typography
-                              style={{
-                                color: "#F14E24",
-
-                                fontWeight: 300,
-                                fontSize: 14,
-                                marginTop: 5,
-                                marginLeft: 10
-                              }}
-                            >
-                              <ErrorMessage className="text-error" component="Typography" name="twitter" />
-                            </Typography>
-                          ) : null}
-</div>
-
-<div style={{display:'flex',flexDirection:'column',width:'50%'}}>
-
-                          {/* fb */}
-                          <Box
-                            className="formInputGrp"
-                          >
-
-
-                            <Field
-                              className="formInput"
-                              name="fb"
-                              type='url'
-                              value={values.fb}
-                              placeholder={"Faceook  profile link"}
-
-                            />
-                            <span className="frmLeftIcons">
-                              <img src={fbedit} />
-                            </span>
-                          </Box>
-                          {errors.fb && touched.fb ? (
-                            <Typography
-                              style={{
-                                color: "#F14E24",
-
-                                fontWeight: 300,
-                                fontSize: 14,
-                                marginTop: 5,
-                                marginLeft: 10
-                              }}
-                            >
-                              <ErrorMessage className="text-error" component="Typography" name="fb" />
-                            </Typography>
-                          ) : null}
-</div>
-
-</Box>
-<Box style={{display:'flex',justifyContent:'space-between',width:'100%',gap:'1rem'}}>
-<div style={{display:'flex',flexDirection:'column',width:'50%'}}>
-
-                          {/* Insta */}
-                          <Box
-                            className="formInputGrp"
-                          >
-
-
-                            <Field
-                              className="formInput"
-                              name="insta"
-                              type='url'
-                              value={values.insta}
-                              placeholder={"Instagram profile link"}
-
-                            />
-                            <span className="frmLeftIcons">
-                              <img src={instaedit} />
-                            </span>
-                          </Box>
-                          {errors.insta && touched.insta ? (
-                            <Typography
-                              style={{
-                                color: "#F14E24",
-
-                                fontWeight: 300,
-                                fontSize: 14,
-                                marginTop: 5,
-                                marginLeft: 10
-                              }}
-                            >
-                              <ErrorMessage className="text-error" component="Typography" name="insta" />
-                            </Typography>
-                          ) : null}
-</div>
-<div style={{display:'flex',flexDirection:'column',width:'50%'}}>
-
-                          {/* snap */}
-                          <Box
-                            className="formInputGrp"
-                          >
-
-
-                            <Field
-                              className="formInput"
-                              name="snap"
-                              type='url'
-                              value={values.snap}
-                              placeholder={"Snapchat profile link"}
-
-                            />
-                            <span className="frmLeftIcons">
-                              <img src={snapedit} />
-                            </span>
-                          </Box>
-                          {errors.snap && touched.snap ? (
-                            <Typography
-                              style={{
-                                color: "#F14E24",
-
-                                fontWeight: 300,
-                                fontSize: 14,
-                                marginTop: 5,
-                                marginLeft: 10
-                              }}
-                            >
-                              <ErrorMessage className="text-error" component="Typography" name="snap" />
-                            </Typography>
-                          ) : null}
-</div>
-</Box>
-
-                           </Box>
-                           <Box style={{padding:'1rem',borderTop:'1px solid #1A181D25',display:'flex',justifyContent:'end'}}>
-
-                           <Button variant='text' onClick={() =>{localStorage.setItem('profileData',JSON.stringify(profileData)); this.setState({ showDialog: false })}} style={{marginRight:'2rem'}}  >
-                CANCEL
-              </Button>
-                        <Box className="customButton" style={{width:'10rem'}}>
-
-                          <Button
-                            variant="contained"
-                            type="submit"
-
-                          >
-                            Save
-                          </Button>
-
-                        </Box>
-                           </Box>
-                      </Form>
-                    )}
-                  </Formik>
-                </Grid>
-              </Grid>
-
-
-          <Box className="dialog-footer desktop-ui">
-            <DialogActions className="customButton">
-              
-              {/* <Button  onClick={() => this.publicViewAPI()}  variant='text'>
-                SAVE
-              </Button> */}
-            </DialogActions>
-          </Box>
-        </Dialog>
         <Dialog
           open={this.state.showDialog1}
           onClose={() => this.setState({ showDialog1: false })}
@@ -1047,4 +476,590 @@ return 'No social media handle'
                           </Grid>
                         </Grid>
   </>
+}
+
+const DialogContenty=(props:any)=>{
+  const {profileData}=props
+  return <Dialog
+  open={this.state.showDialog}
+  onClose={() => this.setState({ showDialog: false })}
+  aria-labelledby="alert-dialog-title"
+  aria-describedby="alert-dialog-description"
+  className="diloag-wrapper"
+  PaperProps={{
+    style: {
+      borderRadius: '15px',
+      maxWidth:650
+      
+    },
+  }}
+>
+  <Grid container>
+    <Grid xs={12} style={{borderBottom:'1px solid #e9dede',padding: '1rem'}}>
+      <Box display='flex' justifyContent='space-between'>
+        <p style={{fontWeight:600}}>
+          Edit My Profile
+        </p>
+        <p onClick={()=>this.setState({ showDialog: false })} style={{cursor:'pointer'}}>
+          X
+        </p>
+      </Box>
+    </Grid>
+  </Grid>
+  
+  <Grid container className="main-content-block" style={{marginTop:'1.5rem',padding: '1rem'}}>
+        <Grid xs={12}>
+          <Formik initialValues={{
+            bannerUrl: profileData?.attributes?.profile_pic,
+            full_name: profileData?.attributes?.full_name?.name,
+            banner:'',
+            phone: profileData?.attributes?.full_phone_number?.phone_number,
+            email: profileData?.attributes?.email?.email,
+            male: profileData?.attributes?.gender?.gender === 'Male' ? true : false,
+            female: profileData?.attributes?.gender?.gender === 'Female' ? true : false,
+            DOB: profileData?.attributes?.date_of_birth?.date_of_birth,
+            gender: profileData?.attributes?.gender?.gender,
+            hobbies: profileData?.attributes?.hobbies?.hobbies ? profileData?.attributes?.hobbies?.hobbies :[] ,
+            twitter: profileData?.attributes?.website[0].twitter_link,
+            fb: profileData?.attributes?.website[2].fb_link,
+            insta: profileData?.attributes?.website[1].instagram_link,
+            snap: profileData?.attributes?.website[3].snapchat_link,
+            bio: profileData?.attributes?.bio?.bio
+          }}
+            validationSchema={this.profileSchema()}
+            validateOnMount={true}
+            onSubmit={(values) => { this.updateChairmenProfile(values) }}
+          >
+            {({ values,
+              errors,
+              touched,
+              isValid, handleChange,
+              setFieldValue, setFieldError }) => (
+              <Form className="commonForm" translate="yes" >
+                <Box className='formGroup' style={{ height: '91%' }}>
+                  <Box style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: '1rem',
+                    marginTop: '1rem',
+                    marginBottom: '1.5rem',
+                    flexDirection:'column',
+                  }}>
+                    {
+                        values.bannerUrl?
+                        
+                        <Avatar src={values.bannerUrl} />
+                        :
+                        <img src={NoProfile_Img}/>
+                    }
+
+                    <label htmlFor="file1"
+                      style={{ color: '#FC8434', fontWeight: 'bold' }}>
+                      Add Profile Picture
+                    </label>
+                    <input
+                      id="file1"
+                      type="file"
+                      onChange={(e: any) => {
+                        this.handleSelectBanner(
+                          e,
+                          setFieldValue,
+                          setFieldError
+                        );
+                      }}
+                      style={{
+                        position: "absolute",
+                        zIndex: 2,
+                        cursor: "pointer",
+                        opacity: 0
+                      }}
+                      accept="image/png, image/jpeg, image/jpg"
+                    />
+                  </Box>
+                  {errors.banner && touched.banner ? (
+                    <Typography
+                      style={{
+                        color: "#F14E24",
+                        fontFamily: "Poppins",
+                        fontWeight: 300,
+                        fontSize: 14,
+                        marginTop: 5,
+                        marginLeft: 10
+                      }}
+                    >
+                      <ErrorMessage className="text-error" component="Typography" name="banner" />
+                    </Typography>
+                  ) : null}
+                  {errors.bannerUrl && touched.bannerUrl ? (
+                    <Typography
+                      style={{
+                        color: "#F14E24",
+                        fontFamily: "Poppins",
+                        fontWeight: 300,
+                        fontSize: 14,
+                        marginTop: 5
+                      }}
+                    >
+                      {errors.bannerUrl}
+                    </Typography>
+                  ) : null}
+
+                  <Box style={{display:'flex',justifyContent:'space-between',width:'100%'}}>
+                    {/* name */}
+
+                  <Box
+                    className="formInputGrp"
+                    style={{width:'50%'}}
+                  >
+
+
+                    <Field
+                      className="formInput"
+                      name="full_name"
+                      value={values.full_name}
+                      placeholder={"Enter your name"}
+
+                    />
+                    <span className="frmLeftIcons" style={{top:'22%'}}>
+                      <img src={user} />
+                    </span>
+                  </Box>
+                  {errors.full_name && touched.full_name ? (
+                    <Typography
+                      style={{
+                        color: "#F14E24",
+
+                        fontWeight: 300,
+                        fontSize: 14,
+                        marginTop: 5,
+                        marginLeft: 10
+                      }}
+                    >
+                      <ErrorMessage className="text-error" component="Typography" name="full_name" />
+                    </Typography>
+                  ) : null}
+
+{/* phone */}
+<Box>
+
+                  <Box
+                    marginTop='1rem'
+                    className='formInputGrp'
+                    display="flex"
+                    overflow="hidden"
+                    alignItems="center"
+                    height="56px"
+                    border="0.1px solid rgb(209 209 209 / 44%)"
+                    borderRadius="25px"
+                    bgcolor="#f9f9f9" 
+                    style={{width:'100%'}}
+                  >
+                    <Box>
+                      <FormControl variant="outlined" >
+                     
+                        <Select
+                          name='selectCode'
+                          labelId="demo-simple-select-outlined-label"
+
+                          id="demo-simple-select-outlined"
+                          onChange={this.handleChange}
+                          label="Unit"
+                          disabled
+                          value={this.state.selectCode3}
+                        >
+                          <MenuItem value="">
+                            <em>None</em>
+                          </MenuItem>
+                          {dailCode.map((item) =>
+                            <MenuItem key={item.dial_code} value={item.dial_code}> <img src={`https://cdn.jsdelivr.net/npm/country-flag-emoji-json@2.0.0/dist/images/${item.code}.svg`} width='15' height='15' style={{ marginRight: '5px' }} />
+                              {item.dial_code}</MenuItem>
+
+                          )
+                          }
+
+                        </Select>
+                      </FormControl>
+
+                    </Box>
+
+                    <Field
+                      name="phone"
+                      id="mobile"
+                      disabled
+                      value={values.phone}
+                      placeholder={"Mobile"}
+                      style={{
+                        border: "none",
+                        height: "42%",
+                        width: "80%",
+                        color: "rgba(0, 0, 0, 0.6)",
+                        fontWeight: 400,
+                        fontSize: 16,
+                        marginRight: 10,
+                        marginLeft: 21,
+                        outline: "none",
+                        backgroundColor: '#f9f9f9'
+                      }}
+                    />
+                  </Box>
+
+                  {errors.phone && touched.phone ? (
+                    <Typography
+                      style={{
+                        color: "#F14E24",
+                        fontWeight: 300,
+                        fontSize: 14,
+                        marginTop: 5,
+                        marginLeft: 10
+                      }}
+                    >
+                      <ErrorMessage className="text-error" component="Typography" name="phone" />
+                    </Typography>
+                  ) : null}
+                  <p style={{ color:'#FC8434',textAlign:'right',fontWeight:'bold',cursor:'pointer'}} onClick={()=>this.setState({showDialog1:true})}>
+                    Update phone number
+                  </p>
+</Box>
+                  </Box>
+
+                  {/* email */}
+                  <Box
+                    className="formInputGrp"
+                    style={{width:'50%'}}
+                  >
+                                                <Field
+                      className="formInput"
+                      value={values.email}
+
+                      name="email"
+                      placeholder={"Email ID"}
+
+                    />
+                    <span className="frmLeftIcons">
+                      <img src={emailedit} />
+                    </span>
+                  </Box>
+                  {errors.email && touched.email ? (
+                    <Typography
+                      style={{
+                        color: "#F14E24",
+
+                        fontWeight: 300,
+                        fontSize: 14,
+                        marginTop: 5,
+                        marginLeft: 10
+                      }}
+                    >
+                      <ErrorMessage className="text-error" component="Typography" name="email" />
+                    </Typography>
+                  ) : null}
+                  {/* Bio */}
+                  <Box
+                    className="formInputGrp"
+                  >
+
+
+                    <Field
+                      className="formInput"
+                      name="bio"
+                      value={values.bio}
+                      placeholder={"Enter your bio"}
+
+                    />
+                    <span className="frmLeftIcons">
+                      <img src={message} />
+                    </span>
+                  </Box>
+                  {errors.bio && touched.bio ? (
+                    <Typography
+                      style={{
+                        color: "#F14E24",
+
+                        fontWeight: 300,
+                        fontSize: 14,
+                        marginTop: 5,
+                        marginLeft: 10
+                      }}
+                    >
+                      <ErrorMessage className="text-error" component="Typography" name="bio" />
+                    </Typography>
+                  ) : null}
+{/* gender */}
+                  <Box className="formGroup formCheckbox" style={{flexDirection:'column',marginTop:'1rem',marginLeft:'1rem',fontWeight:'bold'}}>
+                    <div>
+                      Gender
+                    </div>
+
+                    <div style={{display:'flex',width:'100%'}}>
+                      <div style={{width:'100%'}}>
+                        <RadioGroup
+                          aria-labelledby="demo-radio-buttons-group-label"
+                          name="radio-buttons-group"
+                          defaultValue={values.gender}
+                          style={{ display: 'flex',flexDirection:'row',marginTop:'0.25rem',width:'100%' }}
+                        >
+                          {/* <FormControlLabel name={values.gender} value="Female" control={<Radio />} label="Female" /> */}
+                          <FormControlLabel className={values.gender == 'Female' ? 'active':'unactive'} name='gender' onChange={handleChange} value="Female" control={<Radio/>} label="Female" style={{ padding:'7px 42px 7px 10px', borderRadius: 25, border: '1px solid #e9dede',width:'40%',background:'#F9F9F9' }}  />
+                          <FormControlLabel
+                            className={values.gender == 'Male' ? 'active' : 'unactive'} name='gender' onChange={handleChange} value="Male" control={<Radio />} label="Male" style={{ padding:'7px 42px 7px 10px', borderRadius: 25, border: '1px solid #e9dede',width:'40%',background:'#F9F9F9' }} />
+
+                        </RadioGroup>
+                     
+                      </div>
+
+                      </div>
+                   </Box>
+<Box style={{display:'flex',justifyContent:'space-between'}}>
+                  {/* DOB */}
+                  <Box
+                    className="formInputGrp"
+                    style={{width:'46%'}}
+                  >
+
+
+                    <Field
+                      className="formInput"
+                      name="DOB"
+                      placeholder={"Date of Birth"}
+
+                    />
+                    <span className="frmLeftIcons" style={{top:'12%'}}>
+                      <img src={calendar} />
+                    </span>
+                  </Box>
+                  {errors.DOB && touched.DOB ? (
+                    <Typography
+                      style={{
+                        color: "#F14E24",
+
+                        fontWeight: 300,
+                        fontSize: 14,
+                        marginTop: 5,
+                        marginLeft: 10
+                      }}
+                    >
+                      <ErrorMessage className="text-error" component="Typography" name="DOB" />
+                    </Typography>
+                  ) : null}
+
+                  {/* Hobbies */}
+                  <Box
+                    className="formInputGrp"
+                    style={{width:'50%'}}
+                  >
+
+
+                 
+                    <ChipInput
+                      className="formInput"
+                      placeholder="Hobbies"
+                      style={{ padding:'10px 0px 6px 50px',width:'85%'}}
+                      disableUnderline={true}
+                      value={values.hobbies}
+                      // onChange={(chip) => setFieldValue('hobbies', chip)}
+                      onAdd={(chip:any) => this.handleAddChip(setFieldValue, chip, values.hobbies)}
+                      onDelete={(chip:any, index:any) => this.handleDeleteChip(setFieldValue, chip, values.hobbies, index)}
+
+                    />
+                    <span className="frmLeftIcons">
+                      <img src={heart} />
+                    </span>
+                  </Box>
+                  {errors.hobbies && touched.hobbies ? (
+                    <Typography
+                      style={{
+                        color: "#F14E24",
+
+                        fontWeight: 300,
+                        fontSize: 14,
+                        marginTop: 5,
+                        marginLeft: 10
+                      }}
+                    >
+                      <ErrorMessage className="text-error" component="Typography" name="hobbies" />
+                    </Typography>
+                  ) : null}
+</Box>
+<Box style={{display:'flex',justifyContent:'space-between',width:'100%',gap:'1rem'}}>
+<div style={{display:'flex',flexDirection:'column',width:'50%'}}>
+
+                  {/* Twitter */}
+                  <Box
+                    className="formInputGrp"
+                  >
+
+
+                    <Field
+                      className="formInput"
+                      name="twitter"
+                      type='url'
+                      value={values.twitter}
+                      placeholder={"Twitter profile link"}
+
+                    />
+                    <span className="frmLeftIcons">
+                      <img src={twitteredit} />
+                    </span>
+                  </Box>
+                  {errors.twitter && touched.twitter ? (
+                    <Typography
+                      style={{
+                        color: "#F14E24",
+
+                        fontWeight: 300,
+                        fontSize: 14,
+                        marginTop: 5,
+                        marginLeft: 10
+                      }}
+                    >
+                      <ErrorMessage className="text-error" component="Typography" name="twitter" />
+                    </Typography>
+                  ) : null}
+</div>
+
+<div style={{display:'flex',flexDirection:'column',width:'50%'}}>
+
+                  {/* fb */}
+                  <Box
+                    className="formInputGrp"
+                  >
+
+
+                    <Field
+                      className="formInput"
+                      name="fb"
+                      type='url'
+                      value={values.fb}
+                      placeholder={"Faceook  profile link"}
+
+                    />
+                    <span className="frmLeftIcons">
+                      <img src={fbedit} />
+                    </span>
+                  </Box>
+                  {errors.fb && touched.fb ? (
+                    <Typography
+                      style={{
+                        color: "#F14E24",
+
+                        fontWeight: 300,
+                        fontSize: 14,
+                        marginTop: 5,
+                        marginLeft: 10
+                      }}
+                    >
+                      <ErrorMessage className="text-error" component="Typography" name="fb" />
+                    </Typography>
+                  ) : null}
+</div>
+
+</Box>
+<Box style={{display:'flex',justifyContent:'space-between',width:'100%',gap:'1rem'}}>
+<div style={{display:'flex',flexDirection:'column',width:'50%'}}>
+
+                  {/* Insta */}
+                  <Box
+                    className="formInputGrp"
+                  >
+
+
+                    <Field
+                      className="formInput"
+                      name="insta"
+                      type='url'
+                      value={values.insta}
+                      placeholder={"Instagram profile link"}
+
+                    />
+                    <span className="frmLeftIcons">
+                      <img src={instaedit} />
+                    </span>
+                  </Box>
+                  {errors.insta && touched.insta ? (
+                    <Typography
+                      style={{
+                        color: "#F14E24",
+
+                        fontWeight: 300,
+                        fontSize: 14,
+                        marginTop: 5,
+                        marginLeft: 10
+                      }}
+                    >
+                      <ErrorMessage className="text-error" component="Typography" name="insta" />
+                    </Typography>
+                  ) : null}
+</div>
+<div style={{display:'flex',flexDirection:'column',width:'50%'}}>
+
+                  {/* snap */}
+                  <Box
+                    className="formInputGrp"
+                  >
+
+
+                    <Field
+                      className="formInput"
+                      name="snap"
+                      type='url'
+                      value={values.snap}
+                      placeholder={"Snapchat profile link"}
+
+                    />
+                    <span className="frmLeftIcons">
+                      <img src={snapedit} />
+                    </span>
+                  </Box>
+                  {errors.snap && touched.snap ? (
+                    <Typography
+                      style={{
+                        color: "#F14E24",
+
+                        fontWeight: 300,
+                        fontSize: 14,
+                        marginTop: 5,
+                        marginLeft: 10
+                      }}
+                    >
+                      <ErrorMessage className="text-error" component="Typography" name="snap" />
+                    </Typography>
+                  ) : null}
+</div>
+</Box>
+
+                   </Box>
+                   <Box style={{padding:'1rem',borderTop:'1px solid #1A181D25',display:'flex',justifyContent:'end'}}>
+
+                   <Button variant='text' onClick={() =>{localStorage.setItem('profileData',JSON.stringify(profileData)); this.setState({ showDialog: false })}} style={{marginRight:'2rem'}}  >
+        CANCEL
+      </Button>
+                <Box className="customButton" style={{width:'10rem'}}>
+
+                  <Button
+                    variant="contained"
+                    type="submit"
+
+                  >
+                    Save
+                  </Button>
+
+                </Box>
+                   </Box>
+              </Form>
+            )}
+          </Formik>
+        </Grid>
+      </Grid>
+
+
+  <Box className="dialog-footer desktop-ui">
+    <DialogActions className="customButton">
+      
+      {/* <Button  onClick={() => this.publicViewAPI()}  variant='text'>
+        SAVE
+      </Button> */}
+    </DialogActions>
+  </Box>
+</Dialog>
+
 }
