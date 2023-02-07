@@ -5,7 +5,6 @@ import MessageEnum, {
   getName,
 } from "../../../framework/src/Messages/MessageEnum";
 import { runEngine } from "../../../framework/src/RunEngine";
-import { imgPasswordInVisible, imgPasswordVisible } from "../../dashboard/src/assets";
 import CommonApiCallForBlockComponent from "../../../components/src/ApiCallCommon.web";
 
 
@@ -42,6 +41,9 @@ interface S {
   page:any
   count:any;
   pagination:any;
+  invoiceDetails:any;
+  downloadId:any;
+  partialPaymentAmount:any
 }
 
 interface SS {
@@ -54,6 +56,9 @@ export default class CharmainInvoicesController extends CommonApiCallForBlockCom
   getBuildingListId:any
   getUnitListId:any;
   getFloorList:any;
+  getInvoiceDetailsId:any;
+  registerFullPaymentId:any;
+  registerPartialPaymentId:any;
   constructor(props: Props) {
     super(props);
     this.receive = this.receive.bind(this);
@@ -90,6 +95,9 @@ export default class CharmainInvoicesController extends CommonApiCallForBlockCom
         total_count:0,
         total_pages:1,
       },
+      invoiceDetails:{},
+      downloadId:"",
+      partialPaymentAmount:0
     };
     runEngine.attachBuildingBlock(this as IBlock, this.subScribedMessages);
   }
@@ -136,6 +144,19 @@ export default class CharmainInvoicesController extends CommonApiCallForBlockCom
     }
   }
 
+  manageDownload = async (id:any) => {
+    await this.downloadPdf(`/bx_block_fees_payment/invoices/${id}/download_invoice`,`Invoice-${id}.pdf`)
+  }
+
+  getInvoiceDetailsResponse = (responseJson:any) => {
+    if(responseJson.hasOwnProperty("report")){
+      this.setState({
+        invoiceDetails:responseJson?.report?.data?.attributes,
+        downloadId:responseJson?.report?.data?.id
+      })
+    }
+  }
+
   async receive(from: string, message: Message) {
     if(getName(MessageEnum.RestAPIResponceMessage) === message.id) {
       const apiRequestCallId = message.getData(getName(MessageEnum.RestAPIResponceDataMessage));
@@ -149,19 +170,11 @@ export default class CharmainInvoicesController extends CommonApiCallForBlockCom
       if(apiRequestCallId === this.getUnitListId){
         this.getUnitListResponse(responseJson)
       }
+      if(apiRequestCallId === this.getInvoiceDetailsId){
+        this.getInvoiceDetailsResponse(responseJson)
+      }
     }
   }
-
-  getInvoiceList = async (data:any) => {
-    const {buildingId,floorNo,unitId,paymentType,status,searchKey,page} = data
-    console.log("Page",page)
-    this.getInvoiceListId = await this.apiCall({
-      contentType: "application/json",
-      method: "GET",
-      endPoint: `/bx_block_fees_payment/invoices?search=${searchKey|| ""}&unit_id=${unitId|| ""}&building_id=${buildingId|| ""}&floor_number=${floorNo|| ""}&select_status=${status|| ""}&select_type=${paymentType|| ""}&page=${page}`,
-    });
-    return true
-  };
 
   selectBuilding = (e:any) => {
     this.setState({
@@ -170,11 +183,38 @@ export default class CharmainInvoicesController extends CommonApiCallForBlockCom
     this.getUnitList(e.target.value)
   }
 
+  paymentRegistration = () => {
+    if(this.state.paymentType === "partial"){
+      this.registerPartialPayment(this.state.downloadId,this.state.partialPaymentAmount)
+    }else{
+      this.registerFullPayment(this.state.downloadId)
+    }
+  }
+
+  getInvoiceList = async (data:any) => {
+    const {buildingId,floorNo,unitId,paymentType,status,searchKey,page} = data
+    this.getInvoiceListId = await this.apiCall({
+      contentType: "application/json",
+      method: "GET",
+      endPoint: `/bx_block_fees_payment/invoices?search=${searchKey|| ""}&unit_id=${unitId|| ""}&building_id=${buildingId|| ""}&floor_number=${floorNo|| ""}&select_status=${status|| ""}&select_type=${paymentType|| ""}&page=${page || 1}`,
+    });
+    return true
+  };
+
   getBuildingList = async () => {
     this.getBuildingListId = await this.apiCall({
       contentType: "application/json",
       method: "GET",
       endPoint: `bx_block_fees_payment/invoices/buiding_list`,
+    });
+    return true
+  };
+
+  getInvoiceDetails = async (id:any) => {
+    this.getInvoiceDetailsId = await this.apiCall({
+      contentType: "application/json",
+      method: "GET",
+      endPoint: `bx_block_fees_payment/invoices/${id}/generate_invoice`,
     });
     return true
   };
@@ -188,66 +228,46 @@ export default class CharmainInvoicesController extends CommonApiCallForBlockCom
     return true
   };
 
-  txtInputWebProps = {
-    onChangeText: (text: string) => {
-      this.setState({ txtInputValue: text });
-    },
-    secureTextEntry: false,
+  registerFullPayment = async (Id:any) => {
+    this.registerFullPaymentId = await this.apiCall({
+      contentType: "application/json",
+      method: "GET",
+      endPoint: `bx_block_fees_payment/invoices/unit_list?building_management_id=${Id}`,
+    });
+    return true
   };
 
-  txtInputMobileProps = {
-    ...this.txtInputWebProps,
-    autoCompleteType: "email",
-    keyboardType: "email-address",
+  registerPartialPayment = async (Id:any,partialAmount:any) => {
+    this.registerPartialPaymentId = await this.apiCall({
+      contentType: "application/json",
+      method: "GET",
+      endPoint: `bx_block_fees_payment/invoices/unit_list?building_management_id=${Id}`,
+    });
+    return true
   };
 
-  txtInputProps = this.isPlatformWeb()
-    ? this.txtInputWebProps
-    : this.txtInputMobileProps;
-
-  btnShowHideProps = {
-    onPress: () => {
-      this.setState({ enableField: !this.state.enableField });
-      this.txtInputProps.secureTextEntry = !this.state.enableField;
-      this.btnShowHideImageProps.source = this.txtInputProps.secureTextEntry
-        ? imgPasswordVisible
-        : imgPasswordInVisible;
-    },
-  };
-
-  btnShowHideImageProps = {
-    source: this.txtInputProps.secureTextEntry
-      ? imgPasswordVisible
-      : imgPasswordInVisible,
-  };
-
-  btnExampleProps = {
-    onPress: () => this.doButtonPressed(),
-  };
-
-  doButtonPressed() {
-    let msg = new Message(getName(MessageEnum.AccoutLoginSuccess));
-    msg.addData(
-      getName(MessageEnum.AuthTokenDataMessage),
-      this.state.txtInputValue
-    );
-    this.send(msg);
+  handleSearch = (e:any) => {
+    this.setState({
+      searchKey:e.target.value
+    })
+    this.getInvoiceList({
+      buildingId:this.state.filterBuilding,
+      floorNo:this.state.filterFloor,
+      unitId:this.state.filterUnit,
+      paymentType:this.state.filterType,
+      status:this.state.filterStatus,
+      searchKey:e.target.value,
+      page:this.state.page,
+    })
   }
 
-    handleClick = (e: any) => {
-        this.setState({anchorEl:e.currentTarget});
-    };
-
-    handleClose = () => {
-        this.setState({anchorEl:null});
-    };
-
-    handleModalOpen = () => {
+    handleModalOpen = (id:any) => {
         this.setState({openModal:true});
+        this.getInvoiceDetails(id)
     };
     
     handleModalClose = () => {
-      this.setState({openModal:false});
+      this.setState({openModal:false,invoiceDetails:{}});
       console.log("close---->")
     };
 

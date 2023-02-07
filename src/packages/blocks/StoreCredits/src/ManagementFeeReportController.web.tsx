@@ -69,6 +69,11 @@ export default class ManagementFeeReportController extends CommonApiCallForBlock
     await this.getManagementFeeList(this.state.status,this.state.filterYear,this.state.searchUnit,this.state.buildingId,this.state.filterMonth,this.state.page)
   }
 
+  manageDownload = async (id:any) => {
+    const societyID = localStorage.getItem("society_id")
+    await this.downloadPdf(`/society_managements/${societyID}bx_block_report/management_fees/${id}/download_report`,"ManagementFeeInvoice.pdf")
+  }
+
   async receive(from: string, message: Message) {
     if(getName(MessageEnum.RestAPIResponceMessage) === message.id) {
       const apiRequestCallId = message.getData(getName(MessageEnum.RestAPIResponceDataMessage));

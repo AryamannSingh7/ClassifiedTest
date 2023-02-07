@@ -173,6 +173,7 @@ class AddTeamModal extends AddTeamModalController {
                                         <InputLabel id="demo-simple-select-outlined-label" style={dashBoard.formLabels}>{t("Select Building")}</InputLabel>
                                         <Select
                                             name="building"
+                                            disabled
                                             labelId="demo-simple-select-outlined-label"
                                             id="demo-simple-select-outlined"
                                             style={{ paddingLeft: '45px' }}
@@ -199,6 +200,7 @@ class AddTeamModal extends AddTeamModalController {
                                         <InputLabel id="demo-simple-select-outlined-label" style={dashBoard.formLabels}>{t("Select Unit")}</InputLabel>
                                         <Select
                                             name="unit"
+                                            disabled
                                             labelId="demo-simple-select-outlined-label"
                                             id="demo-simple-select-outlined"
                                             style={{ paddingLeft: '45px' }}

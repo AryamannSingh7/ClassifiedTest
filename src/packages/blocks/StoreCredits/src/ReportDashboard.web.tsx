@@ -69,7 +69,7 @@ class ReportDashboard extends ReportDashboardController {
                       </Link>
                     </Grid>
                     <Grid item xs={12} md={4} lg={4}>
-                      <Link href="/ExpenseReports">
+                      <Link>
                         <Card className="report-items">
                           <Box className="img-box">
                             <img src={ExpenseReportIcon} />
@@ -80,7 +80,7 @@ class ReportDashboard extends ReportDashboardController {
                       </Link>
                     </Grid>
                     <Grid item xs={12} md={4} lg={4}>
-                      <Link href="/ManagementFeeReports">
+                      <Link>
                         <Card className="report-items">
                           <Box className="img-box">
                             <img src={FeeReportIcon} />
@@ -91,7 +91,7 @@ class ReportDashboard extends ReportDashboardController {
                       </Link>
                     </Grid>
                     <Grid item xs={12} md={4} lg={4}>
-                      <Link href="/AuditReports">
+                      <Link>
                         <Card className="report-items">
                           <Box className="img-box">
                             <img src={AuditReportIcon} />
@@ -102,7 +102,7 @@ class ReportDashboard extends ReportDashboardController {
                       </Link>
                     </Grid>
                     <Grid item xs={12} md={4} lg={4}>
-                      <Link href="/InvitationReport">
+                      <Link>
                         <Card className="report-items">
                           <Box className="img-box">
                             <img src={InvitationReportIcon} />

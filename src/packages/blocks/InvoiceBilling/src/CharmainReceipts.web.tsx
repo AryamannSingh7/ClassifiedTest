@@ -13,7 +13,6 @@ import {
     Grid,
     IconButton,
     InputBase,
-    Menu,
     MenuItem,
     Modal,
     Paper,
@@ -29,6 +28,7 @@ import MoreVertIcon from '@material-ui/icons/MoreVert';
 import Pagination from '@material-ui/lab/Pagination';
 import Select from '@material-ui/core/Select';
 import {withRouter} from 'react-router-dom';
+import { Menu } from "@szhsin/react-menu";
 
 import CharmainReceiptsController, {Props} from "./CharmainReceiptsController";
 import DashboardHeader from "../../dashboard/src/DashboardHeader.web";
@@ -39,6 +39,7 @@ import {SuggestionStyleWeb} from "../../user-profile-basic/src/SuggestionStyle.w
 import {confirmIcon, DownloadIcon} from "./assets"
 import CloseIcon from '@material-ui/icons/Close';
 import SearchIcon from "@material-ui/icons/Search";
+import moment from "moment"
 import 'web/src/i18n.js';
 import {CloseButton, dashBoardActions, PublishButton} from "./chairmanUIStyles"
 //resorces
@@ -178,26 +179,40 @@ render() {
                                     <TableHead>
                                         <TableRow>
                                             <TableCell style={{color:"grey"}}>#</TableCell>
-                                            <TableCell style={{color:"grey"}} align="center">{t("Name")}</TableCell>
-                                            <TableCell style={{color:"grey"}} align="center">{t("Unit No.")}</TableCell>
-                                            <TableCell style={{color:"grey"}} align="center">{t("Title")}</TableCell>
-                                            <TableCell style={{color:"grey"}} align="center">{t("Amount")}</TableCell>
-                                            <TableCell style={{color:"grey"}} align="center">{t("Type")}</TableCell>
-                                            <TableCell style={{color:"grey"}} align="center">{t("Status")}</TableCell>
-                                            <TableCell style={{color:"grey"}} align="center"></TableCell>
+                                            <TableCell style={{color:"grey"}}>{t("Name")}</TableCell>
+                                            <TableCell style={{color:"grey"}}>{t("Unit No.")}</TableCell>
+                                            <TableCell style={{color:"grey"}}>{t("Title")}</TableCell>
+                                            <TableCell style={{color:"grey"}}>{t("Amount")}</TableCell>
+                                            <TableCell style={{color:"grey"}}>{t("Type")}</TableCell>
+                                            <TableCell style={{color:"grey"}}>{t("Status")}</TableCell>
+                                            <TableCell style={{color:"grey"}}></TableCell>
                                         </TableRow>
                                     </TableHead>
                                     <TableBody>
-                                        {searchData.map((row) => (
-                                            <TableRow key={row.no}>
-                                                <TableCell component="th" scope="row">{row.no}</TableCell>
-                                                <TableCell align="center">{row.name}</TableCell>
-                                                <TableCell align="center">{row.unit}</TableCell>
-                                                <TableCell align="center">{row.title}</TableCell>
-                                                <TableCell align="center">{row.amount}</TableCell>
-                                                <TableCell align="center">{row.type}</TableCell>
-                                                <TableCell align="center">{row.status}</TableCell>
-                                                <TableCell align="center" onClick={(e: any) => this.handleClickReceipt(e)}>{row.more}</TableCell>
+                                        {this.state.receiptsList?.map((row:any,key:any) => (
+                                            <TableRow key={key}>
+                                                <TableCell component="th" scope="row">{key + 1}</TableCell>
+                                                <TableCell>{row?.attributes?.name}</TableCell>
+                                                <TableCell>{row?.attributes?.unit_number}</TableCell>
+                                                <TableCell>{row?.attributes?.title}</TableCell>
+                                                <TableCell>{row?.attributes?.currency?.currency} {row?.attributes?.paid_amount}</TableCell>
+                                                <TableCell>{row?.attributes?.receipt_type}</TableCell>
+                                                <TableCell>{row?.attributes?.status}</TableCell>
+                                                <TableCell>
+                                                    <Menu
+                                                        menuButton={
+                                                            <IconButton>
+                                                                <MoreVertIcon />
+                                                            </IconButton>
+                                                        }
+                                                    >
+                                                        <MenuItem onClick={() => this.handleModalOpenReceipt(row.id)}>
+                                                            {t("View")}
+                                                        </MenuItem>
+                                                        <MenuItem onClick={() => this.manageDownloadReceipt(row.id)}>{t("Download")}</MenuItem>
+                                                        <MenuItem>{t("Share")}</MenuItem>
+                                                    </Menu>
+                                                </TableCell>
                                             </TableRow>
                                         ))}
                                     </TableBody>
@@ -216,21 +231,6 @@ render() {
                                 </Box>
                             </Grid>
                         </Box>
-                        <Menu
-                            id="simple-menu"
-                            anchorEl={this.state.anchorEl}
-                            keepMounted
-                            open={Boolean(this.state.anchorEl)}
-                            onClose={this.handleCloseReceipt}
-                            style={{padding:"0px", cursor:'pointer'}}
-                            >
-                            <MenuItem onClick={this.handleCloseReceipt} style={{margin:"7px", cursor:'pointer'}}>{t("View")}</MenuItem>
-                            <Divider style={{margin:"0px"}}/>
-                            <MenuItem onClick={this.handleCloseReceipt} style={{margin:"7px", cursor:'pointer'}}>{t("Download")}</MenuItem>
-                            <Divider style={{margin:"0px"}}/>
-                            <MenuItem onClick={this.handleCloseReceipt} style={{margin:"7px", cursor:'pointer'}}>{t("Share")}</MenuItem>
-                            </Menu>
-
                             <Modal
                                 style={dashBoardActions.modal}
                                 open={this.state.openModal}
@@ -254,37 +254,37 @@ render() {
                                             <Grid container spacing={2} style={dashBoardActions.residetails}>
                                                 <Grid item xs={3}>
                                                     <Typography style={dashBoardActions.commonColor} component="h5">{t("Owner Name:")}</Typography>
-                                                    <b>John Doe</b>
+                                                    <b>{this.state.receiptDetails?.owner_details?.owner_name}</b>
                                                 </Grid>
                                                 <Grid item xs={3}>
                                                     <Typography style={dashBoardActions.commonColor} component="h5">{t("Resident Name:")}</Typography>
-                                                    <b>Jenil Patel</b>
+                                                    <b>{this.state.receiptDetails?.resident_details?.resident_name}</b>
                                                 </Grid>
                                                 <Grid item xs={3}>
                                                     <Typography style={dashBoardActions.commonColor} component="h5">{t("Building Name:")}</Typography>
-                                                    <b>Building</b>
+                                                    <b>{this.state.receiptDetails?.resident_details?.resident_name}</b>
                                                 </Grid>
                                                 <Grid item xs={3}>
                                                     <Typography style={dashBoardActions.commonColor} component="h5">{t("Unit Number:")}</Typography>
-                                                    <b>1406</b>
+                                                    <b>1406{this.state.receiptDetails?.unit_number}</b>
                                                 </Grid>
                                             </Grid>
                                             <Grid container spacing={2} xs={12} style={dashBoardActions.residetails}>
                                                 <Grid item xs={3}>
                                                     <Typography style={dashBoardActions.commonColor} component="h5">{t("Resident ID:")}</Typography>
-                                                    <b>ABCDE1254Q</b>
+                                                    <b>{this.state.receiptDetails?.resident_details?.resident_id}</b>
                                                 </Grid>
                                                 <Grid item xs={3}>
                                                     <Typography style={dashBoardActions.commonColor} component="h5">{t("Generated on:")}</Typography>
-                                                    <b>15-05-2022</b>
+                                                    <b>{moment(this.state.receiptDetails?.generated_on).format("DD MMM YYYY")}</b>
                                                 </Grid>
                                                 <Grid item xs={3}>
                                                     <Typography style={dashBoardActions.commonColor} component="h5">{t("Generated By")}:</Typography>
-                                                    <b>Atik Khan</b>
+                                                    <b>{this.state.receiptDetails?.generated_by}</b>
                                                 </Grid>
                                                 <Grid item xs={3}>
                                                     <Typography style={dashBoardActions.commonColor} component="h5">{t("Status")}:</Typography>
-                                                    <b>Paid</b>
+                                                    <b>{this.state.receiptDetails?.status}</b>
                                                 </Grid>
                                             </Grid>
                                             <div style={{marginTop:"30px",marginBottom:"5px"}}>
