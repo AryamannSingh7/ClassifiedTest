@@ -29,6 +29,7 @@
     "@unimodules/react-native-adapter": "file:./packages/blocks/core/node_modules/@unimodules/react-native-adapter",
     "dompurify": "^2.3.10",
     "draft-js": "^0.11.7",
+    "firebase": "^7.9.3",
     "formik": "file:./packages/blocks/core/node_modules/formik",
     "google-map-react": "^2.2.0",
     "html-react-parser": "^1.2.4",

@@ -134,9 +134,7 @@ export default class DashboardBudgetController extends BlockComponent<Props, S, 
     this.GetGeneralDashboardCallId = await apiCall({
       contentType: "application/json",
       method: "GET",
-      endPoint: `bx_block_settings/dashbords/general_dashbord?society_management_id=${society_id}&year=${
-        this.state.filterYear
-      }`,
+      endPoint: `bx_block_dashboard/genral_dashbords?society_management_id=${society_id}&year=${this.state.filterYear}`,
     });
   };
 
@@ -179,7 +177,7 @@ export default class DashboardBudgetController extends BlockComponent<Props, S, 
             pending: general_dashboard.vehicle.Pending,
           },
           meetingList: dashboardInfo.upcoming_events.meetings.data,
-          facilityList: dashboardInfo.upcoming_events.facility,
+          facilityList: dashboardInfo.upcoming_events.facility.data,
         },
         () => {
           console.log(this.state);
