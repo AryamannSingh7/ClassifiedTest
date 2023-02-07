@@ -6,7 +6,6 @@ import MessageEnum, {
 } from "../../../framework/src/Messages/MessageEnum";
 import { runEngine } from "../../../framework/src/RunEngine";
 import CommonApiCallForBlockComponent from "../../../components/src/ApiCallCommon.web";
-import {readdirSync} from "fs";
 
 
 export const configJSON = require("../../dashboard/src/config");
