@@ -119,12 +119,7 @@ export default class FriendListController extends BlockComponent<
 
   async componentDidMount(): Promise<void> {
     super.componentDidMount();
-
-    if(this.props.match.params.type){
-     this.getMySelectedTeamList()
-    }else{
-      this.getMyTeamList()
-    }
+    this.getMyTeamList()
   }
 
   approvalFnc = (type:any,id:any) => {
@@ -253,27 +248,39 @@ export default class FriendListController extends BlockComponent<
 
   getMyTeamListResponse = (responseJson:any) => {
     if(responseJson.hasOwnProperty("data")){
-      const pendingReq = responseJson.data.filter((item:any)=> {
-        if(item.attributes.status === "Pending Approval"){
-          return item
-        }
-      })
-      const coreMembers = responseJson.data.filter((item:any)=> {
-        return this.manageDataFilter(item,"Core_member")
-      })
-      const subTeam = responseJson.data.filter((item:any)=> {
-        return this.manageDataFilter(item,"Sub_team")
-      })
-      const ServiceProvider = responseJson.data.filter((item:any)=> {
-        return this.manageDataFilter(item,"Service_provider")
-      })
-      this.setState({
-        coreMembers:coreMembers,
-        subTeam:subTeam,
-        providers:ServiceProvider,
-        pendingReq:pendingReq,
-        loading:false,
-      })
+      if(this.props.match.params.type) {
+        this.getMyTeamList()
+        const teamList = responseJson.data.filter((item:any)=> {
+          return this.manageDataFilter(item,this.props.match.params.type)
+        })
+        this.setState({
+          teamList:teamList,
+          loading:false
+        })
+      }else{
+        const pendingReq = responseJson.data.filter((item:any)=> {
+          if(item.attributes.status === "Pending Approval"){
+            return item
+          }
+        })
+        const coreMembers = responseJson.data.filter((item:any)=> {
+          return this.manageDataFilter(item,"Core_member")
+        })
+        const subTeam = responseJson.data.filter((item:any)=> {
+          return this.manageDataFilter(item,"Sub_team")
+        })
+        const ServiceProvider = responseJson.data.filter((item:any)=> {
+          return this.manageDataFilter(item,"Service_provider")
+        })
+        this.setState({
+          coreMembers:coreMembers,
+          subTeam:subTeam,
+          providers:ServiceProvider,
+          pendingReq:pendingReq,
+          loading:false,
+        })
+      }
+
     }
   }
 

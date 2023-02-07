@@ -184,7 +184,7 @@ class ManagementFeeReport extends ManagementFeeReportController {
                                               </IconButton>
                                             }
                                         >
-                                          <MenuItem>{t("Download")}</MenuItem>
+                                          <MenuItem onClick={() => this.manageDownload(item.id)}>{t("Download")}</MenuItem>
                                           <MenuItem>{t("Share")}</MenuItem>
                                         </Menu>
                                       </TableCell>
