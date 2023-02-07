@@ -498,7 +498,7 @@ class OwnerDashboard extends DashboardController {
                     <Link href="/FacilityReservation">
                       <DashboardCard
                         image={keyhand}
-                        heading={t("Facility Reservation ")}
+                        heading={t("Facility Reservation")}
                         title={t("Facility Listing")}
                         value="75"
                       />

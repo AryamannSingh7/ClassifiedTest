@@ -34,10 +34,10 @@ class ViewMyRents extends ViewMyInvoicesController{
                           </p>
                       </Box>
                       <Box>
-                        <IconButton style={{padding:"8px"}} onClick={this.handleClick}>
+                        <IconButton style={{padding:"8px"}} onClick={this.handleShort}>
                             <img src={shortIcon} />
                         </IconButton>
-                        <IconButton style={{padding:"8px"}} >
+                        <IconButton style={{padding:"8px"}} onClick={this.handleClick}>
                             <img src={filterIcon} />
                         </IconButton>
                           <Menu
@@ -47,8 +47,9 @@ class ViewMyRents extends ViewMyInvoicesController{
                               open={Boolean(this.state.anchorEl)}
                               onClose={this.handleClose}
                           >
-                              <MenuItem onClick={this.handleClose} style={{padding:"0px",minHeight:"20px"}}>Paid</MenuItem>
-                              <MenuItem onClick={this.handleClose}>Due</MenuItem>
+                              <MenuItem onClick={() => this.handleFilter("fully_paid")} style={{padding:"0px",minHeight:"20px"}}>Paid</MenuItem>
+                              <MenuItem onClick={() => this.handleFilter("partially_paid")} style={{padding:"0px",minHeight:"20px"}}>Paid</MenuItem>
+                              <MenuItem onClick={() => this.handleFilter("due")}>Due</MenuItem>
                               <MenuItem onClick={this.handleClose}>OverDue</MenuItem>
                           </Menu>
                     </Box>

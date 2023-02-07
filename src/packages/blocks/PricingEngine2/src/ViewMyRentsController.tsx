@@ -39,6 +39,7 @@ interface S {
   mainBuildingName:any;
   mainUnitName:any;
   partialAmount:any;
+  short:boolean;
 }
 
 interface SS {
@@ -87,6 +88,7 @@ export default class CoverImageController extends CommonApiCallForBlockComponent
       mainBuildingName:"",
       mainUnitName:"",
       partialAmount:"",
+      short:true,
     };
 
     this.emailReg = new RegExp("");
@@ -96,8 +98,19 @@ export default class CoverImageController extends CommonApiCallForBlockComponent
 
   }
 
+  handleShort = () => {
+    this.setState({
+      short:false,
+    })
+    this.getRentUnitList(!this.state.short)
+  }
+
+  handleFilter = (key:any) => {
+    this.getRentUnitList(this.state.short,key)
+  }
+
   async componentDidMount() {
-    this.getRentUnitList()
+    this.getRentUnitList(this.state.short)
   }
 
   handlePaymentClick= (item:any,isPartial:boolean) => {
@@ -115,12 +128,12 @@ export default class CoverImageController extends CommonApiCallForBlockComponent
     })
   }
 
-  getRentUnitList = async () => {
+  getRentUnitList = async (short:any,filter?:any) => {
     const {id} = this.props.match.params
     this.getRentUnitViseListId = await this.apiCall({
       contentType: "application/json",
       method: "GET",
-      endPoint: `/bx_block_rent_payment/monthly_payment/${id}`,
+      endPoint: `/bx_block_rent_payment/monthly_payment/${id}?sort_by_month=${short ? "new_to_old" : "old_to_new"}&status=${filter || ""}`,
     });
   };
 
@@ -191,12 +204,14 @@ export default class CoverImageController extends CommonApiCallForBlockComponent
         this.setState({
           paymentConfirmModal:false
         })
+        this.getRentUnitList(this.state.short)
       }
       if(this.partialPaymentUpdateId === apiRequestCallId){
         this.partialPaymentResponse(responseJson)
         this.setState({
           paymentConfirmModal:false
         })
+        this.getRentUnitList(this.state.short)
       }
     }
   }
@@ -205,7 +220,7 @@ export default class CoverImageController extends CommonApiCallForBlockComponent
       this.setState({
         paymentConfirmModal:false
       })
-      this.getRentUnitList()
+      this.getRentUnitList(this.state.short)
     }
   }
 
@@ -214,7 +229,7 @@ export default class CoverImageController extends CommonApiCallForBlockComponent
       this.setState({
         paymentConfirmModal:false
       })
-      this.getRentUnitList()
+      this.getRentUnitList(this.state.short)
     }
   }
   

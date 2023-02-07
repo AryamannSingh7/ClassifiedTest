@@ -7,9 +7,9 @@ const DashboardCard = ({ image, heading, title, value }: any) => {
       <div className="image">
         <img src={image} alt="" style={{ width: "25px", height: "25px" }} />
       </div>
-      <h4 className="heading">{heading}</h4>
+      <h4 className="heading" style={{minHeight:"50px",marginBottom:"2px"}}>{heading}</h4>
       <div className="state">
-        <p>{title}</p>
+        <p style={{minHeight:"50px"}} >{title}</p>
         <Button className="yellow">{value}</Button>
       </div>
     </Card>
