@@ -233,9 +233,9 @@ class OwnerDashboard extends DashboardController {
                 </div>
               </Box>
               <Container className="dashboard">
-                <Grid container spacing={1} style={{ marginTop: 15 }}>
+                <Grid container spacing={1}>
                   <Box className="notification-slider">
-                    <Slider ref={(c: any) => (this.slider = c)} {...settings}>
+                    <Slider ref={(c: any) => (this.slider = c)} {...settings} style={{ marginTop: 15 }}>
                       {this.state.propertyManagerRequest.map((request: any) => {
                         return (
                           <Box
