@@ -250,7 +250,6 @@ export default class FriendListController extends BlockComponent<
           userList:responseJson?.data,
           userId:this.props.editId.userId,
         })
-        const filterData = responseJson.data.filter
       }else{
         this.setState({
           userList:responseJson?.data
