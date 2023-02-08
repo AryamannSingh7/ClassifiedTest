@@ -16,7 +16,7 @@ import {
   TableBody,
   InputBase,
   Box,
-  Grid,
+  Grid, Backdrop, Fade, TextField, Paper, Modal,
 } from "@material-ui/core";
 import ExpenseReportController, { Props } from "./ExpenseReportController.web";
 import { Menu } from "@szhsin/react-menu";
@@ -30,7 +30,9 @@ import Pagination from "@material-ui/lab/Pagination";
 import { withTranslation } from "react-i18next";
 import { ROLE } from "../../../framework/src/Enum";
 import { ReportsStyleWeb } from "./ReportsStyle.web";
-import { SearchIconImage } from "./assets";
+import { SearchIconImage,UploadLogo } from "./assets";
+import CloseIcon from "@material-ui/icons/Close";
+import {dashBoardActions,PublishButton,CloseButton} from "../../InvoiceBilling/src/chairmanUIStyles"
 
 class ExpenseReport extends ExpenseReportController {
   constructor(props: Props) {
@@ -85,7 +87,7 @@ class ExpenseReport extends ExpenseReportController {
                     </Select>
                     <Select displayEmpty className="select-input" value="">
                       <MenuItem value="" disabled>
-                        {t("Select Status")}
+                        {t("Select Year")}
                       </MenuItem>
                       <MenuItem value="scheduled">{t("Pending")}</MenuItem>
                       <MenuItem value="completed">{t("Approved")}</MenuItem>
@@ -105,7 +107,7 @@ class ExpenseReport extends ExpenseReportController {
                     </Box>
                     {localStorage.getItem("userType") === ROLE.MANAGER && (
                       <Box className="create-meeting">
-                        <Button onClick={() => {}}>{t("Add New Expense")}</Button>
+                        <Button onClick={()=> this.setState({openModal:true})}>{t("Add New Expense")}</Button>
                       </Box>
                     )}
                   </Box>
@@ -116,7 +118,7 @@ class ExpenseReport extends ExpenseReportController {
                       <h4>{t("Expense Reports")}</h4>
                       <div className="search-box">
                         <SearchIcon />
-                        <InputBase placeholder={t("Search")} className="search" value="" />
+                        <InputBase placeholder={t("Search By Expense Number")} className="search" value="" />
                       </div>
                     </Box>
                     <Divider />
@@ -171,6 +173,111 @@ class ExpenseReport extends ExpenseReportController {
                 </Grid>
               </Container>
             </Grid>
+            <Modal
+                style={dashBoardActions.modal}
+                open={this.state.openModal}
+                onClose={()=> this.setState({openModal:false})}
+                closeAfterTransition
+                BackdropComponent={Backdrop}
+                BackdropProps={{
+                  timeout: 500,
+                }}
+            >
+              <Fade in={this.state.openModal}>
+                <div style={dashBoardActions.expensePaper}>
+                  <div style={dashBoardActions.expenseModalHeader}>
+                    <Typography variant="h6" style={dashBoardActions.subHeadingFont}>{t("Add New Expense")}</Typography>
+                    <IconButton onClick={()=> this.setState({openModal:false})}>
+                      <CloseIcon/>
+                    </IconButton>
+                  </div>
+                  <Divider/>
+                  <Grid container spacing={2} style={{marginTop:"10px"}}>
+                    <Grid item xs={12}>
+                      <TextField label={t("Title")} variant="outlined"
+                           name="title"
+                           fullWidth
+                           inputProps={{ maxLength: 50 }}
+                           style={{backgroundColor:"#F9F9F9",borderRadius:"10px"}}
+                      />
+                      <p style={{color:"red"}}></p>
+                    </Grid>
+                    <Grid item xs={6}>
+                      <Select variant="outlined" displayEmpty fullWidth value="" className="select-input" style={{backgroundColor:"#F9F9F9",borderRadius:"10px"}}>
+                        <MenuItem value="" disabled>
+                          {t("Select Building")}
+                        </MenuItem>
+                      </Select>
+                      <p style={{color:"red"}}></p>
+                    </Grid>
+                    <Grid item xs={6}>
+                      <Select variant="outlined" displayEmpty fullWidth value="" className="select-input" style={{backgroundColor:"#F9F9F9",borderRadius:"10px"}}>
+                        <MenuItem value="" disabled>
+                          {t("Select Building")}
+                        </MenuItem>
+                      </Select>
+                      <p style={{color:"red"}}></p>
+                    </Grid>
+                    <Grid item xs={12}>
+                      <TextField label={t("Enter Amount")} variant="outlined"
+                                 name="amount"
+                                 fullWidth
+                                 inputProps={{ maxLength: 50 }}
+                                 style={{backgroundColor:"#F9F9F9",borderRadius:"10px"}}
+                      />
+                      <p style={{color:"red"}}></p>
+                    </Grid>
+                    <Grid item xs={12}>
+                      <div
+                          onClick={() => {
+                            if(!this.state.selectedFile?.name){
+                              this.upload.click();
+                            }
+                          }}
+                          style={{backgroundColor:"#F9F9F9",width:"100%",display:"flex",alignItems:"center",justifyContent:"space-between",height:"55px",borderRadius:"10px"}}
+                      >
+                        {
+                          this.state.selectedFile?.name ?
+                              <div style={{backgroundColor: "white",height:"40px",display:"flex",alignItems:"center",marginLeft:"10px",borderRadius:'10px',justifyContent:'space-between'}}>
+                                <Typography variant="body1" style={{marginLeft:"10px"}}>{this.state.selectedFile.name}</Typography>
+                                <IconButton onClick={()=> this.setState({selectedFile:{}})}><CloseIcon/></IconButton>
+                              </div>
+                              :
+                              <Typography variant="body1" color="textSecondary" style={{marginLeft:"10px"}}>{t("Select Document")}</Typography>
+                        }
+                        <img src={UploadLogo} style={{marginRight:'10px'}}/>
+                      </div>
+                      <input
+                          id="myInput"
+                          type="file"
+                          ref={(ref: any) => (this.upload = ref)}
+                          style={{ display: "none" }}
+                          accept=".docx, .pdf, .doc, .xlsx"
+                          onChange={(e: any) => {
+                            this.setState({selectedFile:e.currentTarget.files[0]});
+                          }}
+                          name="document"
+                      />
+                    </Grid>
+                    <Grid item xs={12}>
+                      <TextField label={t("Description")} variant="outlined"
+                                 name="Description"
+                                 fullWidth
+                                 multiline
+                                 rows={7}
+                                 inputProps={{ maxLength: 50 }}
+                                 style={{backgroundColor:"#F9F9F9",borderRadius:"10px"}}
+                      />
+                      <p style={{color:"red"}}></p>
+                    </Grid>
+                    <Grid item xs={12} style={{display:"flex",justifyContent:'flex-end'}}>
+                      <PublishButton style={{marginRight:"10px",height:"40px"}} onClick={()=> this.setState({openModal:false})}>Cancel</PublishButton>
+                      <CloseButton style={{height:"40px"}}>Add</CloseButton>
+                    </Grid>
+                  </Grid>
+                </div>
+              </Fade>
+            </Modal>
           </Box>
         </Box>
       </>

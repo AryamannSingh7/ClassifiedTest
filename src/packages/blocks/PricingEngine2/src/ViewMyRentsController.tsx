@@ -156,7 +156,8 @@ export default class CoverImageController extends CommonApiCallForBlockComponent
 
 
   managePayment = () => {
-    if(this.state.partialPayment){
+    console.log("IS PARTIAL" ,this.state.partialPayment)
+    if(this.state.isPartialPayment){
       if(this.state.partialPayment !== ""){
         const body = {
           "partial_payment": parseInt(this.state.partialPayment)

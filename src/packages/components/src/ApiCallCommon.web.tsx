@@ -44,6 +44,7 @@ export default class CommonApiCallForBlockComponent<Props, S, SS> extends BlockC
     runEngine.sendMessage(requestMessage.id, requestMessage);
     return requestMessage.messageId;
   };
+
   downloadPdf = async (path:any,fileName:any) => {
     const token:any = localStorage.getItem("userToken")
     const myHeaders = new Headers();

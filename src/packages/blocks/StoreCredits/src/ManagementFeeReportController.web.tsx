@@ -71,7 +71,7 @@ export default class ManagementFeeReportController extends CommonApiCallForBlock
 
   manageDownload = async (id:any) => {
     const societyID = localStorage.getItem("society_id")
-    await this.downloadPdf(`/society_managements/${societyID}bx_block_report/management_fees/${id}/download_report`,"ManagementFeeInvoice.pdf")
+    await this.downloadPdf(`society_managements/${societyID}/bx_block_report/management_fees/${id}/download_report`,`ManagementFeeInvoice-${id}.pdf`)
   }
 
   async receive(from: string, message: Message) {

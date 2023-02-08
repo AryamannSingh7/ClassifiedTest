@@ -294,34 +294,34 @@ render() {
                                                 <div>
                                                     <div className='resident-data'>
                                                         <Typography component="h5">{t("Management Fee Amount")}:</Typography>
-                                                        <b>SR 1,250</b>
+                                                        <b>SR {this.state.receiptDetails?.amount.toLocaleString()}</b>
                                                     </div>
                                                     <div className='resident-data'>
                                                         <Typography component="h5">{t("Late Charges")}:</Typography>
-                                                        <b>SR 29</b>
+                                                        <b>SR {this.state.receiptDetails?.late_charge?.toLocaleString()}</b>
                                                     </div>
                                                     <div className='resident-data'>
                                                         <Typography component="h5">{t("Tax")}:</Typography>
-                                                        <b>SR 24</b>
+                                                        <b>SR {this.state.receiptDetails?.tax?.toLocaleString()}</b>
                                                     </div>
                                                     <div className='resident-data'>
                                                         <Typography component="h5">{t("Others")}:</Typography>
-                                                        <b>SR 00</b>
+                                                        <b>SR {this.state.receiptDetails?.others?.toLocaleString()}</b>
                                                     </div>
                                                     <hr />
                                                     <div className='resident-data'>
                                                         <Typography style={dashBoardActions.commonColor} component="h5">{t("Total Amount")}</Typography>
-                                                        <b style={{color:"#FC8434"}}>SR 1303</b>
+                                                        <b style={{color:"#FC8434"}}>SR {this.state.receiptDetails?.total_amount?.toLocaleString()}</b>
                                                     </div>
                                                 </div>
                                             </Paper>
                                             <Grid container xs={12} style={dashBoardActions.residetails}>
-                                                <Grid item xs={8} style={{display:"flex", marginTop:"10px",alignItems:"center",cursor:"pointer"}}>
+                                                <Grid item xs={8} style={{display:"flex", marginTop:"10px",alignItems:"center",cursor:"pointer"}} onClick={()=> this.manageDownloadReceipt(this.state.downloadId)}>
                                                     <img src={DownloadIcon} width="20px" height="20px" style={{marginRight:"10px"}}/>
                                                     <Typography component="h5" style={{fontWeight:"bold"}}>{t("Download Receipt")}</Typography>
                                                 </Grid>
                                                 <Grid item xs={4} style={{display:'flex',justifyContent:"flex-end"}}>
-                                                    <Typography variant="subtitle2" className="statusOngoingGreen" style={{width:"100px",textAlign:"center"}}>PAID</Typography>
+                                                    <Typography variant="subtitle2" className="statusOngoingGreen" style={{width:"100px",textAlign:"center",textTransform:"capitalize"}}>{this.state.receiptDetails?.status}</Typography>
                                                 </Grid>
                                             </Grid>
                                         </Box>

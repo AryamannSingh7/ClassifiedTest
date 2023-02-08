@@ -113,7 +113,22 @@ export const dashBoardActions = {
         color:"#2b6fed",
         marginRight:"15px",
         border:"1px solid #2b6fed"
-    }
+    },
+    expenseModalHeader: {
+        display: "flex",
+        justifyContent: "space-between",
+        alignItems: "center",
+        margin:"5px 0px 0px 0px"
+    },
+    expensePaper: {
+        backgroundColor: "#fff",
+        borderRadius: '10px',
+        // boxShadow: theme.shadows[5],
+        padding: "10px 16px 10px",
+        width:"700px",
+        overflow:"hidden",
+        minHeight:"500px"
+    },
 };
 
 export const CloseButton = withStyles((theme) => ({
