@@ -197,7 +197,7 @@ export default class CharmainInvoicesController extends CommonApiCallForBlockCom
   }
 
   manageDownloadReceipt = async (id:any) => {
-    await this.downloadPdf(`/bx_block_fees_payment/invoices/${id}/download_invoice`,`Invoice-${id}.pdf`)
+    await this.downloadPdf(`/bx_block_fees_payment/receipts/${id}/download_receipt`,`Receipt-${id}.pdf`)
   }
 
   getBuildingList = async () => {
