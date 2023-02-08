@@ -107,6 +107,7 @@ export default class CoverImageController extends CommonApiCallForBlockComponent
 
   handleFilter = (key:any) => {
     this.getRentUnitList(this.state.short,key)
+    this.setState({anchorEl:null})
   }
 
   async componentDidMount() {

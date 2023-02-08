@@ -48,9 +48,8 @@ class ViewMyRents extends ViewMyInvoicesController{
                               onClose={this.handleClose}
                           >
                               <MenuItem onClick={() => this.handleFilter("fully_paid")} style={{padding:"0px",minHeight:"20px"}}>Paid</MenuItem>
-                              <MenuItem onClick={() => this.handleFilter("partially_paid")} style={{padding:"0px",minHeight:"20px"}}>Paid</MenuItem>
+                              <MenuItem onClick={() => this.handleFilter("partially_paid")} style={{padding:"0px",minHeight:"20px"}}>Partially Paid</MenuItem>
                               <MenuItem onClick={() => this.handleFilter("due")}>Due</MenuItem>
-                              <MenuItem onClick={this.handleClose}>OverDue</MenuItem>
                           </Menu>
                     </Box>
                   </Grid>
@@ -58,6 +57,7 @@ class ViewMyRents extends ViewMyInvoicesController{
                 <Box style={{background: "#F7F9FE",minHeight:"95%",display:'flex',flexDirection:"column",alignItems:'center',justifyContent:"space-between"}} >
                     <Grid container spacing={2} style={{width:"90%",marginTop:".5rem"}}>
                         {
+                            this.state.invoiceListing.length > 0 ?
                             this.state.invoiceListing?.map((item:any,key:any)=> {
                                 return(
                                     <Grid item xs={12} key={key}>
@@ -171,6 +171,10 @@ class ViewMyRents extends ViewMyInvoicesController{
                                     </Grid>
                                 )
                             })
+                            :
+                            <div style={{height:"70vh",width:"100%",display:"flex",alignItems:"center",justifyContent:"center"}}>
+                                <Typography variant="h6" color="textSecondary">No Records found</Typography>
+                            </div>
                         }
                     </Grid>
                 </Box>
