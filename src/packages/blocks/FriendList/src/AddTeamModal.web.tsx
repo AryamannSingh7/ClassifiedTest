@@ -68,7 +68,7 @@ class AddTeamModal extends AddTeamModalController {
                         <Grid container spacing={3}>
                             <Grid item xs={12} sm={6}>
                                 <Box className="formGroup customSelect">
-                                    <FormLabel component="legend" style={dashBoard.labelsStyle}>{t("Select User")}</FormLabel>
+                                    <FormLabel component="legend" style={dashBoard.labelsStyle}>{t("User Name")}</FormLabel>
                                     <FormControl variant="outlined" >
                                                     <span className="frmLeftIcons">
                                                       <img src={user_icon} className="frm-icons" alt="User Icon" />
@@ -86,7 +86,7 @@ class AddTeamModal extends AddTeamModalController {
                                             value={this.state.userId}
                                         >
                                             <MenuItem  disabled value=" ">
-                                                {t("Select User")}
+                                                {t("User Name")}
                                             </MenuItem>
                                             {
                                                 this.state.userList.length > 0 &&
@@ -104,7 +104,7 @@ class AddTeamModal extends AddTeamModalController {
                             </Grid>
                             <Grid item xs={12} sm={6}>
                                 <Box className="formGroup customSelect">
-                                    <FormLabel component="legend" style={dashBoard.labelsStyle}>{t("Select Role")}</FormLabel>
+                                    <FormLabel component="legend" style={dashBoard.labelsStyle}>{t("Role")}</FormLabel>
                                     <FormControl variant="outlined" >
                                                     <span className="frmLeftIcons">
                                                       <img src={user_icon} className="frm-icons" alt="User Icon" />
@@ -165,12 +165,12 @@ class AddTeamModal extends AddTeamModalController {
                         <Grid container spacing={3}>
                             <Grid item xs={12} sm={6}>
                                 <Box className="formGroup customSelect">
-                                    <FormLabel component="legend" style={dashBoard.labelsStyle}>{t("Select Building")}</FormLabel>
+                                    <FormLabel component="legend" style={dashBoard.labelsStyle}>{t("Building")}</FormLabel>
                                     <FormControl variant="outlined" >
                                               <span className="frmLeftIcons">
                                                 <img src={building} className="frm-icons" alt="Building Icon" />
                                               </span>
-                                        <InputLabel id="demo-simple-select-outlined-label" style={dashBoard.formLabels}>{t("Select Building")}</InputLabel>
+                                        <InputLabel id="demo-simple-select-outlined-label" style={dashBoard.formLabels}>{t("Building")}</InputLabel>
                                         <Select
                                             name="building"
                                             disabled
@@ -181,7 +181,7 @@ class AddTeamModal extends AddTeamModalController {
                                             // label="Select User Type"
                                         >
                                             <MenuItem  disabled value="default">
-                                                {t("Select Building")}
+                                                {t("Building")}
                                             </MenuItem>
                                             <MenuItem  disabled value={this.state.selectedUser.buildingId}>
                                                 {this.state.selectedUser.buildingName}
@@ -192,12 +192,12 @@ class AddTeamModal extends AddTeamModalController {
                             </Grid>
                             <Grid item xs={12} sm={6}>
                                 <Box className="formGroup customSelect">
-                                    <FormLabel component="legend" style={dashBoard.labelsStyle}>{t("Select Unit")}</FormLabel>
+                                    <FormLabel component="legend" style={dashBoard.labelsStyle}>{t("Unit")}</FormLabel>
                                     <FormControl variant="outlined" >
                                                     <span className="frmLeftIcons">
                                                       <img src={unit} className="frm-icons" alt="Unit Icon" />
                                                     </span>
-                                        <InputLabel id="demo-simple-select-outlined-label" style={dashBoard.formLabels}>{t("Select Unit")}</InputLabel>
+                                        <InputLabel id="demo-simple-select-outlined-label" style={dashBoard.formLabels}>{t("Unit")}</InputLabel>
                                         <Select
                                             name="unit"
                                             disabled
@@ -207,7 +207,7 @@ class AddTeamModal extends AddTeamModalController {
                                             value={this.state.selectedUser.unitId ? this.state.selectedUser.unitId :"default"}
                                         >
                                             <MenuItem  disabled value="default">
-                                                {t("Select Unit")}
+                                                {t("Unit Number")}
                                             </MenuItem>
                                             <MenuItem  disabled value={this.state.selectedUser.unitId}>
                                                 {this.state.selectedUser.unitName}
@@ -327,7 +327,8 @@ const dashBoard = {
     },
     labelsStyle:{
         color:"#212121",
-        margin:"10px 0px 10px 0px"
+        margin:"10px 0px 10px 0px",
+        fontSize:"14px"
     },
     formLeftIcn:{
         position:"absolute",
