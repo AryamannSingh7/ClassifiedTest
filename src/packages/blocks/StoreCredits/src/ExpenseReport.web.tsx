@@ -16,7 +16,7 @@ import {
   TableBody,
   InputBase,
   Box,
-  Grid, Backdrop, Fade, TextField, Paper, Modal,
+  Grid, Backdrop, Fade, TextField, Modal,
 } from "@material-ui/core";
 import ExpenseReportController, { Props } from "./ExpenseReportController.web";
 import { Menu } from "@szhsin/react-menu";

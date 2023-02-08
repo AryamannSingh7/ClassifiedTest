@@ -43,7 +43,7 @@ export default class ExpenseReportController extends BlockComponent<Props, S, SS
   }
 
   async receive(from: string, message: Message) {
-
+    console.log("CHECK")
   }
 
 }
