@@ -37,6 +37,8 @@ interface S {
   deleteId:any;
   editId:any;
   teamList:any;
+  error:any;
+  showError:boolean;
 }
 
 interface SS {
@@ -87,6 +89,8 @@ export default class FriendListController extends BlockComponent<
       deleteId:"",
       editId:"",
       teamList:[],
+      error:"",
+      showError:false,
     };
     runEngine.attachBuildingBlock(this as IBlock, this.subScribedMessages);
   }
@@ -109,6 +113,13 @@ export default class FriendListController extends BlockComponent<
     this.setState({
       setOpen:true,
       editId:editData
+    })
+  }
+
+  showError = () => {
+    this.setState({
+      error:"This Module Yet to come",
+      showError:true
     })
   }
 

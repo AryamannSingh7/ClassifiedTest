@@ -41,6 +41,7 @@ import Menu from "@material-ui/core/Menu";
 import {withStyles} from "@material-ui/core/styles";
 import {Field, Form, Formik} from "formik";
 import AddTeamModal from "./AddTeamModal.web";
+import AlertError from "../../../components/src/AlertError.web";
 class MyTeam extends MyTeamController {
   constructor(props: Props) {
     super(props);
@@ -67,7 +68,8 @@ class MyTeam extends MyTeamController {
                         <Typography variant="h5" className="subHeading">{t("Team Members")}</Typography>
                     </Box>
                     <Box>
-                        <AcceptButton variant="outlined" onClick={(e) => this.setState({setOpen:true})}>{t("Create new Member")}</AcceptButton>
+                        {/*<AcceptButton variant="outlined" onClick={(e) => this.setState({setOpen:true})}>{t("Create new Member")}</AcceptButton>*/}
+                        <AcceptButton variant="outlined" onClick={this.showError}>{t("Create new Member")}</AcceptButton>
                     </Box>
                 </Box>
                 <Box className="RecentItems">
@@ -80,7 +82,7 @@ class MyTeam extends MyTeamController {
                             this.state.pendingReq.map((item:any,key:any)=> {
                                 if(key < 4){
                                     return(
-                                        <TeamCard key={key} data={item.attributes} history={this.props.history} approval={true} approvalFnc={(type:any,id:any)=> this.approvalFnc(type,id)} handleDelete={(id:any) => this.handleDeleteModal(id)} openChat={this.openChat} handleEdit={(id:any) => this.handleEdit(id)}/>
+                                        <TeamCard key={key} data={item.attributes} history={this.props.history} approval={true} approvalFnc={(type:any,id:any)=> this.approvalFnc(type,id)} handleDelete={(id:any) => this.handleDeleteModal(id)} openChat={this.openChat} handleEdit={(id:any) => this.handleEdit(id)} showError={this.showError}/>
                                     )
                                 }
                           })
@@ -217,6 +219,7 @@ class MyTeam extends MyTeamController {
           </DialogContent>
       </Dialog>
         <Loader loading={this.state.loading} />
+          <AlertError show={this.state.showError} handleClose={()=> this.setState({showError:false,error:null})} message={this.state.error} />
      </>
       );
   }
@@ -374,7 +377,7 @@ const TeamCard = (props:any) => {
                     <img src={profileExp} height="60px" width="60px" style={{borderRadius:"100px"}}  />
                     <Typography variant="h6" style={{fontWeight:"bold",marginBottom:"5px"}}>{data?.role}</Typography>
                     <Typography variant="h6" gutterBottom style={{marginBottom:"10px"}}>{data?.name}</Typography>
-                    <Grid container spacing={1} style={{width:"100%",display:"flex",alignItems:"center",justifyContent:"center"}}>
+                    <Grid container spacing={1} style={{width:"100%",display:"flex",alignItems:"center",justifyContent:"center",minHeight:"80px"}}>
                         {
                             data?.role_list?.length > 0 &&
                                 data?.role_list?.map((item:any,key:any)=> {
@@ -405,10 +408,12 @@ const TeamCard = (props:any) => {
                         props.approval && userType === "Chairman" &&
                         <Grid container spacing={2} style={{width:"100%",marginTop:"10px"}}>
                             <Grid item xs={6}>
-                                <DeclineButton variant="contained" fullWidth onClick={()=> approval("Decline")}>{t("Decline")}</DeclineButton>
+                                {/*<DeclineButton variant="contained" fullWidth onClick={()=> approval("Decline")}>{t("Decline")}</DeclineButton>*/}
+                                <DeclineButton variant="contained" fullWidth onClick={props.showError}>{t("Decline")}</DeclineButton>
                             </Grid>
                             <Grid item xs={6}>
-                                <AcceptButton variant="contained" fullWidth onClick={()=> approval("Accept")}>{t("Accept")}</AcceptButton>
+                                {/*<AcceptButton variant="contained" fullWidth onClick={()=> approval("Accept")}>{t("Accept")}</AcceptButton>*/}
+                                <AcceptButton variant="contained" fullWidth onClick={props.showError}>{t("Accept")}</AcceptButton>
                             </Grid>
                         </Grid>
                     }

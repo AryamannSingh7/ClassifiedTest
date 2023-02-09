@@ -51,6 +51,8 @@ import {CloseButton, dashBoardActions, PublishButton} from "./chairmanUIStyles"
 //resorces
 // import { Bank_Icon, Building1, Grid_Icon, Filter_Icon } from "../src/assets";
 import '../../dashboard/src/style.css'
+import AlertError from "../../../components/src/AlertError.web";
+import AlertSuccess from "../../../components/src/AlertSuccess.web";
 
 function createData( no:any, name:any, unit:any, title:any, amount:any, type:any, status:any, more:any) {
     return { no, name, unit, title, amount, type, status, more };
@@ -294,7 +296,7 @@ render() {
                                                         Total amount to be paid:
                                                     </Typography>
                                                     <Typography style={{marginLeft:"5px",fontWeight:"bold",color:"#FC8434"}}>
-                                                        SR {this.state.invoiceDetails?.total_amount?.toLocaleString()}
+                                                        {this.state.invoiceDetails?.currency} {this.state.invoiceDetails?.total_amount?.toLocaleString()}
                                                     </Typography>
                                                 </Box>
                                                 <Box style={{display:"flex",marginTop:"20px"}}>
@@ -315,13 +317,13 @@ render() {
                                                     <Box style={{display:'flex',alignItems:"center",marginTop:"20px"}}>
                                                         <TextField type="number" placeholder="Enter partial paid amount" value={this.state.partialPaymentAmount} onChange={(e)=> this.setState({partialPaymentAmount:e.target.value})} id="reminAmountFiled"  variant="outlined" />
                                                         <Typography style={{marginLeft:"30px"}}>
-                                                            Remaining Amount : SR {parseInt(this.state.invoiceDetails?.total_amount) - parseInt(this.state.partialPaymentAmount || 0)}
+                                                            Remaining Amount :  {this.state.invoiceDetails?.currency} {parseInt(this.state.invoiceDetails?.total_amount) - parseInt(this.state.partialPaymentAmount || 0)}
                                                         </Typography>
                                                     </Box>
                                                 }
                                                 <Box style={{marginTop:"50px",width:"100%",display:"flex",justifyContent:"flex-end"}}>
                                                     <Button variant="contained" style={dashBoardActions.receiptCancel} color="primary" onClick={()=> this.setState({generateReceipt:false})}>{t("Close")}</Button>
-                                                    <Button variant="contained" style={dashBoardActions.paymentbtn} color="primary" onClick={()=> this.setState({confirmPaymentModal:true})}>{t("Register Payment")}</Button>
+                                                    <Button variant="contained" style={dashBoardActions.paymentbtn} color="primary" onClick={this.registerPaymentConfirmation}>{t("Register Payment")}</Button>
                                                 </Box>
                                             </Box>
                                             :
@@ -361,24 +363,24 @@ render() {
                                                     <div>
                                                         <div className='resident-data'>
                                                             <Typography component="h5">{t("Management Fee Amount")}:</Typography>
-                                                            <b>SR {this.state.invoiceDetails?.management_fee_amount?.toLocaleString()}</b>
+                                                            <b> {this.state.invoiceDetails?.currency}  {this.state.invoiceDetails?.management_fee_amount?.toLocaleString()}</b>
                                                         </div>
                                                         <div className='resident-data'>
                                                             <Typography component="h5">{t("Late Charges")}:</Typography>
-                                                            <b>SR {this.state.invoiceDetails?.late_charge?.toLocaleString()}</b>
+                                                            <b> {this.state.invoiceDetails?.currency}  {this.state.invoiceDetails?.late_charge?.toLocaleString()}</b>
                                                         </div>
                                                         <div className='resident-data'>
                                                             <Typography component="h5">{t("Tax")}:</Typography>
-                                                            <b>SR  {this.state.invoiceDetails?.tax?.toLocaleString()}</b>
+                                                            <b> {this.state.invoiceDetails?.currency}   {this.state.invoiceDetails?.tax?.toLocaleString()}</b>
                                                         </div>
                                                         <div className='resident-data'>
                                                             <Typography component="h5">{t("Others")}:</Typography>
-                                                            <b>SR {this.state.invoiceDetails?.others?.toLocaleString()}</b>
+                                                            <b> {this.state.invoiceDetails?.currency}  {this.state.invoiceDetails?.others?.toLocaleString()}</b>
                                                         </div>
                                                         <hr />
                                                         <div className='resident-data'>
                                                             <Typography style={dashBoardActions.commonColor} component="h5">{t("Total Amount")}</Typography>
-                                                            <b style={{color:"#FC8434"}}>SR {this.state.invoiceDetails?.total_amount?.toLocaleString()}</b>
+                                                            <b style={{color:"#FC8434"}}> {this.state.invoiceDetails?.currency}  {this.state.invoiceDetails?.total_amount?.toLocaleString()}</b>
                                                         </div>
                                                     </div>
                                                 </Paper>
@@ -440,12 +442,12 @@ render() {
                                     </Typography>
                                     <Typography variant="body2" style={{textAlign:"center"}}>
                                         {t("Please confirm that you want to register the payment amount")}
-                                        <span style={{color:"#FC8434",fontWeight:"bold",marginLeft:"5px"}}>SR 500</span>. {t("This action can’t be undone.")}
+                                        <span style={{color:"#FC8434",fontWeight:"bold",marginLeft:"5px"}}> {this.state.invoiceDetails?.currency}  {this.state.paymentType == "partial" ? this.state.partialPaymentAmount : this.state.invoiceDetails?.total_amount?.toLocaleString()}</span>. {t("This action can’t be undone.")}
                                     </Typography>
                                     <Box style={{marginTop:"20px",width:"90%",display:"flex",flexDirection:"row",alignItems:"center",justifyContent:"center"}}>
                                         {/*@ts-ignore*/}
-                                        <PublishButton variant="outlined" style={{marginRight:"10px"}} >{t("Close")}</PublishButton>
-                                        <CloseButton >{t("Confirm")}</CloseButton>
+                                        <PublishButton variant="outlined" style={{marginRight:"10px"}} onClick={()=> this.setState({confirmPaymentModal:false})} >{t("Close")}</PublishButton>
+                                        <CloseButton onClick={this.paymentRegistration}>{t("Confirm")}</CloseButton>
                                     </Box>
                                 </Box>
                             </Box>
@@ -454,6 +456,8 @@ render() {
                 </Grid>
             </Box>
         </Box>
+          <AlertError show={this.state.showError} handleClose={()=> this.setState({showError:false,error:null})} message={this.state.error} />
+          <AlertSuccess show={this.state.showSuccess} handleClose={this.handleSuccessClose} message={this.state.successMessage} />
       </>
       // Customizable Area End
     );

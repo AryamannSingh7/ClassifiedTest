@@ -120,7 +120,7 @@ export default class RegisterRentPaymentController extends CommonApiCallForBlock
   }
 
   unitListResponse = (responseJson:any) => {
-    if(responseJson.hasOwnProperty("data")){
+    if(responseJson?.hasOwnProperty("data")){
       this.setState({
         UnitListing:responseJson.data
       })
@@ -128,7 +128,7 @@ export default class RegisterRentPaymentController extends CommonApiCallForBlock
   }
 
   rentDueResponse = (responseJson:any) => {
-    if(responseJson.hasOwnProperty("data")){
+    if(responseJson?.hasOwnProperty("data")){
       if(responseJson.data.attributes.status === "Rent payments Invoice is not found"){
         this.setState({
           showError:true,
@@ -157,7 +157,7 @@ export default class RegisterRentPaymentController extends CommonApiCallForBlock
   }
 
   monthListResponse = (responseJson:any) => {
-    if(responseJson.hasOwnProperty("month")){
+    if(responseJson?.hasOwnProperty("month")){
       this.setState({
         monthList:responseJson.month
       })
@@ -206,17 +206,19 @@ export default class RegisterRentPaymentController extends CommonApiCallForBlock
     return amt
   }
   rentBuildingList = (responseJson:any) => {
-    if(responseJson.hasOwnProperty("data")){
+    if(responseJson?.hasOwnProperty("data")){
       this.setState({
         BuildingListing:responseJson.data
       })
     }
   }
   registerPaymentResponse = (responseJson:any) => {
-    if(responseJson.hasOwnProperty("data")){
+    if(responseJson?.hasOwnProperty("data")){
       this.setState({
         successMessage:"Rent payment Updated Successfully!!",
         showSuccess:true,
+        partialPaidAmount:"",
+        partialPaymentAmount:"",
       })
     }else{
       this.setState({

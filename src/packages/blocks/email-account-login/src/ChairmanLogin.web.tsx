@@ -148,7 +148,7 @@ class ChairmanLogin extends ChairmanAccountLoginController {
                                     {val?.attributes?.name}
                                   </MenuItem>
                                 ))
-                              }  
+                              }
 
                             </Select> 
                             <ErrorMessage className="text-error" component="Typography" name="userType" />

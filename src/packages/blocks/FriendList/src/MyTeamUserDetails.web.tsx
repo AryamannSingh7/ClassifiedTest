@@ -132,19 +132,15 @@ class MyTeamCore extends MyTeamUserDetailsController {
                                                         this.state.selectedUser?.user_profile?.data?.attributes?.hobbies?.hobbies &&
                                                         <Box style={{margin:"0px 20px"}}>
                                                             <Typography variant="subtitle1" color="textSecondary">{t("Hobbies")}</Typography>
-                                                            <Box className="hobbies">
+                                                            <Box className="hobbies" style={{marginLeft:"0px"}}>
                                                                 {
-                                                                    <>
-                                                                        {
-                                                                            this.state.selectedUser?.user_profile?.data?.hobbies?.hobbies.map((item:any) =>
-                                                                                <>
-                                                                                    <span key={item}>
-                                                                                      {item}
-                                                                                    </span>
-                                                                                </>
-                                                                            )
-                                                                        }
-                                                                    </>
+                                                                    this.state.selectedUser?.user_profile?.data?.attributes?.hobbies?.hobbies?.map((item:any) =>
+                                                                        <>
+                                                                            <span key={item}>
+                                                                              {item}
+                                                                            </span>
+                                                                        </>
+                                                                    )
                                                                 }
                                                             </Box>
                                                         </Box>
