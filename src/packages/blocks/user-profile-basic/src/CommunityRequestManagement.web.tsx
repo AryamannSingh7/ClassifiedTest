@@ -235,7 +235,7 @@ src= {info} style={{paddingLeft:"10px"}}/>
                                       style={{ paddingLeft: '45px' }}
                                       // label="Select User Type"
                                       onChange={(e) => {
-                                        (e.target.value != " ") && setFieldValue("usertype", e.target.value)
+                                        setFieldValue("usertype", e.target.value)
                                       }}
                                       value={values.usertype}
                                     >
@@ -249,7 +249,7 @@ src= {info} style={{paddingLeft:"10px"}}/>
 
                                     </Select>
                                   </FormControl>
-                                  {errors.usertype && touched.usertype ? (
+                                  {errors.usertype? (
                         <Typography
                           style={{
                             color: "#F14E24",
@@ -273,7 +273,7 @@ src= {info} style={{paddingLeft:"10px"}}/>
                               style={dashBoard.cm_formLeftIcn}>
                                 <img src={user_icon} className="frm-icons" alt="User Icon" />
                               </span>
-                              {errors.fullname && touched.fullname ? (
+                              {errors.fullname ? (
                         <Typography
                           style={{
                             color: "#F14E24",
@@ -299,7 +299,7 @@ src= {info} style={{paddingLeft:"10px"}}/>
                               style={dashBoard.cm_formLeftIcn}>
                                 <img src={email_icon} className="frm-icons" alt="Email Icon" />
                               </span>
-                              {errors.email && touched.email ? (
+                              {errors.email ? (
                         <Typography
                           style={{
                             color: "#F14E24",
@@ -323,7 +323,7 @@ src= {info} style={{paddingLeft:"10px"}}/>
                               style={dashBoard.cm_formLeftIcn}>
                                 <img src={phone_icon} className="frm-icons" alt="Phone Icon" />
                               </span>
-                              {errors.phoneno && touched.phoneno ? (
+                              {errors.phoneno  ? (
                         <Typography
                           style={{
                             color: "#F14E24",
@@ -355,7 +355,7 @@ src= {info} style={{paddingLeft:"10px"}}/>
                                     style={{ paddingLeft: '45px' }}
                                     // label="Select User Type"
                                     onChange={(e) => {
-                                      (e.target.value != " ") && setFieldValue("building", e.target.value) ; this.getUnit2(e.target.value)
+                                      setFieldValue("building", e.target.value) ; this.getUnit2(e.target.value)
                                     }}
                                     value={values.building}
                                   >
@@ -369,7 +369,7 @@ src= {info} style={{paddingLeft:"10px"}}/>
 
                                   </Select>
                                 </FormControl>
-                                {errors.building && touched.building ? (
+                                {errors.building ? (
                         <Typography
                           style={{
                             color: "#F14E24",
@@ -399,7 +399,7 @@ src= {info} style={{paddingLeft:"10px"}}/>
                                       style={{ paddingLeft: '45px' }}
                                       // label="Select User Type"
                                       onChange={(e) => {
-                                        (e.target.value != " ") && setFieldValue("unit", e.target.value)
+                                        setFieldValue("unit", e.target.value)
                                       }}
                                       value={values.unit}
                                     >
@@ -413,7 +413,7 @@ src= {info} style={{paddingLeft:"10px"}}/>
 
                                     </Select>
                                   </FormControl>
-                                  {errors.unit && touched.unit ? (
+                                  {errors.unit ? (
                         <Typography
                           style={{
                             color: "#F14E24",

@@ -262,7 +262,7 @@ export default class CharmainInvoicesController extends CommonApiCallForBlockCom
   registerFullPayment = async (Id:any) => {
     this.registerFullPaymentId = await this.apiCall({
       contentType: "application/json",
-      method: "GET",
+      method: "PUT",
       endPoint: `/bx_block_fees_payment/invoices/${Id}/invoice_register_full_payment`,
     });
     return true
@@ -271,8 +271,8 @@ export default class CharmainInvoicesController extends CommonApiCallForBlockCom
   registerPartialPayment = async (Id:any,partialAmount:any) => {
     this.registerPartialPaymentId = await this.apiCall({
       contentType: "application/json",
-      method: "GET",
-      endPoint: `/bx_block_fees_payment/invoices/${Id}/generate_invoice_partially?partial_amount=${partialAmount}`,
+      method: "PUT",
+      endPoint: `/bx_block_fees_payment/invoices/${Id}/invoice_register_partial_payment?partial_amount=${partialAmount}`,
     });
     return true
   };

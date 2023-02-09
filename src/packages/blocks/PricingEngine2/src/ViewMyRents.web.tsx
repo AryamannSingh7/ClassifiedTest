@@ -136,11 +136,11 @@ class ViewMyRents extends ViewMyInvoicesController{
                                                         {
                                                             item.attributes.status === "partially_paid" ?
                                                             <Typography variant={"body1"} style={{fontWeight:"bold",marginTop:"5px"}}>
-                                                                {item.attributes.currency}{(item.attributes.rent_amount - item.attributes.partial_payment).toFixed(2)}
+                                                                {item.attributes.currency}{(item.attributes?.rent_amount - item.attributes?.partial_payment).toFixed(2)}
                                                             </Typography>
                                                                 :
                                                             <Typography variant={"body1"} style={{fontWeight:"bold",marginTop:"5px"}}>
-                                                                {item.attributes.currency}{item.attributes.rent_amount.toFixed(2)}
+                                                                {item.attributes.currency}{item.attributes.rent_amount?.toFixed(2)}
                                                             </Typography>
                                                         }
                                                     </Grid>
