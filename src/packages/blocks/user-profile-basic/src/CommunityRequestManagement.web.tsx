@@ -141,7 +141,7 @@ src= {info} style={{paddingLeft:"10px"}}/>
 </Tooltip>
                                 </div>
                            
-                            <Typography variant="h6" style={dashBoard.cm_subHeading}>{this.state.invitatonCount?.totle_member_invitation_pending}</Typography>
+                            <Typography variant="h6" style={dashBoard.cm_subHeading}>{this.state.invitatonCount?.totle_member_invitation_pending > 0 ? this.state.invitatonCount?.totle_member_invitation_pending + 1 : this.state.invitatonCount?.totle_member_invitation_pending}</Typography>
                         </Paper>
                     </div>
                   </Box>
@@ -160,7 +160,7 @@ src= {info} style={{paddingLeft:"10px"}}/>
                             //@ts-ignore
                             this.props.history.push("/SentInvitation")}}>
                                 <h6>{t("Total Sent Invitations")}</h6>
-                                <Typography variant="h6" style={dashBoard.cm_invitationCont}>{this.state.invitatonCount?.totle_member_invitation_sent}</Typography>
+                                <Typography variant="h6" style={dashBoard.cm_invitationCont}>{this.state.invitatonCount?.totle_member_invitation_sent > 0 ? this.state.invitatonCount?.totle_member_invitation_sent + 1 : this.state.invitatonCount?.totle_member_invitation_sent}</Typography>
                             </div>
                             <div style={dashBoard.cm_facility}>
                                 <h6>{t("Accepted Invitations by users")}</h6>

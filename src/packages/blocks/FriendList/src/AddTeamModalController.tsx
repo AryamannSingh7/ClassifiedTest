@@ -243,13 +243,25 @@ export default class FriendListController extends BlockComponent<
     this.setState({teamAddData:values})
   }
 
-  getUserListResponse = (responseJson:any) => {
+  getUserListResponse = async (responseJson:any) => {
     if(responseJson.hasOwnProperty("data")){
       if(this.props.editId){
+         const filterData = await responseJson?.data.filter((item:any)=> {
+          if(item.id == this.props.editId.userId){
+            return item
+          }
+        })
         this.setState({
           userList:responseJson?.data,
           userId:this.props.editId.userId,
+          selectedUser:{
+            buildingName:filterData[0]?.attributes.building_management?.building_name,
+            buildingId:filterData[0]?.attributes?.building_management?.id,
+            unitName:filterData[0]?.attributes.apartment_management?.apartment_name,
+            unitId:filterData[0]?.attributes?.apartment_management.id
+          }
         })
+        console.log("FILTER DATA",filterData,filterData[0].attributes.building_management.building_name)
       }else{
         this.setState({
           userList:responseJson?.data

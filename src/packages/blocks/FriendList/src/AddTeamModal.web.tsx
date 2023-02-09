@@ -76,6 +76,7 @@ class AddTeamModal extends AddTeamModalController {
                                         <InputLabel id="demo-simple-select-outlined-label" style={dashBoard.formLabels}>{t("Select User")}</InputLabel>
                                         <Select
                                             name="usertype"
+                                            disabled={this.props.editId}
                                             labelId="demo-simple-select-outlined-label"
                                             id="demo-simple-select-outlined"
                                             style={{ paddingLeft: '45px' }}
@@ -91,7 +92,6 @@ class AddTeamModal extends AddTeamModalController {
                                             {
                                                 this.state.userList.length > 0 &&
                                                     this.state.userList.map((item:any,key:any)=> {
-                                                        console.log("Item.ID USer",item.id)
                                                         return(
                                                             <MenuItem value={item.id} key={key}>{item.attributes.full_name}</MenuItem>
                                                         )

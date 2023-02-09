@@ -43,7 +43,11 @@ interface S {
   pagination:any;
   invoiceDetails:any;
   downloadId:any;
-  partialPaymentAmount:any
+  partialPaymentAmount:any;
+  showError:boolean;
+  error:any;
+  showSuccess:boolean;
+  successMessage:any;
 }
 
 interface SS {
@@ -97,7 +101,11 @@ export default class CharmainInvoicesController extends CommonApiCallForBlockCom
       },
       invoiceDetails:{},
       downloadId:"",
-      partialPaymentAmount:0
+      partialPaymentAmount:"",
+      showError:false,
+      error:"",
+      showSuccess:false,
+      successMessage:"",
     };
     runEngine.attachBuildingBlock(this as IBlock, this.subScribedMessages);
   }
@@ -140,6 +148,29 @@ export default class CharmainInvoicesController extends CommonApiCallForBlockCom
     }else{
       this.setState({
         unitList:[]
+      })
+    }
+  }
+
+  registerPaymentConfirmation = () => {
+    console.log("DID i Came ?")
+    if(this.state.paymentType === "partial" || this.state.paymentType === "full"){
+      if(this.state.paymentType === "partial"){
+          if(this.state.partialPaymentAmount){
+            this.setState({confirmPaymentModal:true})
+          }else{
+            this.setState({
+              showError:true,
+              error:"Please enter partial payment amount"
+            })
+          }
+      }else{
+        this.setState({confirmPaymentModal:true})
+      }
+    }else{
+      this.setState({
+        showError:true,
+        error:"Please Select Payment Type"
       })
     }
   }
@@ -232,7 +263,7 @@ export default class CharmainInvoicesController extends CommonApiCallForBlockCom
     this.registerFullPaymentId = await this.apiCall({
       contentType: "application/json",
       method: "GET",
-      endPoint: `bx_block_fees_payment/invoices/unit_list?building_management_id=${Id}`,
+      endPoint: `/bx_block_fees_payment/invoices/${Id}/invoice_register_full_payment`,
     });
     return true
   };
@@ -241,7 +272,7 @@ export default class CharmainInvoicesController extends CommonApiCallForBlockCom
     this.registerPartialPaymentId = await this.apiCall({
       contentType: "application/json",
       method: "GET",
-      endPoint: `bx_block_fees_payment/invoices/unit_list?building_management_id=${Id}`,
+      endPoint: `/bx_block_fees_payment/invoices/${Id}/generate_invoice_partially?partial_amount=${partialAmount}`,
     });
     return true
   };
