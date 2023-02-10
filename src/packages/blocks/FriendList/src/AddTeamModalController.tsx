@@ -192,7 +192,7 @@ export default class FriendListController extends BlockComponent<
     const societyID = localStorage.getItem("society_id")
     this.createTeamMemberId = await this.apiCall({
       method:"POST",
-      endPoint: `bx_block_my_team/team_members`,
+      endPoint: `bx_block_my_team/team_members?society_management_id=${societyID}`,
       body:JSON.stringify(data)
     });
   }

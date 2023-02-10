@@ -53,6 +53,7 @@ import {CloseButton, dashBoardActions, PublishButton} from "./chairmanUIStyles"
 import '../../dashboard/src/style.css'
 import AlertError from "../../../components/src/AlertError.web";
 import AlertSuccess from "../../../components/src/AlertSuccess.web";
+import PaginationModule from "../../StoreCredits/src/PaginationModule.web";
 
 function createData( no:any, name:any, unit:any, title:any, amount:any, type:any, status:any, more:any) {
     return { no, name, unit, title, amount, type, status, more };
@@ -135,10 +136,19 @@ render() {
                                         })
                                     }
                                 </Select>
-                                <Select displayEmpty  value={this.state.filterFloor || ""} className="select-input" onChange={(e) => this.setState({filterFloor:e.target.value})}>
+                                <Select displayEmpty  value={this.state.filterFloor || ""} className="select-input" onChange={this.selectFloor}>
                                     <MenuItem value="">
                                         {t("Select Floor")}
                                     </MenuItem>
+                                    {
+                                        this.state.floorList?.map((item:any,key:any)=> {
+                                            return(
+                                                <MenuItem key={key} value={item}>
+                                                    {item}
+                                                </MenuItem>
+                                            )
+                                        })
+                                    }
                                 </Select>
                                 <Select displayEmpty value={this.state.filterUnit || ""} className="select-input" onChange={(e:any) => this.setState({filterUnit:e.target.value})}>
                                     <MenuItem value="">
@@ -197,7 +207,9 @@ render() {
                                         </TableRow>
                                     </TableHead>
                                     <TableBody>
-                                        {this.state.invoicesList?.map((row:any,key:any) => (
+                                        {
+                                            this.state.invoicesList?.length > 0 ?
+                                            this.state.invoicesList?.map((row:any,key:any) => (
                                             <TableRow key={key}>
                                                 <TableCell component="th" scope="row">{key + 1}</TableCell>
                                                 <TableCell>{row?.attributes?.name}</TableCell>
@@ -222,20 +234,16 @@ render() {
                                                     </Menu>
                                                 </TableCell>
                                             </TableRow>
-                                        ))}
+                                            )):
+                                            <TableRow>
+                                                <TableCell colSpan={6}>{t("No Invoice Data Available")}</TableCell>
+                                            </TableRow>
+                                        }
                                     </TableBody>
                                 </Table>
                                 <Divider />
                                 <Box style={{width:"100%",height:"70px",display:"flex",alignItems:"center",justifyContent:"space-between"}}>
-                                    <Box style={{display:"flex",marginLeft:"15px"}}>
-                                        <Typography style={{marginRight:"5px"}}>{t("Showing")} </Typography>
-                                        <Typography style={{marginRight:"5px",fontWeight:"bold",color:"#FC8434"}}>5</Typography>
-                                        <Typography style={{marginRight:"5px"}}> {t("of")} </Typography>
-                                        <Typography style={{fontWeight:"bold"}}>50</Typography>
-                                    </Box>
-                                    <Box style={{marginRight:"10px"}}>
-                                        <Pagination count={this.state.pagination?.total_count} variant="outlined" shape="rounded" />
-                                    </Box>
+                                    <PaginationModule handlePagination={this.handleInvoicesPagination} pagination={this.state.pagination} page={this.state.page}/>
                                 </Box>
                             </Grid>
                         </Box>
@@ -457,7 +465,7 @@ render() {
             </Box>
         </Box>
           <AlertError show={this.state.showError} handleClose={()=> this.setState({showError:false,error:null})} message={this.state.error} />
-          <AlertSuccess show={this.state.showSuccess} handleClose={this.handleSuccessClose} message={this.state.successMessage} />
+          <AlertSuccess show={this.state.showSuccess} handleClose={()=> this.setState({showSuccess:false})} message={this.state.successMessage} />
       </>
       // Customizable Area End
     );
