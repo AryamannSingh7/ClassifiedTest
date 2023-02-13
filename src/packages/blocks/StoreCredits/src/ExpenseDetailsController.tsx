@@ -18,13 +18,9 @@ export interface Props {
 }
 
 interface S {
-  anchorEl :any ;
-  anchorEl_1 :any ;
   loading: boolean;
   sortBy:any;
-  status:any;
   expenseDetails:any;
-  deleteConfirmModal:boolean;
   expenseId:any;
 }
 
@@ -51,21 +47,14 @@ export default class VisitorDetailsController extends CommonApiCallForBlockCompo
     ]
     
     this.state = {
-      anchorEl:null,
-      anchorEl_1:null,
       loading:false,
       sortBy : "" ,
-      status:"",
       expenseDetails:{},
-      deleteConfirmModal:false,
       expenseId:""
     };
     this.labelTitle = configJSON.labelTitle;
 
     runEngine.attachBuildingBlock(this as IBlock, this.subScribedMessages);
-
-    this.handleOpenDeleteModal = this.handleOpenDeleteModal.bind(this)
-    this.handleCloseDeleteModal = this.handleCloseDeleteModal.bind(this)
 
   }
 
@@ -82,18 +71,6 @@ export default class VisitorDetailsController extends CommonApiCallForBlockCompo
       method: "GET",
       endPoint: `/society_managements/${societyExpnseID}/bx_block_report/expence_reports/${expenseId}`,
     });
-  }
-
-  handleCloseDeleteModal() {
-    this.setState({
-      deleteConfirmModal:false
-    })
-  }
-
-  handleOpenDeleteModal() {
-    this.setState({
-      deleteConfirmModal:true
-    })
   }
 
   async receive(from: string, message: Message) {
@@ -117,38 +94,6 @@ export default class VisitorDetailsController extends CommonApiCallForBlockCompo
   manageExpenseDetailsDownload = (path:any,name:any) => {
     this.downloadPdf(`${path}`,`ExpenseAttachment-${name}.pdf`)
   }
-
-
-  handleClick = (event:any) => {
-    this.setState({anchorEl:event.currentTarget })
-  };
-
-  handleClose = (e?:any, v?:any) => {
-    let sortBy : any ;
-    console.log("v=========>",v)
-    if(v === undefined || v === null){
-      sortBy =this.state.sortBy
-    }
-    else {
-      sortBy =v;
-    }
-    this.setState({anchorEl:null,sortBy : sortBy})
-  };
-
-  handleClick_1 = (event:any) => {
-    this.setState({anchorEl_1:event.currentTarget})
-  };
-
-  handleClose_1 = (e?:any, v?:any) => {
-    let status : any ;
-    if(v === undefined || v === null){
-      status =this.state.status;
-    }
-    else {
-      status =v;
-    }
-    this.setState({anchorEl_1:null ,status :status})
-  };
 }
 
 // Customizable Area End
