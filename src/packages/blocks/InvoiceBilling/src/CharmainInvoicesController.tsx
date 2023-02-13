@@ -5,7 +5,6 @@ import MessageEnum, {
   getName,
 } from "../../../framework/src/Messages/MessageEnum";
 import { runEngine } from "../../../framework/src/RunEngine";
-import { imgPasswordInVisible, imgPasswordVisible } from "../../dashboard/src/assets";
 import CommonApiCallForBlockComponent from "../../../components/src/ApiCallCommon.web";
 
 
@@ -42,6 +41,13 @@ interface S {
   page:any
   count:any;
   pagination:any;
+  invoiceDetails:any;
+  downloadId:any;
+  partialPaymentAmount:any;
+  showError:boolean;
+  error:any;
+  showSuccess:boolean;
+  successMessage:any;
 }
 
 interface SS {
@@ -53,7 +59,10 @@ export default class CharmainInvoicesController extends CommonApiCallForBlockCom
   getInvoiceListId:any
   getBuildingListId:any
   getUnitListId:any;
-  getFloorList:any;
+  getFloorListId:any;
+  getInvoiceDetailsId:any;
+  registerFullPaymentId:any;
+  registerPartialPaymentId:any;
   constructor(props: Props) {
     super(props);
     this.receive = this.receive.bind(this);
@@ -90,12 +99,46 @@ export default class CharmainInvoicesController extends CommonApiCallForBlockCom
         total_count:0,
         total_pages:1,
       },
+      invoiceDetails:{},
+      downloadId:"",
+      partialPaymentAmount:"",
+      showError:false,
+      error:"",
+      showSuccess:false,
+      successMessage:"",
     };
     runEngine.attachBuildingBlock(this as IBlock, this.subScribedMessages);
   }
 
   async componentDidMount(): Promise<void> {
     this.getBuildingList()
+    this.getInvoiceList({
+      buildingId:this.state.filterBuilding,
+      floorNo:this.state.filterFloor,
+      unitId:this.state.filterUnit,
+      paymentType:this.state.filterType,
+      status:this.state.filterStatus,
+      searchKey:this.state.searchKey,
+      page:this.state.page,
+    })
+  }
+
+  handleInvoicesPagination = (e:any,value:any) => {
+    this.getInvoiceList({
+      buildingId:this.state.filterBuilding,
+      floorNo:this.state.filterFloor,
+      unitId:this.state.filterUnit,
+      paymentType:this.state.filterType,
+      status:this.state.filterStatus,
+      searchKey:this.state.searchKey,
+      page:value,
+    })
+    this.setState({
+      page:value
+    })
+  }
+
+  handleFilterBy = () => {
     this.getInvoiceList({
       buildingId:this.state.filterBuilding,
       floorNo:this.state.filterFloor,
@@ -136,6 +179,86 @@ export default class CharmainInvoicesController extends CommonApiCallForBlockCom
     }
   }
 
+  getFloorListResponse = (responseJson:any) => {
+    if(responseJson?.hasOwnProperty("floors")){
+      this.setState({
+        floorList:responseJson.floors
+      })
+    }else{
+      this.setState({
+        floorList:[]
+      })
+    }
+  }
+
+  registerPaymentConfirmation = () => {
+    console.log("DID i Came ?")
+    if(this.state.paymentType === "partial" || this.state.paymentType === "full"){
+      if(this.state.paymentType === "partial"){
+          if(this.state.partialPaymentAmount){
+            this.setState({confirmPaymentModal:true})
+          }else{
+            this.setState({
+              showError:true,
+              error:"Please enter partial payment amount"
+            })
+          }
+      }else{
+        this.setState({confirmPaymentModal:true})
+      }
+    }else{
+      this.setState({
+        showError:true,
+        error:"Please Select Payment Type"
+      })
+    }
+  }
+
+  manageDownload = async (id:any) => {
+    await this.downloadPdf(`/bx_block_fees_payment/invoices/${id}/download_invoice`,`Invoice-${id}.pdf`)
+  }
+
+  getInvoiceDetailsResponse = (responseJson:any) => {
+    if(responseJson.hasOwnProperty("report")){
+      this.setState({
+        invoiceDetails:responseJson?.report?.data?.attributes,
+        downloadId:responseJson?.report?.data?.id
+      })
+    }
+  }
+
+  registerFullPaymentResponse = (responseJson:any) => {
+    if(responseJson?.hasOwnProperty("data")){
+      this.setState({
+        confirmPaymentModal:false,
+        openModal:false,
+        showSuccess:true,
+        successMessage:"Full Payment Updated Successfully!"
+      })
+    }else{
+      this.setState({
+        error:"Something Went Wrong",
+        showError:true
+      })
+    }
+  }
+
+  registerPartialPaymentResponse = (responseJson:any) => {
+    if(responseJson?.hasOwnProperty("data")){
+      this.setState({
+        confirmPaymentModal:false,
+        openModal:false,
+        showSuccess:true,
+        successMessage:`Partial payment ${responseJson.data.attributes.currency} ${responseJson.data.attributes.partial_paid_amount} Updated Successfully!`
+      })
+    }else{
+      this.setState({
+        error:"Something Went Wrong",
+        showError:true
+      })
+    }
+  }
+
   async receive(from: string, message: Message) {
     if(getName(MessageEnum.RestAPIResponceMessage) === message.id) {
       const apiRequestCallId = message.getData(getName(MessageEnum.RestAPIResponceDataMessage));
@@ -149,26 +272,53 @@ export default class CharmainInvoicesController extends CommonApiCallForBlockCom
       if(apiRequestCallId === this.getUnitListId){
         this.getUnitListResponse(responseJson)
       }
+      if(apiRequestCallId === this.getInvoiceDetailsId){
+        this.getInvoiceDetailsResponse(responseJson)
+      }
+      if(apiRequestCallId === this.registerFullPaymentId){
+        this.registerFullPaymentResponse(responseJson)
+      }
+      if(apiRequestCallId === this.registerPartialPaymentId){
+        this.registerPartialPaymentResponse(responseJson)
+      }
+      if(apiRequestCallId === this.getFloorListId){
+        this.getFloorListResponse(responseJson)
+      }
     }
   }
-
-  getInvoiceList = async (data:any) => {
-    const {buildingId,floorNo,unitId,paymentType,status,searchKey,page} = data
-    console.log("Page",page)
-    this.getInvoiceListId = await this.apiCall({
-      contentType: "application/json",
-      method: "GET",
-      endPoint: `/bx_block_fees_payment/invoices?search=${searchKey|| ""}&unit_id=${unitId|| ""}&building_id=${buildingId|| ""}&floor_number=${floorNo|| ""}&select_status=${status|| ""}&select_type=${paymentType|| ""}&page=${page}`,
-    });
-    return true
-  };
 
   selectBuilding = (e:any) => {
     this.setState({
       filterBuilding:e.target.value,
     })
-    this.getUnitList(e.target.value)
+    this.getUnitList(e.target.value,"")
+    this.getFloorList(e.target.value)
   }
+
+  selectFloor = (e:any) => {
+    this.setState({
+      filterFloor:e.target.value,
+    })
+    this.getUnitList(this.state.filterBuilding,e.target.value)
+  }
+
+  paymentRegistration = () => {
+    if(this.state.paymentType === "partial"){
+      this.registerPartialPayment(this.state.downloadId,this.state.partialPaymentAmount)
+    }else{
+      this.registerFullPayment(this.state.downloadId)
+    }
+  }
+
+  getInvoiceList = async (data:any) => {
+    const {buildingId,floorNo,unitId,paymentType,status,searchKey,page} = data
+    this.getInvoiceListId = await this.apiCall({
+      contentType: "application/json",
+      method: "GET",
+      endPoint: `/bx_block_fees_payment/invoices?search=${searchKey|| ""}&unit_id=${unitId|| ""}&building_id=${buildingId|| ""}&floor_number=${floorNo|| ""}&select_status=${status|| ""}&select_type=${paymentType|| ""}&page=${page || 1}`,
+    });
+    return true
+  };
 
   getBuildingList = async () => {
     this.getBuildingListId = await this.apiCall({
@@ -179,75 +329,73 @@ export default class CharmainInvoicesController extends CommonApiCallForBlockCom
     return true
   };
 
-  getUnitList = async (buildingId:any) => {
-    this.getUnitListId = await this.apiCall({
+  getInvoiceDetails = async (id:any) => {
+    this.getInvoiceDetailsId = await this.apiCall({
       contentType: "application/json",
       method: "GET",
-      endPoint: `bx_block_fees_payment/invoices/unit_list?building_management_id=${buildingId}`,
+      endPoint: `bx_block_fees_payment/invoices/${id}/generate_invoice`,
     });
     return true
   };
 
-  txtInputWebProps = {
-    onChangeText: (text: string) => {
-      this.setState({ txtInputValue: text });
-    },
-    secureTextEntry: false,
+  getUnitList = async (buildingId:any,floorId:any) => {
+    this.getUnitListId = await this.apiCall({
+      contentType: "application/json",
+      method: "GET",
+      endPoint: `bx_block_fees_payment/invoices/unit_list?building_management_id=${buildingId}&floor_number=${floorId}`,
+    });
+    return true
   };
 
-  txtInputMobileProps = {
-    ...this.txtInputWebProps,
-    autoCompleteType: "email",
-    keyboardType: "email-address",
+  getFloorList = async (buildingId:any) => {
+    this.getFloorListId = await this.apiCall({
+      contentType: "application/json",
+      method: "GET",
+      endPoint: `bx_block_fees_payment/invoices/floor_number?building_id=${buildingId}`,
+    });
+    return true
   };
 
-  txtInputProps = this.isPlatformWeb()
-    ? this.txtInputWebProps
-    : this.txtInputMobileProps;
-
-  btnShowHideProps = {
-    onPress: () => {
-      this.setState({ enableField: !this.state.enableField });
-      this.txtInputProps.secureTextEntry = !this.state.enableField;
-      this.btnShowHideImageProps.source = this.txtInputProps.secureTextEntry
-        ? imgPasswordVisible
-        : imgPasswordInVisible;
-    },
+  registerFullPayment = async (Id:any) => {
+    this.registerFullPaymentId = await this.apiCall({
+      contentType: "application/json",
+      method: "PUT",
+      endPoint: `/bx_block_fees_payment/invoices/${Id}/invoice_register_full_payment`,
+    });
+    return true
   };
 
-  btnShowHideImageProps = {
-    source: this.txtInputProps.secureTextEntry
-      ? imgPasswordVisible
-      : imgPasswordInVisible,
+  registerPartialPayment = async (Id:any,partialAmount:any) => {
+    this.registerPartialPaymentId = await this.apiCall({
+      contentType: "application/json",
+      method: "PUT",
+      endPoint: `/bx_block_fees_payment/invoices/${Id}/invoice_register_partial_payment?partial_amount=${partialAmount}`,
+    });
+    return true
   };
 
-  btnExampleProps = {
-    onPress: () => this.doButtonPressed(),
-  };
-
-  doButtonPressed() {
-    let msg = new Message(getName(MessageEnum.AccoutLoginSuccess));
-    msg.addData(
-      getName(MessageEnum.AuthTokenDataMessage),
-      this.state.txtInputValue
-    );
-    this.send(msg);
+  handleSearch = (e:any) => {
+    this.setState({
+      searchKey:e.target.value
+    })
+    this.getInvoiceList({
+      buildingId:this.state.filterBuilding,
+      floorNo:this.state.filterFloor,
+      unitId:this.state.filterUnit,
+      paymentType:this.state.filterType,
+      status:this.state.filterStatus,
+      searchKey:e.target.value,
+      page:this.state.page,
+    })
   }
 
-    handleClick = (e: any) => {
-        this.setState({anchorEl:e.currentTarget});
-    };
-
-    handleClose = () => {
-        this.setState({anchorEl:null});
-    };
-
-    handleModalOpen = () => {
+    handleModalOpen = (id:any) => {
         this.setState({openModal:true});
+        this.getInvoiceDetails(id)
     };
     
     handleModalClose = () => {
-      this.setState({openModal:false});
+      this.setState({openModal:false,invoiceDetails:{}});
       console.log("close---->")
     };
 

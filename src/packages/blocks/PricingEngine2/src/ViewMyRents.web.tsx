@@ -34,10 +34,10 @@ class ViewMyRents extends ViewMyInvoicesController{
                           </p>
                       </Box>
                       <Box>
-                        <IconButton style={{padding:"8px"}} onClick={this.handleClick}>
+                        <IconButton style={{padding:"8px"}} onClick={this.handleShort}>
                             <img src={shortIcon} />
                         </IconButton>
-                        <IconButton style={{padding:"8px"}} >
+                        <IconButton style={{padding:"8px"}} onClick={this.handleClick}>
                             <img src={filterIcon} />
                         </IconButton>
                           <Menu
@@ -47,9 +47,9 @@ class ViewMyRents extends ViewMyInvoicesController{
                               open={Boolean(this.state.anchorEl)}
                               onClose={this.handleClose}
                           >
-                              <MenuItem onClick={this.handleClose} style={{padding:"0px",minHeight:"20px"}}>Paid</MenuItem>
-                              <MenuItem onClick={this.handleClose}>Due</MenuItem>
-                              <MenuItem onClick={this.handleClose}>OverDue</MenuItem>
+                              <MenuItem onClick={() => this.handleFilter("fully_paid")} style={{padding:"0px",minHeight:"20px"}}>Paid</MenuItem>
+                              <MenuItem onClick={() => this.handleFilter("partially_paid")} style={{padding:"0px",minHeight:"20px"}}>Partially Paid</MenuItem>
+                              <MenuItem onClick={() => this.handleFilter("due")}>Due</MenuItem>
                           </Menu>
                     </Box>
                   </Grid>
@@ -57,6 +57,7 @@ class ViewMyRents extends ViewMyInvoicesController{
                 <Box style={{background: "#F7F9FE",minHeight:"95%",display:'flex',flexDirection:"column",alignItems:'center',justifyContent:"space-between"}} >
                     <Grid container spacing={2} style={{width:"90%",marginTop:".5rem"}}>
                         {
+                            this.state.invoiceListing.length > 0 ?
                             this.state.invoiceListing?.map((item:any,key:any)=> {
                                 return(
                                     <Grid item xs={12} key={key}>
@@ -135,11 +136,11 @@ class ViewMyRents extends ViewMyInvoicesController{
                                                         {
                                                             item.attributes.status === "partially_paid" ?
                                                             <Typography variant={"body1"} style={{fontWeight:"bold",marginTop:"5px"}}>
-                                                                {item.attributes.currency}{(item.attributes.rent_amount - item.attributes.partial_payment).toFixed(2)}
+                                                                {item.attributes.currency}{(item.attributes?.rent_amount - item.attributes?.partial_payment).toFixed(2)}
                                                             </Typography>
                                                                 :
                                                             <Typography variant={"body1"} style={{fontWeight:"bold",marginTop:"5px"}}>
-                                                                {item.attributes.currency}{item.attributes.rent_amount.toFixed(2)}
+                                                                {item.attributes.currency}{item.attributes.rent_amount?.toFixed(2)}
                                                             </Typography>
                                                         }
                                                     </Grid>
@@ -170,6 +171,10 @@ class ViewMyRents extends ViewMyInvoicesController{
                                     </Grid>
                                 )
                             })
+                            :
+                            <div style={{height:"70vh",width:"100%",display:"flex",alignItems:"center",justifyContent:"center"}}>
+                                <Typography variant="h6" color="textSecondary">No Records found</Typography>
+                            </div>
                         }
                     </Grid>
                 </Box>

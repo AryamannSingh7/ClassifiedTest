@@ -374,7 +374,7 @@ const TeamCard = (props:any) => {
                     <img src={profileExp} height="60px" width="60px" style={{borderRadius:"100px"}}  />
                     <Typography variant="h6" style={{fontWeight:"bold",marginBottom:"5px"}}>{data?.role}</Typography>
                     <Typography variant="h6" gutterBottom style={{marginBottom:"10px"}}>{data?.name}</Typography>
-                    <Grid container spacing={1} style={{width:"100%",display:"flex",alignItems:"center",justifyContent:"center"}}>
+                    <Grid container spacing={1} style={{width:"100%",display:"flex",alignItems:"center",justifyContent:"center",minHeight:"80px"}}>
                         {
                             data?.role_list?.length > 0 &&
                                 data?.role_list?.map((item:any,key:any)=> {

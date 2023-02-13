@@ -207,7 +207,7 @@ class AwaitingAcceptece extends CommunityUserProfileController {
                                 style={dashBoard.profileImage}
                               />
                               <CardContent style={{padding:"0px 16px 16px 16px"}}>
-                              <span style={{position:"absolute", right:"10px", top:"10px"}} > <Menu menuButton={<MoreVertIcon color='disabled' />}>
+                              <span style={{position:"absolute", right:"10px", top:"10px"}} > <Menu menuButton={<MoreVertIcon color='disabled' />} style={{left:"0px",top:"0px"}}>
         <MenuItem onClick={()=>this.handleDeleteRequestOpen(item)}>{t("Resend Request")}</MenuItem>
         <MenuItem onClick={()=>this.handleResendRequest(item)}>{t("Delete Invitation Request")}</MenuItem>
         

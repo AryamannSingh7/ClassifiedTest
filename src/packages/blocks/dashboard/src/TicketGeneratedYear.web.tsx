@@ -20,7 +20,7 @@ import Grid from "@material-ui/core/Grid";
 import NativeSelect from "@material-ui/core/NativeSelect";
 import Pagination from "@material-ui/lab/Pagination";
 import SearchOutlinedIcon from "@material-ui/icons/SearchOutlined";
-import DashboardTicketController, { Props } from "../../../blocks/dashboard/src/DashboardTicketController.web";
+import DashboardTicketController, { Props } from "./DashboardTicketController.web";
 import DashboardHeader from "./DashboardHeader.web";
 import ChairmanSidebar from "./ChairmanSidebar.web";
 import { withRouter } from "react-router";

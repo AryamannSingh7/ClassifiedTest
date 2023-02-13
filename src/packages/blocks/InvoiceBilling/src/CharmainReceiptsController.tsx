@@ -41,6 +41,8 @@ interface S {
   page:any
   count:any;
   pagination:any;
+  receiptDetails:any;
+  downloadId:any
 }
 
 interface SS {
@@ -53,6 +55,7 @@ export default class CharmainInvoicesController extends CommonApiCallForBlockCom
   getBuildingListReceiptId:any
   getUnitListReceiptId:any;
   getFloorReceiptList:any;
+  getReceiptDetailsId:any;
   constructor(props: Props) {
     super(props);
     this.receive = this.receive.bind(this);
@@ -89,6 +92,8 @@ export default class CharmainInvoicesController extends CommonApiCallForBlockCom
         total_count:0,
         total_pages:1,
       },
+      receiptDetails:{},
+      downloadId:"",
     };
     runEngine.attachBuildingBlock(this as IBlock, this.subScribedMessages);
   }
@@ -135,6 +140,15 @@ export default class CharmainInvoicesController extends CommonApiCallForBlockCom
     }
   }
 
+  getReceiptDetailsResponse = (responseJson:any) => {
+    if(responseJson.hasOwnProperty("receipt")){
+      this.setState({
+        receiptDetails:responseJson?.receipt?.data?.attributes,
+        downloadId:responseJson?.receipt?.data?.id
+      })
+    }
+  }
+
   async receive(from: string, message: Message) {
     if(getName(MessageEnum.RestAPIResponceMessage) === message.id) {
       const apiRequestCallId = message.getData(getName(MessageEnum.RestAPIResponceDataMessage));
@@ -148,8 +162,21 @@ export default class CharmainInvoicesController extends CommonApiCallForBlockCom
       if(apiRequestCallId === this.getUnitListReceiptId){
         this.getUnitListReceiptResponse(responseJson)
       }
+      if(apiRequestCallId === this.getReceiptDetailsId){
+        this.getReceiptDetailsResponse(responseJson)
+      }
     }
   }
+
+  getReceiptDetails = async (id:any) => {
+    this.getReceiptDetailsId = await this.apiCall({
+      contentType: "application/json",
+      method: "GET",
+      endPoint: `bx_block_fees_payment/receipts/${id}/generate_receipt`,
+    });
+    return true
+  };
+
 
   getReceiptList = async (data:any) => {
     const {buildingId,floorNo,unitId,paymentType,status,searchKey,page} = data
@@ -169,6 +196,10 @@ export default class CharmainInvoicesController extends CommonApiCallForBlockCom
     this.getUnitList(e.target.value)
   }
 
+  manageDownloadReceipt = async (id:any) => {
+    await this.downloadPdf(`/bx_block_fees_payment/receipts/${id}/download_receipt`,`Receipt-${id}.pdf`)
+  }
+
   getBuildingList = async () => {
     this.getBuildingListReceiptId = await this.apiCall({
       contentType: "application/json",
@@ -177,6 +208,21 @@ export default class CharmainInvoicesController extends CommonApiCallForBlockCom
     });
     return true
   };
+
+  handleReceiptPagination = (e:any,value:any) => {
+    this.getReceiptList({
+      buildingId:this.state.filterReceiptBuilding,
+      floorNo:this.state.filterReceiptFloor,
+      unitId:this.state.filterReceiptUnit,
+      paymentType:this.state.filterReceiptType,
+      status:this.state.filterReceiptStatus,
+      searchKey:this.state.searchReceiptKey,
+      page:value,
+    })
+    this.setState({
+      page:value
+    })
+  }
 
   getUnitList = async (buildingId:any) => {
     this.getUnitListReceiptId = await this.apiCall({
@@ -195,8 +241,9 @@ export default class CharmainInvoicesController extends CommonApiCallForBlockCom
         this.setState({anchorEl:null});
     };
 
-    handleModalOpenReceipt = () => {
+    handleModalOpenReceipt = (id:any) => {
         this.setState({openModal:true});
+        this.getReceiptDetails(id)
     };
     
     handleModalCloseReceipt = () => {

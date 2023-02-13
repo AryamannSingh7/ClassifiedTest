@@ -92,10 +92,9 @@ class MyTeamCore extends MyTeamController {
                             null
                             :
                             <Box>
-                        <AcceptButton variant="outlined" onClick={(e) => this.setState({setOpen:true})}>Create new Member</AcceptButton>
-                    </Box>
-                           }
-                    
+                            <AcceptButton variant="outlined" onClick={(e) => this.setState({setOpen:true})}>Create new Member</AcceptButton>
+                            </Box>
+                    }
                 </Box>
                 <Grid container spacing={3} style={{marginTop: 15, marginBottom:30}}>
                     {

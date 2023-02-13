@@ -13,7 +13,6 @@ import {
     Grid,
     IconButton,
     InputBase,
-    Menu,
     MenuItem,
     Modal,
     Paper,
@@ -34,7 +33,7 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import {withRouter} from 'react-router-dom';
-
+import { Menu } from "@szhsin/react-menu";
 import CharmainInvoicesController, {Props} from "./CharmainInvoicesController";
 import DashboardHeader from "../../dashboard/src/DashboardHeader.web";
 import ChairmanSidebar from "../../dashboard/src/ChairmanSidebar.web";
@@ -52,6 +51,9 @@ import {CloseButton, dashBoardActions, PublishButton} from "./chairmanUIStyles"
 //resorces
 // import { Bank_Icon, Building1, Grid_Icon, Filter_Icon } from "../src/assets";
 import '../../dashboard/src/style.css'
+import AlertError from "../../../components/src/AlertError.web";
+import AlertSuccess from "../../../components/src/AlertSuccess.web";
+import PaginationModule from "../../StoreCredits/src/PaginationModule.web";
 
 function createData( no:any, name:any, unit:any, title:any, amount:any, type:any, status:any, more:any) {
     return { no, name, unit, title, amount, type, status, more };
@@ -134,10 +136,19 @@ render() {
                                         })
                                     }
                                 </Select>
-                                <Select displayEmpty  value={this.state.filterFloor || ""} className="select-input" onChange={(e) => this.setState({filterFloor:e.target.value})}>
+                                <Select displayEmpty  value={this.state.filterFloor || ""} className="select-input" onChange={this.selectFloor}>
                                     <MenuItem value="">
                                         {t("Select Floor")}
                                     </MenuItem>
+                                    {
+                                        this.state.floorList?.map((item:any,key:any)=> {
+                                            return(
+                                                <MenuItem key={key} value={item}>
+                                                    {item}
+                                                </MenuItem>
+                                            )
+                                        })
+                                    }
                                 </Select>
                                 <Select displayEmpty value={this.state.filterUnit || ""} className="select-input" onChange={(e:any) => this.setState({filterUnit:e.target.value})}>
                                     <MenuItem value="">
@@ -186,59 +197,56 @@ render() {
                                     <TableHead>
                                         <TableRow>
                                             <TableCell style={{color:"grey"}}>#</TableCell>
-                                            <TableCell style={{color:"grey"}} align="center">{t("Name")}</TableCell>
-                                            <TableCell style={{color:"grey"}} align="center">{t("Unit No.")}</TableCell>
-                                            <TableCell style={{color:"grey"}} align="center">{t("Title")}</TableCell>
-                                            <TableCell style={{color:"grey"}} align="center">{t("Amount")}</TableCell>
-                                            <TableCell style={{color:"grey"}} align="center">{t("Type")}</TableCell>
-                                            <TableCell style={{color:"grey"}} align="center">{t("Status")}</TableCell>
-                                            <TableCell style={{color:"grey"}} align="center"></TableCell>
+                                            <TableCell style={{color:"grey"}} >{t("Name")}</TableCell>
+                                            <TableCell style={{color:"grey"}} >{t("Unit No.")}</TableCell>
+                                            <TableCell style={{color:"grey"}} >{t("Title")}</TableCell>
+                                            <TableCell style={{color:"grey"}} >{t("Amount")}</TableCell>
+                                            <TableCell style={{color:"grey"}} >{t("Type")}</TableCell>
+                                            <TableCell style={{color:"grey"}} >{t("Status")}</TableCell>
+                                            <TableCell style={{color:"grey"}} >Options</TableCell>
                                         </TableRow>
                                     </TableHead>
                                     <TableBody>
-                                        {searchData.map((row) => (
-                                            <TableRow key={row.no}>
-                                                <TableCell component="th" scope="row">{row.no}</TableCell>
-                                                <TableCell align="center">{row.name}</TableCell>
-                                                <TableCell align="center">{row.unit}</TableCell>
-                                                <TableCell align="center">{row.title}</TableCell>
-                                                <TableCell align="center">{row.amount}</TableCell>
-                                                <TableCell align="center">{row.type}</TableCell>
-                                                <TableCell align="center">{row.status}</TableCell>
-                                                <TableCell align="center" onClick={(e: any) => this.handleClick(e)}>{row.more}</TableCell>
+                                        {
+                                            this.state.invoicesList?.length > 0 ?
+                                            this.state.invoicesList?.map((row:any,key:any) => (
+                                            <TableRow key={key}>
+                                                <TableCell component="th" scope="row">{key + 1}</TableCell>
+                                                <TableCell>{row?.attributes?.name}</TableCell>
+                                                <TableCell>{row?.attributes?.unit_number}</TableCell>
+                                                <TableCell>{row?.attributes?.title}</TableCell>
+                                                <TableCell>{row?.attributes?.currency} {row?.attributes?.amount}</TableCell>
+                                                <TableCell>{row?.attributes?.payment_type}</TableCell>
+                                                <TableCell>{row?.attributes?.status}</TableCell>
+                                                <TableCell>
+                                                    <Menu
+                                                        menuButton={
+                                                            <IconButton>
+                                                                <MoreVertIcon />
+                                                            </IconButton>
+                                                        }
+                                                    >
+                                                        <MenuItem onClick={() => this.handleModalOpen(row.id)}>
+                                                            {t("View")}
+                                                        </MenuItem>
+                                                        <MenuItem onClick={() => this.manageDownload(row.id)}>{t("Download")}</MenuItem>
+                                                        <MenuItem>{t("Share")}</MenuItem>
+                                                    </Menu>
+                                                </TableCell>
                                             </TableRow>
-                                        ))}
+                                            )):
+                                            <TableRow>
+                                                <TableCell colSpan={6}>{t("No Invoice Data Available")}</TableCell>
+                                            </TableRow>
+                                        }
                                     </TableBody>
                                 </Table>
                                 <Divider />
                                 <Box style={{width:"100%",height:"70px",display:"flex",alignItems:"center",justifyContent:"space-between"}}>
-                                    <Box style={{display:"flex",marginLeft:"15px"}}>
-                                        <Typography style={{marginRight:"5px"}}>{t("Showing")} </Typography>
-                                        <Typography style={{marginRight:"5px",fontWeight:"bold",color:"#FC8434"}}>5</Typography>
-                                        <Typography style={{marginRight:"5px"}}> {t("of")} </Typography>
-                                        <Typography style={{fontWeight:"bold"}}>50</Typography>
-                                    </Box>
-                                    <Box style={{marginRight:"10px"}}>
-                                        <Pagination count={this.state.pagination?.total_count} variant="outlined" shape="rounded" />
-                                    </Box>
+                                    <PaginationModule handlePagination={this.handleInvoicesPagination} pagination={this.state.pagination} page={this.state.page}/>
                                 </Box>
                             </Grid>
                         </Box>
-                        <Menu
-                            id="simple-menu"
-                            anchorEl={this.state.anchorEl}
-                            keepMounted
-                            open={Boolean(this.state.anchorEl)}
-                            onClose={this.handleClose}
-                            style={{padding:"0px", cursor:'pointer'}}
-                            >
-                            <MenuItem onClick={this.handleClose} style={{margin:"7px", cursor:'pointer'}} onClick={this.handleModalOpen}>{t("View")}</MenuItem>
-                            <Divider style={{margin:"0px"}}/>
-                            <MenuItem onClick={this.handleClose} style={{margin:"7px", cursor:'pointer'}}>{t("Download")}</MenuItem>
-                            <Divider style={{margin:"0px"}}/>
-                            <MenuItem onClick={this.handleClose} style={{margin:"7px", cursor:'pointer'}}>{t("Share")}</MenuItem>
-                            </Menu>
-
                             <Modal
                                 style={dashBoardActions.modal}
                                 open={this.state.openModal}
@@ -257,12 +265,15 @@ render() {
                                             <CloseIcon/>
                                         </IconButton>
                                     </div>
+                                    {
+                                        console.log("INVOICE DETAILS",this.state.invoiceDetails)
+                                    }
                                     <Divider style={{marginLeft:"-100px",width:"200%"}}/>
                                     {
                                             this.state.generateReceipt ?
                                             <Box>
                                                 <Box style={{marginTop:"15px",display:'flex',alignItems:"center"}}>
-                                                    <IconButton onClick={()=> this.setState({generateReceipt:false})}>
+                                                    <IconButton onClick={()=> this.setState({generateReceipt:false})} style={{padding:"2px",marginLeft:'-3px',marginRight:'5px'}}>
                                                         <ArrowBackIcon/>
                                                     </IconButton>
                                                     <Typography variant="h6" style={{fontWeight:"bold",marginLeft:"5px"}}>Generate Receipts</Typography>
@@ -277,7 +288,7 @@ render() {
                                                         Resident ID:
                                                     </Typography>
                                                     <Typography style={{marginLeft:"5px",fontWeight:"bold"}}>
-                                                        ABCDE1234Q
+                                                        {this.state.invoiceDetails?.resident_details?.resident_id}
                                                     </Typography>
                                                 </Box>
                                                 <Box style={{display:"flex"}}>
@@ -285,7 +296,7 @@ render() {
                                                         Resident Name:
                                                     </Typography>
                                                     <Typography style={{marginLeft:"5px",fontWeight:"bold"}}>
-                                                        Jenil Patel
+                                                        {this.state.invoiceDetails?.resident_details?.resident_name}
                                                     </Typography>
                                                 </Box>
                                                 <Box style={{display:"flex",marginTop:"20px"}}>
@@ -293,7 +304,7 @@ render() {
                                                         Total amount to be paid:
                                                     </Typography>
                                                     <Typography style={{marginLeft:"5px",fontWeight:"bold",color:"#FC8434"}}>
-                                                        SR 1,303
+                                                        {this.state.invoiceDetails?.currency} {this.state.invoiceDetails?.total_amount?.toLocaleString()}
                                                     </Typography>
                                                 </Box>
                                                 <Box style={{display:"flex",marginTop:"20px"}}>
@@ -312,15 +323,15 @@ render() {
                                                 {
                                                     this.state.paymentType === "partial" &&
                                                     <Box style={{display:'flex',alignItems:"center",marginTop:"20px"}}>
-                                                        <TextField placeholder="Enter partial paid amount" id="reminAmountFiled"  variant="outlined" />
+                                                        <TextField type="number" placeholder="Enter partial paid amount" value={this.state.partialPaymentAmount} onChange={(e)=> this.setState({partialPaymentAmount:e.target.value})} id="reminAmountFiled"  variant="outlined" />
                                                         <Typography style={{marginLeft:"30px"}}>
-                                                            Remaining Amount : SR 0
+                                                            Remaining Amount :  {this.state.invoiceDetails?.currency} {parseInt(this.state.invoiceDetails?.total_amount) - parseInt(this.state.partialPaymentAmount || 0)}
                                                         </Typography>
                                                     </Box>
                                                 }
                                                 <Box style={{marginTop:"50px",width:"100%",display:"flex",justifyContent:"flex-end"}}>
                                                     <Button variant="contained" style={dashBoardActions.receiptCancel} color="primary" onClick={()=> this.setState({generateReceipt:false})}>{t("Close")}</Button>
-                                                    <Button variant="contained" style={dashBoardActions.paymentbtn} color="primary" onClick={()=> this.setState({confirmPaymentModal:true})}>{t("Register Payment")}</Button>
+                                                    <Button variant="contained" style={dashBoardActions.paymentbtn} color="primary" onClick={this.registerPaymentConfirmation}>{t("Register Payment")}</Button>
                                                 </Box>
                                             </Box>
                                             :
@@ -328,29 +339,29 @@ render() {
                                                 <Grid container spacing={2} style={dashBoardActions.residetails}>
                                                     <Grid item xs={3}>
                                                         <Typography style={dashBoardActions.commonColor} component="h5">{t("Owner Name:")}</Typography>
-                                                        <b>John Doe</b>
+                                                        <b>{this.state.invoiceDetails?.owner_name}</b>
                                                     </Grid>
                                                     <Grid item xs={3}>
                                                         <Typography style={dashBoardActions.commonColor} component="h5">{t("Resident Name:")}</Typography>
-                                                        <b>Jenil Patel</b>
+                                                        <b>{this.state.invoiceDetails?.resident_details?.resident_name}</b>
                                                     </Grid>
                                                     <Grid item xs={3}>
                                                         <Typography style={dashBoardActions.commonColor} component="h5">{t("Building Name:")}</Typography>
-                                                        <b>Building</b>
+                                                        <b>{this.state.invoiceDetails?.building_name}</b>
                                                     </Grid>
                                                     <Grid item xs={3}>
                                                         <Typography style={dashBoardActions.commonColor} component="h5">{t("Unit Number:")}</Typography>
-                                                        <b>1406</b>
+                                                        <b>{this.state.invoiceDetails?.unit_number}</b>
                                                     </Grid>
                                                 </Grid>
                                                 <Grid container spacing={2} xs={12} style={dashBoardActions.residetails}>
                                                     <Grid item xs={3}>
                                                         <Typography style={dashBoardActions.commonColor} component="h5">{t("Resident ID:")}</Typography>
-                                                        <b>ABCDE1254Q</b>
+                                                        <b>{this.state.invoiceDetails?.resident_details?.resident_id}</b>
                                                     </Grid>
                                                     <Grid item xs={3}>
                                                         <Typography style={dashBoardActions.commonColor} component="h5">{t("Generated on:")}</Typography>
-                                                        <b>15-05-2022</b>
+                                                        <b>{this.state.invoiceDetails?.generated_on}</b>
                                                     </Grid>
                                                 </Grid>
                                                 <div style={{marginTop:"30px",marginBottom:"5px"}}>
@@ -360,56 +371,45 @@ render() {
                                                     <div>
                                                         <div className='resident-data'>
                                                             <Typography component="h5">{t("Management Fee Amount")}:</Typography>
-                                                            <b>SR 1,250</b>
+                                                            <b> {this.state.invoiceDetails?.currency}  {this.state.invoiceDetails?.management_fee_amount?.toLocaleString()}</b>
                                                         </div>
                                                         <div className='resident-data'>
                                                             <Typography component="h5">{t("Late Charges")}:</Typography>
-                                                            <b>SR 29</b>
+                                                            <b> {this.state.invoiceDetails?.currency}  {this.state.invoiceDetails?.late_charge?.toLocaleString()}</b>
                                                         </div>
                                                         <div className='resident-data'>
                                                             <Typography component="h5">{t("Tax")}:</Typography>
-                                                            <b>SR 24</b>
+                                                            <b> {this.state.invoiceDetails?.currency}   {this.state.invoiceDetails?.tax?.toLocaleString()}</b>
                                                         </div>
                                                         <div className='resident-data'>
                                                             <Typography component="h5">{t("Others")}:</Typography>
-                                                            <b>SR 00</b>
+                                                            <b> {this.state.invoiceDetails?.currency}  {this.state.invoiceDetails?.others?.toLocaleString()}</b>
                                                         </div>
                                                         <hr />
                                                         <div className='resident-data'>
                                                             <Typography style={dashBoardActions.commonColor} component="h5">{t("Total Amount")}</Typography>
-                                                            <b style={{color:"#FC8434"}}>SR 1303</b>
+                                                            <b style={{color:"#FC8434"}}> {this.state.invoiceDetails?.currency}  {this.state.invoiceDetails?.total_amount?.toLocaleString()}</b>
                                                         </div>
                                                     </div>
                                                 </Paper>
                                                 <Grid container xs={12} style={dashBoardActions.residetails}>
-                                                    <Grid item xs={8} style={{display:"flex", marginTop:"10px",alignItems:"center",cursor:"pointer"}}>
+                                                    <Grid item xs={8} style={{display:"flex", marginTop:"10px",alignItems:"center",cursor:"pointer"}} onClick={()=> this.manageDownload(this.state.downloadId)}>
                                                         <img src={DownloadIcon} width="20px" height="20px" style={{marginRight:"10px"}}/>
                                                         <Typography component="h5" style={{fontWeight:"bold"}}>{t("Download Invoice")}</Typography>
                                                     </Grid>
-                                                    <Grid item xs={4}>
-                                                        <Button variant="contained" style={dashBoardActions.receiptbtn} color="primary" onClick={()=> this.setState({generateReceipt:true})}>{t("GENERATE RECEIPT")}</Button>
-                                                    </Grid>
+                                                    <Grid item xs={4} style={{display:"flex",justifyContent:'flex-end'}}>
+                                                        {
+                                                            this.state.invoiceDetails?.status === "due" &&
+                                                            <Button variant="contained" style={dashBoardActions.receiptbtn} color="primary" onClick={()=> this.setState({generateReceipt:true})}>{t("GENERATE RECEIPT")}</Button>
+                                                        }
+                                                        {
+                                                            this.state.invoiceDetails?.status === "paid" &&
+                                                            <Typography variant="subtitle2" className="statusOngoingGreen" style={{textAlign:"center",textTransform:"capitalize",justifySelf:"flex-end"}}>{this.state.invoiceDetails?.status}</Typography>
+                                                        }
+                                                      </Grid>
                                                 </Grid>
                                             </Box>
                                     }
-                                    {/* <div style={dashBoardActions.genrateReceipt}>
-                                        <KeyboardBackspaceIcon style={{marginTop:"-3px"}}/><Typography  style={dashBoardActions.subHeading}>Generate Receipts</Typography>
-                                    </div>
-                                    <Typography>Do you want to register the payment for this invoice and and generate a receipt for the 
-                                        payment? you can chose to recognize the full payment or partial payment by selecting one of the two payment option below.
-                                    </Typography>
-                                    <Typography style={dashBoardActions.commonColor} component="h5">Resident ID: <b style={{color:"#000"}}>3030304</b> </Typography>
-                                    <Typography style={dashBoardActions.commonColor} component="h5">Resident Name: <b style={{color:"#000"}}>Jenil Patel</b> </Typography>
-                                    <Typography>Total amount to be paid: <b style={{color:"#FC8434"}}>SR, 1303</b></Typography>
-
-                                    <FormControl component="fieldset">
-                                        <FormLabel component="legend">Select Payment Type</FormLabel>
-                                        <RadioGroup aria-label="gender" name="gender1" value={this.state.payment_type} onChange={this.handleSelect}>
-                                            {console.log("selectvalue--->", this.state.payment_type)}
-                                            <FormControlLabel value="fullpayment" control={<Radio />} label="Register Full Payments" />
-                                            <FormControlLabel value="partialpayment" control={<Radio />} label="Register Partial Payments" />
-                                        </RadioGroup>
-                                    </FormControl> */}
                                 </div>
                                 </Fade>
                             </Modal>
@@ -439,12 +439,12 @@ render() {
                                     </Typography>
                                     <Typography variant="body2" style={{textAlign:"center"}}>
                                         {t("Please confirm that you want to register the payment amount")}
-                                        <span style={{color:"#FC8434",fontWeight:"bold",marginLeft:"5px"}}>SR 500</span>. {t("This action can’t be undone.")}
+                                        <span style={{color:"#FC8434",fontWeight:"bold",marginLeft:"5px"}}> {this.state.invoiceDetails?.currency}  {this.state.paymentType == "partial" ? this.state.partialPaymentAmount : this.state.invoiceDetails?.total_amount?.toLocaleString()}</span>. {t("This action can’t be undone.")}
                                     </Typography>
                                     <Box style={{marginTop:"20px",width:"90%",display:"flex",flexDirection:"row",alignItems:"center",justifyContent:"center"}}>
                                         {/*@ts-ignore*/}
-                                        <PublishButton variant="outlined" style={{marginRight:"10px"}} >{t("Close")}</PublishButton>
-                                        <CloseButton >{t("Confirm")}</CloseButton>
+                                        <PublishButton variant="outlined" style={{marginRight:"10px"}} onClick={()=> this.setState({confirmPaymentModal:false})} >{t("Close")}</PublishButton>
+                                        <CloseButton onClick={this.paymentRegistration}>{t("Confirm")}</CloseButton>
                                     </Box>
                                 </Box>
                             </Box>
@@ -453,6 +453,8 @@ render() {
                 </Grid>
             </Box>
         </Box>
+          <AlertError show={this.state.showError} handleClose={()=> this.setState({showError:false,error:null})} message={this.state.error} />
+          <AlertSuccess show={this.state.showSuccess} handleClose={()=> this.setState({showSuccess:false})} message={this.state.successMessage} />
       </>
       // Customizable Area End
     );
