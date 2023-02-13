@@ -24,11 +24,11 @@ class FishAndPaymentOwner extends FeesAndPaymentController{
     return (
         <>
             <Grid item xs={12} md={12} className="auth-cols forFees">
-                <Grid container style={{ margin: '1.1rem', width: '90%' }} >
-                  <Grid item xs={12} style={{ display:"flex", alignItems:"center", gap:"1.1rem",justifyContent:"space-between"}} >
-                      <Box style={{ display:"flex", alignItems:"center", gap:"1.1rem"}}>
-                          <ArrowBackIcon onClick={() => this.props.history.push("/")} />
-                          <p style={{ fontSize: '1.3rem', fontWeight: 600 }}>
+                <Grid container style={{ margin: '1.1rem', width: '90%' }} className="gridFees" >
+                  <Grid item xs={12} style={{ display:"flex", alignItems:"center", gap:"1.1rem",justifyContent:"space-between"}}  className="SubgridFees" >
+                      <Box style={{ display:"flex", alignItems:"center", gap:"1.1rem"}}  className="gridBoxFees">
+                          <ArrowBackIcon onClick={() => this.props.history.push("/")}  className="gridFeesArrow"/>
+                          <p style={{ fontSize: '1.3rem', fontWeight: 600 }} className="gridFeesArrowPTag">
                               {t("Budget")}
                           </p>
                       </Box>
