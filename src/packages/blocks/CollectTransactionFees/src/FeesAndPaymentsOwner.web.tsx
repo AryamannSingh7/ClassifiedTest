@@ -1,7 +1,7 @@
 import * as React from "react";
 // custom components
 import {
-    Grid, Box,Typography,
+    Grid, Box,
 } from "@material-ui/core";
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 
@@ -11,8 +11,8 @@ import FeesAndPaymentController, {
 } from "./FeesAndPaymentController";
 import './style.css'
 import {withTranslation} from "react-i18next";
-import ArrowForwardIosIcon from '@material-ui/icons/ArrowForwardIos';
 import ListingComponent from "./LisitingComponent.web";
+
 class FishAndPaymentOwner extends FeesAndPaymentController{
   constructor(props: Props) {
     super(props);
