@@ -23,7 +23,7 @@ class FishAndPaymentOwner extends FeesAndPaymentController{
     const {t} = this.props
     return (
         <>
-            <Grid item xs={12} md={12} className="auth-cols">
+            <Grid item xs={12} md={12} className="auth-cols forFees">
                 <Grid container style={{ margin: '1.1rem', width: '90%' }} >
                   <Grid item xs={12} style={{ display:"flex", alignItems:"center", gap:"1.1rem",justifyContent:"space-between"}} >
                       <Box style={{ display:"flex", alignItems:"center", gap:"1.1rem"}}>
