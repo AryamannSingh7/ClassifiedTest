@@ -30,3 +30,5 @@ export const PdfIcon = require("../assets/pdf.png");
 export const DownloadIcon = require("../assets/download.png");
 export const DownArrowIcon = require("../assets/down-arrow.png");
 export const UploadLogo = require("../assets/upload.png")
+export const pdfLogo = require("../assets/pdf-file.png")
+export const expenseDownloadButton = require("../assets/Group.png")

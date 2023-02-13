@@ -339,6 +339,7 @@ import AuditReport from '../../blocks/StoreCredits/src/AuditReport.web';
 import ManagementFeeReport from '../../blocks/StoreCredits/src/ManagementFeeReport.web';
 import AuditReportDetails from '../../blocks/StoreCredits/src/AuditReportDetails.web';
 import InvitationReport from '../../blocks/StoreCredits/src/InvitationReport.web';
+import ExpenseReportDetails from "../../blocks/StoreCredits/src/ExpenseDetails.web";
 
 // My Unit
 import MyUnitList from '../../blocks/TaskAllocator/src/MyUnitList.web';
@@ -2134,6 +2135,12 @@ const routeMap = {
   ExpenseReport: {
     component: ExpenseReport,
     path: '/ExpenseReports',
+    roles: [ROLE.CHAIRMAN, ROLE.MANAGER],
+    exact: true
+  },
+  ExpenseReportDetails: {
+    component: ExpenseReportDetails,
+    path: '/ExpenseReportDetails',
     roles: [ROLE.CHAIRMAN, ROLE.MANAGER],
     exact: true
   },
