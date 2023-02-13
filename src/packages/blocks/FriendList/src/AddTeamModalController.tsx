@@ -129,10 +129,12 @@ export default class FriendListController extends BlockComponent<
   }
 
   handleSubmit = () => {
+    const societyID = localStorage.getItem("society_id")
     if(this.state.userId !== "" && this.state.roleId !== ""){
       const data = {
         "account_id": this.state.userId,
         "role_id": this.state.roleId,
+        "society_management_id":societyID,
       }
       if(this.props.editId){
         this.updateTeamMember(this.props.editId.id,this.state.roleId)

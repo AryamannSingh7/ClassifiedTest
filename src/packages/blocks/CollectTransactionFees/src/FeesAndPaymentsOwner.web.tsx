@@ -6,14 +6,14 @@ import {
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import { makeStyles,withStyles } from '@material-ui/core/styles';
 import { withRouter } from 'react-router';
-import MyInvoicesAndReceiptsController, {
+import FeesAndPaymentController, {
   Props
-} from "./MyInvoicesAndReceiptsController";
+} from "./FeesAndPaymentController";
 import './style.css'
 import {withTranslation} from "react-i18next";
 import ArrowForwardIosIcon from '@material-ui/icons/ArrowForwardIos';
 
-class Visitors extends MyInvoicesAndReceiptsController{
+class FishAndPaymentOwner extends FeesAndPaymentController{
   constructor(props: Props) {
     super(props);
   }
@@ -24,34 +24,34 @@ class Visitors extends MyInvoicesAndReceiptsController{
     return (
         <>
             <Grid item xs={12} md={12} className="auth-cols">
-                <Grid container style={{ margin: '1rem', width: '90%' }} >
-                  <Grid item xs={12} style={{ display:"flex", alignItems:"center", gap:"1rem",justifyContent:"space-between"}} >
-                      <Box style={{ display:"flex", alignItems:"center", gap:"1rem"}}>
+                <Grid container style={{ margin: '1.1rem', width: '90%' }} >
+                  <Grid item xs={12} style={{ display:"flex", alignItems:"center", gap:"1.1rem",justifyContent:"space-between"}} >
+                      <Box style={{ display:"flex", alignItems:"center", gap:"1.1rem"}}>
                           <ArrowBackIcon onClick={() => this.props.history.push("/")} />
-                          <p style={{ fontSize: '1.2rem', fontWeight: 600 }}>
-                              {t("My Invoices/Receipts")}
+                          <p style={{ fontSize: '1.3rem', fontWeight: 600 }}>
+                              {t("Budget")}
                           </p>
                       </Box>
                   </Grid>
                 </Grid>
                 <Box style={{background: "#F7F9FE",minHeight:"95%",display:'flex',flexDirection:"column",alignItems:'center',justifyContent:"space-between"}} >
                     <Grid container spacing={2} style={{width:"90%"}}>
-                        <Grid item xs={12}> 
+                        <Grid item xs={12}>
                             <Box
                                 display="flex"
                                 justifyContent='space-between'
                                 alignItems="center"
-                                borderRadius="15px"
+                                borderRadius="14px"
                                 bgcolor="white"
-                                marginTop='1.5rem'
-                                padding='1.5rem'
-                                style={{boxShadow:"rgba(99, 99, 99, 0.2) 0px 2px 8px 0px"}}
-                                onClick={()=>this.props.history.push("/MyInvoices/Owner")}
+                                marginTop='1.4rem'
+                                padding='1.4rem'
+                                style={{boxShadow:"rgba(99, 99, 99, 0.2) 0px 2px 8px 1px"}}
+                                onClick={()=>this.props.history.push("/BuildingBudget")}
                             >
                                 <Box style={{minWidth:"100%"}}>
                                     <Box style={{display:"flex",alignItems:"center",justifyContent:"space-between"}}>
                                         <Typography variant={"body1"} style={{fontWeight:"bold"}}>
-                                            {t("View Invoices")}
+                                            {t("Review Building Budget")}
                                         </Typography>
                                         <ArrowForwardIosIcon fontSize="small"/> 
                                     </Box>
@@ -63,17 +63,40 @@ class Visitors extends MyInvoicesAndReceiptsController{
                                 display="flex"
                                 justifyContent='space-between'
                                 alignItems="center"
-                                borderRadius="15px"
+                                borderRadius="14px"
                                 bgcolor="white"
-                                marginTop='.5rem'
-                                padding='1.5rem'
-                                style={{boxShadow:"rgba(99, 99, 99, 0.2) 0px 2px 8px 0px"}}
-                                onClick={()=>this.props.history.push("/MyReceipts/Owner")}
+                                marginTop='.4rem'
+                                padding='1.4rem'
+                                style={{boxShadow:"rgba(99, 99, 99, 0.2) 0px 2px 8px 1px"}}
+                                onClick={()=>this.props.history.push("/MyManagementFee")}
                             >
                                 <Box style={{minWidth:"100%"}}>
                                     <Box style={{display:"flex",alignItems:"center",justifyContent:"space-between"}}>
                                         <Typography variant={"body1"} style={{fontWeight:"bold"}}>
-                                            {t("View Receipts")}
+                                            {t("Review Management fee")}
+                                        </Typography>
+                                        <ArrowForwardIosIcon fontSize="small"/>
+                                    </Box>
+                                
+                                </Box>
+                            </Box>
+                        </Grid>
+                        <Grid item xs={12}> 
+                            <Box
+                                display="flex"
+                                justifyContent='space-between'
+                                alignItems="center"
+                                borderRadius="14px"
+                                bgcolor="white"
+                                marginTop='.4rem'
+                                padding='1.4rem'
+                                style={{boxShadow:"rgba(99, 99, 99, 0.2) 0px 2px 8px 1px"}}
+                                onClick={()=>this.props.history.push("/BudgetSpending")}
+                            >
+                                <Box style={{minWidth:"100%"}}>
+                                    <Box style={{display:"flex",alignItems:"center",justifyContent:"space-between"}}>
+                                        <Typography variant={"body1"} style={{fontWeight:"bold"}}>
+                                            {t("View Budget Spending")}
                                         </Typography>
                                         <ArrowForwardIosIcon fontSize="small"/>
                                     </Box>
@@ -87,19 +110,5 @@ class Visitors extends MyInvoicesAndReceiptsController{
     );
   }
 }
-export default withTranslation()(withRouter(Visitors))
-
-const CloseButton = withStyles((theme) => ({
-    root: {
-        color: "white",
-        backgroundColor: "#2b6fed",
-        fontWeight:"bold",
-        borderRadius:"100px",
-        height:"55px",
-        '&:hover': {
-            backgroundColor: "#2b6fef",
-        },
-    },
-}))(Button);
-
+export default withTranslation()(withRouter(FishAndPaymentOwner))
 // Customizable Area End

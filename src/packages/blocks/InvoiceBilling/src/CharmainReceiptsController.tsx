@@ -209,6 +209,21 @@ export default class CharmainInvoicesController extends CommonApiCallForBlockCom
     return true
   };
 
+  handleReceiptPagination = (e:any,value:any) => {
+    this.getReceiptList({
+      buildingId:this.state.filterReceiptBuilding,
+      floorNo:this.state.filterReceiptFloor,
+      unitId:this.state.filterReceiptUnit,
+      paymentType:this.state.filterReceiptType,
+      status:this.state.filterReceiptStatus,
+      searchKey:this.state.searchReceiptKey,
+      page:value,
+    })
+    this.setState({
+      page:value
+    })
+  }
+
   getUnitList = async (buildingId:any) => {
     this.getUnitListReceiptId = await this.apiCall({
       contentType: "application/json",
