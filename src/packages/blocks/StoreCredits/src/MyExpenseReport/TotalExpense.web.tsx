@@ -114,7 +114,7 @@ class TotalExpense extends TotalExpenseController {
                             <Grid item xs={6} key={expense.title}>
                               <ExpenseCard
                                 heading={expense.title}
-                                title="Total Expenses"
+                                title={t("Total Expenses")}
                                 value={this.validateCurrency(expense.currency, expense.expenses)}
                               />
                             </Grid>
@@ -138,8 +138,10 @@ class TotalExpense extends TotalExpenseController {
                             <Grid item xs={6} key={expense.id}>
                               <Link href={`/TotalExpense/${expense.id}`}>
                                 <ExpenseCard
-                                  heading={`Unit ${expense.unit_name} Building ${expense.building_name}`}
-                                  title="Total Expenses"
+                                  heading={`${t("Unit")} ${expense.unit_name} ${t("Building")} ${
+                                    expense.building_name
+                                  }`}
+                                  title={t("Total Expenses")}
                                   value={this.validateCurrency(expense.currency, expense.expenses)}
                                 />
                               </Link>
@@ -164,7 +166,7 @@ class TotalExpense extends TotalExpenseController {
                             <Grid item xs={6} key={expense.city_name}>
                               <ExpenseCard
                                 heading={expense.city_name}
-                                title="Total Expenses"
+                                title={t("Total Expenses")}
                                 value={this.validateCurrency(expense.currency, expense.expenses)}
                               />
                             </Grid>
