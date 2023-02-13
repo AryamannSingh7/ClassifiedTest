@@ -2120,7 +2120,7 @@ let userType=localStorage.getItem('userType')
 
       requestMessage.addData(
         getName(MessageEnum.RestAPIResponceEndPointMessage),
-        `bx_block_request_management/member_invitations?search_unit=${this.state.selctedUnit?this.state.selctedUnit:''}&search_building=${this.state.selectedBUilding? this.state.selectedBUilding :''}&user_type=${this.state.selectedUserType ? this.state.selectedUserType:''}`
+        `bx_block_request_management/member_invitations?search_unit=${this.state.selctedUnit?this.state.selctedUnit:''}&search_building=${this.state.selectedBUilding? this.state.selectedBUilding :''}&user_type=${this.state.selectedUserType ? this.state.selectedUserType:''}&society_management_id=${localStorage.getItem('society_id')}`
       );
 
       requestMessage.addData(
@@ -2299,7 +2299,8 @@ let userType=localStorage.getItem('userType')
     this.setState({setAcceptOpen:false});
   };
   handleRejectOpen = (data:any) => {
-    this.setState({setRejectOpen:true,selectInvitation:data});
+    this.setState({selectInvitation:data,setRejectOpen:true
+    },()=>console.log(this.state.selectInvitation));
   };
 
   handleRejectClose = () => {

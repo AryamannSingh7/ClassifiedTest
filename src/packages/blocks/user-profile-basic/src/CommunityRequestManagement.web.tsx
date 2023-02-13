@@ -121,7 +121,7 @@ src= {info} style={{paddingLeft:"10px"}}/>
 </Tooltip>
                                 </div>
                                
-                            <Typography variant="h6" style={dashBoard.cm_subHeading}>{this.state.invitatonCount?.totle_ragistration_request
+                            <Typography variant="h6" style={dashBoard.cm_subHeading}>{this.state.invitatonCount?.ragistration_request_pending
 }</Typography>
                         </Paper>
                         <Paper elevation={3} style={dashBoard.cm_managementPaper} 
@@ -172,7 +172,7 @@ src= {info} style={{paddingLeft:"10px"}}/>
                             </div>
                             <div style={dashBoard.cm_facility}>
                                 <h6 style={dashBoard.cm_inviteTitle}>{t("Total received join requests")}</h6>
-                                <Typography variant="h6" style={dashBoard.cm_invitationCont}>{this.state.invitatonCount?.member_invitation_rejected}</Typography>
+                                <Typography variant="h6" style={dashBoard.cm_invitationCont}>{this.state.invitatonCount?.totle_ragistration_request}</Typography>
                             </div>
                         </div>
                     </Paper>
