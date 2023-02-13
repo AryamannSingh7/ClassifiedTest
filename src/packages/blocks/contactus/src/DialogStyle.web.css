@@ -1362,3 +1362,16 @@
   width: 125px;
   margin: 0 8px;
 }
+
+.dashboard-info-tooltip {
+  background: white;
+  color: black;
+  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+  max-width: 350px;
+}
+
+.dashboard-info-tooltip .tooltip-heading-box {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}

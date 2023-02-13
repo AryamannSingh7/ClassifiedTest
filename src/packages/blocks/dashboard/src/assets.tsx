@@ -84,3 +84,5 @@ export const NewNotification = require("../assets/active-notification.png");
 export const ActionBuilding = require("../assets/action-building.png");
 export const ActionAssign = require("../assets/action-assign.png");
 export const ActionCalender = require("../assets/action-calender.png");
+export const InfoIcon = require("../assets/info.png");
+export const CloseIcon = require("../assets/cross.png");

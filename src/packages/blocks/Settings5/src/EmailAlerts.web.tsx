@@ -51,7 +51,7 @@ class EmailAlerts extends EmailAlertsController {
                     <Grid container spacing={2}>
                       <Grid item xs={12}>
                         <NotificationCard
-                          heading={this.state.alertList[0]}
+                          heading={t(this.state.alertList[0])}
                           emailAlert={this.state.leaseDetails}
                           t={t}
                           updateStatus={(e: any) => {
@@ -74,14 +74,14 @@ class EmailAlerts extends EmailAlertsController {
                               this.state.leaseDetails.timeLimit
                             );
                           }}
-                          message={`Lease expiration alert will be sent ${
+                          message={`${t("Lease expiration alert will be sent")} ${
                             this.state.leaseDetails.timeLimit
-                          } days before lease expires to you and your tenant.`}
+                          } ${t("days before lease expires to you and your tenant.")}`}
                         />
                       </Grid>
                       <Grid item xs={12}>
                         <NotificationCard
-                          heading={this.state.alertList[1]}
+                          heading={t(this.state.alertList[1])}
                           emailAlert={this.state.rentDetails}
                           t={t}
                           updateStatus={(e: any) => {
@@ -104,14 +104,14 @@ class EmailAlerts extends EmailAlertsController {
                               this.state.rentDetails.timeLimit
                             );
                           }}
-                          message={`Rent due alert will be sent ${
-                            this.state.rentDetails.timeLimit
-                          } days before rent expires to you and your tenant.`}
+                          message={`${t("Rent due alert will be sent")} ${this.state.rentDetails.timeLimit} ${t(
+                            "days before rent expires to you and your tenant."
+                          )}`}
                         />
                       </Grid>
                       <Grid item xs={12}>
                         <NotificationCard
-                          heading={this.state.alertList[2]}
+                          heading={t(this.state.alertList[2])}
                           emailAlert={this.state.feeDetails}
                           t={t}
                           updateStatus={(e: any) => {
@@ -134,9 +134,9 @@ class EmailAlerts extends EmailAlertsController {
                               this.state.feeDetails.timeLimit
                             );
                           }}
-                          message={`Management fee alert will be sent ${
-                            this.state.feeDetails.timeLimit
-                          } days before management fee due.`}
+                          message={`${t("Management fee alert will be sent")} ${this.state.feeDetails.timeLimit} ${t(
+                            "days before management fee due."
+                          )}`}
                         />
                       </Grid>
                     </Grid>
@@ -204,15 +204,17 @@ class EmailAlerts extends EmailAlertsController {
               <Typography variant="h6">{this.state.title} Set</Typography>
               <Typography variant="body1">
                 {this.state.title === this.state.alertList[0] &&
-                  `Your lease expiration alert has been set. ${this.state.time} days before lease expires you and tenant
-                will receive email notification for the same.`}
+                  `${t("Your lease expiration alert has been set.")} ${this.state.time} ${t(
+                    "days before lease expires you and tenant will receive email notification for the same."
+                  )}`}
                 {this.state.title === this.state.alertList[1] &&
-                  `Your rent due alert has been set. ${this.state.time} days before rent expires you and tenant
-                will receive email notification for the same.`}
+                  `${t("Your rent due alert has been set.")} ${this.state.time} ${t(
+                    "days before rent expires you and tenant will receive email notification for the same."
+                  )}`}
                 {this.state.title === this.state.alertList[2] &&
-                  `Your management fee alert has been set. ${
-                    this.state.time
-                  } days before management fee due you will receive email notification.`}
+                  `${t("Your management fee alert has been set.")} ${this.state.time} ${t(
+                    "days before management fee due you will receive email notification."
+                  )}`}
               </Typography>
               <DialogActions className="dialog-button-group">
                 <Button className="okay" onClick={() => this.handleLeaseExpirationSetModal()}>

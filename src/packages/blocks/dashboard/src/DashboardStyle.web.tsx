@@ -274,6 +274,12 @@ export const DashboardStyleWeb: any = {
           height: "28px",
         },
       },
+      "& .active-register-member-tooltip": {
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "flex-start",
+        gap: "8px",
+      },
       "& h4": {
         fontWeight: "600",
         fontSize: "17px",

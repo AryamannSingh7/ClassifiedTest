@@ -20,6 +20,8 @@ import {
   ManagerIncident,
   ManagerVehicle,
   ManagerFacility,
+  InfoIcon,
+  CloseIcon,
 } from "./assets";
 import { Card, Container, Link, Typography, withStyles } from "@material-ui/core";
 import Box from "@material-ui/core/Box";
@@ -34,6 +36,8 @@ import { DashboardStyleWeb } from "./DashboardStyle.web";
 import ChairmanNumberCard from "../../../components/src/DashboardCard/ChairmanNumberCard.web";
 import { ROLE } from "../../../framework/src/Enum";
 import moment from "moment";
+import { Tooltip } from "react-tooltip";
+import "react-tooltip/dist/react-tooltip.css";
 
 class DashboardGeneral extends DashboardGeneralController {
   constructor(props: Props) {
@@ -130,14 +134,36 @@ class DashboardGeneral extends DashboardGeneralController {
                         />
                       </Grid>
                       <Grid item sm={4}>
-                        <ChairmanNumberCard
-                          image={activemembers}
-                          heading={t("Active Registered Members")}
-                          titleOne=""
-                          valueOne={this.state.activeMember.count + ""}
-                          titleTwo=""
-                          valueTwo=""
-                        />
+                        <Card className="dashboard-card-box">
+                          <Box className="card-image">
+                            <img src={activemembers} alt="image" />
+                          </Box>
+                          <Box className="active-register-member-tooltip">
+                            <h4>{t("Active Registered Members")}</h4>
+                            <img src={InfoIcon} id="tooltip-anchor-children" />
+                            <Tooltip
+                              anchorId="tooltip-anchor-children"
+                              className="dashboard-info-tooltip"
+                              place="bottom"
+                            >
+                              <Box>
+                                <Box className="tooltip-heading-box">
+                                  <h4>{t("Active Registered Members")}</h4>
+                                  <img src={CloseIcon} alt="close" />
+                                </Box>
+                                <p>
+                                  Lorem ipsum dolor sit amet consectetur, adipisicing elit. Velit consequuntur aliquid
+                                  fuga fugiat.
+                                </p>
+                              </Box>
+                            </Tooltip>
+                          </Box>
+                          <Box className="card-bottom-info">
+                            <Box className="info-box">
+                              <span>{this.state.activeMember.count + ""}</span>
+                            </Box>
+                          </Box>
+                        </Card>
                       </Grid>
                       <Grid item sm={4}>
                         <ChairmanNumberCard
