@@ -7,14 +7,11 @@ import {
     Box,
     Grid,
     Divider,
-
 } from "@material-ui/core";
 import VisitorDetailsController, { Props } from "./ExpenseDetailsController";
 import DashboardHeader from "../../dashboard/src/DashboardHeader.web";
 import ChairmanSidebarWeb from "../../dashboard/src/ChairmanSidebar.web";
 import { SuggestionStyleWeb } from "../../user-profile-basic/src/SuggestionStyle.web";
-// @ts-ignore
-import Pagination from '@material-ui/lab/Pagination';
 import { withRouter } from "react-router-dom";
 import {withTranslation} from "react-i18next";
 import {expenseDownloadButton, pdfLogo} from "./assets";
@@ -29,7 +26,6 @@ class ExpenseDetails extends VisitorDetailsController {
         const { classes } = this.props;
         //@ts-ignore
         const {t} = this.props
-        const userType  = localStorage.getItem("selectUserType");
         return (
             <>
                 <Box style={{ background: "#F4F7FF" }} className={classes.announcements}>
