@@ -12,6 +12,7 @@ import MyInvoicesAndReceiptsController, {
 import './style.css'
 import {withTranslation} from "react-i18next";
 import ArrowForwardIosIcon from '@material-ui/icons/ArrowForwardIos';
+import ListingComponent from "./LisitingComponent.web";
 
 class MyInvoicesAndReceipts extends MyInvoicesAndReceiptsController{
   constructor(props: Props) {
@@ -36,52 +37,8 @@ class MyInvoicesAndReceipts extends MyInvoicesAndReceiptsController{
                 </Grid>
                 <Box style={{background: "#F7F9FE",minHeight:"95%",display:'flex',flexDirection:"column",alignItems:'center',justifyContent:"space-between"}} className="invoicesReceiptsMainBoxHeading" >
                     <Grid container spacing={2} style={{width:"90%"}} className="invoicesReceiptsSubGridMain" >
-                        <Grid item xs={12} className="invoicesReceiptsSubGridItem">
-                            <Box
-                                display="flex"
-                                justifyContent='space-between'
-                                alignItems="center"
-                                borderRadius="16px"
-                                bgcolor="white"
-                                marginTop='1.6rem'
-                                padding='1.6rem'
-                                className="invoicesReceiptsMainBox"
-                                style={{boxShadow:"rgba(99, 99, 99, 0.2) 0px 2px 8px 0px"}}
-                                onClick={()=>this.props.history.push("/MyInvoices/Owner")}
-                            >
-                                <Box style={{minWidth:"100%"}}  className="invoicesReceiptsSubGridItemBox">
-                                    <Box style={{display:"flex",alignItems:"center",justifyContent:"space-between"}} className="invoicesReceiptsSubBox">
-                                        <Typography variant={"body1"} style={{fontWeight:"bold"}} className="invoicesReceipts">
-                                            {t("View Invoices")}
-                                        </Typography>
-                                        <ArrowForwardIosIcon fontSize="small" className="invoicesReceiptsSubGridItemBoxArrow"/>
-                                    </Box>
-                                </Box>
-                            </Box>
-                        </Grid>
-                        <Grid item xs={12} className="invoicesReceiptsSubGridItem">
-                            <Box
-                                display="flex"
-                                justifyContent='space-between'
-                                alignItems="center"
-                                borderRadius="15px"
-                                bgcolor="white"
-                                marginTop='.5rem'
-                                padding='1.5rem'
-                                className="invoicesReceiptsMainBox"
-                                style={{boxShadow:"rgba(99, 99, 99, 0.2) 0px 2px 8px 0px"}}
-                                onClick={()=>this.props.history.push("/MyReceipts/Owner")}
-                            >
-                                <Box style={{minWidth:"100%"}} className="invoicesReceiptsSubGridItemBox">
-                                    <Box style={{display:"flex",alignItems:"center",justifyContent:"space-between"}}  className="invoicesReceiptsSubBox" >
-                                        <Typography variant={"body1"} style={{fontWeight:"bold"}}  className="invoicesReceipts">
-                                            {t("View Receipts")}
-                                        </Typography>
-                                        <ArrowForwardIosIcon fontSize="small" className="invoicesReceiptsSubGridItemBoxArrow"/>
-                                    </Box>
-                                </Box>
-                            </Box>
-                        </Grid>
+                        <ListingComponent name="View Invoices" link="/MyInvoices/Owner" />
+                        <ListingComponent name="View Receipts" link="/MyReceipts/Owner" />
                     </Grid>
                 </Box>
             </Grid>
