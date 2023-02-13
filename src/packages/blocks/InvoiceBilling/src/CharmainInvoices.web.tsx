@@ -215,8 +215,8 @@ render() {
                                                 <TableCell>{row?.attributes?.name}</TableCell>
                                                 <TableCell>{row?.attributes?.unit_number}</TableCell>
                                                 <TableCell>{row?.attributes?.title}</TableCell>
-                                                <TableCell>{row?.attributes?.currency?.currency} {row?.attributes?.amount}</TableCell>
-                                                <TableCell>{row?.attributes?.invoice_type}</TableCell>
+                                                <TableCell>{row?.attributes?.currency} {row?.attributes?.amount}</TableCell>
+                                                <TableCell>{row?.attributes?.payment_type}</TableCell>
                                                 <TableCell>{row?.attributes?.status}</TableCell>
                                                 <TableCell>
                                                     <Menu
@@ -397,30 +397,19 @@ render() {
                                                         <img src={DownloadIcon} width="20px" height="20px" style={{marginRight:"10px"}}/>
                                                         <Typography component="h5" style={{fontWeight:"bold"}}>{t("Download Invoice")}</Typography>
                                                     </Grid>
-                                                    <Grid item xs={4}>
-                                                        <Button variant="contained" style={dashBoardActions.receiptbtn} color="primary" onClick={()=> this.setState({generateReceipt:true})}>{t("GENERATE RECEIPT")}</Button>
-                                                    </Grid>
+                                                    <Grid item xs={4} style={{display:"flex",justifyContent:'flex-end'}}>
+                                                        {
+                                                            this.state.invoiceDetails?.status === "due" &&
+                                                            <Button variant="contained" style={dashBoardActions.receiptbtn} color="primary" onClick={()=> this.setState({generateReceipt:true})}>{t("GENERATE RECEIPT")}</Button>
+                                                        }
+                                                        {
+                                                            this.state.invoiceDetails?.status === "paid" &&
+                                                            <Typography variant="subtitle2" className="statusOngoingGreen" style={{textAlign:"center",textTransform:"capitalize",justifySelf:"flex-end"}}>{this.state.invoiceDetails?.status}</Typography>
+                                                        }
+                                                      </Grid>
                                                 </Grid>
                                             </Box>
                                     }
-                                    {/* <div style={dashBoardActions.genrateReceipt}>
-                                        <KeyboardBackspaceIcon style={{marginTop:"-3px"}}/><Typography  style={dashBoardActions.subHeading}>Generate Receipts</Typography>
-                                    </div>
-                                    <Typography>Do you want to register the payment for this invoice and and generate a receipt for the 
-                                        payment? you can chose to recognize the full payment or partial payment by selecting one of the two payment option below.
-                                    </Typography>
-                                    <Typography style={dashBoardActions.commonColor} component="h5">Resident ID: <b style={{color:"#000"}}>3030304</b> </Typography>
-                                    <Typography style={dashBoardActions.commonColor} component="h5">Resident Name: <b style={{color:"#000"}}>Jenil Patel</b> </Typography>
-                                    <Typography>Total amount to be paid: <b style={{color:"#FC8434"}}>SR, 1303</b></Typography>
-
-                                    <FormControl component="fieldset">
-                                        <FormLabel component="legend">Select Payment Type</FormLabel>
-                                        <RadioGroup aria-label="gender" name="gender1" value={this.state.payment_type} onChange={this.handleSelect}>
-                                            {console.log("selectvalue--->", this.state.payment_type)}
-                                            <FormControlLabel value="fullpayment" control={<Radio />} label="Register Full Payments" />
-                                            <FormControlLabel value="partialpayment" control={<Radio />} label="Register Partial Payments" />
-                                        </RadioGroup>
-                                    </FormControl> */}
                                 </div>
                                 </Fade>
                             </Modal>

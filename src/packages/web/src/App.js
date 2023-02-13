@@ -300,6 +300,7 @@ import TaskManagement from '../../blocks/FriendList/src/TaskManagement.web';
 
 // Fees & Payment Imports
 import FeesAndPayment from '../../blocks/CollectTransactionFees/src/FeesAndPayments.web';
+import FeesAndPaymentOwner from '../../blocks/CollectTransactionFees/src/FeesAndPaymentsOwner.web';
 import ViewMyInvoices from '../../blocks/CollectTransactionFees/src/ViewMyInvoices.web';
 import InvoiceDetails from '../../blocks/CollectTransactionFees/src/InvoiceDetails.web';
 import ViewMyReceipts from '../../blocks/CollectTransactionFees/src/ViewMyReceipts.web';
@@ -1843,6 +1844,12 @@ const routeMap = {
     exact: true
   },
 
+  BudgetAndExpenseDetails: {
+    component: FeesAndPaymentOwner,
+    path: '/BudgetAndExpenseDetails',
+    exact: true
+  },
+
   ViewMyInvoices: {
     component: ViewMyInvoices,
     path: '/MyInvoices',
@@ -1910,7 +1917,7 @@ const routeMap = {
 
   MyInvoices: {
     component: MyInvoices,
-    path: '/Owner/MyInvoices',
+    path: '/MyInvoices/Owner',
     exact: true
   },
 
@@ -1922,7 +1929,7 @@ const routeMap = {
 
   MyReceipts: {
     component: MyReceipts,
-    path: '/Owner/MyReceipts',
+    path: '/MyReceipts/Owner',
     exact: true
   },
 

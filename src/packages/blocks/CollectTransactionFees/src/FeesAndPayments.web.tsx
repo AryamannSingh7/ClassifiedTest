@@ -36,7 +36,7 @@ class Visitors extends FeesAndPaymentController{
                 </Grid>
                 <Box style={{background: "#F7F9FE",minHeight:"95%",display:'flex',flexDirection:"column",alignItems:'center',justifyContent:"space-between"}} >
                     <Grid container spacing={2} style={{width:"90%"}}>
-                        <Grid item xs={12}> 
+                        <Grid item xs={12}>
                             <Box
                                 display="flex"
                                 justifyContent='space-between'

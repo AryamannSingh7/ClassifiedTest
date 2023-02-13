@@ -1,12 +1,11 @@
 // Customizable Area Start
 import { IBlock } from "../../../framework/src/IBlock";
 import { Message } from "../../../framework/src/Message";
-import { BlockComponent } from "../../../framework/src/BlockComponent";
 import MessageEnum, {
   getName
 } from "../../../framework/src/Messages/MessageEnum";
 import { runEngine } from "../../../framework/src/RunEngine";
-// import {toast} from "react-toastify";
+import CommonApiCallForBlockComponent from "../../../components/src/ApiCallCommon.web";
 
 export const configJSON = require("./config");
 
@@ -19,28 +18,25 @@ export interface Props {
 }
 
 interface S {
-  anchorEl :any ;
-  anchorEl_1 :any ;
-  loading: boolean;
-  sortBy:any;
-  status:any;
-  pollListing:any;
+  budgetList:any;
+  budgetYear:any;
+  buildingList:any;
+  complexName:any;
 }
 
 interface SS {
   id: any;
 }
 
-export default class CoverImageController extends BlockComponent<
+export default class BuildingBudgetController extends CommonApiCallForBlockComponent<
   Props,
   S,
   SS
 > {
 
-  apiEmailLoginCallId: string = "";
-  emailReg: RegExp;
-  labelTitle: string = "";
-  getVisitorListId:string = "";
+  getBuildingListBudgetListId: string = "";
+  getBudgetListResidentId: string = "";
+
   constructor(props: Props) {
 
     super(props);
@@ -51,19 +47,13 @@ export default class CoverImageController extends BlockComponent<
     ]
     
     this.state = {
-      anchorEl:null,
-      anchorEl_1:null,
-      loading:false,
-      sortBy : "" ,
-      status:"",
-      pollListing:[],
+      budgetList:[],
+      budgetYear:new Date().getFullYear(),
+      buildingList:[],
+      complexName:""
     };
 
-    this.emailReg = new RegExp("");
-    this.labelTitle = configJSON.labelTitle;
-
     runEngine.attachBuildingBlock(this as IBlock, this.subScribedMessages);
-
   }
 
   async componentDidMount() {
@@ -76,43 +66,13 @@ export default class CoverImageController extends BlockComponent<
       const apiRequestCallId = message.getData(getName(MessageEnum.RestAPIResponceDataMessage));
       const responseJson = message.getData(getName(MessageEnum.RestAPIResponceSuccessMessage));
       var errorReponse = message.getData(getName(MessageEnum.RestAPIResponceErrorMessage));
-      if(this.apiEmailLoginCallId === apiRequestCallId ){
+      if(this.getBudgetListResidentId === apiRequestCallId ){
         console.log(responseJson,errorReponse)
       }
     }
   }
 
-  
-  handleClick = (event:any) => {
-    this.setState({anchorEl:event.currentTarget })
-  };
 
-  handleClose = (e?:any, v?:any) => {
-    let sortBy : any ;
-    console.log("v=========>",v)
-    if(v === undefined || v === null){
-      sortBy =this.state.sortBy
-    }
-    else {
-      sortBy =v;
-    }
-    this.setState({anchorEl:null,sortBy : sortBy})
-  };
-
-  handleClick_1 = (event:any) => {
-    this.setState({anchorEl_1:event.currentTarget})
-  };
-
-  handleClose_1 = (e?:any, v?:any) => {
-    let status : any ;
-    if(v === undefined || v === null){
-      status =this.state.status;
-    }
-    else {
-      status =v;
-    }
-    this.setState({anchorEl_1:null ,status :status})
-  };
 }
 
 // Customizable Area End
