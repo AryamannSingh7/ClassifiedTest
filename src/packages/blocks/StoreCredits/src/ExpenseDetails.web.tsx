@@ -6,33 +6,17 @@ import {
     withStyles,
     Box,
     Grid,
-    Table,
-    TableHead,
-    TableRow,
-    TableCell,
-    TableBody,
-    InputBase,
     Divider,
-    Button,
-    Select,
-    MenuItem,
-    Dialog,
-    IconButton,
-    DialogContent,
-    FormControl,
-    DialogActions,
+
 } from "@material-ui/core";
 import VisitorDetailsController, { Props } from "./ExpenseDetailsController";
 import DashboardHeader from "../../dashboard/src/DashboardHeader.web";
 import ChairmanSidebarWeb from "../../dashboard/src/ChairmanSidebar.web";
 import { SuggestionStyleWeb } from "../../user-profile-basic/src/SuggestionStyle.web";
-import SearchIcon from "@material-ui/icons/Search";
 // @ts-ignore
 import Pagination from '@material-ui/lab/Pagination';
 import { withRouter } from "react-router-dom";
-import moment from "moment";
 import {withTranslation} from "react-i18next";
-import VisitorsSidebar from "../../dashboard/src/VisitorsSidebar.web";
 import {expenseDownloadButton, pdfLogo} from "./assets";
 
 class ExpenseDetails extends VisitorDetailsController {

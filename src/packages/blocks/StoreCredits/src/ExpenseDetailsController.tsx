@@ -1,13 +1,11 @@
 // Customizable Area Start
 import { IBlock } from "../../../framework/src/IBlock";
 import { Message } from "../../../framework/src/Message";
-import { BlockComponent } from "../../../framework/src/BlockComponent";
 import MessageEnum, {
   getName
 } from "../../../framework/src/Messages/MessageEnum";
 import { runEngine } from "../../../framework/src/RunEngine";
 import CommonApiCallForBlockComponent from "../../../components/src/ApiCallCommon.web";
-// import {toast} from "react-toastify";
 
 export const configJSON = require("./config");
 
@@ -41,9 +39,8 @@ export default class VisitorDetailsController extends CommonApiCallForBlockCompo
 > {
 
   apiEmailLoginCallId: string = "";
-  emailReg: RegExp;
   labelTitle: string = "";
-  visitorDetailsId:string = "";
+  expenseDetailsId:string = "";
   constructor(props: Props) {
 
     super(props);
@@ -63,8 +60,6 @@ export default class VisitorDetailsController extends CommonApiCallForBlockCompo
       deleteConfirmModal:false,
       expenseId:""
     };
-
-    this.emailReg = new RegExp("");
     this.labelTitle = configJSON.labelTitle;
 
     runEngine.attachBuildingBlock(this as IBlock, this.subScribedMessages);
@@ -79,13 +74,13 @@ export default class VisitorDetailsController extends CommonApiCallForBlockCompo
   }
 
   getExpenseDetails = async () => {
-    const societyID = localStorage.getItem("society_id")
+    const societyExpnseID = localStorage.getItem("society_id")
     const expenseId =  window.location.search ? window.location.search.split("=")[1] : null;
     this.setState({expenseId:expenseId})
-    this.visitorDetailsId = await this.apiCall({
+    this.expenseDetailsId = await this.apiCall({
       contentType: "application/json",
       method: "GET",
-      endPoint: `/society_managements/${societyID}/bx_block_report/expence_reports/${expenseId}`,
+      endPoint: `/society_managements/${societyExpnseID}/bx_block_report/expence_reports/${expenseId}`,
     });
   }
 
@@ -105,15 +100,15 @@ export default class VisitorDetailsController extends CommonApiCallForBlockCompo
     if(getName(MessageEnum.RestAPIResponceMessage) === message.id) {
       const apiRequestCallId = message.getData(getName(MessageEnum.RestAPIResponceDataMessage));
       const responseJson = message.getData(getName(MessageEnum.RestAPIResponceSuccessMessage));
-      var errorReponse = message.getData(getName(MessageEnum.RestAPIResponceErrorMessage));
-      if(this.visitorDetailsId === apiRequestCallId ){
+      let errorReponse = message.getData(getName(MessageEnum.RestAPIResponceErrorMessage));
+      if(this.expenseDetailsId === apiRequestCallId ){
         console.log(responseJson,errorReponse)
         if(responseJson.hasOwnProperty("data")){
           this.setState({
             expenseDetails:responseJson.data.attributes
           })
         }else{
-          // window.history.back()
+          window.history.back()
         }
       }
     }

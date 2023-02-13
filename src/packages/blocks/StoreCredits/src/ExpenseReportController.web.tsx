@@ -336,31 +336,35 @@ export default class ExpenseReportController extends CommonApiCallForBlockCompon
   }
 
   fileValidation = () => {
+    let fileValidation = false
     if(this.state.selectedFile){
       this.setState({
         fileUploadError:""
       })
-      return true
+      fileValidation = true
     }else{
       this.setState({
         fileUploadError:"Please upload file"
       })
-      return true
+      fileValidation = true
     }
+    return fileValidation
   }
 
   descriptionValidation = () => {
+    let descriptionValidation = false
     if(this.state.description){
       this.setState({
         descriptionError:""
       })
-      return true
+      descriptionValidation = true
     }else{
       this.setState({
         descriptionError:"Please Enter description of the expense"
       })
-      return true
+      descriptionValidation = true
     }
+    return descriptionValidation
   }
 
   handleValidation = () => {
