@@ -229,7 +229,7 @@ import ViewReceipt from '../../blocks/InvoiceBilling/src/ViewReceipt.web';
 import InvoicesDetails from '../../blocks/InvoiceBilling/src/InvoicesDetails.web';
 import ReceiptsDetails from '../../blocks/InvoiceBilling/src/ReceiptsDetails.web';
 import CharmainInvoices from '../../blocks/InvoiceBilling/src/CharmainInvoices.web';
-
+import PaymentHistory from '../../blocks/InvoiceBilling/src/PaymentHistory.web'
 import ChairmanProfile from '../../blocks/Settings5/src/ChairmanProfile.web';
 import Profile from '../../blocks/user-profile-basic/src/Profile.web';
 import ChairmenProfile from '../../blocks/user-profile-basic/src/ChairmenProfile.web';
@@ -620,6 +620,11 @@ const routeMap = {
   CharmainInvoices: {
     component: CharmainInvoices,
     path: '/CharmainInvoices',
+    exact: true
+  },
+  PaymentHistory:{
+    component: PaymentHistory,
+    path: '/PaymentHistory',
     exact: true
   },
   CharmainReceipts: {
