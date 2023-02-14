@@ -233,9 +233,9 @@ class OwnerDashboard extends DashboardController {
                 </div>
               </Box>
               <Container className="dashboard">
-                <Grid container spacing={1} style={{ marginTop: 15 }}>
+                <Grid container spacing={1}>
                   <Box className="notification-slider">
-                    <Slider ref={(c: any) => (this.slider = c)} {...settings}>
+                    <Slider ref={(c: any) => (this.slider = c)} {...settings} style={{ marginTop: 15 }}>
                       {this.state.propertyManagerRequest.map((request: any) => {
                         return (
                           <Box
@@ -364,7 +364,7 @@ class OwnerDashboard extends DashboardController {
                     </Link>
                   </Grid>
                   <Grid item xs={6} sm={6}>
-                    <Link href="">
+                    <Link href="/BudgetAndExpenseDetails">
                       <DashboardCard image={DashboardMeeting} heading={t("Budget")} title={t("For FY")} value="75" />
                     </Link>
                   </Grid>
@@ -413,16 +413,7 @@ class OwnerDashboard extends DashboardController {
                       />
                     </Link>
                   </Grid>
-                  <Grid item xs={6} sm={6}>
-                    <Link href="">
-                      <DashboardCard
-                        image={keyhand}
-                        heading={t("Facility Reservation")}
-                        title={t("Last Updated")}
-                        value="75"
-                      />
-                    </Link>
-                  </Grid>
+                
                 </Grid>
                 <Grid container spacing={1} style={{ marginTop: 15 }}>
                   <Grid item xs={12} sm={12} className="title">
@@ -507,7 +498,7 @@ class OwnerDashboard extends DashboardController {
                     <Link href="/FacilityReservation">
                       <DashboardCard
                         image={keyhand}
-                        heading={t("Facility Reservation ")}
+                        heading={t("Facility Reservation")}
                         title={t("Facility Listing")}
                         value="75"
                       />

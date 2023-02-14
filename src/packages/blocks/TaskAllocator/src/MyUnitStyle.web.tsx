@@ -77,6 +77,7 @@ export const MyUnitStyle: any = {
       display: "flex",
       alignItems: "center",
       justifyContent: "space-between",
+      minHeight: "38px",
     },
     "& .tenant-list-box .tenant .header h4": {
       cursor: "pointer",

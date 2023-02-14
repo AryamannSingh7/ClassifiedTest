@@ -191,38 +191,56 @@ export default class UnitDetailsController extends BlockComponent<Props, S, SS> 
   getMyUnitDetailsResponse = (responseJson: any) => {
     if (responseJson && responseJson.data) {
       const unit = responseJson.data;
-      this.setState({
-        unitDetails: {
-          lat: unit.attributes.lat,
-          long: unit.attributes.long,
-          country: unit.attributes.country,
-          region: unit.attributes.region,
-          city: unit.attributes.city,
-          complex: unit.attributes.society_management.name,
-          building: unit.attributes.building_management.name,
-          unit: unit.attributes.apartment_name,
-          floor: unit.attributes.floor_number,
-          size: unit.attributes.size,
-          config: unit.attributes.configuration,
-          purchasePrice: unit.attributes.purchase_price,
-          purchaseDate: unit.attributes.purchase_date,
-          valuation: unit.attributes.current_valuation,
-          photos: unit.attributes.photos,
-          isPendingRequest: unit.attributes.request.status === "Requested",
-          requestId: unit.attributes.request.id,
-          measurement: unit.attributes.society_management.measurement_unit,
-          currency: unit.attributes.currency && unit.attributes.currency.currency,
+      this.setState(
+        {
+          unitDetails: {
+            lat: unit.attributes.lat,
+            long: unit.attributes.long,
+            country: unit.attributes.country,
+            region: unit.attributes.region,
+            city: unit.attributes.city,
+            complex: unit.attributes.society_management.name,
+            building: unit.attributes.building_management.name,
+            unit: unit.attributes.apartment_name,
+            floor: unit.attributes.floor_number,
+            size: unit.attributes.size,
+            config: unit.attributes.configuration,
+            purchasePrice: unit.attributes.purchase_price,
+            purchaseDate: unit.attributes.purchase_date,
+            valuation: unit.attributes.current_valuation,
+            photos: unit.attributes.photos,
+            isPendingRequest: unit.attributes.request.status === "Requested",
+            requestId: unit.attributes.request.id,
+            measurement: unit.attributes.society_management.measurement_unit,
+            currency: unit.attributes.currency && unit.attributes.currency.currency,
+          },
+          rentDetails: {
+            ...this.state.rentDetails,
+            status: unit.attributes.status,
+          },
         },
-        rentDetails: {
-          status: unit.attributes.status,
-          tenantId: unit.attributes.rent_status.data ? unit.attributes.rent_status.data.attributes.tenant.data.id : "",
-          tenantName: unit.attributes.rent_status.data ? unit.attributes.rent_status.data.attributes.tenant_name : "",
-          startDate: unit.attributes.rent_status.data ? unit.attributes.rent_status.data.attributes.start_date : "",
-          endDate: unit.attributes.rent_status.data ? unit.attributes.rent_status.data.attributes.end_date : "",
-          charge: unit.attributes.rent_status.data ? unit.attributes.rent_status.data.attributes.rent_amount : "",
-        },
-      });
+        () => {
+          this.handleTenantRentHistoryResponse(unit.attributes.rent_status);
+        }
+      );
     }
+  };
+
+  handleTenantRentHistoryResponse = (tenant: any) => {
+    let tenant_id = "";
+    if (tenant.data && tenant.data.attributes.tenant) {
+      tenant_id = tenant.data.attributes.tenant.data.id;
+    }
+    this.setState({
+      rentDetails: {
+        ...this.state.rentDetails,
+        tenantId: tenant_id,
+        tenantName: tenant.data ? tenant.data.attributes.tenant_name : "",
+        startDate: tenant.data ? tenant.data.attributes.start_date : "",
+        endDate: tenant.data ? tenant.data.attributes.end_date : "",
+        charge: tenant.data ? tenant.data.attributes.rent_amount : "",
+      },
+    });
   };
 
   getRentHistory = () => {

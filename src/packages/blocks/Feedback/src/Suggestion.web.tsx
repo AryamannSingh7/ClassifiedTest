@@ -49,7 +49,7 @@ class Suggestion extends SuggestionController {
 
                   </Box>
                 </Box>
-                <Box className="content-block-wrapper common-incident-block" style={{background:'#F8F9FE'}}>
+                <Box className="content-block-wrapper common-incident-block" style={{background:'#F8F9FE',display:'flex',height:'100%',flexDirection:'column',justifyContent:'space-between'}}>
                   <Box className="incident-content-wrapper">
                     {
                       this.state.suggestionList.map((item:any)=>{
@@ -77,7 +77,7 @@ class Suggestion extends SuggestionController {
                   <img src={Claender}/>   {item?.attributes?.sent_on}
                     </Typography>
                     <Box className="customButton">
-                      <Button variant="contained"  type="submit" className={item?.attributes?.response.length>0?"contain green-span":"contain red-span"} >{item?.attributes?.response.length>0 ? item?.attributes?.response.length:'0'} Response</Button>
+                      <Button variant="contained"  type="submit" className={item?.attributes?.response ?"contain green-span":"contain red-span"} >{item?.attributes?.response ? item?.attributes?.response.data.length:'0'} Response</Button>
                     </Box>
                     {/* <Button className="success">Resolved</Button> */}
                   </CardActions>

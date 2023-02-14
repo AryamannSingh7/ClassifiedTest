@@ -8247,7 +8247,7 @@ find-up@^4.0.0, find-up@^4.1.0:
     locate-path "^5.0.0"
     path-exists "^4.0.0"
 
-"firebase@file:packages/blocks/core/node_modules/firebase":
+firebase@^7.9.3, "firebase@file:packages/blocks/core/node_modules/firebase":
   version "7.24.0"
   dependencies:
     "@firebase/analytics" "0.6.0"

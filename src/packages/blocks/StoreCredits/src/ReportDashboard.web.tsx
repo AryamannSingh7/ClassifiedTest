@@ -102,7 +102,7 @@ class ReportDashboard extends ReportDashboardController {
                       </Link>
                     </Grid>
                     <Grid item xs={12} md={4} lg={4}>
-                      <Link href="/">
+                      <Link href="/InvitationReport">
                         <Card className="report-items">
                           <Box className="img-box">
                             <img src={InvitationReportIcon} />

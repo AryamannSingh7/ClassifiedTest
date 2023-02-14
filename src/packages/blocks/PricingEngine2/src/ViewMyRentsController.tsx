@@ -39,6 +39,7 @@ interface S {
   mainBuildingName:any;
   mainUnitName:any;
   partialAmount:any;
+  short:boolean;
 }
 
 interface SS {
@@ -87,6 +88,7 @@ export default class CoverImageController extends CommonApiCallForBlockComponent
       mainBuildingName:"",
       mainUnitName:"",
       partialAmount:"",
+      short:true,
     };
 
     this.emailReg = new RegExp("");
@@ -96,8 +98,20 @@ export default class CoverImageController extends CommonApiCallForBlockComponent
 
   }
 
+  handleShort = () => {
+    this.setState({
+      short:false,
+    })
+    this.getRentUnitList(!this.state.short)
+  }
+
+  handleFilter = (key:any) => {
+    this.getRentUnitList(this.state.short,key)
+    this.setState({anchorEl:null})
+  }
+
   async componentDidMount() {
-    this.getRentUnitList()
+    this.getRentUnitList(this.state.short)
   }
 
   handlePaymentClick= (item:any,isPartial:boolean) => {
@@ -110,16 +124,17 @@ export default class CoverImageController extends CommonApiCallForBlockComponent
       buildingName:item.attributes?.building_name,
       unitName:item.attributes?.apartment_name,
       tenantName:item.attributes?.tenant_name,
-      partialAmount:item.attributes?.acknowledge_rentpayment,
+      partialAmount:item.attributes?.partial_payment,
+      partialPayment:item.attributes?.partial_payment
     })
   }
 
-  getRentUnitList = async () => {
+  getRentUnitList = async (short:any,filter?:any) => {
     const {id} = this.props.match.params
     this.getRentUnitViseListId = await this.apiCall({
       contentType: "application/json",
       method: "GET",
-      endPoint: `/bx_block_rent_payment/monthly_payment/${id}`,
+      endPoint: `/bx_block_rent_payment/monthly_payment/${id}?sort_by_month=${short ? "new_to_old" : "old_to_new"}&status=${filter || ""}`,
     });
   };
 
@@ -142,7 +157,8 @@ export default class CoverImageController extends CommonApiCallForBlockComponent
 
 
   managePayment = () => {
-    if(this.state.partialPayment){
+    console.log("IS PARTIAL" ,this.state.partialPayment)
+    if(this.state.isPartialPayment){
       if(this.state.partialPayment !== ""){
         const body = {
           "partial_payment": parseInt(this.state.partialPayment)
@@ -187,9 +203,17 @@ export default class CoverImageController extends CommonApiCallForBlockComponent
       }
       if(this.fullPaymentUpdateId === apiRequestCallId){
         this.fullPaymentResponse(responseJson)
+        this.setState({
+          paymentConfirmModal:false
+        })
+        this.getRentUnitList(this.state.short)
       }
       if(this.partialPaymentUpdateId === apiRequestCallId){
         this.partialPaymentResponse(responseJson)
+        this.setState({
+          paymentConfirmModal:false
+        })
+        this.getRentUnitList(this.state.short)
       }
     }
   }
@@ -198,7 +222,7 @@ export default class CoverImageController extends CommonApiCallForBlockComponent
       this.setState({
         paymentConfirmModal:false
       })
-      this.getRentUnitList()
+      this.getRentUnitList(this.state.short)
     }
   }
 
@@ -207,7 +231,7 @@ export default class CoverImageController extends CommonApiCallForBlockComponent
       this.setState({
         paymentConfirmModal:false
       })
-      this.getRentUnitList()
+      this.getRentUnitList(this.state.short)
     }
   }
   

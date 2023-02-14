@@ -193,14 +193,22 @@ class RegisterRentPayment extends RegisterRentPaymentController{
                         }
                         <Grid item xs={12}>
                             <Typography style={{color:"#2B6FED",fontWeight:"bold"}}>
-                                {t("Rent Amount")} : {this.state.currency}{this.amountFormatConvert(this.state.rentAmount - this.state.partialPaidAmount)}
+                                {t("Rent Amount")} : {this.state.currency}{this.amountFormatConvert(this.state.rentAmount)}
                             </Typography>
                         </Grid>
+                        {
+                            this.state.partialPaidAmount > 0 &&
+                            <Grid item xs={12}>
+                                <Typography style={{color:"#2B6FED",fontWeight:"bold"}}>
+                                    {t("Partial Paid Amount")} : {this.state.currency}{this.amountFormatConvert(this.state.partialPaidAmount)}
+                                </Typography>
+                            </Grid>
+                        }
                         {
                             this.state.paymentType === "partial" &&
                             <Grid item xs={12}>
                                 <Typography style={{color:"#F93E3E",fontWeight:"bold"}}>
-                                    {t("Payment Due Amount")} : {this.state.currency}{this.state.rentAmount - this.state.partialPaymentAmount}
+                                    {t("Payment Due Amount")} : {this.state.currency}{this.state.rentAmount - this.state.partialPaymentAmount - this.state.partialPaidAmount}
                                 </Typography>
                             </Grid>
                         }

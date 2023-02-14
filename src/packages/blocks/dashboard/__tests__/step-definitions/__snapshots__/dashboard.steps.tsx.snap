@@ -46,8 +46,14 @@ exports[`dashboard User navigates to dashboard 1`] = `
           disableVirtualization={false}
           extraData={
             Object {
+              "Year": "",
+              "anchorEl": null,
               "dashboardData": Array [],
               "errorMsg": "",
+              "expanded": "",
+              "isLogoutModalOpen": false,
+              "isMenuOpen": false,
+              "isNewNotification": false,
               "loading": false,
               "token": "",
             }
@@ -117,8 +123,14 @@ exports[`dashboard User navigates to dashboard 2`] = `
           disableVirtualization={false}
           extraData={
             Object {
+              "Year": "",
+              "anchorEl": null,
               "dashboardData": Array [],
               "errorMsg": "",
+              "expanded": "",
+              "isLogoutModalOpen": false,
+              "isMenuOpen": false,
+              "isNewNotification": false,
               "loading": false,
               "token": "",
             }
@@ -188,8 +200,14 @@ exports[`dashboard User navigates to dashboard 3`] = `
           disableVirtualization={false}
           extraData={
             Object {
+              "Year": "",
+              "anchorEl": null,
               "dashboardData": Array [],
               "errorMsg": "",
+              "expanded": "",
+              "isLogoutModalOpen": false,
+              "isMenuOpen": false,
+              "isNewNotification": false,
               "loading": false,
               "token": "",
             }
@@ -284,6 +302,8 @@ exports[`dashboard User navigates to dashboard 4`] = `
           disableVirtualization={false}
           extraData={
             Object {
+              "Year": "",
+              "anchorEl": null,
               "dashboardData": Array [
                 Object {
                   "attributes": Object {
@@ -309,6 +329,10 @@ exports[`dashboard User navigates to dashboard 4`] = `
                 },
               ],
               "errorMsg": "",
+              "expanded": "",
+              "isLogoutModalOpen": false,
+              "isMenuOpen": false,
+              "isNewNotification": false,
               "loading": false,
               "token": "TOKEN",
             }

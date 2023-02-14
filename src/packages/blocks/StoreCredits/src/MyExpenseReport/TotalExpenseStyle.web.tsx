@@ -194,7 +194,6 @@ export const TotalExpenseStyle: any = {
       alignItems: "center",
       flexDirection: "column",
       marginBottom: "20px",
-      width: "40%",
       textAlign: "center",
     },
     "& .big-box .content-box .left-content .state": {

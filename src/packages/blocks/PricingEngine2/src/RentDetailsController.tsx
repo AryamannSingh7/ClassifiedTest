@@ -81,12 +81,12 @@ export default class CoverImageController extends CommonApiCallForBlockComponent
 
   manageDownloadReceipt = async () => {
     const {id} = this.props.match.params
-    await this.downloadPdf(`bx_block_fees_payment/receipts/${id}/download_receipt`,"Receipt.pdf")
+    await this.downloadPdf(`/bx_block_rent_payment/download_rent_receipt/${id}`,`Receipt-${id}.pdf`)
   }
 
   manageDownloadInvoice = async () => {
     const {id} = this.props.match.params
-    await this.downloadPdf(`bx_block_fees_payment/invoices/${id}/download_invoice`,"Invoice.pdf")
+    await this.downloadPdf(`/bx_block_rent_payment/download_rent_invoice/${id}`,`Invoice-${id}.pdf`)
   }
 
 

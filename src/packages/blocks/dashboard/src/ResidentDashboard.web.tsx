@@ -24,6 +24,7 @@ import CloseIcon from "@material-ui/icons/Close";
 import ArrowForwardIosOutlinedIcon from "@material-ui/icons/ArrowForwardIosOutlined";
 import DashboardController, { Props } from "./DashboardController.web";
 import {
+  keyhand,
   BuildingLogo,
   hamburgerIcon,
   globalIcon,
@@ -351,9 +352,14 @@ class ResidentDashboard extends DashboardController {
                     </Link>
                   </Grid>
                   <Grid item xs={6} sm={6}>
+                    <Link href="/AddRentPayment">
+                      <DashboardCard image={keyhand} heading={t("Register Rent Payment")} title={t("Register Rent")} value="75" />
+                    </Link>
+                  </Grid>
+                  <Grid item xs={6} sm={6}>
                     <Link href="/FacilityReservation">
                       <DashboardCard
-                        image={DashboardDocument}
+                        image={DashboardFacility}
                         heading={t("Facility Reservation")}
                         title={t("Facility Reservation")}
                         value="NA"

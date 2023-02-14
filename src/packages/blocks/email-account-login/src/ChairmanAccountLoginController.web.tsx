@@ -237,7 +237,7 @@ export default class ChairmanAccountLoginController extends BlockComponent<
                 this.setState({loading: false})
               }
               else if(dashboardType === "Security"){
-                this.props.history.push("/Visitors")
+                this.props.history.push("/VisitorList")
                 localStorage.setItem("userType","Security")
                 this.setState({loading: false})
               }
