@@ -48,6 +48,7 @@ import {dashBoard} from "./dash.js";
 
 //resorces
 import { invite, addgroup, newMember, info, cancle, user_icon, email_icon, phone_icon, building, unit } from "./assets";
+import { dailCode } from "../../email-account-registration/src/code";
 
 class CommunityRequestManagement extends CommunityUserProfileController {
   constructor(props: Props) {
@@ -316,8 +317,43 @@ src= {info} style={{paddingLeft:"10px"}}/>
                             </Grid>
                             <Grid item xs={12} sm={6}>
                               <Box className="formGroup">
+                            
+                        
+
+
                               <FormLabel component="legend" style={dashBoard.cm_labelsStyle}>{t("Phone Number")}</FormLabel>
-                              <Field name="phoneno" type="text" placeholder={t("Phone Number")} style={dashBoard.cm_inviteInput} />
+                              <FormControl variant="outlined" style={{position:'absolute',marginLeft:'3rem'}} >
+                        
+                        <Select
+                          name='selectCode'
+                          labelId="demo-simple-select-outlined-label"
+
+                          id="demo-simple-select-outlined"
+                          onChange={this.handleChange}
+                          label="Unit"
+                          value={this.state.selectCode}
+                        >
+                          <MenuItem value="">
+                            <em>None</em>
+                          </MenuItem>
+                          {dailCode.map((item:any) =>
+                            <MenuItem key={item.dial_code} value={item.dial_code}> <img src={`https://cdn.jsdelivr.net/npm/country-flag-emoji-json@2.0.0/dist/images/${item.code}.svg`} width='15' height='15' style={{ marginRight: '5px' }} />
+                              {item.dial_code}</MenuItem>
+
+                          )
+                          }
+
+                        </Select>
+                      </FormControl>
+                              <Field name="phoneno" type="text" placeholder={t("Phone Number")} style={{padding: "18px 18px 18px 50px",
+    color: "#b5b5b5",
+    borderRadius: "10px",
+    border: "1px solid #e9dede",
+    backgroundColor: "#f9f9f9",
+    fontSize: "16px",
+    outline: 0,
+    width:"100%",
+    paddingLeft:'10rem'}} />
                               <span 
                               //@ts-ignore 
                               style={dashBoard.cm_formLeftIcn}>
