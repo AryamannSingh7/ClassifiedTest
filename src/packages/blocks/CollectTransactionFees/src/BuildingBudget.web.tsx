@@ -1,22 +1,20 @@
 import * as React from "react";
 // custom components
 import {
-    Grid, Box, Divider, AppBar, Tabs, Tab, Link, IconButton, Typography,Button,Menu,MenuItem
+    Grid, Box, Typography, Button, MenuItem,
 } from "@material-ui/core";
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
-import {shortIcon,filterIcon} from "../../BroadcastMessage/src/assets"
-import { makeStyles,withStyles } from '@material-ui/core/styles';
+import { withStyles } from '@material-ui/core/styles';
 import { withRouter } from 'react-router';
-import {Calander} from "./assets"
-import BudgetSpendingControllerB, {
+import BuildingBudgetController, {
   Props
-} from "./BudgetSpendingController";
+} from "./BuildingBudgetController";
 import './style.css'
 import Select from '@material-ui/core/Select';
 import {withTranslation} from "react-i18next";
-import ArrowForwardIosIcon from '@material-ui/icons/ArrowForwardIos';
 
-class Visitors extends BudgetSpendingControllerB{
+
+class BuildingBudget extends BuildingBudgetController{
   constructor(props: Props) {
     super(props);
   }
@@ -47,7 +45,7 @@ class Visitors extends BudgetSpendingControllerB{
                                 <Select
                                     native
                                     label="Age"
-                                    value={10}
+                                    value={this.state.budgetYear}
                                     className="selectFYBox"
                                     disableUnderline
                                     style={{backgroundColor:"white",borderRadius:"100px"}}
@@ -56,9 +54,9 @@ class Visitors extends BudgetSpendingControllerB{
                                         id: 'outlined-age-native-simple',
                                     }}
                                 >
-                                    <option value={10}>FY 2022-23</option>
-                                    <option value={20}>FY 2023-24</option>
-                                    <option value={30}>FY 2024-25</option>
+                                    <option value={(new Date().getFullYear() - 2)}>FY {(new Date().getFullYear() - 2)}-{(new Date().getFullYear() - 1).toString().slice(-2)}</option>
+                                    <option value={(new Date().getFullYear() - 1)}>FY {(new Date().getFullYear() - 1)}-{(new Date().getFullYear()).toString().slice(-2)}</option>
+                                    <option value={(new Date().getFullYear())}>FY {(new Date().getFullYear())}-{(new Date().getFullYear() + 1).toString().slice(-2)}</option>
                                 </Select>
                             </Box>
                         </Grid>
@@ -82,6 +80,20 @@ class Visitors extends BudgetSpendingControllerB{
                                 style={{boxShadow:"rgba(99, 99, 99, 0.2) 0px 2px 8px 0px"}}
                             >
                                 <Box style={{minWidth:"100%"}}>
+                                    {
+                                        this.state.budgetList?.map((item:any,key:any) => {
+                                            return(
+                                                <Box key={key} style={{display:"flex",justifyContent:"space-between",marginTop:"5px",marginBottom:"5px"}}>
+                                                    <Typography variant="subtitle2" color="textSecondary">
+                                                        {t("Electricity")}
+                                                    </Typography>
+                                                    <Typography variant="subtitle2">
+                                                        SR 20,000
+                                                    </Typography>
+                                                </Box>
+                                            )
+                                        })
+                                    }
                                     <Box style={{display:"flex",justifyContent:"space-between",marginTop:"5px",marginBottom:"5px"}}>
                                         <Typography variant="subtitle2" color="textSecondary">
                                             {t("Electricity")}
@@ -218,7 +230,7 @@ class Visitors extends BudgetSpendingControllerB{
     );
   }
 }
-export default withTranslation()(withRouter(Visitors))
+export default withTranslation()(withRouter(BuildingBudget))
 
 const CloseButton = withStyles((theme) => ({
     root: {
