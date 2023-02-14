@@ -100,7 +100,7 @@ const dashBoard = {
     backgroundColor: "#f9f9f9",
     fontSize: "16px",
     outline: 0,
-    width:"100%"
+    width:"100%",
   }
   };
 

@@ -129,10 +129,12 @@ export default class FriendListController extends BlockComponent<
   }
 
   handleSubmit = () => {
+    const societyID = localStorage.getItem("society_id")
     if(this.state.userId !== "" && this.state.roleId !== ""){
       const data = {
         "account_id": this.state.userId,
         "role_id": this.state.roleId,
+        "society_management_id":societyID,
       }
       if(this.props.editId){
         this.updateTeamMember(this.props.editId.id,this.state.roleId)
@@ -192,7 +194,7 @@ export default class FriendListController extends BlockComponent<
     const societyID = localStorage.getItem("society_id")
     this.createTeamMemberId = await this.apiCall({
       method:"POST",
-      endPoint: `bx_block_my_team/team_members`,
+      endPoint: `bx_block_my_team/team_members?society_management_id=${societyID}`,
       body:JSON.stringify(data)
     });
   }
@@ -243,14 +245,25 @@ export default class FriendListController extends BlockComponent<
     this.setState({teamAddData:values})
   }
 
-  getUserListResponse = (responseJson:any) => {
+  getUserListResponse = async (responseJson:any) => {
     if(responseJson.hasOwnProperty("data")){
       if(this.props.editId){
+         const filterData = await responseJson?.data.filter((item:any)=> {
+          if(item.id == this.props.editId.userId){
+            return item
+          }
+        })
         this.setState({
           userList:responseJson?.data,
           userId:this.props.editId.userId,
+          selectedUser:{
+            buildingName:filterData[0]?.attributes.building_management?.building_name,
+            buildingId:filterData[0]?.attributes?.building_management?.id,
+            unitName:filterData[0]?.attributes.apartment_management?.apartment_name,
+            unitId:filterData[0]?.attributes?.apartment_management.id
+          }
         })
-        console.log("USER ID IS ",this.props.editId.userId)
+        console.log("FILTER DATA",filterData,filterData[0].attributes.building_management.building_name)
       }else{
         this.setState({
           userList:responseJson?.data

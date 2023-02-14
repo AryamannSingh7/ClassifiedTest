@@ -154,10 +154,10 @@ class ChairmanSidebar extends DashboardController {
             <AccordionDetails
               onClick={() => {
                 //@ts-ignore
-                this.props.history.push("/CommunityRequestManagement");
+                // this.props.history.push("/CommunityRequestManagement");
               }}
             >
-              <Typography variant="body2" className="cursor-pointer">
+              <Typography variant="body2" className="cursor-pointer" onClick={() => this.props.navigation.navigate("CommunityRequestManagement")}>
                 {t("Request Management")}
               </Typography>
             </AccordionDetails>

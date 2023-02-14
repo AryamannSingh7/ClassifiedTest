@@ -407,7 +407,7 @@ export default class FriendListController extends BlockComponent<
       const formData = new FormData();
       formData.append("chat[chatable_type]", 'AccountBlock::Account');
       formData.append("chat[chatable_id]", localStorage.getItem('userId') || '{}');
-      formData.append("chat[chat_with_account]", data.id);
+      formData.append("chat[chat_with_account]", data.account.id);
 
 
 

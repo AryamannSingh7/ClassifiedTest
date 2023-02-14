@@ -1,8 +1,9 @@
 // App.js - WEB
-import React, { Component } from 'react';
+import React, { useEffect, useState } from 'react';
 import { View } from 'react-native';
-import firebase from 'firebase';
-import { connect } from 'react-firebase';
+
+import { getFirebaseToken } from './firebase';
+import { baseURL } from '../../framework/src/config';
 
 import WebRoutesGenerator from '../../components/src/NativeWebRouteWrapper';
 import { ModalContainer } from 'react-router-modal';
@@ -301,6 +302,7 @@ import TaskManagement from '../../blocks/FriendList/src/TaskManagement.web';
 
 // Fees & Payment Imports
 import FeesAndPayment from '../../blocks/CollectTransactionFees/src/FeesAndPayments.web';
+import FeesAndPaymentOwner from '../../blocks/CollectTransactionFees/src/FeesAndPaymentsOwner.web';
 import ViewMyInvoices from '../../blocks/CollectTransactionFees/src/ViewMyInvoices.web';
 import InvoiceDetails from '../../blocks/CollectTransactionFees/src/InvoiceDetails.web';
 import ViewMyReceipts from '../../blocks/CollectTransactionFees/src/ViewMyReceipts.web';
@@ -340,6 +342,7 @@ import AuditReport from '../../blocks/StoreCredits/src/AuditReport.web';
 import ManagementFeeReport from '../../blocks/StoreCredits/src/ManagementFeeReport.web';
 import AuditReportDetails from '../../blocks/StoreCredits/src/AuditReportDetails.web';
 import InvitationReport from '../../blocks/StoreCredits/src/InvitationReport.web';
+import ExpenseReportDetails from "../../blocks/StoreCredits/src/ExpenseDetails.web";
 
 // My Unit
 import MyUnitList from '../../blocks/TaskAllocator/src/MyUnitList.web';
@@ -1866,6 +1869,12 @@ const routeMap = {
     exact: true
   },
 
+  BudgetAndExpenseDetails: {
+    component: FeesAndPaymentOwner,
+    path: '/BudgetAndExpenseDetails',
+    exact: true
+  },
+
   ViewMyInvoices: {
     component: ViewMyInvoices,
     path: '/MyInvoices',
@@ -1933,7 +1942,7 @@ const routeMap = {
 
   MyInvoices: {
     component: MyInvoices,
-    path: '/Owner/MyInvoices',
+    path: '/MyInvoices/Owner',
     exact: true
   },
 
@@ -1945,7 +1954,7 @@ const routeMap = {
 
   MyReceipts: {
     component: MyReceipts,
-    path: '/Owner/MyReceipts',
+    path: '/MyReceipts/Owner',
     exact: true
   },
 
@@ -2161,6 +2170,12 @@ const routeMap = {
     roles: [ROLE.CHAIRMAN, ROLE.MANAGER],
     exact: true
   },
+  ExpenseReportDetails: {
+    component: ExpenseReportDetails,
+    path: '/ExpenseReportDetails',
+    roles: [ROLE.CHAIRMAN, ROLE.MANAGER],
+    exact: true
+  },
   AuditReport: {
     component: AuditReport,
     path: '/AuditReports',
@@ -2305,30 +2320,48 @@ const routeMap = {
   }
 };
 
-const firebaseAPI = firebase.initializeApp({
-  apiKey: 'AIzaSyDgl9aTbKMdRZ9-ijSZRionh3V591gMJl4',
-  authDomain: 'rnmasterapp-c11e9.firebaseapp.com',
-  databaseURL: 'https://rnmasterapp-c11e9.firebaseio.com',
-  projectId: 'rnmasterapp-c11e9',
-  storageBucket: 'rnmasterapp-c11e9.appspot.com',
-  messagingSenderId: '649592030497',
-  appId: '1:649592030497:web:7728bee3f2baef208daa60',
-  measurementId: 'G-FYBCF3Z2W3'
-});
+const App = () => {
+  const [notificationToken, setNotificationToken] = useState('');
 
-class App extends Component {
-  render() {
-    const defaultAnalytics = firebaseAPI.analytics();
-    defaultAnalytics.logEvent('APP_Loaded');
+  useEffect(() => {
+    if (notificationToken) return;
+    (async () => {
+      try {
+        const res = await getFirebaseToken();
+        setNotificationToken(res);
 
-    return (
-      <View style={{ height: '100%', width: '100%' }}>
-        <Toaster className="toast" position="top-right" reverseOrder={false} />
-        {WebRoutesGenerator({ routeMap })}
-        <ModalContainer />
-      </View>
-    );
-  }
-}
+        if (localStorage.getItem('userToken')) {
+          notificationApiCall(res);
+        }
+      } catch (e) {
+        console.error(e);
+      }
+    })();
+  }, [notificationToken]);
+
+  const notificationApiCall = token => {
+    let requestOptions = {
+      method: 'GET',
+      headers: { token: localStorage.getItem('userToken') }
+    };
+
+    fetch(
+      `${baseURL}/bx_block_notifications/notifications/update_device_id?device_id=${token}`,
+      requestOptions
+    )
+      .then(response => response.text())
+      .then(result => console.log(JSON.stringify(result)))
+      .catch(error => console.log('error', error));
+  };
+
+  return (
+    <View style={{ height: '100%', width: '100%' }}>
+      <Toaster className="toast" position="top-right" reverseOrder={false} />
+      {WebRoutesGenerator({ routeMap })}
+      <ModalContainer />
+    </View>
+  );
+  // }
+};
 
 export default App;

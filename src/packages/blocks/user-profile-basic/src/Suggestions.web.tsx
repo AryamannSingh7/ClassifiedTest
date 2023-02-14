@@ -117,7 +117,7 @@ class Suggestions extends SuggestionsController {
                           <TableCell>{item?.attributes?.sent_by?.name || 'N/A'}</TableCell>
                           <TableCell>{item?.attributes?.date}</TableCell>
                           <TableCell>
-                            <span className={item?.attributes?.response.length>0?"green-span":"red-span"}>{item?.attributes?.response.length} Response</span>
+                            <span className={item?.attributes?.response ?"green-span":"red-span"}>{item?.attributes?.response ? item?.attributes?.response?.data.length:0} Response</span>
                           </TableCell>
                         </TableRow>
                           ))

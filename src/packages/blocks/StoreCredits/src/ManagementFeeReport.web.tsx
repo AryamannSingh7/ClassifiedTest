@@ -31,6 +31,7 @@ import { withTranslation } from "react-i18next";
 import { ROLE } from "../../../framework/src/Enum";
 import { ReportsStyleWeb } from "./ReportsStyle.web";
 import { SearchIconImage } from "./assets";
+import PaginationModule from "./PaginationModule.web";
 
 const month = [
     "January",
@@ -183,7 +184,7 @@ class ManagementFeeReport extends ManagementFeeReportController {
                                               </IconButton>
                                             }
                                         >
-                                          <MenuItem>{t("Download")}</MenuItem>
+                                          <MenuItem onClick={() => this.manageDownload(item.id)}>{t("Download")}</MenuItem>
                                           <MenuItem>{t("Share")}</MenuItem>
                                         </Menu>
                                       </TableCell>
@@ -199,11 +200,7 @@ class ManagementFeeReport extends ManagementFeeReportController {
                     </Table>
                     <Divider />
                     <Box className="table-bottom">
-                      <p>
-                        Showing <span className="current-page">{0}</span> of <span className="total-page">0</span>{" "}
-                        results
-                      </p>
-                      <Pagination siblingCount={2} variant="outlined" shape="rounded" />
+                      <PaginationModule handlePagination={this.handleManagementFeePagination} pagination={this.state.pagination} page={this.state.page}/>
                     </Box>
                   </Grid>
                 </Grid>

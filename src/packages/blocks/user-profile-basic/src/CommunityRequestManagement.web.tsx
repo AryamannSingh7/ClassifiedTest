@@ -48,6 +48,7 @@ import {dashBoard} from "./dash.js";
 
 //resorces
 import { invite, addgroup, newMember, info, cancle, user_icon, email_icon, phone_icon, building, unit } from "./assets";
+import { dailCode } from "../../email-account-registration/src/code";
 
 class CommunityRequestManagement extends CommunityUserProfileController {
   constructor(props: Props) {
@@ -121,7 +122,8 @@ src= {info} style={{paddingLeft:"10px"}}/>
 </Tooltip>
                                 </div>
                                
-                            <Typography variant="h6" style={dashBoard.cm_subHeading}>{this.state.invitatonCount?.ragistration_request_pending}</Typography>
+                            <Typography variant="h6" style={dashBoard.cm_subHeading}>{this.state.invitatonCount?.ragistration_request_pending
+}</Typography>
                         </Paper>
                         <Paper elevation={3} style={dashBoard.cm_managementPaper} 
                         >
@@ -140,7 +142,7 @@ src= {info} style={{paddingLeft:"10px"}}/>
 </Tooltip>
                                 </div>
                            
-                            <Typography variant="h6" style={dashBoard.cm_subHeading}>{this.state.invitatonCount?.totle_member_invitation_pending}</Typography>
+                            <Typography variant="h6" style={dashBoard.cm_subHeading}>{this.state.invitatonCount?.totle_member_invitation_pending > 0 ? this.state.invitatonCount?.totle_member_invitation_pending + 1 : this.state.invitatonCount?.totle_member_invitation_pending}</Typography>
                         </Paper>
                     </div>
                   </Box>
@@ -159,7 +161,7 @@ src= {info} style={{paddingLeft:"10px"}}/>
                             //@ts-ignore
                             this.props.history.push("/SentInvitation")}}>
                                 <h6>{t("Total Sent Invitations")}</h6>
-                                <Typography variant="h6" style={dashBoard.cm_invitationCont}>{this.state.invitatonCount?.totle_member_invitation_sent}</Typography>
+                                <Typography variant="h6" style={dashBoard.cm_invitationCont}>{this.state.invitatonCount?.totle_member_invitation_sent > 0 ? this.state.invitatonCount?.totle_member_invitation_sent + 1 : this.state.invitatonCount?.totle_member_invitation_sent}</Typography>
                             </div>
                             <div style={dashBoard.cm_facility}>
                                 <h6>{t("Accepted Invitations by users")}</h6>
@@ -171,7 +173,7 @@ src= {info} style={{paddingLeft:"10px"}}/>
                             </div>
                             <div style={dashBoard.cm_facility}>
                                 <h6 style={dashBoard.cm_inviteTitle}>{t("Total received join requests")}</h6>
-                                <Typography variant="h6" style={dashBoard.cm_invitationCont}>{this.state.invitatonCount?.member_invitation_rejected}</Typography>
+                                <Typography variant="h6" style={dashBoard.cm_invitationCont}>{this.state.invitatonCount?.totle_ragistration_request}</Typography>
                             </div>
                         </div>
                     </Paper>
@@ -234,7 +236,7 @@ src= {info} style={{paddingLeft:"10px"}}/>
                                       style={{ paddingLeft: '45px' }}
                                       // label="Select User Type"
                                       onChange={(e) => {
-                                        (e.target.value != " ") && setFieldValue("usertype", e.target.value)
+                                        setFieldValue("usertype", e.target.value)
                                       }}
                                       value={values.usertype}
                                     >
@@ -248,7 +250,7 @@ src= {info} style={{paddingLeft:"10px"}}/>
 
                                     </Select>
                                   </FormControl>
-                                  {errors.usertype && touched.usertype ? (
+                                  {errors.usertype? (
                         <Typography
                           style={{
                             color: "#F14E24",
@@ -272,7 +274,7 @@ src= {info} style={{paddingLeft:"10px"}}/>
                               style={dashBoard.cm_formLeftIcn}>
                                 <img src={user_icon} className="frm-icons" alt="User Icon" />
                               </span>
-                              {errors.fullname && touched.fullname ? (
+                              {errors.fullname ? (
                         <Typography
                           style={{
                             color: "#F14E24",
@@ -298,7 +300,7 @@ src= {info} style={{paddingLeft:"10px"}}/>
                               style={dashBoard.cm_formLeftIcn}>
                                 <img src={email_icon} className="frm-icons" alt="Email Icon" />
                               </span>
-                              {errors.email && touched.email ? (
+                              {errors.email ? (
                         <Typography
                           style={{
                             color: "#F14E24",
@@ -315,14 +317,49 @@ src= {info} style={{paddingLeft:"10px"}}/>
                             </Grid>
                             <Grid item xs={12} sm={6}>
                               <Box className="formGroup">
+                            
+                        
+
+
                               <FormLabel component="legend" style={dashBoard.cm_labelsStyle}>{t("Phone Number")}</FormLabel>
-                              <Field name="phoneno" type="text" placeholder={t("Phone Number")} style={dashBoard.cm_inviteInput} />
+                              <FormControl variant="outlined" style={{position:'absolute',marginLeft:'3rem'}} >
+                        
+                        <Select
+                          name='selectCode'
+                          labelId="demo-simple-select-outlined-label"
+
+                          id="demo-simple-select-outlined"
+                          onChange={this.handleChange}
+                          label="Unit"
+                          value={this.state.selectCode}
+                        >
+                          <MenuItem value="">
+                            <em>None</em>
+                          </MenuItem>
+                          {dailCode.map((item:any) =>
+                            <MenuItem key={item.dial_code} value={item.dial_code}> <img src={`https://cdn.jsdelivr.net/npm/country-flag-emoji-json@2.0.0/dist/images/${item.code}.svg`} width='15' height='15' style={{ marginRight: '5px' }} />
+                              {item.dial_code}</MenuItem>
+
+                          )
+                          }
+
+                        </Select>
+                      </FormControl>
+                              <Field name="phoneno" type="text" placeholder={t("Phone Number")} style={{padding: "18px 18px 18px 50px",
+    color: "#b5b5b5",
+    borderRadius: "10px",
+    border: "1px solid #e9dede",
+    backgroundColor: "#f9f9f9",
+    fontSize: "16px",
+    outline: 0,
+    width:"100%",
+    paddingLeft:'10rem'}} />
                               <span 
                               //@ts-ignore 
                               style={dashBoard.cm_formLeftIcn}>
                                 <img src={phone_icon} className="frm-icons" alt="Phone Icon" />
                               </span>
-                              {errors.phoneno && touched.phoneno ? (
+                              {errors.phoneno  ? (
                         <Typography
                           style={{
                             color: "#F14E24",
@@ -354,7 +391,7 @@ src= {info} style={{paddingLeft:"10px"}}/>
                                     style={{ paddingLeft: '45px' }}
                                     // label="Select User Type"
                                     onChange={(e) => {
-                                      (e.target.value != " ") && setFieldValue("building", e.target.value) ; this.getUnit2(e.target.value)
+                                      setFieldValue("building", e.target.value) ; this.getUnit2(e.target.value)
                                     }}
                                     value={values.building}
                                   >
@@ -368,7 +405,7 @@ src= {info} style={{paddingLeft:"10px"}}/>
 
                                   </Select>
                                 </FormControl>
-                                {errors.building && touched.building ? (
+                                {errors.building ? (
                         <Typography
                           style={{
                             color: "#F14E24",
@@ -398,7 +435,7 @@ src= {info} style={{paddingLeft:"10px"}}/>
                                       style={{ paddingLeft: '45px' }}
                                       // label="Select User Type"
                                       onChange={(e) => {
-                                        (e.target.value != " ") && setFieldValue("unit", e.target.value)
+                                        setFieldValue("unit", e.target.value)
                                       }}
                                       value={values.unit}
                                     >
@@ -412,7 +449,7 @@ src= {info} style={{paddingLeft:"10px"}}/>
 
                                     </Select>
                                   </FormControl>
-                                  {errors.unit && touched.unit ? (
+                                  {errors.unit ? (
                         <Typography
                           style={{
                             color: "#F14E24",

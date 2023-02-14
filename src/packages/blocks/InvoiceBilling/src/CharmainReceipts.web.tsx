@@ -4,79 +4,47 @@ import React from "react";
 
 //components
 import {
+    Backdrop,
     Box,
-    TextField,
-    InputAdornment,
-    Typography,
-    Grid,
+    Button,
     Container,
-    TableContainer,
+    Divider,
+    Fade,
+    Grid,
+    IconButton,
+    InputBase,
+    MenuItem,
+    Modal,
+    Paper,
     Table,
     TableBody,
     TableCell,
     TableHead,
     TableRow,
-    Menu,
-    MenuItem,
-    Fade,
-    Backdrop,
-    Modal,
-    Paper,
-    Button,
-    withStyles, InputBase, Divider, IconButton
+    Typography,
+    withStyles
 } from "@material-ui/core";
-import { makeStyles } from '@material-ui/core/styles';
-import SearchOutlinedIcon from '@material-ui/icons/SearchOutlined';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
-import GetAppOutlinedIcon from '@material-ui/icons/GetAppOutlined';
 import Pagination from '@material-ui/lab/Pagination';
-import KeyboardBackspaceIcon from '@material-ui/icons/KeyboardBackspace';
-import Radio from '@material-ui/core/Radio';
-import RadioGroup from '@material-ui/core/RadioGroup';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import FormControl from '@material-ui/core/FormControl';
-import FormLabel from '@material-ui/core/FormLabel';
 import Select from '@material-ui/core/Select';
-import { withRouter } from 'react-router-dom';
-
-import CharmainInvoicesController, { Props } from "./CharmainInvoicesController";
+import {withRouter} from 'react-router-dom';
+import { Menu } from "@szhsin/react-menu";
+import CharmainReceiptsController, {Props} from "./CharmainReceiptsController";
 import DashboardHeader from "../../dashboard/src/DashboardHeader.web";
 import ChairmanSidebar from "../../dashboard/src/ChairmanSidebar.web";
-import { withTranslation } from 'react-i18next';
+import {withTranslation} from 'react-i18next';
 import {SearchIconImage} from "../../user-profile-basic/src/assets"
-import { SuggestionStyleWeb } from "../../user-profile-basic/src/SuggestionStyle.web";
-import {DownloadIcon,confirmIcon} from "./assets"
+import {SuggestionStyleWeb} from "../../user-profile-basic/src/SuggestionStyle.web";
+import {confirmIcon, DownloadIcon} from "./assets"
 import CloseIcon from '@material-ui/icons/Close';
 import SearchIcon from "@material-ui/icons/Search";
-import ArrowBackIcon from '@material-ui/icons/ArrowBack';
-import RadioButtonUncheckedIcon from '@material-ui/icons/RadioButtonUnchecked';
-import RadioButtonCheckedIcon from '@material-ui/icons/RadioButtonChecked';
+import moment from "moment"
 import 'web/src/i18n.js';
-
-//resorces
-// import { Bank_Icon, Building1, Grid_Icon, Filter_Icon } from "../src/assets";
+import {CloseButton, dashBoardActions, PublishButton} from "./chairmanUIStyles"
 import '../../dashboard/src/style.css'
+import PaginationModule from "../../StoreCredits/src/PaginationModule.web";
 
-import moment from "moment";
-
-function createData( no:any, name:any, unit:any, title:any, amount:any, type:any, status:any, more:any) {
-    return { no, name, unit, title, amount, type, status, more };
-  }
-  
-  const rows = [
-    createData(1, 'Frozen yoghurt', 159, 'May - 2022 invoices', 'SR 6', 'Managment Fees', 'Overdue', <MoreVertIcon color='disabled' />),
-    createData(2, 'Ice cream sandwich', 237, 'May - 2022 invoices', 'SR 200', 'Rent Fees', 'Paid', <MoreVertIcon color='disabled' />),
-    createData(3, 'Eclair', 262,'May - 2022 invoices', 'SR 160', 'Managment Fees', 'Due', <MoreVertIcon color='disabled' />),
-    createData(4, 'Cupcake', 305,'May - 2022 invoices', 'SR 670', 'Rent Fees', 'partialy Paid', <MoreVertIcon color='disabled' />),
-    createData(5, 'Gingerbread', 356,'May - 2022 invoices', 'SR 300', 'Managment Fees', 'partialy Paid', <MoreVertIcon color='disabled' />),
-    createData(6, 'Frozen yoghurt', 159, 'May - 2022 invoices', 'SR 6', 'Managment Fees', 'Overdue', <MoreVertIcon color='disabled' />),
-    createData(7, 'Ice cream sandwich', 237, 'May - 2022 invoices', 'SR 200', 'Rent Fees', 'Paid', <MoreVertIcon color='disabled' />),
-    createData(8, 'Eclair', 262,'May - 2022 invoices', 'SR 160', 'Managment Fees', 'Due', <MoreVertIcon color='disabled' />),
-    createData(9, 'Cupcake', 305,'May - 2022 invoices', 'SR 670', 'Rent Fees', 'partialy Paid', <MoreVertIcon color='disabled' />),
-    createData(10, 'Gingerbread', 356,'May - 2022 invoices', 'SR 300', 'Managment Fees', 'partialy Paid', <MoreVertIcon color='disabled' />),
-  ];
-
-class CharmainInvoices extends CharmainInvoicesController {
+class CharmainInvoices extends CharmainReceiptsController {
 constructor(props: Props) {
     super(props);
     // Customizable Area Start
@@ -90,17 +58,6 @@ constructor(props: Props) {
 render() {
     const {t} = this.props
     const { classes } = this.props;
-    var searchData = rows.filter((item) => {
-        if (this.state.dataSearch === "") {
-          return item;
-        } else if (
-          item.name.toLowerCase().includes(this.state.dataSearch.toLowerCase())
-        ) {
-          return item;
-        }
-      });
-    
-    const { navigation } = this.props;
     return (
       // Customizable Area Start
       <>
@@ -126,25 +83,52 @@ render() {
                         </Box>
                         <Box className="top-bar">
                             <Box className="filter">
-                                <Select displayEmpty  value={""} className="select-input">
-                                    <MenuItem value="" disabled>
+                                <Select displayEmpty value={this.state.filterReceiptBuilding || ""} className="select-input" onChange={this.selectBuilding}>
+                                    <MenuItem value="">
+                                        {t("Select Building")}
+                                    </MenuItem>
+                                    {
+                                        this.state.buildingReceiptList?.map((item:any,key:any)=> {
+                                            return(
+                                                <MenuItem key={key} value={item.id}>
+                                                    {item.name}
+                                                </MenuItem>
+                                            )
+                                        })
+                                    }
+                                </Select>
+                                <Select displayEmpty  value={this.state.filterReceiptFloor || ""} className="select-input" onChange={(e) => this.setState({filterReceiptFloor:e.target.value})}>
+                                    <MenuItem value="">
                                         {t("Select Floor")}
                                     </MenuItem>
                                 </Select>
-                                <Select displayEmpty value={""} className="select-input">
-                                    <MenuItem value="" disabled>
+                                <Select displayEmpty value={this.state.filterReceiptUnit || ""} className="select-input" onChange={(e:any) => this.setState({filterReceiptUnit:e.target.value})}>
+                                    <MenuItem value="">
                                         {t("Select Unit")}
                                     </MenuItem>
+                                    {
+                                        this.state.unitReceiptList?.map((item:any,key:any)=> {
+                                            return(
+                                                <MenuItem key={key} value={item.id}>
+                                                    {item.apartment_name}
+                                                </MenuItem>
+                                            )
+                                        })
+                                    }
                                 </Select>
                                 <Select displayEmpty value={""} className="select-input">
-                                    <MenuItem value="" disabled>
-                                        {t("Select Type")}
-                                    </MenuItem>
+                                    <MenuItem value="">{t("Select Type")}</MenuItem>
+                                    <MenuItem value="management_fees_receipt">{t("Management Fee")}</MenuItem>
+                                    <MenuItem value="rent_payments_receipt">{t("Rent Payments")}</MenuItem>
                                 </Select>
                                 <Select displayEmpty value={""} className="select-input">
-                                    <MenuItem value="" disabled>
+                                    <MenuItem value="">
                                         {t("Select Status")}
                                     </MenuItem>
+                                    <MenuItem value="due">{t("Due")}</MenuItem>
+                                    <MenuItem value="over_due_receipt">{t("Over Due")}</MenuItem>
+                                    <MenuItem value="paid_receipt">{t("Paid")}</MenuItem>
+                                    <MenuItem value="partially_paid_receipt">{t("Partially Paid")}</MenuItem>
                                 </Select>
                                 <Button onClick={this.handleFilterBy} startIcon={<img src={SearchIconImage} />}>{t("Search")}</Button>
                             </Box>
@@ -165,59 +149,50 @@ render() {
                                     <TableHead>
                                         <TableRow>
                                             <TableCell style={{color:"grey"}}>#</TableCell>
-                                            <TableCell style={{color:"grey"}} align="center">{t("Name")}</TableCell>
-                                            <TableCell style={{color:"grey"}} align="center">{t("Unit No.")}</TableCell>
-                                            <TableCell style={{color:"grey"}} align="center">{t("Title")}</TableCell>
-                                            <TableCell style={{color:"grey"}} align="center">{t("Amount")}</TableCell>
-                                            <TableCell style={{color:"grey"}} align="center">{t("Type")}</TableCell>
-                                            <TableCell style={{color:"grey"}} align="center">{t("Status")}</TableCell>
-                                            <TableCell style={{color:"grey"}} align="center"></TableCell>
+                                            <TableCell style={{color:"grey"}}>{t("Name")}</TableCell>
+                                            <TableCell style={{color:"grey"}}>{t("Unit No.")}</TableCell>
+                                            <TableCell style={{color:"grey"}}>{t("Title")}</TableCell>
+                                            <TableCell style={{color:"grey"}}>{t("Amount")}</TableCell>
+                                            <TableCell style={{color:"grey"}}>{t("Type")}</TableCell>
+                                            <TableCell style={{color:"grey"}}>{t("Status")}</TableCell>
+                                            <TableCell style={{color:"grey"}}></TableCell>
                                         </TableRow>
                                     </TableHead>
                                     <TableBody>
-                                        {searchData.map((row) => (
-                                            <TableRow key={row.no}>
-                                                <TableCell component="th" scope="row">{row.no}</TableCell>
-                                                <TableCell align="center">{row.name}</TableCell>
-                                                <TableCell align="center">{row.unit}</TableCell>
-                                                <TableCell align="center">{row.title}</TableCell>
-                                                <TableCell align="center">{row.amount}</TableCell>
-                                                <TableCell align="center">{row.type}</TableCell>
-                                                <TableCell align="center">{row.status}</TableCell>
-                                                <TableCell align="center" onClick={(e: any) => this.handleClick(e)}>{row.more}</TableCell>
+                                        {this.state.receiptsList?.map((row:any,key:any) => (
+                                            <TableRow key={key}>
+                                                <TableCell component="th" scope="row">{key + 1}</TableCell>
+                                                <TableCell>{row?.attributes?.name}</TableCell>
+                                                <TableCell>{row?.attributes?.unit_number}</TableCell>
+                                                <TableCell>{row?.attributes?.title}</TableCell>
+                                                <TableCell>{row?.attributes?.currency} {row?.attributes?.paid_amount}</TableCell>
+                                                <TableCell>{row?.attributes?.payment_type}</TableCell>
+                                                <TableCell>{row?.attributes?.status}</TableCell>
+                                                <TableCell>
+                                                    <Menu
+                                                        menuButton={
+                                                            <IconButton>
+                                                                <MoreVertIcon />
+                                                            </IconButton>
+                                                        }
+                                                    >
+                                                        <MenuItem onClick={() => this.handleModalOpenReceipt(row.id)}>
+                                                            {t("View")}
+                                                        </MenuItem>
+                                                        <MenuItem onClick={() => this.manageDownloadReceipt(row.id)}>{t("Download")}</MenuItem>
+                                                        <MenuItem>{t("Share")}</MenuItem>
+                                                    </Menu>
+                                                </TableCell>
                                             </TableRow>
                                         ))}
                                     </TableBody>
                                 </Table>
                                 <Divider />
                                 <Box style={{width:"100%",height:"70px",display:"flex",alignItems:"center",justifyContent:"space-between"}}>
-                                    <Box style={{display:"flex",marginLeft:"15px"}}>
-                                        <Typography style={{marginRight:"5px"}}>{t("Showing")} </Typography>
-                                        <Typography style={{marginRight:"5px",fontWeight:"bold",color:"#FC8434"}}>5</Typography>
-                                        <Typography style={{marginRight:"5px"}}> {t("of")} </Typography>
-                                        <Typography style={{fontWeight:"bold"}}>50</Typography>
-                                    </Box>
-                                    <Box style={{marginRight:"10px"}}>
-                                        <Pagination count={10} variant="outlined" shape="rounded" />
-                                    </Box>
+                                    <PaginationModule handlePagination={this.handleReceiptPagination} pagination={this.state.pagination} page={this.state.page}/>
                                 </Box>
                             </Grid>
                         </Box>
-                        <Menu
-                            id="simple-menu"
-                            anchorEl={this.state.anchorEl}
-                            keepMounted
-                            open={Boolean(this.state.anchorEl)}
-                            onClose={this.handleClose}
-                            style={{padding:"0px", cursor:'pointer'}}
-                            >
-                            <MenuItem onClick={this.handleClose} style={{margin:"7px", cursor:'pointer'}} onClick={this.handleModalOpen}>{t("View")}</MenuItem>
-                            <Divider style={{margin:"0px"}}/>
-                            <MenuItem onClick={this.handleClose} style={{margin:"7px", cursor:'pointer'}}>{t("Download")}</MenuItem>
-                            <Divider style={{margin:"0px"}}/>
-                            <MenuItem onClick={this.handleClose} style={{margin:"7px", cursor:'pointer'}}>{t("Share")}</MenuItem>
-                            </Menu>
-
                             <Modal
                                 style={dashBoardActions.modal}
                                 open={this.state.openModal}
@@ -232,7 +207,7 @@ render() {
                                 <div style={dashBoardActions.paper}>
                                     <div style={dashBoardActions.modalHeader}>
                                     <Typography variant="h5" style={dashBoardActions.subHeadingFont}>{t("Management Fee Invoice")} - May 2022</Typography>
-                                        <IconButton onClick={this.handleModalClose}>
+                                        <IconButton onClick={this.handleModalCloseReceipt}>
                                             <CloseIcon/>
                                         </IconButton>
                                     </div>
@@ -241,37 +216,37 @@ render() {
                                             <Grid container spacing={2} style={dashBoardActions.residetails}>
                                                 <Grid item xs={3}>
                                                     <Typography style={dashBoardActions.commonColor} component="h5">{t("Owner Name:")}</Typography>
-                                                    <b>John Doe</b>
+                                                    <b>{this.state.receiptDetails?.owner_details?.owner_name}</b>
                                                 </Grid>
                                                 <Grid item xs={3}>
                                                     <Typography style={dashBoardActions.commonColor} component="h5">{t("Resident Name:")}</Typography>
-                                                    <b>Jenil Patel</b>
+                                                    <b>{this.state.receiptDetails?.resident_details?.resident_name}</b>
                                                 </Grid>
                                                 <Grid item xs={3}>
                                                     <Typography style={dashBoardActions.commonColor} component="h5">{t("Building Name:")}</Typography>
-                                                    <b>Building</b>
+                                                    <b>{this.state.receiptDetails?.resident_details?.resident_name}</b>
                                                 </Grid>
                                                 <Grid item xs={3}>
                                                     <Typography style={dashBoardActions.commonColor} component="h5">{t("Unit Number:")}</Typography>
-                                                    <b>1406</b>
+                                                    <b>1406{this.state.receiptDetails?.unit_number}</b>
                                                 </Grid>
                                             </Grid>
                                             <Grid container spacing={2} xs={12} style={dashBoardActions.residetails}>
                                                 <Grid item xs={3}>
                                                     <Typography style={dashBoardActions.commonColor} component="h5">{t("Resident ID:")}</Typography>
-                                                    <b>ABCDE1254Q</b>
+                                                    <b>{this.state.receiptDetails?.resident_details?.resident_id}</b>
                                                 </Grid>
                                                 <Grid item xs={3}>
                                                     <Typography style={dashBoardActions.commonColor} component="h5">{t("Generated on:")}</Typography>
-                                                    <b>15-05-2022</b>
+                                                    <b>{moment(this.state.receiptDetails?.generated_on).format("DD MMM YYYY")}</b>
                                                 </Grid>
                                                 <Grid item xs={3}>
                                                     <Typography style={dashBoardActions.commonColor} component="h5">{t("Generated By")}:</Typography>
-                                                    <b>Atik Khan</b>
+                                                    <b>{this.state.receiptDetails?.generated_by}</b>
                                                 </Grid>
                                                 <Grid item xs={3}>
                                                     <Typography style={dashBoardActions.commonColor} component="h5">{t("Status")}:</Typography>
-                                                    <b>Paid</b>
+                                                    <b>{this.state.receiptDetails?.status}</b>
                                                 </Grid>
                                             </Grid>
                                             <div style={{marginTop:"30px",marginBottom:"5px"}}>
@@ -281,55 +256,37 @@ render() {
                                                 <div>
                                                     <div className='resident-data'>
                                                         <Typography component="h5">{t("Management Fee Amount")}:</Typography>
-                                                        <b>SR 1,250</b>
+                                                        <b>SR {this.state.receiptDetails?.amount.toLocaleString()}</b>
                                                     </div>
                                                     <div className='resident-data'>
                                                         <Typography component="h5">{t("Late Charges")}:</Typography>
-                                                        <b>SR 29</b>
+                                                        <b>SR {this.state.receiptDetails?.late_charge?.toLocaleString()}</b>
                                                     </div>
                                                     <div className='resident-data'>
                                                         <Typography component="h5">{t("Tax")}:</Typography>
-                                                        <b>SR 24</b>
+                                                        <b>SR {this.state.receiptDetails?.tax?.toLocaleString()}</b>
                                                     </div>
                                                     <div className='resident-data'>
                                                         <Typography component="h5">{t("Others")}:</Typography>
-                                                        <b>SR 00</b>
+                                                        <b>SR {this.state.receiptDetails?.others?.toLocaleString()}</b>
                                                     </div>
                                                     <hr />
                                                     <div className='resident-data'>
                                                         <Typography style={dashBoardActions.commonColor} component="h5">{t("Total Amount")}</Typography>
-                                                        <b style={{color:"#FC8434"}}>SR 1303</b>
+                                                        <b style={{color:"#FC8434"}}>SR {this.state.receiptDetails?.total_amount?.toLocaleString()}</b>
                                                     </div>
                                                 </div>
                                             </Paper>
                                             <Grid container xs={12} style={dashBoardActions.residetails}>
-                                                <Grid item xs={8} style={{display:"flex", marginTop:"10px",alignItems:"center",cursor:"pointer"}}>
+                                                <Grid item xs={8} style={{display:"flex", marginTop:"10px",alignItems:"center",cursor:"pointer"}} onClick={()=> this.manageDownloadReceipt(this.state.downloadId)}>
                                                     <img src={DownloadIcon} width="20px" height="20px" style={{marginRight:"10px"}}/>
                                                     <Typography component="h5" style={{fontWeight:"bold"}}>{t("Download Receipt")}</Typography>
                                                 </Grid>
                                                 <Grid item xs={4} style={{display:'flex',justifyContent:"flex-end"}}>
-                                                    <Typography variant="subtitle2" className="statusOngoingGreen" style={{width:"100px",textAlign:"center"}}>PAID</Typography>
+                                                    <Typography variant="subtitle2" className="statusOngoingGreen" style={{width:"100px",textAlign:"center",textTransform:"capitalize"}}>{this.state.receiptDetails?.status}</Typography>
                                                 </Grid>
                                             </Grid>
                                         </Box>
-                                    {/* <div style={dashBoardActions.genrateReceipt}>
-                                        <KeyboardBackspaceIcon style={{marginTop:"-3px"}}/><Typography  style={dashBoardActions.subHeading}>Generate Receipts</Typography>
-                                    </div>
-                                    <Typography>Do you want to register the payment for this invoice and and generate a receipt for the 
-                                        payment? you can chose to recognize the full payment or partial payment by selecting one of the two payment option below.
-                                    </Typography>
-                                    <Typography style={dashBoardActions.commonColor} component="h5">Resident ID: <b style={{color:"#000"}}>3030304</b> </Typography>
-                                    <Typography style={dashBoardActions.commonColor} component="h5">Resident Name: <b style={{color:"#000"}}>Jenil Patel</b> </Typography>
-                                    <Typography>Total amount to be paid: <b style={{color:"#FC8434"}}>SR, 1303</b></Typography>
-
-                                    <FormControl component="fieldset">
-                                        <FormLabel component="legend">Select Payment Type</FormLabel>
-                                        <RadioGroup aria-label="gender" name="gender1" value={this.state.payment_type} onChange={this.handleSelect}>
-                                            {console.log("selectvalue--->", this.state.payment_type)}
-                                            <FormControlLabel value="fullpayment" control={<Radio />} label="Register Full Payments" />
-                                            <FormControlLabel value="partialpayment" control={<Radio />} label="Register Partial Payments" />
-                                        </RadioGroup>
-                                    </FormControl> */}
                                 </div>
                                 </Fade>
                             </Modal>
@@ -382,149 +339,6 @@ render() {
 export default withTranslation()(withStyles(SuggestionStyleWeb)(withRouter(CharmainInvoices)));
 
 // Customizable Area Start
-const dashBoardActions = {
-    navigation:{
-        display: "flex",
-        justifyContent: "space-between",
-    },
-    subHeading: {
-        fontWeight:600,
-        marginTop:15,
-        marginBottom: 20,
-        marginLeft:10
-    },
-    YearMain:{
-        background: "#fff",
-        border: "1px solid #dfd4d4",
-        borderRadius: 5,
-        paddingLeft:15,
-        paddingRight: 15,
-    },
-    Cards: {
-        paddingTop: 30,
-        paddingLeft: 15,
-        paddingBottom: 25,
-        background: "#fff",
-        borderRadius: 10,
-    },
-    CardsIcons:{
-        border: "1px solid #d9d4d3",
-        borderRadius: "50%",
-        width: 25,
-        height: 25,
-        padding: 15,
-        color:"#054c94",
-    },
-    bottomColor:{
-        color: "red"
-    },
-    bottomTwoSpan:{
-        display: "flex", 
-        gap: 5, 
-        marginTop: 10
-    },
-    TableHeader:{
-        display: "flex",
-        borderBottom: "1px solid grey",
-        justifyContent: "space-between",
-        alignItems: "center",
-        paddingLeft: 15,
-        paddingRight: 55,
-    },
-    modal: {
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-    },
-    paper: {
-        backgroundColor: "#fff",
-        borderRadius: '10px',
-        // boxShadow: theme.shadows[5],
-        padding: "16px 32px 24px",
-        width:"700px",
-        overflow:"hidden",
-        minHeight:"500px"
-    },
-    modalHeader: {
-        display: "flex",
-        justifyContent: "space-between",
-        alignItems: "center",
-        margin:"10px 0px 20px 0px"
-    },
-    subHeadingFont:{
-        fontWeight:600
-    },
-    genrateReceipt:{
-        display: "flex",
-        alignItems:'center'
-    },
-    commonColor:{
-        color:"#181d257a"
-    },
-    residetails:{
-        marginTop:15
-    },
-    summary:{
-        backgroundColor:"#F9F9F9",
-        padding:"10px 20px 20px",
-        marginTop:15,
-        boxShadow:"0px"
-    },
-    receiptbtn:{
-        borderRadius:8,
-        width:"100%",
-        backgroundColor:"#2b6fed",
-        height:45,
-        fontWeight:600,
-        color:"#fff"
-    },
-    paymentbtn:{
-        borderRadius:8,
-        width:"170px",
-        backgroundColor:"#2b6fed",
-        height:45,
-        fontWeight:600,
-        color:"#fff"
-    },
-    receiptCancel:{
-        borderRadius:8,
-        width:"170px",
-        backgroundColor:"white",
-        height:45,
-        fontWeight:600,
-        color:"#2b6fed",
-        marginRight:"15px",
-        border:"1px solid #2b6fed"
-    }
-};
 
-const CloseButton = withStyles((theme) => ({
-    root: {
-        color: "white",
-        backgroundColor: "#2b6fed",
-        width:"175px",
-        fontWeight:"bold",
-        borderRadius:"8px",
-        height:"55px",
-        '&:hover': {
-            backgroundColor: "#2b6fef",
-        },
-    },
-}))(Button);
-
-const PublishButton = withStyles((theme) => ({
-    root: {
-        color: "#2b6fed",
-        backgroundColor: "white",
-        width:"175px",
-        fontWeight:"bold",
-        borderRadius:"8px",
-        border:"1px solid #2b6fed",
-        height:"55px",
-        '&:hover': {
-            color: "#2b6fef",
-        },
-    },
-}))(Button);
 
   // Customizable Area End

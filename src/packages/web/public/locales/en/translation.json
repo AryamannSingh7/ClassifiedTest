@@ -1007,5 +1007,7 @@
   "Vacant": "Vacant",
   "Rent Amount (Monthly)": "Rent Amount (Monthly)",
   "A verification ownership request has been sent to the building/complex manger for approval, Upon approval of ownership the unit will be added to your list of units": "A verification ownership request has been sent to the building/complex manger for approval, Upon approval of ownership the unit will be added to your list of units",
-  "You don't have registered units that are vacant": "You don't have registered units that are vacant"
+  "You don't have registered units that are vacant": "You don't have registered units that are vacant",
+  "Survey": "Survey",
+  "Facility Listing": "Facility Listing"
 }

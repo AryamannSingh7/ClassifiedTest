@@ -172,14 +172,15 @@ export default class SuggestionsController extends BlockComponent<Props, S, SS> 
             getName(MessageEnum.RestAPIRequestMessage)
           );
           const httpBody={
-            "response": this.state.reposne
+            "description": this.state.reposne,
+            "suggestion_id":item?.id
     
           }
           this.createSuggestionApiCall = requestMessage.messageId;
     
           requestMessage.addData(
             getName(MessageEnum.RestAPIResponceEndPointMessage),
-            `bx_block_suggestion/suggestions/${item.id}`
+            `bx_block_suggestion/suggestion_responses`
           );
     
           const header = {
@@ -199,7 +200,7 @@ export default class SuggestionsController extends BlockComponent<Props, S, SS> 
     
           requestMessage.addData(
             getName(MessageEnum.RestAPIRequestMethodMessage),
-            'PUT'
+            'POST'
           );
     
           runEngine.sendMessage(requestMessage.id, requestMessage);
@@ -223,7 +224,7 @@ export default class SuggestionsController extends BlockComponent<Props, S, SS> 
           this.getSuggestionListingApiCallId = requestMessage.messageId;
           this.setState({ loading: true });
     
-         const  getSortByOrStatus = `bx_block_suggestion/suggestions?search_term=${value}`
+         const  getSortByOrStatus = `bx_block_suggestion/suggestions?search_term=${value}&society_id=${localStorage.getItem('society_id')}&chairman=true`
     
           requestMessage.addData(
             getName(MessageEnum.RestAPIResponceEndPointMessage),
