@@ -55,7 +55,7 @@ class VisitorsSidebar extends DashboardController {
             <div
               onClick={() =>
                 //@ts-ignore
-                this.props.history.push("/TeamMembers/CoreMember")
+                this.props.history.push("/TeamMembers/Core_member")
               }
             >
               <Typography className="SingleLinkSize">{t("My team")}</Typography>
