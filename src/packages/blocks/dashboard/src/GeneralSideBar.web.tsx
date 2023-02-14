@@ -6,6 +6,7 @@ import { withRouter } from "react-router-dom";
 import { withTranslation } from "react-i18next";
 import ChairmanSidebarWeb from "../../dashboard/src/ChairmanSidebar.web";
 import VisitorsSidebar from "../../dashboard/src/VisitorsSidebar.web";
+import ServiceProviderSideBarWeb from "./ServiceProviderSideBar.web";
 
 class GeneralSideBar extends React.Component {
   constructor(props: any) {
@@ -16,7 +17,7 @@ class GeneralSideBar extends React.Component {
     const userType = localStorage.getItem("userType");
 
     return (
-      <>{userType === "Security" ? <VisitorsSidebar {...this.props} /> : <ChairmanSidebarWeb {...this.props} />}</>
+      <>{userType === "Security" ? <VisitorsSidebar {...this.props} /> : userType === "ServiceProvider" ? <ServiceProviderSideBarWeb/>: <ChairmanSidebarWeb {...this.props} />}</>
     );
   }
 }
