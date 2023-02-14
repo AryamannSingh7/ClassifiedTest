@@ -86,6 +86,7 @@ export interface S {
   open3:boolean;
 
 
+
   // Customizable Area End
 }
 
@@ -225,6 +226,7 @@ const profileData = JSON.parse(localStorage.getItem('profileData') ||'{}')
   open:false,
   open2:false,
   open3:false,
+
 
 
       // Customizable Area End
@@ -2209,7 +2211,7 @@ let userType=localStorage.getItem('userType')
       const formData = new FormData();
       formData.append("member_invitation[full_name]]", values.fullname)
       formData.append("member_invitation[email_address]", values.email)
-      formData.append("member_invitation[phone_number]", values.phoneno)
+      formData.append("member_invitation[phone_number]", this.state.selectCode+values.phoneno)
       formData.append("member_invitation[role_id]", values.usertype)
       formData.append("member_invitation[building_management_id]", values.building)
       formData.append("member_invitation[apartment_management_id]", values.unit)
