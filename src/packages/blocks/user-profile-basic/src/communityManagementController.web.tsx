@@ -84,7 +84,7 @@ export interface S {
   open:boolean;
   open2:boolean;
   open3:boolean;
-  selectCode: string;
+
 
 
   // Customizable Area End
@@ -226,7 +226,7 @@ const profileData = JSON.parse(localStorage.getItem('profileData') ||'{}')
   open:false,
   open2:false,
   open3:false,
-  selectCode:'+966'
+
 
 
       // Customizable Area End
