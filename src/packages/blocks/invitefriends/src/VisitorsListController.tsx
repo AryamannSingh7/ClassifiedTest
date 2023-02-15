@@ -60,6 +60,7 @@ export default class VisitorDetailsController extends BlockComponent<
   getBuildingListId:string ="";
   getUnitGeneralDetailsId="";
   getSecurityBuildingListId="";
+  getUnitListVisitorId:string;
   constructor(props: Props) {
 
     super(props);
@@ -229,6 +230,14 @@ export default class VisitorDetailsController extends BlockComponent<
     }
   }
 
+  getUnitListVisitorResponse = (responseJson:any) => {
+    if(responseJson.hasOwnProperty("units")){
+      this.setState({
+        unitList:responseJson?.units
+      })
+    }
+  }
+
   async receive(from: string, message: Message) {
     if(getName(MessageEnum.RestAPIResponceMessage) === message.id) {
       const apiRequestCallId = message.getData(getName(MessageEnum.RestAPIResponceDataMessage));
@@ -250,6 +259,9 @@ export default class VisitorDetailsController extends BlockComponent<
       }
       if(this.getUnitId === apiRequestCallId){
        this.unitResponse(responseJson)
+      }
+      if(this.getUnitListVisitorId === apiRequestCallId){
+        this.getUnitListVisitorResponse(responseJson)
       }
     }
   }
@@ -283,6 +295,15 @@ export default class VisitorDetailsController extends BlockComponent<
     });
   }
 
+  getUnitVisitorList = async (e:any) => {
+    console.log("CHECK IS WE GET HEREE ??")
+    const societyID = localStorage.getItem("society_id")
+    this.getUnitListVisitorId = await this.apiCall({
+      contentType:"application/json",
+      method: "GET",
+      endPoint:`/bx_block_fees_payment/invoices/unit_list?building_management_id=${this.state.buildingID}`,
+    });
+  }
 
   getVisitorList = async (search:any,page:any) => {
     console.log("DID I CALLED ?",search)

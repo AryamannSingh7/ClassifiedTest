@@ -82,7 +82,7 @@ class ExpenseDetails extends VisitorDetailsController {
                                               
                                                 <Box style={{display:"flex",margin:"10px 0px"}}>
                                                     <Typography style={{marginRight:"5px"}}>{t("Amount")} : </Typography>
-                                                    <Typography style={{fontWeight:"bold"}}> SR {this.state.expenseDetails?.Amount?.toLocaleString()}</Typography>
+                                                    <Typography style={{fontWeight:"bold"}}> {this.state.expenseDetails?.currency} {this.state.expenseDetails?.Amount?.toLocaleString()}</Typography>
                                                 </Box>
                                                 <Divider/>
                                                 <Box style={{display:"flex",margin:"10px 0px"}}>

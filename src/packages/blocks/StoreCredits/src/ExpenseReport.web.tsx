@@ -163,7 +163,7 @@ class ExpenseReport extends ExpenseReportController {
                                       <TableCell className="ellipse">{item?.attributes?.title}</TableCell>
                                       <TableCell>{item.attributes.Expence_Number}</TableCell>
                                       <TableCell>{item?.attributes?.Expence_Registered_on}</TableCell>
-                                      <TableCell>SR {item?.attributes?.Amount?.toLocaleString()}</TableCell>
+                                      <TableCell>{item?.attributes?.currency} {item?.attributes?.Amount?.toLocaleString()}</TableCell>
                                       <TableCell>{item?.attributes?.Category}</TableCell>
                                       <TableCell>
                                         <Menu
