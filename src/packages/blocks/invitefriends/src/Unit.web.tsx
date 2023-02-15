@@ -63,13 +63,13 @@ class Unit extends VisitorsListController {
                                 <Box className="navigation">
                                     <Box>
                                         <Typography variant="body1">
-                                         {"Unit"}
+                                         {"Units"}
                                             <Box component="span" style={{ color: "blue" }}>
                                                 {t("")}
                                             </Box>
                                         </Typography>
                                         <Typography variant="h5" className="sub-heading">
-                                            {t("Unit")}
+                                            {t("Units")}
                                         </Typography>
                                     </Box>
                                 </Box>
@@ -94,7 +94,7 @@ class Unit extends VisitorsListController {
                                 <Box className="meeting-table">
                                     <Grid item sm={12} md={12} xs={12}>
                                         <Box className="table-top">
-                                            <h3>Unit</h3>
+                                            <h3>Units</h3>
                                             <Box className="filter">
                                                 <Box className="search-box">
                                                     <SearchIcon />
