@@ -5,7 +5,6 @@ import {
     Typography,
     withStyles,
     Button,
-    IconButton,
     Select,
     MenuItem,
     Divider,
@@ -14,24 +13,19 @@ import {
     TableCell,
     TableRow,
     TableBody,
-    InputBase,
     Box,
     Grid,
 } from "@material-ui/core";
 import PaymentHistoryController, {Props} from "./PaymentHistoryController.web";
-import {Menu} from "@szhsin/react-menu";
 import "@szhsin/react-menu/dist/core.css";
 import DashboardHeader from "../../dashboard/src/DashboardHeader.web";
 import ChairmanSidebarWeb from "../../dashboard/src/ChairmanSidebar.web";
-import SearchIcon from "@material-ui/icons/Search";
-import MoreVertIcon from "@material-ui/icons/MoreVert";
 //@ts-ignore
 import Pagination from "@material-ui/lab/Pagination";
 import {withTranslation} from "react-i18next";
-import {ROLE} from "../../../framework/src/Enum";
 import {ReportsStyleWeb} from "../../StoreCredits/src/ReportsStyle.web";
 import {SearchIconImage} from "../../StoreCredits/src/assets";
-
+import PaginationModule from "../../StoreCredits/src/PaginationModule.web"
 class PaymentHistory extends PaymentHistoryController {
     constructor(props: Props) {
         super(props);
@@ -125,12 +119,9 @@ class PaymentHistory extends PaymentHistoryController {
                                         </Table>
                                         <Divider/>
                                         <Box className="table-bottom">
-                                            <p>
-                                                Showing <span className="current-page">{0}</span> of <span
-                                                className="total-page">0</span>{" "}
-                                                results
-                                            </p>
-                                            <Pagination siblingCount={2} variant="outlined" shape="rounded"/>
+                                            {
+                                                <PaginationModule pagination={this.state.pagination} handlePagination={this.managePaginationForHistory} page={this.state.page}  />
+                                            }
                                         </Box>
                                     </Grid>
                                 </Grid>
