@@ -38,6 +38,7 @@ interface S {
   unitPagination:any;
   getUnitGeneralDetails:any;
   securityBuildingList:any;
+  date:any;
 
 }
 
@@ -105,7 +106,8 @@ export default class VisitorDetailsController extends BlockComponent<
         total_pages:1,
       },
       getUnitGeneralDetails:{},
-      securityBuildingList:[]
+      securityBuildingList:[],
+      date:""
     };
 
     this.labelTitle = configJSON.labelTitle;

@@ -16,6 +16,8 @@ import {
     Button,
     Select,
     MenuItem,
+    InputAdornment,
+    TextField,
     Dialog,
     IconButton,
     DialogContent,
@@ -101,7 +103,38 @@ class VisitorsList extends VisitorsListController {
                                             })
                                             }
                                         </Select>
-                                        <Button onClick={()=> this.getVisitorList(this.state.searchQuery,1)} startIcon={<img src={SearchIconImage} />}>Search</Button>
+                          
+                                <Box  style={{ backgroundColor: "white" }}>
+                                <TextField
+                                  label="date" variant="outlined"
+                                  style={{ width: "100%", borderRadius: "20px", border: "1px solid white" }}
+                                  type="date" name="date" fullWidth
+                                  id="SurveyQuestion"
+                                  format='DD/MM/YYYY'
+                                  value={this.state.date}
+                                  onChange={(e)=> this.setState({date:e.target.value})}
+                                  InputProps={{
+                                    // min: "2019-01-24",
+                                    //@ts-ignore
+                                    max: "5000-05-31",
+                                    startAdornment: (
+                                      <InputAdornment position="start">
+                                        {/* <DateRangeOutlinedIcon /> */}
+                                      </InputAdornment>
+                                    ),
+                                    endAdornment: (
+                                      <InputAdornment position="end">
+                                        {/* <DateRangeOutlinedIcon /> */}
+                                      </InputAdornment>
+                                    ),
+                                  }
+                                  }
+                                />
+                              </Box>
+                       
+
+                        
+                          <Button onClick={()=> this.getVisitorList(this.state.searchQuery,1)} startIcon={<img src={SearchIconImage} />}>Search</Button>
                                     </Box>
                                 </Box>
                                 <Box className="meeting-table">
@@ -155,12 +188,12 @@ class VisitorsList extends VisitorsListController {
                                         <Box style={{width:"100%",height:"70px",display:"flex",alignItems:"center",justifyContent:"space-between"}}>
                                             <Box style={{display:"flex",marginLeft:"15px"}}>
                                                 <Typography style={{marginRight:"5px"}}>{t("Showing")} </Typography>
-                                                <Typography style={{marginRight:"5px",fontWeight:"bold",color:"#FC8434"}}>{this.state.pagination.total_count < this.state.count ? this.state.pagination.total_count : (this.state.count * this.state.page)} </Typography>
+                                                <Typography style={{marginRight:"5px",fontWeight:"bold",color:"#FC8434"}}>{this.state.pagination?.total_count < this.state.count ? this.state.pagination?.total_count : (this.state.count * this.state.page)} </Typography>
                                                 <Typography style={{marginRight:"5px"}}> {t("of")} </Typography>
-                                                <Typography style={{fontWeight:"bold"}}>{this.state.pagination.total_count} </Typography>
+                                                <Typography style={{fontWeight:"bold"}}>{this.state.pagination?.total_count} </Typography>
                                             </Box>
                                             <Box style={{marginRight:"10px"}}>
-                                                <Pagination count={this.state.pagination.total_pages} onChange={this.handleVistorPagination} variant="outlined" shape="rounded" />
+                                                <Pagination count={this.state.pagination?.total_pages} onChange={this.handleVistorPagination} variant="outlined" shape="rounded" />
                                             </Box>
                                         </Box>
                                     </Grid>
