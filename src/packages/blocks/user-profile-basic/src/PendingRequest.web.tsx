@@ -197,7 +197,7 @@ class PendingRequest extends CommunityUserProfileController {
                             //@ts-ignore 
                             style={dashBoard.unitno}>Reject Join Request</Typography>
                             <Typography variant="subtitle1" style={{marginTop:"20px"}}>Are you sure want to reject invitation request 
-                            received from <b>{this.state?.selectInvitation?.attributes?.full_name}</b> for Unit <b>{this.state.selectInvitation?.attributes?.apartment_management?.apartment_name}</b> </Typography>
+                            received from <b>{this.state?.selectInvitation?.attributes?.name || 'N/A'}</b> {this.state?.selectInvitation?.id} for Unit <b>{this.state.selectInvitation?.attributes?.unit_number}</b> </Typography>
                             <Grid container spacing={3} style={{marginTop:"20px"}}>
                             <Grid item xs={12} sm={6} style={{marginBottom:"20px"}}>
                                 <Button variant="outlined" style={{width:"100%", color:"#2B6FED", border:"1px solid #2B6FED", fontWeight:600, height:"50px"}} onClick={this.handleRejectClose}>

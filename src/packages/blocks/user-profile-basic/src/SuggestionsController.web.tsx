@@ -224,7 +224,7 @@ export default class SuggestionsController extends BlockComponent<Props, S, SS> 
           this.getSuggestionListingApiCallId = requestMessage.messageId;
           this.setState({ loading: true });
     
-         const  getSortByOrStatus = `bx_block_suggestion/suggestions?search_term=${value}`
+         const  getSortByOrStatus = `bx_block_suggestion/suggestions?search_term=${value}&society_id=${localStorage.getItem('society_id')}&chairman=true`
     
           requestMessage.addData(
             getName(MessageEnum.RestAPIResponceEndPointMessage),

@@ -124,7 +124,7 @@ this.setState({allInvitation:responseJson.member_invitations.data,loading:false}
 
       requestMessage.addData(
         getName(MessageEnum.RestAPIResponceEndPointMessage),
-        `bx_block_request_management/member_invitations?&q=${this.state.dataSearch}`
+        `bx_block_request_management/member_invitations?society_management_id=${localStorage.getItem('society_id')}&q=${this.state.dataSearch}`
       );
 
       requestMessage.addData(
