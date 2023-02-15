@@ -77,7 +77,7 @@ class VisitorsList extends VisitorsListController {
                                 </Box>
                                 <Box className="top-bar">
                                     <Box className="filter">
-                                        <Select displayEmpty value={this.state.buildingID} className="select-input" placeholder="Select Building" onChange={(e)=> this.setState({buildingID:e.target.value},()=>this.getUnitList(e.target.value))}>
+                                        <Select displayEmpty value={this.state.buildingID} className="select-input" placeholder="Select Building" onChange={(e)=> this.setState({buildingID:e.target.value},()=>this.getUnitVisitorList(e.target.value))}>
                                             <MenuItem value="" disabled>
                                                 {t("Select Building")}
                                             </MenuItem>
@@ -186,12 +186,19 @@ class VisitorsList extends VisitorsListController {
                                         </Table>
                                         <Divider />
                                         <Box style={{width:"100%",height:"70px",display:"flex",alignItems:"center",justifyContent:"space-between"}}>
-                                            <Box style={{display:"flex",marginLeft:"15px"}}>
-                                                <Typography style={{marginRight:"5px"}}>{t("Showing")} </Typography>
-                                                <Typography style={{marginRight:"5px",fontWeight:"bold",color:"#FC8434"}}>{this.state.pagination?.total_count < this.state.count ? this.state.pagination?.total_count : (this.state.count * this.state.page)} </Typography>
-                                                <Typography style={{marginRight:"5px"}}> {t("of")} </Typography>
-                                                <Typography style={{fontWeight:"bold"}}>{this.state.pagination?.total_count} </Typography>
-                                            </Box>
+                                            {
+                                                this.state.visitorList.length > 0 &&
+                                                <Box style={{display:"flex",marginLeft:"15px"}}>
+                                                    <Typography style={{marginRight:"5px"}}>{t("Showing")} </Typography>
+                                                    <Typography style={{marginRight:"5px",fontWeight:"bold",color:"#FC8434"}}>{this.state.pagination?.total_count < this.state.count ? this.state.pagination?.total_count : (this.state?.count * this.state.page)} </Typography>
+                                                    <Typography style={{marginRight:"5px"}}> {t("of")} </Typography>
+                                                    <Typography style={{fontWeight:"bold"}}>{this.state.pagination?.total_count} </Typography>
+                                                </Box>
+                                            }
+                                            {
+                                                this.state.visitorList.length <= 0 &&
+                                                <Box style={{display:"flex",marginLeft:"15px"}} />
+                                            }
                                             <Box style={{marginRight:"10px"}}>
                                                 <Pagination count={this.state.pagination?.total_pages} onChange={this.handleVistorPagination} variant="outlined" shape="rounded" />
                                             </Box>
