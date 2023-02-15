@@ -1,6 +1,6 @@
 import * as React from "react";
 // custom components
-import { Button, Grid, Box } from "@material-ui/core";
+import { Button, Grid, Box,Typography } from "@material-ui/core";
 import "../assets/css/style.scss";
 import ArrowBackIcon from "@material-ui/icons/ArrowBack";
 import EmailAccountRegistrationController, { Props } from "./EmailAccountRegistrationController.web";
@@ -8,6 +8,11 @@ import { Building1, manager, owner, resident_owner, tenet } from "./assets";
 import { withRouter } from "react-router";
 import Loader from "../../../components/src/Loader.web";
 import { withTranslation } from "react-i18next";
+import FormControlLabel from "@material-ui/core/FormControlLabel";
+import Radio from "@material-ui/core/Radio";
+import RadioButtonUncheckedIcon from "@material-ui/icons/RadioButtonUnchecked";
+import RadioButtonCheckedIcon from "@material-ui/icons/RadioButtonChecked";
+import RadioGroup from "@material-ui/core/RadioGroup";
 
 class SelectType extends EmailAccountRegistrationController {
   constructor(props: Props) {
@@ -21,8 +26,8 @@ class SelectType extends EmailAccountRegistrationController {
       <>
         <Grid container className="auth-container">
           <Grid item xs={12} md={7} className="auth-cols" style={{ justifyContent: "unset" }}>
-            <div style={{ margin: "auto" }}>
-              <Grid container className="main-content-block">
+            <div>
+              <Grid container className="main-content-block" style={{marginTop:"30px"}}>
                 <Grid xs={12} style={{ marginBottom: "35px" }}>
                   <ArrowBackIcon onClick={() => window.history.back()} style={{ fontSize: "35px" }} />
                 </Grid>
@@ -30,15 +35,15 @@ class SelectType extends EmailAccountRegistrationController {
 
               <Grid container className="main-content-block">
                 <Grid xs={12}>
-                  <p className="text-left" style={{ fontSize: "1.5rem", fontWeight: 800 }}>
+                  <Typography variant="h4" className="text-left" style={{ fontSize: "26px", fontWeight: 800,marginBottom:"5px",fontFamily:"Century Gothic"}}>
                     Please select your type
-                  </p>
+                  </Typography>
                 </Grid>
               </Grid>
 
-              <Grid container className="main-content-block">
+              <Grid container className="main-content-block" style={{marginBottom:"30px"}}>
                 <Grid xs={12}>
-                  <p className="text-left">Please select appropriate user type</p>
+                  <Typography className="text-left" style={{fontSize: "15px"}}>Please select appropriate user type</Typography>
                 </Grid>
               </Grid>
 
@@ -46,21 +51,23 @@ class SelectType extends EmailAccountRegistrationController {
                 <Grid xs={12}>
                   <Box
                     display="flex"
-                    justifyContent="space-between"
                     className={"select-type " + (this.state.userType == "Owner Resident" ? " active-box" : "")}
                     alignItems="center"
+                    justifyContent="space-between"
                     border="0.1px solid rgb(209 209 209 / 44%)"
                     borderRadius="16px"
                     bgcolor="white"
                     marginTop="1rem"
                   >
-                    <img src={resident_owner} />
+                    <Box style={{width: "60px", height: "50px",display:"flex",alignItems:"center",justifyContent:"center"}}>
+                      <img src={resident_owner}/>
+                    </Box>
                     <Box className={"middle-section"}>
                       <label
                         //@ts-ignore
                         for="radCreateMode"
                         className={"title" + (this.state.userType == "Owner Resident" ? " active-type" : "")}
-                        style={{ padding: "20px 20px 0px 0px" }}
+                        style={{ padding: "20px 20px 0px 0px",color:"#939292" }}
                       >
                         Resident Owner
                       </label>
@@ -69,18 +76,17 @@ class SelectType extends EmailAccountRegistrationController {
                         className={"para" + (this.state.userType == "Owner Resident" ? " active-para" : "")}
                         //@ts-ignore
                         for="radCreateMode"
+                        style={this.state.userType == "Owner Resident" ? {color:"#181d25"} :{color:"#939292"}}
                       >
                         I am the owner of the unit and i am living in it
                       </label>
                     </Box>
-
-                    <input
-                      type="radio"
-                      id="radCreateMode"
-                      name="type"
-                      value="Owner Resident"
-                      onChange={(e: any) => this.changeType(e.target.value)}
-                    />
+                    <RadioGroup aria-label="Type" style={{width:"30px"}} name="Type" value={this.state.userType} onChange={(e: any) => this.changeType(e.target.value)}>
+                      <FormControlLabel
+                          value="Owner Resident"
+                          control={<Radio icon={<RadioButtonUncheckedIcon style={{color:"#525252"}} />}
+                          checkedIcon={<RadioButtonCheckedIcon style={{color:"#FC8434"}} />} />} label="" />
+                    </RadioGroup>
                   </Box>
                   <Box
                     display="flex"
@@ -92,14 +98,15 @@ class SelectType extends EmailAccountRegistrationController {
                     bgcolor="white"
                     marginTop="1rem"
                   >
-                    <img src={tenet} />
-
+                    <Box style={{width: "60px", height: "50px",display:"flex",alignItems:"center",justifyContent:"center"}}>
+                      <img src={tenet} />
+                    </Box>
                     <Box className="middle-section">
                       <label
                         //@ts-ignore
                         for="radCreateMode2"
                         className={"title" + (this.state.userType == "Tenant" ? " active-type" : "")}
-                        style={{ padding: "20px 20px 0px 0px" }}
+                        style={{ padding: "20px 20px 0px 0px",color:"#939292" }}
                       >
                         Tenant
                       </label>
@@ -108,18 +115,17 @@ class SelectType extends EmailAccountRegistrationController {
                         className={"para" + (this.state.userType == "Tenant" ? " active-para" : "")}
                         //@ts-ignore
                         for="radCreateMode2"
+                        style={this.state.userType == "Tenant" ? {color:"#181d25"} :{color:"#939292"}}
                       >
                         I am registering as somone who rented a unit
                       </label>
                     </Box>
-
-                    <input
-                      type="radio"
-                      id="radCreateMode2"
-                      name="type"
-                      value="Tenant"
-                      onChange={(e) => this.changeType(e.target.value)}
-                    />
+                    <RadioGroup aria-label="Type" style={{width:"30px"}} name="Type" value={this.state.userType} onChange={(e: any) => this.changeType(e.target.value)}>
+                      <FormControlLabel
+                          value="Tenant"
+                          control={<Radio icon={<RadioButtonUncheckedIcon style={{color:"#525252"}} />}
+                                          checkedIcon={<RadioButtonCheckedIcon style={{color:"#FC8434"}} />} />} label="" />
+                    </RadioGroup>
                   </Box>
                   <Box
                     display="flex"
@@ -131,14 +137,15 @@ class SelectType extends EmailAccountRegistrationController {
                     bgcolor="white"
                     marginTop="1rem"
                   >
-                    <img src={owner} />
-
+                    <Box style={{width: "60px", height: "50px",display:"flex",alignItems:"center",justifyContent:"center"}}>
+                      <img src={owner} />
+                    </Box>
                     <Box className="middle-section">
                       <label
                         //@ts-ignore
                         for="radCreateMode5"
                         className={"title" + (this.state.userType == "Owner" ? " active-type" : "")}
-                        style={{ padding: "20px 20px 0px 0px" }}
+                        style={{ padding: "20px 20px 0px 0px",color:"#939292" }}
                       >
                         Owner
                       </label>
@@ -147,18 +154,17 @@ class SelectType extends EmailAccountRegistrationController {
                         className={"para" + (this.state.userType == "Owner" ? " active-para" : "")}
                         //@ts-ignore
                         for="radCreateMode5"
+                        style={this.state.userType == "Owner" ? {color:"#181d25"} :{color:"#939292"}}
                       >
                         I am the owner of the unit, but I am not living inside it
                       </label>
                     </Box>
-
-                    <input
-                      type="radio"
-                      id="radCreateMode5"
-                      name="type"
-                      value="Owner"
-                      onChange={(e) => this.changeType(e.target.value)}
-                    />
+                    <RadioGroup aria-label="Type" style={{width:"30px"}} name="Type" value={this.state.userType} onChange={(e: any) => this.changeType(e.target.value)}>
+                      <FormControlLabel
+                          value="Owner"
+                          control={<Radio icon={<RadioButtonUncheckedIcon style={{color:"#525252"}} />}
+                                          checkedIcon={<RadioButtonCheckedIcon style={{color:"#FC8434"}} />} />} label="" />
+                    </RadioGroup>
                   </Box>
                   <Box
                     display="flex"
@@ -170,14 +176,15 @@ class SelectType extends EmailAccountRegistrationController {
                     bgcolor="white"
                     marginTop="1rem"
                   >
-                    <img src={manager} />
-
+                    <Box style={{width: "60px", height: "50px",display:"flex",alignItems:"center",justifyContent:"center"}}>
+                      <img src={manager} />
+                    </Box>
                     <Box className="middle-section">
                       <label
                         //@ts-ignore
                         for="radCreateMode3"
                         className={"title" + (this.state.userType == "Property Manager" ? " active-type" : "")}
-                        style={{ padding: "20px 20px 0px 0px" }}
+                        style={{ padding: "20px 20px 0px 0px",color:"#939292" }}
                       >
                         Property Manager
                       </label>
@@ -186,18 +193,17 @@ class SelectType extends EmailAccountRegistrationController {
                         //@ts-ignore
                         for="radCreateMode3"
                         className={"para" + (this.state.userType == "Property Manager" ? " active-para" : "")}
+                        style={this.state.userType == "Property Manager" ? {color:"#181d25"} :{color:"#939292"}}
                       >
                         I am managing a property on behalf of an owner
                       </label>
                     </Box>
-
-                    <input
-                      type="radio"
-                      id="radCreateMode3"
-                      name="type"
-                      value="Property Manager"
-                      onChange={(e) => this.changeType(e.target.value)}
-                    />
+                    <RadioGroup aria-label="Type" style={{width:"30px"}} name="Type" value={this.state.userType} onChange={(e: any) => this.changeType(e.target.value)}>
+                      <FormControlLabel
+                          value="Property Manager"
+                          control={<Radio icon={<RadioButtonUncheckedIcon style={{color:"#525252"}} />}
+                                          checkedIcon={<RadioButtonCheckedIcon style={{color:"#FC8434"}} />} />} label="" />
+                    </RadioGroup>
                   </Box>
                 </Grid>
               </Grid>
