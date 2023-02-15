@@ -15,7 +15,6 @@ class GeneralSideBar extends React.Component {
 
   render() {
     const userType = localStorage.getItem("userType");
-
     return (
       <>{userType === "Security" ? <VisitorsSidebar {...this.props} /> : userType === "ServiceProvider" ? <ServiceProviderSideBarWeb/>: <ChairmanSidebarWeb {...this.props} />}</>
     );
