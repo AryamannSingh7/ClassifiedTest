@@ -16,6 +16,8 @@ import {
     Button,
     Select,
     MenuItem,
+    InputAdornment,
+    TextField,
     Dialog,
     IconButton,
     DialogContent,
@@ -44,7 +46,7 @@ class VisitorsList extends VisitorsListController {
         // @ts-ignore
         const { classes } = this.props;
         const userType  = localStorage.getItem("selectUserType");
-
+        console.log("date =========>",this.state?.date)
         // @ts-ignore
         const {t} = this.props
         return (
@@ -59,7 +61,7 @@ class VisitorsList extends VisitorsListController {
                         </Grid>
 
                         <Grid item xs={9} md={9} sm={9} style={{ paddingTop: 35 }}>
-                            <Container>
+                            <Container className="commonForm">
                                 <Box className="navigation">
                                     <Box>
                                         <Typography variant="body1">
@@ -101,7 +103,36 @@ class VisitorsList extends VisitorsListController {
                                             })
                                             }
                                         </Select>
-                                        <Button onClick={()=> this.getVisitorList(this.state.searchQuery,1)} startIcon={<img src={SearchIconImage} />}>Search</Button>
+                                        <Box className="classifiedFormGroup">
+                                  <Box className="visitorTextfield">  
+                                <TextField  
+                                  label="date" variant="outlined"
+                                  style={{ borderRadius: "8px", border: "1px solid #F0F0F0" ,backgroundColor:"white"}}
+                                  type="date" name="date" 
+                                  format='DD/MM/YYYY'
+                                  value={this.state.date}
+                                  onChange={(e)=> this.setState({date:e.target.value})}
+                                  InputProps={{
+                                    // min: "2019-01-24",
+                                    //@ts-ignore
+                                    max: "5000-05-31",
+                                    startAdornment: (
+                                      <InputAdornment position="start">
+                                        {/* <DateRangeOutlinedIcon /> */}
+                                      </InputAdornment>
+                                    ),
+                                    endAdornment: (
+                                      <InputAdornment position="end">
+                                        {/* <DateRangeOutlinedIcon /> */}
+                                      </InputAdornment>
+                                    ),
+                                  }
+                                  }
+                                />
+                                </Box>  
+                                </Box>  
+                            
+                          <Button onClick={()=> this.getVisitorList(this.state.searchQuery,1)} startIcon={<img src={SearchIconImage} />}>Search</Button>
                                     </Box>
                                 </Box>
                                 <Box className="meeting-table">

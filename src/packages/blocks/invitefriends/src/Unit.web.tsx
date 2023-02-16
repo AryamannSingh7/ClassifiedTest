@@ -45,7 +45,7 @@ class Unit extends VisitorsListController {
         const { classes } = this.props;
         // @ts-ignore
         const {t} = this.props
-        console.log("securityBuildingList==========>",this.state?.securityBuildingList)
+       
         console.log("this.state.buildingID==========>",this.state?.buildingID)
         return (
             <>
@@ -63,13 +63,13 @@ class Unit extends VisitorsListController {
                                 <Box className="navigation">
                                     <Box>
                                         <Typography variant="body1">
-                                         {"Unit"}
+                                         {"Units"}
                                             <Box component="span" style={{ color: "blue" }}>
                                                 {t("")}
                                             </Box>
                                         </Typography>
                                         <Typography variant="h5" className="sub-heading">
-                                            {t("Unit")}
+                                            {t("Units")}
                                         </Typography>
                                     </Box>
                                 </Box>
@@ -94,7 +94,7 @@ class Unit extends VisitorsListController {
                                 <Box className="meeting-table">
                                     <Grid item sm={12} md={12} xs={12}>
                                         <Box className="table-top">
-                                            <h3>Unit</h3>
+                                            <h3>Units</h3>
                                             <Box className="filter">
                                                 <Box className="search-box">
                                                     <SearchIcon />
@@ -141,12 +141,20 @@ class Unit extends VisitorsListController {
                                         </Table>
                                         <Divider />
                                         <Box style={{width:"100%",height:"70px",display:"flex",alignItems:"center",justifyContent:"space-between"}}>
-                                            <Box style={{display:"flex",marginLeft:"15px"}}>
+                                         {
+                                              this.state?.getUnitListing?.length > 0  &&
+                                              <Box style={{display:"flex",marginLeft:"15px"}}>
                                                 <Typography style={{marginRight:"5px"}}>{t("Showing")} </Typography>
                                                 <Typography style={{marginRight:"5px",fontWeight:"bold",color:"#FC8434"}}>{this.state.unitPagination?.total_count < this.state?.count ? this.state?.unitPagination.total_count : (this.state?.count * this.state?.page)} </Typography>
                                                 <Typography style={{marginRight:"5px"}}> {t("of")} </Typography>
                                                 <Typography style={{fontWeight:"bold"}}>{this.state.unitPagination?.total_count} </Typography>
                                             </Box>
+                                         }
+                                            
+                                            {
+                                               this.state?.getUnitListing?.length <= 0 &&
+                                                <Box style={{display:"flex",marginLeft:"15px"}} />
+                                            }
                                             <Box style={{marginRight:"10px"}}>
                                                 <Pagination count={this.state.unitPagination?.total_pages} onChange={this.handleUnitPagination} variant="outlined" shape="rounded" />
                                             </Box>

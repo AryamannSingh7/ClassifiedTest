@@ -93,8 +93,8 @@ class UnitGeneralDetails extends VisitorsListController {
                           <Grid item xs={6}>
                             <Typography variant="h6" style={dashBoard.Headings}>{t("General Details")}</Typography>
                           </Grid>
-                          <Grid style={{display: 'flex'}}>
-                            <Typography variant="subtitle1" >{t("Owner Name : ")}</Typography>
+                          <Grid style={{display: 'flex' ,alignItems:'center'}}>
+                            <Typography variant="subtitle1" style={{marginRight:'5px'}}>{t("Owner Name : ")}</Typography>
                             <h5>{this.state?.getUnitGeneralDetails?.owner}</h5>
                           </Grid>
                     </Grid>
