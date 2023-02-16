@@ -4,7 +4,7 @@ import { Button, Grid, Box } from "@material-ui/core";
 import "../assets/css/style.scss";
 import ArrowBackIcon from "@material-ui/icons/ArrowBack";
 import EmailAccountRegistrationController, { Props } from "./EmailAccountRegistrationController.web";
-import { Building1, manager, owner, resident_owner, tenet } from "./assets";
+import { Back_btn, Building1, manager, owner, resident_owner, tenet } from "./assets";
 import { withRouter } from "react-router";
 import Loader from "../../../components/src/Loader.web";
 import { withTranslation } from "react-i18next";
@@ -21,10 +21,10 @@ class SelectType extends EmailAccountRegistrationController {
       <>
         <Grid container className="auth-container">
           <Grid item xs={12} md={7} className="auth-cols" style={{ justifyContent: "unset" }}>
-            <div style={{ margin: "auto" }}>
+            <div >
               <Grid container className="main-content-block">
                 <Grid xs={12} style={{ marginBottom: "35px" }}>
-                  <ArrowBackIcon onClick={() => window.history.back()} style={{ fontSize: "35px" }} />
+                <img src={Back_btn} onClick={() => window.history.back()} style={{marginTop:'1rem',marginLeft:'0.5rem'}} />
                 </Grid>
               </Grid>
 
@@ -201,7 +201,7 @@ class SelectType extends EmailAccountRegistrationController {
                   </Box>
                 </Grid>
               </Grid>
-              <Grid container>
+              <Grid container style={{marginTop:'12rem'}}>
                 <Grid xs={12}>
                   <Button
                     fullWidth={true}

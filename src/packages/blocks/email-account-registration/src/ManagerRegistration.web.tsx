@@ -5,7 +5,7 @@ import ArrowBackIcon from "@material-ui/icons/ArrowBack";
 import { Formik, Form, Field } from "formik";
 import EmailAccountRegistrationController, { Props } from "./EmailAccountRegistrationController.web";
 import { Visibility, VisibilityOff } from "@material-ui/icons";
-import { Building1, company_logo, compnayName, email, password, user } from "./assets";
+import { Back_btn, Building1, company_logo, compnayName, email, password, user } from "./assets";
 import { dailCode } from "./code";
 import { withRouter } from "react-router";
 import Loader from "../../../components/src/Loader.web";
@@ -51,7 +51,7 @@ class ManagerRegistration extends EmailAccountRegistrationController {
           <Grid item xs={12} md={7} className="auth-cols">
             <Grid container style={{ margin: "1rem" }}>
               <Grid xs={12}>
-                <ArrowBackIcon onClick={() => window.history.back()} />
+              <img src={Back_btn} onClick={() => window.history.back()} style={{marginTop:'1rem',marginLeft:'0.5rem'}} />
               </Grid>
             </Grid>
 
@@ -66,7 +66,7 @@ class ManagerRegistration extends EmailAccountRegistrationController {
             </div>
             <Grid container>
               <Grid xs={12}>
-                <p className="text-center" style={{ fontSize: "1.75rem", fontWeight: 700 }}>
+                <p className="text-center" style={{ fontSize: '2rem', fontWeight: 900,marginBottom:'0.5rem' }}>
                   Welcome
                 </p>
               </Grid>

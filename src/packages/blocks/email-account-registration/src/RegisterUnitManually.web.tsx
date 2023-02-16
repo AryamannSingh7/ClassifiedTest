@@ -14,7 +14,7 @@ import EmailAccountRegistrationController, { Props } from "./EmailAccountRegistr
 import MailOutlineIcon from '@material-ui/icons/MailOutline';
 import { CheckBox, Visibility, VisibilityOff } from "@material-ui/icons";
 import { withRouter } from 'react-router';
-import { building, Building1, city, country, Map, search, unit } from "./assets";
+import { Back_btn, building, Building1, city, country, Map, search, unit } from "./assets";
 import ReactSelect from 'react-select';
 import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
@@ -35,17 +35,17 @@ class RegisterUnitManually extends EmailAccountRegistrationController {
       <>
         <Grid container spacing={2} className="auth-container">
           <Grid item xs={12} md={7} className="auth-cols" style={{ justifyContent: 'unset' }}>
-            <div style={{ margin: 'auto' }}>
+            <div>
 
         <Grid container style={{ margin: '1rem', width: '90%' }}>
           <Grid xs={12}>
-            <ArrowBackIcon onClick={() => window.history.back()} />
+          <img src={Back_btn} onClick={() => window.history.back()} style={{marginTop:'1rem',marginLeft:'0rem'}} />
           </Grid>
         </Grid>
 
         <Grid container style={{ margin: '1rem', width: '90%' }}>
           <Grid xs={12}>
-            <p className="text-left" style={{ fontSize: '2.5rem', fontWeight: 700, marginTop: '2.5rem' }}>
+            <p className="text-left" style={{ fontSize: '1.5rem', fontWeight: 700, marginTop: '1rem' }}>
               Register the Unit Manually
 
             </p>
@@ -126,7 +126,7 @@ class RegisterUnitManually extends EmailAccountRegistrationController {
                       id="demo-simple-select-outlined"
                       onChange={(e) => { this.handleChange(e); setFieldValue("selectCountry", e.target.value) }}
                       label="Country"
-                      style={{ borderRadius: 25, border: '0px solid #e9dede', color: '#b5b5b5' }}
+                      style={{ borderRadius: 25, border: '0px solid #e9dede', color: '#BEBEBE' }}
                     >
 
                       <MenuItem value=" ">
@@ -157,7 +157,7 @@ class RegisterUnitManually extends EmailAccountRegistrationController {
                       id="demo-simple-select-outlined"
                       onChange={(e) => { this.handleChange(e); setFieldValue("selectCity", e.target.value) }}
                       label="City"
-                      style={{ borderRadius: 25, border: '0px solid #e9dede', color: '#b5b5b5' }}
+                      style={{ borderRadius: 25, border: '0px solid #e9dede', color: '#BEBEBE' }}
                     >
                       <MenuItem value=" ">
                               Select city
@@ -180,7 +180,7 @@ class RegisterUnitManually extends EmailAccountRegistrationController {
                     className="formInputGrp"
                   >
 
-                    <ReactSelect options={this.state.allComplex} emoji={search} className="hello ReactSelect"  classNamePrefix='filter' style={{ border: 'none' }} placeholder="Search Complex" onChange={(e) => { this.handleInputChangeCOm(e); setFieldValue("selectComplex", e.value) }} />
+                    <ReactSelect options={this.state.allComplex} emoji={search} className="hello ReactSelect"  components={{ DropdownIndicator }}  classNamePrefix='filter' style={{ border: 'none',color:'#BEBEBE' }} placeholder="Search Complex" onChange={(e) => { this.handleInputChangeCOm(e); setFieldValue("selectComplex", e.value) }} />
 
                     
                   </Box>
@@ -201,7 +201,7 @@ class RegisterUnitManually extends EmailAccountRegistrationController {
                       id="demo-simple-select-outlined"
                       onChange={(e) => { this.handleChange(e); setFieldValue("selectBuilding", e.target.value) }}
                       label="Building"
-                      style={{ borderRadius: 25, border: '0px solid #e9dede', color: '#b5b5b5' }}
+                      style={{ borderRadius: 25, border: '0px solid #e9dede', color: '#BEBEBE' }}
                     >
                       <MenuItem value=" ">
                               Select building
@@ -246,7 +246,7 @@ class RegisterUnitManually extends EmailAccountRegistrationController {
                             value={values.selectUnit}
                       placeholder={"Enter Unit"}
                       className="formInput1"
-                      style={{border:0,paddingLeft:'15px'}}
+                      style={{border:0,paddingLeft:'15px',color:'#BEBEBE'}}
                             value={this.state.selectUnit}
                             onChange={(e) => { this.handleChange2(e); setFieldValue("selectUnit", e.target.value) }}
                     />
@@ -322,3 +322,7 @@ class RegisterUnitManually extends EmailAccountRegistrationController {
   }
 }
 export default withRouter(RegisterUnitManually)
+
+const DropdownIndicator=()=>{
+  return <svg class="MuiSvgIcon-root MuiSelect-icon MuiSelect-iconOutlined" focusable="false" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 10l5 5 5-5z"></path></svg>
+}

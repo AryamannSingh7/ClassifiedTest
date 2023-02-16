@@ -10,7 +10,7 @@ import MenuItem from "@material-ui/core/MenuItem";
 import FormControl from "@material-ui/core/FormControl";
 import Select from "@material-ui/core/Select";
 import ReactSelect from "react-select";
-import { building, Building1, city, country, unit } from "./assets";
+import { Back_btn, building, Building1, city, country, unit } from "./assets";
 import { withRouter } from "react-router";
 import { withTranslation } from "react-i18next";
 
@@ -32,21 +32,21 @@ class RegisterAddressLinkLink extends EmailAccountRegistrationController {
       <>
         <Grid container spacing={2} className="auth-container">
           <Grid item xs={12} md={7} className="auth-cols" style={{ justifyContent: "unset" }}>
-            <div style={{ margin: "auto" }}>
-              <Grid container style={{ margin: "1rem", width: "90%" }}>
+            <div>
+              <Grid container style={{ margin: "1rem", width: "90%",marginBottom:0 }}>
                 <Grid xs={12}>
-                  <ArrowBackIcon onClick={() => window.history.back()} />
+                <img src={Back_btn} onClick={() => window.history.back()} style={{marginTop:'1rem',marginLeft:'0rem'}} />
                 </Grid>
               </Grid>
 
               <Grid container style={{ margin: "1rem", width: "90%" }}>
                 <Grid xs={12}>
-                  <p className="text-left" style={{ fontSize: "1.75rem", fontWeight: 700 }}>
+                  <p className="text-left" style={{ fontSize: "1.5rem", fontWeight: 700 }}>
                     Linking a Unit
                   </p>
                 </Grid>
               </Grid>
-              <Grid container style={{ margin: "1rem", width: "90%" }}>
+              <Grid container style={{ margin: "1rem", width: "90%",marginTop:'0.5rem' }}>
                 <Grid xs={12}>
                   <p className="text-left">Please select the appropriate details of the unit</p>
                 </Grid>
@@ -151,6 +151,7 @@ class RegisterAddressLinkLink extends EmailAccountRegistrationController {
                             className="hello"
                             classNamePrefix="filter"
                             style={{ border: "none" }}
+                            components={{ DropdownIndicator }}
                             placeholder="Search Complex"
                             onChange={(e: any) => {
                               this.handleInputChangeCOm(e);
@@ -305,3 +306,7 @@ class RegisterAddressLinkLink extends EmailAccountRegistrationController {
 }
 //@ts-ignore
 export default withTranslation()(withRouter(RegisterAddressLinkLink));
+
+const DropdownIndicator=()=>{
+  return <svg class="MuiSvgIcon-root MuiSelect-icon MuiSelect-iconOutlined" focusable="false" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 10l5 5 5-5z"></path></svg>
+}

@@ -13,7 +13,7 @@ import PermIdentityIcon from '@material-ui/icons/PermIdentity';
 import EmailAccountRegistrationController, { Props } from "./EmailAccountRegistrationController.web.tsx";
 import MailOutlineIcon from '@material-ui/icons/MailOutline';
 import HomeIcon from '@material-ui/icons/Home';
-import { Building1, Linkage, manual, owner, resident_owner, tenet } from "./assets";
+import { Back_btn, Building1, Linkage, manual, owner, resident_owner, tenet } from "./assets";
 import { withRouter } from 'react-router';
 
 
@@ -32,18 +32,18 @@ class RegisterUnit extends EmailAccountRegistrationController {
 
       <>
         <Grid container spacing={2} className="auth-container">
-          <Grid item xs={12} md={7} className="auth-cols" style={{ justifyContent: 'unset' }}>
+          <Grid item xs={12} md={7} className="auth-cols" style={{ justifyContent: 'unset',padding:'1rem' }}>
             <div >
 
         <Grid container className="main-content-block">
           <Grid xs={12} style={{marginBottom:'1rem'}}>
-            <ArrowBackIcon onClick={() => window.history.back()} />
+          <img src={Back_btn} onClick={() => window.history.back()} style={{marginTop:'1rem',marginLeft:'0rem'}} />
           </Grid>
         </Grid>
 
         <Grid container className="main-content-block">
           <Grid xs={12}>
-            <p className="text-left" style={{ fontSize: '2rem', fontWeight: 700 }}>
+            <p className="text-left" style={{ fontSize: '1.5rem', fontWeight: 700,marginBottom:'0.5rem'}}>
               Register a Unit
 
             </p>
@@ -102,7 +102,7 @@ class RegisterUnit extends EmailAccountRegistrationController {
               borderRadius="16px"
               bgcolor="white"
               marginTop='1rem'
-              style={{marginBottom:'10rem'}}
+              style={{marginBottom:'16rem'}}
             >
               <img src={manual} />
 
