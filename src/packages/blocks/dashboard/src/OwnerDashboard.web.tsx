@@ -364,7 +364,7 @@ class OwnerDashboard extends DashboardController {
                     </Link>
                   </Grid>
                   <Grid item xs={6} sm={6}>
-                    <Link href="">
+                    <Link href="/BudgetAndExpenseDetails">
                       <DashboardCard image={DashboardMeeting} heading={t("Budget")} title={t("For FY")} value="75" />
                     </Link>
                   </Grid>

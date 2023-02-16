@@ -59,7 +59,7 @@ export default class CharmainInvoicesController extends CommonApiCallForBlockCom
   getInvoiceListId:any
   getBuildingListId:any
   getUnitListId:any;
-  getFloorList:any;
+  getFloorListId:any;
   getInvoiceDetailsId:any;
   registerFullPaymentId:any;
   registerPartialPaymentId:any;
@@ -123,6 +123,33 @@ export default class CharmainInvoicesController extends CommonApiCallForBlockCom
     })
   }
 
+  handleInvoicesPagination = (e:any,value:any) => {
+    this.getInvoiceList({
+      buildingId:this.state.filterBuilding,
+      floorNo:this.state.filterFloor,
+      unitId:this.state.filterUnit,
+      paymentType:this.state.filterType,
+      status:this.state.filterStatus,
+      searchKey:this.state.searchKey,
+      page:value,
+    })
+    this.setState({
+      page:value
+    })
+  }
+
+  handleFilterBy = () => {
+    this.getInvoiceList({
+      buildingId:this.state.filterBuilding,
+      floorNo:this.state.filterFloor,
+      unitId:this.state.filterUnit,
+      paymentType:this.state.filterType,
+      status:this.state.filterStatus,
+      searchKey:this.state.searchKey,
+      page:this.state.page,
+    })
+  }
+
   getInvoicesListResponse = (responseJson:any) => {
     if(responseJson.hasOwnProperty("invoices")){
       this.setState({
@@ -148,6 +175,18 @@ export default class CharmainInvoicesController extends CommonApiCallForBlockCom
     }else{
       this.setState({
         unitList:[]
+      })
+    }
+  }
+
+  getFloorListResponse = (responseJson:any) => {
+    if(responseJson?.hasOwnProperty("floors")){
+      this.setState({
+        floorList:responseJson.floors
+      })
+    }else{
+      this.setState({
+        floorList:[]
       })
     }
   }
@@ -188,6 +227,38 @@ export default class CharmainInvoicesController extends CommonApiCallForBlockCom
     }
   }
 
+  registerFullPaymentResponse = (responseJson:any) => {
+    if(responseJson?.hasOwnProperty("data")){
+      this.setState({
+        confirmPaymentModal:false,
+        openModal:false,
+        showSuccess:true,
+        successMessage:"Full Payment Updated Successfully!"
+      })
+    }else{
+      this.setState({
+        error:"Something Went Wrong",
+        showError:true
+      })
+    }
+  }
+
+  registerPartialPaymentResponse = (responseJson:any) => {
+    if(responseJson?.hasOwnProperty("data")){
+      this.setState({
+        confirmPaymentModal:false,
+        openModal:false,
+        showSuccess:true,
+        successMessage:`Partial payment ${responseJson.data.attributes.currency} ${responseJson.data.attributes.partial_paid_amount} Updated Successfully!`
+      })
+    }else{
+      this.setState({
+        error:"Something Went Wrong",
+        showError:true
+      })
+    }
+  }
+
   async receive(from: string, message: Message) {
     if(getName(MessageEnum.RestAPIResponceMessage) === message.id) {
       const apiRequestCallId = message.getData(getName(MessageEnum.RestAPIResponceDataMessage));
@@ -204,6 +275,15 @@ export default class CharmainInvoicesController extends CommonApiCallForBlockCom
       if(apiRequestCallId === this.getInvoiceDetailsId){
         this.getInvoiceDetailsResponse(responseJson)
       }
+      if(apiRequestCallId === this.registerFullPaymentId){
+        this.registerFullPaymentResponse(responseJson)
+      }
+      if(apiRequestCallId === this.registerPartialPaymentId){
+        this.registerPartialPaymentResponse(responseJson)
+      }
+      if(apiRequestCallId === this.getFloorListId){
+        this.getFloorListResponse(responseJson)
+      }
     }
   }
 
@@ -211,7 +291,15 @@ export default class CharmainInvoicesController extends CommonApiCallForBlockCom
     this.setState({
       filterBuilding:e.target.value,
     })
-    this.getUnitList(e.target.value)
+    this.getUnitList(e.target.value,"")
+    this.getFloorList(e.target.value)
+  }
+
+  selectFloor = (e:any) => {
+    this.setState({
+      filterFloor:e.target.value,
+    })
+    this.getUnitList(this.state.filterBuilding,e.target.value)
   }
 
   paymentRegistration = () => {
@@ -250,11 +338,20 @@ export default class CharmainInvoicesController extends CommonApiCallForBlockCom
     return true
   };
 
-  getUnitList = async (buildingId:any) => {
+  getUnitList = async (buildingId:any,floorId:any) => {
     this.getUnitListId = await this.apiCall({
       contentType: "application/json",
       method: "GET",
-      endPoint: `bx_block_fees_payment/invoices/unit_list?building_management_id=${buildingId}`,
+      endPoint: `bx_block_fees_payment/invoices/unit_list?building_management_id=${buildingId}&floor_number=${floorId}`,
+    });
+    return true
+  };
+
+  getFloorList = async (buildingId:any) => {
+    this.getFloorListId = await this.apiCall({
+      contentType: "application/json",
+      method: "GET",
+      endPoint: `bx_block_fees_payment/invoices/floor_number?building_id=${buildingId}`,
     });
     return true
   };

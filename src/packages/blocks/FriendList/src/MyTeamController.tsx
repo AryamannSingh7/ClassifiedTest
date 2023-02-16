@@ -129,7 +129,6 @@ export default class FriendListController extends BlockComponent<
 
 
   async componentDidMount(): Promise<void> {
-    super.componentDidMount();
     this.getMyTeamList()
   }
 
@@ -148,19 +147,6 @@ export default class FriendListController extends BlockComponent<
       contentType: "application/json",
       method: "GET",
       endPoint: `/bx_block_my_team/team_members?society_management_id=${societyID}`,
-    });
-  }
-
-  getMySelectedTeamList = async () => {
-    const type = this.props.match.params.type
-    this.setState({
-      loading:true
-    })
-    const societyID = localStorage.getItem("society_id")
-    this. getMySelectedTeamListId = await this.apiCall({
-      contentType: "application/json",
-      method: "GET",
-      endPoint: `/bx_block_my_team/team_members?society_management_id=${societyID}&team_member_type=${type}`,
     });
   }
 
@@ -260,7 +246,6 @@ export default class FriendListController extends BlockComponent<
   getMyTeamListResponse = (responseJson:any) => {
     if(responseJson.hasOwnProperty("data")){
       if(this.props.match.params.type) {
-        this.getMyTeamList()
         const teamList = responseJson.data.filter((item:any)=> {
           return this.manageDataFilter(item,this.props.match.params.type)
         })
@@ -328,23 +313,10 @@ export default class FriendListController extends BlockComponent<
 
   deleteMemberResponse = (responseJson:any) => {
     if(responseJson.message === "Successfully deleted"){
-      if(this.props.match.params.type){
-        this.getMySelectedTeamList()
-      }else{
-        this.getMyTeamList()
-      }
+      this.getMyTeamList()
       this.setState({
         deleteModal:false,
         deleteId:""
-      })
-    }
-  }
-
-  getMySelectedTeamListResponse = (responseJson:any) => {
-    if(responseJson.hasOwnProperty("data")){
-      this.setState({
-        loading:false,
-        teamList:responseJson.data,
       })
     }
   }
@@ -371,9 +343,6 @@ export default class FriendListController extends BlockComponent<
     }
     if(apiRequestCallId === this.getMyTeamListId){
       this.getMyTeamListResponse(responseJson)
-    }
-    if(apiRequestCallId === this.getMySelectedTeamListId){
-      this.getMySelectedTeamListResponse(responseJson)
     }
     if(apiRequestCallId === this.getRolesListId){
       this.getRolesListResponse(responseJson)

@@ -10,7 +10,7 @@ import {
     TextField,
     Input,
     InputAdornment,
-    Button, IconButton,
+    Button, IconButton, withStyles,
 } from "@material-ui/core";
 import Box from '@material-ui/core/Box';
 import Grid from '@material-ui/core/Grid';
@@ -85,7 +85,7 @@ class CreatePolls extends PollingController {
                     <form onSubmit={this.handlePollDataSubmit}>
                         <Grid container spacing={4} style={{marginTop: 15}}>
                             <Grid item sm={12} md={12} xs={12}>
-                            <Box className="createPSCards">
+                            <Box className="createPSCards" style={{paddingBottom:"15px"}}>
                                 <TextField label={t("Title of the Poll")} variant="outlined"
                                     name="title"
                                     value={this.state.PollData.title}
@@ -149,6 +149,7 @@ class CreatePolls extends PollingController {
                                             markup={this.state.textEditorVal}
                                             onChange={this.onChangeTextEditor} />
                                     </Box>
+                                    <p style={{color:"red"}}>{t(this.state.pollDescriptionError)}</p>
                                 </Box>
                                 <Box className="anonymousSwitch">
                                     <Box className="infoIcon">
@@ -173,12 +174,11 @@ class CreatePolls extends PollingController {
 
                         <Grid item sm={12} md={12} xs={12} style={{marginTop:"70px"}}>
                             <Box className="createPSCards">
-                                <p style={{color:"red"}}>{t(this.state.pollDescriptionError)}</p>
                                 <TextField  label={t("enter question")} variant="outlined"
                                 name="question"
                                 value={this.state.PollData.question}
                                 onChange={this.handlePollDataChange}
-                                 fullWidth style={{marginTop:20}}
+                                 fullWidth
                                 inputProps={{ maxLength: 100 }}
                                 />
                                 <p style={{color:"red"}}>{t(this.state.pollQuestionError)}</p>
@@ -215,18 +215,18 @@ class CreatePolls extends PollingController {
 
                             </Grid>
 
-                        <Box className="BottomButton">
+                        <Box className="BottomButton" style={{marginTop:"45px"}}>
                             <Box className="Previewbtn">
-                                    <Button variant="contained" color="primary"
+                                    <RejectButton variant="contained" color="primary"
                                     onClick={async () => {
                                         await this.handlePriviewData()
                                     }}
-                                    >{t("PREVIEW")}</Button>
+                                    >{t("PREVIEW")}</RejectButton>
                             </Box>
                             <Box className="Publishbtn">
-                                <Button type="submit" variant="outlined" color="primary"
+                                <ApproveButton type="submit" variant="outlined" color="primary"
                                 // onClick={()=>this.props.history.push("/PollPreview")}
-                                >{t("PUBLISH")}</Button>
+                                >{t("PUBLISH")}</ApproveButton>
                             </Box>
                         </Box>
 
@@ -242,7 +242,31 @@ class CreatePolls extends PollingController {
   }
 }
 //@ts-ignore
-export default withTranslation()(withRouter(CreatePolls)); 
+export default withTranslation()(withRouter(CreatePolls));
 
+const RejectButton = withStyles((theme) => ({
+    root: {
+        color: "white",
+        backgroundColor: "#2b6fed",
+        borderRadius:"8px",
+        fontWeight: "bold",
+        height: "55px",
+        width: "140px",
+        "&:hover": {
+            backgroundColor: "#2b6fef",
+        },
+    },
+}))(Button);
 
+const ApproveButton = withStyles((theme) => ({
+    root: {
+        color: "#2b6fed",
+        backgroundColor: "white",
+        borderRadius:"8px",
+        fontWeight: "bold",
+        height: "55px",
+        width: "140px",
+        border: "#2B6FED 1px solid",
+    },
+}))(Button);
 // Customizable Area End

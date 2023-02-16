@@ -69,6 +69,7 @@ import Analytics from '../../blocks/analytics/src/Analytics';
 import Customform from '../../blocks/customform/src/Customform';
 import PhoneNumberInput from '../../blocks/mobile-account-registration/src/PhoneNumberInput';
 import AdditionalDetailForm from '../../blocks/mobile-account-registration/src/AdditionalDetailForm';
+import Settings5 from '../../blocks/Settings5/src/Settings5';
 import EmailAlerts from '../../blocks/Settings5/src/EmailAlerts.web';
 import UserProfileBasicBlock from '../../blocks/user-profile-basic/src/UserProfileBasicBlock';
 import './assets/css/constants/base/global.scss';
@@ -228,7 +229,7 @@ import ViewReceipt from '../../blocks/InvoiceBilling/src/ViewReceipt.web';
 import InvoicesDetails from '../../blocks/InvoiceBilling/src/InvoicesDetails.web';
 import ReceiptsDetails from '../../blocks/InvoiceBilling/src/ReceiptsDetails.web';
 import CharmainInvoices from '../../blocks/InvoiceBilling/src/CharmainInvoices.web';
-
+import PaymentHistory from '../../blocks/InvoiceBilling/src/PaymentHistory.web'
 import ChairmanProfile from '../../blocks/Settings5/src/ChairmanProfile.web';
 import Profile from '../../blocks/user-profile-basic/src/Profile.web';
 import ChairmenProfile from '../../blocks/user-profile-basic/src/ChairmenProfile.web';
@@ -300,6 +301,7 @@ import TaskManagement from '../../blocks/FriendList/src/TaskManagement.web';
 
 // Fees & Payment Imports
 import FeesAndPayment from '../../blocks/CollectTransactionFees/src/FeesAndPayments.web';
+import FeesAndPaymentOwner from '../../blocks/CollectTransactionFees/src/FeesAndPaymentsOwner.web';
 import ViewMyInvoices from '../../blocks/CollectTransactionFees/src/ViewMyInvoices.web';
 import InvoiceDetails from '../../blocks/CollectTransactionFees/src/InvoiceDetails.web';
 import ViewMyReceipts from '../../blocks/CollectTransactionFees/src/ViewMyReceipts.web';
@@ -339,6 +341,7 @@ import AuditReport from '../../blocks/StoreCredits/src/AuditReport.web';
 import ManagementFeeReport from '../../blocks/StoreCredits/src/ManagementFeeReport.web';
 import AuditReportDetails from '../../blocks/StoreCredits/src/AuditReportDetails.web';
 import InvitationReport from '../../blocks/StoreCredits/src/InvitationReport.web';
+import ExpenseReportDetails from "../../blocks/StoreCredits/src/ExpenseDetails.web";
 
 // My Unit
 import MyUnitList from '../../blocks/TaskAllocator/src/MyUnitList.web';
@@ -617,6 +620,11 @@ const routeMap = {
   CharmainInvoices: {
     component: CharmainInvoices,
     path: '/CharmainInvoices',
+    exact: true
+  },
+  PaymentHistory:{
+    component: PaymentHistory,
+    path: '/PaymentHistory',
     exact: true
   },
   CharmainReceipts: {
@@ -1236,10 +1244,10 @@ const routeMap = {
     component: AdditionalDetailForm,
     path: '/AdditionalDetailForm'
   },
-  // Settings5: {
-  //   component: Settings5,
-  //   path: '/Settings5'
-  // },
+  Settings5: {
+    component: Settings5,
+    path: '/Settings5'
+  },
   UserProfileBasicBlock: {
     component: UserProfileBasicBlock,
     path: '/UserProfileBasicBlock'
@@ -1501,10 +1509,10 @@ const routeMap = {
     component: AdditionalDetailForm,
     path: '/AdditionalDetailForm'
   },
-  // Settings5: {
-  //   component: Settings5,
-  //   path: '/Settings5'
-  // },
+  Settings5: {
+    component: Settings5,
+    path: '/Settings5'
+  },
   UserProfileBasicBlock: {
     component: UserProfileBasicBlock,
     path: '/UserProfileBasicBlock'
@@ -1842,6 +1850,12 @@ const routeMap = {
     exact: true
   },
 
+  BudgetAndExpenseDetails: {
+    component: FeesAndPaymentOwner,
+    path: '/BudgetAndExpenseDetails',
+    exact: true
+  },
+
   ViewMyInvoices: {
     component: ViewMyInvoices,
     path: '/MyInvoices',
@@ -1909,7 +1923,7 @@ const routeMap = {
 
   MyInvoices: {
     component: MyInvoices,
-    path: '/Owner/MyInvoices',
+    path: '/MyInvoices/Owner',
     exact: true
   },
 
@@ -1921,7 +1935,7 @@ const routeMap = {
 
   MyReceipts: {
     component: MyReceipts,
-    path: '/Owner/MyReceipts',
+    path: '/MyReceipts/Owner',
     exact: true
   },
 
@@ -1971,12 +1985,12 @@ const routeMap = {
   UnitDetails: {
     component: UnitDetails,
     path: '/UnitDetail/:id',
-    roles: [ROLE.CHAIRMAN, ROLE.MANAGER, ROLE.SECURITY]
+    roles: [ROLE.CHAIRMAN, ROLE.MANAGER,ROLE.SECURITY]
   },
   SharedArea: {
     component: SharedArea,
     path: '/SharedArea/:id',
-    roles: [ROLE.CHAIRMAN, ROLE.MANAGER, ROLE.SECURITY]
+    roles: [ROLE.CHAIRMAN, ROLE.MANAGER,ROLE.SECURITY]
   },
   OwnerComplex: {
     component: OwnerComplex,
@@ -2137,6 +2151,12 @@ const routeMap = {
     roles: [ROLE.CHAIRMAN, ROLE.MANAGER],
     exact: true
   },
+  ExpenseReportDetails: {
+    component: ExpenseReportDetails,
+    path: '/ExpenseReportDetails',
+    roles: [ROLE.CHAIRMAN, ROLE.MANAGER],
+    exact: true
+  },
   AuditReport: {
     component: AuditReport,
     path: '/AuditReports',
@@ -2263,13 +2283,6 @@ const routeMap = {
   SpentVsCollected: {
     component: SpentVsCollected,
     path: '/SpentVsCollected',
-    roles: [ROLE.OWNER, ROLE.OWNER_RESIDENT],
-    exact: true
-  },
-  // Email Alerts
-  EmailAlerts: {
-    component: EmailAlerts,
-    path: '/EmailAlerts',
     roles: [ROLE.OWNER, ROLE.OWNER_RESIDENT],
     exact: true
   },

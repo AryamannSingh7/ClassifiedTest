@@ -53,6 +53,7 @@ import {CloseButton, dashBoardActions, PublishButton} from "./chairmanUIStyles"
 import '../../dashboard/src/style.css'
 import AlertError from "../../../components/src/AlertError.web";
 import AlertSuccess from "../../../components/src/AlertSuccess.web";
+import PaginationModule from "../../StoreCredits/src/PaginationModule.web";
 
 function createData( no:any, name:any, unit:any, title:any, amount:any, type:any, status:any, more:any) {
     return { no, name, unit, title, amount, type, status, more };
@@ -135,10 +136,19 @@ render() {
                                         })
                                     }
                                 </Select>
-                                <Select displayEmpty  value={this.state.filterFloor || ""} className="select-input" onChange={(e) => this.setState({filterFloor:e.target.value})}>
+                                <Select displayEmpty  value={this.state.filterFloor || ""} className="select-input" onChange={this.selectFloor}>
                                     <MenuItem value="">
                                         {t("Select Floor")}
                                     </MenuItem>
+                                    {
+                                        this.state.floorList?.map((item:any,key:any)=> {
+                                            return(
+                                                <MenuItem key={key} value={item}>
+                                                    {item}
+                                                </MenuItem>
+                                            )
+                                        })
+                                    }
                                 </Select>
                                 <Select displayEmpty value={this.state.filterUnit || ""} className="select-input" onChange={(e:any) => this.setState({filterUnit:e.target.value})}>
                                     <MenuItem value="">
@@ -197,14 +207,16 @@ render() {
                                         </TableRow>
                                     </TableHead>
                                     <TableBody>
-                                        {this.state.invoicesList?.map((row:any,key:any) => (
+                                        {
+                                            this.state.invoicesList?.length > 0 ?
+                                            this.state.invoicesList?.map((row:any,key:any) => (
                                             <TableRow key={key}>
                                                 <TableCell component="th" scope="row">{key + 1}</TableCell>
                                                 <TableCell>{row?.attributes?.name}</TableCell>
                                                 <TableCell>{row?.attributes?.unit_number}</TableCell>
                                                 <TableCell>{row?.attributes?.title}</TableCell>
-                                                <TableCell>{row?.attributes?.currency?.currency} {row?.attributes?.amount}</TableCell>
-                                                <TableCell>{row?.attributes?.invoice_type}</TableCell>
+                                                <TableCell>{row?.attributes?.currency} {row?.attributes?.amount}</TableCell>
+                                                <TableCell>{row?.attributes?.payment_type}</TableCell>
                                                 <TableCell>{row?.attributes?.status}</TableCell>
                                                 <TableCell>
                                                     <Menu
@@ -222,20 +234,16 @@ render() {
                                                     </Menu>
                                                 </TableCell>
                                             </TableRow>
-                                        ))}
+                                            )):
+                                            <TableRow>
+                                                <TableCell colSpan={6}>{t("No Invoice Data Available")}</TableCell>
+                                            </TableRow>
+                                        }
                                     </TableBody>
                                 </Table>
                                 <Divider />
                                 <Box style={{width:"100%",height:"70px",display:"flex",alignItems:"center",justifyContent:"space-between"}}>
-                                    <Box style={{display:"flex",marginLeft:"15px"}}>
-                                        <Typography style={{marginRight:"5px"}}>{t("Showing")} </Typography>
-                                        <Typography style={{marginRight:"5px",fontWeight:"bold",color:"#FC8434"}}>5</Typography>
-                                        <Typography style={{marginRight:"5px"}}> {t("of")} </Typography>
-                                        <Typography style={{fontWeight:"bold"}}>50</Typography>
-                                    </Box>
-                                    <Box style={{marginRight:"10px"}}>
-                                        <Pagination count={this.state.pagination?.total_count} variant="outlined" shape="rounded" />
-                                    </Box>
+                                    <PaginationModule handlePagination={this.handleInvoicesPagination} pagination={this.state.pagination} page={this.state.page}/>
                                 </Box>
                             </Grid>
                         </Box>
@@ -389,30 +397,19 @@ render() {
                                                         <img src={DownloadIcon} width="20px" height="20px" style={{marginRight:"10px"}}/>
                                                         <Typography component="h5" style={{fontWeight:"bold"}}>{t("Download Invoice")}</Typography>
                                                     </Grid>
-                                                    <Grid item xs={4}>
-                                                        <Button variant="contained" style={dashBoardActions.receiptbtn} color="primary" onClick={()=> this.setState({generateReceipt:true})}>{t("GENERATE RECEIPT")}</Button>
-                                                    </Grid>
+                                                    <Grid item xs={4} style={{display:"flex",justifyContent:'flex-end'}}>
+                                                        {
+                                                            this.state.invoiceDetails?.status === "due" &&
+                                                            <Button variant="contained" style={dashBoardActions.receiptbtn} color="primary" onClick={()=> this.setState({generateReceipt:true})}>{t("GENERATE RECEIPT")}</Button>
+                                                        }
+                                                        {
+                                                            this.state.invoiceDetails?.status === "paid" &&
+                                                            <Typography variant="subtitle2" className="statusOngoingGreen" style={{textAlign:"center",textTransform:"capitalize",justifySelf:"flex-end"}}>{this.state.invoiceDetails?.status}</Typography>
+                                                        }
+                                                      </Grid>
                                                 </Grid>
                                             </Box>
                                     }
-                                    {/* <div style={dashBoardActions.genrateReceipt}>
-                                        <KeyboardBackspaceIcon style={{marginTop:"-3px"}}/><Typography  style={dashBoardActions.subHeading}>Generate Receipts</Typography>
-                                    </div>
-                                    <Typography>Do you want to register the payment for this invoice and and generate a receipt for the 
-                                        payment? you can chose to recognize the full payment or partial payment by selecting one of the two payment option below.
-                                    </Typography>
-                                    <Typography style={dashBoardActions.commonColor} component="h5">Resident ID: <b style={{color:"#000"}}>3030304</b> </Typography>
-                                    <Typography style={dashBoardActions.commonColor} component="h5">Resident Name: <b style={{color:"#000"}}>Jenil Patel</b> </Typography>
-                                    <Typography>Total amount to be paid: <b style={{color:"#FC8434"}}>SR, 1303</b></Typography>
-
-                                    <FormControl component="fieldset">
-                                        <FormLabel component="legend">Select Payment Type</FormLabel>
-                                        <RadioGroup aria-label="gender" name="gender1" value={this.state.payment_type} onChange={this.handleSelect}>
-                                            {console.log("selectvalue--->", this.state.payment_type)}
-                                            <FormControlLabel value="fullpayment" control={<Radio />} label="Register Full Payments" />
-                                            <FormControlLabel value="partialpayment" control={<Radio />} label="Register Partial Payments" />
-                                        </RadioGroup>
-                                    </FormControl> */}
                                 </div>
                                 </Fade>
                             </Modal>
@@ -457,7 +454,7 @@ render() {
             </Box>
         </Box>
           <AlertError show={this.state.showError} handleClose={()=> this.setState({showError:false,error:null})} message={this.state.error} />
-          <AlertSuccess show={this.state.showSuccess} handleClose={this.handleSuccessClose} message={this.state.successMessage} />
+          <AlertSuccess show={this.state.showSuccess} handleClose={()=> this.setState({showSuccess:false})} message={this.state.successMessage} />
       </>
       // Customizable Area End
     );

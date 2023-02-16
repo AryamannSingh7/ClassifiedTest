@@ -352,7 +352,10 @@ class CommunityUserProfile extends CommunityUserProfileController {
                                   //@ts-ignore
                                   this.props.history.push({pathname:"/UserDetailedProfile",singleProfile})}}
                               />
-                              <CardContent style={{padding:"0px 16px 16px 16px"}}>
+                              <CardContent style={{padding:"0px 16px 16px 16px"}}     onClick={(e:any) => {
+                                  localStorage.setItem('selectedPofile',JSON.stringify(singleProfile))
+                                  //@ts-ignore
+                                  this.props.history.push({pathname:"/UserDetailedProfile",singleProfile})}} >
                               <Typography variant="h6"
                               //@ts-ignore 
                               style={dashBoard.unitno}>{item.unitno}</Typography>

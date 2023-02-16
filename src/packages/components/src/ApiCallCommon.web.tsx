@@ -45,6 +45,22 @@ export default class CommonApiCallForBlockComponent<Props, S, SS> extends BlockC
     return requestMessage.messageId;
   };
 
+  apiCallForFileUpload = async (data:any) => {
+    const apiMethod = data.method
+    const apiEndPoint = data.endPoint
+    const apiBody = data.body
+    const userToken = localStorage.getItem('userToken') ;
+    const apiHeader = {token:userToken};
+
+    const requestMessage = new Message(getName(MessageEnum.RestAPIRequestMessage));
+    requestMessage.addData(getName(MessageEnum.RestAPIRequestHeaderMessage),JSON.stringify(apiHeader));
+    requestMessage.addData(getName(MessageEnum.RestAPIResponceEndPointMessage),apiEndPoint);
+    requestMessage.addData(getName(MessageEnum.RestAPIRequestMethodMessage),apiMethod);
+    apiBody && requestMessage.addData(getName(MessageEnum.RestAPIRequestBodyMessage),apiBody);
+    runEngine.sendMessage(requestMessage.id, requestMessage);
+    return requestMessage.messageId;
+  };
+
   downloadPdf = async (path:any,fileName:any) => {
     const token:any = localStorage.getItem("userToken")
     const myHeaders = new Headers();

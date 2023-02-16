@@ -29,7 +29,6 @@ import Pagination from '@material-ui/lab/Pagination';
 import Select from '@material-ui/core/Select';
 import {withRouter} from 'react-router-dom';
 import { Menu } from "@szhsin/react-menu";
-
 import CharmainReceiptsController, {Props} from "./CharmainReceiptsController";
 import DashboardHeader from "../../dashboard/src/DashboardHeader.web";
 import ChairmanSidebar from "../../dashboard/src/ChairmanSidebar.web";
@@ -42,26 +41,8 @@ import SearchIcon from "@material-ui/icons/Search";
 import moment from "moment"
 import 'web/src/i18n.js';
 import {CloseButton, dashBoardActions, PublishButton} from "./chairmanUIStyles"
-//resorces
-// import { Bank_Icon, Building1, Grid_Icon, Filter_Icon } from "../src/assets";
 import '../../dashboard/src/style.css'
-
-function createData( no:any, name:any, unit:any, title:any, amount:any, type:any, status:any, more:any) {
-    return { no, name, unit, title, amount, type, status, more };
-  }
-  
-  const rows = [
-    createData(1, 'Frozen yoghurt', 159, 'May - 2022 invoices', 'SR 6', 'Managment Fees', 'Overdue', <MoreVertIcon color='disabled' />),
-    createData(2, 'Ice cream sandwich', 237, 'May - 2022 invoices', 'SR 200', 'Rent Fees', 'Paid', <MoreVertIcon color='disabled' />),
-    createData(3, 'Eclair', 262,'May - 2022 invoices', 'SR 160', 'Managment Fees', 'Due', <MoreVertIcon color='disabled' />),
-    createData(4, 'Cupcake', 305,'May - 2022 invoices', 'SR 670', 'Rent Fees', 'partialy Paid', <MoreVertIcon color='disabled' />),
-    createData(5, 'Gingerbread', 356,'May - 2022 invoices', 'SR 300', 'Managment Fees', 'partialy Paid', <MoreVertIcon color='disabled' />),
-    createData(6, 'Frozen yoghurt', 159, 'May - 2022 invoices', 'SR 6', 'Managment Fees', 'Overdue', <MoreVertIcon color='disabled' />),
-    createData(7, 'Ice cream sandwich', 237, 'May - 2022 invoices', 'SR 200', 'Rent Fees', 'Paid', <MoreVertIcon color='disabled' />),
-    createData(8, 'Eclair', 262,'May - 2022 invoices', 'SR 160', 'Managment Fees', 'Due', <MoreVertIcon color='disabled' />),
-    createData(9, 'Cupcake', 305,'May - 2022 invoices', 'SR 670', 'Rent Fees', 'partialy Paid', <MoreVertIcon color='disabled' />),
-    createData(10, 'Gingerbread', 356,'May - 2022 invoices', 'SR 300', 'Managment Fees', 'partialy Paid', <MoreVertIcon color='disabled' />),
-  ];
+import PaginationModule from "../../StoreCredits/src/PaginationModule.web";
 
 class CharmainInvoices extends CharmainReceiptsController {
 constructor(props: Props) {
@@ -77,17 +58,6 @@ constructor(props: Props) {
 render() {
     const {t} = this.props
     const { classes } = this.props;
-    var searchData = rows.filter((item) => {
-        if (this.state.dataSearch === "") {
-          return item;
-        } else if (
-          item.name.toLowerCase().includes(this.state.dataSearch.toLowerCase())
-        ) {
-          return item;
-        }
-      });
-    
-    const { navigation } = this.props;
     return (
       // Customizable Area Start
       <>
@@ -195,8 +165,8 @@ render() {
                                                 <TableCell>{row?.attributes?.name}</TableCell>
                                                 <TableCell>{row?.attributes?.unit_number}</TableCell>
                                                 <TableCell>{row?.attributes?.title}</TableCell>
-                                                <TableCell>{row?.attributes?.currency?.currency} {row?.attributes?.paid_amount}</TableCell>
-                                                <TableCell>{row?.attributes?.receipt_type}</TableCell>
+                                                <TableCell>{row?.attributes?.currency} {row?.attributes?.paid_amount}</TableCell>
+                                                <TableCell>{row?.attributes?.payment_type}</TableCell>
                                                 <TableCell>{row?.attributes?.status}</TableCell>
                                                 <TableCell>
                                                     <Menu
@@ -219,15 +189,7 @@ render() {
                                 </Table>
                                 <Divider />
                                 <Box style={{width:"100%",height:"70px",display:"flex",alignItems:"center",justifyContent:"space-between"}}>
-                                    <Box style={{display:"flex",marginLeft:"15px"}}>
-                                        <Typography style={{marginRight:"5px"}}>{t("Showing")} </Typography>
-                                        <Typography style={{marginRight:"5px",fontWeight:"bold",color:"#FC8434"}}>5</Typography>
-                                        <Typography style={{marginRight:"5px"}}> {t("of")} </Typography>
-                                        <Typography style={{fontWeight:"bold"}}>50</Typography>
-                                    </Box>
-                                    <Box style={{marginRight:"10px"}}>
-                                        <Pagination count={10} variant="outlined" shape="rounded" />
-                                    </Box>
+                                    <PaginationModule handlePagination={this.handleReceiptPagination} pagination={this.state.pagination} page={this.state.page}/>
                                 </Box>
                             </Grid>
                         </Box>

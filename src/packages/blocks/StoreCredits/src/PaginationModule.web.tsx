@@ -21,11 +21,11 @@ class PaginationModule extends PureComponent<Props> {
       <>
         <Box style={{display:"flex",marginLeft:"15px"}}>
           <Typography style={{marginRight:"5px"}}>{t("Showing")} </Typography>
-          <Typography style={{marginRight:"5px",fontWeight:"bold",color:"#FC8434"}}>{this.props.pagination.total_count < 10 ? this.props.pagination.total_count : (10 * this.props.page)} </Typography>
+          <Typography style={{marginRight:"5px",fontWeight:"bold",color:"#FC8434"}}>{this.props.pagination?.total_count < 10 ? this.props.pagination?.total_count : (10 * this.props.page)} </Typography>
           <Typography style={{marginRight:"5px"}}> {t("of")} </Typography>
-          <Typography style={{fontWeight:"bold"}}>{this.props.pagination.total_count} </Typography>
+          <Typography style={{fontWeight:"bold"}}>{this.props.pagination?.total_count} </Typography>
         </Box>
-        <Pagination count={this.props.pagination.total_pages} onChange={this.props.handlePagination} variant="outlined" shape="rounded" />
+        <Pagination count={this.props.pagination?.total_pages} onChange={this.props.handlePagination} variant="outlined" shape="rounded" />
       </>
     );
   }
