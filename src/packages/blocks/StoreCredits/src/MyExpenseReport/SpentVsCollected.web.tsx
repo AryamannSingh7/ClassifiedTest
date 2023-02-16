@@ -124,7 +124,7 @@ class SpentVsCollected extends SpentVsCollectedController {
                           return (
                             <Grid item xs={12} key={unit.id}>
                               <UnitCard
-                                heading={`Unit ${unit.unit_name} Buliding ${unit.building_name}`}
+                                heading={`${t("Unit")} ${unit.unit_name} ${t("Buliding")} ${unit.building_name}`}
                                 titleOne={t("Spent")}
                                 valueOne={this.validateCurrency(unit.spent_amount)}
                                 titleTwo={t("Collected")}

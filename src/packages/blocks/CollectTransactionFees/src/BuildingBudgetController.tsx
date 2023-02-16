@@ -57,17 +57,37 @@ export default class BuildingBudgetController extends CommonApiCallForBlockCompo
   }
 
   async componentDidMount() {
-
+    this.getBuildingListBudget()
   }
 
+  getBuildingListBudget = async () => {
+    const societyID = localStorage.getItem("society_id")
+    this.getBuildingListBudgetListId = await this.apiCall({
+      contentType: "application/json",
+      method: "GET",
+      endPoint: `/society_managements/${societyID}/bx_block_fees_payment/building_budgets?year=${this.state.budgetYear}`,
+    });
+  }
+
+  BudgetListResponse = (responseJson:any) => {
+    if(responseJson.hasOwnProperty("budget_report")){
+      this.setState({
+        budgetList:responseJson?.budget_report?.data
+      })
+    }else{
+      this.setState({
+        budgetList:[]
+      })
+    }
+  }
 
   async receive(from: string, message: Message) {
     if(getName(MessageEnum.RestAPIResponceMessage) === message.id) {
       const apiRequestCallId = message.getData(getName(MessageEnum.RestAPIResponceDataMessage));
       const responseJson = message.getData(getName(MessageEnum.RestAPIResponceSuccessMessage));
       var errorReponse = message.getData(getName(MessageEnum.RestAPIResponceErrorMessage));
-      if(this.getBudgetListResidentId === apiRequestCallId ){
-        console.log(responseJson,errorReponse)
+      if(this.getBuildingListBudgetListId === apiRequestCallId ){
+        this.BudgetListResponse(responseJson)
       }
     }
   }

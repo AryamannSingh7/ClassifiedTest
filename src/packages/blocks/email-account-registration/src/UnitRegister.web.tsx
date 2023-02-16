@@ -15,6 +15,11 @@ import MailOutlineIcon from '@material-ui/icons/MailOutline';
 import HomeIcon from '@material-ui/icons/Home';
 import { Back_btn, Building1, Linkage, manual, owner, resident_owner, tenet } from "./assets";
 import { withRouter } from 'react-router';
+import FormControlLabel from "@material-ui/core/FormControlLabel";
+import Radio from "@material-ui/core/Radio";
+import RadioButtonUncheckedIcon from "@material-ui/icons/RadioButtonUnchecked";
+import RadioButtonCheckedIcon from "@material-ui/icons/RadioButtonChecked";
+import RadioGroup from "@material-ui/core/RadioGroup";
 
 
 
@@ -32,64 +37,59 @@ class RegisterUnit extends EmailAccountRegistrationController {
 
       <>
         <Grid container spacing={2} className="auth-container">
-          <Grid item xs={12} md={7} className="auth-cols" style={{ justifyContent: 'unset',padding:'1rem' }}>
-            <div >
-
-        <Grid container className="main-content-block">
-          <Grid xs={12} style={{marginBottom:'1rem'}}>
-          <img src={Back_btn} onClick={() => window.history.back()} style={{marginTop:'1rem',marginLeft:'0rem'}} />
-          </Grid>
-        </Grid>
-
-        <Grid container className="main-content-block">
-          <Grid xs={12}>
-            <p className="text-left" style={{ fontSize: '1.5rem', fontWeight: 700,marginBottom:'0.5rem'}}>
-              Register a Unit
-
-            </p>
-          </Grid>
-        </Grid>
-
-        <Grid container className="main-content-block" style={{marginBottom:'2rem'}}>
-          <Grid xs={12}>
-            <p className="text-left">
-              Please select the appropriate registration type for the unit. If you have more than one unit, you will be able to register them on a later stage
-
-
-
-            </p>
-          </Grid>
-        </Grid>
+          <Grid item xs={12} md={7} className="auth-cols" style={{ justifyContent: 'unset',marginLeft:"15px",marginRight:"15px" }}>
+            <div>
+                <Grid container className="main-content-block" style={{marginTop:"30px"}}>
+                    <Grid xs={12} style={{marginBottom:'1rem'}}>
+                        <ArrowBackIcon onClick={() => window.history.back()} style={{ fontSize: "35px",marginLeft:"-7px"}} />
+                      </Grid>
+                    </Grid>
+                    <Grid container className="main-content-block">
+                    <Grid xs={12}>
+                        <Typography className="text-left" style={{ fontSize: "26px", fontWeight: 700,marginBottom:"5px",fontFamily:"Century Gothic" }}>
+                          Register a Unit
+                        </Typography>
+                    </Grid>
+                </Grid>
+                <Grid container className="main-content-block" style={{marginBottom:'2rem'}}>
+                  <Grid xs={12}>
+                    <Typography className="text-left" style={{fontSize: "15px"}}>
+                      Please select the appropriate registration type for the unit. If you have more than one unit, you will be able to register them on a later stage
+                    </Typography>
+                  </Grid>
+                </Grid>
 
         <Grid container className="main-content-block">
           <Grid xs={12}>
             <Box
               display="flex"
               justifyContent='space-between'
-              
               className={'select-type ' + (this.state.unitRegisterType == 'Linkage' ? ' active-box' :'')}
-
               alignItems="center"
-
               border="0.1px solid rgb(209 209 209 / 44%)"
               borderRadius="16px"
               bgcolor="white"
               marginTop='1rem'
               style={{marginBottom:'2rem'}}
             >
-              <img src={Linkage} />
-              <Box className="middle-section">
-                      <label for="radCreateMode" className={"title" + (this.state.unitRegisterType == 'Linkage' ? ' active-type' : '')} style={{padding:'20px 20px 0px 0px'}}>
+                <Box style={{width: "50px", height: "50px",display:"flex",alignItems:"center",justifyContent:"center"}}>
+                    <img src={Linkage} />
+                </Box>
+                <Box className="middle-section" style={{display:"flex",flexDirection:"column",marginBottom:"0px"}}>
+                      <label for="radCreateMode" className={"title" + (this.state.unitRegisterType == 'Linkage' ? ' active-type' : '')}  style={{ padding: "0px",color:"#939292",marginBottom:"0px"}}>
                   Linkage
                       </label>
                       <br/>
-                      <label for="radCreateMode"  className="para">
+                      <label for="radCreateMode"  className="para" style={this.state.unitRegisterType == "Linkage" ? {color:"#181d25",marginTop:"-12px"} :{color:"#939292",marginTop:"-12px"}}>
                   Select this option if the building manager has requested you to register the unit, or you are aware that Tenant International ® platform is used in the building
                       </label>
-              </Box>
-
-                    <input id="radCreateMode" type="radio" name="type" value='Linkage' onChange={(e) => this.changeUnitType(e.target.value)} />
-
+                </Box>
+                <RadioGroup aria-label="Type" style={{width:"30px"}} name="Type" value={this.state.unitRegisterType} onChange={(e) => this.changeUnitType(e.target.value)}>
+                    <FormControlLabel
+                        value="Linkage"
+                        control={<Radio icon={<RadioButtonUncheckedIcon style={{color:"#525252"}} />}
+                                        checkedIcon={<RadioButtonCheckedIcon style={{color:"#FC8434"}} />} />} label="" />
+                </RadioGroup>
             </Box>
             <Box
               display="flex"
@@ -97,26 +97,29 @@ class RegisterUnit extends EmailAccountRegistrationController {
               className='select-type'
               className={'select-type ' + (this.state.unitRegisterType == 'Manual' ? ' active-box' :'')}
               alignItems="center"
-
               border="0.1px solid rgb(209 209 209 / 44%)"
               borderRadius="16px"
               bgcolor="white"
               marginTop='1rem'
-              style={{marginBottom:'16rem'}}
+              style={{marginBottom:'1rem'}}
             >
-              <img src={manual} />
-
-              <Box className="middle-section">
-                      <label for="radCreateMode2" className={"title" + (this.state.unitRegisterType == 'Manual' ? ' active-type' : '')} style={{padding:'20px 20px 0px 0px'}}>
+              <Box style={{width: "50px", height: "50px",display:"flex",alignItems:"center",justifyContent:"center"}}>
+                <img src={manual} />
+              </Box>
+              <Box className="middle-section" style={{display:"flex",flexDirection:"column",marginBottom:"0px"}}>
+                      <label for="radCreateMode2" className={"title" + (this.state.unitRegisterType == 'Manual' ? ' active-type' : '')}  style={{ padding: "0px",color:"#939292",marginBottom:"0px"}}>
                   Manual
                       </label><br/>
-                      <label for="radCreateMode2" className="para">
+                      <label for="radCreateMode2" className="para" style={this.state.unitRegisterType == "Manual" ? {color:"#181d25",marginTop:"-12px"} :{color:"#939292",marginTop:"-12px"}}>
                   Select this option if the unit is in a building not managed by "Tenant International ®" platform
                       </label>
               </Box>
-
-                    <input id="radCreateMode2" type="radio" name="type" value='Manual' onChange={(e) => this.changeUnitType(e.target.value)} />
-
+                <RadioGroup aria-label="Type" style={{width:"30px"}} name="Type" value={this.state.unitRegisterType} onChange={(e: any) => this.changeUnitType(e.target.value)}>
+                    <FormControlLabel
+                        value="Manual"
+                        control={<Radio icon={<RadioButtonUncheckedIcon style={{color:"#525252"}} />}
+                                        checkedIcon={<RadioButtonCheckedIcon style={{color:"#FC8434"}} />} />} label="" />
+                </RadioGroup>
             </Box>
 
           </Grid>
@@ -137,7 +140,7 @@ class RegisterUnit extends EmailAccountRegistrationController {
                 color: "#F7F7FC",
                 fontWeight: 600,
                 fontSize: 16,
-                marginTop: 30
+                marginTop: 100
               }}
               onClick={this.registerUnit}
             >

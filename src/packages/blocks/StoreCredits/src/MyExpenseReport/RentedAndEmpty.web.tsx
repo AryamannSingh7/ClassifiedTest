@@ -44,9 +44,7 @@ class RentedAndEmpty extends RentedAndEmptyController {
                           return (
                             <Grid item xs={12} key={unit.id}>
                               <RentedVsEmptyUnitCard
-                                heading={`${unit.attributes.building_management.name}, ${
-                                  unit.attributes.society_management.name
-                                }, ${unit.attributes.address[0].city}`}
+                                heading={`${unit.attributes.building_management.name}, ${unit.attributes.society_management.name}, ${unit.attributes.address[0].city}`}
                                 titleOne={t("Unit Number")}
                                 valueOne={unit.attributes.apartment_name}
                                 titleTwo={t("Floor Number")}

@@ -69,6 +69,7 @@ import Analytics from '../../blocks/analytics/src/Analytics';
 import Customform from '../../blocks/customform/src/Customform';
 import PhoneNumberInput from '../../blocks/mobile-account-registration/src/PhoneNumberInput';
 import AdditionalDetailForm from '../../blocks/mobile-account-registration/src/AdditionalDetailForm';
+import Settings5 from '../../blocks/Settings5/src/Settings5';
 import EmailAlerts from '../../blocks/Settings5/src/EmailAlerts.web';
 import UserProfileBasicBlock from '../../blocks/user-profile-basic/src/UserProfileBasicBlock';
 import './assets/css/constants/base/global.scss';
@@ -228,7 +229,7 @@ import ViewReceipt from '../../blocks/InvoiceBilling/src/ViewReceipt.web';
 import InvoicesDetails from '../../blocks/InvoiceBilling/src/InvoicesDetails.web';
 import ReceiptsDetails from '../../blocks/InvoiceBilling/src/ReceiptsDetails.web';
 import CharmainInvoices from '../../blocks/InvoiceBilling/src/CharmainInvoices.web';
-
+import PaymentHistory from '../../blocks/InvoiceBilling/src/PaymentHistory.web'
 import ChairmanProfile from '../../blocks/Settings5/src/ChairmanProfile.web';
 
 import Profile from '../../blocks/user-profile-basic/src/Profile.web';
@@ -634,6 +635,11 @@ const routeMap = {
   CharmainInvoices: {
     component: CharmainInvoices,
     path: '/CharmainInvoices',
+    exact: true
+  },
+  PaymentHistory:{
+    component: PaymentHistory,
+    path: '/PaymentHistory',
     exact: true
   },
   CharmainReceipts: {
@@ -1258,10 +1264,10 @@ const routeMap = {
     component: AdditionalDetailForm,
     path: '/AdditionalDetailForm'
   },
-  // Settings5: {
-  //   component: Settings5,
-  //   path: '/Settings5'
-  // },
+  Settings5: {
+    component: Settings5,
+    path: '/Settings5'
+  },
   UserProfileBasicBlock: {
     component: UserProfileBasicBlock,
     path: '/UserProfileBasicBlock'
@@ -1523,10 +1529,10 @@ const routeMap = {
     component: AdditionalDetailForm,
     path: '/AdditionalDetailForm'
   },
-  // Settings5: {
-  //   component: Settings5,
-  //   path: '/Settings5'
-  // },
+  Settings5: {
+    component: Settings5,
+    path: '/Settings5'
+  },
   UserProfileBasicBlock: {
     component: UserProfileBasicBlock,
     path: '/UserProfileBasicBlock'
@@ -2004,12 +2010,12 @@ const routeMap = {
   UnitDetails: {
     component: UnitDetails,
     path: '/UnitDetail/:id',
-    roles: [ROLE.CHAIRMAN, ROLE.MANAGER, ROLE.SECURITY]
+    roles: [ROLE.CHAIRMAN, ROLE.MANAGER,ROLE.SECURITY]
   },
   SharedArea: {
     component: SharedArea,
     path: '/SharedArea/:id',
-    roles: [ROLE.CHAIRMAN, ROLE.MANAGER, ROLE.SECURITY]
+    roles: [ROLE.CHAIRMAN, ROLE.MANAGER,ROLE.SECURITY]
   },
   OwnerComplex: {
     component: OwnerComplex,
@@ -2302,13 +2308,6 @@ const routeMap = {
   SpentVsCollected: {
     component: SpentVsCollected,
     path: '/SpentVsCollected',
-    roles: [ROLE.OWNER, ROLE.OWNER_RESIDENT],
-    exact: true
-  },
-  // Email Alerts
-  EmailAlerts: {
-    component: EmailAlerts,
-    path: '/EmailAlerts',
     roles: [ROLE.OWNER, ROLE.OWNER_RESIDENT],
     exact: true
   },

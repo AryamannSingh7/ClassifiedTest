@@ -120,18 +120,18 @@ class PollsSurvey extends PollsSurveyController {
                               onClick={() => this.handlePollSurveyNavigation(item?.attributes?.flag,item.attributes.type_name,item.id)}
                           >
                               <Box style={{minWidth:"100%"}}>
-                                  <Box marginTop='1rem' style={{textTransform:"capitalize"}}><p>{item.attributes.type_name}</p></Box>
-                                  <Box marginTop='1rem'><h4>{item.attributes.title}</h4></Box>
-                                  <Box marginTop='0.4rem' style={{width:"95%",overflow:"hidden"}}>
+                                  <Box style={{textTransform:"capitalize"}}><p>{item.attributes.type_name}</p></Box>
+                                  <Box marginTop='0.8rem'><h4>{item.attributes.title}</h4></Box>
+                                  <Box marginTop='0.8rem' style={{width:"95%",overflow:"hidden",color:"#666666"}}>
                                       <p
                                           dangerouslySetInnerHTML={
                                               { __html: DOMPurify.sanitize(item.attributes.description) }
                                           }
                                       ></p>
                                   </Box>
-                                  <Box marginTop='1rem'><p style={{color:"black"}}>Building: {item.attributes.building_name}</p></Box>
-                                  <Divider style={{marginTop:'0.6rem', marginRight:10}}/>
-                                  <Box display='flex' justifyContent='space-between' marginTop='0.6rem'>
+                                  <Box marginTop='0.8rem'><Typography style={{color:"black"}}>Building : {item.attributes.building_name}</Typography></Box>
+                                  <Divider style={{marginTop:'0.6rem', marginRight:2}}/>
+                                  <Box display='flex' justifyContent='space-between' marginTop='1rem'>
                                       <Box className="EventsIconsDataBox">
                                           <DateRangeOutlinedIcon style={{color: "#054c94"}}/>
                                           <p style={{color:"black"}}>{item.attributes.end_date}</p>
@@ -141,15 +141,15 @@ class PollsSurvey extends PollsSurveyController {
                                               <Box className="EventsIconsText">
                                                   {
                                                       item.attributes.status == "ongoing" &&
-                                                      <Typography variant="body2" className={"statusOngoingRed"}>{item.attributes.status}</Typography>
+                                                      <Typography variant="body2" className={"statusOngoingRed"} style={{padding:"2px 15px"}}>{item.attributes.status}</Typography>
                                                   }
                                                   {
                                                       item.attributes.status == "completed" &&
-                                                      <Typography variant="body2" className={"statusOngoingGreen"}>{item.attributes.status}</Typography>
+                                                      <Typography variant="body2" className={"statusOngoingGreen"} style={{padding:"2px 15px"}}>{item.attributes.status}</Typography>
                                                   }
                                               </Box> :
                                               <Box className="EventsIconsText">
-                                                  <Typography variant="body2" className={"statusOngoingGreen"}>Submitted</Typography>
+                                                  <Typography variant="body2" className={"statusOngoingGreen"} style={{padding:"2px 15px"}}>Submitted</Typography>
                                               </Box>
                                       }
                                   </Box>
@@ -180,9 +180,9 @@ class PollsSurvey extends PollsSurveyController {
                           onClick={() => this.handlePollSurveyNavigationOld(items?.attributes?.flag,items.attributes.type_name,items.id)}
                         >
                           <Box style={{minWidth:"100%"}}>
-                            <Box marginTop='1rem' style={{textTransform:"capitalize"}}><p>{items.attributes.type_name}</p></Box>
-                            <Box marginTop='1rem' style={{width:"95%",overflow:"hidden"}}><h4>{items.attributes.title}</h4></Box>
-                            <Box marginTop='0.4rem' >
+                            <Box style={{textTransform:"capitalize"}}><p>{items.attributes.type_name}</p></Box>
+                            <Box marginTop='0.8rem' style={{width:"95%",overflow:"hidden"}}><h4>{items.attributes.title}</h4></Box>
+                            <Box marginTop='0.8rem' style={{width:"95%",overflow:"hidden",color:"#666666"}}>
                               <p
                                   dangerouslySetInnerHTML={
                                     { __html: DOMPurify.sanitize(items.attributes.description) }
@@ -191,8 +191,8 @@ class PollsSurvey extends PollsSurveyController {
                               >
                               </p>
                             </Box>
-                            <Box marginTop='1rem'><p style={{color:"black"}}>Building: {items.attributes.building_name}</p></Box>
-                            <Divider style={{marginTop:'0.6rem', marginRight:10}}/>
+                            <Box marginTop='1rem'><Typography style={{color:"black"}}>Building : {items.attributes.building_name}</Typography></Box>
+                            <Divider style={{marginTop:'0.6rem', marginRight:2}}/>
                             <Box display='flex' justifyContent='space-between' marginTop='0.6rem'>
                                 <Box className="EventsIconsDataBox">
                                     <DateRangeOutlinedIcon style={{color: "#054c94"}}/>
@@ -203,15 +203,15 @@ class PollsSurvey extends PollsSurveyController {
                                         <Box className="EventsIconsText">
                                             {
                                                 items.attributes.status == "ongoing" &&
-                                                <Typography variant="body2" className={"statusOngoingRed"}>{items.attributes.status}</Typography>
+                                                <Typography variant="body2" className={"statusOngoingRed"} style={{padding:"2px 15px"}}>{items.attributes.status}</Typography>
                                             }
                                             {
                                                 items.attributes.status == "completed" &&
-                                                <Typography variant="body2" className={"statusOngoingGreen"}>{items.attributes.status}</Typography>
+                                                <Typography variant="body2" className={"statusOngoingGreen"} style={{padding:"2px 15px"}}>{items.attributes.status}</Typography>
                                             }
                                         </Box> :
                                         <Box className="EventsIconsText">
-                                            <Typography variant="body2" className={"statusOngoingGreen"}>Submitted</Typography>
+                                            <Typography variant="body2" className={"statusOngoingGreen"} style={{padding:"2px 15px"}}>Submitted</Typography>
                                         </Box>
                                 }
                             </Box>

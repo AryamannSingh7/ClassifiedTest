@@ -80,6 +80,7 @@
     "react-select": "^3.0.8",
     "react-share": "^4.4.0",
     "react-slick": "^0.29.0",
+    "react-tooltip": "^5.7.5",
     "recompose": "file:./packages/blocks/core/node_modules/recompose",
     "sass": "^1.53.0",
     "yup": "file:./packages/blocks/core/node_modules/yup"

@@ -10,11 +10,11 @@ import {Editor, EditorState} from 'draft-js';
 import 'draft-js/dist/Draft.css';
 
 import {
-  Container,
-  Typography,
-  TextField,
-  Button,
-  Link,
+    Container,
+    Typography,
+    TextField,
+    Button,
+    Link, withStyles,
 } from "@material-ui/core";
 import Box from '@material-ui/core/Box';
 import Grid from '@material-ui/core/Grid';
@@ -69,11 +69,9 @@ class PollPreview extends PollingController {
                             <Typography variant="h5" className="subHeading">{t("Poll Preview")}</Typography>
                         </Box>
                     </Box>
-
-                    <Grid container spacing={4} style={{marginTop: 15}}>
-
+                    <Grid container spacing={4} style={{marginTop: 1}}>
                         <Grid item sm={12} md={12} xs={12}>
-                            <Box className="createPSCards">
+                            <Box className="createPSCards" style={{backgroundColor:"#fcfcfc"}}>
                                 <Box className="PreviewName">
                                     <Box className="PollName">
                                         <Typography className="subHeading">{t("Poll Name:")} </Typography>
@@ -92,19 +90,19 @@ class PollPreview extends PollingController {
                                 
                                 <Box className="DateSectionPreviewpoll">
                                     <Box className="datebox">
-                                        <CalendarTodayOutlinedIcon style={{color:"grey", fontSize:22}}/>
+                                        <CalendarTodayOutlinedIcon style={{color:"grey", fontSize:"25px"}}/>
                                         <Box>
-                                            <Typography className="PollNamedate">{t("Start Date")}</Typography>
-                                            <Typography className="PollNameText">
+                                            <Typography className="PollNamedate" style={{fontSize:"12px"}}>{t("Start Date")}</Typography>
+                                            <Typography className="PollNameText" style={{fontSize:"15px"}}>
                                                 {/* June 7, 2022 */}
                                                 {moment(this.state.PreViewPollData?.PollFormData?.startDate).format("MMMM DD, YYYY")}</Typography>
                                         </Box>    
                                     </Box>
                                     <Box className="datebox">
-                                        <CalendarTodayOutlinedIcon style={{color:"grey", fontSize:22}}/>
+                                        <CalendarTodayOutlinedIcon style={{color:"grey", fontSize:"25px"}}/>
                                         <Box>
-                                            <Typography className="PollNamedate">{t("End Date")}</Typography>
-                                            <Typography className="PollNameText">
+                                            <Typography className="PollNamedate" style={{fontSize:"12px"}}>{t("End Date")}</Typography>
+                                            <Typography className="PollNameText" style={{fontSize:"15px"}}>
                                                 {/* June 7, 2022 */}
                                             {moment(this.state.PreViewPollData?.PollFormData?.endDate).format("MMMM DD, YYYY")}</Typography>
                                         </Box>    
@@ -130,14 +128,16 @@ class PollPreview extends PollingController {
                         </Grid>
 
                         <Grid item sm={12} md={12} xs={12}>
-                            <Box className="createPSCards">
-                                <Typography className="PollNameText">
+                            <Box className="createPSCards" style={{backgroundColor:"#fcfcfc"}}>
+                                <Typography className="PollNameText" style={{fontSize: "20px",marginBottom:"15px"}}>
                                     {this.state.PreViewPollData?.PollFormData?.question}
                                 </Typography>
 
                                 {this.state.PreViewPollData?.PollOptions?.map((values:any) => {
                                     return(
-                                        <TextField  value={values.text} name={values.text} variant="outlined" fullWidth style={{marginTop:20}}/>
+                                        <Box style={{width:"450px",height:"60px",display:'flex',alignItems:'center',border:"1px solid #f0f0f0",backgroundColor:"white",marginBottom:"15px"}}>
+                                            <Typography style={{fontWeight:"bold",fontSize:"18px",marginLeft:"15px"}}>{values.text}</Typography>
+                                        </Box>
                                     )
                                 })}
 
@@ -147,16 +147,16 @@ class PollPreview extends PollingController {
 
                     </Grid>
 
-                    <Box className="BottomButton">
+                    <Box className="BottomButton" style={{marginTop:"45px"}}>
                         <Link onClick={() => this.props.history.push("/CreatePolls")}>
-                            <Button variant="contained" color="primary">{t("EDIT")}</Button>
+                            <CancelButtonPoll variant="contained" color="primary">{t("EDIT")}</CancelButtonPoll>
                         </Link>
-                        <Button variant="outlined" color="primary" 
+                        <PublishButtonPoll variant="outlined" color="primary"
                             // onClick={this.handlePollDataSubmit}
                         onClick={async (event) => {
                             await this.handlePollDataSubmit(event,true)
                         }}
-                        >{t("PUBLISH")}</Button>
+                        >{t("PUBLISH")}</PublishButtonPoll>
                     </Box>
                 </Container>
             </Grid>
@@ -170,11 +170,29 @@ class PollPreview extends PollingController {
 
 export default withTranslation()(withRouter(PollPreview));
 
-const dashBoard = {
-    SideBar: {
-        background: "#f9f6f6",
-        position:"relative",
-        paddingBottom: 150,
+const CancelButtonPoll = withStyles((theme) => ({
+    root: {
+        color: "white",
+        backgroundColor: "#2b6fed",
+        borderRadius:"8px",
+        fontWeight: "bold",
+        height: "55px",
+        width: "140px",
+        "&:hover": {
+            backgroundColor: "#2b6fef",
+        },
     },
-}
+}))(Button);
+
+const PublishButtonPoll = withStyles((theme) => ({
+    root: {
+        color: "#2b6fed",
+        backgroundColor: "white",
+        borderRadius:"8px",
+        fontWeight: "bold",
+        height: "55px",
+        width: "140px",
+        border: "#2B6FED 1px solid",
+    },
+}))(Button);
 // Customizable Area End

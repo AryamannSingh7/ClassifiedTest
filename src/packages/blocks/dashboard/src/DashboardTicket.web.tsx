@@ -22,10 +22,10 @@ import {
   DialogActions,
   DialogContent,
   Input,
+  Link,
 } from "@material-ui/core";
 import Box from "@material-ui/core/Box";
 import Grid from "@material-ui/core/Grid";
-import NativeSelect from "@material-ui/core/NativeSelect";
 import Pagination from "@material-ui/lab/Pagination";
 import SearchOutlinedIcon from "@material-ui/icons/SearchOutlined";
 import DashboardTicketController, { Props } from "./DashboardTicketController.web";
@@ -38,30 +38,36 @@ import { ROLE } from "../../../framework/src/Enum";
 import ChairmanNumberCard from "../../../components/src/DashboardCard/ChairmanNumberCard.web";
 import MuiDialogTitle from "@material-ui/core/DialogTitle";
 import CloseIcon from "@material-ui/icons/Close";
-
-function createData(name: any, building: any, unit: any, ticket: any) {
-  return { name, building, unit, ticket };
-}
-
-const rows = [
-  createData("Frozen yoghurt", "Building 1", 159, 6),
-  createData("Ice cream sandwich", "Building 1", 237, 9),
-  createData("Eclair", "Building 1", 262, 16),
-  createData("Cupcake", "Building 1", 305, 67),
-  createData("Gingerbread", "Building 1", 356, 3),
-];
+import Loader from "../../../components/src/Loader.web";
 
 class DashboardTicket extends DashboardTicketController {
   constructor(props: Props) {
     super(props);
   }
 
+  async componentDidMount(): Promise<void> {
+    this.getTicketDashboardYearList();
+    this.getAllBuildingList();
+    this.getTicketByResident();
+    this.GetTicketCardData();
+  }
+
+  async componentDidUpdate(prevProps: any, prevState: any): Promise<void> {
+    if (prevState.searchResident !== this.state.searchResident) {
+      await this.getTicketByResident();
+    }
+  }
+
   render() {
     const { t, classes }: any = this.props;
     const userType = localStorage.getItem("userType");
 
+    console.log(this.state);
+
     return (
       <>
+        <Loader loading={this.state.loading} />
+
         <Box className={classes.generalDashboard}>
           {/* Dashboard Header -- */}
           <DashboardHeader {...this.props} />
@@ -86,19 +92,36 @@ class DashboardTicket extends DashboardTicketController {
                     <Typography variant="h5">{t("Ticket Dashboard")}</Typography>
                     <Box className="select-box">
                       {userType === ROLE.MANAGER && (
-                        <NativeSelect className="select-year">
-                          <option value={2022}>Building 1</option>
-                          <option value={2021}>Building 2</option>
-                          <option value={2020}>Building 3</option>
-                          <option value={2019}>Building 4</option>
-                        </NativeSelect>
+                        <select
+                          className="select-year"
+                          value={this.state.filterBuilding}
+                          onChange={(e: any) => this.setState({ filterBuilding: e.target.value })}
+                        >
+                          <option value="" disabled>
+                            {t("Select Building")}
+                          </option>
+                          {this.state.buildingList.map((building: any) => {
+                            return (
+                              <option value={building.id} key={building.id}>
+                                {building.attributes.name}
+                              </option>
+                            );
+                          })}
+                        </select>
                       )}
-                      <NativeSelect className="select-year">
-                        <option value={2022}>2022</option>
-                        <option value={2021}>2021</option>
-                        <option value={2020}>2020</option>
-                        <option value={2019}>2019</option>
-                      </NativeSelect>
+                      <select
+                        value={this.state.filterYear}
+                        onChange={(e: any) => this.setState({ filterYear: e.target.value })}
+                        className="select-year"
+                      >
+                        {this.state.yearList.map((year: any) => {
+                          return (
+                            <option value={year} key={year}>
+                              {year}
+                            </option>
+                          );
+                        })}
+                      </select>
                     </Box>
                   </Box>
                 </Box>
@@ -109,20 +132,22 @@ class DashboardTicket extends DashboardTicketController {
                       image={ticketclock}
                       heading={t("Average Resolution Time")}
                       titleOne=""
-                      valueOne="12"
+                      valueOne={this.state.avgResolutionDay + ""}
                       titleTwo={t("days")}
                       valueTwo=""
                     />
                   </Grid>
                   <Grid item sm={4}>
-                    <ChairmanNumberCard
-                      image={ticket}
-                      heading={`${t("Ticket generated in")} 2022`}
-                      titleOne=""
-                      valueOne="12"
-                      titleTwo={t("tickets")}
-                      valueTwo=""
-                    />
+                    <Link href={`/DashboardTicket/Year/${this.state.filterYear}`}>
+                      <ChairmanNumberCard
+                        image={ticket}
+                        heading={`${t("Ticket generated in")} ${this.state.filterYear}`}
+                        titleOne=""
+                        valueOne={this.state.ticketYear + ""}
+                        titleTwo={t("tickets")}
+                        valueTwo=""
+                      />
+                    </Link>
                   </Grid>
                   <Grid item sm={4}>
                     <Card className="dashboard-card-box">
@@ -130,14 +155,16 @@ class DashboardTicket extends DashboardTicketController {
                         <img src={ticket_calendar} alt="image" />
                       </Box>
                       <h4>
-                        {t("Ticket took more than")} X {t("days")}
+                        {t("Ticket took more than")} {this.state.configDays} {t("days")}
                       </h4>
                       <Box className="card-bottom-info configuration-day">
                         <Box className="info-box">
-                          <span>12</span>
+                          <span>{this.state.ticketDays}</span>
                           <p>{t("tickets")}</p>
                         </Box>
-                        <p className="config">{t("Configure Days")}</p>
+                        <p className="config" onClick={() => this.handleConfigModal()}>
+                          {t("Configure Days")}
+                        </p>
                       </Box>
                     </Card>
                   </Grid>
@@ -152,6 +179,8 @@ class DashboardTicket extends DashboardTicketController {
                       <TextField
                         className="search-unit"
                         placeholder={t("Search Resident")}
+                        value={this.state.searchResident}
+                        onChange={(e: any) => this.setState({ searchResident: e.target.value })}
                         InputProps={{
                           startAdornment: (
                             <InputAdornment position="start">
@@ -173,18 +202,18 @@ class DashboardTicket extends DashboardTicketController {
                       <TableHead>
                         <TableRow>
                           <TableCell>{t("Name")}</TableCell>
-                          <TableCell>{t("Buildings")}</TableCell>
+                          {userType === ROLE.MANAGER && <TableCell>{t("Buildings")}</TableCell>}
                           <TableCell>{t("Unit Numbers")}</TableCell>
                           <TableCell>{t("Total Tickets")}</TableCell>
                         </TableRow>
                       </TableHead>
                       <TableBody>
-                        {rows.map((row) => (
-                          <TableRow key={row.name}>
-                            <TableCell>{row.name}</TableCell>
-                            <TableCell>{row.building}</TableCell>
-                            <TableCell>{row.unit}</TableCell>
-                            <TableCell>{row.ticket}</TableCell>
+                        {this.state.ticketList.map((incident: any) => (
+                          <TableRow key={incident.id}>
+                            <TableCell>{incident.attributes.name}</TableCell>
+                            {userType === ROLE.MANAGER && <TableCell>{incident.attributes.unit_number}</TableCell>}
+                            <TableCell>{incident.attributes.unit_number}</TableCell>
+                            <TableCell>{incident.attributes.totle_ticket.count}</TableCell>
                           </TableRow>
                         ))}
                       </TableBody>
@@ -192,9 +221,19 @@ class DashboardTicket extends DashboardTicketController {
                   </TableContainer>
                   <Box className="unit-pagination">
                     <p>
-                      {t("Showing")} <span>1</span> {t("of")} <span>10</span> {t("results")}
+                      {t("Showing")} <span>{this.state.ticketList.length}</span> {t("of")}{" "}
+                      <span>{this.state.pagination ? this.state.pagination.total_count : 0}</span> {t("results")}
                     </p>
-                    <Pagination count={10} variant="outlined" shape="rounded" />
+                    {this.state.pagination && (
+                      <Pagination
+                        onChange={(event: any, value: any) => this.setState({ page: Number(value) })}
+                        count={this.state.pagination.total_pages}
+                        page={this.state.pagination.current_page}
+                        siblingCount={2}
+                        variant="outlined"
+                        shape="rounded"
+                      />
+                    )}
                   </Box>
                 </Box>
               </Container>
@@ -202,23 +241,47 @@ class DashboardTicket extends DashboardTicketController {
           </Box>
         </Box>
 
-        <Dialog fullWidth scroll="paper" open={false} className="add-meeting configuration-dialog">
+        <Dialog
+          className="add-meeting configuration-dialog"
+          fullWidth
+          open={this.state.isConfigModalOpen}
+          scroll="paper"
+          onClose={() => this.handleConfigModal()}
+        >
           <MuiDialogTitle disableTypography className="dialog-heading">
             <Typography variant="h6">{t("Configure Days")}</Typography>
-            <IconButton>
+            <IconButton onClick={() => this.handleConfigModal()}>
               <CloseIcon />
             </IconButton>
           </MuiDialogTitle>
           <Divider />
           <DialogContent>
             <Box className="config-dialog-box">
-              Tickets took more than <Input placeholder="Enter Days" /> days
+              {t("Tickets took more than")}{" "}
+              <Input
+                placeholder={t("Enter Days")}
+                value={this.state.modalConfigDays}
+                onChange={(e: any) => this.setState({ modalConfigDays: e.target.value })}
+              />{" "}
+              {t("days")}
             </Box>
           </DialogContent>
           <Divider />
           <DialogActions className="dialog-button-group">
-            <Button className="cancel-button">{t("Cancel")}</Button>
-            <Button className="add-button">{t("Save")}</Button>
+            <Button className="cancel-button" onClick={() => this.handleConfigModal()}>
+              {t("Cancel")}
+            </Button>
+            <Button
+              className="add-button"
+              onClick={() =>
+                this.setState({ loading: true }, () => {
+                  this.handleChangeConfig();
+                  this.handleConfigModal();
+                })
+              }
+            >
+              {t("Save")}
+            </Button>
           </DialogActions>
         </Dialog>
       </>

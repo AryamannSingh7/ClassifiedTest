@@ -82,7 +82,7 @@ class ExpenseDetails extends VisitorDetailsController {
                                               
                                                 <Box style={{display:"flex",margin:"10px 0px"}}>
                                                     <Typography style={{marginRight:"5px"}}>{t("Amount")} : </Typography>
-                                                    <Typography style={{fontWeight:"bold"}}> SR {this.state.expenseDetails?.Amount?.toLocaleString()}</Typography>
+                                                    <Typography style={{fontWeight:"bold"}}> {this.state.expenseDetails?.currency?.currency} {this.state.expenseDetails?.Amount?.toLocaleString()}</Typography>
                                                 </Box>
                                                 <Divider/>
                                                 <Box style={{display:"flex",margin:"10px 0px"}}>
@@ -95,7 +95,7 @@ class ExpenseDetails extends VisitorDetailsController {
                                                     <Typography style={{marginRight:"5px"}}>{t("Description")} : </Typography>
                                                     <Typography style={{fontWeight:"bold"}}>{this.state?.expenseDetails?.description}</Typography>
                                                 </Box>
-                                                <Box onClick={()=> this.manageExpenseDetailsDownload(this.state.expenseDetails?.pdf?.url,this.state.expenseDetails?.Expence_Number)} style={{margin:"15px 0px",width:'100%',height:"70px",border:"1px solid #e4e4e4",borderRadius:"10px",display:'flex',alignItems:"center",justifyContent:"space-between"}}>
+                                                <Box onClick={()=> this.manageExpenseDetailsDownload(this.state.expenseDetails?.Expence_Number)} style={{margin:"15px 0px",width:'100%',height:"70px",border:"1px solid #e4e4e4",borderRadius:"10px",display:'flex',alignItems:"center",justifyContent:"space-between",cursor:"pointer"}}>
                                                     <Box style={{display: 'flex',alignItems:'center',marginLeft:"20px"}}>
                                                         <img src={pdfLogo} />
                                                         <Typography style={{marginLeft:"20px"}}>{this.state.expenseDetails?.pdf?.url?.split("/")[6]}</Typography>

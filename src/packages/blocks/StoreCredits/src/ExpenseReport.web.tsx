@@ -37,6 +37,7 @@ import AlertError from "../../../components/src/AlertError.web";
 import AlertSuccess from "../../../components/src/AlertSuccess.web";
 import PaginationModule from "./PaginationModule.web";
 import {withRouter} from "react-router-dom"
+
 class ExpenseReport extends ExpenseReportController {
   constructor(props: Props) {
     super(props);
@@ -75,7 +76,7 @@ class ExpenseReport extends ExpenseReportController {
                   <Box className="filter">
                     {localStorage.getItem("userType") === ROLE.MANAGER && (
                       <Select displayEmpty value={this.state.filterBuilding} onChange={(e:any)=> this.setState({filterBuilding:e.target.value})} className="select-input">
-                        <MenuItem value="" disabled>
+                        <MenuItem value="">
                           {t("Select Building")}
                         </MenuItem>
                         {
@@ -90,7 +91,7 @@ class ExpenseReport extends ExpenseReportController {
                       </Select>
                     )}
                     <Select displayEmpty className="select-input" value={this.state.filterCategory} onChange={(e:any)=> this.setState({filterCategory:e.target.value})}>
-                      <MenuItem value="" disabled>
+                      <MenuItem value="">
                         {t("Select Category")}
                       </MenuItem>
                       {
@@ -104,7 +105,7 @@ class ExpenseReport extends ExpenseReportController {
                       }
                     </Select>
                     <Select displayEmpty className="select-input" value={this.state.filterYear} onChange={(e:any)=> this.setState({filterYear:e.target.value})}>
-                      <MenuItem value="" disabled>
+                      <MenuItem value="">
                         {t("Select Year")}
                       </MenuItem>
                       <MenuItem value={(new Date().getFullYear()) - 3}>{(new Date().getFullYear()) - 3}</MenuItem>
@@ -120,8 +121,8 @@ class ExpenseReport extends ExpenseReportController {
                     <Box className="sort-by">
                       <select value={this.state.filterShort} onChange={this.handleShorting}>
                         <option value="">Sort By</option>
-                        <option value="Asc">Ascending</option>
-                        <option value="Desc">Descending</option>
+                        <option value="asc">Ascending</option>
+                        <option value="desc">Descending</option>
                       </select>
                     </Box>
                     {localStorage.getItem("userType") === ROLE.MANAGER && (
@@ -163,7 +164,7 @@ class ExpenseReport extends ExpenseReportController {
                                       <TableCell className="ellipse">{item?.attributes?.title}</TableCell>
                                       <TableCell>{item.attributes.Expence_Number}</TableCell>
                                       <TableCell>{item?.attributes?.Expence_Registered_on}</TableCell>
-                                      <TableCell>SR {item?.attributes?.Amount?.toLocaleString()}</TableCell>
+                                      <TableCell>{item?.attributes?.currency?.currency || ""} {item?.attributes?.Amount?.toLocaleString()}</TableCell>
                                       <TableCell>{item?.attributes?.Category}</TableCell>
                                       <TableCell>
                                         <Menu
@@ -174,7 +175,7 @@ class ExpenseReport extends ExpenseReportController {
                                             }
                                         >
                                           <MenuItem onClick={() => this.props.history.push(`/ExpenseReportDetails?id=${item.id}`)} >{t("View")}</MenuItem>
-                                          <MenuItem onClick={()=> this.manageExpenseDownload(item.attributes?.pdf?.url,item.attributes.Expence_Number)}>{t("Download")}</MenuItem>
+                                          <MenuItem onClick={()=> this.manageExpenseDownload(item.id,item.attributes.Expence_Number)}>{t("Download")}</MenuItem>
                                           <MenuItem>{t("Share")}</MenuItem>
                                         </Menu>
                                       </TableCell>

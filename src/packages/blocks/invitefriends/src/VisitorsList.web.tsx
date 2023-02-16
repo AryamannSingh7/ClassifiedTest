@@ -16,6 +16,8 @@ import {
     Button,
     Select,
     MenuItem,
+    InputAdornment,
+    TextField,
     Dialog,
     IconButton,
     DialogContent,
@@ -44,7 +46,7 @@ class VisitorsList extends VisitorsListController {
         // @ts-ignore
         const { classes } = this.props;
         const userType  = localStorage.getItem("selectUserType");
-
+        console.log("date =========>",this.state?.date)
         // @ts-ignore
         const {t} = this.props
         return (
@@ -59,7 +61,7 @@ class VisitorsList extends VisitorsListController {
                         </Grid>
 
                         <Grid item xs={9} md={9} sm={9} style={{ paddingTop: 35 }}>
-                            <Container>
+                            <Container className="commonForm">
                                 <Box className="navigation">
                                     <Box>
                                         <Typography variant="body1">
@@ -75,7 +77,7 @@ class VisitorsList extends VisitorsListController {
                                 </Box>
                                 <Box className="top-bar">
                                     <Box className="filter">
-                                        <Select displayEmpty value={this.state.buildingID} className="select-input" placeholder="Select Building" onChange={(e)=> this.setState({buildingID:e.target.value},()=>this.getUnitList(e.target.value))}>
+                                        <Select displayEmpty value={this.state.buildingID} className="select-input" placeholder="Select Building" onChange={(e)=> this.setState({buildingID:e.target.value},()=>this.getUnitVisitorList(e.target.value))}>
                                             <MenuItem value="" disabled>
                                                 {t("Select Building")}
                                             </MenuItem>
@@ -101,7 +103,36 @@ class VisitorsList extends VisitorsListController {
                                             })
                                             }
                                         </Select>
-                                        <Button onClick={()=> this.getVisitorList(this.state.searchQuery,1)} startIcon={<img src={SearchIconImage} />}>Search</Button>
+                                        <Box className="classifiedFormGroup">
+                                  <Box className="visitorTextfield">  
+                                <TextField  
+                                  label="date" variant="outlined"
+                                  style={{ borderRadius: "8px", border: "1px solid #F0F0F0" ,backgroundColor:"white"}}
+                                  type="date" name="date" 
+                                  format='DD/MM/YYYY'
+                                  value={this.state.date}
+                                  onChange={(e)=> this.setState({date:e.target.value})}
+                                  InputProps={{
+                                    // min: "2019-01-24",
+                                    //@ts-ignore
+                                    max: "5000-05-31",
+                                    startAdornment: (
+                                      <InputAdornment position="start">
+                                        {/* <DateRangeOutlinedIcon /> */}
+                                      </InputAdornment>
+                                    ),
+                                    endAdornment: (
+                                      <InputAdornment position="end">
+                                        {/* <DateRangeOutlinedIcon /> */}
+                                      </InputAdornment>
+                                    ),
+                                  }
+                                  }
+                                />
+                                </Box>  
+                                </Box>  
+                            
+                          <Button onClick={()=> this.getVisitorList(this.state.searchQuery,1)} startIcon={<img src={SearchIconImage} />}>Search</Button>
                                     </Box>
                                 </Box>
                                 <Box className="meeting-table">
@@ -153,14 +184,21 @@ class VisitorsList extends VisitorsListController {
                                         </Table>
                                         <Divider />
                                         <Box style={{width:"100%",height:"70px",display:"flex",alignItems:"center",justifyContent:"space-between"}}>
-                                            <Box style={{display:"flex",marginLeft:"15px"}}>
-                                                <Typography style={{marginRight:"5px"}}>{t("Showing")} </Typography>
-                                                <Typography style={{marginRight:"5px",fontWeight:"bold",color:"#FC8434"}}>{this.state.pagination.total_count < this.state.count ? this.state.pagination.total_count : (this.state.count * this.state.page)} </Typography>
-                                                <Typography style={{marginRight:"5px"}}> {t("of")} </Typography>
-                                                <Typography style={{fontWeight:"bold"}}>{this.state.pagination.total_count} </Typography>
-                                            </Box>
+                                            {
+                                                this.state.visitorList.length > 0 &&
+                                                <Box style={{display:"flex",marginLeft:"15px"}}>
+                                                    <Typography style={{marginRight:"5px"}}>{t("Showing")} </Typography>
+                                                    <Typography style={{marginRight:"5px",fontWeight:"bold",color:"#FC8434"}}>{this.state.pagination?.total_count < this.state.count ? this.state.pagination?.total_count : (this.state?.count * this.state.page)} </Typography>
+                                                    <Typography style={{marginRight:"5px"}}> {t("of")} </Typography>
+                                                    <Typography style={{fontWeight:"bold"}}>{this.state.pagination?.total_count} </Typography>
+                                                </Box>
+                                            }
+                                            {
+                                                this.state.visitorList.length <= 0 &&
+                                                <Box style={{display:"flex",marginLeft:"15px"}} />
+                                            }
                                             <Box style={{marginRight:"10px"}}>
-                                                <Pagination count={this.state.pagination.total_pages} onChange={this.handleVistorPagination} variant="outlined" shape="rounded" />
+                                                <Pagination count={this.state.pagination?.total_pages} onChange={this.handleVistorPagination} variant="outlined" shape="rounded" />
                                             </Box>
                                         </Box>
                                     </Grid>

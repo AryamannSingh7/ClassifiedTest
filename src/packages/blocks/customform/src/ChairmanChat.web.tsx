@@ -56,7 +56,7 @@ import InboxController,{Props} from "./inboxController.web";
 import Loader from "../../../components/src/Loader.web";
 import moment from "moment";
 import AttachFileIcon from '@material-ui/icons/AttachFile';
-
+import GeneralSideBarWeb from "../../dashboard/src/GeneralSideBar.web";
 import '../assets/css/style.scss'
 import { withTranslation } from "react-i18next";
 import AuditorSideBarWeb from "./AuditorSideBar.web";
@@ -203,9 +203,7 @@ const currentAccountId = localStorage.getItem('userId')
           <Box style={{ display: "flex" }}>
             <Grid item xs={3} md={3} sm={3} className="SideBar">
               {/* Chairman Sidebar -- */}
-              {
-                localStorage.getItem('selectUserType') == 'Auditor' ?   <AuditorSideBarWeb {...this.props} /> :    <ChairmanSidebarWeb {...this.props} />
-              }
+              <GeneralSideBarWeb {...this.props}></GeneralSideBarWeb>
             </Grid>
             <Grid item xs={9}>
             <Grid container>
