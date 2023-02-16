@@ -26,7 +26,7 @@ export const BuildingApartmentStyle: any = {
     },
     "& .about-building p": {
       color: "black",
-      fontSize: "18px",
+      fontSize: "16px",
     },
     "& .edit-button": {
       width: "100%",
@@ -300,7 +300,7 @@ export const BuildingApartmentStyle: any = {
       display: "flex",
       justifyContent: "space-between",
       alignItems: "center",
-      marginTop: "20px",
+      marginTop: "30px",
     },
     "& .about-building .bottom-detail p": {
       color: "black",

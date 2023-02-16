@@ -24,12 +24,13 @@ import {
   TextareaAutosize,
   Box,
   Grid,
+  MenuItem
 } from "@material-ui/core";
 import MuiDialogTitle from "@material-ui/core/DialogTitle";
 import CloseIcon from "@material-ui/icons/Close";
 import ScheduledMeetingController, { Props } from "./ScheduledMeetingController.web";
 import { Link } from "react-router-dom";
-import { Menu, MenuItem } from "@szhsin/react-menu";
+import { Menu } from "@szhsin/react-menu";
 import "@szhsin/react-menu/dist/core.css";
 import DashboardHeader from "../../dashboard/src/DashboardHeader.web";
 import ChairmanSidebarWeb from "../../dashboard/src/ChairmanSidebar.web";
