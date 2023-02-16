@@ -78,7 +78,7 @@ class PollsallData extends PollingController {
                             <Link
                             //@ts-ignore 
                             onClick={() => this.props.history.push("/CreatePolls")}>
-                                <Box className="CreatePSsingle">
+                                <Box className="CreatePSsingle" style={{minHeight:"80px",paddingBottom:"52px"}}>
                                     <Box sx={{ml:1, mb:2}}>
                                     <img src={pollandsurvey} alt="pollandsurvey" />
                                     </Box>

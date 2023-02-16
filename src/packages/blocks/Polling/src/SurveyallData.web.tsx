@@ -73,7 +73,7 @@ class PollsallData extends SurveyAllDataController {
                     <Grid container spacing={4} style={{marginTop: 15,marginBottom:20}} className="link-decoration">
                         <Grid item sm={6} md={4} xs={12}>
                             <Link href="/CreateSurveys">
-                                <Box className="CreatePSsingle">
+                                <Box className="CreatePSsingle" style={{minHeight:"80px",paddingBottom:"52px"}}>
                                     <Box sx={{ml:1, mb:2}}>
                                     <img src={pollandsurvey} alt="pollandsurvey" />
                                     </Box>
