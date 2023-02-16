@@ -149,7 +149,7 @@ class Polling extends PollingController {
 
                     <Grid item sm={6} md={4} xs={12}>
                         {/*@ts-ignore*/}
-                        <Box className="Cards" onClick={() => this.props.history.push("/CreateSurveys")}>
+                        <Box className="Cards" onClick={() => this.props.history.push("/SurveyAllData")}>
                             <Box sx={{ml:1, mb:2}} className="CardsIcons">
                             <img src={surveycreate} alt="surveycreate" />
                             </Box>
@@ -321,7 +321,7 @@ class Polling extends PollingController {
                                                     <Typography variant="body2">{data.attributes.start_date} - {data.attributes.end_date} </Typography>
                                                 </Box>
                                                 <Divider style={{marginTop:10, marginRight:10}}/>
-                                                <Box className="EventsIconsData">
+                                                <Box className="EventsIconsData" style={{minHeight:"25px"}}>
                                                     <Box className="EventsIconsDataBox">
                                                         <img src={allUsers}/>
                                                         <Typography variant="body2">{data.attributes.awaited + data.attributes.total_response}</Typography>

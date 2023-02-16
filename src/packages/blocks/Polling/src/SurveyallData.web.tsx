@@ -126,7 +126,7 @@ class PollsallData extends SurveyAllDataController {
                                                 <Typography variant="body2">{data.attributes.start_date} - {data.attributes.end_date} </Typography>
                                             </Box>
                                             <Divider style={{marginTop:10, marginRight:10}}/>
-                                            <Box className="EventsIconsData">
+                                            <Box className="EventsIconsData" style={{minHeight:"25px"}}>
                                                 <Box className="EventsIconsDataBox">
                                                     <img src={allUsers}/>
                                                     <Typography variant="body2">{data.attributes.awaited + data.attributes.total_response}</Typography>

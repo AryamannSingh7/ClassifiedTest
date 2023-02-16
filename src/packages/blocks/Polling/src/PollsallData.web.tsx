@@ -78,7 +78,7 @@ class PollsallData extends PollingController {
                             <Link
                             //@ts-ignore 
                             onClick={() => this.props.history.push("/CreatePolls")}>
-                                <Box className="CreatePSsingle" style={{minHeight:"80px",paddingBottom:"52px"}}>
+                                <Box className="CreatePSsingle" style={{minHeight:"80px",paddingBottom:"55px"}}>
                                     <Box sx={{ml:1, mb:2}}>
                                     <img src={pollandsurvey} alt="pollandsurvey" />
                                     </Box>
@@ -142,7 +142,7 @@ class PollsallData extends PollingController {
                                                 <Typography variant="body2">{data.start_date} - {data.end_date} </Typography>
                                             </Box>
                                             <Divider style={{marginTop:10, marginRight:10}}/>
-                                            <Box className="EventsIconsData">
+                                            <Box className="EventsIconsData" style={{minHeight:"25px"}}>
                                                 <Box className="EventsIconsDataBox">
                                                     <img src={allUsers}/>
                                                     <Typography variant="body2">{data.awaited + data.completed_answers}</Typography>
