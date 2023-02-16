@@ -1,31 +1,26 @@
+// Customizable Area Start
 import { IBlock } from "../../../framework/src/IBlock";
 import { Message } from "../../../framework/src/Message";
-import { BlockComponent } from "../../../framework/src/BlockComponent";
 import MessageEnum, {
   getName,
 } from "../../../framework/src/Messages/MessageEnum";
 import { runEngine } from "../../../framework/src/RunEngine";
 
-// Customizable Area Start
-import {Editor, EditorState} from 'draft-js';
-import { addDays } from 'date-fns'
-import Parser from 'html-react-parser';
-// Customizable Area End
+import {EditorState} from 'draft-js';
+import {BlockComponent} from "../../../framework/src/BlockComponent";
+
 const {baseURL} = require("../../../framework/src/config")
 export const configJSON = require("./config");
 
 export interface Props {
   navigation: any;
   id: string;
-  // Customizable Area Start
-  // Customizable Area End
 }
 
 interface S {
   txtInputValue: string;
   txtSavedValue: string;
   enableField: boolean;
-  // Customizable Area Start
   Year: string;
   selectedDate:any,
   checked: boolean,
@@ -85,13 +80,11 @@ interface S {
   endDate:any;
   endDateError:any;
   descriptionError:any;
-  // Customizable Area End
+
 }
 
 interface SS {
   id: any;
-  // Customizable Area Start
-  // Customizable Area End
 }
 
 export default class PollingController extends BlockComponent<
@@ -99,7 +92,6 @@ export default class PollingController extends BlockComponent<
   S,
   SS
 > {
-  // Customizable Area Start
   getAllPolls:string;
   createPoll:string;
   totalPollsCount: string;
@@ -114,7 +106,7 @@ export default class PollingController extends BlockComponent<
   getLivePollsSurveys: string;
   getOldPollsSurveys:string;
   makeUpdatePollId:string;
-  // Customizable Area End
+
 
   constructor(props: Props) {
     super(props);
@@ -127,15 +119,14 @@ export default class PollingController extends BlockComponent<
       txtInputValue: "",
       txtSavedValue: "A",
       enableField: false,
-      // Customizable Area Start
       Year: 'This Month',
       selectedDate: new Date(),
       checked: false,
       editorState: EditorState.createEmpty(),
-      InitialPollData: { 
+      InitialPollData: {
         title:'',
-        startDate:'', 
-        endDate:'', 
+        startDate:'',
+        endDate:'',
         description:'',
         question:'',
       },
@@ -143,14 +134,14 @@ export default class PollingController extends BlockComponent<
         {text: "",_destroy: "false"},
         {text: "",_destroy: "false"}
       ],
-      PollData: { 
+      PollData: {
         title:'',
-        startDate:'', 
-        endDate:'', 
+        startDate:'',
+        endDate:'',
         description:'',
         question:'',
       },
-      options: [ 
+      options: [
         {text: "",_destroy: "false",error:""},
         {text: "",_destroy: "false",error:""}
       ],
@@ -233,12 +224,11 @@ export default class PollingController extends BlockComponent<
       endDate:"",
       endDateError:"",
       descriptionError:"",
-      // Customizable Area End
+
 
     };
     runEngine.attachBuildingBlock(this as IBlock, this.subScribedMessages);
 
-    // Customizable Area Start
     this.handlePollDataChange = this.handlePollDataChange.bind(this)
     this.handlePollDataSubmit = this.handlePollDataSubmit.bind(this)
     this.handleValidation = this.handleValidation.bind(this)
@@ -250,12 +240,13 @@ export default class PollingController extends BlockComponent<
     this.handleCloseAudienceModal = this.handleCloseAudienceModal.bind(this)
     this.handleOpenAudienceModal = this.handleOpenAudienceModal.bind(this)
     this.selectAudience = this.selectAudience.bind(this)
-    // Customizable Area End
+
   }
 
+
+
   async componentDidMount() {
-    // Customizable Area Start
-    
+
     this.onGetPolls(this.state.Year);
     this.getTotalPollCount();
     this.getTotalSurveyCount();
@@ -263,10 +254,9 @@ export default class PollingController extends BlockComponent<
     this.getRecentSurveys();
     this.apiCallFunction();
 
-    // Customizable Area End
+
 
   }
-    // Customizable Area Start
 
     apiCallFunction = async () =>  {
       this.livePollsSurveysData();
@@ -406,7 +396,7 @@ export default class PollingController extends BlockComponent<
         endPoint: `/society_managements/${societyID}/bx_block_polling/polls/${pollID}/generate_report?search=${search || ""}&page=${page}`,
       });
     }
-    
+
 
     //==============================================
 
@@ -543,7 +533,7 @@ export default class PollingController extends BlockComponent<
     handleTabChange = (event:any, newValue: number) => {
       this.setState({TabValue:newValue});
     };
-    
+
 
     handleQuestionSelect = (event:any) => {
       this.setState({selectQuestion: event.target.value})
@@ -589,7 +579,7 @@ export default class PollingController extends BlockComponent<
       // }
       return isValidate;
     }
-  
+
 
     handlePollDataChange = (event:any) => {
       this.setState({ PollData: {...this.state.PollData, [event.target.name] : event.target.value}})
@@ -828,7 +818,7 @@ export default class PollingController extends BlockComponent<
     addOptionsFields = () => {
       this.setState({options : [...this.state.options, {text: "",_destroy: "false",error:""}]})
     }
-    
+
     onChange = (editorState:any) => {
       this.setState({editorState});
     }
@@ -836,21 +826,47 @@ export default class PollingController extends BlockComponent<
     handleDateChange = (date: Date | null) => {
       this.setState({selectedDate:  date});
     };
-  
+
     handleChange = (event:any) => {
       this.setState({Year: event.target.value});
       this.onGetPolls(event.target.value)
     };
-  
-    
-    // Customizable Area End
+
+
+  manageDownloadPDF = async (path:any,fileName:any) => {
+    const token:any = localStorage.getItem("userToken")
+    const myHeaders = new Headers();
+    myHeaders.append("token",token);
+    let requestOptions:any = {
+      method: 'GET',
+      headers: myHeaders,
+    };
+    const response = await fetch(`${baseURL}/${path}`,requestOptions)
+    const resBlob = await response.blob()
+    const url = window.URL.createObjectURL(
+        new Blob([resBlob]),
+    );
+    const link = document.createElement('a');
+    link.href = url;
+    link.setAttribute(
+        'download',
+        fileName,
+    );
+    // Append to html link element page
+    document.body.appendChild(link);
+    // Start download
+    link.click();
+    // Clean up and remove the link
+    // @ts-ignore
+    link.parentNode.removeChild(link);
+  }
 
 
   //============================= API CALL BLOCK ==========================================================
   apiCall = async (data: any) => {
     const { contentType, method, endPoint, body } = data;
     const token = localStorage.getItem('userToken') ;
-    
+
     const header = {
       "Content-Type": contentType,
       token
@@ -893,9 +909,8 @@ export default class PollingController extends BlockComponent<
       var errorReponse = message.getData(
         getName(MessageEnum.RestAPIResponceErrorMessage)
       );
-    // Customizable Area Start
 
-    
+
     if (responseJson || responseJson?.data) {
       if (apiRequestCallId === this.getAllPolls) {
          this.getPollSuccessResponse(responseJson)
@@ -963,7 +978,7 @@ export default class PollingController extends BlockComponent<
 
       }
     }
-//Error Block    
+//Error Block
     else if (responseJson && responseJson?.error || responseJson?.errors) {
       // if (responseJson?.errors[0]?.token == "Token has Expired" || responseJson?.errors[0]?.token == "Invalid token") {
       //   localStorage.clear();
@@ -973,16 +988,16 @@ export default class PollingController extends BlockComponent<
         this.getPollErrorResponse(responseJson)
        }
        if (apiRequestCallId === this.createPoll) {
-        // console.log('ADD Poll Error Data',responseJson);  
+        // console.log('ADD Poll Error Data',responseJson);
       }
       }
   }
-    
-    // Customizable Area End
+
+
   }
 
 
-  
+
   /// Success Block
 
   handleReportSearch (e:any) {
@@ -1034,9 +1049,10 @@ export default class PollingController extends BlockComponent<
     this.setState({generatePollReport: response})
   }
 
-  handleDownload () {
+  handleDownload = async () => {
     const pollID =  window.location.search ? window.location.search.split("=")[1] : null;
-      window.open(`${baseURL}/society_managements/4/bx_block_polling/polls/${pollID}/download_report.pdf`,'_blank')
+    const societyID = localStorage.getItem("society_id")
+    await this.manageDownloadPDF(`society_managements/${societyID}/bx_block_polling/polls/${pollID}/download_report.pdf`,`PollResponse_${pollID}.pdf`)
   }
 
   handleReportPagination (e:any,newVal:any) {
@@ -1048,9 +1064,9 @@ export default class PollingController extends BlockComponent<
 
 
   // Error Block
-  
+
   getPollErrorResponse = async (response: any) => {
-    
+
   }
 
   validateEndDate = () => {
@@ -1136,3 +1152,5 @@ export default class PollingController extends BlockComponent<
     this.makeUpdatePoll(`/society_managements/${societyID}/bx_block_polling/polls/${surveyID}/poll_preview_update?end_poll=true`)
   }
 }
+
+// Customizable Area End
