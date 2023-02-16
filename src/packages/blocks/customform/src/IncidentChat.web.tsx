@@ -110,12 +110,12 @@ class IncidentChatBox extends InboxController {
             <Box >
 
               <p style={{ fontWeight: 'bold', fontSize: '1.2rem' }}>{item?.attributes?.chatable?.attributes?.incident_title}</p>
-              <p style={{ fontWeight: 'bold', fontSize: '0.8rem', color: 'aqua' }}>
+              <p style={{ fontWeight: 'bold', fontSize: '0.8rem', color: '#cccdcf' }}>
                 ticket ID:{item?.attributes?.chatable?.id}
               </p>
             </Box>
             <Box>
-              <Button variant="contained" className="contain danger"  >{item?.attributes?.chatable?.attributes?.incident_status}</Button>
+              <Button variant="contained" className="contain danger" style={{ textTransform: 'capitalize'}} >{item?.attributes?.chatable?.attributes?.incident_status}</Button>
             </Box>
 
           </Box>
