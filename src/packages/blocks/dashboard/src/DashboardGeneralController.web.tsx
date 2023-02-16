@@ -36,6 +36,8 @@ interface S {
   activeMember: any;
   memberNotLogin: any;
   registeredUser: any;
+  managementFee: any;
+  overdueFee: any;
 
   meetingList: any[];
   facilityList: any[];
@@ -73,9 +75,9 @@ export default class DashboardBudgetController extends BlockComponent<Props, S, 
       activeMember: { count: 0 },
       memberNotLogin: { count: 0 },
       registeredUser: { count: 0 },
+      managementFee: { count: 0 },
+      overdueFee: { count: 0 },
       generalDashboard: {
-        managementFee: null,
-        overdueFee: null,
         collection: null,
       },
       meetingList: [],
@@ -145,10 +147,10 @@ export default class DashboardBudgetController extends BlockComponent<Props, S, 
       this.setState(
         {
           generalDashboard: {
-            managementFee: dashboardInfo.general_dashbord.management_fees_collected,
-            overdueFee: dashboardInfo.general_dashbord.overdue_management_fees,
             collection: null,
           },
+          overdueFee: { count: general_dashboard.overdue_management_fees.count },
+          managementFee: { count: general_dashboard.management_fees_collected.count },
           registeredUser: { count: general_dashboard.Registered_residents_owners.count },
           memberNotLogin: { count: general_dashboard.member_never_looged_in.count },
           activeMember: { count: general_dashboard.active_registered_member.count },

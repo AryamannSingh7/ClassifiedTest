@@ -272,7 +272,7 @@ class OwnerDashboard extends DashboardController {
                     </Slider>
                   </Box>
                   <Grid item xs={12} sm={12} className="title">
-                    <Typography variant="h5">{t("My Real Estate Details")}</Typography>
+                    <Typography variant="h6">{t("My Real Estate Details")}</Typography>
                   </Grid>
                   <Grid item xs={6} sm={6}>
                     <DashboardCard image={DashboardUnit} heading={t("Number Of Units")} title={t("Total")} value="75" />
@@ -326,7 +326,7 @@ class OwnerDashboard extends DashboardController {
                 </Grid>
                 <Grid container spacing={1} style={{ marginTop: 15 }}>
                   <Grid item xs={12} sm={12} className="title">
-                    <Typography variant="h5">{t("Building Categories")}</Typography>
+                    <Typography variant="h6">{t("Building Categories")}</Typography>
                   </Grid>
                   <Grid item xs={6} sm={6}>
                     <Link href="/Tenants">
@@ -417,7 +417,7 @@ class OwnerDashboard extends DashboardController {
                 </Grid>
                 <Grid container spacing={1} style={{ marginTop: 15 }}>
                   <Grid item xs={12} sm={12} className="title">
-                    <Typography variant="h5">{t("Personal Categories")}</Typography>
+                    <Typography variant="h6">{t("Personal Categories")}</Typography>
                   </Grid>
                   <Grid item xs={6} sm={6}>
                     <Link href="/veichleList">

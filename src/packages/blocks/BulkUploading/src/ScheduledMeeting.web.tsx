@@ -11,7 +11,6 @@ import {
   DialogActions,
   IconButton,
   Select,
-  MenuItem,
   Divider,
   Table,
   TableHead,
@@ -25,6 +24,7 @@ import {
   TextareaAutosize,
   Box,
   Grid,
+  MenuItem
 } from "@material-ui/core";
 import MuiDialogTitle from "@material-ui/core/DialogTitle";
 import CloseIcon from "@material-ui/icons/Close";
@@ -43,8 +43,6 @@ import { SearchIconImage, CommentIcon, Dots, GreyCheckIcon, BlueCheckIcon } from
 import { Formik, Form } from "formik";
 import moment from "moment";
 import { withTranslation } from "react-i18next";
-import "../../../web/src/i18n.js";
-import i18next from "i18next";
 import { ROLE } from "../../../framework/src/Enum";
 
 class ScheduledMeeting extends ScheduledMeetingController {
@@ -55,7 +53,6 @@ class ScheduledMeeting extends ScheduledMeetingController {
   async componentDidMount(): Promise<void> {
     await this.getAllMeetings();
     await this.getBuildingsList();
-    // await this.getManagersList();
     await this.getUserList();
     await this.getGroupList();
   }
@@ -485,30 +482,6 @@ class ScheduledMeeting extends ScheduledMeetingController {
                       />
                       {errors.agenda && touched.agenda && <small className="error">{t(errors.agenda)}</small>}
                     </FormControl>
-                    {/* {localStorage.getItem("userType") !== ROLE.MANAGER && (
-                      <FormControl fullWidth>
-                        <Select
-                          displayEmpty
-                          value={values.momWriter}
-                          onChange={handleChange}
-                          onBlur={handleBlur}
-                          name="momWriter"
-                          className="dialog-select-input"
-                        >
-                          <MenuItem value="" disabled>
-                            <em>Designated Meeting of Minutes writer</em>
-                          </MenuItem>
-                          {this.state.managersList.map((manager: any) => {
-                            return (
-                              <MenuItem value={manager.id} key={manager.id}>
-                                {manager.full_name}
-                              </MenuItem>
-                            );
-                          })}
-                        </Select>
-                        {errors.momWriter && touched.momWriter && <small className="error">{errors.momWriter}</small>}
-                      </FormControl>
-                    )} */}
                     {/* Create Audience */}
                     <FormControl fullWidth>
                       <Box className="create-audience">
@@ -755,30 +728,6 @@ class ScheduledMeeting extends ScheduledMeetingController {
                       />
                       {errors.agenda && touched.agenda && <small className="error">{t(errors.agenda)}</small>}
                     </FormControl>
-                    {/* {localStorage.getItem("userType") !== ROLE.MANAGER && (
-                      <FormControl fullWidth>
-                        <Select
-                          displayEmpty
-                          value={values.momWriter}
-                          onChange={handleChange}
-                          onBlur={handleBlur}
-                          name="momWriter"
-                          className="dialog-select-input"
-                        >
-                          <MenuItem value="" disabled>
-                            <em>Designated Meeting of Minutes writer</em>
-                          </MenuItem>
-                          {this.state.managersList.map((manager: any) => {
-                            return (
-                              <MenuItem value={manager.id} key={manager.id}>
-                                {manager.full_name}
-                              </MenuItem>
-                            );
-                          })}
-                        </Select>
-                        {errors.momWriter && touched.momWriter && <small className="error">{errors.momWriter}</small>}
-                      </FormControl>
-                    )} */}
                     <FormControl fullWidth>
                       <Select
                         value={values.status}

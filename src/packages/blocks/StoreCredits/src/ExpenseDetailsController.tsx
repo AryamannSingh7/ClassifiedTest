@@ -91,8 +91,10 @@ export default class VisitorDetailsController extends CommonApiCallForBlockCompo
     }
   }
 
-  manageExpenseDetailsDownload = (path:any,name:any) => {
-    this.downloadPdf(`${path}`,`ExpenseAttachment-${name}.pdf`)
+  manageExpenseDetailsDownload = (name:any) => {
+    const societyID = localStorage.getItem("society_id")
+    const expenseId =  window.location.search ? window.location.search.split("=")[1] : null;
+    this.downloadPdf(`/society_managements/${societyID}/bx_block_report/expence_reports/${expenseId}/expence_download_pdf`,`ExpenseAttachment-${name}.pdf`)
   }
 }
 

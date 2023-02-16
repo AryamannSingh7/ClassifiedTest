@@ -30,8 +30,10 @@ export const DashboardStyleWeb: any = {
     "& .dashboard .title": {
       paddingBottom: "5px",
     },
-    "& .dashboard .title h5": {
+    "& .dashboard .title h6": {
       fontWeight: "600",
+      fontSize: "20px",
+      lineHeight: "22px",
     },
     "& .right-image": {
       padding: "25px 60px",
@@ -54,6 +56,7 @@ export const DashboardStyleWeb: any = {
     "& .MuiCard-root h4": {
       marginBottom: "20px",
       textTransform: "capitalize",
+      fontSize: "18px",
     },
     "& .MuiCard-root .state p": {
       marginBottom: "5px",
@@ -182,27 +185,13 @@ export const DashboardStyleWeb: any = {
       background: "#fff",
       border: "1px solid lightgrey",
       borderRadius: 5,
-      padding: "2px 12px",
-      "& select": {
-        background: "#fff !important",
-      },
+      padding: "10px 12px",
+      fontSize: "16px",
     },
     "& .select-box": {
       display: "flex",
       alignItems: "center",
       gap: "14px",
-    },
-    "& .select-year:before": {
-      content: "",
-      border: 0,
-      outline: "none",
-      position: "unset",
-    },
-    "& .select-year:after": {
-      content: "",
-      border: 0,
-      outline: "none",
-      position: "unset",
     },
     "& .action-filter-box": {
       display: "flex",
@@ -274,6 +263,12 @@ export const DashboardStyleWeb: any = {
           height: "28px",
         },
       },
+      "& .active-register-member-tooltip": {
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "flex-start",
+        gap: "8px",
+      },
       "& h4": {
         fontWeight: "600",
         fontSize: "17px",
@@ -296,6 +291,7 @@ export const DashboardStyleWeb: any = {
     },
     "& a": {
       textDecoration: "none !important",
+      color: "black",
     },
     "& .configuration-day": {
       display: "flex",
