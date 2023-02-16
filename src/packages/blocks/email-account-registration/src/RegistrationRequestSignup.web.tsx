@@ -35,7 +35,7 @@ class RegistrationRequestSignup extends EmailAccountRegistrationController {
     //console.log("getRegistrationRequest===================>",building_name ,apartment_name);
     return (
       <>
-        <Box className="login-wrapper reg-wrapper">
+        <Box className="login-wrapper reg-wrapper classWhite" >
           <Box display={{ xs: 'flex', md: 'none' }} className="backIcon" onClick={() => window.history.back()}><KeyboardBackspaceIcon /></Box>
           <Grid container spacing={2} className="auth-container">
             <Grid item xs={12} md={7} className="auth-cols">
@@ -46,7 +46,7 @@ class RegistrationRequestSignup extends EmailAccountRegistrationController {
                     <h4>Building Name</h4>
                   </Link>
                 </Box>
-                <Box className="main-content-block">
+                <Box className="main-content-block" style={{justifyContent:"center",alignItems:"center",height:"80vh"}}>
                   <Box className="reg-content-block">
                     <Box className="header-block chairmanHeaderBlock">
                       {/* <img src={Tenant_Logo} className="tenant-logo" alt="Tenant Logo" /> */}

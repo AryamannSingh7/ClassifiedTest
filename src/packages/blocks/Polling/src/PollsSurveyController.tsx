@@ -471,10 +471,10 @@ export default class PollingController extends BlockComponent<
       }
      }
      if(apiRequestCallId === this.getLivePollsSurveys){
-       this.setState({livePollsData: responseJson.polls_survey.data})
+       this.setState({livePollsData: responseJson?.polls_survey?.data})
      }
       if(apiRequestCallId === this.getOldPollsSurveys){
-        this.setState({oldPollsData: responseJson.polls_survey.data})
+        this.setState({oldPollsData: responseJson?.polls_survey?.data})
       }
     }
 //Error Block    
