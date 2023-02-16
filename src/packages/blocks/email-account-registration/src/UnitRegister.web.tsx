@@ -72,15 +72,15 @@ class RegisterUnit extends EmailAccountRegistrationController {
               marginTop='1rem'
               style={{marginBottom:'2rem'}}
             >
-                <Box style={{width: "60px", height: "50px",display:"flex",alignItems:"center",justifyContent:"center"}}>
+                <Box style={{width: "50px", height: "50px",display:"flex",alignItems:"center",justifyContent:"center"}}>
                     <img src={Linkage} />
                 </Box>
-                <Box className="middle-section">
-                      <label for="radCreateMode" className={"title" + (this.state.unitRegisterType == 'Linkage' ? ' active-type' : '')}  style={{ padding: "20px 20px 0px 0px",color:"#939292" }}>
+                <Box className="middle-section" style={{display:"flex",flexDirection:"column",marginBottom:"0px"}}>
+                      <label for="radCreateMode" className={"title" + (this.state.unitRegisterType == 'Linkage' ? ' active-type' : '')}  style={{ padding: "0px",color:"#939292",marginBottom:"0px"}}>
                   Linkage
                       </label>
                       <br/>
-                      <label for="radCreateMode"  className="para" style={this.state.unitRegisterType == "Linkage" ? {color:"#181d25"} :{color:"#939292"}}>
+                      <label for="radCreateMode"  className="para" style={this.state.unitRegisterType == "Linkage" ? {color:"#181d25",marginTop:"-12px"} :{color:"#939292",marginTop:"-12px"}}>
                   Select this option if the building manager has requested you to register the unit, or you are aware that Tenant International ® platform is used in the building
                       </label>
                 </Box>
@@ -103,14 +103,14 @@ class RegisterUnit extends EmailAccountRegistrationController {
               marginTop='1rem'
               style={{marginBottom:'1rem'}}
             >
-              <Box style={{width: "60px", height: "50px",display:"flex",alignItems:"center",justifyContent:"center"}}>
+              <Box style={{width: "50px", height: "50px",display:"flex",alignItems:"center",justifyContent:"center"}}>
                 <img src={manual} />
               </Box>
-              <Box className="middle-section">
-                      <label for="radCreateMode2" className={"title" + (this.state.unitRegisterType == 'Manual' ? ' active-type' : '')} style={{padding:'20px 20px 0px 0px',color:"#939292"}}>
+              <Box className="middle-section" style={{display:"flex",flexDirection:"column",marginBottom:"0px"}}>
+                      <label for="radCreateMode2" className={"title" + (this.state.unitRegisterType == 'Manual' ? ' active-type' : '')}  style={{ padding: "0px",color:"#939292",marginBottom:"0px"}}>
                   Manual
                       </label><br/>
-                      <label for="radCreateMode2" className="para" style={this.state.unitRegisterType == "Manual" ? {color:"#181d25"} :{color:"#939292"}}>
+                      <label for="radCreateMode2" className="para" style={this.state.unitRegisterType == "Manual" ? {color:"#181d25",marginTop:"-12px"} :{color:"#939292",marginTop:"-12px"}}>
                   Select this option if the unit is in a building not managed by "Tenant International ®" platform
                       </label>
               </Box>

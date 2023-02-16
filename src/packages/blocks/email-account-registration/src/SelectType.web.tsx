@@ -59,15 +59,15 @@ class SelectType extends EmailAccountRegistrationController {
                     bgcolor="white"
                     marginTop="1rem"
                   >
-                    <Box style={{width: "60px", height: "50px",display:"flex",alignItems:"center",justifyContent:"center"}}>
+                    <Box style={{width: "50px", height: "50px",display:"flex",alignItems:"center",justifyContent:"center"}}>
                       <img src={resident_owner}/>
                     </Box>
-                    <Box className={"middle-section"}>
+                    <Box className={"middle-section"} style={{display:"flex",flexDirection:"column",marginBottom:"0px"}}>
                       <label
                         //@ts-ignore
                         for="radCreateMode"
                         className={"title" + (this.state.userType == "Owner Resident" ? " active-type" : "")}
-                        style={{ padding: "20px 20px 0px 0px",color:"#939292" }}
+                        style={{ padding: "0px",color:"#939292",marginBottom:"0px"}}
                       >
                         Resident Owner
                       </label>
@@ -76,7 +76,7 @@ class SelectType extends EmailAccountRegistrationController {
                         className={"para" + (this.state.userType == "Owner Resident" ? " active-para" : "")}
                         //@ts-ignore
                         for="radCreateMode"
-                        style={this.state.userType == "Owner Resident" ? {color:"#181d25"} :{color:"#939292"}}
+                        style={this.state.userType == "Owner Resident" ? {color:"#181d25",marginTop:"-12px"} :{color:"#939292",marginTop:"-12px"}}
                       >
                         I am the owner of the unit and i am living in it
                       </label>
@@ -98,15 +98,15 @@ class SelectType extends EmailAccountRegistrationController {
                     bgcolor="white"
                     marginTop="1rem"
                   >
-                    <Box style={{width: "60px", height: "50px",display:"flex",alignItems:"center",justifyContent:"center"}}>
+                    <Box style={{width: "50px", height: "50px",display:"flex",alignItems:"center",justifyContent:"center"}}>
                       <img src={tenet} />
                     </Box>
-                    <Box className="middle-section">
+                    <Box className="middle-section" style={{display:"flex",flexDirection:"column",marginBottom:"0px"}}>
                       <label
                         //@ts-ignore
                         for="radCreateMode2"
                         className={"title" + (this.state.userType == "Tenant" ? " active-type" : "")}
-                        style={{ padding: "20px 20px 0px 0px",color:"#939292" }}
+                        style={{ padding: "0px",color:"#939292",marginBottom:"0px"}}
                       >
                         Tenant
                       </label>
@@ -115,7 +115,7 @@ class SelectType extends EmailAccountRegistrationController {
                         className={"para" + (this.state.userType == "Tenant" ? " active-para" : "")}
                         //@ts-ignore
                         for="radCreateMode2"
-                        style={this.state.userType == "Tenant" ? {color:"#181d25"} :{color:"#939292"}}
+                        style={this.state.userType == "Tenant" ? {color:"#181d25",marginTop:"-12px"} :{color:"#939292",marginTop:"-12px"}}
                       >
                         I am registering as somone who rented a unit
                       </label>
@@ -137,15 +137,15 @@ class SelectType extends EmailAccountRegistrationController {
                     bgcolor="white"
                     marginTop="1rem"
                   >
-                    <Box style={{width: "60px", height: "50px",display:"flex",alignItems:"center",justifyContent:"center"}}>
+                    <Box style={{width: "50px", height: "50px",display:"flex",alignItems:"center",justifyContent:"center"}}>
                       <img src={owner} />
                     </Box>
-                    <Box className="middle-section">
+                    <Box className="middle-section" style={{display:"flex",flexDirection:"column",marginBottom:"0px"}}>
                       <label
                         //@ts-ignore
                         for="radCreateMode5"
                         className={"title" + (this.state.userType == "Owner" ? " active-type" : "")}
-                        style={{ padding: "20px 20px 0px 0px",color:"#939292" }}
+                        style={{ padding: "0px",color:"#939292",marginBottom:"0px"}}
                       >
                         Owner
                       </label>
@@ -154,7 +154,7 @@ class SelectType extends EmailAccountRegistrationController {
                         className={"para" + (this.state.userType == "Owner" ? " active-para" : "")}
                         //@ts-ignore
                         for="radCreateMode5"
-                        style={this.state.userType == "Owner" ? {color:"#181d25"} :{color:"#939292"}}
+                        style={this.state.userType == "Owner" ? {color:"#181d25",marginTop:"-12px"} :{color:"#939292",marginTop:"-12px"}}
                       >
                         I am the owner of the unit, but I am not living inside it
                       </label>
@@ -176,15 +176,15 @@ class SelectType extends EmailAccountRegistrationController {
                     bgcolor="white"
                     marginTop="1rem"
                   >
-                    <Box style={{width: "60px", height: "50px",display:"flex",alignItems:"center",justifyContent:"center"}}>
+                    <Box style={{width: "50px", height: "50px",display:"flex",alignItems:"center",justifyContent:"center"}}>
                       <img src={manager} />
                     </Box>
-                    <Box className="middle-section">
+                    <Box className="middle-section" style={{display:"flex",flexDirection:"column",marginBottom:"0px"}}>
                       <label
                         //@ts-ignore
                         for="radCreateMode3"
                         className={"title" + (this.state.userType == "Property Manager" ? " active-type" : "")}
-                        style={{ padding: "20px 20px 0px 0px",color:"#939292" }}
+                        style={{ padding: "0px",color:"#939292",marginBottom:"0px"}}
                       >
                         Property Manager
                       </label>
@@ -193,7 +193,7 @@ class SelectType extends EmailAccountRegistrationController {
                         //@ts-ignore
                         for="radCreateMode3"
                         className={"para" + (this.state.userType == "Property Manager" ? " active-para" : "")}
-                        style={this.state.userType == "Property Manager" ? {color:"#181d25"} :{color:"#939292"}}
+                        style={this.state.userType == "Property Manager" ? {color:"#181d25",marginTop:"-12px"} :{color:"#939292",marginTop:"-12px"}}
                       >
                         I am managing a property on behalf of an owner
                       </label>
@@ -223,7 +223,7 @@ class SelectType extends EmailAccountRegistrationController {
                       color: "#F7F7FC",
                       fontWeight: 600,
                       fontSize: 16,
-                      marginTop: 100,
+                      marginTop: 80,
                     }}
                     onClick={this.updateTypeOwner}
                   >
