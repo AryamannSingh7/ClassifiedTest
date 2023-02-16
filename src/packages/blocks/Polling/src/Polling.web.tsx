@@ -134,7 +134,7 @@ class Polling extends PollingController {
                                 <img src={pollcreate} alt="pollcreate" />
                             </Box>
                             <Typography className="subHeading">{t("Polls Created")}</Typography>
-                            <Box className="bottomTwoSpan">
+                            <Box className="bottomTwoSpan" style={{minHeight:"15px"}}>
                                 <Typography variant="body2" className="bottomColor">
                                     {this.state.totalPollsCount.polls_count ? this.state.totalPollsCount.polls_count : ''}
                                 </Typography>
@@ -154,7 +154,7 @@ class Polling extends PollingController {
                             <img src={surveycreate} alt="surveycreate" />
                             </Box>
                             <Typography className="subHeading">{t("Surveys Created")}</Typography>
-                            <Box className="bottomTwoSpan">
+                            <Box className="bottomTwoSpan" style={{minHeight:"16px"}}>
                                 <Typography variant="body2" className="bottomColor">
                                     {this.state.totalSurveyCount.survey_count ? this.state.totalSurveyCount.survey_count : ''}
                                 </Typography>
@@ -176,7 +176,7 @@ class Polling extends PollingController {
                     </Link>
                 </Box>
 
-                <Grid container spacing={4} style={{marginTop: 15, marginBottom:30}}>
+                <Grid container spacing={4} style={{marginTop: 2, marginBottom:30}}>
 
                     {
                         this.state.recentPolls.length ?
@@ -234,7 +234,7 @@ class Polling extends PollingController {
                                             <Typography variant="body2">{data.start_date} - {data.end_date} </Typography>
                                         </Box>
                                         <Divider style={{marginTop:10, marginRight:10}}/>
-                                        <Box className="EventsIconsData">
+                                        <Box className="EventsIconsData" style={{minHeight:"25px"}}>
                                             <Box className="EventsIconsDataBox">
                                                 <img src={allUsers}/>
                                                 <Typography variant="body2">{data.awaited + data.completed_answers}</Typography>
@@ -281,7 +281,7 @@ class Polling extends PollingController {
                         <Typography className="ViewAll">{t("View All")}</Typography>
                     </Link>
                 </Box>
-                <Grid container spacing={4} style={{marginTop: 15, marginBottom:30}}>
+                <Grid container spacing={4} style={{marginTop: 2, marginBottom:30}}>
 
                     {
                         this.state.recentSurveys.length ?

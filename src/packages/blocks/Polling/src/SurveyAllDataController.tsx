@@ -83,7 +83,6 @@ export default class CoverImageController extends BlockComponent<
         console.log(responseJson,errorReponse)
       }
       if(this.getAllSurveys === apiRequestCallId){
-        console.log("THIS IS THE DATA",responseJson.surveys.data)
         this.setState({
           allSurveyData:responseJson?.surveys?.data
         })

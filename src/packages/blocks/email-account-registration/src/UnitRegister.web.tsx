@@ -101,7 +101,7 @@ class RegisterUnit extends EmailAccountRegistrationController {
               borderRadius="16px"
               bgcolor="white"
               marginTop='1rem'
-              style={{marginBottom:'2rem'}}
+              style={{marginBottom:'1rem'}}
             >
               <Box style={{width: "60px", height: "50px",display:"flex",alignItems:"center",justifyContent:"center"}}>
                 <img src={manual} />

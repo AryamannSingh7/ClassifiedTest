@@ -82,8 +82,8 @@ class PollsallData extends SurveyAllDataController {
                             </Link>
                         </Grid>
 
-                        {this.state.allSurveyData.length ?
-                            this.state.allSurveyData.map((data:any) => {
+                        {this.state.allSurveyData?.length ?
+                            this.state.allSurveyData?.map((data:any) => {
                                 console.log("DATA",data)
                                 return(
                                     <>
