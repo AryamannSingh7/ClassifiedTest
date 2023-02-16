@@ -324,5 +324,5 @@ class RegisterUnitManually extends EmailAccountRegistrationController {
 export default withRouter(RegisterUnitManually)
 
 const DropdownIndicator=()=>{
-  return <svg class="MuiSvgIcon-root MuiSelect-icon MuiSelect-iconOutlined" focusable="false" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 10l5 5 5-5z"></path></svg>
+  return <svg className="MuiSvgIcon-root MuiSelect-icon MuiSelect-iconOutlined" focusable="false" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 10l5 5 5-5z"></path></svg>
 }

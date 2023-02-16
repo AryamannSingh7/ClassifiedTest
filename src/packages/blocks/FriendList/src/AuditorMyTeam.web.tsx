@@ -33,6 +33,7 @@ import Menu from "@material-ui/core/Menu";
 import {withStyles} from "@material-ui/core/styles";
 import AddTeamModal from "./AddTeamModal.web";
 import AuditorSideBarWeb from "../../customform/src/AuditorSideBar.web";
+import { CheckIcon } from "../../user-profile-basic/src/assets";
 class MyTeamAudi extends MyTeamController {
   constructor(props: Props) {
     super(props);
@@ -125,7 +126,7 @@ class MyTeamAudi extends MyTeamController {
       >
           <DialogContent style={{ margin: "15px 0" }}>
               <Box textAlign="center">
-                  <img className="comment-image" src={CheckIcon} alt="check" />
+                <img className="comment-image" src={CheckIcon} alt="check" />
                   <Typography variant="h6">Remove Team Member</Typography>
                   <Typography variant="body1" style={{ marginBottom: "0px" }}>
                       User will be removed from the team, Are you sure you want to remove user?
