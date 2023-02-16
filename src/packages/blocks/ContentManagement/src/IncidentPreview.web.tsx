@@ -36,6 +36,7 @@ import IncidentController, { Props } from "./IncidentController.web";
 
 //resorces
 import { Tenant_Logo, Building1, Close_Icon, Grid_Icon, Filter_Icon, User_Icon, Calender_Icon } from "../src/assets";
+import { Height } from "@material-ui/icons";
 
 class IncidentPreview extends IncidentController {
   constructor(props: Props) {
@@ -65,7 +66,7 @@ class IncidentPreview extends IncidentController {
                     <h4>Incident Preview</h4>
                   </Box>
                 </Box>
-                <Box className="content-block-wrapper common-incident-block">
+                <Box className="content-block-wrapper common-incident-block" style={{backgroundColor:"#f7f9fe" ,height:"100%"}}>
                   <Box className="incident-content-wrapper">
                     <Box className="incident-rows">
                       <h4>Incident  Details</h4>
