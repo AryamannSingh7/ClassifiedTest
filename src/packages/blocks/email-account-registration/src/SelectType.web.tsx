@@ -25,11 +25,11 @@ class SelectType extends EmailAccountRegistrationController {
     return (
       <>
         <Grid container className="auth-container">
-          <Grid item xs={12} md={7} className="auth-cols" style={{ justifyContent: "unset" }}>
+          <Grid item xs={12} md={7} className="auth-cols" style={{ justifyContent: "unset",marginLeft:"15px",marginRight:"15px"}}>
             <div>
               <Grid container className="main-content-block" style={{marginTop:"30px"}}>
                 <Grid xs={12} style={{ marginBottom: "35px" }}>
-                  <ArrowBackIcon onClick={() => window.history.back()} style={{ fontSize: "35px" }} />
+                  <ArrowBackIcon onClick={() => window.history.back()} style={{ fontSize: "35px",marginLeft:"-7px" }} />
                 </Grid>
               </Grid>
 
@@ -223,7 +223,7 @@ class SelectType extends EmailAccountRegistrationController {
                       color: "#F7F7FC",
                       fontWeight: 600,
                       fontSize: 16,
-                      marginTop: 30,
+                      marginTop: 100,
                     }}
                     onClick={this.updateTypeOwner}
                   >

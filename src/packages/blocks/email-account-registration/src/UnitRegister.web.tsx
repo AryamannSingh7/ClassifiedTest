@@ -37,11 +37,11 @@ class RegisterUnit extends EmailAccountRegistrationController {
 
       <>
         <Grid container spacing={2} className="auth-container">
-          <Grid item xs={12} md={7} className="auth-cols" style={{ justifyContent: 'unset' }}>
+          <Grid item xs={12} md={7} className="auth-cols" style={{ justifyContent: 'unset',marginLeft:"15px",marginRight:"15px" }}>
             <div>
                 <Grid container className="main-content-block" style={{marginTop:"30px"}}>
                     <Grid xs={12} style={{marginBottom:'1rem'}}>
-                        <ArrowBackIcon onClick={() => window.history.back()} style={{ fontSize: "35px" }} />
+                        <ArrowBackIcon onClick={() => window.history.back()} style={{ fontSize: "35px",marginLeft:"-7px"}} />
                       </Grid>
                     </Grid>
                     <Grid container className="main-content-block">
@@ -140,7 +140,7 @@ class RegisterUnit extends EmailAccountRegistrationController {
                 color: "#F7F7FC",
                 fontWeight: 600,
                 fontSize: 16,
-                marginTop: 30
+                marginTop: 100
               }}
               onClick={this.registerUnit}
             >
