@@ -31,6 +31,8 @@ import { withTranslation } from 'react-i18next';
 import '../../../web/src/i18n.js';
 import AccessTimeOutlinedIcon from "@material-ui/icons/AccessTimeOutlined";
 import HighlightOffOutlinedIcon from "@material-ui/icons/HighlightOffOutlined";
+import DateRangeOutlinedIcon from "@material-ui/icons/DateRangeOutlined";
+import CheckCircleOutlineOutlinedIcon from "@material-ui/icons/CheckCircleOutlineOutlined";
 
 class PollsallData extends PollingController {
   constructor(props: Props) {
@@ -76,7 +78,7 @@ class PollsallData extends PollingController {
                             <Link
                             //@ts-ignore 
                             onClick={() => this.props.history.push("/CreatePolls")}>
-                                <Box className="CreatePSsingle">
+                                <Box className="CreatePSsingle" style={{minHeight:"80px",paddingBottom:"55px"}}>
                                     <Box sx={{ml:1, mb:2}}>
                                     <img src={pollandsurvey} alt="pollandsurvey" />
                                     </Box>
@@ -91,57 +93,56 @@ class PollsallData extends PollingController {
                                     <>
                                     <Grid item sm={6} md={4} xs={12} >
                                         <Box className="EventsCards"
-                                        key={data.id}
-                                        // @ts-ignore
-                                        onClick={() => this.props.history.push("/PollDetails?id="+data.id)}
+                                            // @ts-ignore
+                                             onClick={() => this.props.history.push("/PollDetails?id=" + data.id)}
                                         >
                                             <Box className="EventsIconsText">
                                                 {
                                                     data.status == "upcoming" &&
                                                     <Typography variant="body2" className={"statusOngoingBlue"}>
-                                                {
-                                                    data.status == "upcoming" && <>{t('upcoming')}</>
-                                                }
+                                                        {
+
+                                                            data.status == "upcoming" && <>{t('upcoming')}</>
+                                                        }
                                                     </Typography>
                                                 }
                                                 {
                                                     data.status == "ongoing" &&
                                                     <Typography variant="body2" className={"statusOngoingRed"}>
-                                                {
-                                                    data.status == "ongoing" && <>{t('Ongoing')}</>
-                                                }
+
+                                                        {
+
+                                                            data.status == "ongoing" && <>{t('Ongoing')}</>
+                                                        }
                                                     </Typography>
                                                 }
                                                 {
                                                     data.status == "completed" &&
                                                     <Typography variant="body2" className={"statusOngoingGreen"}>
-                                                {
-                                                    data.status == "completed" && <>{t('completed')}</>
-                                                }
+
+                                                        {
+
+                                                            data.status == "completed" && <>{t('completed')}</>
+                                                        }
+
                                                     </Typography>
                                                 }
                                             </Box>
                                             <Box className="EventsIconsText">
-                                                <Typography className="EventsTitle" style={{width:"95%"}}>{data.title}</Typography>
+                                                <Typography className="EventsTitle">{data.title}</Typography>
                                             </Box>
-                                            <Box className="EventsIconsText" style={{width:"95%"}}>
-                                                <p 
-                                                className="textwrap"
-                                                // style={{textOverflow:"ellipsis",overflow:"hidden", whiteSpace:"nowrap"}}
-                                                dangerouslySetInnerHTML={
-                                                    { __html: DOMPurify.sanitize(data.description) }
-                                                }
-                                                
-                                                >
-                                                </p> 
+                                            <Box className="EventsIconsText" >
+                                                <Typography variant="body2" className="textwrap" style={{width:"95%",marginTop:'10px',marginBottom:"10px"}}
+                                                            dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(data.description) }}
+                                                />
+                                                {/* {data.description}</Typography> */}
                                             </Box>
                                             <Box className="EventsIconsText">
-                                                {/* <DateRangeOutlinedIcon style={{color: "#054c94"}}/> */}
-                                                <img src={Cardcalendar} alt="Cardcalendar" />
+                                                <DateRangeOutlinedIcon style={{color: "#054c94"}}/>
                                                 <Typography variant="body2">{data.start_date} - {data.end_date} </Typography>
                                             </Box>
                                             <Divider style={{marginTop:10, marginRight:10}}/>
-                                            <Box className="EventsIconsData">
+                                            <Box className="EventsIconsData" style={{minHeight:"25px"}}>
                                                 <Box className="EventsIconsDataBox">
                                                     <img src={allUsers}/>
                                                     <Typography variant="body2">{data.awaited + data.completed_answers}</Typography>
@@ -150,7 +151,7 @@ class PollsallData extends PollingController {
                                                     data.status != "upcoming" &&
                                                     <>
                                                         <Box className="EventsIconsDataBox">
-                                                            <img src={CheckMark} alt="CheckMark" />
+                                                            <CheckCircleOutlineOutlinedIcon style={{color: "green"}}/>
                                                             <Typography variant="body2">{data.completed_answers}</Typography>
                                                         </Box>
                                                         <Box className="EventsIconsDataBox">
@@ -179,39 +180,6 @@ class PollsallData extends PollingController {
                             : 
                             null
                         }
-
-                        <Grid item sm={4} md={4} xs={4}>
-                            <Box className="EventsCards">
-                                <Box className="EventsIconsText">
-                                    <Typography variant="body2" className="statusOngoing">{t("Ongoing")}</Typography>
-                                </Box>
-                                <Box className="EventsIconsText">
-                                    <Typography className="EventsTitle">{t("Block W Parking")}</Typography>
-                                </Box>
-                                <Box className="EventsIconsText">
-                                    <Typography variant="body2">{t("To discuss new vehicle guidlines")}</Typography>
-                                </Box>
-                                <Box className="EventsIconsText">
-                                    <img src={Cardcalendar} alt="Cardcalendar" />
-                                    <Typography variant="body2">05-08-2022 - 08-08-2022 </Typography>
-                                </Box>
-                                <Divider style={{marginTop:10, marginRight:10}}/>
-                                <Box className="EventsIconsData">
-                                    <Box className="EventsIconsDataBox">
-                                        <img src={awated} alt="awated" />
-                                        <Typography variant="body2">84</Typography>
-                                    </Box>
-                                    <Box className="EventsIconsDataBox">
-                                        <img src={CheckMark} alt="CheckMark" />
-                                        <Typography variant="body2">29</Typography>
-                                    </Box>
-                                    <Box className="EventsIconsDataBox">
-                                        <img src={xmark} alt="xmark" />
-                                        <Typography variant="body2">13</Typography>
-                                    </Box>
-                                </Box>
-                            </Box>
-                        </Grid>
                         </Grid>
                 </Container>
                 </Grid>

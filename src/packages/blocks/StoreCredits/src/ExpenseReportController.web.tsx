@@ -203,8 +203,9 @@ export default class ExpenseReportController extends CommonApiCallForBlockCompon
     }
   }
 
-  manageExpenseDownload = (path:any,name:any) => {
-    this.downloadPdf(`${path}`,`ExpenseAttachment-${name}.pdf`)
+  manageExpenseDownload = (id:any,name:any) => {
+    const societyID = localStorage.getItem("society_id")
+    this.downloadPdf(`/society_managements/${societyID}/bx_block_report/expence_reports/${id}/download_report.pdf`,`ExpenseAttachment-${name}.pdf`)
   }
 
   async receive(from: string, message: Message) {

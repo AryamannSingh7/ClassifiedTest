@@ -73,7 +73,7 @@ class PollsallData extends SurveyAllDataController {
                     <Grid container spacing={4} style={{marginTop: 15,marginBottom:20}} className="link-decoration">
                         <Grid item sm={6} md={4} xs={12}>
                             <Link href="/CreateSurveys">
-                                <Box className="CreatePSsingle">
+                                <Box className="CreatePSsingle" style={{minHeight:"80px",paddingBottom:"52px"}}>
                                     <Box sx={{ml:1, mb:2}}>
                                     <img src={pollandsurvey} alt="pollandsurvey" />
                                     </Box>
@@ -82,8 +82,8 @@ class PollsallData extends SurveyAllDataController {
                             </Link>
                         </Grid>
 
-                        {this.state.allSurveyData.length ?
-                            this.state.allSurveyData.map((data:any) => {
+                        {this.state.allSurveyData?.length ?
+                            this.state.allSurveyData?.map((data:any) => {
                                 console.log("DATA",data)
                                 return(
                                     <>
@@ -126,7 +126,7 @@ class PollsallData extends SurveyAllDataController {
                                                 <Typography variant="body2">{data.attributes.start_date} - {data.attributes.end_date} </Typography>
                                             </Box>
                                             <Divider style={{marginTop:10, marginRight:10}}/>
-                                            <Box className="EventsIconsData">
+                                            <Box className="EventsIconsData" style={{minHeight:"25px"}}>
                                                 <Box className="EventsIconsDataBox">
                                                     <img src={allUsers}/>
                                                     <Typography variant="body2">{data.attributes.awaited + data.attributes.total_response}</Typography>
