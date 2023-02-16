@@ -59,7 +59,7 @@ class DashboardGeneral extends DashboardGeneralController {
               <ChairmanSidebar {...this.props} />
             </Grid>
 
-            <Grid xs={9} md={9} sm={9} spacing={4} style={{ paddingTop: 35 }}>
+            <Grid item xs={9} md={9} sm={9} style={{ paddingTop: 35 }}>
               <Container>
                 <Box className="navigation">
                   <Box>
@@ -73,7 +73,7 @@ class DashboardGeneral extends DashboardGeneralController {
                   <Box className="sub-heading-box">
                     <Typography variant="h5">{t("General Dashboard")}</Typography>
                     {userType === ROLE.CHAIRMAN && (
-                      <NativeSelect
+                      <select
                         className="select-year"
                         value={this.state.filterYear}
                         onChange={(e: any) => this.setState({ filterYear: e.target.value })}
@@ -85,7 +85,7 @@ class DashboardGeneral extends DashboardGeneralController {
                             </option>
                           );
                         })}
-                      </NativeSelect>
+                      </select>
                     )}
                   </Box>
                 </Box>
@@ -118,7 +118,7 @@ class DashboardGeneral extends DashboardGeneralController {
                           image={money}
                           heading={t("Management Fee Collected")}
                           titleOne=""
-                          valueOne="n/A"
+                          valueOne={this.state.managementFee.count + ""}
                           titleTwo=""
                           valueTwo=""
                         />
@@ -180,7 +180,7 @@ class DashboardGeneral extends DashboardGeneralController {
                           image={overdue}
                           heading={t("Overdue Management Fee")}
                           titleOne=""
-                          valueOne="n/A"
+                          valueOne={this.state.overdueFee.count + ""}
                           titleTwo={t("Members")}
                           valueTwo=""
                         />
