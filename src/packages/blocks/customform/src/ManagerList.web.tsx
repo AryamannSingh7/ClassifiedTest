@@ -21,6 +21,7 @@ import {
   TableBody,
   Select,
   MenuItem,
+  InputAdornment,
 } from "@material-ui/core";
 
 //resources
@@ -34,6 +35,7 @@ import ManagerController from "./ManagerController.web";
 import DashboardHeader from "../../dashboard/src/DashboardHeader.web";
 import ChairmanSidebarWeb from "../../dashboard/src/ChairmanSidebar.web";
 import { withTranslation } from 'react-i18next';
+import SearchIcon from "@material-ui/icons/Search";
 import '../../../web/src/i18n.js';
 class ManagerList extends ManagerController {
   //@ts-ignore
@@ -71,7 +73,7 @@ class ManagerList extends ManagerController {
                     <Typography variant="body1" >
                       {t("My Dashboard")} / {t("General Dashboard")} / <Box component="span" style={{ color: "blue" }}>{t('Vehicles')}</Box>
                     </Typography>
-                    <Typography variant="h5" style={dashBoardBudget.subHeading}>{t("Vehicles")}</Typography>
+                    <Typography variant="h5" style={dashBoardBudget.subHeading} style={{marginBottom:'1rem'}}>{t("Vehicles")}</Typography>
                   </Box>
                 </Box>
                 <Formik
@@ -102,7 +104,7 @@ class ManagerList extends ManagerController {
                               value={values.status}
                             >
                               <MenuItem value=" " >
-                                {t("Select Status")}
+                                {t("Status")}
                               </MenuItem>
                               <MenuItem value="Pending Approval">
                                 {t("Pending")}
@@ -180,9 +182,13 @@ class ManagerList extends ManagerController {
                           </FormControl>
                         </Box>
 
-                        <Box className="customButton">
+                        {/* <Box className="customButton">
                           <Button variant="contained" type="submit">{t("Search")}</Button>
-                        </Box>
+                        </Box> */}
+                        <Button className='btnMy' variant="contained" type="submit"style={{ backgroundColor: "#2D6EED",
+   padding:"9px 10px",height:'3.3rem'}}><InputAdornment position="start" style={{color:'white'}}>
+                                <SearchIcon />
+                              </InputAdornment>{t("Search")}</Button>
                       </Box>
                     </Form>
                   )}
@@ -199,13 +205,13 @@ class ManagerList extends ManagerController {
                               this.state.allVehcile.map((item, i) => <>
                                 <Grid xs={4} style={{ margin: 10 }} >
                                   <div className="card" style={{ cursor: 'pointer',maxWidth:450,background:'white' }} onClick={() => this.addVehicle(item)}>
-                                    <div className="customButton status1" style={{width:'fit-content'}}>
+                                    <div className="customButton status1" style={{width:'fit-content',margin:'1rem'}}>
                                       <Button variant="contained" className={item.attributes.status === 'Pending Approval' ? "contain warning" : item.attributes.status === 'Approved' ? 'contain success' : 'contain danger'} type="submit">
-                                        {item.attributes.status}</Button>
+                                        {item.attributes.status == 'Pending Approval' ? 'Pending' :item.attributes.status }</Button>
                                     </div>
                                     <div className="card-content">
 
-                                      <img src='https://img.freepik.com/premium-photo/generic-brandless-modern-sport-car-with-fire-smoke_110488-1759.jpg' style={{marginRight:10}}/>
+                                      <img src='https://cdn-icons-png.flaticon.com/512/112/112957.png' style={{marginRight:15,width:60,height:60}}/>
                                       <div className="content" style={{padding:0}}>
                                         <p className="title" style={{padding:'17px 0px 0px 0px',marginBottom:'10px'}}>
                                           {item.attributes.company_name}

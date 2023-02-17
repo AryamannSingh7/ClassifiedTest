@@ -43,7 +43,7 @@ class ViewVeichle extends VeichleListController {
       <>
         <Grid container spacing={2} className="auth-container">
           <Grid item xs={12} md={7} className="auth-cols" style={{ justifyContent: 'unset' }}>
-              <Grid container className="main-content-block">
+              <Grid container className="main-content-block" style={{background:'white',padding:8}}>
                 <Grid xs={12} style={{display:'flex',justifyContent:'space-between'}}>
                   <div style={{display:'flex' ,alignItems:'center'}}>
 
@@ -59,18 +59,18 @@ class ViewVeichle extends VeichleListController {
                   </div>
                 </Grid>
               </Grid>
-            <div style={{ margin: 'auto' }}>
+            <div style={{ margin: 'auto',background:'#f7f9fe' }}>
 
 
                <Grid container>
                 <Grid xs={12}>
-                  <div className="card" style={{padding:'2rem',boxShadow:'none'}}>
+                  <div className="card" style={{padding:'2rem',boxShadow:'none',margin:8,border:'1px solid #eef0f6'}}>
                     <div className="status">
                       {item.attributes.status}
                     </div>
                     <div className="card-content">
 
-                      <img src="https://img.freepik.com/premium-photo/generic-brandless-modern-sport-car-with-fire-smoke_110488-1759.jpg" style={{marginRight:5}} />
+                      <img src="https://cdn-icons-png.flaticon.com/512/112/112957.png" style={{marginRight:10,width:'60px',height:'60px'}} />
                       <div className="content" style={{padding:'0px 0px 0px 5px',display:'flex',justifyContent:'center',alignItems:'center',flexDirection:'column'}}>
                         <p className="title" style={{padding:0,marginBottom:10}}>
                           {item.attributes.company_name}
@@ -204,7 +204,7 @@ class ViewVeichle extends VeichleListController {
           <Grid container>
             <Grid xs={12} style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', marginBottom: 10 }}>
 
-              <p style={{ fontWeight: 600, fontSize: '1.25rem',textAlign:'center' }}>
+              <p style={{ fontWeight: 600, fontSize: '1.2rem',textAlign:'center' }}>
                 Delete registered
                 <br />
                 vehicle Confirmation

@@ -276,7 +276,12 @@ input#mobile:focus {
 .filter__placeholder,.filter__single-value{
   color: #BEBEBE !important;
   margin-left: 0.4rem !important;
+  padding-left: 37px;
 }
 ::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
   color:  #BEBEBE !important;
+}
+.filter__menu{
+  z-index: 99999;
+  background-color: white;
 }

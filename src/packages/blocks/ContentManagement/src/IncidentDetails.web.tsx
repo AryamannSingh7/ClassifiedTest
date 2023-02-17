@@ -73,7 +73,7 @@ class IncidentDetails extends IncidentController {
                     <h4>{attributes?.incident_title}</h4>
                   </Box>
                 </Box>
-                <Box className="content-block-wrapper common-incident-block">
+                <Box className="content-block-wrapper common-incident-block" style={{backgroundColor:"F7F9FE"}}>
                   <Box className="incident-content-wrapper">
                     {
                       attributes?.incident_status === 'Pending Confirmation' ?
@@ -229,14 +229,14 @@ class IncidentDetails extends IncidentController {
                           <img src={User_Icon.default} className="icons" alt="" />
                           <Box className="reporting-right-block">
                             <h5>Reported By:</h5>
-                            <h4 className="title">Mr. {attributes?.reported_by?.full_name}</h4>
+                            <h4>Mr. {attributes?.reported_by?.full_name}</h4>
                           </Box>
                         </Box>
                         <Box className="reporting-row">
                           <img src={Calender_Icon.default} className="icons" alt="" />
                           <Box className="reporting-right-block">
                             <h5>Reported On:</h5>
-                            <h4 className="title">{attributes?.reported_on}</h4>
+                            <h4>{attributes?.reported_on}</h4>
                           </Box>
                         </Box>
                         {attributes?.resolved_on ?
@@ -244,7 +244,7 @@ class IncidentDetails extends IncidentController {
                             <img src={Calender_Icon.default} className="icons" alt="" />
                             <Box className="reporting-right-block">
                               <h5>Resolved On:</h5>
-                              <h4 className="title">{attributes?.resolved_on}</h4>
+                              <h4 >{attributes?.resolved_on}</h4>
                             </Box>
                           </Box> : null
                         }
@@ -254,7 +254,7 @@ class IncidentDetails extends IncidentController {
                     {/*</Card> */}
                   </Box>
                   <Box className="customButton ticket-conversion">
-                    <Button variant="contained" onClick={() => this.createChatRoom(attributes?.id)}>{attributes?.incident_status === 'Resolved' ? 'View ticket conversation':'Start/ View ticket conversation' }</Button>
+                    <Button variant="contained" onClick={() => this.createChatRoom(id)}>{attributes?.incident_status === 'Resolved' ? 'View ticket conversation':'Start/ View ticket conversation' }</Button>
                   </Box>
                 </Box>
                 {/* <Box className="bottomBlock common-bottom-padding" display={{ xs: 'none', md: 'flex' }}>

@@ -14,7 +14,7 @@ import EmailAccountRegistrationController, { Props } from "./EmailAccountRegistr
 import MailOutlineIcon from '@material-ui/icons/MailOutline';
 import { CheckBox, Visibility, VisibilityOff } from "@material-ui/icons";
 import { withRouter } from 'react-router';
-import { Back_btn, building, Building1, city, country, Map, search, unit } from "./assets";
+import { Back_btn, building, Building1, city, country, Map, ReqHome, search, unit } from "./assets";
 import ReactSelect from 'react-select';
 import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
@@ -111,14 +111,17 @@ class RegisterUnitManually extends EmailAccountRegistrationController {
           {({ values, touched, errors, isValid, setFieldValue, handleChange }) => (
             <Form translate="yes" className="commonForm">
               <Grid container style={{ margin: '1rem', width: '90%' }}>
-                <Grid xs={12}>
+                <Grid xs={12} className="formGroup customSelect">
 
 
 
                   <FormControl variant="outlined" fullWidth >
-                    <InputLabel id="demo-simple-select-outlined-label" style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
+                    {/* <InputLabel id="demo-simple-select-outlined-label" style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
                       <img src={country} />
-                      Country</InputLabel>
+                      Country</InputLabel> */}
+                      <span className="frmLeftIcons">
+                              <img src={country} className="frm-icons" alt="House Icon" />
+                            </span>
                     <Select
                             value={values.selectCountry}
                       name='selectCountry'
@@ -126,7 +129,7 @@ class RegisterUnitManually extends EmailAccountRegistrationController {
                       id="demo-simple-select-outlined"
                       onChange={(e) => { this.handleChange(e); setFieldValue("selectCountry", e.target.value) }}
                       label="Country"
-                      style={{ borderRadius: 25, border: '0px solid #e9dede', color: '#BEBEBE' }}
+                      style={{ borderRadius: 25, border: '0px solid #e9dede', color: '#BEBEBE',   paddingLeft:55 }}
                     >
 
                       <MenuItem value=" ">
@@ -144,12 +147,15 @@ class RegisterUnitManually extends EmailAccountRegistrationController {
                 </Grid>
               </Grid>
               <Grid container style={{ margin: '1rem', width: '90%' }}>
-                <Grid xs={12}>
+                <Grid xs={12} className='formGroup customSelect'>
                   <FormControl variant="outlined" fullWidth>
 
-                    <InputLabel id="demo-simple-select-outlined-label" style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
+                    {/* <InputLabel id="demo-simple-select-outlined-label" style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
                       <img src={city} />
-                      City</InputLabel>
+                      City</InputLabel> */}
+                      <span className="frmLeftIcons">
+                              <img src={city} className="frm-icons" alt="House Icon" />
+                            </span>
                     <Select
                       name='selectCity'
                             value={values.selectCity}
@@ -157,7 +163,7 @@ class RegisterUnitManually extends EmailAccountRegistrationController {
                       id="demo-simple-select-outlined"
                       onChange={(e) => { this.handleChange(e); setFieldValue("selectCity", e.target.value) }}
                       label="City"
-                      style={{ borderRadius: 25, border: '0px solid #e9dede', color: '#BEBEBE' }}
+                      style={{ borderRadius: 25, border: '0px solid #e9dede', color: '#BEBEBE',paddingLeft:55 }}
                     >
                       <MenuItem value=" ">
                               Select city
@@ -189,11 +195,14 @@ class RegisterUnitManually extends EmailAccountRegistrationController {
 
               </Box>
               <Grid container style={{ margin: '1rem', width: '90%' }}>
-                <Grid xs={12}>
+                <Grid xs={12} className='formGroup customSelect'>
                   <FormControl variant="outlined" fullWidth>
-                    <InputLabel id="demo-simple-select-outlined-label" style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
+                    {/* <InputLabel id="demo-simple-select-outlined-label" style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
                       <img src={building} />
-                      Building</InputLabel>
+                      Building</InputLabel> */}
+                           <span className="frmLeftIcons">
+                              <img src={building} className="frm-icons" alt="House Icon" />
+                            </span>
                     <Select
                       name='selectBuilding'
                             value={values.selectBuilding}
@@ -201,7 +210,7 @@ class RegisterUnitManually extends EmailAccountRegistrationController {
                       id="demo-simple-select-outlined"
                       onChange={(e) => { this.handleChange(e); setFieldValue("selectBuilding", e.target.value) }}
                       label="Building"
-                      style={{ borderRadius: 25, border: '0px solid #e9dede', color: '#BEBEBE' }}
+                      style={{ borderRadius: 25, border: '0px solid #e9dede', color: '#BEBEBE',paddingLeft:55 }}
                     >
                       <MenuItem value=" ">
                               Select building
@@ -219,7 +228,7 @@ class RegisterUnitManually extends EmailAccountRegistrationController {
                 </Grid>
               </Grid>
               <Grid container style={{ margin: '1rem', width: '90%' }}>
-                <Grid xs={12} className='commonForm'>
+                <Grid xs={12} className='formGroup customSelect'>
                   <FormControl variant="outlined" fullWidth className="formInputGrp" style={{position:'relative'}}>
                     {/* <InputLabel id="demo-simple-select-outlined-label" style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
                       <img src={unit} />Unit</InputLabel>
@@ -241,12 +250,15 @@ class RegisterUnitManually extends EmailAccountRegistrationController {
                       }
 
                     </Select> */}
+                     <span className="frmLeftIcons">
+                              <img src={unit} className="frm-icons" alt="House Icon" />
+                            </span>
                     <Field
                       name="selectUnit"
                             value={values.selectUnit}
                       placeholder={"Enter Unit"}
                       className="formInput1"
-                      style={{border:0,paddingLeft:'15px',color:'#BEBEBE'}}
+                      style={{border:0,paddingLeft:'15px',color:'#BEBEBE',padding:55,marginTop:4}}
                             value={this.state.selectUnit}
                             onChange={(e) => { this.handleChange2(e); setFieldValue("selectUnit", e.target.value) }}
                     />
@@ -292,12 +304,12 @@ class RegisterUnitManually extends EmailAccountRegistrationController {
           }}
         >
           <Box className="diloag-body">
-            <Box className="diloag-header" style={{ flexDirection: 'column' }}>
-              <img src={building} className="tenet-logo" alt="" />
-              <DialogTitle className="alert-dialog-title1" id="alert-dialog-title" style={{ overflow: 'visible', width: 'auto' }}>
-                Are you sure want to register this unit?
+            <Box className="diloag-header" style={{ flexDirection: 'column',border:'none' }}>
+              <img src={ReqHome} className="tenet-logo" alt="" />
+              <DialogTitle className="alert-dialog-title1 bold-text" id="alert-dialog-title" style={{ overflow: 'visible', width: 'auto',fontSize:20  }}>
+                sure want to register this unit?
               </DialogTitle>
-              <p>Are you sure that you want to register the unit   of {this.state.selectBuilding.name}?</p>
+              <p style={{paddingTop:20}}>Are you sure that you want to register the unit   of {this.state.selectBuilding.name}?</p>
             </Box>
             <Box className="dialog-footer desktop-ui" style={{display:'flex',justifyContent:'center'}}>
               <DialogActions

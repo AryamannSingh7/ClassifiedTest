@@ -65,10 +65,10 @@ class IncidentReportedSuccessfully extends IncidentController {
                 <Box className="footer-block desktop-ui">
                   <Box className="row-btn customButton">
                     <Button variant="contained" onClick={() => {
+                      //@ts-ignore
+                      this.createChatRoom(localStorage?.getItem("createIncidentId"))
                       localStorage.removeItem("createIncidentId");
                       localStorage.removeItem("incidentPreview");
-                      //@ts-ignore
-                      this.props.history.push("/IncidentListing");
                     }}>view ticket</Button>
                   </Box>
                 </Box>

@@ -104,15 +104,24 @@ class IncidentChatBox extends InboxController {
               </span>
             </Box>
           </Grid>
+<<<<<<< HEAD
           <Box marginTop={2} display='flex' justifyContent='space-between' width='100%' alignItems="center" style={{height:"60px",borderTop:"1px solid #f4f4f4",borderBottom:"1px solid #f4f4f4",padding:"1rem"}}>
             <Box>
               <p className={"bold-text"} style={{ fontWeight: 'bold', fontSize: '16px', }}>{item?.attributes?.chatable?.attributes?.incident_title}</p>
               <p style={{ fontWeight: 'bold', fontSize: '12px', color: 'rgba(24,29,37,0.5)' }}>
                 Ticket ID: {item?.attributes?.chatable?.id}
+=======
+          <Box marginTop={5} display='flex' justifyContent='space-between' width='100%'>
+            <Box >
+
+              <p style={{ fontWeight: 'bold', fontSize: '1.2rem' }}>{item?.attributes?.chatable?.attributes?.incident_title}</p>
+              <p style={{ fontWeight: 'bold', fontSize: '0.8rem', color: '#cccdcf' }}>
+                ticket ID:{item?.attributes?.chatable?.id}
+>>>>>>> baa0c927489176469d09d6233ebe7ede1fdb60d9
               </p>
             </Box>
             <Box>
-              <Button variant="contained" className="contain danger"  >{item?.attributes?.chatable?.attributes?.incident_status}</Button>
+              <Button variant="contained" className="contain danger" style={{ textTransform: 'capitalize'}} >{item?.attributes?.chatable?.attributes?.incident_status}</Button>
             </Box>
           </Box>
           <Grid xs={12}>
