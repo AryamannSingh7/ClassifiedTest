@@ -63,7 +63,7 @@ class ManagerViewVeichle extends ManagerController {
                     <Typography variant="body1" >
                       My Dashboard / General Dashboard / Vehicles /<Box component="span" style={{ color: "blue" }}>Vehicle Details</Box>
                     </Typography>
-                    <Typography variant="h5" style={dashBoardBudget.subHeading}>Vehicle Details</Typography>
+                    <Typography variant="h5" className="bold-text" style={dashBoardBudget.subHeading}>Vehicle Details</Typography>
                   </Box>
                 </Box>
 
@@ -75,9 +75,9 @@ class ManagerViewVeichle extends ManagerController {
 
               <Grid container>
                 <Grid xs={12}>
-                  <div className="card" style={{ padding: '2rem' }}>
-                    <div className="card-top">
-                      <h4>
+                  <div className="card" >
+                    <div className="card-top" style={{borderBottom:'1px solid #FEFEFE',padding:'1rem'}}>
+                      <h4 className="bold-text">
                                 {item.attributes.company_name}
                       </h4>
                     <div className="status" style={{fontWeight:600}}>
@@ -85,11 +85,11 @@ class ManagerViewVeichle extends ManagerController {
                     </div>
                     </div>
                   <div className="details">
-                      <div>
+                      <div style={{borderBottom:'1px solid #FEFEFE',marginBottom:'0.5rem'}}>
 
                         <div style={{ display: 'flex', fontWeight: 500,alignItems:'center' }}>
                           {/* <img src={userBlue} width='25' height='25' style={{ marginRight: 10 }} /> */}
-                                  <p >   Owner Name :</p>  <p style={{ marginLeft: 10, fontWeight: 600 }}>
+                                  <p >   Owner Name :</p>  <p style={{ marginLeft: 10, fontWeight: 600 }} className="bold-text">
                                     {item.attributes.owner_name}
                                     </p>
                         </div>
@@ -98,11 +98,11 @@ class ManagerViewVeichle extends ManagerController {
                           {/* {item.attributes.owner_name} */}
                         </div>
                       </div>
-                      <div>
+                      <div style={{borderBottom:'1px solid #FEFEFE',marginBottom:'0.5rem'}}>
 
                         <div style={{ display: 'flex', fontWeight: 500 }}>
                           {/* <img src={CarBlue} width='25' height='25' style={{ marginRight: 10 }} /> */}
-                                  <p> Building Name:</p>   <p style={{ marginLeft: 10, fontWeight: 600 }}>
+                                  <p> Building Name:</p>   <p style={{ marginLeft: 10, fontWeight: 600 }} className="bold-text">
       {item?.attributes?.building_management?.name}
                                   </p>
                         </div>
@@ -111,11 +111,11 @@ class ManagerViewVeichle extends ManagerController {
                           {/* {item.attributes.company_name} */}
                         </div>
                       </div>
-                      <div>
+                      <div style={{borderBottom:'1px solid #FEFEFE',marginBottom:'0.5rem'}}>
 
                         <div style={{ display: 'flex', fontWeight: 500 }}>
                           {/* <img src={List} width='25' height='25' style={{ marginRight: 10 }} /> */}
-                                  <p> Unit Number:</p>   <p style={{ marginLeft: 10, fontWeight: 600 }}>
+                                  <p> Unit Number:</p>   <p style={{ marginLeft: 10, fontWeight: 600 }} className="bold-text">
                                     {item.attributes?.apartment_management?.apartment_name || 'N/A'}
                                   </p>
                         </div>
@@ -124,12 +124,12 @@ class ManagerViewVeichle extends ManagerController {
                           {/* {item.attributes.plate_number} */}
                         </div>
                       </div>
-                              <div>
+                              <div style={{borderBottom:'1px solid #FEFEFE',marginBottom:'0.5rem'}}>
 
                                 <div style={{ display: 'flex', fontWeight: 500 }}>
                                   {/* <img src={paletteBlue} width='25' height='25' style={{ marginRight: 10 }} /> */}
                                   <p> Car Manufacturer:</p>
-                                  <p style={{ marginLeft: 10, fontWeight: 600 }}>
+                                  <p style={{ marginLeft: 10, fontWeight: 600 }} className="bold-text">
 
                                         {item.attributes.company_name}
                                   </p>
@@ -139,12 +139,12 @@ class ManagerViewVeichle extends ManagerController {
                                   {/* {item.attributes.color} */}
                                 </div>
                               </div>
-                              <div>
+                              <div style={{borderBottom:'1px solid #FEFEFE',marginBottom:'0.5rem'}}>
 
                                 <div style={{ display: 'flex', fontWeight: 500 }}>
                                   {/* <img src={paletteBlue} width='25' height='25' style={{ marginRight: 10 }} /> */}
                                   <p> Car Model:</p>
-                                  <p style={{ marginLeft: 10, fontWeight: 600 }}>
+                                  <p style={{ marginLeft: 10, fontWeight: 600 }} className="bold-text">
 
                                        {item.attributes.model_number}
                                   </p>
@@ -154,12 +154,12 @@ class ManagerViewVeichle extends ManagerController {
                                   {/* {item.attributes.color} */}
                                 </div>
                               </div>
-                              <div>
+                              <div style={{borderBottom:'1px solid #FEFEFE',marginBottom:'0.5rem'}}>
 
                                 <div style={{ display: 'flex', fontWeight: 500 }}>
                                   {/* <img src={paletteBlue} width='25' height='25' style={{ marginRight: 10 }} /> */}
                                   <p> Car Color:</p>
-                                  <p style={{ marginLeft: 10, fontWeight: 600 }}>
+                                  <p style={{ marginLeft: 10, fontWeight: 600 }} className="bold-text">
 
                                      {item.attributes.color}
                                     </p>
@@ -232,9 +232,9 @@ class ManagerViewVeichle extends ManagerController {
               </Grid> */}
             </div>
           </Grid>
-                  <div style={{display:'flex',justifyContent:'flex-end',width:'100%'}}>
+                  <div style={{display:'flex',justifyContent:'flex-end',width:'100%',marginBottom:'-5rem'}}>
                     <Box className="row-btn customButton desktop-ui">
-                      <Button style={{ width: 150, marginRight: 15, borderRadius: 10, border: '1px solid #5000f4', color:'#5000f4' }} onClick={() => this.setState({ showDialogDelete: true })} variant='text' disabled={item.attributes.status == 'rejected'}>
+                      <Button style={{ width: 150, marginRight: 15, borderRadius: 10, border: '1px solid #5000f4', color:'#5000f4',boxShadow:'-1px 10px 20px 11px rgba(223,230,254,1)' }} onClick={() => this.setState({ showDialogDelete: true })} variant='text' disabled={item.attributes.status == 'rejected'}>
                         Reject
                       </Button>
                     </Box>
@@ -264,7 +264,7 @@ class ManagerViewVeichle extends ManagerController {
             },
           }}
         >
-          <img src={item.attributes.registration_card_copy.url} style={{ width: '600px', height: '56rem', borderRadius: 0 }} />
+          <img src={item.attributes?.registration_card_copy?.url} style={{ width: '600px', height: '56rem', borderRadius: 0 }} />
           {/* <iframe src='https://yuppgg-68443-ruby.b68443.dev.eastus.az.svc.builder.cafe/rails/active_storage/blobs/eyJfcmFpbHMiOnsibWVzc2FnZSI6IkJBaHBBa2NEIiwiZXhwIjpudWxsLCJwdXIiOiJibG9iX2lkIn19--670a8cdc5598c28e801317f826ac739e28a142c8/mohit.pdf' style={{ width: '600px', height: '56rem' }} /> */}
           </Dialog>
         <Dialog
