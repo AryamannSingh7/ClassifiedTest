@@ -20,7 +20,7 @@ class RequestPropertyManagerDetails extends RequestPropertyManagerDetailsControl
       <>
         <Loader loading={this.state.loading} />
 
-        <Box style={{ background: "#F4F7FF", height: "100vh" }} className={classes.managerDetails}>
+        <Box style={{ background: "#F7F9FE", height: "100vh" }} className={classes.managerDetails}>
           <Grid container>
             <Grid item xs={12} md={7}>
               <Box className="faq-step">
@@ -93,7 +93,9 @@ class RequestPropertyManagerDetails extends RequestPropertyManagerDetailsControl
                                 </h4>
                                 <Box className="right-box-item">
                                   <Link
-                                    href={`https://maps.google.com/?q=${this.state.propertyDetails.lat},${this.state.propertyDetails.long}`}
+                                    href={`https://maps.google.com/?q=${this.state.propertyDetails.lat},${
+                                      this.state.propertyDetails.long
+                                    }`}
                                     target="_blank"
                                   >
                                     <span>{t("See building on map")}</span>

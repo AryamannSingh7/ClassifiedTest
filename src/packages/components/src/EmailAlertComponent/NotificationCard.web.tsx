@@ -6,7 +6,7 @@ const NotificationCard = ({ heading, emailAlert, t, updateStatus, updateTime, me
     <Card className="main-setting-box">
       <Box className="card-box-setting">
         <Box className="setting-content-box">
-          <h4>{t(heading)}</h4>
+          <h4 className="bold-text">{t(heading)}</h4>
           <Switch checked={emailAlert.activated} onChange={(e: any) => updateStatus(e)} name="lease" color="primary" />
         </Box>
         {emailAlert.activated && (

@@ -57,7 +57,7 @@ class PropertyManagerDetails extends PropertyManagerDetailsController {
       <>
         <Loader loading={this.state.loading} />
 
-        <Box style={{ background: "#F4F7FF", height: "100vh" }} className={classes.managerDetails}>
+        <Box style={{ background: "#F7F9FE", height: "100vh" }} className={classes.managerDetails}>
           <Grid container>
             <Grid item xs={12} md={7}>
               <Box className="faq-step">

@@ -38,7 +38,7 @@ class OwnerNotification extends OwnerNotificationController {
         <Loader loading={this.state.loading} />
 
         <Box
-          style={{ background: "#F4F7FF", height: "100vh", overflowY: "hidden" }}
+          style={{ background: "#F7F9FE", height: "100vh", overflowY: "hidden" }}
           className={classes.ownerNotification}
         >
           <Grid container>

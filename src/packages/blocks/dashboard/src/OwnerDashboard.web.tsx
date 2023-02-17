@@ -141,7 +141,7 @@ class OwnerDashboard extends DashboardController {
 
     return (
       <>
-        <Box className={classes.ownerDashboard} style={{ background: "#F8F9FE", height: "100vh" }}>
+        <Box className={classes.ownerDashboard} style={{ background: "#F7F9FE", height: "100vh" }}>
           <Drawer open={this.state.isMenuOpen} onClose={() => this.toggleDrawer()}>
             <Box className="dashboard-sidebar">
               <Box className="close-menu">

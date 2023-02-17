@@ -1,44 +1,11 @@
 // Customizable Area Start
 import React from "react";
-import {
-  Button,
-  Container,
-  IconButton,
-  Link,
-  withStyles,
-  Box,
-  Grid,
-  Tab,
-  Card,
-  Dialog,
-  Typography,
-  DialogContent,
-} from "@material-ui/core";
+import { Button, Container, IconButton, Link, withStyles, Box, Grid, Tab, Card } from "@material-ui/core";
 import { Menu, MenuItem } from "@szhsin/react-menu";
 import MoreVertIcon from "@material-ui/icons/MoreVert";
 import KeyboardBackspaceIcon from "@material-ui/icons/KeyboardBackspace";
 import ContractsListController, { Props } from "./ContractsListController.web";
 import { ContractsStyleWeb } from "./ContractsStyle.web";
-import MuiDialogTitle from "@material-ui/core/DialogTitle";
-import CloseIcon from "@material-ui/icons/Close";
-import {
-  EmailShareButton,
-  FacebookShareButton,
-  LinkedinShareButton,
-  RedditShareButton,
-  TelegramShareButton,
-  TumblrShareButton,
-  TwitterShareButton,
-  WhatsappShareButton,
-  EmailIcon,
-  FacebookIcon,
-  LinkedinIcon,
-  RedditIcon,
-  TelegramIcon,
-  TumblrIcon,
-  TwitterIcon,
-  WhatsappIcon,
-} from "react-share";
 import { BuildingLogo, SortIcon, FilterIcon, TemplateIcon } from "./assets";
 import { withTranslation } from "react-i18next";
 import moment from "moment";
@@ -61,16 +28,11 @@ class ContractsList extends ContractsListController {
   }
 
   render() {
-    const { classes } = this.props;
-    const { t }: any = this.props;
-
-    const sharePopupWidth = 500;
-    const sharePopupHeight = 700;
-    const shareTitle = "TI 1 Final Leap";
+    const { t, classes }: any = this.props;
 
     return (
       <>
-        <Box style={{ background: "#F4F7FF", height: "100vh", overflowY: "hidden" }} className={classes.contractList}>
+        <Box style={{ background: "#F7F9FE", height: "100vh", overflowY: "hidden" }} className={classes.contractList}>
           <Grid container>
             <Grid item xs={12} md={7}>
               <Box className="faq-step">
