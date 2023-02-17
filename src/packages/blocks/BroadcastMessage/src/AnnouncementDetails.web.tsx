@@ -42,9 +42,9 @@ class Announcement extends AnnouncementDetailsController{
                       </Box>
                   </Grid>
                 </Grid>
-                <Box style={{background: "#E5ECFF",minHeight:"100vh",display:'flex',flexDirection:"column",alignItems:'center',justifyContent:'space-between'}} >
+                <Box style={{background: "#F7F9FE",minHeight:"93vh",display:'flex',flexDirection:"column",alignItems:'center',justifyContent:'space-between'}} >
                     <Grid container spacing={2} style={{width:"90%"}}>
-                        <Grid item xs={12} style={{marginTop:"1.5rem"}}>
+                        <Grid item xs={12} style={{marginTop:"1rem"}}>
                             <Box>
                                 <Typography variant="h6" style={{fontWeight:"bold"}}>
                                     {this.state.AnnouncementDetails.title}
@@ -52,21 +52,21 @@ class Announcement extends AnnouncementDetailsController{
                             </Box>
                             {
                                 this.state?.AnnouncementDetails?.image?.url &&
-                                <Box style={{display:'flex',justifyContent:"center",marginTop:"15px"}}>
+                                <Box style={{display:'flex',justifyContent:"center",marginTop:"10px"}}>
                                     <img src={this.state?.AnnouncementDetails?.image?.url} width="100%" style={{borderRadius:"15px"}}/>
                                 </Box>
                             }
-                            <Box style={{marginTop:"1.5rem"}}>
+                            <Box style={{marginTop:"1rem"}}>
                                 <Typography variant="body2" style={{fontSize:"18px"}}>
                                     {this.state.AnnouncementDetails.description}
                                 </Typography>
                             </Box>
-                            <Box style={{backgroundColor:"white",borderRadius:"10px",marginTop:"20px"}}>
-                                <Box style={{padding:"1rem"}}>
-                                    <Grid container spacing={1} style={{marginTop:"10px",marginBottom:"5px"}}>
+                            <Box style={{backgroundColor:"white",borderRadius:"10px",marginTop:"10px"}}>
+                                <Box style={{padding:"0.8rem 1.2rem"}}>
+                                    <Grid container spacing={2} style={{marginTop:"10px",marginBottom:"5px",display:"flex",alignItems:"flex-start"}}>
                                         <Grid xs={6} style={{display:'flex',alignItems:'center'}}>
-                                            <Box>
-                                                <img src={user} height="20px" style={{marginRight:"10px"}} />
+                                            <Box style={{marginLeft:"5px"}}>
+                                                <img src={user} height="23px" style={{marginRight:"10px"}} />
                                             </Box>
                                             <Box>
                                                 <Typography variant="subtitle2" color="textSecondary" >{t("Announce By")}</Typography>
@@ -89,7 +89,7 @@ class Announcement extends AnnouncementDetailsController{
                             </Box>
                         </Grid>
                     </Grid>
-                    <Box style={{width:"90%",marginBottom:"50px",marginTop:"10px"}}>
+                    <Box style={{width:"90%",marginBottom:"50px"}}>
                         <CloseButton onClick={()=> window.history.back()} variant="contained" fullWidth size="large">
                             {t("Close")}
                         </CloseButton>
