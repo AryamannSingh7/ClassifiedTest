@@ -51,7 +51,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 6px 24px;
+  padding: 8px 24px !important;
 }
 
 .dialog-heading h6 {
@@ -60,7 +60,7 @@
 
 .dialog-input {
   padding: 15px 26px 15px 12px;
-  border: 1px solid lightgray;
+  border: 1px solid #f0f0f0;
   font-size: 16px;
   border-radius: 5px;
   -webkit-border-radius: 5px;
@@ -89,11 +89,25 @@
 
 .dialog-select-input {
   border-radius: 5px;
-  border: 1px solid lightgray;
+  border: 1px solid #f0f0f0;
   font-size: 16px;
   padding: 15px 26px 15px 12px;
   color: #494949;
   background-color: white;
+}
+
+.add-faq-dialog textarea {
+  resize: none;
+  background-color: #f9f9f9 !important;
+  height: 150px !important;
+}
+.add-faq-dialog input {
+  background-color: #f9f9f9;
+  color: black;
+}
+.add-faq-dialog select {
+  background-color: #f9f9f9;
+  color: black;
 }
 
 .category.dialog-select-input {
@@ -102,7 +116,7 @@
 
 .dialog-textarea-input {
   border-radius: 5px;
-  border: 1px solid lightgray;
+  border: 1px solid #f0f0f0;
   font-size: 16px;
   padding: 15px 26px 15px 12px;
   color: #494949;
@@ -310,6 +324,10 @@
   align-items: center !important;
   justify-content: flex-start !important;
   text-decoration: none !important;
+}
+
+.menu-list .MuiListItem-root {
+  padding: 6px 16px !important;
 }
 
 .unit-box-currency,
@@ -529,26 +547,37 @@
 }
 
 .add-meeting .date-time {
-  display: flex;
-  background-color: #efefef;
+  /* display: flex; */
   align-items: center;
-  border: 1px solid lightgray;
+  border: 1px solid #f0f0f0;
   padding: 8px 12px;
   border-radius: 5px;
   margin-top: 20px;
+  background-color: #f9f9f9;
+  color: black;
+  position: relative;
+}
+
+.add-meeting .date-time img {
+  position: absolute;
+  top: 14px;
+  left: 12px;
 }
 
 .add-meeting .date-time input.date {
   width: 100%;
   border: 0;
   outline: none;
-  background: #efefef;
-  padding: 4px 0;
+  background: #f9f9f9;
+  padding: 4px 0 4px 30px;
   min-height: 32px;
   font-size: 16px;
   font-family: "Roboto", "Helvetica", "Arial", sans-serif;
   font-weight: 400 !important;
   font-size: 16px;
+}
+.add-meeting .date-time .time {
+  padding-left: 30px;
 }
 
 .add-meeting .reject-note {
@@ -563,49 +592,40 @@
   margin-top: 20px;
 }
 
-.add-meeting .date-time input[type="date"]::-webkit-calendar-picker-indicator,
-.add-meeting .date-time input[type="time"]::-webkit-calendar-picker-indicator {
-  color: rgba(0, 0, 0, 0);
-  opacity: 1;
-  display: block;
-  background: url(../assets/calender.png) no-repeat;
-  width: 20px;
-  height: 20px;
-  border-width: thin;
-  cursor: pointer;
-}
-
-.add-meeting .date-time input[type="time"]::-webkit-calendar-picker-indicator {
-  background: url(../assets/time.png) no-repeat;
-}
-
 .add-meeting .dialog-input {
   margin-top: 15px;
   border-radius: 8px;
   padding: 8px 12px;
+  background-color: #f9f9f9;
+  color: black;
+  font-size: 16px;
 }
 
 .add-meeting .dialog-textarea {
   margin-top: 15px;
   border-radius: 8px;
   padding: 8px 12px;
-  height: 100px !important;
-  border: 1px solid lightgray;
+  height: 125px !important;
+  border: 1px solid #f0f0f0;
   outline: none;
-  background-color: #efefef;
+  background-color: #f9f9f9;
+  color: black;
   font-family: "Roboto", "Helvetica", "Arial", sans-serif;
   font-weight: 400 !important;
   font-size: 16px;
+  resize: none;
 }
 
 .add-meeting .dialog-select-input {
-  background-color: #efefef;
+  background-color: #f9f9f9;
+  color: black;
   margin-top: 15px;
   padding: 8px 12px;
 }
 
 .add-meeting .MuiSelect-select.MuiSelect-select {
-  background-color: #efefef;
+  background-color: #f9f9f9;
+  color: black;
 }
 
 .add-meeting .dialog-textarea-input {
@@ -1361,4 +1381,17 @@
   padding: 8px 15px;
   width: 125px;
   margin: 0 8px;
+}
+
+.dashboard-info-tooltip {
+  background: white;
+  color: black;
+  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+  max-width: 350px;
+}
+
+.dashboard-info-tooltip .tooltip-heading-box {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }

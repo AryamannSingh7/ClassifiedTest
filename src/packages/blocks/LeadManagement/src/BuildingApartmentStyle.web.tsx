@@ -5,7 +5,7 @@ export const BuildingApartmentStyle: any = {
       justifyContent: "space-between",
     },
     "& h4": {
-      fontSize: "22px",
+      fontSize: "20px",
     },
     "& .navigation .sub-heading": {
       fontWeight: 600,
@@ -26,7 +26,7 @@ export const BuildingApartmentStyle: any = {
     },
     "& .about-building p": {
       color: "black",
-      fontSize: "18px",
+      fontSize: "16px",
     },
     "& .edit-button": {
       width: "100%",
@@ -154,10 +154,10 @@ export const BuildingApartmentStyle: any = {
     "& .content-boxes": {
       marginTop: "50px",
       marginBottom: "50px",
+      boxShadow: "rgba(0, 0, 0, 0.04) 0px 3px 5px",
     },
     "& .content-boxes .MuiTab-root": {
       borderTopLeftRadius: "8px",
-      // borderTopRightRadius: "8px",
       background: "white",
       color: "#2b6fed",
       fontWeight: 600,
@@ -178,7 +178,6 @@ export const BuildingApartmentStyle: any = {
     },
     "& .content-boxes .tab-content": {
       borderRadius: "8px",
-      // boxShadow: "rgba(0, 0, 0, 0.1) 0px 10px 50px",
       background: "white",
     },
     "& .content-boxes .top-content": {
@@ -198,7 +197,7 @@ export const BuildingApartmentStyle: any = {
     },
     "& .content-boxes .top-content .heading h2": {
       fontWeight: 600,
-      fontSize: "22px",
+      fontSize: "20px",
     },
     "& .content-boxes .unit-pagination": {
       padding: "20px",
@@ -301,7 +300,7 @@ export const BuildingApartmentStyle: any = {
       display: "flex",
       justifyContent: "space-between",
       alignItems: "center",
-      marginTop: "20px",
+      marginTop: "30px",
     },
     "& .about-building .bottom-detail p": {
       color: "black",
@@ -376,7 +375,7 @@ export const BuildingApartmentStyle: any = {
     },
     "& h4": {
       fontWeight: 600,
-      fontSize: "22px",
+      fontSize: "20px",
       textTransform: "capitalize",
     },
     "& .location-details .heading": {

@@ -53,13 +53,13 @@ class EmailAccountLogin extends EmailAccountLoginController {
                   </Link>
                 </Box>
                 <Box className="main-content-block desktop-ui">
-                  <Box className="header-block">
+                  <Box className="header-block" style={{marginBottom:"30px"}}>
                     <Box display={{ xs: 'flex', md: 'none' }}>
                       <Link href="/EmailAccountLogin">
                         <img src={Tenant_Logo.default} className="tenant-logo" style={{ cursor: 'pointer'}} onClick={()=>window.open("https://www.TenantInt.com", '_blank').focus()} alt="" />
                       </Link>
                     </Box>
-                    <h1 className="login-h1">Welcome Back</h1>
+                    <h1 className="login-h1" style={{fontSize:"26px"}}>Welcome Back</h1>
                     <p>Login with your account credentials </p>
                   </Box>
                   <Formik
@@ -113,75 +113,81 @@ class EmailAccountLogin extends EmailAccountLoginController {
                         {/*    <ErrorMessage className="text-error" component="Typography" name="userType" />*/}
                         {/*  </FormControl>*/}
                         {/*</Box>*/}
-                        <Box className="formGroup">
-                          <Field name="email" type="text" placeholder="Email ID" className="formInput" />
-                          <span className="frmLeftIcons">
-                            <img src={Email_Icon} className="frm-icons" alt="Email Icon" />
+                        <Box style={{marginBottom:"20px"}}>
+                          <Box className="formGroup" style={{marginBottom:"0px"}}>
+                            <Field name="email" type="text" placeholder="Email ID" className="formInput" />
+                            <span className="frmLeftIcons">
+                            <img src={Email_Icon} className="frm-icons" alt="Email Icon" style={{marginTop:"-2px"}}/>
                           </span>
+                          </Box>
                           {
                             errors.email && touched.email ?
-                              (
-                                <Typography className="text-error"
+                                (
+                                    <Typography className="text-error" style={{marginLeft:"5px"}}
 
-                                >{errors.email} </Typography>
+                                    >{errors.email} </Typography>
 
-                              ) : null
+                                ) : null
                           }
                         </Box>
-
-                        <Box className="formGroup">
-                          <Field name="password" type={values.showPassword ? "text" : "password"} placeholder="Password" className="formInput" />
-                          <span className="frmLeftIcons">
-                            <img src={Lock_User_Icon} className="frm-icons" alt="Email Icon" />
+                        <Box style={{marginBottom:"15px"}}>
+                          <Box className="formGroup" style={{marginBottom:"0px"}}>
+                            <Field name="password" type={values.showPassword ? "text" : "password"} placeholder="Password" className="formInput" />
+                            <span className="frmLeftIcons">
+                            <img src={Lock_User_Icon} className="frm-icons" alt="Email Icon"  style={{marginTop:"-3px"}} />
                           </span>
-                          {/* <span className="frmrightIcons"><Visibility /></span> */}
-                          <span className="frmrightIcons">
+                            {/* <span className="frmrightIcons"><Visibility /></span> */}
+                            <span className="frmrightIcons">
                             {values.showPassword ? (
-                              <IconButton
-                                onClick={() => setFieldValue("showPassword", false)}
-                                style={{ padding: 0, backgroundColor: "transparent" }}
-                                disableRipple={true}
-                              >
-                                <Visibility
-                                  style={{
-                                    width: 24,
-                                    height: 24,
-                                    marginRight: 16,
-                                    color: "#000000",
-                                    opacity: 0.54
-                                  }}
-                                />
-                              </IconButton>
+                                <IconButton
+                                    onClick={() => setFieldValue("showPassword", false)}
+                                    style={{ padding: 0, backgroundColor: "transparent" }}
+                                    disableRipple={true}
+                                >
+                                  <Visibility
+                                      style={{
+                                        width: 26,
+                                        height: 26,
+                                        marginRight: 5,
+                                        marginTop:1,
+                                        color: "#000000",
+                                        opacity: 0.54
+                                      }}
+                                  />
+                                </IconButton>
                             ) : (
-                              <IconButton
-                                onClick={() => setFieldValue("showPassword", true)}
-                                style={{ padding: 0, backgroundColor: "transparent" }}
-                                disableRipple={true}
-                              >
-                                <VisibilityOff
-                                  style={{
-                                    width: 24,
-                                    height: 24,
-                                    marginRight: 16,
-                                    color: "#000000",
-                                    opacity: 0.54
-                                  }}
-                                />
-                              </IconButton>
+                                <IconButton
+                                    onClick={() => setFieldValue("showPassword", true)}
+                                    style={{ padding: 0, backgroundColor: "transparent" }}
+                                    disableRipple={true}
+                                >
+                                  <VisibilityOff
+                                      style={{
+                                        width: 26,
+                                        height: 26,
+                                        marginRight: 5,
+                                        marginTop:1,
+                                        color: "#000000",
+                                        opacity: 0.54
+                                      }}
+                                  />
+                                </IconButton>
                             )}
                           </span>
-                          {/* <span className="frmrightIcons"><VisibilityOffIcon /></span> */}
+                            {/* <span className="frmrightIcons"><VisibilityOffIcon /></span> */}
+                          </Box>
                           {
                             errors.password && touched.password ?
-                              (
-                                <Typography className="text-error">{errors.password} </Typography>
-                              ) : null
+                                (
+                                    <Typography className="text-error" style={{marginLeft:"5px"}}>{errors.password} </Typography>
+                                ) : null
                           }
                         </Box>
+
                         <Box className="formGroup formCheckbox">
                           <div>
                             <Checkbox name="stayIn" onChange={handleChange} value={values.stayIn} icon={<CircleUnchecked />}
-                              checkedIcon={<CircleCheckedFilled />} id="loginCheckbox"
+                              checkedIcon={<CircleCheckedFilled />} id="loginCheckbox" style={{paddingLeft:"0px"}}
                             />
                             <label htmlFor="loginCheckbox" className="checkboxLabel">Stay logged in</label>
                           </div>
@@ -190,7 +196,7 @@ class EmailAccountLogin extends EmailAccountLoginController {
                         <Box className="customButton">
                           <Button variant="contained" type="submit" >login</Button>
                         </Box>
-                        <Box className="bottomBlock link-block">
+                        <Box className="bottomBlock link-block" style={{marginTop:"130px"}}>
                           <Link href="#" className="link">Don't have an account ? </Link>
                           <Link href="/selecttype" className="link"> <span> register</span></Link>
                         </Box>

@@ -1,7 +1,7 @@
-@import "../css/content/font.styles.scss";
-@import "./constants/base/colors.scss";
-@import "./constants/base/";
-@import "./content/";
+@import '../css/content/font.styles.scss';
+@import './constants/base/colors.scss';
+@import './constants/base/';
+@import './content/';
 
 body,
 html {
@@ -12,7 +12,7 @@ html {
   padding: 0;
   overflow-x: hidden;
   // font-family: $MONTSERRAT;
-  font-family: $Gotham_Medium  !important;
+  font-family: $Gotham_Medium !important;
   font-weight: 100;
   @include scrollbars();
 
@@ -22,11 +22,11 @@ html {
 }
 
 * {
-  font-family: $Gotham_Medium  !important;
+  font-family: $Gotham_Medium !important;
 }
 
 input {
-  font-family: $Gotham_Medium  !important;
+  font-family: $Gotham_Medium !important;
 }
 
 h1,
@@ -44,7 +44,7 @@ p {
 h1 {
   font-size: 28px;
   // font-weight: 600;
-  font-family: $Gotham_Medium  !important;
+  font-family: $Gotham_Medium !important;
   padding-right: 10px;
 
   @include mq(tablet-portrait-large-up) {
@@ -69,7 +69,7 @@ h3 {
 }
 
 h4 {
-  font-family: $Gotham_Medium  !important;
+  font-family: $Gotham_Medium !important;
   font-size: 19px;
   font-weight: 600;
 
@@ -79,7 +79,7 @@ h4 {
 }
 
 h5 {
-  font-family: $Gotham_Light  !important;
+  font-family: $Gotham_Light !important;
   font-weight: 600;
   // opacity: 0.85;
   font-size: 17px;
@@ -92,7 +92,7 @@ h5 {
 h6 {
   // color: $GRAY_SHADE3;
   font-size: 15px;
-  font-family: $Gotham_Light  !important;
+  font-family: $Gotham_Light !important;
   line-height: 12px;
 }
 
@@ -103,7 +103,7 @@ h6 {
 // }
 
 p {
-  font-family: $Gotham_Light  !important;
+  font-family: $Gotham_Light !important;
   font-size: 16px;
   font-weight: 500;
   line-height: 1.5;
@@ -115,7 +115,7 @@ p {
 
 a {
   text-decoration: none;
-  font-family: $Gotham_Light  !important;
+  font-family: $Gotham_Light !important;
 }
 
 button,
@@ -123,7 +123,7 @@ label {
   cursor: pointer;
   margin-bottom: 0;
   // font-family: $MONTSERRAT;
-  font-family: $Gotham_Light  !important;
+  font-family: $Gotham_Light !important;
   font-weight: 500;
 }
 
@@ -132,11 +132,11 @@ ul {
   padding: 0;
   list-style: none;
   // font-family: $MONTSERRAT;
-  font-family: $Gotham_Medium  !important;
+  font-family: $Gotham_Medium !important;
 }
 
 li {
-  font-family: $Gotham_Medium  !important;
+  font-family: $Gotham_Medium !important;
 }
 
 .mainWrapper {
@@ -231,20 +231,24 @@ li {
   margin-bottom: 10px;
 }
 
-.famliy-container{
+.famliy-container {
   margin-bottom: 50px;
-& .famliy-card{
- display: flex;
-flex-direction: column;
-border: 1px solid #ccc;
-border-radius: 10px;
-padding: 10px;
-margin: 10px;
+  & .famliy-card {
+    display: flex;
+    flex-direction: column;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    padding: 10px;
+    margin: 10px;
 
-& .famliy-row{
-  display: flex;
-  justify-content: space-between;
- // width: 100%;
+    & .famliy-row {
+      display: flex;
+      justify-content: space-between;
+      // width: 100%;
+    }
+  }
 }
-}
+
+.bold-text {
+  font-family: $Gotham_Bold !important;
 }

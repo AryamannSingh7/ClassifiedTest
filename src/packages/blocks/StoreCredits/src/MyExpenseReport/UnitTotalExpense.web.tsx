@@ -46,7 +46,7 @@ class UnitTotalExpense extends UnitTotalExpenseController {
                         <KeyboardBackspaceIcon />
                       </IconButton>
                     </Link>
-                    <span>{`Unit ${this.state.unitName} Building ${this.state.buildingName}`}</span>
+                    <span>{`${t("Unit")} ${this.state.unitName} ${t("Building")} ${this.state.buildingName}`}</span>
                   </Box>
                   <Box className="right-icon">
                     <IconButton onClick={() => this.handleFilterModal()}>
@@ -110,9 +110,7 @@ class UnitTotalExpense extends UnitTotalExpenseController {
                                         <Grid item xs={6}>
                                           <Box className="unit-expense-card-box">
                                             <span>{t("Cost")}</span>
-                                            <p>{`${expense.attributes.address.currency} ${
-                                              expense.attributes.expense_amount
-                                            }`}</p>
+                                            <p>{`${expense.attributes.address.currency} ${expense.attributes.expense_amount}`}</p>
                                           </Box>
                                         </Grid>
                                         <Grid item xs={6}>

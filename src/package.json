@@ -74,11 +74,13 @@
     "react-navigation-stack": "file:./packages/blocks/core/node_modules/react-navigation-stack",
     "react-otp-input": "^2.4.0",
     "react-pdf": "^5.7.2",
+    "react-phone-input-2": "^2.15.1",
     "react-responsive-modal": "^6.2.0",
     "react-rte": "^0.16.3",
     "react-select": "^3.0.8",
     "react-share": "^4.4.0",
     "react-slick": "^0.29.0",
+    "react-tooltip": "^5.7.5",
     "recompose": "file:./packages/blocks/core/node_modules/recompose",
     "sass": "^1.53.0",
     "yup": "file:./packages/blocks/core/node_modules/yup"

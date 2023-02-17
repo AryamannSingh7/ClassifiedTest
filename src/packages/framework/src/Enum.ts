@@ -8,5 +8,6 @@ export const ROLE = {
   PROPERTY_MANAGER: 'Property Manager',
   MANAGER: 'Manager',
   VISITORS:"Visitors",
-  SECURITY:"Security"
+  SECURITY:"Security",
+  AUDITOR:"Auditor"
 };

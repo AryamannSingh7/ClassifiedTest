@@ -14,6 +14,7 @@ import {
   TextField,
   InputAdornment,
   Divider,
+  Link,
 } from "@material-ui/core";
 import Box from "@material-ui/core/Box";
 import Grid from "@material-ui/core/Grid";
@@ -31,6 +32,14 @@ import { ROLE } from "../../../framework/src/Enum";
 class TicketGeneratedYear extends DashboardTicketController {
   constructor(props: Props) {
     super(props);
+  }
+
+  async componentDidMount(): Promise<void> {
+    const year = this.props.navigation.getParam("year");
+    this.setState({ ticketYear: year }, () => {
+      this.getTicketDashboardYearList();
+      this.getAllBuildingList();
+    });
   }
 
   render() {
@@ -53,35 +62,49 @@ class TicketGeneratedYear extends DashboardTicketController {
                 <Box className="navigation">
                   <Box>
                     <Typography variant="body1">
-                      {t("My Dashboard")} / {t("Ticket Dashboard")} /{" "}
+                      {t("My Dashboard")} / <Link href="/DashboardTicket">{t("Ticket Dashboard")}</Link> /{" "}
                       <Box component="span" style={{ color: "blue" }}>
-                        {t("Tickets Generated in 2022")}
+                        {t("Tickets Generated in")} {this.state.ticketYear}
                       </Box>
                     </Typography>
                   </Box>
                   <Box className="sub-heading-box">
-                    <Typography variant="h5">{t("Tickets Generated in 2022")}</Typography>
+                    <Typography variant="h5">
+                      {t("Tickets Generated in")} {this.state.ticketYear}
+                    </Typography>
                     <Box className="select-box">
                       {userType === ROLE.MANAGER && (
-                        <NativeSelect className="select-year">
-                          <option value={2022}>Building 1</option>
-                          <option value={2021}>Building 2</option>
-                          <option value={2020}>Building 3</option>
-                          <option value={2019}>Building 4</option>
-                        </NativeSelect>
+                        <>
+                          <select className="select-year">
+                            <option value="">Status</option>
+                          </select>
+                          <select className="select-year">
+                            <option value="" disabled>
+                              {t("Select Building")}
+                            </option>
+                            {this.state.buildingList.map((building: any) => {
+                              return (
+                                <option value={building.id} key={building.id}>
+                                  {building.attributes.name}
+                                </option>
+                              );
+                            })}
+                          </select>
+                        </>
                       )}
-                      <NativeSelect className="select-year">
-                        <option value={2022}>2022</option>
-                        <option value={2021}>2021</option>
-                        <option value={2020}>2020</option>
-                        <option value={2019}>2019</option>
-                      </NativeSelect>
-                      <NativeSelect className="select-year">
-                        <option value={2022}>Status</option>
-                        <option value={2021}>2021</option>
-                        <option value={2020}>2020</option>
-                        <option value={2019}>2019</option>
-                      </NativeSelect>
+                      <select
+                        className="select-year"
+                        value={this.state.filterYear}
+                        onChange={(e: any) => this.setState({ filterYear: e.target.value })}
+                      >
+                        {this.state.yearList.map((year: any) => {
+                          return (
+                            <option value={year} key={year}>
+                              {year}
+                            </option>
+                          );
+                        })}
+                      </select>
                     </Box>
                   </Box>
                 </Box>

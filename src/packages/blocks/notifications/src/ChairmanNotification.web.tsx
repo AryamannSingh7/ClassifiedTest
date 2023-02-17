@@ -74,7 +74,7 @@ class ChairmanNotification extends ChairmanNotificationController {
                           <Grid container spacing={2}>
                             {this.state.notificationList.length == 0 && (
                               <Grid item xs={12}>
-                                <Box className="notification-box">No task found</Box>
+                                <Box className="notification-box">{t("No task found")}</Box>
                               </Grid>
                             )}
                             {this.state.notificationList.map((notification: any) => {
@@ -99,7 +99,7 @@ class ChairmanNotification extends ChairmanNotificationController {
                                         window.open(notification.attributes.app_url, "_self", "noopener");
                                       }}
                                     >
-                                      View Document
+                                      {t("View Document")}
                                     </Button>
                                   </Box>
                                 </Grid>
@@ -115,7 +115,7 @@ class ChairmanNotification extends ChairmanNotificationController {
                           <Grid container spacing={2}>
                             {this.state.notificationList.length == 0 && (
                               <Grid item xs={12}>
-                                <Box className="notification-box">No message found</Box>
+                                <Box className="notification-box">{t("No message found")}</Box>
                               </Grid>
                             )}
                             {this.state.notificationList.map((notification: any) => {

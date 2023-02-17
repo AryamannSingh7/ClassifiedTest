@@ -66,29 +66,28 @@ class PollVoteSubmitted extends PollingController {
                 <Box
                 borderRadius="15px"
                 bgcolor="white"
-                marginTop='1rem'
                 padding='1rem'
                 >
-                    <Box marginTop='1rem'>
+                    <Box>
                         <Typography variant="subtitle2" color="textSecondary">{t("Purpose")}:</Typography>
-                        <p style={{color:"black", fontSize:'1.1rem', marginTop:10}}
+                        <Typography style={{color:"black", fontSize:'1.1rem', marginTop:5}} className="pollDetailsPurpose"
                           dangerouslySetInnerHTML={
                             { __html: DOMPurify.sanitize(this.state.pollPreviewAnswer?.poll?.data.attributes.description) }
                           }
                         >  
-                        </p>
+                        </Typography>
                     </Box>
                     <Box marginTop='1rem'>
                         <Typography variant="subtitle2" color="textSecondary">{t("End Date")}:</Typography>
-                        <p style={{color:"black", fontSize:'1.1rem', marginTop:10}}>
+                        <Typography style={{color:"black", fontSize:'1rem', marginTop:5}}>
                           {this.state.pollPreviewAnswer?.poll?.data.attributes.end_date}
-                        </p>
+                        </Typography>
                     </Box>
                     <Box marginTop='1rem'>
                         <Typography variant="subtitle2" color="textSecondary">{t("Building")}:</Typography>
-                        <p style={{color:"black", fontSize:'1.1rem', marginTop:10}}>
+                        <Typography style={{color:"black", fontSize:'1rem', marginTop:5}}>
                           {this.state.pollPreviewAnswer?.poll?.data.attributes.building_name}
-                        </p>
+                        </Typography>
                     </Box>
                 </Box>
               </Grid>
@@ -103,24 +102,24 @@ class PollVoteSubmitted extends PollingController {
                 <Box
                 borderRadius="15px"
                 bgcolor="white"
-                marginTop='1.5em'
+                marginTop='0.5rem'
                 padding='1rem'
                 >
-                    <Box display='flex' marginTop='1rem'>
+                    <Box display='flex'>
                         <AccountCircleOutlinedIcon style={{color:'#054c94'}}/>
                         <Box marginLeft='0.5rem'>
                             <p>{t("Published By")}:</p>
-                            <p style={{color:"black", fontSize:'1.1rem', marginTop:10}}>
+                            <p style={{color:"black", fontSize:'1rem', marginTop:5}}>
                             {this.state.pollPreviewAnswer?.poll?.data.attributes.publish_by}
                             </p>
                         </Box>
                     </Box>
                    
-                    <Box display='flex' marginTop='1.5rem'>
+                    <Box display='flex' marginTop='1rem'>
                         <DateRangeOutlinedIcon style={{color:'#054c94'}}/>
                         <Box marginLeft='0.5rem'>
                             <p>{t("Published Date")}:</p>
-                            <p style={{color:"black", fontSize:'1.1rem', marginTop:10}}>
+                            <p style={{color:"black", fontSize:'1rem', marginTop:5}}>
                               {this.state.pollPreviewAnswer?.poll?.data.attributes.publish_date}
                             </p>
                         </Box>
@@ -162,7 +161,7 @@ class PollVoteSubmitted extends PollingController {
 
         <Grid container style={{ margin: '1rem', width: '90%' }}>
           <Grid xs={12} style={{display:"flex"}}>
-            <p style={{color:"black", fontSize:'0.9rem', marginTop:10}}>{t("Your Vote")}:</p>
+            <p style={{color:"black", fontSize:'0.9rem', marginTop:10}}>{t("Your Vote")} :{" "}</p>
             <p style={{color:"red", fontSize:'0.9rem', fontWeight: 600 , marginTop:10}}>
               {this.state.pollPreviewAnswer?.poll?.data.attributes.your_answer}
             </p>
