@@ -257,6 +257,7 @@ export default class EmailAccountRegistrationController extends BlockComponent<
       //@ts-nocheck
       this.props.history.push('/otp')
     } else if (responseJson?.errors) {
+      this.setState({ loading: false })
       let error = responseJson.errors[0];
       this.setState({ error });
     } else {
@@ -293,6 +294,7 @@ export default class EmailAccountRegistrationController extends BlockComponent<
       //@ts-nocheck
       this.props.history.push('/otp')
     } else if (responseJson?.errors) {
+      this.setState({ loading: false })
       let error = responseJson.errors[0];
       this.setState({ error });
       ApiCatchErrorResponse(this.state.error);
@@ -322,6 +324,7 @@ export default class EmailAccountRegistrationController extends BlockComponent<
       })
     } else {
       //Check Error Response
+      this.setState({ loading: false })
       this.parseApiErrorResponse(responseJson);
     }
     ApiCatchErrorResponse(errorReponse);

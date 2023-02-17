@@ -47,7 +47,7 @@ class NewRequest extends VeichleListController {
                 </Box>
                 <Box className="main-content-block">
                   <Box className="reg-content-block">
-                    <Box className="header-block chairmanHeaderBlock">
+                    <Box className="header-block chairmanHeaderBlock" style={{marginTop:'9rem'}}>
                       {/* <img src={Tenant_Logo} className="tenant-logo" alt="Tenant Logo" /> */}
                       <img src={CarFront} className="bank-logo" style={{fontWeight:'bold'}} alt="Tenant Logo" />
                       <h1 style={{ fontWeight: 'bold' }}>Vehicle Request <br/>
