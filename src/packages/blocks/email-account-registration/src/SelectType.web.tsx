@@ -58,11 +58,13 @@ class SelectType extends EmailAccountRegistrationController {
                     borderRadius="16px"
                     bgcolor="white"
                     marginTop="1rem"
+                    style={{cursor:"pointer"}}
+                    onClick={() => this.changeType("Owner Resident")}
                   >
                     <Box style={{width: "50px", height: "50px",display:"flex",alignItems:"center",justifyContent:"center"}}>
                       <img src={resident_owner}/>
                     </Box>
-                    <Box className={"middle-section"} style={{display:"flex",flexDirection:"column",marginBottom:"0px"}}>
+                    <Box className={"middle-section"} style={{display:"flex",flexDirection:"column",marginBottom:"0px",width:"70%"}}>
                       <label
                         //@ts-ignore
                         for="radCreateMode"
@@ -97,11 +99,13 @@ class SelectType extends EmailAccountRegistrationController {
                     borderRadius="16px"
                     bgcolor="white"
                     marginTop="1rem"
+                    style={{cursor:"pointer"}}
+                    onClick={() => this.changeType("Tenant")}
                   >
                     <Box style={{width: "50px", height: "50px",display:"flex",alignItems:"center",justifyContent:"center"}}>
                       <img src={tenet} />
                     </Box>
-                    <Box className="middle-section" style={{display:"flex",flexDirection:"column",marginBottom:"0px"}}>
+                    <Box className="middle-section" style={{display:"flex",flexDirection:"column",marginBottom:"0px",width:"70%"}}>
                       <label
                         //@ts-ignore
                         for="radCreateMode2"
@@ -117,7 +121,7 @@ class SelectType extends EmailAccountRegistrationController {
                         for="radCreateMode2"
                         style={this.state.userType == "Tenant" ? {color:"#181d25",marginTop:"-12px"} :{color:"#939292",marginTop:"-12px"}}
                       >
-                        I am registering as somone who rented a unit
+                        I am registering as someone who rented a unit
                       </label>
                     </Box>
                     <RadioGroup aria-label="Type" style={{width:"30px"}} name="Type" value={this.state.userType} onChange={(e: any) => this.changeType(e.target.value)}>
@@ -136,11 +140,13 @@ class SelectType extends EmailAccountRegistrationController {
                     borderRadius="16px"
                     bgcolor="white"
                     marginTop="1rem"
+                    style={{cursor:"pointer"}}
+                    onClick={() => this.changeType("Owner")}
                   >
                     <Box style={{width: "50px", height: "50px",display:"flex",alignItems:"center",justifyContent:"center"}}>
                       <img src={owner} />
                     </Box>
-                    <Box className="middle-section" style={{display:"flex",flexDirection:"column",marginBottom:"0px"}}>
+                    <Box className="middle-section" style={{display:"flex",flexDirection:"column",marginBottom:"0px",width:"70%"}}>
                       <label
                         //@ts-ignore
                         for="radCreateMode5"
@@ -175,11 +181,13 @@ class SelectType extends EmailAccountRegistrationController {
                     borderRadius="16px"
                     bgcolor="white"
                     marginTop="1rem"
+                    style={{cursor:"pointer"}}
+                    onClick={() => this.changeType("Property Manager")}
                   >
                     <Box style={{width: "50px", height: "50px",display:"flex",alignItems:"center",justifyContent:"center"}}>
                       <img src={manager} />
                     </Box>
-                    <Box className="middle-section" style={{display:"flex",flexDirection:"column",marginBottom:"0px"}}>
+                    <Box className="middle-section" style={{display:"flex",flexDirection:"column",marginBottom:"0px",width:"70%"}}>
                       <label
                         //@ts-ignore
                         for="radCreateMode3"

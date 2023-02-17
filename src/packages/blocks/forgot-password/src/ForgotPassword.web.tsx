@@ -13,7 +13,7 @@ import {
 } from "@material-ui/core";
 
 //images
-import { Tenant_Logo, Building_Logo, Lock_User_Icon, Building1 } from "../src/assets";
+import { Tenant_Logo, Building_Logo, Lock_User_Icon, Building1,Email_Icon } from "../src/assets";
 
 //resources
 import MailOutlineIcon from '@material-ui/icons/MailOutline';
@@ -56,7 +56,7 @@ class ForgotPassword extends ForgotPasswordController {
                         <img src={Tenant_Logo} className="tenant-logo" alt="" />
                       </Link>
                     </Box> */}
-                    <h1>Forgot Password</h1>
+                    <h1 style={{fontWeight : '900'}}>Forgot Password</h1>
                     <h6>One Time Password(OTP) will be sent to the regestered email or mobile.</h6>
                   </Box>
                   <Formik
@@ -78,7 +78,7 @@ class ForgotPassword extends ForgotPasswordController {
                           <div className="formInputGrp">
                             <Field type="text" name="email" placeholder="Email ID or Mobile Number" className="formInput" />
                             <span className="frmLeftIcons">
-                              <img src={Lock_User_Icon} className="frm-icons" alt="Email Icon" />
+                              <img src={Email_Icon} className="frm-icons" alt="Email Icon" />
                             </span>
                           </div>
 
