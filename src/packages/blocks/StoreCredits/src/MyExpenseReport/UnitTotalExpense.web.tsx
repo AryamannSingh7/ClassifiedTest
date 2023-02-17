@@ -35,7 +35,7 @@ class UnitTotalExpense extends UnitTotalExpenseController {
 
     return (
       <>
-        <Box style={{ background: "#F4F7FF" }} className={classes.totalExpense}>
+        <Box style={{ background: "#F7F9FE" }} className={classes.totalExpense}>
           <Grid container>
             <Grid item xs={12} md={7}>
               <Box className="faq-step">
@@ -110,7 +110,9 @@ class UnitTotalExpense extends UnitTotalExpenseController {
                                         <Grid item xs={6}>
                                           <Box className="unit-expense-card-box">
                                             <span>{t("Cost")}</span>
-                                            <p>{`${expense.attributes.address.currency} ${expense.attributes.expense_amount}`}</p>
+                                            <p>{`${expense.attributes.address.currency} ${
+                                              expense.attributes.expense_amount
+                                            }`}</p>
                                           </Box>
                                         </Grid>
                                         <Grid item xs={6}>

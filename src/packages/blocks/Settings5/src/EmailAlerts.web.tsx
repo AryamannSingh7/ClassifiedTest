@@ -32,7 +32,7 @@ class EmailAlerts extends EmailAlertsController {
 
     return (
       <>
-        <Box style={{ background: "#F4F7FF" }} className={classes.totalExpense}>
+        <Box style={{ background: "#F7F9FE" }} className={classes.totalExpense}>
           <Grid container>
             <Grid item xs={12} md={7}>
               <Box className="faq-step">
@@ -43,7 +43,7 @@ class EmailAlerts extends EmailAlertsController {
                         <KeyboardBackspaceIcon />
                       </IconButton>
                     </Link>
-                    <span>{t("Email Alert Settings")}</span>
+                    <span className="bold-text">{t("Email Alert Settings")}</span>
                   </Box>
                 </Box>
                 <Container>

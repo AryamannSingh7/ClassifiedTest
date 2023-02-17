@@ -229,7 +229,7 @@ import ViewReceipt from '../../blocks/InvoiceBilling/src/ViewReceipt.web';
 import InvoicesDetails from '../../blocks/InvoiceBilling/src/InvoicesDetails.web';
 import ReceiptsDetails from '../../blocks/InvoiceBilling/src/ReceiptsDetails.web';
 import CharmainInvoices from '../../blocks/InvoiceBilling/src/CharmainInvoices.web';
-import PaymentHistory from '../../blocks/InvoiceBilling/src/PaymentHistory.web'
+import PaymentHistory from '../../blocks/InvoiceBilling/src/PaymentHistory.web';
 import ChairmanProfile from '../../blocks/Settings5/src/ChairmanProfile.web';
 
 import Profile from '../../blocks/user-profile-basic/src/Profile.web';
@@ -343,7 +343,7 @@ import AuditReport from '../../blocks/StoreCredits/src/AuditReport.web';
 import ManagementFeeReport from '../../blocks/StoreCredits/src/ManagementFeeReport.web';
 import AuditReportDetails from '../../blocks/StoreCredits/src/AuditReportDetails.web';
 import InvitationReport from '../../blocks/StoreCredits/src/InvitationReport.web';
-import ExpenseReportDetails from "../../blocks/StoreCredits/src/ExpenseDetails.web";
+import ExpenseReportDetails from '../../blocks/StoreCredits/src/ExpenseDetails.web';
 
 // My Unit
 import MyUnitList from '../../blocks/TaskAllocator/src/MyUnitList.web';
@@ -387,7 +387,7 @@ import CollectedVsDue from '../../blocks/StoreCredits/src/MyExpenseReport/Collec
 import SpentVsCollected from '../../blocks/StoreCredits/src/MyExpenseReport/SpentVsCollected.web';
 // Auditor dash
 
-import AuditorDashboardGeneral from '../../blocks/customform/src/Auditor.web'
+import AuditorDashboardGeneral from '../../blocks/customform/src/Auditor.web';
 
 const routeMap = {
   //done
@@ -637,7 +637,7 @@ const routeMap = {
     path: '/CharmainInvoices',
     exact: true
   },
-  PaymentHistory:{
+  PaymentHistory: {
     component: PaymentHistory,
     path: '/PaymentHistory',
     exact: true
@@ -1321,7 +1321,7 @@ const routeMap = {
   DashboardActions: {
     component: DashboardActions,
     path: '/DashboardActions',
-    roles: [ROLE.CHAIRMAN, ROLE.MANAGER,ROLE.AUDITOR]
+    roles: [ROLE.CHAIRMAN, ROLE.MANAGER, ROLE.AUDITOR]
   },
 
   DashboardBudget: {
@@ -2010,12 +2010,12 @@ const routeMap = {
   UnitDetails: {
     component: UnitDetails,
     path: '/UnitDetail/:id',
-    roles: [ROLE.CHAIRMAN, ROLE.MANAGER,ROLE.SECURITY]
+    roles: [ROLE.CHAIRMAN, ROLE.MANAGER, ROLE.SECURITY]
   },
   SharedArea: {
     component: SharedArea,
     path: '/SharedArea/:id',
-    roles: [ROLE.CHAIRMAN, ROLE.MANAGER,ROLE.SECURITY]
+    roles: [ROLE.CHAIRMAN, ROLE.MANAGER, ROLE.SECURITY]
   },
   OwnerComplex: {
     component: OwnerComplex,
@@ -2309,6 +2309,12 @@ const routeMap = {
     component: SpentVsCollected,
     path: '/SpentVsCollected',
     roles: [ROLE.OWNER, ROLE.OWNER_RESIDENT],
+    exact: true
+  },
+  EmailAlerts: {
+    component: EmailAlerts,
+    path: '/EmailAlerts',
+    roles: [ROLE.OWNER],
     exact: true
   },
 

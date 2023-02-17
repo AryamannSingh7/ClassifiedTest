@@ -21,7 +21,7 @@ class BuildingDocumentList extends BuildingDocumentListController {
 
     return (
       <>
-        <Box className={classes.buildingDocument} style={{ background: "#F8F9FE", height: "100vh" }}>
+        <Box className={classes.buildingDocument} style={{ background: "#F7F9FE", height: "100vh" }}>
           <Grid container>
             <Grid item xs={12} md={7}>
               <Box display={{ xs: "flex", md: "flex" }} className="menu">

@@ -115,7 +115,7 @@ class ResidentDashboard extends DashboardController {
 
     return (
       <>
-        <Box className={classes.ownerDashboard} style={{ background: "#F8F9FE", height: "100vh" }}>
+        <Box className={classes.ownerDashboard} style={{ background: "#F7F9FE", height: "100vh" }}>
           <Drawer open={this.state.isMenuOpen} onClose={() => this.toggleDrawer()}>
             <Box className="dashboard-sidebar">
               <Box className="close-menu">
@@ -127,7 +127,7 @@ class ResidentDashboard extends DashboardController {
               <Divider />
               <div className="user-info">
                 <Avatar alt="Remy Sharp" src={this.state.profileData?.attributes?.profile_pic?.url} />
-                <h4>{this.state.profileData?.attributes?.full_name?.name|| 'N/A'}</h4>
+                <h4 className="bold-text">{this.state.profileData?.attributes?.full_name?.name|| 'N/A'}</h4>
                 <p>{this.state.profileData?.attributes?.email?.email|| 'N/A'}</p>
               </div>
               <Divider />
@@ -209,7 +209,7 @@ class ResidentDashboard extends DashboardController {
               <Container className="dashboard">
                 <Grid container spacing={1} style={{ marginTop: 15 }}>
                   <Grid item xs={12} sm={12} className="title">
-                    <Typography variant="h6">{t("Building Services")}</Typography>
+                    <Typography variant="h6" className="bold-text">{t("Building Services")}</Typography>
                   </Grid>
                   <Grid item xs={6} sm={6}>
                     <Link href="/IncidentListing">
@@ -294,7 +294,7 @@ class ResidentDashboard extends DashboardController {
                 </Grid>
                 <Grid container spacing={1} style={{ marginTop: 15 }}>
                   <Grid item xs={12} sm={12} className="title">
-                    <Typography variant="h6">{t("Personal Services")}</Typography>
+                    <Typography variant="h6" className="bold-text">{t("Personal Services")}</Typography>
                   </Grid>
                   <Grid item xs={6} sm={6}>
                     <Link href="/MyLeaseList">
@@ -386,7 +386,7 @@ class ResidentDashboard extends DashboardController {
           <DialogContent>
             <Box textAlign="center">
               <img src={SidebarLogoutDialog} alt="ExclamationIcon" />
-              <Typography variant="h6">{t("Are you sure you want to logout?")}</Typography>
+              <Typography variant="h6" className="bold-text">{t("Are you sure you want to logout?")}</Typography>
               <Typography variant="body1">{t("You will be returned to the login screen")}</Typography>
               <DialogActions className="dialog-button-group">
                 <Button onClick={() => this.logout()}>{t("Logout")}</Button>

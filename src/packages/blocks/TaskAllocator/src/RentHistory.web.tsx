@@ -53,7 +53,7 @@ class RentHistory extends RentHistoryController {
                     >
                       <KeyboardBackspaceIcon />
                     </IconButton>
-                    <span>{t("Rent History")}</span>
+                    <span className="bold-text">{t("Rent History")}</span>
                   </div>
                   <div className="right-icon">
                     {this.state.isDeleteOpen ? (
@@ -77,7 +77,7 @@ class RentHistory extends RentHistoryController {
                           <Box className="rent-history" key={history.id}>
                             <Box className="header">
                               <Box className="left-side">
-                                <h4>
+                                <h4 className="bold-text">
                                   {moment(history.attributes.start_date, "YYYY-MM-DD").format("MMMM YYYY") +
                                     " to " +
                                     moment(history.attributes.end_date, "YYYY-MM-DD").format("MMMM YYYY")}
@@ -174,7 +174,7 @@ class RentHistory extends RentHistoryController {
               return (
                 <Form onSubmit={handleSubmit} translate="true">
                   <Box>
-                    <h4>{t("Rent History")}</h4>
+                    <h4 className="bold-text">{t("Rent History")}</h4>
                     <Grid container spacing={2}>
                       <Grid item xs={6}>
                         <FormControl fullWidth>

@@ -179,7 +179,6 @@ export default class FaqChairmanController extends BlockComponent<Props, S, SS> 
         ...this.state,
         catagoriesList: responseJson.data,
         selectedCategoryId: responseJson.data.length > 0 ? responseJson.data[0].id : "",
-        createCategoryId: responseJson.data.length > 0 ? responseJson.data[0].id : "",
         selectedCategoryName: responseJson.data.length > 0 ? responseJson.data[0].attributes.name : "",
         faqList: responseJson.data.length > 0 ? responseJson.data[0].attributes.FAQ : [],
       });

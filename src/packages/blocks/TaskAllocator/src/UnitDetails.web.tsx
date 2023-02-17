@@ -111,7 +111,7 @@ class UnitDetails extends UnitDetailsController {
                   <Container className="page-container">
                     <Box className="pending-page">
                       <img src={UnderProcessIcon} alt="" />
-                      <h4>
+                      <h4 className="bold-text">
                         Registration Request <br /> Under process
                       </h4>
                       <p>
@@ -156,7 +156,7 @@ class UnitDetails extends UnitDetailsController {
                           <KeyboardBackspaceIcon />
                         </IconButton>
                       </Link>
-                      <span>{t("Unit")}</span>
+                      <span className="bold-text">{t("Unit")}</span>
                     </div>
                     <div className="right-icon">
                       <img src={DeleteRentIcon} alt="" onClick={() => this.handleDeleteUnitModal()} />
@@ -169,10 +169,11 @@ class UnitDetails extends UnitDetailsController {
                     <Container>
                       <Box className="detail">
                         <Box className="header">
-                          <h4>{t("Location Details")}</h4>
+                          <h4 className="bold-text">{t("Location Details")}</h4>
                           <Link
-                            href={`https://maps.google.com/?q=${this.state.unitDetails.lat},${this.state.unitDetails.long
-                              }`}
+                            href={`https://maps.google.com/?q=${this.state.unitDetails.lat},${
+                              this.state.unitDetails.long
+                            }`}
                             target="_blank"
                           >
                             <span>{t("See building on map")}</span>
@@ -185,7 +186,7 @@ class UnitDetails extends UnitDetailsController {
                                 <img src={BlueCountryIcon} alt="" />
                                 <Box className="item-data">
                                   <span>{t("Country")}</span>
-                                  <p>{this.validationText(this.state.unitDetails.country)}</p>
+                                  <p className="bold-text">{this.validationText(this.state.unitDetails.country)}</p>
                                 </Box>
                               </Box>
                             </Grid>
@@ -194,7 +195,7 @@ class UnitDetails extends UnitDetailsController {
                                 <img src={BlueRegionIcon} alt="" />
                                 <Box className="item-data">
                                   <span>{t("Region")}</span>
-                                  <p>{this.validationText(this.state.unitDetails.region)}</p>
+                                  <p className="bold-text">{this.validationText(this.state.unitDetails.region)}</p>
                                 </Box>
                               </Box>
                             </Grid>
@@ -203,7 +204,7 @@ class UnitDetails extends UnitDetailsController {
                                 <img src={BlueCityIcon} alt="" />
                                 <Box className="item-data">
                                   <span>{t("City")}</span>
-                                  <p>{this.validationText(this.state.unitDetails.city)}</p>
+                                  <p className="bold-text">{this.validationText(this.state.unitDetails.city)}</p>
                                 </Box>
                               </Box>
                             </Grid>
@@ -212,7 +213,7 @@ class UnitDetails extends UnitDetailsController {
                       </Box>
 
                       <Box className="detail">
-                        <h4>{t("Unit Details")}</h4>
+                        <h4 className="bold-text">{t("Unit Details")}</h4>
                         <Card className="detail-box">
                           <Grid container spacing={2} className="info">
                             <Grid item xs={6}>
@@ -220,7 +221,7 @@ class UnitDetails extends UnitDetailsController {
                                 <img src={BlueComplexIcon} alt="" />
                                 <Box className="item-data">
                                   <span>{t("Complex Name")}</span>
-                                  <p>{this.validationText(this.state.unitDetails.complex)}</p>
+                                  <p className="bold-text">{this.validationText(this.state.unitDetails.complex)}</p>
                                 </Box>
                               </Box>
                             </Grid>
@@ -229,7 +230,7 @@ class UnitDetails extends UnitDetailsController {
                                 <img src={BlueAssetsIcon} alt="" />
                                 <Box className="item-data">
                                   <span>{t("Building Name")}</span>
-                                  <p>{this.validationText(this.state.unitDetails.building)}</p>
+                                  <p className="bold-text">{this.validationText(this.state.unitDetails.building)}</p>
                                 </Box>
                               </Box>
                             </Grid>
@@ -238,7 +239,7 @@ class UnitDetails extends UnitDetailsController {
                                 <img src={BlueUnitIcon} alt="" />
                                 <Box className="item-data">
                                   <span>{t("Unit Number")}</span>
-                                  <p>#{this.validationText(this.state.unitDetails.unit)}</p>
+                                  <p className="bold-text">#{this.validationText(this.state.unitDetails.unit)}</p>
                                 </Box>
                               </Box>
                             </Grid>
@@ -247,7 +248,7 @@ class UnitDetails extends UnitDetailsController {
                                 <img src={BlueFloorIcon} alt="" />
                                 <Box className="item-data">
                                   <span>{t("Floor Number")}</span>
-                                  <p>{this.validationText(this.state.unitDetails.floor)}</p>
+                                  <p className="bold-text">{this.validationText(this.state.unitDetails.floor)}</p>
                                 </Box>
                               </Box>
                             </Grid>
@@ -256,7 +257,7 @@ class UnitDetails extends UnitDetailsController {
                                 <img src={BlueSizeIcon} alt="" />
                                 <Box className="item-data">
                                   <span>{t("Size")}</span>
-                                  <p>
+                                  <p className="bold-text">
                                     {this.validationText(this.state.unitDetails.size) +
                                       " " +
                                       this.handleEmptyText(this.state.unitDetails.measurement)}
@@ -269,7 +270,7 @@ class UnitDetails extends UnitDetailsController {
                                 <img src={BlueConfigIcon} alt="" />
                                 <Box className="item-data">
                                   <span>{t("Configuration")}</span>
-                                  <p>{this.validationText(this.state.unitDetails.config)}</p>
+                                  <p className="bold-text">{this.validationText(this.state.unitDetails.config)}</p>
                                 </Box>
                               </Box>
                             </Grid>
@@ -278,7 +279,7 @@ class UnitDetails extends UnitDetailsController {
                                 <img src={BluePriceIcon} alt="" />
                                 <Box className="item-data">
                                   <span>{t("Purchase Price")}</span>
-                                  <p>
+                                  <p className="bold-text">
                                     {this.handleEmptyText(this.state.unitDetails.currency) +
                                       " " +
                                       this.validationText(this.state.unitDetails.purchasePrice)}
@@ -291,11 +292,11 @@ class UnitDetails extends UnitDetailsController {
                                 <img src={BlueCalenderIcon} alt="" />
                                 <Box className="item-data">
                                   <span>{t("Purchase Date")}</span>
-                                  <p>
+                                  <p className="bold-text">
                                     {this.state.unitDetails.purchaseDate
                                       ? moment(this.state.unitDetails.purchaseDate, "YYYY-MM-DD").format(
-                                        "MMMM DD, YYYY"
-                                      )
+                                          "MMMM DD, YYYY"
+                                        )
                                       : "-"}
                                   </p>
                                 </Box>
@@ -306,7 +307,7 @@ class UnitDetails extends UnitDetailsController {
                                 <img src={BlueValuationIcon} alt="" />
                                 <Box className="item-data">
                                   <span>{t("Current Valuation")}</span>
-                                  <p>
+                                  <p className="bold-text">
                                     {this.handleEmptyText(this.state.unitDetails.currency) +
                                       " " +
                                       this.validationText(this.state.unitDetails.valuation)}
@@ -319,7 +320,7 @@ class UnitDetails extends UnitDetailsController {
                       </Box>
 
                       <Box className="detail">
-                        <h4>{t("Rent Status")}</h4>
+                        <h4 className="bold-text">{t("Rent Status")}</h4>
                         <Card className="detail-box">
                           <Grid container spacing={2} className="info">
                             <Grid item xs={6}>
@@ -327,7 +328,7 @@ class UnitDetails extends UnitDetailsController {
                                 <img src={BlueStatusIcon} alt="" />
                                 <Box className="item-data">
                                   <span>{t("Unit Status")}</span>
-                                  <p>{this.handleUnitStatus(this.state.rentDetails.status)}</p>
+                                  <p className="bold-text">{this.handleUnitStatus(this.state.rentDetails.status)}</p>
                                 </Box>
                               </Box>
                             </Grid>
@@ -339,10 +340,11 @@ class UnitDetails extends UnitDetailsController {
                                     <Box className="item-data">
                                       <span>{t("Tenant Name")}</span>
                                       <Link
-                                        href={`/MyUnitDetails/${this.state.unitId}/TenantProfile/${this.state.rentDetails.tenantId
-                                          }`}
+                                        href={`/MyUnitDetails/${this.state.unitId}/TenantProfile/${
+                                          this.state.rentDetails.tenantId
+                                        }`}
                                       >
-                                        <p className="tenant-link-text">
+                                        <p className="tenant-link-text bold-text">
                                           {this.validationText(this.state.rentDetails.tenantName)}
                                         </p>
                                       </Link>
@@ -354,12 +356,12 @@ class UnitDetails extends UnitDetailsController {
                                     <img src={BlueCalenderIcon} alt="" />
                                     <Box className="item-data">
                                       <span>{t("Rent Duration")}</span>
-                                      <p>
+                                      <p className="bold-text">
                                         {this.state.rentDetails.startDate && this.state.rentDetails.endDate
                                           ? moment(this.state.rentDetails.endDate).diff(
-                                            moment(this.state.rentDetails.startDate),
-                                            "days"
-                                          )
+                                              moment(this.state.rentDetails.startDate),
+                                              "days"
+                                            )
                                           : "0"}{" "}
                                         Days
                                       </p>
@@ -371,7 +373,7 @@ class UnitDetails extends UnitDetailsController {
                                     <img src={BlueCalenderIcon} alt="" />
                                     <Box className="item-data">
                                       <span>{t("Current Expiry")}</span>
-                                      <p>
+                                      <p className="bold-text">
                                         {this.state.rentDetails.endDate
                                           ? moment(this.state.rentDetails.endDate, "YYYY-MM-DD").format("MMMM DD, YYYY")
                                           : "-"}
@@ -384,7 +386,7 @@ class UnitDetails extends UnitDetailsController {
                                     <img src={BlueRentIcon} alt="" />
                                     <Box className="item-data">
                                       <span>{t("Rent Charge")}</span>
-                                      <p>
+                                      <p className="bold-text">
                                         {this.handleEmptyText(this.state.unitDetails.currency) +
                                           " " +
                                           this.validationText(this.state.rentDetails.charge)}{" "}
@@ -401,7 +403,7 @@ class UnitDetails extends UnitDetailsController {
 
                       <Box className="rent-history-box">
                         <Box className="header">
-                          <h4>{t("Rent History")}</h4>
+                          <h4 className="bold-text">{t("Rent History")}</h4>
                           {this.state.rentHistory.length !== 0 && (
                             <span
                               className="view-all-text"
@@ -417,7 +419,7 @@ class UnitDetails extends UnitDetailsController {
                         {this.state.rentHistory.map((history: any) => {
                           return (
                             <Box className="rent-history" key={history.id}>
-                              <h4>{this.validationText(history.attributes.tenant_name)}</h4>
+                              <h4 className="bold-text">{this.validationText(history.attributes.tenant_name)}</h4>
                               <p className="date">
                                 {moment(history.attributes.start_date, "YYYY-MM-DD").format("MMMM YYYY") +
                                   " to " +
@@ -446,7 +448,7 @@ class UnitDetails extends UnitDetailsController {
                       </Box>
 
                       <Box className="images-box">
-                        <h4>{t("Unit Pictures")}</h4>
+                        <h4 className="bold-text">{t("Unit Pictures")}</h4>
                         {this.state.unitDetails.photos.length === 0 && <div>{t("No photos available")}</div>}
                         <Slider ref={(c: any) => (this.slider = c)} {...settings}>
                           {this.state.unitDetails.photos.map((image: any) => {
