@@ -59,8 +59,8 @@ class Announcement extends AnnouncementController{
                       </Box>
                   </Grid>
                 </Grid>
-                <Box style={{background: "#E5ECFF",minHeight:"100vh",display:'flex',flexDirection:"column",alignItems:'center'}} >
-                    <Grid container spacing={2} style={{width:"90%"}}>
+                <Box style={{background: "#F7F9FE",minHeight:"100vh",display:'flex',flexDirection:"column",alignItems:'center'}} >
+                    <Grid container spacing={2} style={{width:"90%",marginTop:"10px"}}>
                         {
                             this.state.buildingListing.length > 0 &&
                             this.state.buildingListing.map((item:any,key:any)=> {
@@ -73,7 +73,7 @@ class Announcement extends AnnouncementController{
                                             borderRadius="15px"
                                             bgcolor="white"
                                             marginTop='1rem'
-                                            padding='1rem'
+                                            padding='1.2rem 1.4rem'
                                             onClick={()=>this.manageRedirect(item.id,item.attributes.complex_name)}
                                         >
                                             <Box style={{minWidth:"100%"}}>
@@ -81,11 +81,11 @@ class Announcement extends AnnouncementController{
                                                     <Typography variant={"body2"} style={{fontWeight:"bold"}}>
                                                         {item.attributes.complex_name}
                                                     </Typography>
-                                                    <Typography variant={"body2"} className="countRed">
+                                                    <Typography variant={"body2"} className="countRedAnnouncmenent">
                                                         {item.attributes.total_announcement}
                                                     </Typography>
                                                 </Box>
-                                                <Grid container spacing={1} style={{marginTop:"10px",marginBottom:"5px"}}>
+                                                <Grid container spacing={1} style={{marginTop:"8px",marginBottom:"5px"}}>
                                                     <Grid xs={6} style={{display:'flex',alignItems:'center'}}>
                                                         <Box>
                                                             <img src={building} height="16px" style={{marginRight:"10px"}} />

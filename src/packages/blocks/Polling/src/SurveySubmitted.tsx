@@ -50,20 +50,6 @@ class SurveyParticipate extends SurveyParticipateController {
 }
 export default withTranslation()(withRouter(SurveyParticipate));
 
-const BorderLinearProgress = withStyles((theme) => ({
-    root: {
-        height: 10,
-        borderRadius: 5,
-    },
-    colorPrimary: {
-        backgroundColor: theme.palette.grey[theme.palette.type === 'light' ? 200 : 700],
-    },
-    bar: {
-        borderRadius: 5,
-        backgroundColor: '#1a90ff',
-    },
-}))(LinearProgress);
-
 const OkButton = withStyles((theme) => ({
     root: {
         color: "white",
