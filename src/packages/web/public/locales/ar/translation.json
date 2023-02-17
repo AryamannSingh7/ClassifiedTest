@@ -702,7 +702,6 @@
   "Announce By": "أعلن بواسطة",
   "Announced On": "أعلن في",
   "selected announcements": "إعلانات مختارة",
-  "Announcement_Delete_Caution": "هل أنت متأكد من أنك تريد حذف الإعلانات المختارة؟ بمجرد الحذف ، لن تتمكن من عرض الإعلانات المحذوفة مرة أخرى.",
   "Apply": "يتقدم",
   "Announcement Details": "تفاصيل الإعلان",
   "withdraw Announcement": "إعلان الانسحاب",
@@ -1002,5 +1001,8 @@
   "Rent Amount (Monthly)": "مبلغ الإيجار (شهري)",
   "You don't have registered units that are vacant": "ليس لديك وحدات مسجلة شاغرة",
   "Survey": "استطلاع",
-  "Facility Listing": "قائمة المنشأة"
+  "Facility Listing": "قائمة المنشأة",
+  "Are you sure want to delete": "هل أنت متأكد من أنك تريد الحذف",
+  "Selected announcements? Once deleted you won’t be able to view deleted announcements again.": "إعلانات مختارة؟ بمجرد الحذف ، لن تتمكن من عرض الإعلانات المحذوفة مرة أخرى.",
+  "No Announcement data found": "لم يتم العثور على بيانات إعلان"
 }

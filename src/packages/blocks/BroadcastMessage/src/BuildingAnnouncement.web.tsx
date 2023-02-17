@@ -68,9 +68,9 @@ class Announcement extends BuildingAnnouncementController{
             <Grid item xs={12} md={12} className="auth-cols">
                 <Grid container style={{ margin: '1rem', width: '95%' }} >
                   <Grid xs={12} style={{ display:"flex", alignItems:"center", gap:"1rem",justifyContent:"space-between"}} >
-                      <Box style={{ display:"flex", alignItems:"center", gap:"5px"}}>
+                      <Box style={{ display:"flex", alignItems:"center", gap:"1rem"}}>
                           <ArrowBackIcon onClick={() =>  window.history.back()} />
-                          <p style={{ fontSize: '1rem', fontWeight: 600 }}>
+                          <p style={{ fontSize: '1.2rem', fontWeight: 600 }}>
                               {complexName || ""}
                           </p>
                       </Box>
@@ -84,22 +84,23 @@ class Announcement extends BuildingAnnouncementController{
                               </Box>
                               :
                               <Box>
-                                  <IconButton style={{padding:"8px"}} onClick={this.handleShort}>
+                                  <IconButton onClick={this.handleShort} style={{padding:"0px",paddingRight:"15px"}}>
                                       <img src={shortIcon} />
                                   </IconButton>
-                                  <IconButton style={{padding:"8px"}} onClick={this.handleOpenFilterModal} >
+                                  <IconButton onClick={this.handleOpenFilterModal} style={{padding:"0px",paddingRight:"15px"}}>
                                       <img src={filterIcon} />
                                   </IconButton>
-                                  <IconButton style={{padding:"8px"}} onClick={this.DeleteFlagTrue}>
+                                  <IconButton onClick={this.DeleteFlagTrue} style={{padding:"0px",paddingRight:"15px"}}>
                                       <img src={deleteIcon} />
                                   </IconButton>
                               </Box>
                       }
                   </Grid>
                 </Grid>
-                <Box style={{background: "#E5ECFF",minHeight:"100vh",display:'flex',flexDirection:"column",alignItems:'center'}} >
+                <Box style={{background: "#F7F9FE",minHeight:"100vh",display:'flex',flexDirection:"column",alignItems:'center'}} >
                     <Grid container spacing={2} style={{width:"90%",marginBottom:"20px",marginTop:"5px"}}>
                         {
+                            this.state.announcementList?.length > 0 ?
                             this.state.announcementList.map((item:any,key:any)=> {
                                 return(
                                     <Grid item xs={12} key={key}>
@@ -125,6 +126,7 @@ class Announcement extends BuildingAnnouncementController{
                                                                 checked={this.state.selectedAnnoucment.find((check:any)=> check === item.id) ? true : false}
                                                                 icon={<RadioButtonUncheckedIcon style={{color:"#E2E2E2"}} />}
                                                                 checkedIcon={<CheckCircleIcon style={{color:"#FC8434"}} />}
+                                                                style={{padding:"0px"}}
                                                             />
                                                         }
                                                     </Box>
@@ -137,6 +139,10 @@ class Announcement extends BuildingAnnouncementController{
                                     </Grid>
                                 )
                             })
+                            :
+                            <Box style={{height:"50vh",width:"100%",display:"flex",alignItems:"center",justifyContent:"center"}}>
+                                <Typography variant="h6" color="textSecondary">{t("No Announcement data found")}</Typography>
+                            </Box>
                         }
                     </Grid>
                 </Box>
@@ -156,11 +162,11 @@ class Announcement extends BuildingAnnouncementController{
                     {/*@ts-ignore*/}
                     <Fade in={this.state.filterModal}>
                         <div>
-                            <Box style={{width:"100%",minHeight:"50%",backgroundColor:"white",borderRadius:"10px 10px 0px 0px",position:"absolute",left:0,bottom:0}}>
+                            <Box style={{width:"100%",minHeight:"40%",backgroundColor:"white",borderRadius:"10px 10px 0px 0px",position:"absolute",left:0,bottom:0}}>
                                 <Box style={{display:'flex',flexDirection:'column',justifyContent:'space-between'}}>
                                     <Box style={{margin:"15px"}}>
                                         <Box style={{display:'flex',justifyContent:"space-between",alignItems:"center"}}>
-                                            <Typography variant="body1" style={{fontWeight:"bold"}}>Filter</Typography>
+                                            <Typography variant="body1" style={{fontWeight:"bold",fontSize:"18px",marginLeft:'4px'}}>Filter</Typography>
                                         </Box>
                                         <Box style={{marginTop:"15px"}}>
                                             <FormControl component="fieldset" style={{width:"100%"}}>
@@ -179,9 +185,10 @@ class Announcement extends BuildingAnnouncementController{
                                                                         color="primary"
                                                                         icon={<RadioButtonUncheckedIcon style={{color:"#E2E2E2"}} />}
                                                                         checkedIcon={<CheckCircleIcon style={{color:"#FC8434"}} />}
+                                                                        style={{padding:"4px",paddingRight:"9px"}}
                                                                     />
                                                                 }
-                                                                label={<Typography variant="body2" style={{fontSize:"15px"}}>{item.attributes.category_title}</Typography>}
+                                                                label={<Typography variant="body2" style={{fontSize:"16px"}}>{item.attributes.category_title}</Typography>}
                                                                 labelPlacement="start"
                                                                 style={{width:"100%",display:"flex",justifyContent:'space-between',margin:"5px",fontWeight:"normal"}}
                                                             />
@@ -192,7 +199,7 @@ class Announcement extends BuildingAnnouncementController{
                                         </Box>
                                     </Box>
                                     <Divider/>
-                                    <Box style={{margin:"15px",marginTop:"50px"}}>
+                                    <Box style={{margin:"15px",marginTop:"20px"}}>
                                         <CloseButton onClick={this.handleApplyFilter} variant="contained" color="primary" fullWidth style={{borderRadius:"50px"}}>{t("Apply")}</CloseButton>
                                     </Box>
                                 </Box>
@@ -218,18 +225,18 @@ class Announcement extends BuildingAnnouncementController{
                         <Box style={{width:"80%",marginTop:'15px',backgroundColor:"white",padding:'20px',borderRadius:"20px"}}>
                             <Box style={{display:"flex",flexDirection:"column",alignItems:"center",marginTop:"15px"}}>
                                 <Box>
-                                    <img src={modalDeleteIcon} />
+                                    <img src={modalDeleteIcon} width="38px" height="43px" />
                                 </Box>
-                                <Typography variant="h6" style={{color:"black",fontWeight:"bold",marginTop:"15px",marginBottom:"10px",textAlign:"center"}}>
+                                <Typography variant="h6" style={{color:"black",fontWeight:"bold",marginTop:"15px",marginBottom:"10px",textAlign:"center",fontSize:"20px"}}>
                                     {t("Delete")} {this.state.selectedAnnoucment?.length} {t("selected announcements")}?
                                 </Typography>
-                                <Typography variant="body2" style={{textAlign:"center"}}>
-                                    {("Announcement_Delete_Caution")}
+                                <Typography variant="body2" style={{textAlign:"center",fontSize:"14px"}}>
+                                    {t("Are you sure want to delete")} {this.state.selectedAnnoucment?.length} {t("Selected announcements? Once deleted you won’t be able to view deleted announcements again.")}
                                 </Typography>
                                 <Box style={{marginTop:"15px",width:"90%",display:"flex",flexDirection:"column",alignItems:"center"}}>
                                     {/*@ts-ignore*/}
-                                    <CloseButton variant="outlined" fullWidth style={{marginRight:"10px",marginBottom:"15px"}} onClick={this.handleDelete}  >{t("Yes")}, {t("Delete")}</CloseButton>
-                                    <PublishButton fullWidth onClick={this.handleCloseDeleteModal}>{t("No, Don't Delete")}</PublishButton>
+                                    <CloseButton variant="outlined" fullWidth style={{marginRight:"10px",marginBottom:"10px"}} onClick={this.handleDelete}  >{t("Yes")}, {t("Delete")}</CloseButton>
+                                    <DontDeleteButton fullWidth onClick={this.handleCloseDeleteModal}>{t("No, Don't Delete")}</DontDeleteButton>
                                 </Box>
                             </Box>
                         </Box>
@@ -263,6 +270,18 @@ const PublishButton = withStyles((theme) => ({
         height:"45px",
         '&:hover': {
             color: "#2b6fef",
+        },
+    },
+}))(Button);
+
+const DontDeleteButton = withStyles((theme) => ({
+    root: {
+        color: "#8d8d8d",
+        backgroundColor: "white",
+        fontWeight:"bold",
+        height:"45px",
+        '&:hover': {
+            color: "#8d8d8d",
         },
     },
 }))(Button);

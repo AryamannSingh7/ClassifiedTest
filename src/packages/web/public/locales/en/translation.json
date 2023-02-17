@@ -701,7 +701,6 @@
   "Announce By": "Announce By",
   "Announced On": "Announced On",
   "selected announcements": "selected announcements",
-  "Announcement_Delete_Caution": "Are you sure want to delete selected announcements? Once deleted you won’t be able to view deleted announcements again.",
   "Apply": "Apply",
   "Announcement Details": "Announcement Details",
   "withdraw Announcement": "withdraw Announcement",
@@ -1009,5 +1008,8 @@
   "A verification ownership request has been sent to the building/complex manger for approval, Upon approval of ownership the unit will be added to your list of units": "A verification ownership request has been sent to the building/complex manger for approval, Upon approval of ownership the unit will be added to your list of units",
   "You don't have registered units that are vacant": "You don't have registered units that are vacant",
   "Survey": "Survey",
-  "Facility Listing": "Facility Listing"
+  "Facility Listing": "Facility Listing",
+  "Are you sure want to delete": "Are you sure want to delete",
+  "Selected announcements? Once deleted you won’t be able to view deleted announcements again.": "Selected announcements? Once deleted you won’t be able to view deleted announcements again.",
+  "No Announcement data found": "No Announcement data found"
 }

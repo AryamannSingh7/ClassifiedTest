@@ -18,6 +18,9 @@ export interface Props {
   navigation: any;
   id: string;
   // Customizable Area Start
+  history:any;
+  location:any;
+  match:any;
   // Customizable Area End
 }
 
