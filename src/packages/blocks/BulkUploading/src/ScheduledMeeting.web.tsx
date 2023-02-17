@@ -24,7 +24,7 @@ import {
   TextareaAutosize,
   Box,
   Grid,
-  MenuItem
+  MenuItem,
 } from "@material-ui/core";
 import MuiDialogTitle from "@material-ui/core/DialogTitle";
 import CloseIcon from "@material-ui/icons/Close";
@@ -39,7 +39,7 @@ import SearchIcon from "@material-ui/icons/Search";
 import MoreVertIcon from "@material-ui/icons/MoreVert";
 //@ts-ignore
 import Pagination from "@material-ui/lab/Pagination";
-import { SearchIconImage, CommentIcon, Dots, GreyCheckIcon, BlueCheckIcon } from "./assets";
+import { SearchIconImage, CommentIcon, Dots, GreyCheckIcon, BlueCheckIcon, DateIcon, TimeIcon } from "./assets";
 import { Formik, Form } from "formik";
 import moment from "moment";
 import { withTranslation } from "react-i18next";
@@ -174,7 +174,6 @@ class ScheduledMeeting extends ScheduledMeetingController {
                       placeholder={t("Date")}
                       className="input date"
                       onFocus={(e: any) => (e.target.type = "date")}
-                      onBlur={(e: any) => (e.target.type = "text")}
                     />
                     <Button
                       startIcon={<img src={SearchIconImage} />}
@@ -404,6 +403,7 @@ class ScheduledMeeting extends ScheduledMeetingController {
                               placeholder={t("Date")}
                               onFocus={(e: any) => (e.target.type = "date")}
                             />
+                            <img src={DateIcon} alt="" />
                           </div>
                           {errors.date && touched.date && <small className="error">{t(errors.date)}</small>}
                         </FormControl>
@@ -412,6 +412,7 @@ class ScheduledMeeting extends ScheduledMeetingController {
                         <FormControl fullWidth>
                           <div className="date-time">
                             <Input
+                              className="time"
                               value={values.time}
                               onChange={(e: any) => {
                                 setFieldValue("time", e.target.value);
@@ -424,6 +425,7 @@ class ScheduledMeeting extends ScheduledMeetingController {
                               placeholder={t("Time")}
                               onFocus={(e: any) => (e.target.type = "time")}
                             />
+                            <img src={TimeIcon} alt="" />
                           </div>
                           {errors.time && touched.time && <small className="error">{t(errors.time)}</small>}
                         </FormControl>
@@ -652,6 +654,7 @@ class ScheduledMeeting extends ScheduledMeetingController {
                               min={moment().format("YYYY-MM-DD")}
                               type="date"
                             />
+                            <img src={DateIcon} alt="" />
                           </div>
                           {errors.date && touched.date && <small className="error">{t(errors.date)}</small>}
                         </FormControl>
@@ -660,6 +663,7 @@ class ScheduledMeeting extends ScheduledMeetingController {
                         <FormControl fullWidth>
                           <div className="date-time">
                             <Input
+                              className="time"
                               value={values.time}
                               onChange={(e: any) => {
                                 setFieldValue("time", e.target.value);
@@ -670,6 +674,7 @@ class ScheduledMeeting extends ScheduledMeetingController {
                               fullWidth
                               type="time"
                             />
+                            <img src={TimeIcon} alt="" />
                           </div>
                           {errors.time && touched.time && <small className="error">{t(errors.time)}</small>}
                         </FormControl>
