@@ -33,8 +33,6 @@ class OwnerNotification extends OwnerNotificationController {
   render() {
     const { t, classes }: any = this.props;
 
-    console.log(this.state);
-
     return (
       <>
         <Loader loading={this.state.loading} />
@@ -139,7 +137,7 @@ class OwnerNotification extends OwnerNotificationController {
                                   />
                                 )}
                               </Box>
-                              <h4 className="heading">{notification.attributes.contents}</h4>
+                              <h4 className="heading bold-text">{notification.attributes.contents}</h4>
                               <p>{notification.attributes.description}</p>
                               <p className="time">{moment(notification.attributes.created_at).fromNow()}</p>
                             </Box>

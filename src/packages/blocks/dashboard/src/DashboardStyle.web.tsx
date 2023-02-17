@@ -18,6 +18,8 @@ export const DashboardStyleWeb: any = {
     "& .menu .left-icon span.complex-name": {
       color: "blue",
       marginLeft: "10px",
+      fontFamily: "Gotham_Bold !important",
+      fontSize: "18px",
     },
     "& .menu .right-icon a": {
       marginLeft: "15px",
@@ -32,7 +34,7 @@ export const DashboardStyleWeb: any = {
     },
     "& .dashboard .title h6": {
       fontWeight: "600",
-      fontSize: "20px",
+      fontSize: "22px",
       lineHeight: "22px",
     },
     "& .right-image": {
