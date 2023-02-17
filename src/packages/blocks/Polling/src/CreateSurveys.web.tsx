@@ -274,7 +274,7 @@ class CreateSurveys extends CreateSurveyController {
                                                 <TextField  label={t("Enter question")} variant="outlined"
                                                             name="question"
                                                             inputProps={{
-                                                                maxLength: 255
+                                                                maxLength: 500
                                                             }}
                                                             id="SurveyQuestion"
                                                             value={item.title}

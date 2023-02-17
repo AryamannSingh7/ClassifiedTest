@@ -194,8 +194,7 @@ class SubmitPoll extends PollingController {
           </Grid>
         </Grid>
     </Box>
-
-      </>
+    </>
     );
   }
 }

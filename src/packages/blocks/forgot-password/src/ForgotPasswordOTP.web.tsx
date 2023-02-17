@@ -44,13 +44,13 @@ class ForgotPasswordOTP extends ForgotPasswordController {
                   </Link>
                 </Box>
                 <Box className="main-content-block desktop-ui">
-                  <Box className="header-block">
+                  <Box className="header-block" style={{paddingTop : '42px'}}>
                     {/* <Box display={{ xs: 'flex', md: 'none' }}>
                       <Link href="/EmailAccountLogin">
                         <img src={Tenant_Logo} className="tenant-logo" alt="" />
                       </Link>
                     </Box> */}
-                    <h1>Enter OTP Code</h1>
+                    <h1 style={{fontWeight : '900'}}>Enter OTP Code</h1>
                     {
                       emailMask ? (<>
                         <h6>Please enter the code send to the email<br></br>address <span className="text">{emailMask}</span></h6>
@@ -61,7 +61,7 @@ class ForgotPasswordOTP extends ForgotPasswordController {
                         </>
                     }
                   </Box>
-                  <Box className="commonForm">
+                  <Box className="commonForm" style={{paddingTop : '100px'}}>
                     <Box className="formGroup otpBlock">
                       <OtpInput className="formOutlineInput"
                         value={"111111"}
@@ -70,10 +70,10 @@ class ForgotPasswordOTP extends ForgotPasswordController {
                       // separator={<span>-</span>}
                       />
                     </Box>
-                    <Box className="customButton row-btn">
+                    <Box className="customButton row-btn" style={{paddingTop : '150px'}}>
                       <Button variant="contained" onClick={() => { this.verifyOtp() }}>SEND</Button>
                     </Box>
-                    <Box className="passwordRow">
+                    <Box className="passwordRow" >
                       <Link href="#" className="link"> <span>RESEND OTP</span></Link>
                     </Box>
                   </Box>

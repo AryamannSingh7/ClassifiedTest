@@ -40,25 +40,22 @@ class PollsSurvey extends PollsSurveyController {
 
     {/* <Grid container spacing={2} className="auth-container"> */}
       <Grid item xs={12} md={12} className="auth-cols">
-
-        <Grid container style={{ margin: '1rem', width: '90%' }} >
-          <Grid xs={12} style={{ display:"flex", alignItems:"center", gap:"1rem",justifyContent:"space-between"}} >
-              <Box style={{ display:"flex", alignItems:"center", gap:"1rem"}}>
-                  {/*@ts-ignore*/}
-                  <ArrowBackIcon onClick={() => this.props.history.push("/")} />
-                  <p style={{ fontSize: '1.2rem', fontWeight: 600 }}>
-                      {t("Poll / Survey")}
-                  </p>
-              </Box>
-              <Box style={{ display:"flex", alignItems:"center", gap:"1rem"}}>
-                  <IconButton onClick={this.handleOpenFilterModal}>
-                    <img src={filterIcon} />
-                  </IconButton>
-              </Box>
+          <Grid container style={{ margin: '1rem', width: '90%' }} >
+              <Grid xs={12} style={{ display:"flex", alignItems:"center", gap:"1rem",justifyContent:"space-between"}} >
+                  <Box style={{ display:"flex", alignItems:"center", gap:"1rem"}}>
+                      <ArrowBackIcon onClick={() => this.props.history.push("/")} />
+                      <p style={{ fontSize: '1.2rem', fontWeight: 600 }}>
+                          {t("Poll / Survey")}
+                      </p>
+                  </Box>
+                  <Box style={{ display:"flex", alignItems:"center", gap:"1rem"}}>
+                      <IconButton onClick={this.handleOpenFilterModal} style={{padding:"0px"}}>
+                          <img src={filterIcon} />
+                      </IconButton>
+                  </Box>
+              </Grid>
           </Grid>
-        </Grid>
-
-        <Box style={{background: "#E5ECFF",minHeight:"100vh",display:'flex',flexDirection:"column",alignItems:'center'}} >
+        <Box style={{background: "#F7F9FE",minHeight:"100vh",display:'flex',flexDirection:"column",alignItems:'center'}} >
             <Grid container style={{ marginLeft: '1rem', marginRight: '1rem', width:'90%'}}>
               <Grid item xs={12} className="AppBarbox">
                 <AppBar position="static" color="transparent">
