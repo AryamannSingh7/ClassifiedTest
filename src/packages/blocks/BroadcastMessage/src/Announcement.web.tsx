@@ -86,18 +86,18 @@ class Announcement extends AnnouncementController{
                                                     </Typography>
                                                 </Box>
                                                 <Grid container spacing={1} style={{marginTop:"8px",marginBottom:"5px"}}>
-                                                    <Grid xs={6} style={{display:'flex',alignItems:'center'}}>
+                                                    <Grid xs={6} style={{display:'flex'}}>
                                                         <Box>
-                                                            <img src={building} height="16px" style={{marginRight:"10px"}} />
+                                                            <img src={building} height="16px" style={{marginRight:"10px",marginTop:"5px"}} />
                                                         </Box>
                                                         <Box>
                                                             <Typography variant="subtitle2" >{t("Building Name")}</Typography>
                                                             <Typography variant="subtitle2" style={{fontWeight:"bold"}}>{item.attributes.building_name}</Typography>
                                                         </Box>
                                                     </Grid>
-                                                    <Grid xs={6} style={{display:'flex',alignItems:'center'}}>
+                                                    <Grid xs={6} style={{display:'flex',justifyContent:"flex-end"}}>
                                                         <Box>
-                                                            <img src={unit} height="16px" style={{marginRight:"10px"}} />
+                                                            <img src={unit} height="16px" style={{marginRight:"10px",marginTop:"5px"}} />
                                                         </Box>
                                                         <Box>
                                                             <Typography variant="subtitle2" >{t("Unit Number")}</Typography>
