@@ -10,7 +10,7 @@ import MenuItem from "@material-ui/core/MenuItem";
 import FormControl from "@material-ui/core/FormControl";
 import Select from "@material-ui/core/Select";
 import ReactSelect from "react-select";
-import { Back_btn, building, Building1, city, country, unit } from "./assets";
+import { Back_btn, building, Building1, city, country, ReqHome, unit } from "./assets";
 import { withRouter } from "react-router";
 import { withTranslation } from "react-i18next";
 
@@ -66,15 +66,18 @@ class RegisterAddressLinkLink extends EmailAccountRegistrationController {
                 {({ values, touched, errors, isValid, setFieldValue, handleChange }) => (
                   <Form translate="yes" className="commonForm" style={{ height: "76vh", position: "relative" }}>
                     <Grid container style={{ margin: "1rem", width: "90%" }}>
-                      <Grid xs={12} className="formGroup1 customSelect">
+                      <Grid xs={12} className="formGroup customSelect">
                         <FormControl variant="outlined" fullWidth>
-                          <InputLabel
+                          {/* <InputLabel
                             data-shrink="false"
                             style={{ display: "flex", alignItems: "center", gap: "1rem" }}
                           >
                             <img src={country} />
                             Country
-                          </InputLabel>
+                          </InputLabel> */}
+                          <span className="frmLeftIcons">
+                              <img src={country} className="frm-icons" alt="House Icon" />
+                            </span>
                           <Select
                             value={values.selectCountry}
                             name="selectCountry"
@@ -89,6 +92,7 @@ class RegisterAddressLinkLink extends EmailAccountRegistrationController {
                               borderRadius: 25,
                               border: "0px solid #e9dede",
                               color: "#b5b5b5",
+                              paddingLeft:55
                             }}
                           >
                             {/* <MenuItem>
@@ -110,15 +114,19 @@ class RegisterAddressLinkLink extends EmailAccountRegistrationController {
                       </Grid>
                     </Grid>
                     <Grid container style={{ margin: "1rem", width: "90%" }}>
-                      <Grid xs={12}>
+                      <Grid xs={12} className='formGroup customSelect'>
                         <FormControl variant="outlined" fullWidth>
-                          <InputLabel
+                          {/* <InputLabel
                             id="demo-simple-select-outlined-label"
                             style={{ display: "flex", alignItems: "center", gap: "1rem" }}
                           >
+                            
                             <img src={city} />
                             City
-                          </InputLabel>
+                          </InputLabel> */}
+                          <span className="frmLeftIcons">
+                              <img src={city} className="frm-icons" alt="House Icon" />
+                            </span>
                           <Select
                             name="selectCity"
                             value={values.selectCity}
@@ -129,7 +137,7 @@ class RegisterAddressLinkLink extends EmailAccountRegistrationController {
                               setFieldValue("selectCity", e.target.value);
                             }}
                             label="City"
-                            style={{ borderRadius: 25, border: "0px solid #e9dede", color: "#b5b5b5" }}
+                            style={{ borderRadius: 25, border: "0px solid #e9dede", color: "#b5b5b5",paddingLeft:55 }}
                           >
                             <MenuItem value=" ">Select city</MenuItem>
                             {this.state.allCity &&
@@ -167,15 +175,18 @@ class RegisterAddressLinkLink extends EmailAccountRegistrationController {
                       <ErrorMessage className="text-error" component="Typography" name="selectComplex" />
                     </Box>
                     <Grid container style={{ margin: "1rem", width: "90%" }}>
-                      <Grid xs={12}>
+                      <Grid xs={12} className='formGroup customSelect'>
                         <FormControl variant="outlined" fullWidth>
-                          <InputLabel
+                          {/* <InputLabel
                             id="demo-simple-select-outlined-label"
                             style={{ display: "flex", alignItems: "center", gap: "1rem" }}
                           >
                             <img src={building} />
                             Building
-                          </InputLabel>
+                          </InputLabel> */}
+                          <span className="frmLeftIcons">
+                              <img src={building} className="frm-icons" alt="House Icon" />
+                            </span>
                           <Select
                             name="selectBuilding"
                             value={values.selectBuilding}
@@ -186,7 +197,7 @@ class RegisterAddressLinkLink extends EmailAccountRegistrationController {
                               setFieldValue("selectBuilding", e.target.value);
                             }}
                             label="Building"
-                            style={{ borderRadius: 25, border: "0px solid #e9dede", color: "#b5b5b5" }}
+                            style={{ borderRadius: 25, border: "0px solid #e9dede", color: "#b5b5b5",paddingLeft:55 }}
                           >
                             <MenuItem value=" ">Select building</MenuItem>
                             {this.state.allBuilding &&
@@ -201,15 +212,18 @@ class RegisterAddressLinkLink extends EmailAccountRegistrationController {
                       </Grid>
                     </Grid>
                     <Grid container style={{ margin: "1rem", width: "90%" }}>
-                      <Grid xs={12}>
+                      <Grid xs={12} className='formGroup customSelect'>
                         <FormControl variant="outlined" fullWidth>
-                          <InputLabel
+                          {/* <InputLabel
                             id="demo-simple-select-outlined-label"
                             style={{ display: "flex", alignItems: "center", gap: "1rem" }}
                           >
                             <img src={unit} />
                             Unit
-                          </InputLabel>
+                          </InputLabel> */}
+                          <span className="frmLeftIcons">
+                              <img src={unit} className="frm-icons" alt="House Icon" />
+                            </span>
                           <Select
                             name="selectUnit"
                             value={values.selectUnit}
@@ -220,7 +234,7 @@ class RegisterAddressLinkLink extends EmailAccountRegistrationController {
                               setFieldValue("selectUnit", e.target.value);
                             }}
                             label="Unit"
-                            style={{ borderRadius: 25, border: "0px solid #e9dede", color: "#b5b5b5" }}
+                            style={{ borderRadius: 25, border: "0px solid #e9dede", color: "#b5b5b5",paddingLeft:55 }}
                           >
                             <MenuItem value=" ">Select unit</MenuItem>
                             {this.state.allUnit &&
@@ -267,16 +281,16 @@ class RegisterAddressLinkLink extends EmailAccountRegistrationController {
           }}
         >
           <Box className="diloag-body">
-            <Box className="diloag-header 1" style={{ flexDirection: "column" }}>
-              <img src={building} className="tenet-logo" alt="" />
+            <Box className="diloag-header 1" style={{ flexDirection: "column",border:'none' }}>
+              <img src={ReqHome} className="tenet-logo" alt="" />
               <DialogTitle
-                className="alert-dialog-title1"
+                className="alert-dialog-title1 bold-text"
                 id="alert-dialog-title"
-                style={{ overflow: "visible", width: "auto" }}
+                style={{ overflow: "visible", width: "auto",fontSize:20 }}
               >
-                Are you sure want to register this unit?
+             sure want to register this unit?
               </DialogTitle>
-              <p>
+              <p style={{paddingTop:20}}>
                 Are you sure that you want to register the unit{" "}
                 {this.state.selectUnit && this.state.selectUnit.apartment_name} of{" "}
                 {this.state.selectBuilding && this.state.selectBuilding.name} as a unit that you own or manage?
@@ -309,4 +323,7 @@ export default withTranslation()(withRouter(RegisterAddressLinkLink));
 
 const DropdownIndicator=()=>{
   return <svg className="MuiSvgIcon-root MuiSelect-icon MuiSelect-iconOutlined" focusable="false" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 10l5 5 5-5z"></path></svg>
+}
+const DropdownIndicator2=()=>{
+  return <img src={Complex}/>
 }

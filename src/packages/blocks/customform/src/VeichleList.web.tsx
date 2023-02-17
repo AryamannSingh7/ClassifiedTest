@@ -14,6 +14,7 @@ import { withRouter } from 'react-router';
 import Loader from "../../../components/src/Loader.web";
 import VeichleListController from "./VeichleListController.web";
 import '../assets/css/style.scss';
+import { Back_btn } from "../../email-account-registration/src/assets";
 
 
 
@@ -38,7 +39,8 @@ class VeichleList extends VeichleListController {
           <Grid item xs={12} md={7} className="auth-cols" style={{ justifyContent: 'unset',}}>
               <Grid container>
                 <Grid xs={12} style={{display:'flex',alignItems:'center'}}>
-                <ArrowBackIcon onClick={this.redirectToDashboard} className='backtesticon' />
+                <img src={Back_btn} onClick={this.redirectToDashboard}  style={{marginRight:'0.5rem',marginLeft:'0.5rem'}} />
+               
                   <p style={{ fontWeight: 600, fontSize: '1.25rem' }}>
 
                   My Vehicles
@@ -61,7 +63,7 @@ class VeichleList extends VeichleListController {
                               </div>
                               <div className="card-content">
 
-                                <img src='https://img.freepik.com/premium-photo/generic-brandless-modern-sport-car-with-fire-smoke_110488-1759.jpg' style={{ marginRight: 5 }} />
+                                <img src='https://cdn-icons-png.flaticon.com/512/112/112957.png' style={{ marginRight: 10,width:60,height:60 }} />
                                 <div className="content" style={{padding:'0px 0px 0px 5px',display:'flex',justifyContent:'center',alignItems:'center',flexDirection:'column'}}>
                                   <p className="title" style={{padding:0,marginBottom:10}}>
                                     {item.attributes.company_name}
@@ -277,7 +279,7 @@ return <>
 
       <p style={{ fontWeight: 900, fontSize: '1.5rem' }}>
         No Vehicle
-
+<br/>
         Registered
       </p>
     </Grid>
@@ -286,7 +288,8 @@ return <>
     <Grid xs={12} style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', marginBottom: 10 }}>
       <p style={{ fontWeight: 400, fontSize: '0.8rem',textAlign:'center' }}>
         Looks like you havn’t registered any vehicle!
-        You can register a new vehicle by tapping the below button.
+        You can register a new vehicle by tapping <br/>
+        the below button.
       </p>
     </Grid>
   </Grid>
