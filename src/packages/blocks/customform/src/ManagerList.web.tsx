@@ -73,7 +73,7 @@ class ManagerList extends ManagerController {
                     <Typography variant="body1" >
                       {t("My Dashboard")} / {t("General Dashboard")} / <Box component="span" style={{ color: "blue" }}>{t('Vehicles')}</Box>
                     </Typography>
-                    <Typography variant="h5" style={dashBoardBudget.subHeading} style={{marginBottom:'1rem'}}>{t("Vehicles")}</Typography>
+                    <Typography variant="h5" style={dashBoardBudget.subHeading} >{t("Vehicles")}</Typography>
                   </Box>
                 </Box>
                 <Formik
@@ -289,6 +289,7 @@ const dashBoardBudget = {
   subHeading: {
     fontWeight: 600,
     marginTop: 15,
+    marginBottom:"1rem"
   },
   YearMain: {
     background: "#fff",
