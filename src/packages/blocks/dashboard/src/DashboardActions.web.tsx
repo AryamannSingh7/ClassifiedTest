@@ -11,6 +11,7 @@ import { withTranslation } from "react-i18next";
 import { DashboardStyleWeb } from "./DashboardStyle.web";
 import SearchIcon from "@material-ui/icons/Search";
 import { ActionAssign, ActionBuilding, ActionCalender } from "./assets";
+import AuditorSideBarWeb from "../../customform/src/AuditorSideBar.web";
 
 class DashboardActions extends DashboardActionsController {
   constructor(props: Props) {
@@ -28,7 +29,10 @@ class DashboardActions extends DashboardActionsController {
           <Box style={{ display: "flex" }}>
             <Grid item xs={3} md={3} sm={3} className="SideBar">
               {/* Chairman Sidebar -- */}
-              <ChairmanSidebar {...this.props} />
+              {
+                localStorage.getItem('selectUserType') == 'Auditor' ?   <AuditorSideBarWeb {...this.props} /> :    <ChairmanSidebar {...this.props} />
+              }
+           
             </Grid>
 
             <Grid xs={9} md={9} sm={9} spacing={4} style={{ paddingTop: 35 }}>

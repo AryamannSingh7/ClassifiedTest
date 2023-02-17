@@ -59,6 +59,7 @@ import AttachFileIcon from '@material-ui/icons/AttachFile';
 import GeneralSideBarWeb from "../../dashboard/src/GeneralSideBar.web";
 import '../assets/css/style.scss'
 import { withTranslation } from "react-i18next";
+import AuditorSideBarWeb from "./AuditorSideBar.web";
 class ChairmanChat extends InboxController {
   constructor(props: Props) {
     super(props);

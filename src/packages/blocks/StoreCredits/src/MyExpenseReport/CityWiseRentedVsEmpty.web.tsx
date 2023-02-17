@@ -72,14 +72,12 @@ class CityWiseRentedVsEmpty extends CityWiseRentedVsEmptyController {
                           return (
                             <Grid item xs={12}>
                               <RentedVsEmptyUnitCard
-                                heading={`${unit.attributes.building_management.name}, ${
-                                  unit.attributes.society_management.name
-                                }, ${unit.attributes.address[0].city}`}
-                                titleOne="Unit Number"
+                                heading={`${unit.attributes.building_management.name}, ${unit.attributes.society_management.name}, ${unit.attributes.address[0].city}`}
+                                titleOne={t("Unit Number")}
                                 valueOne={unit.attributes.apartment_name}
-                                titleTwo="Floor Number"
+                                titleTwo={t("Floor Number")}
                                 valueTwo={unit.attributes.floor_number}
-                                status={unit.attributes.status}
+                                status={t(unit.attributes.status)}
                               />
                             </Grid>
                           );

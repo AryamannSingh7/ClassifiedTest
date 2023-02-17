@@ -81,6 +81,7 @@ class OwnerNotification extends OwnerNotificationController {
                       <>
                         <Box>
                           <Menu menuButton={<img src={FilterIcon} alt="" />}>
+                            <MenuItem onClick={() => this.setState({ filterType: "" })}>{t("All")}</MenuItem>
                             {this.state.notificationTypeList.map((type: any) => {
                               return (
                                 <MenuItem key={type} onClick={() => this.setState({ filterType: type })}>
@@ -168,11 +169,11 @@ class OwnerNotification extends OwnerNotificationController {
             <Box textAlign="center">
               <img src={DeleteImage} alt="delete" />
               <Typography variant="h6">
-                Delete {this.state.selectedNotification.length} Selected Notification
+                {t("Delete")} {this.state.selectedNotification.length} {t("Selected Notification")}
               </Typography>
               <Typography variant="body1">
-                Are you sure want to delete {this.state.selectedNotification.length} selected notification? Once deleted
-                you won't be able to view deleted notification again.
+                {t("Are you sure want to delete")} {this.state.selectedNotification.length}{" "}
+                {t("selected notification? Once deleted you won't be able to view deleted notification again.")}
               </Typography>
               <DialogActions className="dialog-button-group">
                 <Button

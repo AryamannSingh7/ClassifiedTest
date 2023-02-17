@@ -6,8 +6,8 @@ export const FaqChairmanStyleWeb: any = {
     },
     "& .navigation .sub-heading": {
       fontWeight: 600,
-      marginTop: 15,
-      marginBottom: 15,
+      marginTop: 10,
+      marginBottom: 10,
     },
     "& .contact-us-form": {
       background: "white",
@@ -93,8 +93,8 @@ export const FaqChairmanStyleWeb: any = {
     },
     "& .navigation .sub-heading": {
       fontWeight: 600,
-      marginTop: 15,
-      marginBottom: 15,
+      marginTop: 10,
+      marginBottom: 10,
     },
     "& .subscription-detail": {
       background: "white",
@@ -124,11 +124,11 @@ export const FaqChairmanStyleWeb: any = {
     },
     "& .navigation .sub-heading": {
       fontWeight: 600,
-      marginTop: 15,
-      marginBottom: 15,
+      marginTop: 10,
+      marginBottom: 10,
     },
     "& .category-box": {
-      marginTop: "30px",
+      marginTop: "15px",
       display: "flex",
       justifyContent: "space-between",
       alignItems: "center",
@@ -153,6 +153,7 @@ export const FaqChairmanStyleWeb: any = {
     "& .category-box .category .MuiTab-root.active": {
       background: "#2C6DF3",
       color: "white",
+      opacity: 1,
     },
     "& .category-box Button": {
       borderRadius: "25px",
@@ -166,7 +167,11 @@ export const FaqChairmanStyleWeb: any = {
       minHeight: "auto",
     },
     "& .faq-box": {
-      marginTop: "30px",
+      marginTop: "25px",
+    },
+    "& .faq-box .MuiAccordion-root": {
+      boxShadow: "none",
+      margin: "2px 0",
     },
     "& .faq-box .Mui-expanded": {
       margin: "0",
@@ -222,11 +227,17 @@ export const FaqChairmanStyleWeb: any = {
       color: "#FF4C67",
       borderColor: "#FF4C67",
       fontWeight: "600",
+      padding: "8px 16px",
+      borderRadius: "4px",
     },
     "& .bottom-buttons button:last-child": {
       color: "#FFFFFF",
       borderColor: "#2B6FEC",
       background: "#2B6FEC",
+      fontWeight: "600",
+      padding: "8px 16px",
+      boxShadow: "none",
+      borderRadius: "4px",
     },
     "& .select-category": {
       borderRadius: 4,

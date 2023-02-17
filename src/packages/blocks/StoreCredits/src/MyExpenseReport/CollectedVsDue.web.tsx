@@ -93,7 +93,7 @@ class CollectedVsDue extends CollectedVsDueController {
                                 </div>
                                 <div className="vertical-line" />
                                 <div className="image text">
-                                  <h4>VS</h4>
+                                  <h4>{t("VS")}</h4>
                                 </div>
                                 <div className="vertical-line" />
                               </div>
@@ -124,7 +124,7 @@ class CollectedVsDue extends CollectedVsDueController {
                           return (
                             <Grid item xs={12} key={unit.id}>
                               <UnitCard
-                                heading={`Unit ${unit.unit_name} Buliding ${unit.building_name}`}
+                                heading={`${t("Unit")} ${unit.unit_name} ${t("Buliding")} ${unit.building_name}`}
                                 titleOne={t("Collected")}
                                 valueOne={this.validateCurrency(unit.rented_amount_collectd)}
                                 titleTwo={t("Due")}

@@ -27,7 +27,6 @@ import SearchOutlinedIcon from "@material-ui/icons/SearchOutlined";
 import "../../dashboard/src/Dashboard.web.css";
 import ComplexController, { Props } from "./ComplexController.web";
 import DashboardHeader from "../../dashboard/src/DashboardHeader.web";
-import ChairmanSidebar from "../../dashboard/src/ChairmanSidebar.web";
 import { withTranslation } from "react-i18next";
 import "./style.css";
 //@ts-ignore
@@ -54,8 +53,8 @@ import { Formik, Form } from "formik";
 import Loader from "../../../components/src/Loader.web";
 //@ts-ignore
 import GoogleMapReact from "google-map-react";
-import VisitorsSidebar from "../../dashboard/src/VisitorsSidebar.web";
 import GeneralSideBarWeb from "../../dashboard/src/GeneralSideBar.web";
+import ItemBox from "../../../components/src/DocumentComponent/ItemBox.web";
 
 const TabPanel = (props: any) => {
   const { children, value, index, ...other } = props;
@@ -114,9 +113,8 @@ class Complex extends ComplexController {
           <DashboardHeader {...this.props} />
           <Box style={{ display: "flex" }}>
             <Grid item xs={3} md={3} sm={3} className="SideBar">
-            
-              <GeneralSideBarWeb {...this.props}></GeneralSideBarWeb>
-             </Grid>
+              <GeneralSideBarWeb {...this.props} />
+            </Grid>
             <Grid xs={9} md={9} sm={9} spacing={4} style={{ paddingTop: 35 }}>
               <Container>
                 <Box style={dashBoard.navigation}>
@@ -233,18 +231,20 @@ class Complex extends ComplexController {
                     <p>{this.state.complexData.aboutUs || "-"}</p>
                   </Card>
                 </Box>
-                 <Building this={this} searchData={searchData} userType={userType}></Building>
-                 <ComplexArea this={this} ></ComplexArea>
-                 <DocumentsSharedArea this={this}></DocumentsSharedArea>
-              
+
+                <Building this={this} searchData={searchData} userType={userType} />
+
+                <ComplexArea this={this} />
+
+                <DocumentsSharedArea this={this} />
               </Container>
             </Grid>
           </Box>
         </Box>
-        <ComplexDialog this={this}></ComplexDialog>
-      
-        <MapDialog this={this}></MapDialog>
-     
+
+        <ComplexDialog this={this} />
+
+        <MapDialog this={this} />
       </>
     );
   }
@@ -253,502 +253,471 @@ class Complex extends ComplexController {
 //@ts-ignore
 export default withTranslation()(withStyles(BuildingApartmentStyle)(Complex));
 
-const DocumentsSharedArea = (props:any) => {
-  const { t } : any = props.this.props;
-  return(
- <>
-       <Box className="content-boxes">
-                  <Tabs value={props.this.state.currentTab} onChange={props.this.handleTabChange}>
-                    <Tab label={t("Documents")} />
-                    <Tab label={t("Shared Area")} />
-                  </Tabs>
-                  <Box className="tab-content">
-                    <TabPanel value={props.this.state.currentTab} index={0}>
-                      <>
-                        <Box className="top-content">
-                          <Box className="heading">
-                            <h2>{t("Documents")}</h2>
-                          </Box>
-                          <Link href="/DocumentChairman">
-                            <Box className="right-content">
-                              <img src={upload} alt="|" />
-                              <span>{t("Upload")}</span>
-                            </Box>
-                          </Link>
-                        </Box>
-                        <Divider />
-                        <Box className="document-box-box">
-                          <Grid container spacing={2}>
-                            <Grid item xs={12} md={6} lg={4}>
-                              <Link href="/DocumentChairman/Policy">
-                                <Box className="item">
-                                  <div className="heading">
-                                    <img src={Document} />
-                                    <h4>{t("Policy")}</h4>
-                                  </div>
-                                  {props.this.state.documentCount.policy > 0 && (
-                                    <Button className="color-btn">{props.this.state.documentCount.policy}</Button>
-                                  )}
-                                </Box>
-                              </Link>
-                            </Grid>
-                            <Grid item xs={12} md={6} lg={4}>
-                              <Link href="/DocumentChairman/Guidelines">
-                                <Box className="item">
-                                  <div className="heading">
-                                    <img src={Document} />
-                                    <h4>{t("Guidelines")}</h4>
-                                  </div>
-                                  {props.this.state.documentCount.guidelines > 0 && (
-                                    <Button className="color-btn">{props.this.state.documentCount.guidelines}</Button>
-                                  )}
-                                </Box>
-                              </Link>
-                            </Grid>
-                            <Grid item xs={12} md={6} lg={4}>
-                              <Link href="/DocumentChairman/Roles">
-                                <Box className="item">
-                                  <div className="heading">
-                                    <img src={Document} />
-                                    <h4>{t("Roles")}</h4>
-                                  </div>
-                                  {props.this.state.documentCount.roles > 0 && (
-                                    <Button className="color-btn">{props.this.state.documentCount.roles}</Button>
-                                  )}
-                                </Box>
-                              </Link>
-                            </Grid>
-                            <Grid item xs={12} md={6} lg={4}>
-                              <Link href="/DocumentChairman/Resolutions">
-                                <Box className="item">
-                                  <div className="heading">
-                                    <img src={Document} />
-                                    <h4>{t("Resolution")}</h4>
-                                  </div>
-                                  {props.this.state.documentCount.resolution > 0 && (
-                                    <Button className="color-btn">{props.this.state.documentCount.resolution}</Button>
-                                  )}
-                                </Box>
-                              </Link>
-                            </Grid>
-                            <Grid item xs={12} md={6} lg={4}>
-                              <Link href="/DocumentChairman/Building-Plans">
-                                <Box className="item">
-                                  <div className="heading">
-                                    <img src={Document} />
-                                    <h4>{t("Building Plans")}</h4>
-                                  </div>
-                                  {props.this.state.documentCount.buildingPlans > 0 && (
-                                    <Button className="color-btn">{props.this.state.documentCount.buildingPlans}</Button>
-                                  )}
-                                </Box>
-                              </Link>
-                            </Grid>
-                          </Grid>
-                        </Box>
-                      </>
-                    </TabPanel>
-                    <TabPanel value={props.this.state.currentTab} index={1}>
-                      <>
-                        <Box className="top-content">
-                          <Box className="heading">
-                            <h2>{t("Shared Area")}</h2>
-                          </Box>
-                        </Box>
-                        <Divider />
-                        <Box className="document-box-box">
-                          <Grid container spacing={2}>
-                            {props.this.state.complexData.sharedAreaList.map((sharedArea: any) => {
-                              return (
-                                <Grid item xs={12} md={6} lg={4} key={sharedArea.id}>
-                                  <Box
-                                    className="item shared-area-item"
-                                    style={dashBoard.cursorPointer}
-                                    onClick={() => props.this.props.navigation.navigate("SharedArea", { id: sharedArea.id })}
-                                  >
-                                    <div className="heading">
-                                      <img src={Document} />
-                                      <h4>{sharedArea.name}</h4>
-                                    </div>
-                                  </Box>
-                                </Grid>
-                              );
-                            })}
-                          </Grid>
-                        </Box>
-                      </>
-                    </TabPanel>
+const DocumentsSharedArea = (props: any) => {
+  const { t }: any = props.this.props;
+  return (
+    <>
+      <Box className="content-boxes">
+        <Tabs value={props.this.state.currentTab} onChange={props.this.handleTabChange}>
+          <Tab label={t("Documents")} />
+          <Tab label={t("Shared Area")} />
+        </Tabs>
+        <Box className="tab-content">
+          <TabPanel value={props.this.state.currentTab} index={0}>
+            <>
+              <Box className="top-content">
+                <Box className="heading">
+                  <h2>{t("Documents")}</h2>
+                </Box>
+                <Link href="/DocumentChairman">
+                  <Box className="right-content">
+                    <img src={upload} alt="|" />
+                    <span>{t("Upload")}</span>
                   </Box>
-                </Box>
- </>
-  )
-}
-
-const ComplexArea = (props:any) => {
-  const { t } : any = props.this.props;
-  return(
- <>
-        <Box className="stat-boxes">
-                  <Grid container spacing={2}>
-                    <Grid item sm={4}>
-                      <Card>
-                        <p>{t("Complex Area")}</p>
-                        <h2>
-                          {props.this.state.complexData.complexArea || ""} {props.this.state.complexData.measurement || " "}
-                        </h2>
-                      </Card>
-                    </Grid>
-                    <Grid item sm={4}>
-                      <Card>
-                        <p>{t("Total Buildings")}</p>
-                        <h2>{props.this.state.complexData.totalBuilding}</h2>
-                      </Card>
-                    </Grid>
-                    <Grid item sm={4}>
-                      <Card>
-                        <p>{t("Total Units")}</p>
-                        <h2>{props.this.state.complexData.totalUnits}</h2>
-                      </Card>
-                    </Grid>
+                </Link>
+              </Box>
+              <Divider />
+              <Box className="document-box-box">
+                <Grid container spacing={2}>
+                  <Grid item xs={12} md={6} lg={4}>
+                    <Link href="/DocumentChairman/Policy">
+                      <ItemBox image={Document} heading={t("Policy")} value={props.this.state.documentCount.policy} />
+                    </Link>
                   </Grid>
-                </Box>
- </>
-  )
-}
-
-const Building = (props:any) => {
-  const { t } : any = props.this.props;
-  return(
- <>
-      <Box className="building-list">
-                  <Card>
-                    <Box className="top-content">
-                      <Box className="heading">
-                        <h4>{t("Buildings")}</h4>
-                      </Box>
-                      <TextField
-                        className="search-unit"
-                        value={props.this.state.dataSearch}
-                        placeholder={t("Search by building name")}
-                        onChange={(e: any) => {
-                          props.this.setState({ dataSearch: e.target.value });
-                        }}
-                        InputProps={{
-                          startAdornment: (
-                            <InputAdornment position="start">
-                              <SearchOutlinedIcon />
-                            </InputAdornment>
-                          ),
-                        }}
+                  <Grid item xs={12} md={6} lg={4}>
+                    <Link href="/DocumentChairman/Guidelines">
+                      <ItemBox
+                        image={Document}
+                        heading={t("Guidelines")}
+                        value={props.this.state.documentCount.guidelines}
                       />
-                    </Box>
-                    <Divider />
-                    <Box className="bottom-content">
-                      <Grid container spacing={2}>
-                        {props.searchData.length === 0 && <p>{t("No Building Available")}</p>}
-                        {props.searchData.map((building: any) => {
+                    </Link>
+                  </Grid>
+                  <Grid item xs={12} md={6} lg={4}>
+                    <Link href="/DocumentChairman/Roles">
+                      <ItemBox image={Document} heading={t("Roles")} value={props.this.state.documentCount.roles} />
+                    </Link>
+                  </Grid>
+                  <Grid item xs={12} md={6} lg={4}>
+                    <Link href="/DocumentChairman/Resolutions">
+                      <ItemBox
+                        image={Document}
+                        heading={t("Resolution")}
+                        value={props.this.state.documentCount.resolution}
+                      />
+                    </Link>
+                  </Grid>
+                  <Grid item xs={12} md={6} lg={4}>
+                    <Link href="/DocumentChairman/Building-Plans">
+                      <ItemBox
+                        image={Document}
+                        heading={t("Building Plans")}
+                        value={props.this.state.documentCount.buildingPlans}
+                      />
+                    </Link>
+                  </Grid>
+                </Grid>
+              </Box>
+            </>
+          </TabPanel>
+          <TabPanel value={props.this.state.currentTab} index={1}>
+            <>
+              <Box className="top-content">
+                <Box className="heading">
+                  <h2>{t("Shared Area")}</h2>
+                </Box>
+              </Box>
+              <Divider />
+              <Box className="document-box-box">
+                <Grid container spacing={2}>
+                  {props.this.state.complexData.sharedAreaList.map((sharedArea: any) => {
+                    return (
+                      <Grid item xs={12} md={6} lg={4} key={sharedArea.id}>
+                        <Box
+                          className="item shared-area-item"
+                          style={dashBoard.cursorPointer}
+                          onClick={() => props.this.props.navigation.navigate("SharedArea", { id: sharedArea.id })}
+                        >
+                          <div className="heading">
+                            <img src={Document} />
+                            <h4>{sharedArea.name}</h4>
+                          </div>
+                        </Box>
+                      </Grid>
+                    );
+                  })}
+                </Grid>
+              </Box>
+            </>
+          </TabPanel>
+        </Box>
+      </Box>
+    </>
+  );
+};
+
+const ComplexArea = (props: any) => {
+  const { t }: any = props.this.props;
+  return (
+    <>
+      <Box className="stat-boxes">
+        <Grid container spacing={2}>
+          <Grid item sm={4}>
+            <Card>
+              <p>{t("Complex Area")}</p>
+              <h2>
+                {props.this.state.complexData.complexArea || ""} {props.this.state.complexData.measurement || " "}
+              </h2>
+            </Card>
+          </Grid>
+          <Grid item sm={4}>
+            <Card>
+              <p>{t("Total Buildings")}</p>
+              <h2>{props.this.state.complexData.totalBuilding}</h2>
+            </Card>
+          </Grid>
+          <Grid item sm={4}>
+            <Card>
+              <p>{t("Total Units")}</p>
+              <h2>{props.this.state.complexData.totalUnits}</h2>
+            </Card>
+          </Grid>
+        </Grid>
+      </Box>
+    </>
+  );
+};
+
+const Building = (props: any) => {
+  const { t }: any = props.this.props;
+  return (
+    <>
+      <Box className="building-list">
+        <Card>
+          <Box className="top-content">
+            <Box className="heading">
+              <h4>{t("Buildings")}</h4>
+            </Box>
+            <TextField
+              className="search-unit"
+              value={props.this.state.dataSearch}
+              placeholder={t("Search by building name")}
+              onChange={(e: any) => {
+                props.this.setState({ dataSearch: e.target.value });
+              }}
+              InputProps={{
+                startAdornment: (
+                  <InputAdornment position="start">
+                    <SearchOutlinedIcon />
+                  </InputAdornment>
+                ),
+              }}
+            />
+          </Box>
+          <Divider />
+          <Box className="bottom-content">
+            <Grid container spacing={2}>
+              {props.searchData.length === 0 && <p>{t("No Building Available")}</p>}
+              {props.searchData.map((building: any) => {
+                return (
+                  <Grid item xs={4} key={building.building_management_id}>
+                    <Link href={props.userType === "Security" ? "#" : `/Building/${building.building_management_id}`}>
+                      <Box className="building-box">
+                        <h5>{building.building_name}</h5>
+                      </Box>
+                    </Link>
+                  </Grid>
+                );
+              })}
+            </Grid>
+          </Box>
+        </Card>
+      </Box>
+    </>
+  );
+};
+
+const MapDialog = (props: any) => {
+  const { t }: any = props.this.props;
+  return (
+    <>
+      <Dialog
+        className="edit-profile chairman-map-modal"
+        open={props.this.state.isOpenMapModalOpen}
+        scroll="paper"
+        fullWidth
+        maxWidth="sm"
+      >
+        <MuiDialogTitle disableTypography className="dialog-heading">
+          <Typography variant="h6">{t("Location")}</Typography>
+          <IconButton onClick={() => props.this.handleMapModal()}>
+            <CloseIcon />
+          </IconButton>
+        </MuiDialogTitle>
+        {props.this.state.complexData.lat && props.this.state.complexData.long ? (
+          <Box className="google-map-box">
+            <GoogleMapReact
+              bootstrapURLKeys={{ key: "AIzaSyA1NvS9-cKp1dl_kMQDVFr4Gmbnv97MTtk" }}
+              defaultCenter={{
+                lat: props.this.state.complexData.lat,
+                lng: props.this.state.complexData.long,
+              }}
+              defaultZoom={15}
+            >
+              <LocationPin lat={props.this.state.complexData.lat} lng={props.this.state.complexData.long} />
+            </GoogleMapReact>
+          </Box>
+        ) : (
+          <Box className="no-google-map-box">{t("No Location Available")}</Box>
+        )}
+      </Dialog>
+    </>
+  );
+};
+
+const ComplexDialog = (props: any) => {
+  const { t }: any = props.this.props;
+  return (
+    <>
+      <Dialog
+        className="edit-profile edit-complex-details"
+        open={props.this.state.isEditBuildingModalOpen}
+        scroll="paper"
+        fullWidth
+        maxWidth="md"
+      >
+        <MuiDialogTitle disableTypography className="dialog-heading">
+          <Typography variant="h6">{t("Edit Details")}</Typography>
+          <IconButton onClick={() => props.this.handleEditComplexModal()}>
+            <CloseIcon />
+          </IconButton>
+        </MuiDialogTitle>
+        <Formik
+          enableReinitialize={true}
+          initialValues={props.this.state.editForm}
+          validationSchema={props.this.editComplexDetailValidation}
+          onSubmit={(values, { resetForm }) => {
+            props.this.handleEditComplexModal();
+            props.this.handleSaveComplexDetails(values);
+          }}
+        >
+          {({ values, errors, touched, handleChange, handleBlur, handleSubmit, setFieldValue }) => {
+            return (
+              <Form onSubmit={handleSubmit} translate>
+                <DialogContent dividers>
+                  <Box className="profile-picture">
+                    <img src={values.displayLogo} alt="profile" className="picture building" />
+                    <p className="logo-text" onClick={() => props.this.uploadLogo.click()}>
+                      {t("Change Logo")}
+                    </p>
+                    <input
+                      type="file"
+                      ref={(ref: any) => (props.this.uploadLogo = ref)}
+                      style={{ display: "none" }}
+                      accept="image/*"
+                      onChange={(e: any) => {
+                        const file = e.target.files[0];
+                        let reader = new FileReader();
+                        reader.onloadend = () => {
+                          setFieldValue("displayLogo", reader.result);
+                          setFieldValue("logo", file);
+                        };
+                        reader.readAsDataURL(file);
+                      }}
+                      onBlur={handleBlur}
+                      name="logo"
+                    />
+                    {errors.logo && touched.logo && <small className="error">{t(errors.logo)}</small>}
+                  </Box>
+                  <Grid container spacing={2} className="edit-building">
+                    <Grid item md={12}>
+                      <InputLabel>{t("Upload Photos")}</InputLabel>
+                      <Grid container spacing={4}>
+                        <Grid item md={3}>
+                          <Box className="upload-photo" onClick={() => props.this.uploadImages.click()}>
+                            <img src={uploadbw} alt="" />
+                          </Box>
+                          <input
+                            type="file"
+                            ref={(ref: any) => (props.this.uploadImages = ref)}
+                            style={{ display: "none" }}
+                            accept="image/*"
+                            onChange={(e: any) => {
+                              for (let i = 0; i < e.target.files.length; i++) {
+                                const file = e.target.files[i];
+                                let reader = new FileReader();
+                                reader.onloadend = () => {
+                                  values.photos = [...values.photos, reader.result];
+                                  setFieldValue("photos", values.photos);
+                                };
+                                reader.readAsDataURL(file);
+                              }
+                            }}
+                            onBlur={handleBlur}
+                            name="photos"
+                            multiple
+                          />
+                        </Grid>
+                        {values.photos.map((image: any, index: number) => {
                           return (
-                            <Grid item xs={4} key={building.building_management_id}>
-                                <Link href={props.userType === "Security" ? "#" :`/Building/${building.building_management_id}`}>
-                                <Box className="building-box">
-                                  <h5>{building.building_name}</h5>
-                                </Box>
-                              </Link>
+                            <Grid item md={3} key={index}>
+                              <Box className="building-image">
+                                <img
+                                  src={del_image}
+                                  className="delete-image"
+                                  onClick={() => {
+                                    const remainImage = values.photos.filter((img: any, idx: number) => idx !== index);
+                                    setFieldValue("photos", remainImage);
+                                  }}
+                                />
+                                <img src={image} alt="" />
+                              </Box>
                             </Grid>
                           );
                         })}
                       </Grid>
-                    </Box>
-                  </Card>
-                </Box>
- </>
-  )
-}
-
-const MapDialog = (props:any) => {
-  const { t } : any = props.this.props;
-  return(
- <>
-    <Dialog
-          className="edit-profile chairman-map-modal"
-          open={props.this.state.isOpenMapModalOpen}
-          scroll="paper"
-          fullWidth
-          maxWidth="sm"
-        >
-          <MuiDialogTitle disableTypography className="dialog-heading">
-            <Typography variant="h6">{t("Location")}</Typography>
-            <IconButton onClick={() => props.this.handleMapModal()}>
-              <CloseIcon />
-            </IconButton>
-          </MuiDialogTitle>
-          {props.this.state.complexData.lat && props.this.state.complexData.long ? (
-            <Box className="google-map-box">
-              <GoogleMapReact
-                bootstrapURLKeys={{ key: "AIzaSyA1NvS9-cKp1dl_kMQDVFr4Gmbnv97MTtk" }}
-                defaultCenter={{
-                  lat: props.this.state.complexData.lat,
-                  lng: props.this.state.complexData.long,
-                }}
-                defaultZoom={15}
-              >
-                <LocationPin lat={props.this.state.complexData.lat} lng={props.this.state.complexData.long} />
-              </GoogleMapReact>
-            </Box>
-          ) : (
-            <Box className="no-google-map-box">{t("No Location Available")}</Box>
-          )}
-        </Dialog>
- </>
-  )
-}
-
-const ComplexDialog = (props:any) => {
-  const { t } : any = props.this.props;
-  return(
-  <>
-  <Dialog
-          className="edit-profile edit-complex-details"
-          open={props.this.state.isEditBuildingModalOpen}
-          scroll="paper"
-          fullWidth
-          maxWidth="md"
-        >
-          <MuiDialogTitle disableTypography className="dialog-heading">
-            <Typography variant="h6">{t("Edit Details")}</Typography>
-            <IconButton onClick={() => props.this.handleEditComplexModal()}>
-              <CloseIcon />
-            </IconButton>
-          </MuiDialogTitle>
-          <Formik
-            enableReinitialize={true}
-            initialValues={props.this.state.editForm}
-            validationSchema={props.this.editComplexDetailValidation}
-            onSubmit={(values, { resetForm }) => {
-              props.this.handleEditComplexModal();
-              props.this.handleSaveComplexDetails(values);
-            }}
-          >
-            {({ values, errors, touched, handleChange, handleBlur, handleSubmit, setFieldValue }) => {
-              return (
-                <Form onSubmit={handleSubmit} translate>
-                  <DialogContent dividers>
-                    <Box className="profile-picture">
-                      <img src={values.displayLogo} alt="profile" className="picture building" />
-                      <p className="logo-text" onClick={() => props.this.uploadLogo.click()}>
-                        {t("Change Logo")}
-                      </p>
-                      <input
-                        type="file"
-                        ref={(ref: any) => (props.this.uploadLogo = ref)}
-                        style={{ display: "none" }}
-                        accept="image/*"
-                        onChange={(e: any) => {
-                          const file = e.target.files[0];
-                          let reader = new FileReader();
-                          reader.onloadend = () => {
-                            setFieldValue("displayLogo", reader.result);
-                            setFieldValue("logo", file);
-                          };
-                          reader.readAsDataURL(file);
-                        }}
-                        onBlur={handleBlur}
-                        name="logo"
-                      />
-                      {errors.logo && touched.logo && <small className="error">{t(errors.logo)}</small>}
-                    </Box>
-                    <Grid container spacing={2} className="edit-building">
-                      <Grid item md={12}>
-                        <InputLabel>{t("Upload Photos")}</InputLabel>
-                        <Grid container spacing={4}>
-                          <Grid item md={3}>
-                            <Box className="upload-photo" onClick={() => props.this.uploadImages.click()}>
-                              <img src={uploadbw} alt="" />
-                            </Box>
-                            <input
-                              type="file"
-                              ref={(ref: any) => (props.this.uploadImages = ref)}
-                              style={{ display: "none" }}
-                              accept="image/*"
-                              onChange={(e: any) => {
-                                for (let i = 0; i < e.target.files.length; i++) {
-                                  const file = e.target.files[i];
-                                  let reader = new FileReader();
-                                  reader.onloadend = () => {
-                                    values.photos = [...values.photos, reader.result];
-                                    setFieldValue("photos", values.photos);
-                                  };
-                                  reader.readAsDataURL(file);
-                                }
-                              }}
-                              onBlur={handleBlur}
-                              name="photos"
-                              multiple
-                            />
-                          </Grid>
-                          {values.photos.map((image: any, index: number) => {
-                            return (
-                              <Grid item md={3} key={index}>
-                                <Box className="building-image">
-                                  <img
-                                    src={del_image}
-                                    className="delete-image"
-                                    onClick={() => {
-                                      const remainImage = values.photos.filter(
-                                        (img: any, idx: number) => idx !== index
-                                      );
-                                      setFieldValue("photos", remainImage);
-                                    }}
-                                  />
-                                  <img src={image} alt="" />
-                                </Box>
-                              </Grid>
-                            );
-                          })}
-                        </Grid>
-                        {errors.photos && touched.photos && <small className="error">{t(errors.photos)}</small>}
-                      </Grid>
-                      <Grid item md={12}>
-                        <InputLabel>{t("About Us")}</InputLabel>
-                        <TextareaAutosize
-                          className="about-us"
-                          placeholder={t("About Us")}
-                          value={values.aboutUs}
-                          onChange={handleChange}
-                          onBlur={handleBlur}
-                          name="aboutUs"
-                        />
-                        {errors.aboutUs && touched.aboutUs && <small className="error">{t(errors.aboutUs)}</small>}
-                      </Grid>
-                      <Grid item md={6}>
-                        <InputLabel>{t("Complex Area")}</InputLabel>
-                        <Input
-                          className="input-with-icon"
-                          fullWidth
-                          placeholder={t("Complex Area")}
-                          value={values.complexArea}
-                          onChange={handleChange}
-                          onBlur={handleBlur}
-                          name="complexArea"
-                          startAdornment={
-                            <InputAdornment position="start">
-                              <img src={sizebw} alt="icon" />
-                            </InputAdornment>
-                          }
-                        />
-                        {errors.complexArea && touched.complexArea && (
-                          <small className="error">{t(errors.complexArea)}</small>
-                        )}
-                      </Grid>
-                      <Grid item md={6}>
-                        <InputLabel>{t("Area Measurement")}</InputLabel>
-                        <Box className="measurement-box">
-                          <img src={sizebw} alt="" />
-                          <Select
-                            className="select-with-icon"
-                            fullWidth
-                            value={values.measurement}
-                            onChange={handleChange}
-                            onBlur={handleBlur}
-                            name="measurement"
-                          >
-                            <MenuItem value="" disabled>
-                              {t("Area Measurement")}
-                            </MenuItem>
-                            <MenuItem value="sqfeet">{t("Sq ft")}</MenuItem>
-                            <MenuItem value="sqmeter">{t("Sq m")}</MenuItem>
-                          </Select>
-                        </Box>
-                        {errors.measurement && touched.measurement && (
-                          <small className="error">{t(errors.measurement)}</small>
-                        )}
-                      </Grid>
-
-                      <Grid item md={6}>
-                        <InputLabel>{t("Latitude")}</InputLabel>
-                        <Input
-                          className="input-with-icon"
-                          fullWidth
-                          placeholder={t("Latitude")}
-                          value={values.lat}
-                          onChange={handleChange}
-                          onBlur={handleBlur}
-                          name="lat"
-                          startAdornment={
-                            <InputAdornment position="start">
-                              <img src={sizebw} alt="icon" />
-                            </InputAdornment>
-                          }
-                        />
-                        {errors.lat && touched.lat && <small className="error">{t(errors.lat)}</small>}
-                      </Grid>
-                      <Grid item md={6}>
-                        <InputLabel>{t("Longitude")}</InputLabel>
-                        <Input
-                          className="input-with-icon"
-                          fullWidth
-                          placeholder={t("Longitude")}
-                          value={values.long}
-                          onChange={handleChange}
-                          onBlur={handleBlur}
-                          name="long"
-                          startAdornment={
-                            <InputAdornment position="start">
-                              <img src={sizebw} alt="icon" />
-                            </InputAdornment>
-                          }
-                        />
-                        {errors.long && touched.long && <small className="error">{t(errors.long)}</small>}
-                      </Grid>
-                      <Grid item md={6}>
-                        <InputLabel>{t("Total Buildings")}</InputLabel>
-                        <Input
-                          className="input-with-icon"
-                          fullWidth
-                          value={values.totalBuilding}
-                          placeholder={t("Total Buildings")}
-                          startAdornment={
-                            <InputAdornment position="start">
-                              <img src={floorIcon} alt="icon" />
-                            </InputAdornment>
-                          }
-                          readOnly
-                        />
-                      </Grid>
-                      <Grid item md={6}>
-                        <InputLabel>{t("Total Units")}</InputLabel>
-                        <Input
-                          className="input-with-icon"
-                          fullWidth
-                          value={values.totalUnits}
-                          placeholder={t("Total Units")}
-                          startAdornment={
-                            <InputAdornment position="start">
-                              <img src={unitbw} alt="icon" />
-                            </InputAdornment>
-                          }
-                          readOnly
-                        />
-                      </Grid>
+                      {errors.photos && touched.photos && <small className="error">{t(errors.photos)}</small>}
                     </Grid>
-                  </DialogContent>
-                  <DialogActions className="dialog-button-group">
-                    <Button className="cancel-button" onClick={() => props.this.handleEditComplexModal()}>
-                      {t("Cancel")}
-                    </Button>
-                    <Button type="submit" className="add-button">
-                      {t("Save")}
-                    </Button>
-                  </DialogActions>
-                </Form>
-              );
-            }}
-          </Formik>
-        </Dialog>
-        
-  </>
-  )
-}
+                    <Grid item md={12}>
+                      <InputLabel>{t("About Us")}</InputLabel>
+                      <TextareaAutosize
+                        className="about-us"
+                        placeholder={t("About Us")}
+                        value={values.aboutUs}
+                        onChange={handleChange}
+                        onBlur={handleBlur}
+                        name="aboutUs"
+                      />
+                      {errors.aboutUs && touched.aboutUs && <small className="error">{t(errors.aboutUs)}</small>}
+                    </Grid>
+                    <Grid item md={6}>
+                      <InputLabel>{t("Complex Area")}</InputLabel>
+                      <Input
+                        className="input-with-icon"
+                        fullWidth
+                        placeholder={t("Complex Area")}
+                        value={values.complexArea}
+                        onChange={handleChange}
+                        onBlur={handleBlur}
+                        name="complexArea"
+                        startAdornment={
+                          <InputAdornment position="start">
+                            <img src={sizebw} alt="icon" />
+                          </InputAdornment>
+                        }
+                      />
+                      {errors.complexArea && touched.complexArea && (
+                        <small className="error">{t(errors.complexArea)}</small>
+                      )}
+                    </Grid>
+                    <Grid item md={6}>
+                      <InputLabel>{t("Area Measurement")}</InputLabel>
+                      <Box className="measurement-box">
+                        <img src={sizebw} alt="" />
+                        <Select
+                          className="select-with-icon"
+                          fullWidth
+                          value={values.measurement}
+                          onChange={handleChange}
+                          onBlur={handleBlur}
+                          name="measurement"
+                        >
+                          <MenuItem value="" disabled>
+                            {t("Area Measurement")}
+                          </MenuItem>
+                          <MenuItem value="sqfeet">{t("Sq ft")}</MenuItem>
+                          <MenuItem value="sqmeter">{t("Sq m")}</MenuItem>
+                        </Select>
+                      </Box>
+                      {errors.measurement && touched.measurement && (
+                        <small className="error">{t(errors.measurement)}</small>
+                      )}
+                    </Grid>
+
+                    <Grid item md={6}>
+                      <InputLabel>{t("Latitude")}</InputLabel>
+                      <Input
+                        className="input-with-icon"
+                        fullWidth
+                        placeholder={t("Latitude")}
+                        value={values.lat}
+                        onChange={handleChange}
+                        onBlur={handleBlur}
+                        name="lat"
+                        startAdornment={
+                          <InputAdornment position="start">
+                            <img src={sizebw} alt="icon" />
+                          </InputAdornment>
+                        }
+                      />
+                      {errors.lat && touched.lat && <small className="error">{t(errors.lat)}</small>}
+                    </Grid>
+                    <Grid item md={6}>
+                      <InputLabel>{t("Longitude")}</InputLabel>
+                      <Input
+                        className="input-with-icon"
+                        fullWidth
+                        placeholder={t("Longitude")}
+                        value={values.long}
+                        onChange={handleChange}
+                        onBlur={handleBlur}
+                        name="long"
+                        startAdornment={
+                          <InputAdornment position="start">
+                            <img src={sizebw} alt="icon" />
+                          </InputAdornment>
+                        }
+                      />
+                      {errors.long && touched.long && <small className="error">{t(errors.long)}</small>}
+                    </Grid>
+                    <Grid item md={6}>
+                      <InputLabel>{t("Total Buildings")}</InputLabel>
+                      <Input
+                        className="input-with-icon"
+                        fullWidth
+                        value={values.totalBuilding}
+                        placeholder={t("Total Buildings")}
+                        startAdornment={
+                          <InputAdornment position="start">
+                            <img src={floorIcon} alt="icon" />
+                          </InputAdornment>
+                        }
+                        readOnly
+                      />
+                    </Grid>
+                    <Grid item md={6}>
+                      <InputLabel>{t("Total Units")}</InputLabel>
+                      <Input
+                        className="input-with-icon"
+                        fullWidth
+                        value={values.totalUnits}
+                        placeholder={t("Total Units")}
+                        startAdornment={
+                          <InputAdornment position="start">
+                            <img src={unitbw} alt="icon" />
+                          </InputAdornment>
+                        }
+                        readOnly
+                      />
+                    </Grid>
+                  </Grid>
+                </DialogContent>
+                <DialogActions className="dialog-button-group">
+                  <Button className="cancel-button" onClick={() => props.this.handleEditComplexModal()}>
+                    {t("Cancel")}
+                  </Button>
+                  <Button type="submit" className="add-button">
+                    {t("Save")}
+                  </Button>
+                </DialogActions>
+              </Form>
+            );
+          }}
+        </Formik>
+      </Dialog>
+    </>
+  );
+};
 
 const dashBoard = {
   navigation: {
