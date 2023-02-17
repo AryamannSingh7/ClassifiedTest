@@ -10,7 +10,7 @@ import PermIdentityIcon from '@material-ui/icons/PermIdentity';
 import EmailAccountRegistrationController, { Props } from "./EmailAccountRegistrationController.web";
 import MailOutlineIcon from '@material-ui/icons/MailOutline';
 import { CheckBox, Visibility, VisibilityOff } from "@material-ui/icons";
-import { Building1, company_logo, company_logo2, email, password, user } from "./assets";
+import { Back_btn, Building1, company_logo, company_logo2, email, password, user } from "./assets";
 import {dailCode} from './code'
 import { withRouter } from 'react-router';
 import Loader from "../../../components/src/Loader.web";
@@ -48,18 +48,18 @@ class Registration extends EmailAccountRegistrationController  {
         <Grid item xs={12} md={7} className="auth-cols" >
           <Grid container style={{ margin: '1rem' }}>
             <Grid xs={12}>
-              <ArrowBackIcon onClick={() => window.history.back()} />
+            <img src={Back_btn} onClick={() => window.history.back()} style={{marginTop:'1rem',marginLeft:'0.5rem'}} />
             </Grid>
           </Grid>
 
           <div style={{display: 'flex' ,justifyContent: 'center' ,cursor: 'pointer'}}  onClick={()=>//@ts-ignore
             window.open("https://www.TenantInt.com", '_blank').focus()}>
-              <img className="text-center" src={company_logo} alt="" />
+              <img className="text-center" src={company_logo} alt="" style={{width:'10rem'}} />
           </div>
     
           <Grid container>
           <Grid xs={12}>
-              <p className="text-center" style={{fontWeight:600,fontSize:'1.5rem',marginTop:'0.5rem'}}>
+              <p className="text-center" style={{ fontSize: '2rem', fontWeight: 900,marginBottom:'0.5rem' }}>
                 WELCOME
               </p>
             </Grid>
