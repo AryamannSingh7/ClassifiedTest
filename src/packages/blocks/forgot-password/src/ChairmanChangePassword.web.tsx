@@ -11,6 +11,7 @@ import { Menu } from "@szhsin/react-menu";
 import MenuItem from "@material-ui/core/MenuItem";
 import "@szhsin/react-menu/dist/core.css";
 import i18next from "i18next";
+import AlertErrorWeb from "../../../components/src/AlertError.web"
 
 class ChairmanChangePassword extends ChairmanForgotPasswordController {
   constructor(props: Props) {
@@ -31,7 +32,7 @@ class ChairmanChangePassword extends ChairmanForgotPasswordController {
   render() {
     return (
       <>
-        <Box className="login-wrapper">
+        <Box className="login-wrapper" style={{backgroundColor:"white"}}>
           <Grid container spacing={2} className="auth-container">
             <Grid item xs={12} md={7} className="auth-cols">
               <Box className="content-block">
@@ -62,9 +63,9 @@ class ChairmanChangePassword extends ChairmanForgotPasswordController {
                     </Menu>
                   </Box>
                 </Box>
-                <Box className="main-content-block desktop-ui">
+                <Box className="main-content-block desktop-ui" style={{marginTop: '50px'}}>
                   <Box className="header-block">
-                    <h1>Change Password</h1>
+                    <h1 className="bold-text">Change Password</h1>
                     <h6>
                       You need to change your password.
                       <br />
@@ -141,7 +142,7 @@ class ChairmanChangePassword extends ChairmanForgotPasswordController {
                     )}
                   </Formik>
                 </Box>
-                <Box className="bottomBlock common-bottom-padding" display={{ xs: "none", md: "flex" }}>
+                <Box className="bottomBlock common-bottom-padding" display={{ xs: "none", md: "flex"}} style={{marginTop:"60px"}}>
                   <h6 className="bottom-text">POWERED BY</h6>
                   <img src={Tenant_Logo.default} className="tenant-logo" alt="" />
                 </Box>
@@ -154,6 +155,7 @@ class ChairmanChangePassword extends ChairmanForgotPasswordController {
             </Grid>
           </Grid>
         </Box>
+        <AlertErrorWeb show={this.state.showError} handleClose={()=> this.setState({showError:false,error:null})} message={this.state.error} />
         <Loader loading={this.state.loading} />
       </>
     );
