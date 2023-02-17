@@ -41,12 +41,12 @@ class DocumentListChairman extends DocumentListChairmanController {
   constructor(props: Props) {
     super(props);
   }
-   userType = localStorage.getItem("userType");
+  userType = localStorage.getItem("userType");
+
   headerButton = (documentPage: any, t: any) => {
-   if(this.userType === "Security"  ) {
-    return null
-   }
-   else if (documentPage === "resolutions") {
+    if (this.userType === "Security") {
+      return null;
+    } else if (documentPage === "resolutions") {
       return <Button onClick={() => this.handleAddResolutionsModal()}>{t("Add New Resolution")}</Button>;
     } else {
       return <Button onClick={() => this.handleAddDocumentModal()}>{t("Upload Documents")}</Button>;
@@ -285,9 +285,7 @@ class DocumentListChairman extends DocumentListChairmanController {
           <DashboardHeader {...this.props} />
           <Box style={{ display: "flex" }}>
             <Grid item xs={3} md={3} sm={3} className="SideBar">
-              {/* Chairman Sidebar -- */}
-              {/* <ChairmanSidebarWeb {...this.props} /> */}
-              <GeneralSideBarWeb {...this.props}></GeneralSideBarWeb> 
+              <GeneralSideBarWeb {...this.props} />
             </Grid>
 
             <Grid item xs={9} md={9} sm={9} style={{ paddingTop: 35 }}>
@@ -298,12 +296,16 @@ class DocumentListChairman extends DocumentListChairmanController {
                       <Typography variant="body1">
                         {t("Documents")} /{" "}
                         <Box component="span" style={{ color: "blue" }}>
-                          {t(this.state.docName)}
+                          {t(
+                            this.state.docName.toLowerCase() == "building-plans" ? "Building Plans" : this.state.docName
+                          )}
                         </Box>
                       </Typography>
                       <Box className="top-heading">
                         <Typography variant="h5" className="sub-heading">
-                          {t(this.state.docName)}
+                          {t(
+                            this.state.docName.toLowerCase() == "building-plans" ? "Building Plans" : this.state.docName
+                          )}
                         </Typography>
                         {this.headerButton(this.state.docName.toLowerCase(), t)}
                       </Box>
