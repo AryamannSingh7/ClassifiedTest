@@ -4,7 +4,7 @@ import { Button, Grid, Box,Typography } from "@material-ui/core";
 import "../assets/css/style.scss";
 import ArrowBackIcon from "@material-ui/icons/ArrowBack";
 import EmailAccountRegistrationController, { Props } from "./EmailAccountRegistrationController.web";
-import { Building1, manager, owner, resident_owner, tenet } from "./assets";
+import { Back_btn, Building1, manager, owner, resident_owner, tenet } from "./assets";
 import { withRouter } from "react-router";
 import Loader from "../../../components/src/Loader.web";
 import { withTranslation } from "react-i18next";
@@ -207,7 +207,7 @@ class SelectType extends EmailAccountRegistrationController {
                   </Box>
                 </Grid>
               </Grid>
-              <Grid container>
+              <Grid container style={{marginTop:'12rem'}}>
                 <Grid xs={12}>
                   <Button
                     fullWidth={true}

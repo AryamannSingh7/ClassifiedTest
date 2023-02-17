@@ -769,11 +769,16 @@ export default class EmailAccountRegistrationController extends BlockComponent<
 
   }
   createAccountOwner(attributes: any): boolean {
+    this.setState({loading:true})
 
     const header = {
       "Content-Type": configJSON.contentTypeApiAddDetail
     };
     this.setState({ selectEmail: attributes.email })
+let phone=attributes.phone 
+if(attributes.phone.includes('+')){
+  phone = phone.slice(1)
+}
 
     const attrs = {
 
@@ -781,7 +786,7 @@ export default class EmailAccountRegistrationController extends BlockComponent<
       last_name: attributes.lastName,
       email: attributes.email,
       password: attributes.password,
-      full_phone_number:this.state.selectCode + attributes.phone,
+      full_phone_number:this.state.selectCode + phone,
       password_confirmation: attributes.confirm_password
     };
 
@@ -1391,9 +1396,9 @@ export default class EmailAccountRegistrationController extends BlockComponent<
   signupSchemaManager = () => {
     const validations = Yup.object().shape({
       //@ts-ignore
-      company_name: Yup.string().required(`Company name is required`).trim().matches("^[a-zA-Z\-]+$","Only characters are allowed in username"),
+      company_name: Yup.string().required(`Company name is required`).trim().matches("^[a-zA-Z \-]+$","Only characters are allowed in username"),
       //@ts-ignore
-      managerName: Yup.string().required(`Manager name is required`).trim().matches("^[a-zA-Z\-]+$","Only characters are allowed in username"),
+      managerName: Yup.string().required(`Manager name is required`).trim().matches("^[a-zA-Z \-]+$","Only characters are allowed in username"),
       // ownerName: Yup.string().required(`Owner name is required`).trim().matches("^[a-zA-Z\-]+$","Only characters are allowed in username"),
       email: Yup.string().email().required(`Email is required`).trim(),
       // owner_email: Yup.string().email().required(`Owner email is required`).trim(),
@@ -1432,7 +1437,7 @@ export default class EmailAccountRegistrationController extends BlockComponent<
   signupSchema = () => {
     const validations = Yup.object().shape({
       //@ts-ignore
-      full_name: Yup.string().required(`Name is required`).trim().matches("^[a-zA-Z\-]+$","Only characters are allowed in name"),
+      full_name: Yup.string().required(`Name is required`).trim().matches("^[a-zA-Z \-]+$","Only characters are allowed in name"),
       email: Yup.string().email().required(`Email is required`).trim(),
       phone: Yup.number()
         .typeError("Only numbers are allowed.")

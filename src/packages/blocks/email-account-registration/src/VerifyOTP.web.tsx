@@ -15,7 +15,7 @@ import MailOutlineIcon from '@material-ui/icons/MailOutline';
 import { CheckBox, Visibility, VisibilityOff } from "@material-ui/icons";
 import { withRouter } from 'react-router';
 import OtpInput from 'react-otp-input';
-import { Building1 } from "./assets";
+import { Back_btn, Building1 } from "./assets";
 
 
 
@@ -47,20 +47,20 @@ class VerofyOTP extends EmailAccountRegistrationController {
 
         <Grid container className="main-content-block">
           <Grid xs={12}>
-            <ArrowBackIcon onClick={() => window.history.back()} />
+          <img src={Back_btn} onClick={() => window.history.back()} style={{marginTop:'1rem',marginLeft:'0rem'}} />
           </Grid>
         </Grid>
 
 
-        <Grid container className="main-content-block">
+        <Grid container className="main-content-block" style={{marginLeft:'0.5rem'}}>
           <Grid xs={12}>
-                <p className="text-left" style={{ fontSize: '1.75rem', fontWeight: 700,marginTop:'2rem'}}>
+                <p className="text-left" style={{ fontSize: '1.5rem', fontWeight: 700,marginTop:'2rem',marginBottom:'0.5rem'}}>
              Enter OTP Code
 
             </p>
           </Grid>
         </Grid>
-        <Grid container className="main-content-block">
+        <Grid container className="main-content-block" style={{marginLeft:'0.5rem'}}>
           <Grid xs={12}>
             <p className="text-left" style={{ marginBottom: '1.5rem',marginBottom:'9rem' }}>
               Please enter the code sent to the email address
@@ -72,7 +72,7 @@ class VerofyOTP extends EmailAccountRegistrationController {
             </p>
           </Grid>
         </Grid>
-            <Grid container className="main-content-block">
+            <Grid container className="main-content-block" style={{marginLeft:'0.5rem'}}>
           <Grid xs={12} style={{display:'flex'}} justifyContent="center">
             <Box className="commonForm">
               <Box className="formGroup otpBlock">

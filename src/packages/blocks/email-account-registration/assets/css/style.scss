@@ -44,7 +44,7 @@
   padding: 1rem;
 
   .middle-section {
-    width: 60%;
+    width: 77%;
     color: #d3d3d3;
 
     .title {
@@ -52,10 +52,12 @@
       margin-bottom: 0.58rem;
       color: #a5a3a4;
       font-size: 15px;
+      margin-top: 0.5rem;
     }
 
     .para {
       color: #d3d3d3;
+      font-size: 0.9rem;
     }
     .active-para {
       color: rgb(140, 143, 146);
@@ -268,4 +270,11 @@ input#mobile:focus {
 .hello {
   width: 90%;
   margin-left: 1.1rem;
+}
+.filter__placeholder,.filter__single-value{
+  color: #BEBEBE !important;
+  margin-left: 0.4rem !important;
+}
+::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+  color:  #BEBEBE !important;
 }
