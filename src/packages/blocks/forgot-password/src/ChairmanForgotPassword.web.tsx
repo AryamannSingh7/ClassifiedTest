@@ -7,7 +7,7 @@ import ChairmanForgotPasswordController, { Props } from "./ChairmanForgotPasswor
 import { Menu } from "@szhsin/react-menu";
 import MenuItem from "@material-ui/core/MenuItem";
 import "@szhsin/react-menu/dist/core.css";
-import { Tenant_Logo, Building_Logo, Lock_User_Icon, Building1, globalIcon } from "../src/assets";
+import { Tenant_Logo, Building_Logo, Lock_User_Icon, Building1, globalIcon ,Email_Icon} from "../src/assets";
 import i18next from "i18next";
 
 class ChairmanForgotPassword extends ChairmanForgotPasswordController {
@@ -61,7 +61,7 @@ class ChairmanForgotPassword extends ChairmanForgotPasswordController {
                 </Box>
                 <Box className="main-content-block desktop-ui">
                   <Box className="header-block">
-                    <h1>Forgot Password</h1>
+                    <h1 style={{fontWeight : 'bold'}}>Forgot Password</h1>
                     <h6>
                       One Time Password(OTP) will be sent
                       <br />
@@ -89,7 +89,7 @@ class ChairmanForgotPassword extends ChairmanForgotPasswordController {
                               className="formInput"
                             />
                             <span className="frmLeftIcons">
-                              <img src={Lock_User_Icon} className="frm-icons" alt="Email Icon" />
+                              <img src={Email_Icon} className="frm-icons" alt="Email Icon" />
                             </span>
                           </div>
 
