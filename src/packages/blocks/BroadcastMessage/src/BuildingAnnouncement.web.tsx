@@ -216,9 +216,7 @@ class Announcement extends BuildingAnnouncementController{
                     onClose={this.handleCloseDeleteModal}
                     closeAfterTransition
                     BackdropComponent={Backdrop}
-                    BackdropProps={{
-                        timeout: 500,
-                    }}
+                    BackdropProps={{timeout: 500}}
                 >
                     {/*@ts-ignore*/}
                     <Fade in={this.state.deleteConfirmModal}>
