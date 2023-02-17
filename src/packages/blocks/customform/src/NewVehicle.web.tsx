@@ -266,7 +266,7 @@ class NewVeichleList extends VeichleListController {
 
                           <Box style={{display:'flex',justifyContent:'center',flexDirection:'column',
                         alignItems:'center',
-                        padding:'4rem',
+                        padding:'3.5rem',
                         marginTop:'15px',
                             border:'3px dashed #00000036',
                             marginBottom:10,
@@ -279,7 +279,7 @@ class NewVeichleList extends VeichleListController {
                             
                             <label htmlFor="file1"
                             style={{ color:'rgb(33 33 33 / 33%)',textAlign:"center",marginTop:"10px"}}>
-                              Add Registration Card Copy
+                              Upload car registration image
                             </label>
                             <input
                             id="file1"
