@@ -59,8 +59,8 @@ class Registration extends EmailAccountRegistrationController  {
     
           <Grid container>
           <Grid xs={12}>
-              <p className="text-center" style={{ fontSize: '2rem', fontWeight: 900,marginBottom:'0.5rem' }}>
-                WELCOME
+              <p className="text-center bold-text" style={{ fontSize: '2rem', fontWeight: 900,marginBottom:'0.5rem' }}>
+                Welcome
               </p>
             </Grid>
             <Grid xs={12}>
@@ -453,7 +453,8 @@ class Registration extends EmailAccountRegistrationController  {
                             color: "#A0A3BD",
                             fontWeight: "normal",
                             fontSize: 12,
-                            textAlign: "center"
+                            textAlign: "center",
+                            marginTop:'1.5rem'
                           }}
                         >
                           Already have an account ?
@@ -466,7 +467,8 @@ class Registration extends EmailAccountRegistrationController  {
                             color: "#FC8434",
                             marginLeft: 5,
                             textTransform: "uppercase",
-                            fontWeight: 'bold'
+                            fontWeight: 'bold',
+                            marginTop:'1.5rem'
                           }}
                         >
                           Login

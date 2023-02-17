@@ -984,6 +984,7 @@ createIncidentSchema() {
     return validations ;
   }
   createChatRoom = async (id: any) => {
+    console.log(id)
 
     try {
       const requestMessage = new Message(
@@ -1008,7 +1009,7 @@ createIncidentSchema() {
       const formData = new FormData();
       formData.append("chat[chatable_type]", 'BxBlockCustomForm::Incident');
       // @ts-ignore
-      formData.append("chat[chatable_id]", this.props.history.location?.id);
+      formData.append("chat[chatable_id]", id);
 
 
 
