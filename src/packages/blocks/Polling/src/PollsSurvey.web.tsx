@@ -44,7 +44,7 @@ class PollsSurvey extends PollsSurveyController {
               <Grid xs={12} style={{ display:"flex", alignItems:"center", gap:"1rem",justifyContent:"space-between"}} >
                   <Box style={{ display:"flex", alignItems:"center", gap:"1rem"}}>
                       <ArrowBackIcon onClick={() => this.props.history.push("/")} />
-                      <p style={{ fontSize: '1.2rem', fontWeight: 600 }}>
+                      <p className='bold-text' style={{ fontSize: '1.2rem', fontWeight: 600 }}>
                           {t("Poll / Survey")}
                       </p>
                   </Box>

@@ -66,7 +66,7 @@ class PollPreview extends PollingController {
                             <Typography variant="body1" >
                             {t("Poll and survey")} / {t("Create a Poll")} / <Box component="span" style={{color: "blue"}}>{t("Poll Preview")}</Box>
                             </Typography>
-                            <Typography variant="h5" className="subHeading">{t("Poll Preview")}</Typography>
+                            <Typography variant="h5" className="subHeading bold-text" style={{fontSize:"30px"}}>{t("Poll Preview")}</Typography>
                         </Box>
                     </Box>
                     <Grid container spacing={4} style={{marginTop: 1}}>
@@ -74,8 +74,8 @@ class PollPreview extends PollingController {
                             <Box className="createPSCards" style={{backgroundColor:"#fcfcfc"}}>
                                 <Box className="PreviewName">
                                     <Box className="PollName">
-                                        <Typography className="subHeading">{t("Poll Name:")} </Typography>
-                                        <Typography className="PollNameText">
+                                        <Typography className="subHeading" style={{padding:"0px"}}>{t("Poll Name:")} </Typography>
+                                        <Typography className="PollNameText bold-text">
                                             {this.state.PreViewPollData?.PollFormData?.title}
                                         </Typography>
                                     </Box>
@@ -93,7 +93,7 @@ class PollPreview extends PollingController {
                                         <CalendarTodayOutlinedIcon style={{color:"grey", fontSize:"25px"}}/>
                                         <Box>
                                             <Typography className="PollNamedate" style={{fontSize:"12px"}}>{t("Start Date")}</Typography>
-                                            <Typography className="PollNameText" style={{fontSize:"15px"}}>
+                                            <Typography className="PollNameText bold-text" style={{fontSize:"15px"}}>
                                                 {/* June 7, 2022 */}
                                                 {moment(this.state.PreViewPollData?.PollFormData?.startDate).format("MMMM DD, YYYY")}</Typography>
                                         </Box>    
@@ -102,7 +102,7 @@ class PollPreview extends PollingController {
                                         <CalendarTodayOutlinedIcon style={{color:"grey", fontSize:"25px"}}/>
                                         <Box>
                                             <Typography className="PollNamedate" style={{fontSize:"12px"}}>{t("End Date")}</Typography>
-                                            <Typography className="PollNameText" style={{fontSize:"15px"}}>
+                                            <Typography className="PollNameText bold-text" style={{fontSize:"15px"}}>
                                                 {/* June 7, 2022 */}
                                             {moment(this.state.PreViewPollData?.PollFormData?.endDate).format("MMMM DD, YYYY")}</Typography>
                                         </Box>    
@@ -129,14 +129,14 @@ class PollPreview extends PollingController {
 
                         <Grid item sm={12} md={12} xs={12}>
                             <Box className="createPSCards" style={{backgroundColor:"#fcfcfc"}}>
-                                <Typography className="PollNameText" style={{fontSize: "20px",marginBottom:"15px"}}>
+                                <Typography className="PollNameText bold-text" style={{fontSize: "20px",marginBottom:"15px"}}>
                                     {this.state.PreViewPollData?.PollFormData?.question}
                                 </Typography>
 
                                 {this.state.PreViewPollData?.PollOptions?.map((values:any) => {
                                     return(
                                         <Box style={{width:"450px",height:"60px",display:'flex',alignItems:'center',border:"1px solid #f0f0f0",backgroundColor:"white",marginBottom:"15px"}}>
-                                            <Typography style={{fontWeight:"bold",fontSize:"18px",marginLeft:"15px"}}>{values.text}</Typography>
+                                            <Typography className="bold-text" style={{fontWeight:"bold",fontSize:"18px",marginLeft:"15px"}}>{values.text}</Typography>
                                         </Box>
                                     )
                                 })}

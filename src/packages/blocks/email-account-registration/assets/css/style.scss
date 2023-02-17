@@ -46,6 +46,8 @@
   .middle-section {
     width: 77%;
     color: #d3d3d3;
+    display: -moz-box;
+    display: -ms-flexbox;
 
     .title {
       font-weight: bold;

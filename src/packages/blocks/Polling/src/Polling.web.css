@@ -120,6 +120,7 @@
   font-size: 14px;
   background: #f2f2f2;
 }
+
 .DateSection {
   margin-top: 30px;
   margin-bottom: 10px;
@@ -809,4 +810,26 @@
 
 .pollDetailsPurpose p{
   font-size: 1rem;
+}
+
+.TextBoxplaceholder ::placeholder{
+  color:gray;
+}
+
+.dateInputBox input::placeholder,
+.dateInputBox textarea::placeholder {
+  color: black;
+  opacity: 1; /* Firefox */
+}
+
+.dateInputBox input:-ms-input-placeholder,
+.dateInputBox textarea:-ms-input-placeholder {
+  /* Internet Explorer 10-11 */
+  color: black;
+}
+
+.dateInputBox input::-ms-input-placeholder,
+.dateInputBox textarea::-ms-input-placeholder {
+  /* Microsoft Edge */
+  color: black;
 }

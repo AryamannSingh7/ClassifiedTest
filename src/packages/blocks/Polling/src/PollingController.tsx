@@ -80,6 +80,8 @@ interface S {
   endDate:any;
   endDateError:any;
   descriptionError:any;
+  inputType1:any;
+  inputType2:any;
 
 }
 
@@ -224,8 +226,8 @@ export default class PollingController extends BlockComponent<
       endDate:"",
       endDateError:"",
       descriptionError:"",
-
-
+      inputType1:"text",
+      inputType2:"text",
     };
     runEngine.attachBuildingBlock(this as IBlock, this.subScribedMessages);
 

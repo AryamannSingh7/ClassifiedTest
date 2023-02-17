@@ -70,7 +70,7 @@ class Announcement extends BuildingAnnouncementController{
                   <Grid xs={12} style={{ display:"flex", alignItems:"center", gap:"1rem",justifyContent:"space-between"}} >
                       <Box style={{ display:"flex", alignItems:"center", gap:"1rem"}}>
                           <ArrowBackIcon onClick={() =>  window.history.back()} />
-                          <p style={{ fontSize: '1.2rem', fontWeight: 600 }}>
+                          <p className='bold-text' style={{ fontSize: '1.2rem', fontWeight: 600 }}>
                               {complexName || ""}
                           </p>
                       </Box>
@@ -130,7 +130,7 @@ class Announcement extends BuildingAnnouncementController{
                                                             />
                                                         }
                                                     </Box>
-                                                    <Typography variant={"body2"} style={{marginTop:"8px",marginBottom:"5px"}} >
+                                                    <Typography variant={"body2"} style={{marginTop:"3px",marginBottom:"5px"}} >
                                                         {item.attributes.description}
                                                     </Typography>
                                                 </Box>
@@ -225,10 +225,10 @@ class Announcement extends BuildingAnnouncementController{
                                 <Box>
                                     <img src={modalDeleteIcon} width="38px" height="43px" />
                                 </Box>
-                                <Typography variant="h6" style={{color:"black",fontWeight:"bold",marginTop:"15px",marginBottom:"10px",textAlign:"center",fontSize:"20px"}}>
+                                <Typography className="bold-text" variant="h6" style={{color:"black",fontWeight:"bold",marginTop:"15px",marginBottom:"10px",textAlign:"center",fontSize:"20px"}}>
                                     {t("Delete")} {this.state.selectedAnnoucment?.length} {t("selected announcements")}?
                                 </Typography>
-                                <Typography variant="body2" style={{textAlign:"center",fontSize:"14px"}}>
+                                <Typography variant="body2" style={{textAlign:"center",fontSize:"14px",width:"90%"}}>
                                     {t("Are you sure want to delete")} {this.state.selectedAnnoucment?.length} {t("Selected announcements? Once deleted you won’t be able to view deleted announcements again.")}
                                 </Typography>
                                 <Box style={{marginTop:"15px",width:"90%",display:"flex",flexDirection:"column",alignItems:"center"}}>
