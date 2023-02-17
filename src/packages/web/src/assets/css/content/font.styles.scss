@@ -1,21 +1,21 @@
-$Gotham_Light: "Gotham_Light";
-$Gotham_Medium: "Gotham_Medium";
-$Gotham_Bold: "Gotham_Bold";
+$Gotham_Light: 'Gotham_Light';
+$Gotham_Medium: 'Gotham_Medium';
+$Gotham_Bold: 'Gotham_Bold';
 
 @font-face {
-  font-family: "Gotham_Light";
+  font-family: 'Gotham_Light';
   src: url(../../fonts/century-gotic/Century-Gothic.ttf);
   font-weight: 100;
 }
 
 @font-face {
-  font-family: "Gotham_Medium";
+  font-family: 'Gotham_Medium';
   src: url(../../fonts/century-gotic/CenturyGothic.ttf);
   font-weight: 300;
 }
 
 @font-face {
-  font-family: "Gotham_Bold";
-  src: url(../../fonts/Gotham-Font/Gotham-Bold.otf);
+  font-family: 'Gotham_Bold';
+  src: url(../../fonts/century-gotic/GOTHICB.TTF);
   font-weight: 500;
 }
