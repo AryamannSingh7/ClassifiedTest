@@ -14,7 +14,7 @@ import EmailAccountRegistrationController, { Props } from "./EmailAccountRegistr
 import MailOutlineIcon from '@material-ui/icons/MailOutline';
 import { CheckBox, Visibility, VisibilityOff } from "@material-ui/icons";
 import { withRouter } from 'react-router';
-import { Back_btn, building, Building1, city, country, Map, search, unit } from "./assets";
+import { Back_btn, building, Building1, city, country, Map, ReqHome, search, unit } from "./assets";
 import ReactSelect from 'react-select';
 import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
@@ -292,12 +292,12 @@ class RegisterUnitManually extends EmailAccountRegistrationController {
           }}
         >
           <Box className="diloag-body">
-            <Box className="diloag-header" style={{ flexDirection: 'column' }}>
-              <img src={building} className="tenet-logo" alt="" />
-              <DialogTitle className="alert-dialog-title1" id="alert-dialog-title" style={{ overflow: 'visible', width: 'auto' }}>
-                Are you sure want to register this unit?
+            <Box className="diloag-header" style={{ flexDirection: 'column',border:'none' }}>
+              <img src={ReqHome} className="tenet-logo" alt="" />
+              <DialogTitle className="alert-dialog-title1 bold-text" id="alert-dialog-title" style={{ overflow: 'visible', width: 'auto',fontSize:20  }}>
+                sure want to register this unit?
               </DialogTitle>
-              <p>Are you sure that you want to register the unit   of {this.state.selectBuilding.name}?</p>
+              <p style={{paddingTop:20}}>Are you sure that you want to register the unit   of {this.state.selectBuilding.name}?</p>
             </Box>
             <Box className="dialog-footer desktop-ui" style={{display:'flex',justifyContent:'center'}}>
               <DialogActions

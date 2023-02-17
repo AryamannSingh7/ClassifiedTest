@@ -10,7 +10,7 @@ import MenuItem from "@material-ui/core/MenuItem";
 import FormControl from "@material-ui/core/FormControl";
 import Select from "@material-ui/core/Select";
 import ReactSelect from "react-select";
-import { Back_btn, building, Building1, city, country, unit } from "./assets";
+import { Back_btn, building, Building1, city, country, ReqHome, unit } from "./assets";
 import { withRouter } from "react-router";
 import { withTranslation } from "react-i18next";
 
@@ -267,16 +267,16 @@ class RegisterAddressLinkLink extends EmailAccountRegistrationController {
           }}
         >
           <Box className="diloag-body">
-            <Box className="diloag-header 1" style={{ flexDirection: "column" }}>
-              <img src={building} className="tenet-logo" alt="" />
+            <Box className="diloag-header 1" style={{ flexDirection: "column",border:'none' }}>
+              <img src={ReqHome} className="tenet-logo" alt="" />
               <DialogTitle
-                className="alert-dialog-title1"
+                className="alert-dialog-title1 bold-text"
                 id="alert-dialog-title"
-                style={{ overflow: "visible", width: "auto" }}
+                style={{ overflow: "visible", width: "auto",fontSize:20 }}
               >
-                Are you sure want to register this unit?
+             sure want to register this unit?
               </DialogTitle>
-              <p>
+              <p style={{paddingTop:20}}>
                 Are you sure that you want to register the unit{" "}
                 {this.state.selectUnit && this.state.selectUnit.apartment_name} of{" "}
                 {this.state.selectBuilding && this.state.selectBuilding.name} as a unit that you own or manage?

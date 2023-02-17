@@ -66,7 +66,7 @@ class ManagerRegistration extends EmailAccountRegistrationController {
             </div>
             <Grid container>
               <Grid xs={12}>
-                <p className="text-center" style={{ fontSize: '2rem', fontWeight: 900,marginBottom:'0.5rem' }}>
+                <p className="text-center bold-text" style={{ fontSize: '2rem', fontWeight: 900,marginBottom:'0.5rem' }}>
                   Welcome
                 </p>
               </Grid>
@@ -401,6 +401,7 @@ class ManagerRegistration extends EmailAccountRegistrationController {
                               fontWeight: "normal",
                               fontSize: 12,
                               textAlign: "center",
+                              marginTop:'1.5rem'
                             }}
                           >
                             Already have an account ?
@@ -414,6 +415,7 @@ class ManagerRegistration extends EmailAccountRegistrationController {
                               fontWeight: 500,
                               marginLeft: 5,
                               textTransform: "uppercase",
+                              marginTop:'1.5rem'
                             }}
                           >
                             Login
