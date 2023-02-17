@@ -56,9 +56,9 @@ export const DashboardStyleWeb: any = {
       marginBottom: "20px",
     },
     "& .MuiCard-root h4": {
-      marginBottom: "20px",
       textTransform: "capitalize",
       fontSize: "18px",
+      minHeight: "44px",
     },
     "& .MuiCard-root .state p": {
       marginBottom: "5px",
