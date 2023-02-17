@@ -25,6 +25,8 @@ export const compnayName = require("../assets/companyIcon.png");
 export const Tenant_Logo = require("../assets/TenantLogo.png");
 export const Back_btn = require("../assets/backbtn.png");
 export const ReqHome = require("../assets/reqHome.png");
+export const Complex = require("../assets/complex.png");
+
 
 
 
