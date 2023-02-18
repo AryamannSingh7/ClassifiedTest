@@ -97,7 +97,7 @@ class ChairmanForgotPasswordOTP extends ChairmanForgotPasswordController {
                         this.verifyOtp();
                       }}
                     >
-                      send
+                      NEXT
                     </Button>
                   </Box>
                   <Box className="passwordRow">

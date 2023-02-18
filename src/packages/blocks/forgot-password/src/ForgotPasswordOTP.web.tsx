@@ -71,7 +71,7 @@ class ForgotPasswordOTP extends ForgotPasswordController {
                       />
                     </Box>
                     <Box className="customButton row-btn" style={{paddingTop : '150px'}}>
-                      <Button variant="contained" onClick={() => { this.verifyOtp() }}>SEND</Button>
+                      <Button variant="contained" onClick={() => { this.verifyOtp() }}>NEXT</Button>
                     </Box>
                     <Box className="passwordRow" >
                       <Link href="#" className="link"> <span>RESEND OTP</span></Link>
