@@ -33,7 +33,7 @@ import AttachFileIcon from '@material-ui/icons/AttachFile';
 import InboxController,{Props} from "./inboxController.web";
 import '../assets/css/style.scss'
 import { NoProfile_Img } from "../../user-profile-basic/src/assets";
-
+import { Sendbutton } from "./assets"
 class IncidentChatBox extends InboxController {
   constructor(props: Props) {
     const messagesEndRef = React.createRef()
