@@ -183,10 +183,11 @@ input#mobile {
   background-image: url("../../assets/numpad.png");
   background-repeat: no-repeat;
   text-indent: 31px;
+  background-color: #f9f9f9;
 }
 
 input#mobile:focus {
-  background-image: none;
+  background-image: url("../../assets/numpad.png");
 }
 
 .text {

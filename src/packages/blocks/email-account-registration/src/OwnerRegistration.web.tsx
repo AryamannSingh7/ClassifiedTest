@@ -44,9 +44,6 @@ class Registration extends EmailAccountRegistrationController {
       <>
         <Grid container spacing={2} className="auth-container">
           <Grid item xs={12} md={7} className="auth-cols" >
-
-
-
         <Grid container>
           <Grid xs={12}>
             <img src={Back_btn} onClick={() => window.history.back()} style={{marginTop:'1rem',marginLeft:'0.5rem'}} />
@@ -60,7 +57,6 @@ class Registration extends EmailAccountRegistrationController {
           <Grid xs={12}>
             <p className="text-center bold-text" style={{ fontSize: '2rem', fontWeight: 900,marginTop:'1.5rem' }}>
               Welcome
-
             </p>
           </Grid>
         </Grid>
@@ -80,12 +76,8 @@ class Registration extends EmailAccountRegistrationController {
               phone: "",
               password: "",
               confirm_password: "",
-
               showPassword: false,
               showConfirmPassword: false
-
-
-
             }}
               validationSchema={this.signupSchema()}
               validateOnMount={true}
@@ -101,8 +93,6 @@ class Registration extends EmailAccountRegistrationController {
                     <Box
                       className="formInputGrp"
                     >
-
-
                       <Field
                         className="formInput"
                         name="full_name"
@@ -113,12 +103,10 @@ class Registration extends EmailAccountRegistrationController {
                         <img src={user} />
                       </span>
                     </Box>
-
                     {errors.full_name && touched.full_name ? (
                       <Typography
                         style={{
                           color: "#F14E24",
-
                           fontWeight: 300,
                           fontSize: 14,
                           marginTop: 5,
@@ -199,7 +187,7 @@ class Registration extends EmailAccountRegistrationController {
                       height="56px"
                       border="0.1px solid rgb(209 209 209 / 44%)"
                       borderRadius="25px"
-                      bgcolor="white"
+                      style={{background:'#f9f9f9'}}
                     >
                       <Box>
                         <FormControl variant="outlined" >
@@ -242,9 +230,7 @@ class Registration extends EmailAccountRegistrationController {
   }}  variant="outlined" />}
 /> */}
                         </FormControl>
-
                       </Box>
-
                       <Field
                         name="phone"
                         placeholder={"Mobile"}
@@ -257,13 +243,11 @@ class Registration extends EmailAccountRegistrationController {
                           fontWeight: 400,
                           fontSize: 16,
                           marginRight: 10,
-                          marginLeft: 21,
+                          marginLeft: 5,
                           outline: "none",
-                          background:'#f9f9f9'
                         }}
                       />
                     </Box>
-
                     {errors.phone && touched.phone ? (
                       <Typography
                         style={{
@@ -444,28 +428,27 @@ class Registration extends EmailAccountRegistrationController {
                     <Box
                       display="flex"
                       mt="25px"
-                      alignItems="flex-start"
+                      alignItems="center"
                       justifyContent="center"
                     >
                       <Typography
                         style={{
                           color: "#A0A3BD",
                           fontWeight: "normal",
-                          fontSize: 12,
+                          fontSize: 15,
                           textAlign: "center",
                           marginTop:'1.5rem'
                         }}
                       >
-                        Already have an account <span className="bold-text"> ? </span>
+                        Already have an account ?
                       </Typography>
                       <Link
                         href="/EmailAccountLogin"
                         underline="none"
                         style={{
-                          fontSize: 14,
+                          fontSize: 15,
                           color: "#FC8434",
-                          marginLeft: 5,
-                          textTransform: "uppercase",
+                          marginLeft: 1,
                           fontWeight: 'bold',
                           marginTop:'1.5rem'
                         }}

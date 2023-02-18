@@ -62,7 +62,7 @@ class ManagerRegistration extends EmailAccountRegistrationController {
                 window.open("https://www.TenantInt.com", "_blank", "noopener").focus()
               }
             >
-              <img className="text-center" src={company_logo} alt="" />
+              <img className="text-center" src={company_logo} alt="" style={{width:'10rem'}}/>
             </div>
             <Grid container>
               <Grid xs={12}>
@@ -71,7 +71,7 @@ class ManagerRegistration extends EmailAccountRegistrationController {
                 </p>
               </Grid>
             </Grid>
-            <Grid container>
+            <Grid container style={{marginBottom:'2rem'}}>
               <Grid xs={12}>
                 <p className="text-center">Property Manager Sign up</p>
               </Grid>
@@ -108,7 +108,7 @@ class ManagerRegistration extends EmailAccountRegistrationController {
                           height="56px"
                           border="0.1px solid rgb(209 209 209 / 44%)"
                           borderRadius="16px"
-                          bgcolor="white"
+                          bgcolor="#f9f9f9"
                           marginTop="1rem"
                         >
                           <img src={compnayName} style={{ paddingLeft: "0.5rem" }} />
@@ -125,6 +125,7 @@ class ManagerRegistration extends EmailAccountRegistrationController {
                               marginRight: 10,
                               marginLeft: 10,
                               outline: "none",
+                              background:"#f9f9f9"
                             }}
                           />
                         </Box>
@@ -138,7 +139,7 @@ class ManagerRegistration extends EmailAccountRegistrationController {
                           height="56px"
                           border="0.1px solid rgb(209 209 209 / 44%)"
                           borderRadius="16px"
-                          bgcolor="white"
+                          bgcolor="#f9f9f9"
                           marginTop="1rem"
                         >
                           <img src={user} style={{ paddingLeft: "0.5rem" }} />
@@ -155,6 +156,7 @@ class ManagerRegistration extends EmailAccountRegistrationController {
                               marginRight: 10,
                               marginLeft: 10,
                               outline: "none",
+                              background:"#f9f9f9"
                             }}
                           />
                         </Box>
@@ -168,7 +170,7 @@ class ManagerRegistration extends EmailAccountRegistrationController {
                           height="56px"
                           border="0.1px solid rgb(209 209 209 / 44%)"
                           borderRadius="16px"
-                          bgcolor="white"
+                          bgcolor="#f9f9f9"
                           marginTop="1rem"
                         >
                           <img src={email} style={{ paddingLeft: "0.5rem" }} />
@@ -185,6 +187,7 @@ class ManagerRegistration extends EmailAccountRegistrationController {
                               marginRight: 10,
                               marginLeft: 10,
                               outline: "none",
+                              backgroundColor:"#f9f9f9"
                             }}
                           />
                         </Box>
@@ -199,7 +202,7 @@ class ManagerRegistration extends EmailAccountRegistrationController {
                           height="56px"
                           border="0.1px solid rgb(209 209 209 / 44%)"
                           borderRadius="16px"
-                          bgcolor="white"
+                          bgcolor="#f9f9f9"
                         >
                           <Box>
                             <FormControl variant="outlined">
@@ -207,10 +210,10 @@ class ManagerRegistration extends EmailAccountRegistrationController {
                                 name="selectCode"
                                 labelId="demo-simple-select-outlined-label"
                                 id="demo-simple-select-outlined"
-                                className="country-code-select"
                                 onChange={this.handleChange}
                                 label="Unit"
                                 value={this.state.selectCode}
+                                style={{backgroundColor:"#f9f9f9"}}
                               >
                                 <MenuItem value="">
                                   <em>None</em>
@@ -242,7 +245,7 @@ class ManagerRegistration extends EmailAccountRegistrationController {
                               fontWeight: 400,
                               fontSize: 16,
                               marginRight: 10,
-                              marginLeft: 10,
+                              marginLeft: 5,
                               outline: "none",
                             }}
                           />
@@ -257,7 +260,7 @@ class ManagerRegistration extends EmailAccountRegistrationController {
                           mt="20px"
                           border="0.1px solid rgb(209 209 209 / 44%)"
                           borderRadius="16px"
-                          bgcolor="white"
+                          bgcolor="#f9f9f9"
                         >
                           <img src={password} style={{ paddingLeft: "0.5rem" }} />
                           <Field
@@ -274,6 +277,7 @@ class ManagerRegistration extends EmailAccountRegistrationController {
                               marginRight: 10,
                               marginLeft: 10,
                               outline: "none",
+                              backgroundColor:"#f9f9f9"
                             }}
                           />
                           {values.showPassword ? (
@@ -320,7 +324,7 @@ class ManagerRegistration extends EmailAccountRegistrationController {
                           mt="20px"
                           border="0.1px solid rgb(209 209 209 / 44%)"
                           borderRadius="16px"
-                          bgcolor="white"
+                          bgcolor="#f9f9f9"
                         >
                           <img src={password} style={{ paddingLeft: "0.5rem" }} />
 
@@ -338,6 +342,7 @@ class ManagerRegistration extends EmailAccountRegistrationController {
                               marginRight: 10,
                               marginLeft: 10,
                               outline: "none",
+                              backgroundColor:"#f9f9f9"
                             }}
                           />
                           {values.showConfirmPassword ? (
@@ -394,12 +399,12 @@ class ManagerRegistration extends EmailAccountRegistrationController {
                           SIGN UP
                         </Button>
 
-                        <Box display="flex" mt="25px" alignItems="flex-start" justifyContent="center">
+                        <Box display="flex" mt="25px" alignItems="center" justifyContent="center">
                           <Typography
                             style={{
                               color: "#A0A3BD",
                               fontWeight: "normal",
-                              fontSize: 12,
+                              fontSize: 15,
                               textAlign: "center",
                               marginTop:'1.5rem'
                             }}
@@ -410,10 +415,10 @@ class ManagerRegistration extends EmailAccountRegistrationController {
                             href="/EmailAccountLogin"
                             underline="none"
                             style={{
-                              fontSize: 14,
+                              fontSize: 15,
                               color: "#FC8434",
                               fontWeight: 500,
-                              marginLeft: 5,
+                              marginLeft: 1,
                               textTransform: "uppercase",
                               marginTop:'1.5rem'
                             }}
