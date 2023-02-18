@@ -58,7 +58,7 @@ class Registration extends EmailAccountRegistrationController {
         </Box>
         <Grid container>
           <Grid xs={12}>
-            <p className="text-center bold-text" style={{ fontSize: '2rem', fontWeight: 900,marginBottom:'0.5rem' }}>
+            <p className="text-center bold-text" style={{ fontSize: '2rem', fontWeight: 900,marginTop:'1.5rem' }}>
               Welcome
 
             </p>
