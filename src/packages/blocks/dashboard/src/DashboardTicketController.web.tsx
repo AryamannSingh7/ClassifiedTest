@@ -54,6 +54,7 @@ export default class DashboardTicketController extends BlockComponent<Props, S, 
   GetAllBuildingListCallId: any;
   GetTicketByResidentCallId: any;
   GetTicketCardDataCallId: any;
+  GetTicketByYearCallId: any;
   // Customizable Area End
 
   constructor(props: Props) {
@@ -114,6 +115,9 @@ export default class DashboardTicketController extends BlockComponent<Props, S, 
         case this.GetTicketByResidentCallId:
           this.handleTicketByResidentResponse(responseJson);
           break;
+        case this.GetTicketByYearCallId:
+          this.handleTicketByYearResponse(responseJson);
+          break;
         default:
           break;
       }
@@ -163,6 +167,22 @@ export default class DashboardTicketController extends BlockComponent<Props, S, 
   };
 
   handleTicketByResidentResponse = (responseJson: any) => {
+    this.setState({ ticketList: responseJson.incident.data, pagination: responseJson.meta.pagination });
+  };
+
+  // Ticket By Year
+  getTicketByYear = async () => {
+    const { filterYear } = this.state;
+    const society_id = localStorage.getItem("society_id");
+
+    this.GetTicketByYearCallId = await apiCall({
+      contentType: "application/json",
+      method: "GET",
+      endPoint: `bx_block_dashboard/ticket_dashbords/ticket_in_year?year=${filterYear}&society_management_id=${society_id}`,
+    });
+  };
+
+  handleTicketByYearResponse = (responseJson: any) => {
     this.setState({ ticketList: responseJson.incident.data, pagination: responseJson.meta.pagination });
   };
 

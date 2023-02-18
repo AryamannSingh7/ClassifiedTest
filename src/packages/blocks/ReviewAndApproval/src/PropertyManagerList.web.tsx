@@ -23,7 +23,7 @@ class PropertyManagerList extends PropertyManagerListController {
       <>
         <Loader loading={this.state.loading} />
 
-        <Box style={{ background: "#F4F7FF", height: "100vh", overflowY: "hidden" }} className={classes.managerList}>
+        <Box style={{ background: "#F7F9FE", height: "100vh", overflowY: "hidden" }} className={classes.managerList}>
           <Grid container>
             <Grid item xs={12} md={7}>
               <Box className="faq-step">
@@ -76,7 +76,9 @@ class PropertyManagerList extends PropertyManagerListController {
                           )}
                           {this.state.propertyManagerList.map((propertyManager: any, index: number) => {
                             const building: any[] = propertyManager.attributes.properties.data.map((property: any) => {
-                              return `Building ${property.attributes.building_management.name} unit ${property.attributes.apartment_management.apartment_name}`;
+                              return `Building ${property.attributes.building_management.name} unit ${
+                                property.attributes.apartment_management.apartment_name
+                              }`;
                             });
                             return (
                               <Grid item xs={12} key={index}>

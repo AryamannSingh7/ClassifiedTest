@@ -19,6 +19,7 @@ export const MyUnitStyle: any = {
     },
     "& .top-bar .left-icon span": {
       lineHeight: "18px",
+      fontSize: "18px",
     },
     "& .top-bar .right-icon": {
       display: "flex",
@@ -77,7 +78,7 @@ export const MyUnitStyle: any = {
       display: "flex",
       alignItems: "center",
       justifyContent: "space-between",
-      minHeight: "38px",
+      minHeight: "20px",
     },
     "& .tenant-list-box .tenant .header h4": {
       cursor: "pointer",
@@ -88,6 +89,12 @@ export const MyUnitStyle: any = {
     "& .tenant-list-box .tenant .info span.header": {
       color: "black",
       fontSize: "16px",
+      overflow: "hidden",
+      whiteSpace: "nowrap",
+      textOverflow: "ellipsis",
+      wordBreak: "keep-all",
+      display: "block",
+      "-webkit-line-clamp": "1",
     },
     "& .tenant-list-box .tenant .info button": {
       display: "block",
@@ -141,6 +148,10 @@ export const MyUnitStyle: any = {
     },
     "& .top-bar .right-icon img": {
       marginLeft: "15px",
+    },
+    "& .top-bar .left-icon span": {
+      lineHeight: "18px",
+      fontSize: "18px",
     },
     "& .right-image": {
       padding: "23px 60px",
@@ -272,6 +283,9 @@ export const MyUnitStyle: any = {
           display: "flex",
           alignItems: "center",
           justifyContent: "space-between",
+        },
+        "& .heading h4": {
+          fontSize: "18px",
         },
         "& .tenant-name": {
           margin: "8px 0",
@@ -405,6 +419,7 @@ export const MyUnitStyle: any = {
     },
     "& .top-bar .left-icon span": {
       lineHeight: "18px",
+      fontSize: "18px",
     },
     "& .top-bar .right-icon": {
       display: "flex",
@@ -508,7 +523,6 @@ export const MyUnitStyle: any = {
         justifyContent: "space-between",
         "& span": {
           fontWeight: 600,
-          // color: "#FC8434",
           cursor: "pointer",
         },
         "& span.Mui-checked": {
@@ -524,6 +538,12 @@ export const MyUnitStyle: any = {
         borderRadius: "8px",
         "& .date": {
           margin: "10px 0",
+        },
+        "& h4": {
+          fontSize: "18px",
+        },
+        "& .left-side h4": {
+          fontSize: "18px",
         },
         "& .info": {
           marginTop: "8px",
@@ -579,6 +599,7 @@ export const MyUnitStyle: any = {
     },
     "& .top-bar .left-icon span": {
       lineHeight: "18px",
+      fontSize: "18px",
     },
     "& .top-bar .right-icon": {
       display: "flex",
@@ -640,6 +661,7 @@ export const MyUnitStyle: any = {
         margin: "15px 0",
         "& h4": {
           marginBottom: "5px",
+          fontSize: "18px",
         },
         "& .profile-hobby-box": {
           display: "flex",

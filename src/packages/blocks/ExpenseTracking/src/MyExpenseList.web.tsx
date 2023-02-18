@@ -48,7 +48,7 @@ class MyExpenseList extends MyExpenseListController {
       <>
         <Loader loading={this.state.loading} />
 
-        <Box style={{ background: "#F4F7FF" }} className={classes.myExpenseList}>
+        <Box style={{ background: "#F7F9FE" }} className={classes.myExpenseList}>
           <Grid container>
             <Grid item xs={12} md={7}>
               <Box className="faq-step">
