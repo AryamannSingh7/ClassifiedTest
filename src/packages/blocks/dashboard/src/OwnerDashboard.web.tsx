@@ -141,7 +141,7 @@ class OwnerDashboard extends DashboardController {
 
     return (
       <>
-        <Box className={classes.ownerDashboard} style={{ background: "#F8F9FE", height: "100vh" }}>
+        <Box className={classes.ownerDashboard} style={{ background: "#F7F9FE", height: "100vh" }}>
           <Drawer open={this.state.isMenuOpen} onClose={() => this.toggleDrawer()}>
             <Box className="dashboard-sidebar">
               <Box className="close-menu">
@@ -153,7 +153,7 @@ class OwnerDashboard extends DashboardController {
               <Divider />
               <div className="user-info">
                 <Avatar alt="Remy Sharp" src={this.state.profileData?.attributes?.profile_pic?.url} />
-                <h4>{this.state.profileData?.attributes?.full_name?.name|| 'N/A'}</h4>
+                <h4 className="bold-text">{this.state.profileData?.attributes?.full_name?.name|| 'N/A'}</h4>
                 <p>{this.state.profileData?.attributes?.email?.email|| 'N/A'}</p>
               </div>
               <Divider />
@@ -272,7 +272,7 @@ class OwnerDashboard extends DashboardController {
                     </Slider>
                   </Box>
                   <Grid item xs={12} sm={12} className="title">
-                    <Typography variant="h6">{t("My Real Estate Details")}</Typography>
+                    <Typography variant="h6" className="bold-text">{t("My Real Estate Details")}</Typography>
                   </Grid>
                   <Grid item xs={6} sm={6}>
                     <DashboardCard image={DashboardUnit} heading={t("Number Of Units")} title={t("Total")} value="75" />
@@ -326,7 +326,7 @@ class OwnerDashboard extends DashboardController {
                 </Grid>
                 <Grid container spacing={1} style={{ marginTop: 15 }}>
                   <Grid item xs={12} sm={12} className="title">
-                    <Typography variant="h6">{t("Building Categories")}</Typography>
+                    <Typography variant="h6" className="bold-text">{t("Building Categories")}</Typography>
                   </Grid>
                   <Grid item xs={6} sm={6}>
                     <Link href="/Tenants">
@@ -417,7 +417,7 @@ class OwnerDashboard extends DashboardController {
                 </Grid>
                 <Grid container spacing={1} style={{ marginTop: 15 }}>
                   <Grid item xs={12} sm={12} className="title">
-                    <Typography variant="h6">{t("Personal Categories")}</Typography>
+                    <Typography variant="h6" className="bold-text">{t("Personal Categories")}</Typography>
                   </Grid>
                   <Grid item xs={6} sm={6}>
                     <Link href="/veichleList">
@@ -534,7 +534,7 @@ class OwnerDashboard extends DashboardController {
           <DialogContent>
             <Box textAlign="center">
               <img src={SidebarLogoutDialog} alt="ExclamationIcon" />
-              <Typography variant="h6">{t("Are you sure you want to logout?")}</Typography>
+              <Typography variant="h6" className="bold-text">{t("Are you sure you want to logout?")}</Typography>
               <Typography variant="body1">{t("You will be returned to the login screen")}</Typography>
               <DialogActions className="dialog-button-group">
                 <Button onClick={() => this.logout()}>{t("Logout")}</Button>
@@ -553,7 +553,7 @@ class OwnerDashboard extends DashboardController {
           <DialogContent>
             <Box textAlign="center">
               <img src={ExclamationIcon} alt="ExclamationIcon" />
-              <Typography variant="h6">{t("Property Manager Request Received")}</Typography>
+              <Typography variant="h6" className="bold-text">{t("Property Manager Request Received")}</Typography>
               <Typography variant="body1">
                 {this.state.property.manager} is claiming to be your Building {this.state.property.building} Unit{" "}
                 {this.state.property.unit} property manager from Company {this.state.property.company}. Do you want to

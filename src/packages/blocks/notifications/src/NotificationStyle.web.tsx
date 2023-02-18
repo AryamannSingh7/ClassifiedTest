@@ -19,6 +19,8 @@ export const NotificationStyle: any = {
     },
     "& .top-bar .left-icon span": {
       lineHeight: "18px",
+      fontSize: "18px",
+      fontFamily: "Gotham_Bold !important",
     },
     "& .top-bar .right-icon": {
       display: "flex",

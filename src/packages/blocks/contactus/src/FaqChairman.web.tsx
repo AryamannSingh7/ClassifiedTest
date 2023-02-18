@@ -78,7 +78,6 @@ class FaqChairman extends FaqChairmanController {
                               {
                                 faqList: category.attributes.FAQ,
                                 selectedCategoryId: category.id,
-                                createCategoryId: category.id,
                                 selectedCategoryName: category.attributes.name,
                               },
                               () => {

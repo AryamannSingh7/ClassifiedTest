@@ -20,7 +20,7 @@ class FaqResident extends FaqResidentController {
 
     return (
       <>
-        <Box style={{ background: "#F4F7FF", height: "100vh" }} className={classes.faqOwner}>
+        <Box style={{ background: "#F7F9FE", height: "100vh" }} className={classes.faqOwner}>
           <Grid container>
             <Grid item xs={12} md={7}>
               <Box className="faq-step">

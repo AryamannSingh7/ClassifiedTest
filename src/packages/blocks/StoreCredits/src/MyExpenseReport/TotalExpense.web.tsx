@@ -24,7 +24,7 @@ class TotalExpense extends TotalExpenseController {
       <>
         <Loader loading={this.state.loading} />
 
-        <Box style={{ background: "#F4F7FF" }} className={classes.totalExpense}>
+        <Box style={{ background: "#F7F9FE" }} className={classes.totalExpense}>
           <Grid container>
             <Grid item xs={12} md={7}>
               <Box className="faq-step">

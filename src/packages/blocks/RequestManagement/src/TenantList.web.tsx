@@ -26,7 +26,7 @@ class TenantList extends TenantListController {
       <>
         <Loader loading={this.state.loading} />
 
-        <Box style={{ background: "#F4F7FF", height: "100vh", overflowY: "hidden" }} className={classes.tenantList}>
+        <Box style={{ background: "#F7F9FE", height: "100vh", overflowY: "hidden" }} className={classes.tenantList}>
           <Grid container>
             <Grid item xs={12} md={7}>
               <Box className="faq-step">

@@ -179,9 +179,7 @@ class RegisterTenant extends RegisterTenantController {
                                         return (
                                           <MenuItem key={country.dial_code} value={country.dial_code}>
                                             <img
-                                              src={`https://cdn.jsdelivr.net/npm/country-flag-emoji-json@2.0.0/dist/images/${
-                                                country.code
-                                              }.svg`}
+                                              src={`https://cdn.jsdelivr.net/npm/country-flag-emoji-json@2.0.0/dist/images/${country.code}.svg`}
                                               width="15"
                                               height="15"
                                               style={{ marginRight: "5px" }}
@@ -447,7 +445,7 @@ class RegisterTenant extends RegisterTenantController {
         ) : (
           <Box
             style={{
-              background: this.state.contract ? "#F4F7FF" : "white",
+              background: this.state.contract ? "#F7F9FE" : "white",
               height: "100vh",
             }}
             className={classes.selectTemplate}

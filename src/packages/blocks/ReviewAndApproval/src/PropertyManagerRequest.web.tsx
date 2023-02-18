@@ -20,7 +20,7 @@ class PropertyManagerRequest extends PropertyManagerRequestController {
       <>
         <Loader loading={this.state.loading} />
 
-        <Box style={{ background: "#F4F7FF", height: "100vh" }} className={classes.managerList}>
+        <Box style={{ background: "#F7F9FE", height: "100vh" }} className={classes.managerList}>
           <Grid container>
             <Grid item xs={12} md={7}>
               <Box className="faq-step">

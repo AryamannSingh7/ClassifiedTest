@@ -33,14 +33,12 @@ class OwnerNotification extends OwnerNotificationController {
   render() {
     const { t, classes }: any = this.props;
 
-    console.log(this.state);
-
     return (
       <>
         <Loader loading={this.state.loading} />
 
         <Box
-          style={{ background: "#F4F7FF", height: "100vh", overflowY: "hidden" }}
+          style={{ background: "#F7F9FE", height: "100vh", overflowY: "hidden" }}
           className={classes.ownerNotification}
         >
           <Grid container>
@@ -139,7 +137,7 @@ class OwnerNotification extends OwnerNotificationController {
                                   />
                                 )}
                               </Box>
-                              <h4 className="heading">{notification.attributes.contents}</h4>
+                              <h4 className="heading bold-text">{notification.attributes.contents}</h4>
                               <p>{notification.attributes.description}</p>
                               <p className="time">{moment(notification.attributes.created_at).fromNow()}</p>
                             </Box>
