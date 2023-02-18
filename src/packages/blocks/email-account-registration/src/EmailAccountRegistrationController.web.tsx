@@ -274,7 +274,16 @@ export default class EmailAccountRegistrationController extends BlockComponent<
       this.setState({ loading: false })
       //@ts-ignore
       //@ts-nocheck
-      this.props.history.push('/registerunit')
+      if(sessionStorage.getItem('selectedUserType')=='Tenant'){
+        //@ts-ignore
+      //@ts-nocheck
+        this.props.history.push('/RegisterUnitLink')
+
+      }else{
+//@ts-ignore
+      //@ts-nocheck
+        this.props.history.push('/registerunit')
+      }
     } else if (responseJson?.errors) {
       let error = responseJson.errors[0];
       this.setState({ error });

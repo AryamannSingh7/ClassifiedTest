@@ -151,7 +151,7 @@ class ChairmanLogin extends ChairmanAccountLoginController {
                               }
 
                             </Select> 
-                            <ErrorMessage className="text-error" component="Typography" name="userType" />
+                            <ErrorMessage className="text-error" component="Typography" name="userType" style={{fontWeight: '400'}} />
                           </FormControl>
                         </Box>
                         <Box className="formGroup">

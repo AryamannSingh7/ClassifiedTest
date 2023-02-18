@@ -9,7 +9,7 @@ import MenuItem from "@material-ui/core/MenuItem";
 import "@szhsin/react-menu/dist/core.css";
 import { Tenant_Logo, Building_Logo, Building1, globalIcon } from "../src/assets";
 import i18next from "i18next";
-
+import AlertErrorWeb from "../../../components/src/AlertError.web"
 class ChairmanForgotPasswordOTP extends ChairmanForgotPasswordController {
   constructor(props: Props) {
     super(props);
@@ -29,7 +29,7 @@ class ChairmanForgotPasswordOTP extends ChairmanForgotPasswordController {
     const phoneNumber = localStorage.getItem("phoneNumberMask");
     return (
       <>
-        <Box className="login-wrapper">
+        <Box className="login-wrapper" style={{backgroundColor:"white"}}>
           <Grid container spacing={2} className="auth-container">
             <Grid item xs={12} md={7} className="auth-cols">
               <Box className="content-block">
@@ -60,9 +60,9 @@ class ChairmanForgotPasswordOTP extends ChairmanForgotPasswordController {
                     </Menu>
                   </Box>
                 </Box>
-                <Box className="main-content-block desktop-ui">
+                <Box className="main-content-block desktop-ui"style={{marginTop: '80px'}}>
                   <Box className="header-left-block header-block">
-                    <h1 className="login-h1">Enter OTP</h1>
+                    <h1 className="login-h1 bold-text">Enter OTP</h1>
                     <h6>
                       {emailMask ? (
                         <>
@@ -79,7 +79,7 @@ class ChairmanForgotPasswordOTP extends ChairmanForgotPasswordController {
                       )}
                     </h6>
                   </Box>
-                  <Box className="commonForm">
+                  <Box className="commonForm" >
                     <Box className="formGroup otpBlock">
                       <OtpInput
                         className="formOutlineInput"
@@ -109,19 +109,20 @@ class ChairmanForgotPasswordOTP extends ChairmanForgotPasswordController {
                     </Link>
                   </Box>
                 </Box>
-                <Box className="footer-main-block bottomBlock">
+                <Box className="footer-main-block bottomBlock" style={{marginTop: '100px',backgroundColor:"white"}}>
                   <h6 className="bottom-text">POWERED BY</h6>
                   <img src={Tenant_Logo.default} className="tenant-logo" alt="" />
                 </Box>
               </Box>
             </Grid>
-            <Grid item xs={12} md={5} className="auth-cols">
+            <Grid item xs={12} md={5} className="auth-cols" >
               <Box className="right-block" display={{ xs: "none", md: "flex" }}>
                 <img src={Building1.default} className="building-logo" alt="" />
               </Box>
             </Grid>
           </Grid>
         </Box>
+        <AlertErrorWeb show={this.state.showError} handleClose={()=> this.setState({showError:false,error:null})} message={this.state.error} />
         <Loader loading={this.state.loading} />
       </>
     );

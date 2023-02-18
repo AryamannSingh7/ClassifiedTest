@@ -58,7 +58,7 @@ class Registration extends EmailAccountRegistrationController {
         </Box>
         <Grid container>
           <Grid xs={12}>
-            <p className="text-center bold-text" style={{ fontSize: '2rem', fontWeight: 900,marginBottom:'0.5rem' }}>
+            <p className="text-center bold-text" style={{ fontSize: '2rem', fontWeight: 900,marginTop:'1.5rem' }}>
               Welcome
 
             </p>
@@ -151,7 +151,7 @@ class Registration extends EmailAccountRegistrationController {
 
                       <Field
                         name="email"
-                        placeholder={"Email ID"}
+                        placeholder={"Email ID (will be your user name)"}
                         className="formInput"
                       />
                       <span className="frmLeftIcons">
@@ -159,7 +159,7 @@ class Registration extends EmailAccountRegistrationController {
                         <img src={email} />
                       </span>
                     </Box>
-                    {errors.full_name && touched.full_name ? (
+                    {errors.email && touched.email ? (
                       <Typography
                         style={{
                           color: "#F14E24",
@@ -258,7 +258,8 @@ class Registration extends EmailAccountRegistrationController {
                           fontSize: 16,
                           marginRight: 10,
                           marginLeft: 21,
-                          outline: "none"
+                          outline: "none",
+                          background:'#f9f9f9'
                         }}
                       />
                     </Box>
@@ -298,7 +299,7 @@ class Registration extends EmailAccountRegistrationController {
                       <Field
                         className="formInput"
                         name="password"
-                        placeholder="Password"
+                        placeholder="Confirm Password"
                         type={values.showPassword ? "text" : "password"}
 
                       />
@@ -455,7 +456,7 @@ class Registration extends EmailAccountRegistrationController {
                           marginTop:'1.5rem'
                         }}
                       >
-                        Already have an account ?
+                        Already have an account <span className="bold-text"> ? </span>
                       </Typography>
                       <Link
                         href="/EmailAccountLogin"
@@ -504,6 +505,7 @@ class Registration extends EmailAccountRegistrationController {
                     </Box>
 
                   </Box>
+                  
                 </Form>
               )}
             </Formik>

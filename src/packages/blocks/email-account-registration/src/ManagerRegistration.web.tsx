@@ -66,7 +66,7 @@ class ManagerRegistration extends EmailAccountRegistrationController {
             </div>
             <Grid container>
               <Grid xs={12}>
-                <p className="text-center bold-text" style={{ fontSize: '2rem', fontWeight: 900,marginBottom:'0.5rem' }}>
+                <p className="text-center bold-text" style={{ fontSize: '2rem', fontWeight: 900,marginTop:'1.5rem' }}>
                   Welcome
                 </p>
               </Grid>
@@ -174,7 +174,7 @@ class ManagerRegistration extends EmailAccountRegistrationController {
                           <img src={email} style={{ paddingLeft: "0.5rem" }} />
                           <Field
                             name="email"
-                            placeholder={"Email ID (will be your user name)"}
+                            placeholder={"Email ID (will be your user name) "}
                             style={{
                               border: "none",
                               height: "100%",
