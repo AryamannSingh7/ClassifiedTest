@@ -174,7 +174,7 @@ class ManagerRegistration extends EmailAccountRegistrationController {
                           <img src={email} style={{ paddingLeft: "0.5rem" }} />
                           <Field
                             name="email"
-                            placeholder={"Email ID (will be your user name)"}
+                            placeholder={"Email ID (will be your user name) "}
                             style={{
                               border: "none",
                               height: "100%",

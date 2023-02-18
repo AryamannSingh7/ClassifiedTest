@@ -151,7 +151,7 @@ class Registration extends EmailAccountRegistrationController {
 
                       <Field
                         name="email"
-                        placeholder={"Email ID"}
+                        placeholder={"Email ID (will be your user name)"}
                         className="formInput"
                       />
                       <span className="frmLeftIcons">
@@ -258,7 +258,8 @@ class Registration extends EmailAccountRegistrationController {
                           fontSize: 16,
                           marginRight: 10,
                           marginLeft: 21,
-                          outline: "none"
+                          outline: "none",
+                          background:'#f9f9f9'
                         }}
                       />
                     </Box>
@@ -298,7 +299,7 @@ class Registration extends EmailAccountRegistrationController {
                       <Field
                         className="formInput"
                         name="password"
-                        placeholder="Password"
+                        placeholder="Confirm Password"
                         type={values.showPassword ? "text" : "password"}
 
                       />
@@ -455,7 +456,7 @@ class Registration extends EmailAccountRegistrationController {
                           marginTop:'1.5rem'
                         }}
                       >
-                        Already have an account ?
+                        Already have an account <span className="bold-text"> ? </span>
                       </Typography>
                       <Link
                         href="/EmailAccountLogin"

@@ -240,7 +240,7 @@ class ManagerList extends ManagerController {
 
                                         <div style={{ display: 'flex', fontWeight: 500,marginTop:'0.5rem' }}>
                                           <img src={Building} width='25' height='25' style={{ marginRight: 10 }} />
-                                          <p>  {item.attributes?.building_management?.name}</p>
+                                          <p> {item?.attributes?.apartment_management?.apartment_name || 'N/A'}, {item.attributes?.building_management?.name}</p>
                                         </div>
                                         {/* <div style={{ marginLeft: 35, marginBottom: 20 }}>
 

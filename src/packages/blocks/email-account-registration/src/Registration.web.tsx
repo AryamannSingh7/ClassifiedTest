@@ -149,7 +149,7 @@ class Registration extends EmailAccountRegistrationController  {
 
                         <Field
                           name="email"
-                          placeholder={"Email ID"}
+                          placeholder={"Email ID (will be your user name)"}
                           className="formInput"
                         />
                         <span className="frmLeftIcons">
@@ -300,7 +300,7 @@ class Registration extends EmailAccountRegistrationController  {
                         <Field
                           className="formInput"
                           name="password"
-                          placeholder="Password"
+                          placeholder="Enter Password"
                           type={values.showPassword ? "text" : "password"}
 
                         />
