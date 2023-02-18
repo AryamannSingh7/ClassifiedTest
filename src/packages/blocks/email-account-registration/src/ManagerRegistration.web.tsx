@@ -49,7 +49,7 @@ class ManagerRegistration extends EmailAccountRegistrationController {
       <>
         <Grid container className="auth-container">
           <Grid item xs={12} md={7} className="auth-cols">
-            <Grid container style={{ margin: "1rem" }}>
+            <Grid container>
               <Grid xs={12}>
               <img src={Back_btn} onClick={() => window.history.back()} style={{marginTop:'1rem',marginLeft:'0.5rem'}} />
               </Grid>
@@ -73,7 +73,7 @@ class ManagerRegistration extends EmailAccountRegistrationController {
             </Grid>
             <Grid container style={{marginBottom:'2rem'}}>
               <Grid xs={12}>
-                <p className="text-center">Property Manager Sign up</p>
+                <p className="text-center"  style={{fontSize:'15px'}}>Property Manager Sign up</p>
               </Grid>
             </Grid>
 
@@ -185,7 +185,7 @@ class ManagerRegistration extends EmailAccountRegistrationController {
                               fontWeight: 400,
                               fontSize: 16,
                               marginRight: 10,
-                              marginLeft: 10,
+                              marginLeft: 5,
                               outline: "none",
                               backgroundColor:"#f9f9f9"
                             }}
@@ -419,7 +419,6 @@ class ManagerRegistration extends EmailAccountRegistrationController {
                               color: "#FC8434",
                               fontWeight: 500,
                               marginLeft: 1,
-                              textTransform: "uppercase",
                               marginTop:'1.5rem'
                             }}
                           >
