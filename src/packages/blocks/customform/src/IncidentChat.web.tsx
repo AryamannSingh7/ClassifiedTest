@@ -281,8 +281,9 @@ class IncidentChatBox extends InboxController {
                   accept="image/png, image/jpeg, image/jpg,.pdf"
                 />
               </Grid>
+              <img src={Sendbutton} style={{ cursor: 'pointer',width:'2.5rem' }} onClick={() => this.createMessages()}/>
 
-              <SendIcon style={{ cursor: 'pointer' }} onClick={() => this.createMessages()} />
+              {/* <SendIcon style={{ cursor: 'pointer' }} onClick={() => this.createMessages()} /> */}
 
             </Grid>
 

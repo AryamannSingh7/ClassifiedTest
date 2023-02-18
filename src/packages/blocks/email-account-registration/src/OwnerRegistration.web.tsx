@@ -159,7 +159,7 @@ class Registration extends EmailAccountRegistrationController {
                         <img src={email} />
                       </span>
                     </Box>
-                    {errors.full_name && touched.full_name ? (
+                    {errors.email && touched.email ? (
                       <Typography
                         style={{
                           color: "#F14E24",
@@ -504,6 +504,7 @@ class Registration extends EmailAccountRegistrationController {
                     </Box>
 
                   </Box>
+                  
                 </Form>
               )}
             </Formik>
