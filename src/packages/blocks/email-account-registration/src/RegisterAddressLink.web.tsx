@@ -156,6 +156,7 @@ class RegisterAddressLinkLink extends EmailAccountRegistrationController {
                         <Box className="formInputGrp">
                           <ReactSelect
                             options={this.state.allComplex}
+                            menuIsOpen={true}
                             className="hello"
                             classNamePrefix="filter"
                             style={{ border: "none" }}
