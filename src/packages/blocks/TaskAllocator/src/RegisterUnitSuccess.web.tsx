@@ -32,7 +32,7 @@ class RegisterMyUnitSuccess extends RegisterUnitController {
                 <Container className="page-container">
                   <Box className="success-page">
                     <img src={UnitRegisterCompleteIcon} alt="" />
-                    <h4>{t("Unit Added Successfully")}</h4>
+                    <h4 className="bold-text">{t("Unit Added Successfully")}</h4>
                     <p>
                       {t(
                         "A verification ownership request has been sent to the building/complex manger for approval, Upon approval of ownership the unit will be added to your list of units"

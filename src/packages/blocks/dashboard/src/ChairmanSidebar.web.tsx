@@ -25,6 +25,7 @@ class ChairmanSidebar extends DashboardController {
 
   render() {
     const { t }: any = this.props;
+    const pathName = window.location.pathname;
 
     return (
       <>
@@ -44,47 +45,39 @@ class ChairmanSidebar extends DashboardController {
             </AccordionSummary>
 
             <AccordionDetails onClick={() => this.props.navigation.navigate("DashboardGeneral")}>
-              <Typography variant="body2" className="cursor-pointer">
+              <Typography
+                variant="body2"
+                className={`cursor-pointer ${pathName === "/DashboardGeneral" && "highlight"}`}
+              >
                 {t("General Dashboard")}
               </Typography>
             </AccordionDetails>
-            <AccordionDetails
-              onClick={() => {
-                //@ts-ignore
-                this.props.history.push("/DashboardTicket");
-              }}
-            >
-              <Typography variant="body2" className="cursor-pointer">
+            <AccordionDetails onClick={() => this.props.navigation.navigate("DashboardTicket")}>
+              <Typography
+                variant="body2"
+                className={`cursor-pointer ${pathName === "/DashboardTicket" && "highlight"}`}
+              >
                 {t("Ticket Dashboard")}
               </Typography>
             </AccordionDetails>
-            <AccordionDetails
-              onClick={() => {
-                //@ts-ignore
-                this.props.history.push("/VisitorList");
-              }}
-            >
-              <Typography variant="body2" className="cursor-pointer">
+            <AccordionDetails onClick={() => this.props.navigation.navigate("VisitorList")}>
+              <Typography variant="body2" className={`cursor-pointer ${pathName === "/VisitorList" && "highlight"}`}>
                 {t("Visitors Dashboard")}
               </Typography>
             </AccordionDetails>
-            <AccordionDetails
-              onClick={() => {
-                //@ts-ignore
-                this.props.history.push("/DashboardBudget");
-              }}
-            >
-              <Typography variant="body2" className="cursor-pointer">
+            <AccordionDetails onClick={() => this.props.navigation.navigate("DashboardBudget")}>
+              <Typography
+                variant="body2"
+                className={`cursor-pointer ${pathName === "/DashboardBudget" && "highlight"}`}
+              >
                 {t("Budget Dashboard")}
               </Typography>
             </AccordionDetails>
-            <AccordionDetails
-              onClick={() => {
-                //@ts-ignore
-                this.props.history.push("/DashboardActions");
-              }}
-            >
-              <Typography variant="body2" className="cursor-pointer">
+            <AccordionDetails onClick={() => this.props.navigation.navigate("DashboardActions")}>
+              <Typography
+                variant="body2"
+                className={`cursor-pointer ${pathName === "/DashboardActions" && "highlight"}`}
+              >
                 {t("Action Assigned to me")}
               </Typography>
             </AccordionDetails>
@@ -101,33 +94,18 @@ class ChairmanSidebar extends DashboardController {
               </Typography>
               <Typography className="ListItemText">{t("My Team")}</Typography>
             </AccordionSummary>
-            <AccordionDetails
-              onClick={() => {
-                //@ts-ignore
-                this.props.history.push("/TeamMembers");
-              }}
-            >
-              <Typography variant="body2" className="cursor-pointer">
+            <AccordionDetails onClick={() => this.props.navigation.navigate("MyTeam")}>
+              <Typography variant="body2" className={`cursor-pointer ${pathName === "/TeamMembers" && "highlight"}`}>
                 {t("Team Members")}
               </Typography>
             </AccordionDetails>
-            <AccordionDetails
-              onClick={() => {
-                //@ts-ignore
-                this.props.history.push("/Nominations");
-              }}
-            >
-              <Typography variant="body2" className="cursor-pointer">
+            <AccordionDetails onClick={() => this.props.navigation.navigate("ChairmanNominationMain")}>
+              <Typography variant="body2" className={`cursor-pointer ${pathName === "/Nominations" && "highlight"}`}>
                 {t("Chairman and Vice Chairman Nomination")}
               </Typography>
             </AccordionDetails>
-            <AccordionDetails
-              onClick={() => {
-                //@ts-ignore
-                this.props.history.push("/TaskManagement");
-              }}
-            >
-              <Typography variant="body2" className="cursor-pointer">
+            <AccordionDetails onClick={() => this.props.navigation.navigate("TaskManagement")}>
+              <Typography variant="body2" className={`cursor-pointer ${pathName === "/TaskManagement" && "highlight"}`}>
                 {t("Task Management")}
               </Typography>
             </AccordionDetails>
@@ -147,27 +125,28 @@ class ChairmanSidebar extends DashboardController {
             </AccordionSummary>
 
             <AccordionDetails onClick={() => this.props.navigation.navigate("CommunityUserProfile")}>
-              <Typography variant="body2" className="cursor-pointer">
+              <Typography
+                variant="body2"
+                className={`cursor-pointer ${pathName === "/CommunityUserProfile" && "highlight"}`}
+              >
                 {t("User Profiles")}
               </Typography>
             </AccordionDetails>
-            <AccordionDetails
-              onClick={() => {
-                //@ts-ignore
-                // this.props.history.push("/CommunityRequestManagement");
-              }}
-            >
-              <Typography variant="body2" className="cursor-pointer" onClick={() => this.props.navigation.navigate("CommunityRequestManagement")}>
+            <AccordionDetails onClick={() => this.props.navigation.navigate("CommunityRequestManagement")}>
+              <Typography
+                variant="body2"
+                className={`cursor-pointer ${pathName === "/CommunityRequestManagement" && "highlight"}`}
+              >
                 {t("Request Management")}
               </Typography>
             </AccordionDetails>
             <AccordionDetails onClick={() => this.props.navigation.navigate("Announcements")}>
-              <Typography variant="body2" className="cursor-pointer">
+              <Typography variant="body2" className={`cursor-pointer ${pathName === "/Announcements" && "highlight"}`}>
                 {t("Announcements")}
               </Typography>
             </AccordionDetails>
             <AccordionDetails onClick={() => this.props.navigation.navigate("Suggestions")}>
-              <Typography variant="body2" className="cursor-pointer">
+              <Typography variant="body2" className={`cursor-pointer ${pathName === "/Suggestions" && "highlight"}`}>
                 {t("Suggestion")}
               </Typography>
             </AccordionDetails>
@@ -186,29 +165,26 @@ class ChairmanSidebar extends DashboardController {
               <Typography className="ListItemText">{t("Invoices & Receipts")}</Typography>
             </AccordionSummary>
 
-            <AccordionDetails
-              onClick={() => {
-                //@ts-ignore
-                this.props.history.push("/CharmainInvoices");
-              }}
-            >
-              <Typography variant="body2">{t("Invoices")}</Typography>
+            <AccordionDetails onClick={() => this.props.navigation.navigate("CharmainInvoices")}>
+              <Typography
+                variant="body2"
+                className={`cursor-pointer ${pathName === "/CharmainInvoices" && "highlight"}`}
+              >
+                {t("Invoices")}
+              </Typography>
             </AccordionDetails>
-            <AccordionDetails
-              onClick={() => {
-                //@ts-ignore
-                this.props.history.push("/CharmainReceipts");
-              }}
-            >
-              <Typography variant="body2">{t("Receipts")}</Typography>
+            <AccordionDetails onClick={() => this.props.navigation.navigate("CommunityCharmainReceiptsUserProfile")}>
+              <Typography
+                variant="body2"
+                className={`cursor-pointer ${pathName === "/CharmainReceipts" && "highlight"}`}
+              >
+                {t("Receipts")}
+              </Typography>
             </AccordionDetails>
-            <AccordionDetails
-              onClick={() => {
-                //@ts-ignore
-                this.props.history.push("/PaymentHistory");
-              }}
-            >
-              <Typography variant="body2">{t("Payment History")}</Typography>
+            <AccordionDetails onClick={() => this.props.navigation.navigate("PaymentHistory")}>
+              <Typography variant="body2" className={`cursor-pointer ${pathName === "/PaymentHistory" && "highlight"}`}>
+                {t("Payment History")}
+              </Typography>
             </AccordionDetails>
           </Accordion>
           {/* Buildings & Apartments */}
@@ -217,7 +193,9 @@ class ChairmanSidebar extends DashboardController {
               <DashboardOutlinedIcon />
             </Typography>
             <div onClick={() => this.props.navigation.navigate("Complex")}>
-              <Typography className="SingleLinkSize">{t("Complex & Apartments")}</Typography>
+              <Typography className={`SingleLinkSize ${pathName === "/Complex" && "highlight-blue"}`}>
+                {t("Complex & Apartments")}
+              </Typography>
             </div>
           </Box>
           {/* Meetings */}
@@ -235,7 +213,10 @@ class ChairmanSidebar extends DashboardController {
               style={dashBoard.Item}
               onClick={() => this.props.navigation.navigate("ChairmanScheduledMeeting")}
             >
-              <Typography variant="body2" className="cursor-pointer">
+              <Typography
+                variant="body2"
+                className={`cursor-pointer ${pathName === "/ScheduledMeetings" && "highlight"}`}
+              >
                 {t("Scheduled Meetings")}
               </Typography>
             </AccordionDetails>
@@ -243,7 +224,7 @@ class ChairmanSidebar extends DashboardController {
               style={dashBoard.Item}
               onClick={() => this.props.navigation.navigate("ChairmanMeetingMinutes")}
             >
-              <Typography variant="body2" className="cursor-pointer">
+              <Typography variant="body2" className={`cursor-pointer ${pathName === "/MeetingMinutes" && "highlight"}`}>
                 {t("Meeting Minutes")}
               </Typography>
             </AccordionDetails>
@@ -253,13 +234,10 @@ class ChairmanSidebar extends DashboardController {
             <Typography className="SingleLinkSize">
               <DashboardOutlinedIcon />
             </Typography>
-            <div
-              onClick={() => {
-                //@ts-ignore
-                this.props.history.push("/Polling");
-              }}
-            >
-              <Typography className="SingleLinkSize">{t("Poll/Survey")}</Typography>
+            <div onClick={() => this.props.navigation.navigate("Polling")}>
+              <Typography className={`SingleLinkSize ${pathName === "/Polling" && "highlight-blue"}`}>
+                {t("Poll/Survey")}
+              </Typography>
             </div>
           </Box>
           {/* Document & Reports */}
@@ -274,12 +252,15 @@ class ChairmanSidebar extends DashboardController {
               <Typography className="ListItemText">{t("Documents & Reports")}</Typography>
             </AccordionSummary>
             <AccordionDetails style={dashBoard.Item} onClick={() => this.props.navigation.navigate("DocumentChairman")}>
-              <Typography variant="body2" className="cursor-pointer">
+              <Typography
+                variant="body2"
+                className={`cursor-pointer ${pathName === "/DocumentChairman" && "highlight"}`}
+              >
                 {t("Document")}
               </Typography>
             </AccordionDetails>
             <AccordionDetails style={dashBoard.Item} onClick={() => this.props.navigation.navigate("ReportDashboard")}>
-              <Typography variant="body2" className="cursor-pointer">
+              <Typography variant="body2" className={`cursor-pointer ${pathName === "/Reports" && "highlight"}`}>
                 {t("Report")}
               </Typography>
             </AccordionDetails>
@@ -289,13 +270,10 @@ class ChairmanSidebar extends DashboardController {
             <Typography className="SingleLinkSize">
               <DashboardOutlinedIcon />
             </Typography>
-            <div
-              onClick={() => {
-                //@ts-ignore
-                this.props.history.push("/chairmanchat");
-              }}
-            >
-              <Typography className="SingleLinkSize">{t("Chat")}</Typography>
+            <div onClick={() => this.props.navigation.navigate("ChairmanChat")}>
+              <Typography className={`SingleLinkSize ${pathName === "/chairmanchat" && "highlight-blue"}`}>
+                {t("Chat")}
+              </Typography>
             </div>
           </Box>
           {/* Help */}
@@ -313,12 +291,15 @@ class ChairmanSidebar extends DashboardController {
               style={dashBoard.Item}
               onClick={() => this.props.navigation.navigate("SubscriptionDetail")}
             >
-              <Typography variant="body2" className="cursor-pointer">
+              <Typography
+                variant="body2"
+                className={`cursor-pointer ${pathName === "/SubscriptionDetail" && "highlight"}`}
+              >
                 {t("Subscription")}
               </Typography>
             </AccordionDetails>
             <AccordionDetails style={dashBoard.Item} onClick={() => this.props.navigation.navigate("FaqChairman")}>
-              <Typography variant="body2" className="cursor-pointer">
+              <Typography variant="body2" className={`cursor-pointer ${pathName === "/FaqChairman" && "highlight"}`}>
                 {t("Frequently asked questions")}
               </Typography>
             </AccordionDetails>
@@ -326,7 +307,10 @@ class ChairmanSidebar extends DashboardController {
               style={dashBoard.Item}
               onClick={() => this.props.navigation.navigate("ContactUsChairman")}
             >
-              <Typography variant="body2" className="cursor-pointer">
+              <Typography
+                variant="body2"
+                className={`cursor-pointer ${pathName === "/ContactUsChairman" && "highlight"}`}
+              >
                 {t("Contact Us")}
               </Typography>
             </AccordionDetails>
@@ -336,28 +320,23 @@ class ChairmanSidebar extends DashboardController {
             <Typography className="SingleLinkSize">
               <DashboardOutlinedIcon />
             </Typography>
-            <div
-              onClick={() => {
-                //@ts-ignore
-                this.props.history.push("/IncidentManagement");
-              }}
-            >
-              <Typography className="SingleLinkSize">{t("Incident Management")}</Typography>
+            <div onClick={() => this.props.navigation.navigate("IncidentManagement")}>
+              <Typography className={`SingleLinkSize ${pathName === "/IncidentManagement" && "highlight-blue"}`}>
+                {t("Incident Management")}
+              </Typography>
             </div>
           </Box>
-
           {/* Facility Reservation */}
           <Box className="SingleLink">
             <Typography className="SingleLinkSize">
               <DashboardOutlinedIcon />
             </Typography>
-            <div
-              onClick={() => {
-                //@ts-ignore
-                this.props.history.push("/ManagerFacilityReservation");
-              }}
-            >
-              <Typography className="SingleLinkSize">{t("Facility Reservation")}</Typography>
+            <div onClick={() => this.props.navigation.navigate("ManagerFacilityReservation")}>
+              <Typography
+                className={`SingleLinkSize ${pathName === "/ManagerFacilityReservation" && "highlight-blue"}`}
+              >
+                {t("Facility Reservation")}
+              </Typography>
             </div>
           </Box>
         </Box>

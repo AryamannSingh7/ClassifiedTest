@@ -22,7 +22,7 @@ class CityWiseRentedVsEmpty extends CityWiseRentedVsEmptyController {
       <>
         <Loader loading={this.state.loading} />
 
-        <Box style={{ background: "#F4F7FF" }} className={classes.totalExpense}>
+        <Box style={{ background: "#F7F9FE" }} className={classes.totalExpense}>
           <Grid container>
             <Grid item xs={12} md={7}>
               <Box className="faq-step">
@@ -72,7 +72,9 @@ class CityWiseRentedVsEmpty extends CityWiseRentedVsEmptyController {
                           return (
                             <Grid item xs={12}>
                               <RentedVsEmptyUnitCard
-                                heading={`${unit.attributes.building_management.name}, ${unit.attributes.society_management.name}, ${unit.attributes.address[0].city}`}
+                                heading={`${unit.attributes.building_management.name}, ${
+                                  unit.attributes.society_management.name
+                                }, ${unit.attributes.address[0].city}`}
                                 titleOne={t("Unit Number")}
                                 valueOne={unit.attributes.apartment_name}
                                 titleTwo={t("Floor Number")}

@@ -38,14 +38,14 @@ class TenantProfile extends TenantProfileController {
                     >
                       <KeyboardBackspaceIcon />
                     </IconButton>
-                    <span>{t("Tenant Profile")}</span>
+                    <span className="bold-text">{t("Tenant Profile")}</span>
                   </div>
                 </Box>
                 <Box className="tenant-detail-box">
                   <Container>
                     <Box className="profile-top-box">
                       <Avatar src={this.state.profileData.image} />
-                      <h4>{this.validationText(this.state.profileData.name)}</h4>
+                      <h4 className="bold-text">{this.validationText(this.state.profileData.name)}</h4>
                       <Box className="profile-info-box">
                         {this.state.profileData.isDisableChat ? (
                           <img src={DarkChatIcon} alt="chat" />
@@ -76,11 +76,11 @@ class TenantProfile extends TenantProfileController {
 
                     <Box className="profile-bottom-box">
                       <Box className="profile-item">
-                        <h4>{t("Bio")}</h4>
+                        <h4 className="bold-text">{t("Bio")}</h4>
                         <p>{this.validationText(this.state.profileData.bio)}</p>
                       </Box>
                       <Box className="profile-item">
-                        <h4>{t("Hobbies")}</h4>
+                        <h4 className="bold-text">{t("Hobbies")}</h4>
                         <Box className="profile-hobby-box">
                           {this.state.profileData.hobbies.length === 0 && <p>{t("No hobby available")}</p>}
                           {this.state.profileData.hobbies.map((hobby: any, index: number) => {
@@ -89,7 +89,7 @@ class TenantProfile extends TenantProfileController {
                         </Box>
                       </Box>
                       <Box className="profile-item">
-                        <h4>{t("Follow me on")}:</h4>
+                        <h4 className="bold-text">{t("Follow me on")}:</h4>
                         <Box className="profile-social-box">
                           {this.state.profileData.social.length > 0 &&
                           this.state.profileData.social[2].publilc_access ? (

@@ -57,7 +57,7 @@ class MyUnitList extends MyUnitListController {
       <>
         <Loader loading={this.state.loading} />
 
-        <Box style={{ background: "#F4F7FF", height: "100vh", overflowY: "hidden" }} className={classes.myUnitList}>
+        <Box style={{ background: "#F7F9FE", height: "100vh", overflowY: "hidden" }} className={classes.myUnitList}>
           <Grid container>
             <Grid item xs={12} md={7}>
               <Box className="faq-step">
@@ -68,7 +68,7 @@ class MyUnitList extends MyUnitListController {
                         <KeyboardBackspaceIcon />
                       </IconButton>
                     </Link>
-                    <span>{t("My Units")}</span>
+                    <span className="bold-text">{t("My Units")}</span>
                   </div>
                   <div className="right-icon">
                     <Menu
@@ -78,15 +78,9 @@ class MyUnitList extends MyUnitListController {
                         </IconButton>
                       }
                     >
-                      <MenuItem onClick={() => this.setState({ filter: { status: "rented" } })}>
-                        {t("Rented")}
-                      </MenuItem>
-                      <MenuItem onClick={() => this.setState({ filter: { status: "Empty" } })}>
-                        {t("Vacant")}
-                      </MenuItem>
-                      <MenuItem onClick={() => this.setState({ filter: { status: "" } })}>
-                        {t("All")}
-                      </MenuItem>
+                      <MenuItem onClick={() => this.setState({ filter: { status: "rented" } })}>{t("Rented")}</MenuItem>
+                      <MenuItem onClick={() => this.setState({ filter: { status: "Empty" } })}>{t("Vacant")}</MenuItem>
+                      <MenuItem onClick={() => this.setState({ filter: { status: "" } })}>{t("All")}</MenuItem>
                     </Menu>
                   </div>
                 </Box>
@@ -103,11 +97,12 @@ class MyUnitList extends MyUnitListController {
                                   <Grid item xs={12}>
                                     <div className="header">
                                       <Link href={`/MyUnitDetails/${unit.id}`}>
-                                        <h4>{unit.attributes.society_management.name}</h4>
+                                        <h4 className="bold-text">{unit.attributes.society_management.name}</h4>
                                       </Link>
                                       <div
-                                        className={`right-menu ${unit.attributes.request.status === "Accepted" ? "" : "pending"
-                                          }`}
+                                        className={`right-menu ${
+                                          unit.attributes.request.status === "Accepted" ? "" : "pending"
+                                        }`}
                                       >
                                         <Menu
                                           menuButton={

@@ -34,7 +34,7 @@ class MyMeetings extends MyMeetingsController {
 
     return (
       <>
-        <Box style={{ background: "#F4F7FF", height: "100vh", overflowY: "hidden" }} className={classes.meetingList}>
+        <Box style={{ background: "#F7F9FE", height: "100vh", overflowY: "hidden" }} className={classes.meetingList}>
           <Grid container>
             <Grid item xs={12} md={7}>
               <Box className="faq-step">

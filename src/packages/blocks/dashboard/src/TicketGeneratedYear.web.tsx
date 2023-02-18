@@ -18,7 +18,6 @@ import {
 } from "@material-ui/core";
 import Box from "@material-ui/core/Box";
 import Grid from "@material-ui/core/Grid";
-import NativeSelect from "@material-ui/core/NativeSelect";
 import Pagination from "@material-ui/lab/Pagination";
 import SearchOutlinedIcon from "@material-ui/icons/SearchOutlined";
 import DashboardTicketController, { Props } from "./DashboardTicketController.web";
@@ -39,6 +38,7 @@ class TicketGeneratedYear extends DashboardTicketController {
     this.setState({ ticketYear: year }, () => {
       this.getTicketDashboardYearList();
       this.getAllBuildingList();
+      this.getTicketByYear();
     });
   }
 

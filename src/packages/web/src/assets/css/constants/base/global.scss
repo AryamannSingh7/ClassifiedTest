@@ -34,10 +34,20 @@ $ROUNDGOTHIC_BOOK: 'AllRoundGothicW01-Book';
   cursor: pointer;
 }
 
+.highlight {
+  color: #fc8434 !important;
+  font-weight: 600 !important;
+}
+
+.highlight-blue {
+  color: #2b6fed !important;
+  font-weight: 600 !important;
+}
+
 .MuiSelect-select:focus {
   border-radius: 25px !important;
 }
 
-.MuiAccordion-root:before{
+.MuiAccordion-root:before {
   background-color: transparent !important;
 }
