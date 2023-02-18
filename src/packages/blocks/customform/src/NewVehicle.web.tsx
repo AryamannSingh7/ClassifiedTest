@@ -16,11 +16,6 @@ import VeichleListController,{Props} from "./VeichleListController.web";
 import '../assets/css/style.scss';
 import { Formik, Form, Field, ErrorMessage } from "formik";
 
-
-
-
-
-
 class NewVeichleList extends VeichleListController {
   constructor(props: Props) {
     super(props);
@@ -268,9 +263,10 @@ class NewVeichleList extends VeichleListController {
                         alignItems:'center',
                         padding:'3.5rem',
                         marginTop:'15px',
-                            border:'3px dashed #00000036',
+                            border:'2px dashed #00000036',
                             marginBottom:10,
                             backgroundSize:'cover',
+                            backgroundColor:"#f9f9f9",
                             borderRadius: 15, backgroundImage: values.bannerUrl
                               ? `url(${values.bannerUrl})`
                               : ""
