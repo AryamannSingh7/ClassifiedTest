@@ -41,7 +41,7 @@ class EmailAccountLogin extends EmailAccountLoginController {
   render() {
     return (
       <>
-        <Box className="login-wrapper">
+        <Box className="login-wrapper" style={{backgroundColor: "white"}}>
           <Grid container spacing={2} className="auth-container">
             <Grid item xs={12} md={7} className="auth-cols">
               <Box className="content-block">
@@ -59,7 +59,7 @@ class EmailAccountLogin extends EmailAccountLoginController {
                         <img src={Tenant_Logo.default} className="tenant-logo" style={{ cursor: 'pointer'}} onClick={()=>window.open("https://www.TenantInt.com", '_blank').focus()} alt="" />
                       </Link>
                     </Box>
-                    <h1 className="login-h1" style={{fontSize:"26px"}}>Welcome Back</h1>
+                    <h1 className="login-h1 bold-text"  style={{fontSize:"26px"}}>Welcome Back</h1>
                     <p>Login with your account credentials </p>
                   </Box>
                   <Formik
@@ -191,12 +191,12 @@ class EmailAccountLogin extends EmailAccountLoginController {
                             />
                             <label htmlFor="loginCheckbox" className="checkboxLabel">Stay logged in</label>
                           </div>
-                          <Link href="/ForgotPassword" className="link">Forgot Password?</Link>
+                          <Link href="/ForgotPassword" className="link bold-text">Forgot Password?</Link>
                         </Box>
                         <Box className="customButton">
                           <Button variant="contained" type="submit" >login</Button>
                         </Box>
-                        <Box className="bottomBlock link-block" style={{marginTop:"130px"}}>
+                        <Box className="bottomBlock link-block" style={{marginTop:"80px"}}>
                           <Link href="#" className="link">Don't have an account ? </Link>
                           <Link href="/selecttype" className="link"> <span> register</span></Link>
                         </Box>
@@ -205,12 +205,12 @@ class EmailAccountLogin extends EmailAccountLoginController {
                   </Formik>
                 </Box>
                 {/* desktop footer block */}
-                <Box className="footer-main-block bottomBlock">
+                {/* <Box className="footer-main-block bottomBlock">
                   <h6 className="bottom-text">POWERED BY</h6>
                   <a  href="http://www.tenantint.com/" target="_blank">
                     <img src={Tenant_Logo.default} className="tenant-logo" alt="" />
                   </a>
-                </Box>
+                </Box> */}
               </Box>
             </Grid>
             <Grid item xs={12} md={5} className="auth-cols">

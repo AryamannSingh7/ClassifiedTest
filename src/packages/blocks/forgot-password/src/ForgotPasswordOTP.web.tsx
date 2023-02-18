@@ -21,7 +21,7 @@ import MailOutlineIcon from '@material-ui/icons/MailOutline';
 import KeyboardBackspaceIcon from '@material-ui/icons/KeyboardBackspace';
 import ForgotPasswordController, { Props } from "./ForgotPasswordController.web";
 import OtpInput from 'react-otp-input';
-
+import AlertErrorWeb from "../../../components/src/AlertError.web"
 
 class ForgotPasswordOTP extends ForgotPasswordController {
   constructor(props: Props) {
@@ -32,7 +32,7 @@ class ForgotPasswordOTP extends ForgotPasswordController {
     const phoneNumber = localStorage.getItem("phoneNumberMask")
     return (
       <>
-        <Box className="login-wrapper auth-wrapper">
+        <Box className="login-wrapper auth-wrapper" style={{backgroundColor:"white"}}>
           <Grid container spacing={2} className="auth-container">
             <Grid item xs={12} md={7} className="auth-cols">
               <Box className="content-block">
@@ -92,6 +92,7 @@ class ForgotPasswordOTP extends ForgotPasswordController {
             </Grid>
           </Grid>
         </Box>
+        <AlertErrorWeb show={this.state.showError} handleClose={()=> this.setState({showError:false,error:null})} message={this.state.error} />
         <Loader loading={this.state.loading} />
       </>
     );
