@@ -44,7 +44,7 @@ class PollsSurvey extends PollsSurveyController {
               <Grid xs={12} style={{ display:"flex", alignItems:"center", gap:"1rem",justifyContent:"space-between"}} >
                   <Box style={{ display:"flex", alignItems:"center", gap:"1rem"}}>
                       <ArrowBackIcon onClick={() => this.props.history.push("/")} />
-                      <p style={{ fontSize: '1.2rem', fontWeight: 600 }}>
+                      <p className='bold-text' style={{ fontSize: '1.2rem', fontWeight: 600 }}>
                           {t("Poll / Survey")}
                       </p>
                   </Box>
@@ -114,24 +114,26 @@ class PollsSurvey extends PollsSurveyController {
                               marginTop='2rem'
                               padding='1rem'
                               key={item.id}
+                              style={{boxShadow:"4px 0px 14px #ececec"}}
                               onClick={() => this.handlePollSurveyNavigation(item?.attributes?.flag,item.attributes.type_name,item.id)}
                           >
                               <Box style={{minWidth:"100%"}}>
-                                  <Box style={{textTransform:"capitalize"}}><p>{item.attributes.type_name}</p></Box>
-                                  <Box marginTop='0.8rem'><h4>{item.attributes.title}</h4></Box>
-                                  <Box marginTop='0.8rem' style={{width:"95%",overflow:"hidden",color:"#666666"}}>
+                                  <Box style={{textTransform:"capitalize"}}><p style={{color:"rgba(24,29,37,0.5)",fontSize:"14px"}}>{item.attributes.type_name}</p></Box>
+                                  <Box marginTop='0.8rem' className="bold-text"><h4>{item.attributes.title}</h4></Box>
+                                  <Box marginTop='0.7rem' style={{width:"95%",overflow:"hidden",color:"#666666"}}>
                                       <p
+                                          style={{color:"666666",fontSize:"14px"}}
                                           dangerouslySetInnerHTML={
                                               { __html: DOMPurify.sanitize(item.attributes.description) }
                                           }
                                       ></p>
                                   </Box>
-                                  <Box marginTop='0.8rem'><Typography style={{color:"black"}}>Building : {item.attributes.building_name}</Typography></Box>
+                                  <Box marginTop='0.7rem'><Typography style={{color:"#181d25",fontSize:"15px"}}>Building : {item.attributes.building_name}</Typography></Box>
                                   <Divider style={{marginTop:'0.6rem', marginRight:2}}/>
-                                  <Box display='flex' justifyContent='space-between' marginTop='1rem'>
+                                  <Box display='flex' justifyContent='space-between' marginTop='1rem' marginBottom=".5rem">
                                       <Box className="EventsIconsDataBox">
-                                          <DateRangeOutlinedIcon style={{color: "#054c94"}}/>
-                                          <p style={{color:"black"}}>{item.attributes.end_date}</p>
+                                          <DateRangeOutlinedIcon style={{color: "#054c94",}}/>
+                                          <p style={{color:"#181d25",fontSize:"15px"}}>{item.attributes.end_date}</p>
                                       </Box>
                                       {
                                           !item.attributes.flag ?
@@ -173,27 +175,28 @@ class PollsSurvey extends PollsSurveyController {
                           bgcolor="white"
                           marginTop='2rem'
                           padding='1rem'
+                          style={{boxShadow:"4px 0px 14px #ececec"}}
                           key={items.id}
                           onClick={() => this.handlePollSurveyNavigationOld(items?.attributes?.flag,items.attributes.type_name,items.id)}
                         >
                           <Box style={{minWidth:"100%"}}>
-                            <Box style={{textTransform:"capitalize"}}><p>{items.attributes.type_name}</p></Box>
-                            <Box marginTop='0.8rem' style={{width:"95%",overflow:"hidden"}}><h4>{items.attributes.title}</h4></Box>
-                            <Box marginTop='0.8rem' style={{width:"95%",overflow:"hidden",color:"#666666"}}>
+                            <Box style={{textTransform:"capitalize"}}><p style={{color:"rgba(24,29,37,0.5)",fontSize:"14px"}}>{items.attributes.type_name}</p></Box>
+                            <Box marginTop='0.8rem' className="bold-text" style={{width:"95%",overflow:"hidden"}}><h4>{items.attributes.title}</h4></Box>
+                            <Box marginTop='0.7rem' style={{width:"95%",overflow:"hidden",color:"#666666"}}>
                               <p
+                                  style={{color:"666666",fontSize:"14px"}}
                                   dangerouslySetInnerHTML={
                                     { __html: DOMPurify.sanitize(items.attributes.description) }
                                   }
-                                  style={{width:"95%",overflow:"hidden"}}
                               >
                               </p>
                             </Box>
-                            <Box marginTop='1rem'><Typography style={{color:"black"}}>Building : {items.attributes.building_name}</Typography></Box>
+                            <Box marginTop='0.7'><Typography  style={{color:"#181d25",fontSize:"15px"}}>Building : {items.attributes.building_name}</Typography></Box>
                             <Divider style={{marginTop:'0.6rem', marginRight:2}}/>
-                            <Box display='flex' justifyContent='space-between' marginTop='0.6rem'>
+                            <Box display='flex' justifyContent='space-between' marginTop='0.6rem' marginBottom=".5rem">
                                 <Box className="EventsIconsDataBox">
                                     <DateRangeOutlinedIcon style={{color: "#054c94"}}/>
-                                    <p style={{color:"black"}}>{items.attributes.end_date}</p>
+                                    <p  style={{color:"#181d25",fontSize:"15px"}}>{items.attributes.end_date}</p>
                                 </Box>
                                 {
                                     !items.attributes.flag ?

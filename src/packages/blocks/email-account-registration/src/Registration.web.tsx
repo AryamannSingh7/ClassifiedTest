@@ -46,7 +46,7 @@ class Registration extends EmailAccountRegistrationController  {
     <>
       <Grid container spacing={2} className="auth-container">
         <Grid item xs={12} md={7} className="auth-cols" >
-          <Grid container style={{ margin: '1rem' }}>
+          <Grid container   >
             <Grid xs={12}>
             <img src={Back_btn} onClick={() => window.history.back()} style={{marginTop:'1rem',marginLeft:'0.5rem'}} />
             </Grid>
@@ -59,12 +59,12 @@ class Registration extends EmailAccountRegistrationController  {
     
           <Grid container>
           <Grid xs={12}>
-              <p className="text-center bold-text" style={{ fontSize: '2rem', fontWeight: 900,marginBottom:'0.5rem' }}>
+              <p className="text-center bold-text" style={{ fontSize: '2rem', fontWeight: 900,marginTop:'1.5rem' }}>
                 Welcome
               </p>
             </Grid>
-            <Grid xs={12}>
-              <p className="text-center">
+            <Grid xs={12} style={{marginBottom:'2rem'}}>
+              <p className="text-center"  style={{fontSize:'15px'}}>
                 Create an account with your credentials
               </p>
             </Grid>
@@ -149,7 +149,7 @@ class Registration extends EmailAccountRegistrationController  {
 
                         <Field
                           name="email"
-                          placeholder={"Email ID"}
+                          placeholder={"Email ID (will be your user name)"}
                           className="formInput"
                         />
                         <span className="frmLeftIcons">
@@ -157,7 +157,7 @@ class Registration extends EmailAccountRegistrationController  {
                           <img src={email} />
                         </span>
                       </Box>
-                      {errors.full_name && touched.full_name ? (
+                      {errors.email && touched.email ? (
                         <Typography
                           style={{
                             color: "#F14E24",
@@ -197,7 +197,7 @@ class Registration extends EmailAccountRegistrationController  {
                         height="56px"
                         border="0.1px solid rgb(209 209 209 / 44%)"
                         borderRadius="25px"
-                        bgcolor="#f9f9f9"
+                        style={{backgroundColor:"#f9f9f9"}}
                       >
                         <Box>
                           <FormControl variant="outlined" >
@@ -258,7 +258,7 @@ class Registration extends EmailAccountRegistrationController  {
                             fontWeight: 400,
                             fontSize: 16,
                             marginRight: 10,
-                            marginLeft: 21,
+                            marginLeft: 5,
                             outline: "none",
                             backgroundColor:'#f9f9f9'
                           }}
@@ -300,7 +300,7 @@ class Registration extends EmailAccountRegistrationController  {
                         <Field
                           className="formInput"
                           name="password"
-                          placeholder="Password"
+                          placeholder="Enter Password"
                           type={values.showPassword ? "text" : "password"}
 
                         />
@@ -452,7 +452,7 @@ class Registration extends EmailAccountRegistrationController  {
                           style={{
                             color: "#A0A3BD",
                             fontWeight: "normal",
-                            fontSize: 12,
+                            fontSize: 15,
                             textAlign: "center",
                             marginTop:'1.5rem'
                           }}
@@ -463,10 +463,9 @@ class Registration extends EmailAccountRegistrationController  {
                           href="/EmailAccountLogin"
                           underline="none"
                           style={{
-                            fontSize: 14,
+                            fontSize: 15,
                             color: "#FC8434",
-                            marginLeft: 5,
-                            textTransform: "uppercase",
+                            marginLeft: 1,
                             fontWeight: 'bold',
                             marginTop:'1.5rem'
                           }}

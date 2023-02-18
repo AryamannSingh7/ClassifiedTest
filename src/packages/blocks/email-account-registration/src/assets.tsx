@@ -24,9 +24,14 @@ export const numpad = require("../assets/numpad.png");
 export const compnayName = require("../assets/companyIcon.png");
 export const Tenant_Logo = require("../assets/TenantLogo.png");
 export const Back_btn = require("../assets/backbtn.png");
+export const LinkageSelected = require("../assets/LinkageSelected.png");
+export const ManualSelected = require("../assets/ManualSelected.png");
+export const PropertyManagerSelected = require("../assets/PropertyManagerSelected.png");
+export const OwnerResidetSelected = require("../assets/ResidetOwnerSelected.png");
+export const OwnerSelected = require("../assets/OwnerSelected.png");
+export const TenantSelected = require("../assets/TenantSelected.png");
 export const ReqHome = require("../assets/reqHome.png");
 export const Complex = require("../assets/complex.png");
-
 
 
 

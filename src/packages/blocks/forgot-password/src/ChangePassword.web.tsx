@@ -38,7 +38,7 @@ class ChangePassword extends ForgotPasswordController {
     return (
       <>
 
-        <Box className="login-wrapper auth-wrapper">
+        <Box className="login-wrapper auth-wrapper" style={{backgroundColor:"white"}}>
           <Grid container spacing={2} className="auth-container">
             <Grid item xs={12} md={7} className="auth-cols">
               <Box className="content-block">
@@ -56,7 +56,7 @@ class ChangePassword extends ForgotPasswordController {
                         <img src={Tenant_Logo} className="tenant-logo" alt="" />
                       </Link>
                     </Box> */}
-                    <h1>Change Password</h1>
+                    <h1 className="bold-text">Change Password</h1>
                     <h6>You need to change your password. Please enter a new password</h6>
                   </Box>
                   <Formik
@@ -104,7 +104,7 @@ class ChangePassword extends ForgotPasswordController {
                           </div>
                           <ErrorMessage className="text-error" component="Typography" name="confirmPassword" />
                         </Box>
-                        <Box className="customButton">
+                        <Box className="customButton" style={{marginTop:"80px"}}>
                           <Button variant="contained" type="submit" >change password</Button>
                         </Box>
                       </Form>

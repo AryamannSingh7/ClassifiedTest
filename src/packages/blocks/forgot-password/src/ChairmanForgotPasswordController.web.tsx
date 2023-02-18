@@ -33,10 +33,11 @@ interface S {
   token: any;
   enablePasswordField: Boolean;
   btnConfirmPasswordShowHide: Boolean;
-  error: string | null;
+  error: any ;
   emailOtp:any
   otp:any;
   loading:boolean;
+  showError:any;
   // Customizable Area End
 }
 
@@ -174,10 +175,11 @@ export default class ChairmanForgotPasswordController extends BlockComponent<
       token: "",
       enablePasswordField: true,
       btnConfirmPasswordShowHide: true,
-      error: null,
+      error: "",
       emailOtp:null,
       otp:null,
-      loading:false
+      loading:false,
+      showError:false
     };
     // Customizable Area End
   }
@@ -226,13 +228,12 @@ export default class ChairmanForgotPasswordController extends BlockComponent<
     //error handling
     
   } else if (responseJson?.errors) {
-    let error = responseJson.errors[0]
-    this.setState({ error });
+    this.setState({ error :responseJson.errors[0].otp ,showError:true });
   } else {
-    this.setState({ error: responseJson?.error || "Something went wrong!" });
+    this.setState({ error: responseJson?.error  || "Something went wrong!" ,showError:true});
   }
-  this.parseApiCatchErrorResponse(this.state.error);
-  this.setState({loading: false , error:null})
+  //this.parseApiCatchErrorResponse(this.state.error);
+  this.setState({loading: false})
   }
 
   requestChangePasswordCallIdResponse = (responseJson:any) => {
@@ -243,14 +244,14 @@ export default class ChairmanForgotPasswordController extends BlockComponent<
       //window.location ="/ChairmanChangeSuccessfully" as any
      //window.location.replace("/ChangePassword") 
     } else if (responseJson?.message) {
-      this.setState({ error: responseJson?.message });
+      this.setState({ error: responseJson?.message ,showError:true});
     } 
     else {
       console.log("Something responseJson  ===========>",responseJson)
-        this.setState({ error: 'Something went wrong!' });
+        this.setState({ error: 'Something went wrong!',showError:true });
     }
-    this.parseApiCatchErrorResponse(this.state.error);
-    this.setState({loading: false , error:null})
+    //this.parseApiCatchErrorResponse(this.state.error);
+    this.setState({loading: false })
   }
 
   verifyOtpApiCallIdResponse = (responseJson:any) => {
@@ -262,10 +263,10 @@ export default class ChairmanForgotPasswordController extends BlockComponent<
           //  window.location ="/ChairmanChangePassword" as any
         } else if (responseJson?.errors ) {
             let error = responseJson?.errors[0]?.pin as string;
-            this.setState({ error : error || 'Something went wrong!' });
+            this.setState({ error : error || 'Something went wrong!' ,showError:true});
         } 
-        this.parseApiCatchErrorResponse(this.state.error);
-        this.setState({loading: false , error:null})
+       // this.parseApiCatchErrorResponse(this.state.error);
+        this.setState({loading: false})
   }
 
   async receive(from: string, message: Message) {

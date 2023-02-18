@@ -77,13 +77,13 @@ class CreatePolls extends PollingController {
                     <Box className="navigation">
                         <Box>
                             <Typography variant="body1" >
-                            {t("Poll and survey")} / <Box component="span" style={{color: "blue"}}>{t("Create a Poll")}</Box>
+                            {t("Poll and survey")} / <Box component="span" style={{color: "blue"}} >{t("Create a Poll")}</Box>
                             </Typography>
-                            <Typography variant="h5" className="subHeading">{t("Create a Poll")}</Typography>
+                            <Typography variant="h5" className="subHeading bold-text" style={{fontSize:"30px"}}>{t("Create a Poll")}</Typography>
                         </Box>
                     </Box>
                     <form onSubmit={this.handlePollDataSubmit}>
-                        <Grid container spacing={4} style={{marginTop: 15}}>
+                        <Grid container spacing={4} style={{paddingTop: 0}}>
                             <Grid item sm={12} md={12} xs={12}>
                             <Box className="createPSCards" style={{paddingBottom:"15px"}}>
                                 <TextField label={t("Title of the Poll")} variant="outlined"
@@ -97,9 +97,12 @@ class CreatePolls extends PollingController {
                                 <Box className="DateSection">
                                     <Box style={{width:"100%"}}>
                                         <TextField
-                                            label="Start Date" variant="outlined"
+                                            label="Start Date"
+                                            placeholder={t("Start Date")}
+                                            className="dateInputBox"
+                                            variant="outlined"
                                             style={{width:"100%"}}
-                                            type="date" name="startDate"  fullWidth
+                                            name="startDate"  fullWidth
                                             format='DD/MM/YYYY'
                                             value={this.state.PollData.startDate}
                                             onChange={this.handlePollDataChange}
@@ -113,12 +116,17 @@ class CreatePolls extends PollingController {
                                                     </InputAdornment>
                                                 ),
                                             }}
+                                            type={this.state.inputType1}
+                                            onFocus={()=> this.setState({inputType1:"date"})}
                                         />
                                         <p style={{color:"red"}}>{t(this.state.pollDateError)}</p>
                                     </Box>
                                     <Box style={{width:"100%"}}>
-                                        <TextField label="End Date" variant="outlined"
-                                                   type="date" name="endDate"  fullWidth
+                                        <TextField label="End Date"
+                                                   placeholder={t("End Date")}
+                                                   className="dateInputBox"
+                                                   variant="outlined"
+                                                   name="endDate"  fullWidth
                                                    style={{width:"100%"}}
                                                    value={this.state.PollData.endDate}
                                                    onChange={this.handlePollDataChange}
@@ -132,6 +140,8 @@ class CreatePolls extends PollingController {
                                                            </InputAdornment>
                                                        )
                                                    }}
+                                                   type={this.state.inputType2}
+                                                   onFocus={()=> this.setState({inputType2:"date"})}
                                         />
                                         <p style={{color:"red"}}>{t(this.state.pollEndDateError)}</p>
                                     </Box>
@@ -269,4 +279,5 @@ const ApproveButton = withStyles((theme) => ({
         border: "#2B6FED 1px solid",
     },
 }))(Button);
+
 // Customizable Area End

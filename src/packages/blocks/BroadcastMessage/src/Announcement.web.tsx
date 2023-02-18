@@ -53,7 +53,7 @@ class Announcement extends AnnouncementController{
                   <Grid xs={12} style={{ display:"flex", alignItems:"center", gap:"1rem",justifyContent:"space-between"}} >
                       <Box style={{ display:"flex", alignItems:"center", gap:"1rem"}}>
                           <ArrowBackIcon onClick={() => this.props.history.push("/")} />
-                          <p style={{ fontSize: '1.2rem', fontWeight: 600 }}>
+                          <p className='bold-text' style={{ fontSize: '1.2rem', fontWeight: 600 }}>
                               {t("Announcements")}
                           </p>
                       </Box>
@@ -78,7 +78,7 @@ class Announcement extends AnnouncementController{
                                         >
                                             <Box style={{minWidth:"100%"}}>
                                                 <Box style={{display:"flex",alignItems:"center",justifyContent:"space-between"}}>
-                                                    <Typography variant={"body2"} style={{fontWeight:"bold"}}>
+                                                    <Typography className='bold-text' variant={"body2"} style={{fontWeight:"bold"}}>
                                                         {item.attributes.complex_name}
                                                     </Typography>
                                                     <Typography variant={"body2"} className="countRedAnnouncmenent">
@@ -86,18 +86,18 @@ class Announcement extends AnnouncementController{
                                                     </Typography>
                                                 </Box>
                                                 <Grid container spacing={1} style={{marginTop:"8px",marginBottom:"5px"}}>
-                                                    <Grid xs={6} style={{display:'flex',alignItems:'center'}}>
+                                                    <Grid xs={6} style={{display:'flex'}}>
                                                         <Box>
-                                                            <img src={building} height="16px" style={{marginRight:"10px"}} />
+                                                            <img src={building} height="16px" style={{marginRight:"10px",marginTop:"5px"}} />
                                                         </Box>
                                                         <Box>
                                                             <Typography variant="subtitle2" >{t("Building Name")}</Typography>
                                                             <Typography variant="subtitle2" style={{fontWeight:"bold"}}>{item.attributes.building_name}</Typography>
                                                         </Box>
                                                     </Grid>
-                                                    <Grid xs={6} style={{display:'flex',alignItems:'center'}}>
+                                                    <Grid xs={6} style={{display:'flex',justifyContent:"flex-end"}}>
                                                         <Box>
-                                                            <img src={unit} height="16px" style={{marginRight:"10px"}} />
+                                                            <img src={unit} height="16px" style={{marginRight:"10px",marginTop:"5px"}} />
                                                         </Box>
                                                         <Box>
                                                             <Typography variant="subtitle2" >{t("Unit Number")}</Typography>

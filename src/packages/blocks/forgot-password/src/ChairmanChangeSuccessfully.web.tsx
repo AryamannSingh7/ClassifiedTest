@@ -29,7 +29,7 @@ class ChairmanChangeSuccessfully extends ChairmanForgotPasswordController {
   render() {
     return (
       <>
-        <Box className="login-wrapper">
+        <Box className="login-wrapper" style={{backgroundColor:'white'}}>
           <Grid container spacing={2} className="auth-container">
             <Grid item xs={12} md={7} className="auth-cols">
               <Box className="content-block">
@@ -61,9 +61,9 @@ class ChairmanChangeSuccessfully extends ChairmanForgotPasswordController {
                   </Box>
                 </Box>
                 <Box className="main-content-block desktop-ui">
-                  <Box className="header-block chairmanHeaderBlock">
+                  <Box className="header-block chairmanHeaderBlock" style={{marginTop:'80px'}}>
                     <img src={Lock_Icon} className="lock-logo" alt="Lock_Icon" />
-                    <h1>
+                    <h1 className="bold-text">
                       Password Changed
                       <br />
                       Successfully!
@@ -90,7 +90,7 @@ class ChairmanChangeSuccessfully extends ChairmanForgotPasswordController {
                     </Button>
                   </Box>
                 </Box>
-                <Box className="footer-main-block bottomBlock">
+                <Box className="footer-main-block bottomBlock" style={{marginTop:'80px'}}>
                   <h6 className="bottom-text">POWERED BY</h6>
                   <img src={Tenant_Logo.default} className="tenant-logo" alt="" />
                 </Box>

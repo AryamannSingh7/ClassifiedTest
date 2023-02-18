@@ -33,10 +33,11 @@ interface S {
   token: any;
   enablePasswordField: Boolean;
   btnConfirmPasswordShowHide: Boolean;
-  error: string | null;
+  error: any;
   emailOtp:any
   otp:any;
   loading:boolean;
+  showError:any;
   // Customizable Area End
 }
 
@@ -177,7 +178,8 @@ export default class ForgotPasswordController extends BlockComponent<
       error: null,
       emailOtp:null,
       otp:null,
-      loading:false
+      loading:false,
+      showError:false
     };
     // Customizable Area End
   }
@@ -333,12 +335,12 @@ export default class ForgotPasswordController extends BlockComponent<
       else if (responseJson?.errors) {
         //Check Error Response
         let error = Object.values(responseJson.errors[0])[0] as string;
-        this.setState({ error });
+        this.setState({ error ,showError:true });
       } else {
-        this.setState({ error: responseJson?.error || "Something went wrong!" });
+        this.setState({ error: responseJson?.error || "Something went wrong!" ,showError:true});
       }
-      this.parseApiCatchErrorResponse(this.state.error);
-      this.setState({loading: false , error:null})
+      //this.parseApiCatchErrorResponse(this.state.error);
+      this.setState({loading: false})
     }  else if (
       getName(MessageEnum.RestAPIResponceMessage) === message.id &&
       this.verifyOtpApiCallId !== null &&
@@ -353,7 +355,7 @@ export default class ForgotPasswordController extends BlockComponent<
         getName(MessageEnum.RestAPIResponceErrorMessage)
       );
 
-      if (responseJson?.messages[0]?.otp) {
+      if (responseJson?.messages) {
         console.log('responseJson===========> successflll',responseJson)
         // let params = new URL(document.location as any).searchParams;
         // let token = params.get("token");
@@ -366,13 +368,14 @@ export default class ForgotPasswordController extends BlockComponent<
       // } else if (responseJson?.message) {
       //   this.setState({ error: responseJson?.message });
       } else if (responseJson?.errors) {
+        console.log('responseJson errors [0] .porfpo===========>',responseJson)
           let error = `${Object.values(responseJson.errors[0])[0]}` as string;
-          this.setState({ error });
+          this.setState({ error,showError:true });
       } else {
-          this.setState({ error: responseJson?.error || 'Something went wrong!' });
+          this.setState({ error: responseJson?.error || 'Something went wrong!' ,showError:true});
       }
-      this.parseApiCatchErrorResponse(this.state.error);
-      this.setState({loading: false , error:null})
+     // this.parseApiCatchErrorResponse(this.state.error);
+      this.setState({loading: false })
     }
     
     else if (
@@ -449,13 +452,13 @@ export default class ForgotPasswordController extends BlockComponent<
         this.setState({ error: responseJson?.message });
       } else if (responseJson?.errors) {
           let error = `${Object.values(responseJson.errors[0])[0]}` as string;
-          this.setState({ error });
+          this.setState({ error ,showError:true});
       } else {
         console.log("Something responseJson  ===========>",responseJson)
-          this.setState({ error: responseJson?.error || 'Something went wrong!' });
+          this.setState({ error: responseJson?.error || 'Something went wrong!' ,showError:true});
       }
-      this.parseApiCatchErrorResponse(this.state.error);
-      this.setState({loading: false , error:null})
+      //this.parseApiCatchErrorResponse(this.state.error);
+      this.setState({loading: false})
     } else if (getName(MessageEnum.CountryCodeMessage) === message.id) {
       var selectedCode = message.getData(
         getName(MessageEnum.CountyCodeDataMessage)
@@ -692,7 +695,7 @@ export default class ForgotPasswordController extends BlockComponent<
   }
   EmailSchema() {
     const validations = Yup.object().shape({
-      email: Yup.string().email()
+      email: Yup.string()
         .trim()
         .required("This field is required.")
     });

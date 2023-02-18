@@ -35,7 +35,7 @@ class RegistrationRequestSignup extends EmailAccountRegistrationController {
     //console.log("getRegistrationRequest===================>",building_name ,apartment_name);
     return (
       <>
-        <Box className="login-wrapper reg-wrapper classWhite" >
+        <Box className="login-wrapper reg-wrapper classWhite" style={{background:'white'}}>
           <Box display={{ xs: 'flex', md: 'none' }} className="backIcon" onClick={() => window.history.back()}><KeyboardBackspaceIcon /></Box>
           <Grid container spacing={2} className="auth-container">
             <Grid item xs={12} md={7} className="auth-cols">
@@ -51,7 +51,7 @@ class RegistrationRequestSignup extends EmailAccountRegistrationController {
                     <Box className="header-block chairmanHeaderBlock">
                       {/* <img src={Tenant_Logo} className="tenant-logo" alt="Tenant Logo" /> */}
                       <img src={request} className="bank-logo" alt="Tenant Logo" />
-                      <h1 style={{fontWeight:'bold'}}>Registration Request Sent</h1>
+                      <h1 className='bold-text'>Registration Request Sent</h1>
                       <h6>Your registration request sent to the management of the selected building. You will be notified and given access to the platform once approved.</h6>
                     </Box>
                     {/* <Box className="reg-block">

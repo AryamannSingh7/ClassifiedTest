@@ -31,7 +31,7 @@ class PollVoteSubmitted extends PollingController {
                 <Grid xs={12} style={{ display:"flex", alignItems:"center", gap:"1rem",justifyContent:"space-between"}} >
                     <Box style={{ display:"flex", alignItems:"center", gap:"1rem"}}>
                         <ArrowBackIcon onClick={() => window.history.back()} />
-                        <p style={{ fontSize: '1.2rem', fontWeight: 600 }}>
+                        <p className='bold-text' style={{ fontSize: '1.2rem', fontWeight: 600 }}>
                             {this.state.pollPreviewAnswer?.poll?.data.attributes.title}
                         </p>
                     </Box>
@@ -43,7 +43,7 @@ class PollVoteSubmitted extends PollingController {
 
               <Grid xs={12} style={{ display:"flex", alignItems:"center", justifyContent:"space-between"}}>
               <Grid xs={12} style={{ display:"flex", alignItems:"center", gap:"1rem",width:"60%"}}>
-                    <p className="textwrapStatus" style={{ fontSize: '1.3rem', fontWeight: 600 }}>
+                    <p className="textwrapStatus bold-text" style={{ fontSize: '18px', fontWeight: 600 }}>
                     {this.state.pollPreviewAnswer?.poll?.data.attributes.title}
                     </p>
                 </Grid>
@@ -139,7 +139,7 @@ class PollVoteSubmitted extends PollingController {
             {this.state.pollPreviewAnswer?.poll?.data.attributes.polling_options.length ?
               this.state.pollPreviewAnswer?.poll?.data.attributes.polling_options.map((item:any) => {
               return(
-                <Grid container spacing={2} style={{ background: "#E5ECFF",marginTop:'1.5rem', width: '90%', alignItems:'baseline'}}>
+                <Grid container spacing={2} style={{ background: "#F7F9FE",marginTop:'1.5rem', width: '90%', alignItems:'baseline'}}>
                   <Grid xs={12}>
                       <Box className="progressbarYES">
                           <span>{item.text}</span>

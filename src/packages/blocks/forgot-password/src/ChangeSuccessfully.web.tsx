@@ -61,7 +61,7 @@ class ChangeSuccessfully extends ForgotPasswordController {
             }}>login</Button>
           </Box>
         </Box> */}
-        <Box className="login-wrapper auth-wrapper">
+        <Box className="login-wrapper auth-wrapper" style={{backgroundColor:"white"}}>
           <Grid container spacing={2} className="auth-container">
             <Grid item xs={12} md={7} className="auth-cols">
               <Box className="content-block">
@@ -71,16 +71,16 @@ class ChangeSuccessfully extends ForgotPasswordController {
                     <h4>Building Name</h4>
                   </Link>
                 </Box>
-                <Box className="main-content-block change-password-mainblock">
-                  <Box className="header-block header-block-changepassword">
+                <Box className="main-content-block change-password-mainblock"style={{marginTop:"200px"}}>
+                  <Box className="header-block header-block-changepassword" >
                     {/* <Box display={{ xs: 'flex', md: 'none' }}>
                       <Link href="/EmailAccountLogin">
                         <img src={Tenant_Logo} className="tenant-logo" alt="" />
                       </Link>
                     </Box> */}
                     <img src={Lock_Icon} className="lock-logo" alt="Lock_Icon" />
-                    <h1>Password Changed<br></br>Successfully!</h1>
-                    <h6>You have successfully changed your<br></br>password. Please use your new password when<br></br>logging in.</h6>
+                    <h1 className="bold-text">Password Changed<br></br>Successfully!</h1>
+                    <h6 >You have successfully changed your<br></br>password. Please use your new password when<br></br>logging in.</h6>
                   </Box>
                 </Box>
                 <Box className="footer-block desktop-ui">
