@@ -74,7 +74,7 @@ class VerofyOTP extends EmailAccountRegistrationController {
         </Grid>
             <Grid container className="main-content-block" style={{marginLeft:'0.5rem'}}>
           <Grid xs={12} style={{display:'flex'}} justifyContent="center">
-            <Box className="commonForm">
+            <Box className="commonForm" style={{marginTop:'1rem'}}>
               <Box className="formGroup otpBlock">
                 <OtpInput className="formOutlineInput"
                   value={"111111"}

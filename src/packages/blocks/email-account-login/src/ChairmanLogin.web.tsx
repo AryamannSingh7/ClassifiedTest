@@ -151,7 +151,7 @@ class ChairmanLogin extends ChairmanAccountLoginController {
                               }
 
                             </Select> 
-                            <ErrorMessage className="text-error" component="Typography" name="userType" style={{fontWeight: '400'}} />
+                            <ErrorMessage className="text-error" component="Typography" name="userType" style={{fontWeight: '600'}} />
                           </FormControl>
                         </Box>
                         <Box className="formGroup">
@@ -162,7 +162,7 @@ class ChairmanLogin extends ChairmanAccountLoginController {
                           {
                             errors.email && touched.email ?
                               (
-                                <Typography className="text-error"
+                                <Typography className="text-error" style={{fontWeight:600}}
 
                                 >{errors.email} </Typography>
 
@@ -214,7 +214,7 @@ class ChairmanLogin extends ChairmanAccountLoginController {
                           {
                             errors.password && touched.password ?
                               (
-                                <Typography className="text-error">{errors.password} </Typography>
+                                <Typography className="text-error" style={{fontWeight:600}}>{errors.password} </Typography>
                               ) : null
                           }
                         </Box>

@@ -86,7 +86,7 @@ class ForgotPassword extends ForgotPasswordController {
                           {
                             errors.email && touched.email ?
                               (
-                                <Typography className="text-error">{errors.email} </Typography>
+                                <Typography className="text-error" style={{fontWeight:600}}>{errors.email} </Typography>
                               ) : null
                           }
                         </Box>

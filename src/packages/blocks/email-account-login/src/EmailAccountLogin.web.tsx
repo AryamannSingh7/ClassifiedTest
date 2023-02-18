@@ -123,7 +123,7 @@ class EmailAccountLogin extends EmailAccountLoginController {
                           {
                             errors.email && touched.email ?
                                 (
-                                    <Typography className="text-error" style={{marginLeft:"5px"}}
+                                    <Typography className="text-error" style={{marginLeft:"5px",fontWeight:600}}
 
                                     >{errors.email} </Typography>
 
