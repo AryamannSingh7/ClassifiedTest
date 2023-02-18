@@ -215,7 +215,7 @@ class SelectType extends EmailAccountRegistrationController {
                   </Box>
                 </Grid>
               </Grid>
-              <Grid container style={{marginTop:'12rem'}}>
+              <Grid container>
                 <Grid xs={12}>
                   <Button
                     fullWidth={true}
