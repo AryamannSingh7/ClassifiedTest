@@ -56,7 +56,7 @@ class ManagerList extends ManagerController {
     //console.log("getRegistrationRequest===================>",building_name ,apartment_name);
     return (
       <>
-        <Box style={{ background: "#E5ECFF" }}>
+        <Box style={{ background: "#F7F9FE" }}>
           {/* Dashboard Header -- */}
           <DashboardHeader {...this.props} />
           <Box style={{ display: "flex" }}>
@@ -73,7 +73,7 @@ class ManagerList extends ManagerController {
                     <Typography variant="body1" >
                       {t("My Dashboard")} / {t("General Dashboard")} / <Box component="span" style={{ color: "blue" }}>{t('Vehicles')}</Box>
                     </Typography>
-                    <Typography variant="h5" style={dashBoardBudget.subHeading} style={{marginBottom:'1rem'}}>{t("Vehicles")}</Typography>
+                    <Typography variant="h5" style={dashBoardBudget.subHeading} >{t("Vehicles")}</Typography>
                   </Box>
                 </Box>
                 <Formik
@@ -240,7 +240,7 @@ class ManagerList extends ManagerController {
 
                                         <div style={{ display: 'flex', fontWeight: 500,marginTop:'0.5rem' }}>
                                           <img src={Building} width='25' height='25' style={{ marginRight: 10 }} />
-                                          <p>  {item.attributes?.building_management?.name}</p>
+                                          <p> {item?.attributes?.apartment_management?.apartment_name || 'N/A'}, {item.attributes?.building_management?.name}</p>
                                         </div>
                                         {/* <div style={{ marginLeft: 35, marginBottom: 20 }}>
 
@@ -289,6 +289,7 @@ const dashBoardBudget = {
   subHeading: {
     fontWeight: 600,
     marginTop: 15,
+    marginBottom:"1rem"
   },
   YearMain: {
     background: "#fff",

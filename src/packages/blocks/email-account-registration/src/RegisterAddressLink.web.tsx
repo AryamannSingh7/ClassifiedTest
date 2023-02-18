@@ -324,6 +324,3 @@ export default withTranslation()(withRouter(RegisterAddressLinkLink));
 const DropdownIndicator=()=>{
   return <svg className="MuiSvgIcon-root MuiSelect-icon MuiSelect-iconOutlined" focusable="false" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 10l5 5 5-5z"></path></svg>
 }
-const DropdownIndicator2=()=>{
-  return <img src={Complex}/>
-}

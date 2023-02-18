@@ -104,25 +104,18 @@ class IncidentChatBox extends InboxController {
                 Ticket
               </span>
             </Box>
-
-
           </Grid>
-          <Box marginTop={5} display='flex' justifyContent='space-between' width='100%'>
-            <Box >
-
-              <p style={{ fontWeight: 'bold', fontSize: '1.2rem' }}>{item?.attributes?.chatable?.attributes?.incident_title}</p>
-              <p style={{ fontWeight: 'bold', fontSize: '0.8rem', color: '#cccdcf' }}>
-                ticket ID:{item?.attributes?.chatable?.id}
+          <Box marginTop={2} display='flex' justifyContent='space-between' width='100%' alignItems="center" style={{height:"60px",borderTop:"1px solid #f4f4f4",borderBottom:"1px solid #f4f4f4",padding:"1rem"}}>
+            <Box>
+              <p className={"bold-text"} style={{ fontWeight: 'bold', fontSize: '16px', }}>{item?.attributes?.chatable?.attributes?.incident_title}</p>
+              <p style={{ fontWeight: 'bold', fontSize: '12px', color: 'rgba(24,29,37,0.5)' }}>
+                Ticket ID: {item?.attributes?.chatable?.id}
               </p>
             </Box>
             <Box>
               <Button variant="contained" className="contain danger" style={{ textTransform: 'capitalize'}} >{item?.attributes?.chatable?.attributes?.incident_status}</Button>
             </Box>
-
           </Box>
-
-
-
           <Grid xs={12}>
             <List style={{ overflowY: "auto", maxHeight: "75vh", minHeight: "75vh",overflowX:'hidden' }}>
               {/* {
@@ -255,7 +248,7 @@ class IncidentChatBox extends InboxController {
                     }
                   }}
 
-                  onChange={(e) => this.CreateNewMessage(e)} type="" style={{ border: '1px solid #EDEDED', color: '#726363', borderRadius: 15, padding: 10, width: '100%' }} placeholder="Start a new message" value={this.state.newMessage} />
+                  onChange={(e) => this.CreateNewMessage(e)} type="" style={{ border: '1px solid #EDEDED', color: '#726363', borderRadius: 15, padding: 10, width: '100%' }} placeholder="Type your messgae" value={this.state.newMessage} />
 
                 {// @ts-ignore
 // @ts-nocheck
@@ -281,8 +274,9 @@ class IncidentChatBox extends InboxController {
                   accept="image/png, image/jpeg, image/jpg,.pdf"
                 />
               </Grid>
+              <img src={Sendbutton} style={{ cursor: 'pointer',width:'2.5rem' }} onClick={() => this.createMessages()}/>
 
-              <SendIcon style={{ cursor: 'pointer' }} onClick={() => this.createMessages()} />
+              {/* <SendIcon style={{ cursor: 'pointer' }} onClick={() => this.createMessages()} /> */}
 
             </Grid>
 

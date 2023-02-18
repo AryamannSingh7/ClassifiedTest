@@ -134,7 +134,7 @@ class Polling extends PollingController {
                                 <img src={pollcreate} alt="pollcreate" />
                             </Box>
                             <Typography className="subHeading">{t("Polls Created")}</Typography>
-                            <Box className="bottomTwoSpan" style={{minHeight:"15px"}}>
+                            <Box className="bottomTwoSpan" style={{minHeight:"20px"}}>
                                 <Typography variant="body2" className="bottomColor">
                                     {this.state.totalPollsCount.polls_count ? this.state.totalPollsCount.polls_count : ''}
                                 </Typography>
@@ -154,7 +154,7 @@ class Polling extends PollingController {
                             <img src={surveycreate} alt="surveycreate" />
                             </Box>
                             <Typography className="subHeading">{t("Surveys Created")}</Typography>
-                            <Box className="bottomTwoSpan" style={{minHeight:"16px"}}>
+                            <Box className="bottomTwoSpan" style={{minHeight:"20px"}}>
                                 <Typography variant="body2" className="bottomColor">
                                     {this.state.totalSurveyCount.survey_count ? this.state.totalSurveyCount.survey_count : ''}
                                 </Typography>

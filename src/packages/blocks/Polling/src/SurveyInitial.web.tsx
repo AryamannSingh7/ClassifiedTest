@@ -33,7 +33,7 @@ class SurveyInitial extends SurveyInitialController {
                     <Grid xs={12} style={{ display:"flex", alignItems:"center", gap:"1rem",justifyContent:"space-between"}} >
                         <Box style={{ display:"flex", alignItems:"center", gap:"1rem"}}>
                             <ArrowBackIcon onClick={() => window.history.back()} />
-                            <p style={{ fontSize: '1.2rem', fontWeight: 600 }}>
+                            <p className='bold-text' style={{ fontSize: '1.2rem', fontWeight: 600 }}>
                                 {this.state.SurveyPreviewAnswer.title}
                             </p>
                         </Box>
@@ -44,7 +44,7 @@ class SurveyInitial extends SurveyInitialController {
                     <Grid container style={{ margin: '1rem 1rem', width: '90%' }}>
                         <Grid xs={12} style={{ display:"flex", alignItems:"center", justifyContent:"space-between"}}>
                             <Grid xs={12} style={{ display:"flex", alignItems:"center", gap:".5rem"}}>
-                                <p className="textwrapStatus" style={{ fontSize: '1rem', fontWeight: 600 }}>
+                                <p  className="textwrapStatus bold-text" style={{ fontSize: '18px', fontWeight: 600 }}>
                                     {this.state.SurveyPreviewAnswer.title}
                                 </p>
                             </Grid>
@@ -73,9 +73,9 @@ class SurveyInitial extends SurveyInitialController {
                                 bgcolor="white"
                                 padding='1rem'
                             >
-                                <Box marginTop='1rem'>
+                                <Box>
                                     <Typography variant="subtitle2" color="textSecondary">{t("Purpose")}:</Typography>
-                                    <p style={{color:"black", fontSize:'1.1rem', marginTop:10}}
+                                    <p style={{color:"black", fontSize:'1.1rem', marginTop:5}} className="pollDetailsPurpose"
                                        dangerouslySetInnerHTML={
                                            { __html: DOMPurify.sanitize(this.state.SurveyPreviewAnswer.description) }
                                        }
@@ -84,13 +84,13 @@ class SurveyInitial extends SurveyInitialController {
                                 </Box>
                                 <Box marginTop='1rem'>
                                     <Typography variant="subtitle2" color="textSecondary">{t("End Date")}:</Typography>
-                                    <p style={{color:"black", fontSize:'1.1rem', marginTop:10}}>
+                                    <p style={{color:"black", fontSize:'1rem', marginTop:5}}>
                                         {this.state.SurveyPreviewAnswer.end_date}
                                     </p>
                                 </Box>
                                 <Box marginTop='1rem'>
                                     <Typography variant="subtitle2" color="textSecondary">{t("Building")}:</Typography>
-                                    <p style={{color:"black", fontSize:'1.1rem', marginTop:10}}>
+                                    <p style={{color:"black", fontSize:'1rem', marginTop:5}}>
                                         {this.state.SurveyPreviewAnswer.building_name}
                                     </p>
                                 </Box>
@@ -107,14 +107,14 @@ class SurveyInitial extends SurveyInitialController {
                             <Box
                                 borderRadius="15px"
                                 bgcolor="white"
-                                marginTop='1.5em'
+                                marginTop='0.5em'
                                 padding='1rem'
                             >
-                                <Box display='flex' marginTop='1rem'>
+                                <Box display='flex'>
                                     <AccountCircleOutlinedIcon style={{color:'#054c94'}}/>
                                     <Box marginLeft='0.5rem'>
-                                        <p>Published By:</p>
-                                        <p style={{color:"black", fontSize:'1.1rem', marginTop:10}}>
+                                        <p>{t("Published By")}:</p>
+                                        <p style={{color:"black", fontSize:'1rem', marginTop:10}}>
                                             {this.state.SurveyPreviewAnswer.publish_by}
                                         </p>
                                     </Box>
@@ -123,8 +123,8 @@ class SurveyInitial extends SurveyInitialController {
                                 <Box display='flex' marginTop='1.5rem'>
                                     <DateRangeOutlinedIcon style={{color:'#054c94'}}/>
                                     <Box marginLeft='0.5rem'>
-                                        <p>Published Date:</p>
-                                        <p style={{color:"black", fontSize:'1.1rem', marginTop:10}}>
+                                        <p>{t("Published Date")}:</p>
+                                        <p style={{color:"black", fontSize:'1rem', marginTop:10}}>
                                             {this.state.SurveyPreviewAnswer.publish_date}
                                         </p>
                                     </Box>

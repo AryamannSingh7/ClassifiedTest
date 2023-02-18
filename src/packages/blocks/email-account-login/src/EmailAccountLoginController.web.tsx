@@ -209,7 +209,10 @@ export default class EmailAccountLoginController extends BlockComponent<
             localStorage.setItem("complexName", responseJson.meta?.complex_name)
             localStorage.setItem("language", "en");
             i18next.changeLanguage("en");
-            console.log("CHECK THE ROLE",responseJson.meta.role)
+            if(!responseJson.meta?.society_id){
+              this.props.history.push("/RegistrationRequest")
+              return
+            }
             const isResidentOwner = responseJson.meta.role.filter((item)=> {
               return item.name === "Owner Resident"
             })

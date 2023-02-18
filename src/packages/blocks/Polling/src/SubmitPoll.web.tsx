@@ -29,19 +29,19 @@ class SubmitPoll extends PollingController {
         <Grid container style={{ margin: '1rem', width: '90%' }}>
           <Grid xs={12} style={{ display:"flex", alignItems:"center", gap:"1rem"}}>
             <ArrowBackIcon onClick={() => window.history.back()} />
-            <p style={{ fontSize: '1.2rem', fontWeight: 600 }}>
+            <p className='bold-text' style={{ fontSize: '1.2rem', fontWeight: 600 }}>
                 {this.state.pollPreviewAnswer.poll?.data?.attributes.title}
             </p>
           </Grid>
         </Grid>
 
-    <Box style={{background: "#E5ECFF",height:"160vh",display:'flex',flexDirection:"column",alignItems:'center'}}>
+    <Box style={{background: "#F7F9FE",height:"160vh",display:'flex',flexDirection:"column",alignItems:'center'}}>
 
         <Grid container style={{ margin: '1rem', width: '90%' }}>
             
           <Grid xs={12} style={{ display:"flex", alignItems:"center", justifyContent:"space-between"}}>
           <Grid xs={12} style={{ display:"flex", alignItems:"center", gap:"1rem"}}>
-                <p className="textwrapStatus" style={{ fontSize: '1rem', fontWeight: 600 }}>
+                <p className="textwrapStatus bold-text" style={{ fontSize: '18px', fontWeight: 600 }}>
                     {this.state.pollPreviewAnswer.poll?.data?.attributes.title}
                 </p>
             </Grid>
@@ -63,13 +63,12 @@ class SubmitPoll extends PollingController {
                 <Box
                 borderRadius="15px"
                 bgcolor="white"
-                marginTop='1rem'
                 padding='1rem'
                 >
 
-                    <Box marginTop='1rem'>
+                    <Box>
                         <Typography variant="subtitle2" color="textSecondary">{t("Purpose")}:</Typography>
-                        <p style={{color:"black", fontSize:'1.2rem', marginTop:10}}
+                        <p style={{color:"black", fontSize:'1.1rem', marginTop:10}} className="pollDetailsPurpose"
                         dangerouslySetInnerHTML={
                           { __html: DOMPurify.sanitize(this.state.pollPreviewAnswer.poll?.data?.attributes.description) }
                         }
@@ -79,13 +78,13 @@ class SubmitPoll extends PollingController {
                     </Box>
                     <Box marginTop='1rem'>
                         <Typography variant="subtitle2" color="textSecondary">{t("End Date")}:</Typography>
-                        <p style={{color:"black", fontSize:'1.2rem', marginTop:10}}>
+                        <p style={{color:"black", fontSize:'1rem', marginTop:5}}>
                           {this.state.pollPreviewAnswer.poll?.data?.attributes.end_date}
                         </p>
                     </Box>
                     <Box marginTop='1rem'>
                         <Typography variant="subtitle2" color="textSecondary">{t("Building")}:</Typography>
-                        <p style={{color:"black", fontSize:'1.2rem', marginTop:10}}>
+                        <p style={{color:"black", fontSize:'1rem', marginTop:5}}>
                           {this.state.pollPreviewAnswer.poll?.data?.attributes.building_name}
                         </p>
                     </Box>
@@ -105,7 +104,7 @@ class SubmitPoll extends PollingController {
                         <AccountCircleOutlinedIcon style={{color:'#054c94'}}/>
                         <Box marginLeft='0.5rem'>
                             <p>{t("Published By")}:</p>
-                            <p style={{color:"black", fontSize:'1.2rem', marginTop:10}}>
+                            <p style={{color:"black", fontSize:'1rem', marginTop:10}}>
                               {this.state.pollPreviewAnswer.poll?.data?.attributes.publish_by}
                             </p>
                         </Box>
@@ -115,7 +114,7 @@ class SubmitPoll extends PollingController {
                         <DateRangeOutlinedIcon style={{color:'#054c94'}}/>
                         <Box marginLeft='0.5rem'>
                             <p>{t("Published Date")}:</p>
-                            <p style={{color:"black", fontSize:'1.2rem', marginTop:10}}>
+                            <p style={{color:"black", fontSize:'1rem', marginTop:10}}>
                               {this.state.pollPreviewAnswer.poll?.data?.attributes.publish_date}
                             </p>
                         </Box>
@@ -141,6 +140,7 @@ class SubmitPoll extends PollingController {
                       // checked={this.state.pollOptionAnswer}
                       onChange={(e) => this.getPollSelectedAnswer(e.target.value)}
                     />
+
                 </Grid>
                 <Grid xs={11}>
                     <label 
