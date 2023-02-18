@@ -4,7 +4,7 @@
 import * as React from "react";
 // custom components
 import {
-  Button, Grid, Box, Typography, Link, IconButton, Dialog, DialogTitle, DialogActions, FormControl, InputLabel
+  Button, Grid, Box, Typography, Link, IconButton, Dialog, DialogTitle, DialogActions, FormControl, InputLabel, TextField
 } from "@material-ui/core";
 import "../assets/css/style.scss";
 import ArrowBackIcon from '@material-ui/icons/ArrowBack';
@@ -14,10 +14,11 @@ import EmailAccountRegistrationController, { Props } from "./EmailAccountRegistr
 import MailOutlineIcon from '@material-ui/icons/MailOutline';
 import { CheckBox, Visibility, VisibilityOff } from "@material-ui/icons";
 import { withRouter } from 'react-router';
-import { Back_btn, building, Building1, city, country, Map, ReqHome, search, unit } from "./assets";
+import { Back_btn, building, Building1, city, Complex, country, Map, ReqHome, search, unit } from "./assets";
 import ReactSelect from 'react-select';
 import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
+import Autocomplete from "@material-ui/lab/Autocomplete";
 
 
 
@@ -110,7 +111,7 @@ class RegisterUnitManually extends EmailAccountRegistrationController {
         >
           {({ values, touched, errors, isValid, setFieldValue, handleChange }) => (
             <Form translate="yes" className="commonForm">
-              <Grid container style={{ margin: '1rem', width: '90%' }}>
+              <Grid container style={{ margin: '1rem',marginBottom:0, width: '90%' }}>
                 <Grid xs={12} className="formGroup customSelect">
 
 
@@ -146,7 +147,7 @@ class RegisterUnitManually extends EmailAccountRegistrationController {
                   <ErrorMessage className="text-error" component="Typography" name="selectCountry" />
                 </Grid>
               </Grid>
-              <Grid container style={{ margin: '1rem', width: '90%' }}>
+              <Grid container style={{ margin: '1rem',marginTop:0, marginBottom:'-1rem', width: '90%' }}>
                 <Grid xs={12} className='formGroup customSelect'>
                   <FormControl variant="outlined" fullWidth>
 
@@ -180,21 +181,35 @@ class RegisterUnitManually extends EmailAccountRegistrationController {
 
                 </Grid>
               </Grid>
-              <Box className="commonForm">
-                <Box className="formGroup">
+              <Box className="commonForm" style={{marginTop:0,marginBottom:0,}}>
+                <Box className="formGroup customSelect">
                   <Box
                     className="formInputGrp"
                   >
 
-                    <ReactSelect options={this.state.allComplex} emoji={search} className="hello ReactSelect"  components={{ DropdownIndicator }}  classNamePrefix='filter' style={{ border: 'none',color:'#BEBEBE' }} placeholder="Search Complex" onChange={(e) => { this.handleInputChangeCOm(e); setFieldValue("selectComplex", e.value) }} />
-
+                    {/* <ReactSelect options={this.state.allComplex} emoji={search} className="hello ReactSelect"  components={{ DropdownIndicator }}  classNamePrefix='filter' style={{ border: 'none',color:'#BEBEBE' }} placeholder="Search Complex" onChange={(e) => { this.handleInputChangeCOm(e); setFieldValue("selectComplex", e.value) }} /> */}
+                    <span className="frmLeftIcons" style={{left:'34px',top:'27%'}}>
+                              <img src={Complex} className="frm-icons" alt="House Icon" />
+                            </span>
+                           <Autocomplete
+      id="combo-box-demo"
+      options={this.state.allComplex}
+      getOptionLabel={(option) => option.label}
+      style={{ borderRadius: 25, color: "#b5b5b5",paddingLeft:20,width:'89%' }}
+      onChange={(e: any,newValue) => {
+        this.handleInputChangeCOm(e,newValue);
+        setFieldValue("selectComplex", newValue);
+      }}
+      placeholder="Search Complex"
+      renderInput={(params) => <TextField {...params} className='complex-input' placeholder="Search Complex" variant="outlined" />}
+    />
                     
                   </Box>
                 </Box>
                 <ErrorMessage className="text-error" component="Typography" name="selectComplex" />
 
               </Box>
-              <Grid container style={{ margin: '1rem', width: '90%' }}>
+              <Grid container style={{ margin: '1rem', marginTop:0,marginBottom:'-1.5rem', width: '90%' }}>
                 <Grid xs={12} className='formGroup customSelect'>
                   <FormControl variant="outlined" fullWidth>
                     {/* <InputLabel id="demo-simple-select-outlined-label" style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
@@ -227,7 +242,7 @@ class RegisterUnitManually extends EmailAccountRegistrationController {
 
                 </Grid>
               </Grid>
-              <Grid container style={{ margin: '1rem', width: '90%' }}>
+              <Grid container style={{ margin: "1rem",marginTop:0,marginBottom:0, width: '90%' }}>
                 <Grid xs={12} className='formGroup customSelect'>
                   <FormControl variant="outlined" fullWidth className="formInputGrp" style={{position:'relative'}}>
                     {/* <InputLabel id="demo-simple-select-outlined-label" style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
@@ -258,7 +273,7 @@ class RegisterUnitManually extends EmailAccountRegistrationController {
                             value={values.selectUnit}
                       placeholder={"Enter Unit"}
                       className="formInput1"
-                      style={{border:0,paddingLeft:'15px',color:'#BEBEBE',padding:55,marginTop:4}}
+                      style={{border:0,paddingLeft:'15px',color:'#BEBEBE',paddingLeft:55,marginTop:9,paddingBottom:22,width:'100%'}}
                             value={this.state.selectUnit}
                             onChange={(e) => { this.handleChange2(e); setFieldValue("selectUnit", e.target.value) }}
                     />
@@ -309,7 +324,7 @@ class RegisterUnitManually extends EmailAccountRegistrationController {
               <DialogTitle className="alert-dialog-title1 bold-text" id="alert-dialog-title" style={{ overflow: 'visible', width: 'auto',fontSize:20  }}>
                 sure want to register this unit?
               </DialogTitle>
-              <p style={{paddingTop:20}}>Are you sure that you want to register the unit   of {this.state.selectBuilding.name}?</p>
+              <p style={{paddingTop:20}}>Are you sure that you want to register the unit {this.state.selectUnit}  of {this.state.selectBuilding.name}?</p>
             </Box>
             <Box className="dialog-footer desktop-ui" style={{display:'flex',justifyContent:'center'}}>
               <DialogActions
