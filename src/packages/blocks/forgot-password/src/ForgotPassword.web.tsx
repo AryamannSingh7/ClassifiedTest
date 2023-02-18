@@ -25,6 +25,7 @@ import { Input } from "react-native-elements";
 import * as Yup from "yup";
 import CountryCodeSelector from "../../country-code-selector/src/CountryCodeSelector";
 import ForgotPasswordController, { Props } from "./ForgotPasswordController.web";
+import AlertErrorWeb from "../../../components/src/AlertError.web"
 //Customizable Area End
 import Loader from "../../../components/src/Loader.web";
 class ForgotPassword extends ForgotPasswordController {
@@ -38,7 +39,7 @@ class ForgotPassword extends ForgotPasswordController {
     return (
       <>
 
-        <Box className="login-wrapper auth-wrapper">
+        <Box className="login-wrapper auth-wrapper" style={{backgroundColor:"white"}}>
           <Grid container spacing={2} className="auth-container">
             <Grid item xs={12} md={7} className="auth-cols">
               <Box className="content-block">
@@ -56,7 +57,7 @@ class ForgotPassword extends ForgotPasswordController {
                         <img src={Tenant_Logo} className="tenant-logo" alt="" />
                       </Link>
                     </Box> */}
-                    <h1 style={{fontWeight : '900'}}>Forgot Password</h1>
+                    <h1 className="bold-text">Forgot Password</h1>
                     <h6>One Time Password(OTP) will be sent to the regestered email or mobile.</h6>
                   </Box>
                   <Formik
@@ -89,7 +90,7 @@ class ForgotPassword extends ForgotPasswordController {
                               ) : null
                           }
                         </Box>
-                        <Box className="customButton">
+                        <Box className="customButton" style={{marginTop:"26px"}}>
                           <Button variant="contained" type="submit">next</Button>
                         </Box>
 
@@ -111,6 +112,7 @@ class ForgotPassword extends ForgotPasswordController {
             </Grid>
           </Grid>
         </Box>
+        <AlertErrorWeb show={this.state.showError} handleClose={()=> this.setState({showError:false,error:null})} message={this.state.error} />
         <Loader loading={this.state.loading} />
       </>
     )
