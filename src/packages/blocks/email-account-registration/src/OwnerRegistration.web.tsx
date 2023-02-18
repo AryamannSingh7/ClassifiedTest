@@ -62,7 +62,7 @@ class Registration extends EmailAccountRegistrationController {
         </Grid>
         <Grid container style={{marginBottom:'2rem'}}>
           <Grid xs={12}>
-            <p className="text-center" style={{fontSize:'1rem'}}>
+            <p className="text-center" style={{fontSize:'15px'}}>
               Owner Sign up
             </p>
           </Grid>
