@@ -32,6 +32,7 @@ export const NoChat = require("../assets/noChat.png");
 export const Send = require("../assets/send.png");
 export const DoubleTick = require("../assets/doubleTick.png");
 export const Sendbutton = require("../assets/Submit_with_Round.png");
+export const buildingImg = require("../assets/buildingImg.png")
 
 
 

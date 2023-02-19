@@ -25,7 +25,7 @@ import {
 } from "@material-ui/core";
 
 //resources
-import { Building, Building1, CarBlue, CarFront, userBlue } from "./assets";
+import {Building, Building1, buildingImg, CarBlue, CarFront, userBlue} from "./assets";
 import { withRouter } from 'react-router';
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import { Visibility, VisibilityOff } from "@material-ui/icons";
@@ -200,20 +200,19 @@ class ManagerList extends ManagerController {
                     {
                       this.state.allVehcile.length >= 0 &&
                         <>
-                          <Grid container >
+                          <Grid container spacing={4} >
                             {
                               this.state.allVehcile.map((item, i) => <>
-                                <Grid xs={4} style={{ margin: 10 }} >
-                                  <div className="card" style={{ cursor: 'pointer',maxWidth:450,background:'white' }} onClick={() => this.addVehicle(item)}>
+                                <Grid md={4} sm={6} xs={12} >
+                                  <div className="card" style={{ cursor: 'pointer',width:"96%",background:'white' }} onClick={() => this.addVehicle(item)}>
                                     <div className="customButton status1" style={{width:'fit-content',margin:'1rem'}}>
                                       <Button variant="contained" className={item.attributes.status === 'Pending Approval' ? "contain warning" : item.attributes.status === 'Approved' ? 'contain success' : 'contain danger'} type="submit">
                                         {item.attributes.status == 'Pending Approval' ? 'Pending' :item.attributes.status }</Button>
                                     </div>
-                                    <div className="card-content">
-
-                                      <img src='https://cdn-icons-png.flaticon.com/512/112/112957.png' style={{marginRight:15,width:60,height:60}}/>
+                                    <div className="card-content" style={{paddingTop: "5px",paddingBottom:"10px"}}>
+                                      <img src='https://cdn-icons-png.flaticon.com/512/112/112957.png' style={{marginRight:20,width:60,height:60}}/>
                                       <div className="content" style={{padding:0}}>
-                                        <p className="title" style={{padding:'17px 0px 0px 0px',marginBottom:'10px'}}>
+                                        <p className="title" style={{padding:'12px 0px 0px 0px',marginBottom:'1px'}}>
                                           {item.attributes.company_name}
                                         </p>
                                         <p className="sub-title">
@@ -221,14 +220,11 @@ class ManagerList extends ManagerController {
                                         </p>
                                       </div>
                                     </div>
-                                    <div className="details">
+                                    <div className="details" style={{paddingTop: "5px"}}>
                                       <div>
-
                                         <div style={{ display: 'flex', fontWeight: 500 }}>
                                           <img src={userBlue.default} width='25' height='25' style={{ marginRight: 10 }} />
                                           <p>   {item.attributes.owner_name}
-
-
                                           </p>
                                         </div>
                                         {/* <div style={{ marginLeft: 35, marginBottom: 20 }}>
@@ -239,7 +235,7 @@ class ManagerList extends ManagerController {
                                       <div>
 
                                         <div style={{ display: 'flex', fontWeight: 500,marginTop:'0.5rem' }}>
-                                          <img src={Building} width='25' height='25' style={{ marginRight: 10 }} />
+                                          <img src={buildingImg} width='20' height='20' style={{ marginRight: 10,marginLeft:"2px" }} />
                                           <p> {item?.attributes?.apartment_management?.apartment_name || 'N/A'}, {item.attributes?.building_management?.name}</p>
                                         </div>
                                         {/* <div style={{ marginLeft: 35, marginBottom: 20 }}>

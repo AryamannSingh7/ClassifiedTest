@@ -77,19 +77,6 @@ class IncidentManagement extends IncidentManagementController {
                     </Typography>
                     <Typography variant="h5" style={dashBoard.subHeading}>{t("Incidents")}</Typography>
                   </Box>
-                  <Box>
-                    <FormControl style={dashBoard.YearMain} className='yearTab'>
-                      <NativeSelect className='yearSelection'
-                        value={this.state.Year}
-                        onChange={this.handleChange}
-                      >
-                        <option value={2022}>2022</option>
-                        <option value={2021}>2021</option>
-                        <option value={2020}>2020</option>
-                        <option value={2019}>2019</option>
-                      </NativeSelect>
-                    </FormControl>
-                  </Box>
                 </Box>
                 <Box className="sorting-header">
                   <Box className="formGroup customSelect">
@@ -171,7 +158,7 @@ class IncidentManagement extends IncidentManagementController {
                     </FormControl>
                   </Box>
                   <Box className="customButton">
-                    <Button variant="contained" onClick={() => this.serachHandle()}>
+                    <Button startIcon={<img src={SearchIconImage} />} onClick={() => this.serachHandle()}>
                       {t("Search")}
                     </Button>
                   </Box>
