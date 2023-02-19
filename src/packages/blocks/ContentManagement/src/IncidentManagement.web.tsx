@@ -41,7 +41,7 @@ import DashboardHeader from "../../dashboard/src/DashboardHeader.web";
 import ChairmanSidebar from "../../dashboard/src/ChairmanSidebar.web";
 import { withTranslation } from 'react-i18next';
 import '../../../web/src/i18n.js';
-
+import {SearchIconImage} from "../../StoreCredits/src/assets"
 //resorces
 import { Users_Icon, Bank_Icon, Box_Icon, Building1 } from "../src/assets";
 
@@ -157,8 +157,8 @@ class IncidentManagement extends IncidentManagementController {
 
                     </FormControl>
                   </Box>
-                  <Box className="customButton">
-                    <Button startIcon={<img src={SearchIconImage} />} onClick={() => this.serachHandle()}>
+                  <Box >
+                    <Button variant="contained" color="primary" style={{backgroundColor:"#2b6fed",borderRadius:"8px"}} startIcon={<img src={SearchIconImage} />} onClick={() => this.serachHandle()}>
                       {t("Search")}
                     </Button>
                   </Box>

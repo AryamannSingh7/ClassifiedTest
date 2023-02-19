@@ -173,7 +173,8 @@ class RegisterAddressLinkLink extends EmailAccountRegistrationController {
                            <Autocomplete
       id="combo-box-demo"
       options={this.state.allComplex}
-      getOptionLabel={(option) => option.label}
+      // @ts-ignore
+      getOptionLabel={(option) => option?.label}
       style={{ borderRadius: 25, color: "#b5b5b5",paddingLeft:20,width:'89%' }}
       onChange={(e: any,newValue) => {
         this.handleInputChangeCOm(e,newValue);
