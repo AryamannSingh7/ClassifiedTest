@@ -15,6 +15,8 @@ import Loader from "../../../components/src/Loader.web";
 import VeichleListController,{Props} from "./VeichleListController.web";
 import '../assets/css/style.scss';
 import { Formik, Form, Field, ErrorMessage } from "formik";
+import { withTranslation } from 'react-i18next';
+import '../../../web/src/i18n.js';
 
 class NewVeichleList extends VeichleListController {
   constructor(props: Props) {
@@ -28,15 +30,15 @@ class NewVeichleList extends VeichleListController {
 
   }
   render() {
+    const {t} = this.props
     return (
-
       <>
         <Grid container spacing={2} className="auth-container">
           <Grid item xs={12} md={7} className="auth-cols" style={{ justifyContent: 'unset' }}>
             <Grid container style={{padding:"15px 5px"}}>
               <Grid xs={12} style={{ display: 'flex', alignItems: 'center' }}>
                 <ArrowBackIcon onClick={() => window.history.back()} />
-                <p style={{ fontWeight: 600, fontSize: '1.25rem', marginLeft:"15px" }}>
+                <p className="bold-text" style={{ fontWeight: 600, fontSize: '18px', marginLeft:"15px" }}>
                 {
                     this.state.allVehcile.length==0 ? ' Register vehicle' : ' Register another vehicle'
                 }
@@ -45,7 +47,6 @@ class NewVeichleList extends VeichleListController {
             </Grid>
             <Divider/>
             <div style={{ margin: '10px 15px' }}>
-
               <Grid container className="main-content-block">
                 <Grid xs={12}>
                   <Formik initialValues={{
@@ -56,9 +57,6 @@ class NewVeichleList extends VeichleListController {
                     carColor: "",
                     bannerUrl:'',
                     banner:''
-
-
-
                   }}
                     validationSchema={this.addVehicleSchema()}
                     validateOnMount={true}
@@ -71,23 +69,18 @@ class NewVeichleList extends VeichleListController {
                       setFieldValue, setFieldError }) => (
                       <Form className="commonForm" translate="yes" >
                         <Box className='formGroup'>
-                          <Box
-                            className="formInputGrp"
-                          >
-
-
+                          <Box className="formInputGrp" style={{marginBottom:"25px",marginTop:"20px"}}>
                             <Field
                             style={{width:'100%'}}
                               className="formInput"
                               name="full_name"
-                              placeholder={"Owner Name"}
+                              placeholder={t("Owner Name")}
 
                             />
                             <span className="frmLeftIcons">
                               <img src={user} />
                             </span>
                           </Box>
-
                           {errors.full_name && touched.full_name ? (
                             <Typography
                               style={{
@@ -118,15 +111,11 @@ class NewVeichleList extends VeichleListController {
                   ) : null} */}
 
                           {/* plate number */}
-                          <Box
-                            className="formInputGrp"
-                          >
-
-
+                          <Box className="formInputGrp" style={{marginBottom:"25px"}}>
                             <Field
                               style={{ width: '100%' }}
                               name="plateNumber"
-                              placeholder={"Plate Number"}
+                              placeholder={t("Plate Number")}
                               className="formInput"
                             />
                             <span className="frmLeftIcons">
@@ -165,9 +154,7 @@ class NewVeichleList extends VeichleListController {
 
                           {/* car manufacture */}
 
-                          <Box
-                            className="formInputGrp"
-                          >
+                          <Box className="formInputGrp" style={{marginBottom:"25px"}}>
                             <Field
                               style={{ width: '100%' }}
                               name="carManufacturer"
@@ -175,7 +162,6 @@ class NewVeichleList extends VeichleListController {
                               className="formInput"
                             />
                             <span className="frmLeftIcons">
-
                               <img src={Car} />
                             </span>
                           </Box>
@@ -197,13 +183,11 @@ class NewVeichleList extends VeichleListController {
 
                           {/* car model */}
 
-                          <Box
-                            className="formInputGrp"
-                          >
+                          <Box className="formInputGrp" style={{marginBottom:"25px"}}>
                             <Field
                               style={{ width: '100%' }}
                               name="carModle"
-                              placeholder={"Car Model  "}
+                              placeholder={t("Car Model")}
                               className="formInput"
                             />
                             <span className="frmLeftIcons">
@@ -229,9 +213,7 @@ class NewVeichleList extends VeichleListController {
 
                           {/* car color */}
 
-                          <Box
-                            className="formInputGrp"
-                          >
+                          <Box className="formInputGrp" style={{marginBottom:"25px"}}>
                             <Field
                               style={{ width: '100%' }}
                               name="carColor"
@@ -263,8 +245,8 @@ class NewVeichleList extends VeichleListController {
                         alignItems:'center',
                         padding:'3.5rem',
                         marginTop:'15px',
-                            border:'2px dashed #00000036',
-                            marginBottom:10,
+                            border:'2px dashed rgba(143,146,161,0.2)',
+                            marginBottom:25,
                             backgroundSize:'cover',
                             backgroundColor:"#f9f9f9",
                             borderRadius: 15, backgroundImage: values.bannerUrl
@@ -275,7 +257,7 @@ class NewVeichleList extends VeichleListController {
                             
                             <label htmlFor="file1"
                             style={{ color:'rgb(33 33 33 / 33%)',textAlign:"center",marginTop:"10px"}}>
-                              Upload car registration image
+                              {t("Upload car registration image")}
                             </label>
                             <input
                             id="file1"
@@ -335,7 +317,7 @@ class NewVeichleList extends VeichleListController {
                               type="submit"
 
                             >
-                              SUBMIT
+                              {t("SUBMIT")}
                             </Button>
 
                           </Box>
@@ -364,4 +346,4 @@ class NewVeichleList extends VeichleListController {
   }
 
 }
-export default withRouter(NewVeichleList)
+export default withTranslation()(withRouter(NewVeichleList))

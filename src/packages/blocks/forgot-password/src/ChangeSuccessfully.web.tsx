@@ -79,8 +79,8 @@ class ChangeSuccessfully extends ForgotPasswordController {
                       </Link>
                     </Box> */}
                     <img src={Lock_Icon} className="lock-logo" alt="Lock_Icon" />
-                    <h1 className="bold-text">Password Changed<br></br>Successfully!</h1>
-                    <h6 >You have successfully changed your<br></br>password. Please use your new password when<br></br>logging in.</h6>
+                    <h1 className="bold-text" style={{marginTop:"20px"}}>Password Changed<br></br>Successfully!</h1>
+                    <h6 style={{textAlign:'center',width:"95%  "}}>You have successfully changed your<br></br>password. Please use your new password when<br></br>logging in.</h6>
                   </Box>
                 </Box>
                 <Box className="footer-block desktop-ui">
