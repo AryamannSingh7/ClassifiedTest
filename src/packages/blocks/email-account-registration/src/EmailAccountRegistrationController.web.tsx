@@ -1284,7 +1284,8 @@ if(attributes.phone.includes('+')){
     this.setState({ selectComplex: newValue })
   };
 
-  handleInputChangeCOm = (newValue: any) => {
+  handleInputChangeCOm = (e:any,newValue: any) => {
+    console.log(newValue)
     this.setState({ selectComplex: newValue.value }, () => this.getData({ target: { name: 'selectComplex' } }))
   };
 
@@ -1412,7 +1413,7 @@ if(attributes.phone.includes('+')){
       //@ts-ignore
       managerName: Yup.string().required(`Manager name is required`).trim().matches("^[a-zA-Z \-]+$","Only characters are allowed in username"),
       // ownerName: Yup.string().required(`Owner name is required`).trim().matches("^[a-zA-Z\-]+$","Only characters are allowed in username"),
-      email: Yup.string().email().required(`Email is required`).trim(),
+      email: Yup.string().email('Email is not valid').required(`Email is required`).trim(),
       // owner_email: Yup.string().email().required(`Owner email is required`).trim(),
       phone: Yup.number()
         .typeError("Only numbers are allowed.")
@@ -1449,8 +1450,8 @@ if(attributes.phone.includes('+')){
   signupSchema = () => {
     const validations = Yup.object().shape({
       //@ts-ignore
-      full_name: Yup.string().required(`Name is required`).trim().matches("^[a-zA-Z \u0600-\u06FF-]+$","Only characters are allowed in name"),
-      email: Yup.string().email().required(`Email is required`).trim(),
+      full_name: Yup.string().required(`Name is required`).trim().matches("^[a-zA-Z \-]+$","Only characters are allowed in name"),
+      email: Yup.string().email('Email is not valid').required(`Email is required`).trim(),
       phone: Yup.number()
         .typeError("Only numbers are allowed.")
         .required("Mobile number is required.")
