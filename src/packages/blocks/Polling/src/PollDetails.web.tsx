@@ -79,10 +79,10 @@ class PollDetails extends PollingController {
                         <Typography variant="body1" >
                         {t("Poll and survey")} / {t("Create a Poll")} / <Box component="span" style={{color: "blue"}}>{t("Poll Details")}</Box>
                         </Typography>
-                        <Typography variant="h5" className="subHeading">{t("Poll Details")}</Typography>
+                        <Typography variant="h5" className="subHeading bold-text" style={{fontSize:"30px"}}>{t("Poll Details")}</Typography>
                     </Box>
                 </Box>
-                <Grid container spacing={4} style={{marginTop: 15}}>
+                <Grid container spacing={4} style={{marginTop: 1}}>
                     <Grid item sm={12} md={12} xs={12}>
                         <Box className="createPSCards">
                             <Box className="PreviewName">
@@ -95,7 +95,7 @@ class PollDetails extends PollingController {
                                     {
                                         (this.state.pollPreviewAnswer?.poll?.data?.attributes?.poll_type === true) ?
                                         <Box>
-                                            <p className="AnonymousPreviewPoll">
+                                            <p className="AnonymousPreviewPoll ">
                                                 {t("Anonymous Poll")}
                                             </p>
                                             <p className="statusOngoing" style={{fontWeight: 600, marginLeft:"1rem"}}>
