@@ -40,9 +40,9 @@ class RegisterAddressLinkLink extends EmailAccountRegistrationController {
                 </Grid>
               </Grid>
 
-              <Grid container style={{ margin: "1rem", width: "90%" }}>
+              <Grid container style={{ marginLeft: "16px",marginTop:"3rem", width: "90%" }}>
                 <Grid xs={12}>
-                  <p className="text-left" style={{ fontSize: "1.5rem", fontWeight: 700 }}>
+                  <p className="text-left bold-text" style={{ fontSize: "1.5rem", fontWeight: 700 }}>
                     Linking a Unit
                   </p>
                 </Grid>
