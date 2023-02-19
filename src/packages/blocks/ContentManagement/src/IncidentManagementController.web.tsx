@@ -808,9 +808,9 @@ onChange =(e :any)=>{
       );
       this.getIncidentListingApiCallId = requestMessage.messageId;
       this.setState({ loading: true });
-     
+      const society_id = localStorage.getItem("society_id")
      //const  url = `bx_block_custom_form/incidents`
-     const  getSortByOrStatus = `bx_block_custom_form/incidents?search_building=${this.state?.serachBuildingName}&search_unit=${this.state?.unitName}&filter_by=${this.state?.status}`
+     const  getSortByOrStatus = `bx_block_custom_form/incidents?society_management_id=${society_id}?search_building=${this.state?.serachBuildingName}&search_unit=${this.state?.unitName}&filter_by=${this.state?.status}`
     
       requestMessage.addData(
         getName(MessageEnum.RestAPIResponceEndPointMessage),
@@ -889,7 +889,7 @@ onChange =(e :any)=>{
 
       requestMessage.addData(
         getName(MessageEnum.RestAPIResponceEndPointMessage),
-        `bx_block_settings/building_managements`
+        `bx_block_settings/building_managements?society_management_id=${society_id}`
       );
 
       requestMessage.addData(
