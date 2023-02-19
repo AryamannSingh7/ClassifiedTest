@@ -16,6 +16,7 @@ import { CheckBox, Visibility, VisibilityOff } from "@material-ui/icons";
 import { withRouter } from 'react-router';
 import OtpInput from 'react-otp-input';
 import { Back_btn, Building1 } from "./assets";
+import AlertErrorWeb from "../../../components/src/AlertError.web";
 
 
 
@@ -107,6 +108,8 @@ class VerofyOTP extends EmailAccountRegistrationController {
             </Box>
           </Grid>
             </Grid>
+          <AlertErrorWeb show={this.state.showError} handleClose={()=> this.setState({showError:false,error:null})} message={this.state.error} />
+
 
       </>
 

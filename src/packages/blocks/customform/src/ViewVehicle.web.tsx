@@ -9,7 +9,7 @@ import PermIdentityIcon from '@material-ui/icons/PermIdentity';
 
 import MailOutlineIcon from '@material-ui/icons/MailOutline';
 import HomeIcon from '@material-ui/icons/Home';
-import { Building1, Car, CarBlue, deleteI, deleteIcon, edit, List, ListCopy, NoVehicles, palette, paletteBlue, Rc, user, userBlue } from "./assets";
+import { Building1, Car, CarBlue, CarLogo, deleteI, deleteIcon, edit, List, ListCopy, NoVehicles, palette, paletteBlue, Rc, user, userBlue } from "./assets";
 import { withRouter } from 'react-router';
 import Loader from "../../../components/src/Loader.web";
 import VeichleListController,{Props} from "./VeichleListController.web";
@@ -70,7 +70,8 @@ class ViewVeichle extends VeichleListController {
                     </div>
                     <div className="card-content">
 
-                      <img src="https://cdn-icons-png.flaticon.com/512/112/112957.png" style={{marginRight:10,width:'60px',height:'60px'}} />
+                    <img src={CarLogo} style={{ marginRight: 10,width:60,height:20 }} />
+
                       <div className="content" style={{padding:'0px 0px 0px 5px',display:'flex',justifyContent:'center',alignItems:'center',flexDirection:'column'}}>
                         <p className="title" style={{padding:0,marginBottom:10}}>
                           {item.attributes.company_name}
@@ -191,7 +192,8 @@ class ViewVeichle extends VeichleListController {
           PaperProps={{
             style: {
               borderRadius: '15px',
-              padding:'2rem'
+              margin:0,
+              padding:'10px 25px 0px 25px'
             },
           }}
         >

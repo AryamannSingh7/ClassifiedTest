@@ -293,6 +293,65 @@ input#mobile:focus {
 .MuiAutocomplete-inputRoot{
   border-radius: 25px !important;
 }
-.MuiAutocomplete-inputRoot[class*="MuiOutlinedInput-root"] .MuiAutocomplete-input:first-child{
-  padding-left: 39px !important;
+.complex-input{
+
+  .MuiAutocomplete-inputRoot{
+    padding-left: 39px !important;
+  }
+}
+.footer-main-block1 {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.bottomBlock1 {
+  flex-direction: column;
+  align-items: center;
+  margin-top: 10px;
+
+  @include mq(tablet-landscape-up) {
+    // margin-bottom: 30px;
+  }
+
+  & .bottom-text {
+    font-size: 11px;
+    font-weight: 600;
+    position: relative;
+    color: $DARK;
+    margin: 0;
+
+    &::after,
+    &::before {
+      position: absolute;
+      width: 100px;
+      height: 0px;
+      border: 1px solid $LIGHT_GRAY_SHADE1;
+      top: 45%;
+    }
+
+    &::after {
+      content: " ";
+      left: 95px;
+    }
+
+    &::before {
+      content: " ";
+      left: -115px;
+    }
+  }
+
+  & .tenant-logo {
+    width: 120px;
+  }
+
+  @include mq(tablet-landscape-up) {
+    // flex-direction: row;
+    // justify-content: center;
+  }
+
+  & .link {
+    // font-weight: 500;
+    white-space: nowrap;
+  }
 }
