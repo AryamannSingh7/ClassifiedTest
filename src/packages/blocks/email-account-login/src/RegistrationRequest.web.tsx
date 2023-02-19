@@ -24,6 +24,7 @@ import EmailAccountLoginController, {
   Props
 } from "./EmailAccountLoginController.web";
 import Loader from "../../../components/src/Loader.web";
+import ArrowBackIcon from "@material-ui/icons/ArrowBack";
 class RegistrationRequest extends EmailAccountLoginController {
   constructor(props: Props) {
     super(props);
@@ -35,14 +36,12 @@ class RegistrationRequest extends EmailAccountLoginController {
   }
 
   render() {
-    console.log("getRegistrationRequest===================>", this.state?.registrationRequest?.attributes);
     const building_name = this.state?.registrationRequest?.attributes?.building_management?.name;
-    const apartment_name = this.state?.registrationRequest?.attributes?.apartment_management?.apartment_name;
-    //console.log("getRegistrationRequest===================>",building_name ,apartment_name);
+    const apartment_name = this.state?.registrationRequest?.attributes?.apartment_management?.data?.attributes?.apartment_name;
     return (
       <>
         <Box className="login-wrapper reg-wrapper">
-          <Box display={{ xs: 'flex', md: 'none' }} className="backIcon" onClick={() => window.history.back()}><KeyboardBackspaceIcon /></Box>
+          <Box display={{ xs: 'flex', md: 'none' }} className="backIcon" onClick={() => window.history.back()}> <ArrowBackIcon onClick={() => window.history.back()} style={{ fontSize: "25px",marginLeft:"-7px"}} /></Box>
           <Grid container spacing={2} className="auth-container">
             <Grid item xs={12} md={7} className="auth-cols">
               <Box className="content-block">
@@ -55,15 +54,15 @@ class RegistrationRequest extends EmailAccountLoginController {
                 <Box className="main-content-block">
                   <Box className="reg-content-block">
                     <Box className="header-block chairmanHeaderBlock">
-                      <img src={Tenant_Logo.default} className="tenant-logo" alt="Tenant Logo" />
-                      <h1>Regestration Request<br></br>Under process</h1>
-                      <h6>Your regestration request for {apartment_name} of<br></br>{building_name} is sent and under<br></br>process.You will receive notification<br></br>once it it processed.</h6>
+                      <img src={Tenant_Logo.default} className="tenant-logo" alt="Tenant Logo" style={{marginBottom:"30px",marginTop:"20px"}} />
+                      <h1 className="bold-text" style={{fontSize:"22px"}}>Regestration Request<br></br>Under process</h1>
+                      <h6 style={{fontSize:"16px"}} >Your regestration request for {apartment_name} of<br></br>{building_name} is sent and under<br></br>process.You will receive notification<br></br>once it it processed.</h6>
                     </Box>
                     <Box className="reg-block">
-                      <Box className="reg-row">
-                        <img src={Bank_Icon} className="bank-logo" alt="Tenant Logo" />
+                      <Box className="reg-row" style={{height:"60px"}}>
+                        <img src={Bank_Icon} className="bank-logo" alt="Tenant Logo" style={{height:"32px"}}/>
                         <Box className="reg-right-block">
-                          <h5>{apartment_name}</h5>
+                          <h5 className="bold-text" style={{marginBottom:"3px"}}>{apartment_name}</h5>
                           <h6>{building_name}</h6>
                         </Box>
                       </Box>
@@ -72,7 +71,7 @@ class RegistrationRequest extends EmailAccountLoginController {
                 </Box>
                 <Box className="footer-block">
                   <Box className="row-btn customButton desktop-ui">
-                    <Button variant="contained" onClick={() => { this.setState({ showDialog: true }) }}>
+                    <Button variant="contained" onClick={() => { this.setState({ showDialog: true }) }} style={{marginBottom:"10px"}}>
                       Delete Registration REQUEST
                     </Button>
                     <Button onClick={() => this.clear()} variant='text'>

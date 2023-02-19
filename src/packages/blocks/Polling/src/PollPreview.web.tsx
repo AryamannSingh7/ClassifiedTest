@@ -50,7 +50,7 @@ class PollPreview extends PollingController {
     const {t} = this.props
     return ( 
       <>
-    <Box style={{background: "#E5ECFF"}}>
+    <Box style={{background: "#F7F9FE"}}>
         <DashboardHeader {...this.props}/>
       
         <Box style={{display: "flex"}}>
@@ -82,7 +82,7 @@ class PollPreview extends PollingController {
                                     <Box>
                                         {
                                             (this.state.PreViewPollData?.PollType === true) ? 
-                                            <Typography variant="body2" className="AnonymousPreviewPoll">{t("Anonymous Poll")}</Typography>
+                                            <Typography variant="body2" className="AnonymousPreviewPoll bold-text">{t("Anonymous Poll")}</Typography>
                                              : ''
                                         }
                                     </Box>
@@ -129,7 +129,7 @@ class PollPreview extends PollingController {
 
                         <Grid item sm={12} md={12} xs={12}>
                             <Box className="createPSCards" style={{backgroundColor:"#fcfcfc"}}>
-                                <Typography className="PollNameText bold-text" style={{fontSize: "20px",marginBottom:"15px"}}>
+                                <Typography className="PollNameText bold-text" style={{fontSize: "20px",marginBottom:"25px"}}>
                                     {this.state.PreViewPollData?.PollFormData?.question}
                                 </Typography>
 

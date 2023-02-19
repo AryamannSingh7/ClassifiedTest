@@ -33,6 +33,7 @@ export interface Props extends RouteComponentProps{
   navigation: any;
   id: string;
   // Customizable Area Start
+  t:any;
   // Customizable Area End
 }
 

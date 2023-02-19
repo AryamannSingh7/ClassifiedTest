@@ -51,7 +51,7 @@ class Polling extends PollingController {
     const {t} = this.props
     return (
       <>
-    <Box style={{background: "#E5ECFF"}}>
+    <Box style={{background: "#F7F9FE"}}>
         <DashboardHeader {...this.props}/>
 
         <Box style={{display: "flex"}}>
@@ -67,22 +67,12 @@ class Polling extends PollingController {
                         <Typography variant="body1" >
                         {t("My Dashboard")} / <Box component="span" style={{color: "blue"}}>{t("Poll and surveys")}</Box>
                         </Typography>
-                        <Typography variant="h5" className="subHeading">{t("Poll / Surveys")}</Typography>
-                    </Box>
-                    <Box>
-                        <FormControl className='YearMain'>
-                            <NativeSelect className='yearSelection'
-                            value={this.state.Year} onChange={this.handleChange}>
-                                <option value="This Week">{t("This Week")}</option>
-                                <option value="This Month">{t("This Month")}</option>
-                                <option value="This Year">{t("This Year")}</option>
-                            </NativeSelect>
-                        </FormControl>
+                        <Typography variant="h5" className="subHeading bold-text">{t("Poll / Surveys")}</Typography>
                     </Box>
                 </Box>
                 <Grid container spacing={4} style={{marginTop: 15}} className="link-decoration">
                     <Grid item sm={6} md={4} xs={12}>
-                        <Box className="CreatePS" onClick={() => {  this.setState({ showDialog: true})}}>
+                        <Box className="CreatePS" onClick={() => {  this.setState({ showDialog: true})}} style={{paddingTop:"2rem",paddingBottom:"4rem"}}>
                             <Box sx={{ml:1, mb:2}} >
                                 <img src={pollandsurvey} alt="pollandsurvey" />
                             </Box>
@@ -130,7 +120,7 @@ class Polling extends PollingController {
                     <Grid item sm={6} md={4} xs={12}>
                         {/*@ts-ignore*/}
                         <Box className="Cards" onClick={() => this.props.history.push("/PollsallData")}>
-                            <Box sx={{ml:1, mb:2}} className="CardsIcons">
+                            <Box sx={{ml:1.5, mb:2}} className="CardsIcons">
                                 <img src={pollcreate} alt="pollcreate" />
                             </Box>
                             <Typography className="subHeading">{t("Polls Created")}</Typography>
@@ -139,7 +129,7 @@ class Polling extends PollingController {
                                     {this.state.totalPollsCount.polls_count ? this.state.totalPollsCount.polls_count : ''}
                                 </Typography>
                             </Box>
-                            <Box className="bottomTwoSpan">
+                            <Box className="bottomTwoSpan" style={{marginBottom:"1rem"}}>
                                 <Typography variant="body2">
                                     {t("Last poll created on")} {this.state.totalPollsCount.last_poll_created_at ? this.state.totalPollsCount.last_poll_created_at : ''}
                                 </Typography>
@@ -159,7 +149,7 @@ class Polling extends PollingController {
                                     {this.state.totalSurveyCount.survey_count ? this.state.totalSurveyCount.survey_count : ''}
                                 </Typography>
                             </Box>
-                            <Box className="bottomTwoSpan">
+                            <Box className="bottomTwoSpan" style={{marginBottom:"1rem"}}>
                                 <Typography variant="body2">{t("Last Survey created on")} {" "}
                                     {this.state.totalSurveyCount.last_survey_created_at ? this.state.totalSurveyCount.last_survey_created_at : ''}
                                 </Typography>
@@ -170,7 +160,7 @@ class Polling extends PollingController {
                 </Grid>
 
                 <Box className="RecentItems">
-                    <Typography className="Recenttitle">{t("Recent Polls")}</Typography>
+                    <Typography className="Recenttitle bold-text">{t("Recent Polls")}</Typography>
                     <Link href="/PollsallData" >
                         <Typography className="ViewAll">{t("View All")}</Typography>
                     </Link>
@@ -276,7 +266,7 @@ class Polling extends PollingController {
                 </Grid>
 
                 <Box className="RecentItems">
-                    <Typography className="Recenttitle">{t("Recent Surveys")}</Typography>
+                    <Typography className="Recenttitle bold-text">{t("Recent Surveys")}</Typography>
                     <Link href="/SurveyAllData" >
                         <Typography className="ViewAll">{t("View All")}</Typography>
                     </Link>

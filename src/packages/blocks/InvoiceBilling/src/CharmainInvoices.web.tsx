@@ -100,7 +100,7 @@ render() {
     return (
       // Customizable Area Start
       <>
-        <Box style={{background: "#E5ECFF"}} className={classes.announcements}>
+        <Box style={{background: "#F7F9FE"}} className={classes.announcements}>
             {/* Dashboard Header -- */}
             <DashboardHeader {...this.props}/>
             <Box style={{display: "flex"}}>

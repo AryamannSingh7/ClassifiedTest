@@ -49,18 +49,18 @@ class Registration extends EmailAccountRegistrationController {
             <img src={Back_btn} onClick={() => window.history.back()} style={{marginTop:'1rem',marginLeft:'0.5rem'}} />
           </Grid>
         </Grid>
-        <Box display='flex' justifyContent='center' style={{ cursor: 'pointer'}} onClick={()=>//@ts-ignore
+        <Box display='flex' justifyContent='center' style={{ cursor: 'pointer',marginTop:'2rem'}} onClick={()=>//@ts-ignore
           window.open("https://www.TenantInt.com", '_blank').focus()}>
           <img src={company_logo} style={{width:'10rem'}} />
         </Box>
         <Grid container>
           <Grid xs={12}>
-            <p className="text-center bold-text" style={{ fontSize: '2rem', fontWeight: 900,marginTop:'1.5rem' }}>
+            <p className="text-center bold-text" style={{ fontSize: '2rem', fontWeight: 900,marginTop:'1.25rem' }}>
               Welcome
             </p>
           </Grid>
         </Grid>
-        <Grid container style={{marginBottom:'2rem'}}>
+        <Grid container style={{marginBottom:'1rem'}}>
           <Grid xs={12}>
             <p className="text-center" style={{fontSize:'15px'}}>
               Owner Sign up

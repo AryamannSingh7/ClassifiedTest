@@ -51,7 +51,7 @@ class MyTeam extends MyTeamController {
     const {t} = this.props
     return (
       <>
-    <Box style={{background: "#E5ECFF"}}>
+    <Box style={{background: "#F7F9FE"}}>
         <DashboardHeader {...this.props}/>
         <Box style={{display: "flex"}}>
             <Grid item xs={3} md={3} sm={3} className="SideBar">
