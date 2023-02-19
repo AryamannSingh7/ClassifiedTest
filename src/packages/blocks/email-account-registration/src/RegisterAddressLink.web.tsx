@@ -14,6 +14,8 @@ import { Back_btn, building, Building1, city, Complex, country, ReqHome, unit } 
 import { withRouter } from "react-router";
 import { withTranslation } from "react-i18next";
 import Autocomplete from "@material-ui/lab/Autocomplete";
+import AlertErrorWeb from "../../../components/src/AlertError.web";
+
 
 class RegisterAddressLinkLink extends EmailAccountRegistrationController {
   constructor(props: Props) {
@@ -180,7 +182,7 @@ class RegisterAddressLinkLink extends EmailAccountRegistrationController {
         setFieldValue("selectComplex", newValue);
       }}
       placeholder="Search Complex"
-      renderInput={(params) => <TextField {...params} className='complex-input' placeholder="Search Complex" variant="outlined" />}
+      renderInput={(params) => <TextField {...params} className={this.state.selectComplex ?'complex-input':''} placeholder="Search Complex" variant="outlined" />}
     />
 
                           <span className="frmLeftIcons" style={{ top: "1.5rem" }}>
@@ -293,6 +295,8 @@ class RegisterAddressLinkLink extends EmailAccountRegistrationController {
           PaperProps={{
             style: {
               borderRadius: "15px",
+              margin:0,
+              padding:'10px 25px 0px 25px'
             },
           }}
         >
@@ -304,7 +308,10 @@ class RegisterAddressLinkLink extends EmailAccountRegistrationController {
                 id="alert-dialog-title"
                 style={{ overflow: "visible", width: "auto",fontSize:20 }}
               >
-             sure want to register this unit?
+             <h1 className="bold-text ">
+
+Sure want to register this unit?
+</h1>
               </DialogTitle>
               <p style={{paddingTop:20}}>
                 Are you sure that you want to register the unit{" "}
@@ -321,7 +328,7 @@ class RegisterAddressLinkLink extends EmailAccountRegistrationController {
                     this.createRequest();
                   }}
                 >
-                  Yes Register
+                  Yes, Register
                 </Button>
                 <Button onClick={() => this.setState({ showDialog: false })} variant="text">
                   No, Don’t Regsiter
@@ -330,6 +337,8 @@ class RegisterAddressLinkLink extends EmailAccountRegistrationController {
             </Box>
           </Box>
         </Dialog>
+        <AlertErrorWeb show={this.state.showError} handleClose={()=> this.setState({showError:false,error:null})} message={this.state.error} />
+
       </>
     );
   }

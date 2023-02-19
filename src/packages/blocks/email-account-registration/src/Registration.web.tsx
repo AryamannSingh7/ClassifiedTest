@@ -16,6 +16,8 @@ import { withRouter } from 'react-router';
 import Loader from "../../../components/src/Loader.web";
 // @ts-ignore
 import Autocomplete, { createFilterOptions } from '@material-ui/lab/Autocomplete';
+import AlertErrorWeb from "../../../components/src/AlertError.web";
+import { Tenant_Logo } from "../../email-account-login/src/assets";
 // import "../../../web/src/assets/css/content/auth.styles.scss";
 
 
@@ -454,7 +456,7 @@ class Registration extends EmailAccountRegistrationController  {
                             fontWeight: "normal",
                             fontSize: 15,
                             textAlign: "center",
-                            marginTop:'1.5rem'
+                            marginTop:'55px'
                           }}
                         >
                           Already have an account ?
@@ -467,14 +469,14 @@ class Registration extends EmailAccountRegistrationController  {
                             color: "#FC8434",
                             marginLeft: 1,
                             fontWeight: 'bold',
-                            marginTop:'1.5rem'
+                            marginTop:'57px'
                           }}
                         >
                           Login
                         </Link>
                       </Box>
 
-                      <Box
+                      {/* <Box
                         display="flex"
                         mt="25px"
                         alignItems="flex-start"
@@ -491,13 +493,12 @@ class Registration extends EmailAccountRegistrationController  {
                         >
                           POWERED BY
 
-
-
-                          {/* , {t("including the")} */}
-                          {" "}
-
                         </Typography>
-                      </Box>
+                      </Box> */}
+                       <Box className="footer-main-block1 bottomBlock1" style={{backgroundColor:"white",marginTop: '25px'}}>
+                  <h6 className="bottom-text">POWERED BY</h6>
+                  {/* <img src={Tenant_Logo.default} className="tenant-logo" style={{ cursor: 'pointer'}} onClick={()=>window.open("https://www.TenantInt.com", '_blank').focus()} alt="" /> */}
+                </Box>
                       <Box display='flex' justifyContent='center'>
                         <a href="http://www.tenantint.com/" target="_blank">
                           <img src={company_logo} width='125' height='125' />
@@ -518,6 +519,7 @@ class Registration extends EmailAccountRegistrationController  {
           </Box>
         </Grid>
           </Grid>
+          <AlertErrorWeb show={this.state.showError} handleClose={()=> this.setState({showError:false,error:null})} message={this.state.error} />
 
     </>
   )

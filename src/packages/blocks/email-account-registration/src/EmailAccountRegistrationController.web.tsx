@@ -33,7 +33,7 @@ export interface S {
   enableReTypePasswordField: boolean;
   countryCodeSelected: string;
   phone: string;
-  error: string | null;
+  error:any;
   userType: string | null;
   allContries: [];
   selectCountry: string;
@@ -53,6 +53,7 @@ export interface S {
   selectCode2: string;
 
   showDialog: boolean;
+  showError:boolean
   // Customizable Area End
 }
 
@@ -145,7 +146,7 @@ export default class EmailAccountRegistrationController extends BlockComponent<
       //@ts-nocheck
       loading: false,
       otp: '',
-
+      showError:false,
       showDialog: false
       // Customizable Area End
     };
@@ -258,13 +259,13 @@ export default class EmailAccountRegistrationController extends BlockComponent<
       this.props.history.push('/otp')
     } else if (responseJson?.errors) {
       this.setState({ loading: false })
-      let error = responseJson.errors[0];
-      this.setState({ error });
+      let error = responseJson.errors[0].errors;
+      this.setState({ error,showError:true });
     } else {
       this.setState({ error: responseJson?.error || "Something went wrong!" });
     }
     
-    ApiCatchErrorResponse(responseJson.errors);
+    // ApiCatchErrorResponse(responseJson.errors);
     this.setState({ loading: false })
   }
   handleVerifyOtp(responseJson:any,errorReponse:any){
@@ -285,11 +286,11 @@ export default class EmailAccountRegistrationController extends BlockComponent<
         this.props.history.push('/registerunit')
       }
     } else if (responseJson?.errors) {
-      let error = responseJson.errors[0];
-      this.setState({ error });
+      let error = responseJson.errors[0].message;
+      this.setState({ error,showError:true });
     } else {
-      this.setState({ error: responseJson?.error || "Something went wrong!" });
-      ApiCatchErrorResponse(this.state.error);
+      this.setState({ error: responseJson?.error[0].message || "Something went wrong!",showError:true });
+      // ApiCatchErrorResponse(this.state.error);
     }
     this.setState({ loading: false })
   }
@@ -304,14 +305,14 @@ export default class EmailAccountRegistrationController extends BlockComponent<
       this.props.history.push('/otp')
     } else if (responseJson?.errors) {
       this.setState({ loading: false })
-      let error = responseJson.errors[0];
-      this.setState({ error });
-      ApiCatchErrorResponse(this.state.error);
-      ApiCatchErrorResponse(errorReponse);
+      let error = responseJson.errors[0].errors;
+      this.setState({ error,showError:true });
+      // ApiCatchErrorResponse(this.state.error);
+      // ApiCatchErrorResponse(errorReponse);
     } else {
-      this.setState({ error: responseJson?.error || "Something went wrong!" });
-      ApiCatchErrorResponse(this.state.error);
-      ApiCatchErrorResponse(errorReponse);
+      this.setState({ error: responseJson?.error || "Something went wrong!",showError:true });
+      // ApiCatchErrorResponse(this.state.error);
+      // ApiCatchErrorResponse(errorReponse);
     }
     this.setState({ loading: false })
   }
@@ -333,10 +334,10 @@ export default class EmailAccountRegistrationController extends BlockComponent<
       })
     } else {
       //Check Error Response
-      this.setState({ loading: false })
-      this.parseApiErrorResponse(responseJson);
+      this.setState({ loading: false,showError:true,error:responseJson.errors[0].errors})
+      // this.parseApiErrorResponse(responseJson);
     }
-    ApiCatchErrorResponse(errorReponse);
+    // ApiCatchErrorResponse(errorReponse);
   }
   handleCreateRequestApiCallId(responseJson:any,errorReponse:any){
     if (!responseJson.errors) {
@@ -349,7 +350,11 @@ export default class EmailAccountRegistrationController extends BlockComponent<
     } else {
       //Check Error Response
       this.parseApiErrorResponse(responseJson);
+      this.setState({ loading: false,showError:true,error:responseJson.errors[0].errors})
+
     }
+    this.setState({ loading: false,showError:true,error:responseJson.errors[0].errors})
+
     ApiCatchErrorResponse(errorReponse);
   }
   handleCreateRequestManaulApiCallId(responseJson:any,errorReponse:any){
@@ -359,6 +364,8 @@ export default class EmailAccountRegistrationController extends BlockComponent<
       this.props.history.push('/RegistrationRequestsignup')
     } else {
       //Check Error Response
+      this.setState({ loading: false,showError:true,error:responseJson.errors[0].errors})
+
       this.parseApiErrorResponse(responseJson);
     }
     ApiCatchErrorResponse(errorReponse);
@@ -1286,7 +1293,10 @@ if(attributes.phone.includes('+')){
 
   handleInputChangeCOm = (e:any,newValue: any) => {
     console.log(newValue)
-    this.setState({ selectComplex: newValue.value }, () => this.getData({ target: { name: 'selectComplex' } }))
+    if(newValue){
+
+      this.setState({ selectComplex: newValue.value }, () => this.getData({ target: { name: 'selectComplex' } }))
+    }
   };
 
   createRequestManual = (attributes: any) => {

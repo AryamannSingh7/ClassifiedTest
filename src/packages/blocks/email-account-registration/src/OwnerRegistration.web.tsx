@@ -14,6 +14,8 @@ import { Back_btn, Building1, company_logo, email, password, user } from "./asse
 import { dailCode } from './code'
 import { withRouter } from 'react-router';
 import Loader from "../../../components/src/Loader.web";
+import AlertErrorWeb from "../../../components/src/AlertError.web";
+
 // @ts-ignore
 import Autocomplete, { createFilterOptions } from '@material-ui/lab/Autocomplete';
 
@@ -502,6 +504,8 @@ class Registration extends EmailAccountRegistrationController {
             </Box>
           </Grid>
             </Grid>
+          <AlertErrorWeb show={this.state.showError} handleClose={()=> this.setState({showError:false,error:null})} message={this.state.error} />
+            
       </>
     )
   }

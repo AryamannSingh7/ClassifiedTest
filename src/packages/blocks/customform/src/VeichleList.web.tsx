@@ -9,7 +9,7 @@ import PermIdentityIcon from '@material-ui/icons/PermIdentity';
 
 import MailOutlineIcon from '@material-ui/icons/MailOutline';
 import HomeIcon from '@material-ui/icons/Home';
-import { Building1, info, NoVehicles, } from "./assets";
+import { Building1, CarLogo, info, NoVehicles, } from "./assets";
 import { withRouter } from 'react-router';
 import Loader from "../../../components/src/Loader.web";
 import VeichleListController from "./VeichleListController.web";
@@ -63,9 +63,9 @@ class VeichleList extends VeichleListController {
                               </div>
                               <div className="card-content">
 
-                                <img src='https://cdn-icons-png.flaticon.com/512/112/112957.png' style={{ marginRight: 10,width:60,height:60 }} />
+                                <img src={CarLogo} style={{ marginRight: 10,width:60,height:20 }} />
                                 <div className="content" style={{padding:'0px 0px 0px 5px',display:'flex',justifyContent:'center',alignItems:'center',flexDirection:'column'}}>
-                                  <p className="title" style={{padding:0,marginBottom:10}}>
+                                  <p className="title bold-text" style={{padding:0,marginBottom:5}}>
                                     {item.attributes.company_name}
                                   </p>
                                   <p className="sub-title">
