@@ -1449,7 +1449,7 @@ if(attributes.phone.includes('+')){
   signupSchema = () => {
     const validations = Yup.object().shape({
       //@ts-ignore
-      full_name: Yup.string().required(`Name is required`).trim().matches("^[a-zA-Z \-]+$","Only characters are allowed in name"),
+      full_name: Yup.string().required(`Name is required`).trim().matches("^[a-zA-Z \u0600-\u06FF-]+$","Only characters are allowed in name"),
       email: Yup.string().email().required(`Email is required`).trim(),
       phone: Yup.number()
         .typeError("Only numbers are allowed.")

@@ -235,7 +235,7 @@ class SurveyParticipate extends SurveyMyResponseController {
               </Box>
               {
                   this.state.SurveyQuestions.length < 2 &&
-                  <Box style={{background: "#E5ECFF",height:"190px",display:'flex',flexDirection:"column",alignItems:'center'}} />
+                  <Box style={{background: "#F7F9FE",height:"190px",display:'flex',flexDirection:"column",alignItems:'center'}} />
               }
           </Grid>
         </Grid>

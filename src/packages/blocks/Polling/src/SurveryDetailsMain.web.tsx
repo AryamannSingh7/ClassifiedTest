@@ -44,7 +44,7 @@ class PollDetails extends SurveyDetailsMainController {
     // @ts-ignore
       return (
       <>
-    <Box style={{background: "#E5ECFF"}}>
+    <Box style={{background: "#F7F9FE"}}>
         <DashboardHeader {...this.props}/>
       
         <Box style={{display: "flex"}}>
