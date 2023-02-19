@@ -39,7 +39,7 @@ class CreateSurveys extends GenerateBudgetReportController {
     const {t} = this.props
     return ( 
       <>
-    <Box className="GenerateBudgetReport" style={{background: "#E5ECFF"}}>
+    <Box className="GenerateBudgetReport" style={{background: "#F7F9FE"}}>
         <DashboardHeader {...this.props} />
         <Box style={{display: "flex"}} className="GenerateBudgetReport">
             <Grid item xs={3} md={3} sm={3} className="SideBar GenerateBudgetReport">
