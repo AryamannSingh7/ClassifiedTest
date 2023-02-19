@@ -1,6 +1,6 @@
 import * as React from "react";
 // custom components
-import { Button, Grid, Box, Dialog, DialogTitle, DialogActions } from "@material-ui/core";
+import { Button, Grid, Box, Dialog, DialogTitle, DialogActions, TextField } from "@material-ui/core";
 import "../assets/css/style.scss";
 import ArrowBackIcon from "@material-ui/icons/ArrowBack";
 import { Formik, Form, ErrorMessage } from "formik";
@@ -10,9 +10,10 @@ import MenuItem from "@material-ui/core/MenuItem";
 import FormControl from "@material-ui/core/FormControl";
 import Select from "@material-ui/core/Select";
 import ReactSelect from "react-select";
-import { Back_btn, building, Building1, city, country, ReqHome, unit } from "./assets";
+import { Back_btn, building, Building1, city, Complex, country, ReqHome, unit } from "./assets";
 import { withRouter } from "react-router";
 import { withTranslation } from "react-i18next";
+import Autocomplete from "@material-ui/lab/Autocomplete";
 
 class RegisterAddressLinkLink extends EmailAccountRegistrationController {
   constructor(props: Props) {
@@ -65,7 +66,7 @@ class RegisterAddressLinkLink extends EmailAccountRegistrationController {
               >
                 {({ values, touched, errors, isValid, setFieldValue, handleChange }) => (
                   <Form translate="yes" className="commonForm" style={{ height: "76vh", position: "relative" }}>
-                    <Grid container style={{ margin: "1rem", width: "90%" }}>
+                    <Grid container style={{ margin: "1rem",marginBottom:0, width: "90%" }}>
                       <Grid xs={12} className="formGroup customSelect">
                         <FormControl variant="outlined" fullWidth>
                           {/* <InputLabel
@@ -90,7 +91,7 @@ class RegisterAddressLinkLink extends EmailAccountRegistrationController {
                             label="Country"
                             style={{
                               borderRadius: 25,
-                              border: "0px solid #e9dede",
+                          
                               color: "#b5b5b5",
                               paddingLeft:55
                             }}
@@ -113,7 +114,7 @@ class RegisterAddressLinkLink extends EmailAccountRegistrationController {
                         <ErrorMessage className="text-error" component="Typography" name="selectCountry" />
                       </Grid>
                     </Grid>
-                    <Grid container style={{ margin: "1rem", width: "90%" }}>
+                    <Grid container style={{ margin: "1rem",marginTop:0, marginBottom:'-1rem', width: "90%" }}>
                       <Grid xs={12} className='formGroup customSelect'>
                         <FormControl variant="outlined" fullWidth>
                           {/* <InputLabel
@@ -137,7 +138,7 @@ class RegisterAddressLinkLink extends EmailAccountRegistrationController {
                               setFieldValue("selectCity", e.target.value);
                             }}
                             label="City"
-                            style={{ borderRadius: 25, border: "0px solid #e9dede", color: "#b5b5b5",paddingLeft:55 }}
+                            style={{ borderRadius: 25, color: "#b5b5b5",paddingLeft:55 }}
                           >
                             <MenuItem value=" ">Select city</MenuItem>
                             {this.state.allCity &&
@@ -151,10 +152,10 @@ class RegisterAddressLinkLink extends EmailAccountRegistrationController {
                         <ErrorMessage className="text-error" component="Typography" name="selectCity" />
                       </Grid>
                     </Grid>
-                    <Box className="commonForm">
-                      <Box className="formGroup">
+                    <Box className="commonForm" style={{marginTop:0,marginBottom:0,}}>
+                      <Box className="formGroup customSelect">
                         <Box className="formInputGrp">
-                          <ReactSelect
+                          {/* <ReactSelect
                             options={this.state.allComplex}
                             className="hello"
                             classNamePrefix="filter"
@@ -165,7 +166,22 @@ class RegisterAddressLinkLink extends EmailAccountRegistrationController {
                               this.handleInputChangeCOm(e);
                               setFieldValue("selectComplex", e.value);
                             }}
-                          />
+                          /> */}
+                          <span className="frmLeftIcons" style={{left:'34px',top:'27%'}}>
+                              <img src={Complex} className="frm-icons" alt="House Icon" />
+                            </span>
+                           <Autocomplete
+      id="combo-box-demo"
+      options={this.state.allComplex}
+      getOptionLabel={(option) => option.label}
+      style={{ borderRadius: 25, color: "#b5b5b5",paddingLeft:20,width:'89%' }}
+      onChange={(e: any,newValue) => {
+        this.handleInputChangeCOm(e,newValue);
+        setFieldValue("selectComplex", newValue);
+      }}
+      placeholder="Search Complex"
+      renderInput={(params) => <TextField {...params} className='complex-input' placeholder="Search Complex" variant="outlined" />}
+    />
 
                           <span className="frmLeftIcons" style={{ top: "1.5rem" }}>
                             {/* <img src={search} /> */}
@@ -174,7 +190,7 @@ class RegisterAddressLinkLink extends EmailAccountRegistrationController {
                       </Box>
                       <ErrorMessage className="text-error" component="Typography" name="selectComplex" />
                     </Box>
-                    <Grid container style={{ margin: "1rem", width: "90%" }}>
+                    <Grid container style={{ margin: "1rem", marginTop:0,marginBottom:0,width: "90%" }}>
                       <Grid xs={12} className='formGroup customSelect'>
                         <FormControl variant="outlined" fullWidth>
                           {/* <InputLabel
@@ -197,7 +213,7 @@ class RegisterAddressLinkLink extends EmailAccountRegistrationController {
                               setFieldValue("selectBuilding", e.target.value);
                             }}
                             label="Building"
-                            style={{ borderRadius: 25, border: "0px solid #e9dede", color: "#b5b5b5",paddingLeft:55 }}
+                            style={{ borderRadius: 25, color: "#b5b5b5",paddingLeft:55 }}
                           >
                             <MenuItem value=" ">Select building</MenuItem>
                             {this.state.allBuilding &&
@@ -211,7 +227,7 @@ class RegisterAddressLinkLink extends EmailAccountRegistrationController {
                         <ErrorMessage className="text-error" component="Typography" name="selectBuilding" />
                       </Grid>
                     </Grid>
-                    <Grid container style={{ margin: "1rem", width: "90%" }}>
+                    <Grid container style={{ margin: "1rem",marginTop:0,marginBottom:0, width: "90%" }}>
                       <Grid xs={12} className='formGroup customSelect'>
                         <FormControl variant="outlined" fullWidth>
                           {/* <InputLabel
@@ -234,7 +250,7 @@ class RegisterAddressLinkLink extends EmailAccountRegistrationController {
                               setFieldValue("selectUnit", e.target.value);
                             }}
                             label="Unit"
-                            style={{ borderRadius: 25, border: "0px solid #e9dede", color: "#b5b5b5",paddingLeft:55 }}
+                            style={{ borderRadius: 25, color: "#b5b5b5",paddingLeft:55 }}
                           >
                             <MenuItem value=" ">Select unit</MenuItem>
                             {this.state.allUnit &&
