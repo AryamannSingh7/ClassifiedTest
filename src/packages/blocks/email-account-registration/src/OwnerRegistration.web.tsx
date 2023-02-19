@@ -283,7 +283,7 @@ class Registration extends EmailAccountRegistrationController {
                       <Field
                         className="formInput"
                         name="password"
-                        placeholder="Confirm Password"
+                        placeholder="Enter Password"
                         type={values.showPassword ? "text" : "password"}
 
                       />
