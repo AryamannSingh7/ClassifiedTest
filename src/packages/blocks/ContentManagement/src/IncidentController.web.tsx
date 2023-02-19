@@ -717,13 +717,14 @@ confirmOrRejectIncident =(id : any,val : any)=>{
       };
 
       //const id = localStorage.getItem("userId");
+      const society_id = localStorage.getItem("society_id")
       const requestMessage = new Message(
         getName(MessageEnum.RestAPIRequestMessage)
       );
       this.getIncidentListingApiCallId = requestMessage.messageId;
       this.setState({ loading: true });
 
-     const  getSortByOrStatus = `bx_block_custom_form/incidents?sort_type=${sortBy}&filter_by=${status}`
+     const  getSortByOrStatus = `bx_block_custom_form/incidents?society_management_id=${society_id}?sort_type=${sortBy}&filter_by=${status}`
 
       requestMessage.addData(
         getName(MessageEnum.RestAPIResponceEndPointMessage),
