@@ -167,7 +167,7 @@ class ChairmanLogin extends ChairmanAccountLoginController {
                           <Box className="formGroup">
                             <Field name="email" type="text" placeholder="Email ID" className="formInput" />
                             <span className="frmLeftIcons">
-                            <img src={Email_Icon} className="frm-icons" alt="Email Icon" />
+                            <img src={Email_Icon} className="frm-icons" alt="Email Icon" style={{marginTop:"2px"}} />
                           </span>
                           </Box>
                           <Box style={{marginTop:"-10px",marginBottom:"-10px"}}>
@@ -186,7 +186,7 @@ class ChairmanLogin extends ChairmanAccountLoginController {
                           <Box className="formGroup">
                             <Field name="password" type={values.showPassword ? "text" : "password"} placeholder="Password" className="formInput" />
                             <span className="frmLeftIcons">
-                            <img src={Lock_User_Icon} className="frm-icons" alt="Email Icon" />
+                            <img src={Lock_User_Icon} className="frm-icons" alt="Email Icon" style={{marginTop:"-2px"}}/>
                           </span>
                             {/* <span className="frmrightIcons"><Visibility /></span> */}
                             <span className="frmrightIcons">
@@ -200,7 +200,8 @@ class ChairmanLogin extends ChairmanAccountLoginController {
                                       style={{
                                         width: 24,
                                         height: 24,
-                                        marginRight: 16,
+                                        marginRight: 0,
+                                        marginTop:3,
                                         color: "#000000",
                                         opacity: 0.54
                                       }}
@@ -216,7 +217,8 @@ class ChairmanLogin extends ChairmanAccountLoginController {
                                       style={{
                                         width: 24,
                                         height: 24,
-                                        marginRight: 16,
+                                        marginRight: 0,
+                                        marginTop:3,
                                         color: "#000000",
                                         opacity: 0.54
                                       }}
