@@ -61,7 +61,7 @@ class FaqChairman extends FaqChairmanController {
                         {t("Frequently asked questions")}
                       </Box>
                     </Typography>
-                    <Typography variant="h5" className="sub-heading">
+                    <Typography variant="h5" className="sub-heading bold-text">
                       {t("Frequently asked questions")}
                     </Typography>
                   </Box>
@@ -101,8 +101,8 @@ class FaqChairman extends FaqChairmanController {
                 {this.state.faqList.length === 0 && (
                   <Box className="empty-box">
                     <img src={QuestionImage} alt="no questions" />
-                    <Typography variant="h6" className="no-question-text">
-                      {t("No Question Added")}
+                    <Typography variant="h6" className="no-question-text bold-text">
+                      {t("No question added")}
                     </Typography>
                   </Box>
                 )}
@@ -112,6 +112,7 @@ class FaqChairman extends FaqChairmanController {
                       <Accordion square key={faq.id}>
                         <AccordionSummary expandIcon={<ExpandMoreIcon />}>
                           <Typography
+                            className="bold-text"
                             expanded={this.state.expanded === faq.title}
                             onClick={() => this.handleChange(faq.title)}
                           >
@@ -169,7 +170,9 @@ class FaqChairman extends FaqChairmanController {
             open={this.state.isAddQuestionModalOpen}
           >
             <MuiDialogTitle disableTypography className="dialog-heading">
-              <Typography variant="h6">{t("Add Questions")}</Typography>
+              <Typography variant="h6" className="bold-text">
+                {t("Add Questions")}
+              </Typography>
               <IconButton onClick={() => this.handleAddQuestionModal()}>
                 <CloseIcon />
               </IconButton>
@@ -253,7 +256,9 @@ class FaqChairman extends FaqChairmanController {
             open={this.state.isEditQuestionModalOpen}
           >
             <MuiDialogTitle className="dialog-heading" disableTypography>
-              <Typography variant="h6">{t("Edit Questions")}</Typography>
+              <Typography variant="h6" className="bold-text">
+                {t("Edit Questions")}
+              </Typography>
               <IconButton onClick={() => this.handleEditQuestionModal()}>
                 <CloseIcon />
               </IconButton>
@@ -333,7 +338,9 @@ class FaqChairman extends FaqChairmanController {
 
           <Dialog fullWidth onClose={() => this.handleAddCategoryModal()} open={this.state.isAddCategoryModalOpen}>
             <MuiDialogTitle className="dialog-heading" disableTypography>
-              <Typography variant="h6">{t("Add Category")}</Typography>
+              <Typography variant="h6" className="bold-text">
+                {t("Add Category")}
+              </Typography>
               <IconButton onClick={() => this.handleAddCategoryModal()}>
                 <CloseIcon />
               </IconButton>
@@ -395,8 +402,10 @@ class FaqChairman extends FaqChairmanController {
           >
             <DialogContent style={{ margin: "15px 0" }}>
               <Box textAlign="center">
-                <img className="comment-image" src={CommentImage.default} alt="comment" />
-                <Typography variant="h6">{t("Do you want to delete the category?")}</Typography>
+                <img className="comment-image" src={CommentImage} alt="comment" />
+                <Typography variant="h6" className="bold-text">
+                  {t("Do you want to delete the category?")}
+                </Typography>
                 <Typography variant="body1" style={{ marginBottom: "0px" }}>
                   {t("Are you sure want to delete the category")}
                   {this.state.selectedCategoryName}"?
@@ -434,8 +443,10 @@ class FaqChairman extends FaqChairmanController {
           >
             <DialogContent style={{ margin: "15px 0" }}>
               <Box textAlign="center">
-                <img className="comment-image" src={CommentImage.default} alt="comment" />
-                <Typography variant="h6">{t("Do you want to delete the question?")}</Typography>
+                <img className="comment-image" src={CommentImage} alt="comment" />
+                <Typography variant="h6" className="bold-text">
+                  {t("Do you want to delete the question?")}
+                </Typography>
                 <Typography variant="body1" style={{ marginBottom: "15px" }}>
                   {t("Are you sure want to delete the question?")}
                 </Typography>
