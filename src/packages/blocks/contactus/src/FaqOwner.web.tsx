@@ -7,7 +7,6 @@ import { FaqChairmanStyleWeb } from "./FaqChairmanStyle.web";
 import KeyboardBackspaceIcon from "@material-ui/icons/KeyboardBackspace";
 import { BuildingLogo } from "./assets";
 import { withTranslation } from "react-i18next";
-import "../../../web/src/i18n.js";
 
 class FaqOwner extends FaqOwnerController {
   constructor(props: Props) {
@@ -15,8 +14,7 @@ class FaqOwner extends FaqOwnerController {
   }
 
   render() {
-    const { classes } = this.props;
-    const { t }: any = this.props;
+    const { t, classes }: any = this.props;
 
     return (
       <>
@@ -32,7 +30,7 @@ class FaqOwner extends FaqOwnerController {
                           <KeyboardBackspaceIcon />
                         </IconButton>
                       </Link>
-                      FAQs
+                      <span className="bold-text heading">{t("FAQs")}</span>
                     </Box>
                     <Container>
                       <Box className="faq-list">
@@ -54,7 +52,7 @@ class FaqOwner extends FaqOwnerController {
                                 );
                               }}
                             >
-                              <p>{category.attributes.name}</p>
+                              <p className="bold-text">{category.attributes.name}</p>
                               <NavigateNextIcon />
                             </div>
                           );
@@ -69,7 +67,7 @@ class FaqOwner extends FaqOwnerController {
                       <IconButton onClick={() => this.changeFaqState(1)}>
                         <KeyboardBackspaceIcon />
                       </IconButton>
-                      {this.state.faq}'s FAQs
+                      <span className="bold-text heading">{this.state.faq}'s FAQs</span>
                     </Box>
                     <Container>
                       <Box className="faq-list">
@@ -91,7 +89,7 @@ class FaqOwner extends FaqOwnerController {
                                 );
                               }}
                             >
-                              <p>{faq.title}</p>
+                              <p className="bold-text">{faq.title}</p>
                               <NavigateNextIcon />
                             </div>
                           );
@@ -106,12 +104,12 @@ class FaqOwner extends FaqOwnerController {
                       <IconButton onClick={() => this.changeFaqState(2)}>
                         <KeyboardBackspaceIcon />
                       </IconButton>
-                      {this.state.faq}'s FAQs
+                      <span className="bold-text heading">{this.state.faq}'s FAQs</span>
                     </Box>
                     <Container>
                       <Box className="faq-list">
                         <div className="faq-ans" onClick={() => {}}>
-                          <span>{this.state.question}</span>
+                          <span className="bold-text">{this.state.question}</span>
                           <p>{this.state.answer}</p>
                         </div>
                         <Button fullWidth variant="contained" disableElevation onClick={() => this.changeFaqState(2)}>
