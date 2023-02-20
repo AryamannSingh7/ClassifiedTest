@@ -42,16 +42,32 @@ class RegisterAddressLinkLink extends EmailAccountRegistrationController {
                 </Grid>
               </Grid>
 
-              <Grid container style={{ marginLeft: "16px",marginTop:"3rem", width: "90%" }}>
+              <Grid container style={{ marginLeft: "16px",marginTop:"2rem", width: "90%" }}>
                 <Grid xs={12}>
                   <p className="text-left bold-text" style={{ fontSize: "1.5rem", fontWeight: 700 }}>
+                   {
+                     sessionStorage.getItem('selectedUserType') =='Tenant' ?<>
+                     Select Building and Unit
+                     </>
+                     :
+                     <>
                     Linking a Unit
+                     </>
+                   }
                   </p>
                 </Grid>
               </Grid>
               <Grid container style={{ margin: "1rem", width: "90%",marginTop:'0.5rem' }}>
                 <Grid xs={12}>
+                  {
+                    sessionStorage.getItem('selectedUserType') =='Tenant' ?<>
+                    Please select the unit you would like to link with your account.If you have more than one unit you can link the other ones later on.
+                    </>
+                    :
+                    <>
                   <p className="text-left">Please select the appropriate details of the unit</p>
+                    </>
+                  }
                 </Grid>
               </Grid>
               <Formik
@@ -315,9 +331,18 @@ Sure want to register this unit?
 </h1>
               </DialogTitle>
               <p style={{paddingTop:20}}>
+                {
+                  sessionStorage.getItem('selectedUserType') =='Tenant' ? <>
+                   Are you sure that you want to register the unit{" "}
+                {this.state.selectUnit && this.state.selectUnit.apartment_name} of{" "}
+                {this.state.selectBuilding && this.state.selectBuilding.name}?
+                  </>:
+                  <>
                 Are you sure that you want to register the unit{" "}
                 {this.state.selectUnit && this.state.selectUnit.apartment_name} of{" "}
                 {this.state.selectBuilding && this.state.selectBuilding.name} as a unit that you own or manage?
+                  </>
+                }
               </p>
             </Box>
             <Box className="dialog-footer desktop-ui" style={{ display: "flex", justifyContent: "center" }}>

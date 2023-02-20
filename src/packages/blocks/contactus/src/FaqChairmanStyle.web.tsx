@@ -165,6 +165,8 @@ export const FaqChairmanStyleWeb: any = {
       padding: "6px 20px",
       minWidth: "auto",
       minHeight: "auto",
+      boxShadow: "none",
+      fontWeight: "600",
     },
     "& .faq-box": {
       marginTop: "25px",
@@ -195,6 +197,8 @@ export const FaqChairmanStyleWeb: any = {
     "& .no-question-text": {
       fontWeight: "600",
       marginBottom: "15px",
+      marginTop: "20px",
+      fontSize: "20px",
     },
     "& .faq-box .MuiTypography-root": {
       width: "93%",
@@ -267,9 +271,6 @@ export const FaqChairmanStyleWeb: any = {
       background: "#FFFFFF",
       padding: "10px 20px",
     },
-    // "& .backIcon svg": {
-    //   marginRight: "18px",
-    // },
     "& .faq-item": {
       display: "flex",
       justifyContent: "space-between",
@@ -288,6 +289,10 @@ export const FaqChairmanStyleWeb: any = {
       borderRadius: "8px",
       wordBreak: "break-all",
     },
+    "& .faq-step span.heading": {
+      lineHeight: "18px",
+      fontSize: "18px",
+    },
     "& .faq-item p": {
       fontWeight: "600",
       width: "95%",
@@ -301,10 +306,11 @@ export const FaqChairmanStyleWeb: any = {
     "& .faq-step .faq-list button": {
       color: "#FFFFFF",
       background: "#2B6FEC",
-      padding: "10px",
+      padding: "8px",
       marginTop: "10px",
       borderRadius: "25px",
       fontWeight: "600",
+      fontSize: "15px",
     },
     "& .faq-list": {
       overflowY: "auto",
