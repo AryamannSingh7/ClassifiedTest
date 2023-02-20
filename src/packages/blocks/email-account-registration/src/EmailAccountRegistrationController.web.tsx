@@ -730,12 +730,12 @@ export default class EmailAccountRegistrationController extends BlockComponent<
   };
   checkPhone=(value:any)=>{
 let pettrn=/^5\d+$/
-    if(this.state.selectCode == '+966'){
+    if(this.state.selectCode == '+966' ||this.state.selectCode == '+971' ){
 
       if(!(pettrn.test(value)))
       {
       
-        this.setState({error:'Please enter valid mobile',showError:true})
+        this.setState({error:'Please enter valid mobile number',showError:true})
         return false
       }
       else{
@@ -1090,10 +1090,19 @@ let pettrn=/^5\d+$/
   }
 
   handleChange = (e: any) => {
+    console.log(e)
     if (e.target.value) {
       // @ts-ignore
       // @ts-nocheck
       this.setState({ ...this.state, [e.target.name]: e.target.value }, () => this.getData(e))
+    }
+  }
+  handleChangeCCode = (e: any) => {
+    console.log(e)
+    if (e) {
+      // @ts-ignore
+      // @ts-nocheck
+      this.setState({selectCode: `+${e}` })
     }
   }
 
