@@ -465,6 +465,7 @@ export default class EmailAccountRegistrationController extends BlockComponent<
   }
 
   createAccount(): boolean {
+  
     if (
       this.isStringNullOrBlank(this.state.firstName) ||
       this.isStringNullOrBlank(this.state.lastName) ||
@@ -727,189 +728,218 @@ export default class EmailAccountRegistrationController extends BlockComponent<
     },
     secureTextEntry: true
   };
+  checkPhone=(value:any)=>{
+let pettrn=/^5\d+$/
+    if(this.state.selectCode == '+966'){
 
-  createAccoun(attributes: any): boolean {
+      if(!(pettrn.test(value)))
+      {
+      
+        this.setState({error:'Please enter valid mobile',showError:true})
+        return false
+      }
+      else{
+      
 
-    const header = {
-      "Content-Type": configJSON.contentTypeApiAddDetail
-    };
-    //@ts-ignore
-    //@ts-nocheck
-    this.setState({ selectEmail: attributes.email, loading: true })
+        return true
+      }
+    }else{
+      return true
 
-    const attrs = {
-      full_name: attributes.full_name,
-      last_name: attributes.lastName,
-      email: attributes.email,
-      password: attributes.password,
-      full_phone_number: this.state.selectCode + attributes.phone,
-      password_confirmation: attributes.confirm_password
-    };
+    }
+  }
+  createAccoun=(attributes: any)=> {
+    if(this.checkPhone(attributes.phone)){
 
-    const data = {
-      type: "email_account",
+      const header = {
+        "Content-Type": configJSON.contentTypeApiAddDetail
+      };
       //@ts-ignore
-      user_type: this.props.history.location.state?.data,
-      attributes: attrs
-    };
+      //@ts-nocheck
+      this.setState({ selectEmail: attributes.email, loading: true })
+  
+      const attrs = {
+        full_name: attributes.full_name,
+        last_name: attributes.lastName,
+        email: attributes.email,
+        password: attributes.password,
+        full_phone_number: this.state.selectCode + attributes.phone,
+        password_confirmation: attributes.confirm_password
+      };
+  
+      const data = {
+        type: "email_account",
+        //@ts-ignore
+        user_type: this.props.history.location.state?.data,
+        attributes: attrs
+      };
+  
+      const httpBody = {
+        data: data
+      };
+  
+      const requestMessage = new Message(
+        getName(MessageEnum.RestAPIRequestMessage)
+      );
+      this.createAccountApiCallId = requestMessage.messageId;
+      requestMessage.addData(
+        getName(MessageEnum.RestAPIResponceEndPointMessage),
+        'account_block/accounts'
+      );
+  
+      requestMessage.addData(
+        getName(MessageEnum.RestAPIRequestHeaderMessage),
+        JSON.stringify(header)
+      );
+  
+      requestMessage.addData(
+        getName(MessageEnum.RestAPIRequestBodyMessage),
+        JSON.stringify(httpBody)
+      );
+  
+      requestMessage.addData(
+        getName(MessageEnum.RestAPIRequestMethodMessage),
+        configJSON.apiMethodTypeAddDetail
+      );
+  
+      runEngine.sendMessage(requestMessage.id, requestMessage);
+      return true;
+    }
+    
 
-    const httpBody = {
-      data: data
-    };
-
-    const requestMessage = new Message(
-      getName(MessageEnum.RestAPIRequestMessage)
-    );
-    this.createAccountApiCallId = requestMessage.messageId;
-    requestMessage.addData(
-      getName(MessageEnum.RestAPIResponceEndPointMessage),
-      'account_block/accounts'
-    );
-
-    requestMessage.addData(
-      getName(MessageEnum.RestAPIRequestHeaderMessage),
-      JSON.stringify(header)
-    );
-
-    requestMessage.addData(
-      getName(MessageEnum.RestAPIRequestBodyMessage),
-      JSON.stringify(httpBody)
-    );
-
-    requestMessage.addData(
-      getName(MessageEnum.RestAPIRequestMethodMessage),
-      configJSON.apiMethodTypeAddDetail
-    );
-
-    runEngine.sendMessage(requestMessage.id, requestMessage);
-    return true;
 
 
 
   }
-  createAccountOwner(attributes: any): boolean {
-    this.setState({loading:true})
+  createAccountOwner(attributes: any) {
+    if(this.checkPhone(attributes.phone)){
 
-    const header = {
-      "Content-Type": configJSON.contentTypeApiAddDetail
-    };
-    this.setState({ selectEmail: attributes.email })
-let phone=attributes.phone 
-if(attributes.phone.includes('+')){
-  phone = phone.slice(1)
-}
-
-    const attrs = {
-
-      full_name: attributes.full_name,
-      last_name: attributes.lastName,
-      email: attributes.email,
-      password: attributes.password,
-      full_phone_number:this.state.selectCode + phone,
-      password_confirmation: attributes.confirm_password
-    };
-
-    const data = {
-      type: "email_account",
-      // @ts-ignore
-      // @ts-nocheck
-      "user_type": this.props.history.location.state?.data,
-      attributes: attrs
-    };
-
-    const httpBody = {
-      data: data
-    };
-
-    const requestMessage = new Message(
-      getName(MessageEnum.RestAPIRequestMessage)
-    );
-    this.createAccountOwnerApiCallId = requestMessage.messageId;
-    requestMessage.addData(
-      getName(MessageEnum.RestAPIResponceEndPointMessage),
-      'account_block/accounts'
-    );
-
-    requestMessage.addData(
-      getName(MessageEnum.RestAPIRequestHeaderMessage),
-      JSON.stringify(header)
-    );
-
-    requestMessage.addData(
-      getName(MessageEnum.RestAPIRequestBodyMessage),
-      JSON.stringify(httpBody)
-    );
-
-    requestMessage.addData(
-      getName(MessageEnum.RestAPIRequestMethodMessage),
-      configJSON.apiMethodTypeAddDetail
-    );
-
-    runEngine.sendMessage(requestMessage.id, requestMessage);
-    return true;
+      this.setState({loading:true})
+  
+      const header = {
+        "Content-Type": configJSON.contentTypeApiAddDetail
+      };
+      this.setState({ selectEmail: attributes.email })
+  let phone=attributes.phone 
+  if(attributes.phone.includes('+')){
+    phone = phone.slice(1)
+  }
+  
+      const attrs = {
+  
+        full_name: attributes.full_name,
+        last_name: attributes.lastName,
+        email: attributes.email,
+        password: attributes.password,
+        full_phone_number:this.state.selectCode + phone,
+        password_confirmation: attributes.confirm_password
+      };
+  
+      const data = {
+        type: "email_account",
+        // @ts-ignore
+        // @ts-nocheck
+        "user_type": this.props.history.location.state?.data,
+        attributes: attrs
+      };
+  
+      const httpBody = {
+        data: data
+      };
+  
+      const requestMessage = new Message(
+        getName(MessageEnum.RestAPIRequestMessage)
+      );
+      this.createAccountOwnerApiCallId = requestMessage.messageId;
+      requestMessage.addData(
+        getName(MessageEnum.RestAPIResponceEndPointMessage),
+        'account_block/accounts'
+      );
+  
+      requestMessage.addData(
+        getName(MessageEnum.RestAPIRequestHeaderMessage),
+        JSON.stringify(header)
+      );
+  
+      requestMessage.addData(
+        getName(MessageEnum.RestAPIRequestBodyMessage),
+        JSON.stringify(httpBody)
+      );
+  
+      requestMessage.addData(
+        getName(MessageEnum.RestAPIRequestMethodMessage),
+        configJSON.apiMethodTypeAddDetail
+      );
+  
+      runEngine.sendMessage(requestMessage.id, requestMessage);
+      return true;
+    }
 
 
 
   }
 
   createAccountManager = (attributes: any) => {
-    this.setState({ selectEmail: attributes.email,loading:true })
+    if(this.checkPhone(attributes.phone)){
 
-    const header = {
-      "Content-Type": configJSON.contentTypeApiAddDetail
-    };
-
-    const attrs = {
-      email: attributes.email,
-      company_name: attributes.company_name,
-      full_name: attributes.managerName,
-      // owner_full_name: attributes.ownerName,
-      // owner_phone_number: this.state.selectCode + attributes.owner_phone,
-      // owner_email: attributes.owner_email,
-      password: attributes.password,
-      full_phone_number:  this.state.selectCode + "-" +attributes.phone,
-      password_confirmation: attributes.confirm_password
-    };
-
-    const httpBody = {
-      data: {
-        type: "email_account",
-        //@ts-ignore
-        user_type: this.props.history.location.state?.data,
-        attributes: attrs
-      }
-    };
-
-    const requestMessage = new Message(
-      getName(MessageEnum.RestAPIRequestMessage)
-    );
-    this.createManagerAccountApiCallId = requestMessage.messageId;
-    requestMessage.addData(
-      getName(MessageEnum.RestAPIResponceEndPointMessage),
-      'account_block/accounts'
-    );
-
-    requestMessage.addData(
-      getName(MessageEnum.RestAPIRequestHeaderMessage),
-      JSON.stringify(header)
-    );
-
-    requestMessage.addData(
-      getName(MessageEnum.RestAPIRequestBodyMessage),
-      JSON.stringify(httpBody)
-    );
-
-    requestMessage.addData(
-      getName(MessageEnum.RestAPIRequestMethodMessage),
-      configJSON.apiMethodTypeAddDetail
-    );
-
-    runEngine.sendMessage(requestMessage.id, requestMessage);
-    return true;
-
-
+      this.setState({ selectEmail: attributes.email,loading:true })
+  
+      const header = {
+        "Content-Type": configJSON.contentTypeApiAddDetail
+      };
+  
+      const attrs = {
+        email: attributes.email,
+        company_name: attributes.company_name,
+        full_name: attributes.managerName,
+        // owner_full_name: attributes.ownerName,
+        // owner_phone_number: this.state.selectCode + attributes.owner_phone,
+        // owner_email: attributes.owner_email,
+        password: attributes.password,
+        full_phone_number:  this.state.selectCode + "-" +attributes.phone,
+        password_confirmation: attributes.confirm_password
+      };
+  
+      const httpBody = {
+        data: {
+          type: "email_account",
+          //@ts-ignore
+          user_type: this.props.history.location.state?.data,
+          attributes: attrs
+        }
+      };
+  
+      const requestMessage = new Message(
+        getName(MessageEnum.RestAPIRequestMessage)
+      );
+      this.createManagerAccountApiCallId = requestMessage.messageId;
+      requestMessage.addData(
+        getName(MessageEnum.RestAPIResponceEndPointMessage),
+        'account_block/accounts'
+      );
+  
+      requestMessage.addData(
+        getName(MessageEnum.RestAPIRequestHeaderMessage),
+        JSON.stringify(header)
+      );
+  
+      requestMessage.addData(
+        getName(MessageEnum.RestAPIRequestBodyMessage),
+        JSON.stringify(httpBody)
+      );
+  
+      requestMessage.addData(
+        getName(MessageEnum.RestAPIRequestMethodMessage),
+        configJSON.apiMethodTypeAddDetail
+      );
+  
+      runEngine.sendMessage(requestMessage.id, requestMessage);
+      return true;
+  
+  
+    }
+  
   }
-
   createRequest = () => {
     const header = {
       "Content-Type": configJSON.contentTypeApiAddDetail,
