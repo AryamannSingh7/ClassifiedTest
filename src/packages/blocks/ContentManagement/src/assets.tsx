@@ -49,3 +49,6 @@ export const DeleteIcon = require("../assets/delete_icon.png");
 export const NoClassifiedIcon = require("../assets/no-classified-icon.png");
 export const PdfImage = require("../assets/pdf.png");
 export const BuildingLogo = require("../assets/building1.png");
+export const incedentBuilding = require("../assets/incedentBuilding.png")
+export const incedentUnit = require("../assets/incedentUnit.png")
+export const incedentUser = require("../assets/incedentUser.png")
