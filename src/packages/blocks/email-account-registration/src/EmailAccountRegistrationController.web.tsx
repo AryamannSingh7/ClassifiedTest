@@ -420,7 +420,7 @@ export default class EmailAccountRegistrationController extends BlockComponent<
   }
   handleGtUnitApiCallId(responseJson:any,errorReponse:any){
     if (!responseJson.errors) {
-      if(sessionStorage.getItem("selectedUserType") === ROLE.PROPERTY_MANAGER){
+      if(sessionStorage.getItem("selectedUserType") === ROLE.PROPERTY_MANAGER || sessionStorage.getItem("selectedUserType") === ROLE.TENANT){
         this.setState({ allUnit: responseJson.data.apartments})
       }else{
         this.setState({ allUnit: responseJson.data.unit_apartments })
@@ -1228,7 +1228,7 @@ let pettrn=/^5\d+$/
 
     this.getUnitApiCallId = requestMessage.messageId;
 
-    if(sessionStorage.getItem("selectedUserType") === ROLE.PROPERTY_MANAGER){
+    if(sessionStorage.getItem("selectedUserType") === ROLE.PROPERTY_MANAGER || sessionStorage.getItem("selectedUserType") === ROLE.TENANT){
       requestMessage.addData(
         getName(MessageEnum.RestAPIResponceEndPointMessage),
         `bx_block_property_manager/property_manager_requests/unit_list?society_management_id=${this.state.selectComplex}&building_management_id=${this.state.selectBuilding.id}`
