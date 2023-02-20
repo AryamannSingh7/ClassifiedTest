@@ -14,4 +14,5 @@ exports.dashboarConnection = "keep-alive";
 exports.dashboartoken = "";
 exports.labelTitleText = "dashboard";
 exports.labelBodyText = "dashboard Body";
+exports.checkLogin = "/bx_block_rent_payment/rent_payments/month_list";
 // Customizable Area End
