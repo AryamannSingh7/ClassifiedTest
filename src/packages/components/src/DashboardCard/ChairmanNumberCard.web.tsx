@@ -7,7 +7,7 @@ const ChairmanNumberCard = ({ image, heading, titleOne, valueOne, titleTwo, valu
       <Box className="card-image">
         <img src={image} alt="image" />
       </Box>
-      <h4>{heading}</h4>
+      <h4 className="bold-text">{heading}</h4>
       <Box className="card-bottom-info">
         <Box className="info-box">
           {titleOne && <p>{titleOne}</p>}
