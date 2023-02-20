@@ -10,6 +10,8 @@ import { dailCode } from "./code";
 import { withRouter } from "react-router";
 import Loader from "../../../components/src/Loader.web";
 import { withTranslation } from "react-i18next";
+import AlertErrorWeb from "../../../components/src/AlertError.web";
+
 
 class ManagerRegistration extends EmailAccountRegistrationController {
   constructor(props: Props) {
@@ -470,6 +472,8 @@ class ManagerRegistration extends EmailAccountRegistrationController {
           </Grid>
         </Grid>
         <Loader loading={this.state.loading} />
+        <AlertErrorWeb show={this.state.showError} handleClose={()=> this.setState({showError:false,error:null})} message={this.state.error} />
+
       </>
     );
   }

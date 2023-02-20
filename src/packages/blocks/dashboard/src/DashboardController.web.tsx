@@ -56,6 +56,7 @@ export default class DashboardController extends BlockComponent<Props, S, SS> {
   getUnreadCountAPIId: any = "";
   GetNotificationCallId: any = "";
   GetManagerRequestCallId: any;
+  checkLoginId:string = "";
   // Customizable Area End
 
   constructor(props: Props) {
@@ -143,6 +144,28 @@ export default class DashboardController extends BlockComponent<Props, S, SS> {
     // Customizable Area End
   };
 
+  checkLogin = (): boolean => {
+    // Customizable Area Start
+    const header = {
+      "Content-Type": configJSON.dashboarContentType,
+      token: this.state.token,
+    };
+
+    const requestMessage = new Message(getName(MessageEnum.RestAPIRequestMessage));
+
+    this.checkLoginId = requestMessage.messageId;
+
+    requestMessage.addData(getName(MessageEnum.RestAPIResponceEndPointMessage), configJSON.checkLogin);
+
+    requestMessage.addData(getName(MessageEnum.RestAPIRequestHeaderMessage), JSON.stringify(header));
+
+    requestMessage.addData(getName(MessageEnum.RestAPIRequestMethodMessage), configJSON.dashboarApiMethodType);
+
+    runEngine.sendMessage(requestMessage.id, requestMessage);
+    return true;
+    // Customizable Area End
+  };
+
   getNotification = async () => {
     this.GetNotificationCallId = await apiCall({
       contentType: "application/json",
@@ -153,6 +176,13 @@ export default class DashboardController extends BlockComponent<Props, S, SS> {
 
   handleNewNotificationResponse = (responseJson: any) => {
     this.setState({isNewNotification: responseJson.new_notification})
+  }
+
+  checkLoginResponse = (responseJson:any) => {
+    if(!responseJson?.hasOwnProperty("month")){
+      localStorage.removeItem("userToken")
+      this.props.navigation.navigate("/")
+    }
   }
  
   async receive(from: string, message: Message) {
@@ -167,7 +197,6 @@ export default class DashboardController extends BlockComponent<Props, S, SS> {
     if (getName(MessageEnum.RestAPIResponceMessage) === message.id) {
       let responseJson: any = message.getData(getName(MessageEnum.RestAPIResponceSuccessMessage));
       let errorResponse: any = message.getData(getName(MessageEnum.RestAPIResponceErrorMessage));
-
       const apiRequestCallId = message.getData(getName(MessageEnum.RestAPIResponceDataMessage));
 
       switch (apiRequestCallId) {
@@ -191,6 +220,9 @@ export default class DashboardController extends BlockComponent<Props, S, SS> {
           break;
         case this.GetNotificationCallId:
           this.handleNewNotificationResponse(responseJson);
+          break;
+        case this.checkLoginId:
+          this.checkLoginResponse(responseJson)
           break;
       }
       if (responseJson && !responseJson?.errors && responseJson?.data) {

@@ -194,14 +194,14 @@ class RegisterUnitManually extends EmailAccountRegistrationController {
                            <Autocomplete
       id="combo-box-demo"
       options={this.state.allComplex}
-      getOptionLabel={(option) => option.label}
+      getOptionLabel={(option:any) => option.label}
       style={{ borderRadius: 25, color: "#b5b5b5",paddingLeft:20,width:'89%' }}
       onChange={(e: any,newValue) => {
         this.handleInputChangeCOm(e,newValue);
         setFieldValue("selectComplex", newValue);
       }}
       placeholder="Search Complex"
-      renderInput={(params) => <TextField {...params} className='complex-input' placeholder="Search Complex" variant="outlined" />}
+      renderInput={(params) => <TextField {...params} className={this.state.selectComplex ?'complex-input':''} placeholder="Search Complex" variant="outlined" />}
     />
                     
                   </Box>
@@ -315,14 +315,19 @@ class RegisterUnitManually extends EmailAccountRegistrationController {
           PaperProps={{
             style: {
               borderRadius: '15px',
+              margin:0,
+              padding:'10px 25px 0px 25px'
             },
           }}
         >
           <Box className="diloag-body">
             <Box className="diloag-header" style={{ flexDirection: 'column',border:'none' }}>
-              <img src={ReqHome} className="tenet-logo" alt="" />
+              <img src={ReqHome} className="tenet-logo" alt="" style={{width:50,marginBottom:10}} />
               <DialogTitle className="alert-dialog-title1 bold-text" id="alert-dialog-title" style={{ overflow: 'visible', width: 'auto',fontSize:20  }}>
-                sure want to register this unit?
+             <h1 className="bold-text ">
+
+                Sure want to register this unit?
+             </h1>
               </DialogTitle>
               <p style={{paddingTop:20}}>Are you sure that you want to register the unit {this.state.selectUnit}  of {this.state.selectBuilding.name}?</p>
             </Box>
@@ -330,7 +335,7 @@ class RegisterUnitManually extends EmailAccountRegistrationController {
               <DialogActions
                className="customButton">
                 <Button variant="contained" onClick={() => this.createRequestManual(this.state.values)} >
-                  Yes Register
+                  Yes, Register
                 </Button>
                 <Button onClick={() => this.setState({ showDialog: false })} variant='text'>
                   No, Don’t Regsiter

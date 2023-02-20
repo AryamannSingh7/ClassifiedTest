@@ -15,14 +15,6 @@ import {
 } from "@material-ui/core";
 
 import '../../dashboard/src/Dashboard.web.css'
-import {
-  House_Icon, keyrented, money, location, account,
-  registered, activemembers, members, overdue, Cardcalendar, awated, Check_Mark, xmark
-}
-  from "../../dashboard/src/assets"
-
-import { Formik, Form, Field, ErrorMessage } from "formik";
-
 import Box from '@material-ui/core/Box';
 import Select from "@material-ui/core/Select";
 import NativeSelect from "@material-ui/core/NativeSelect";
@@ -33,17 +25,14 @@ import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
 import { withRouter } from 'react-router';
 import Loader from "../../../components/src/Loader.web";
-import { Input } from "react-native-elements";
-import * as Yup from "yup";
-import CountryCodeSelector from "../../country-code-selector/src/CountryCodeSelector";
 import IncidentManagementController, { Props } from "./IncidentManagementController.web";
 import DashboardHeader from "../../dashboard/src/DashboardHeader.web";
 import ChairmanSidebar from "../../dashboard/src/ChairmanSidebar.web";
 import { withTranslation } from 'react-i18next';
 import '../../../web/src/i18n.js';
-
+import {SearchIconImage} from "../../StoreCredits/src/assets"
 //resorces
-import { Users_Icon, Bank_Icon, Box_Icon, Building1 } from "../src/assets";
+import { Users_Icon, Bank_Icon, Box_Icon, Building1,incedentBuilding,incedentUnit,incedentUser } from "../src/assets";
 
 class IncidentManagement extends IncidentManagementController {
   constructor(props: Props) {
@@ -157,8 +146,8 @@ class IncidentManagement extends IncidentManagementController {
 
                     </FormControl>
                   </Box>
-                  <Box className="customButton">
-                    <Button startIcon={<img src={SearchIconImage} />} onClick={() => this.serachHandle()}>
+                  <Box >
+                    <Button variant="contained" color="primary" style={{backgroundColor:"#2b6fed",borderRadius:"8px"}} startIcon={<img src={SearchIconImage} />} onClick={() => this.serachHandle()}>
                       {t("Search")}
                     </Button>
                   </Box>
@@ -173,20 +162,20 @@ class IncidentManagement extends IncidentManagementController {
                               <Button variant="contained" className={val?.attributes?.incident_status === 'Pending Confirmation' ? "contain warning" : val?.attributes?.incident_status === 'Resolved' ? 'contain success' : 'contain danger'} type="submit">
                                 {val?.attributes?.incident_status}</Button>
                             </Box>
-                            <Typography component="h4">
+                            <Typography component="h4" className="bold-text" style={{fontSize:"20px"}}>
                               {val?.attributes?.incident_related?.name}
                             </Typography>
                             <Box className="card-rows">
-                              <img src={Bank_Icon} alt="Bank Icon" />
-                              <h5>{val?.attributes?.apartment_management?.building_name}</h5>
+                              <img src={incedentBuilding} alt="Bank Icon" />
+                              <p style={{fontSize:"16px",marginLeft:"10px"}}>{val?.attributes?.apartment_management?.building_name}</p>
                             </Box>
                             <Box className="card-rows">
-                              <img src={Box_Icon} alt="Bank Icon" />
-                              <h5>{val?.attributes?.apartment_management?.apartment_name}</h5>
+                              <img src={incedentUnit} alt="Bank Icon" />
+                              <p style={{fontSize:"16px",marginLeft:"10px"}}>{val?.attributes?.apartment_management?.apartment_name}</p>
                             </Box>
                             <Box className="card-rows">
-                              <img src={Users_Icon} alt="Bank Icon" />
-                              <h5>{val?.attributes?.reported_by?.full_name}</h5>
+                              <img src={incedentUser} alt="Bank Icon"/>
+                              <p style={{fontSize:"16px",marginLeft:"10px"}}>{val?.attributes?.reported_by?.full_name}</p>
                             </Box>
                           </CardContent>
                         </Card>
