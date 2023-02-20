@@ -42,7 +42,7 @@ class IncidentListing extends IncidentController {
     console.log("this.state?.incidentListing==========>", this.state?.incidentListing)
     return (
       <>
-        <Box className="login-wrapper incident-wrapper">
+        <Box className="login-wrapper incident-wrapper" >
           <Grid container spacing={2} className="auth-container">
             <Grid item xs={12} md={7} className="auth-cols">
               <Box className="content-block">
@@ -85,7 +85,7 @@ class IncidentListing extends IncidentController {
 
                   </Box>
                 </Box>
-                <Box className="content-block-wrapper common-incident-block">
+                <Box className="content-block-wrapper common-incident-block" style={{backgroundColor:'#f6f7fc'}}>
                   <Box className="incident-content-wrapper">
                     {
                       this.state?.incidentListing?.map((val :any, index : any) => (
@@ -145,7 +145,7 @@ class IncidentListing extends IncidentController {
                       ))
                     }
                   </Box>
-                  <Box className="customButton add-incident">
+                  <Box className="customButton" style={{paddingTop:"24px"}}>
                     <Button variant="contained" onClick={() => { this.setState({ loading: true });//@ts-ignore
                      this.props.history.push("/CreateIncident") }} >Add New Incident</Button>
                   </Box>

@@ -1,71 +1,47 @@
 import * as React from "react";
 // custom components
-import {
-  Button, Grid, Box, Typography, Link, IconButton, Dialog
-} from "@material-ui/core";
-import ArrowBackIcon from '@material-ui/icons/ArrowBack';
-import { Formik, Form, Field } from "formik";
-import PermIdentityIcon from '@material-ui/icons/PermIdentity';
-
-import MailOutlineIcon from '@material-ui/icons/MailOutline';
-import HomeIcon from '@material-ui/icons/Home';
-import { Building1, info, NoVehicles, } from "./assets";
-import { withRouter } from 'react-router';
+import {Box, Button, Dialog, Divider, Grid} from "@material-ui/core";
+import {Building1, CarLogo, info, NoVehicles,} from "./assets";
+import {withRouter} from 'react-router';
 import Loader from "../../../components/src/Loader.web";
 import VeichleListController from "./VeichleListController.web";
 import '../assets/css/style.scss';
-import { Back_btn } from "../../email-account-registration/src/assets";
-
-
-
-
-
-
-
+import {Back_btn} from "../../email-account-registration/src/assets";
 
 class VeichleList extends VeichleListController {
-
   async componentDidMount() {
-
     this.getVehicle()
-
   }
 
   render() {
     return (
-
       <>
-        <Grid container className="auth-container">
+        <Grid container className="auth-container" style={{padding: "0"}}>
           <Grid item xs={12} md={7} className="auth-cols" style={{ justifyContent: 'unset',}}>
-              <Grid container>
+              <Grid container style={{minHeight:"50px"}}>
                 <Grid xs={12} style={{display:'flex',alignItems:'center'}}>
                 <img src={Back_btn} onClick={this.redirectToDashboard}  style={{marginRight:'0.5rem',marginLeft:'0.5rem'}} />
-               
-                  <p style={{ fontWeight: 600, fontSize: '1.25rem' }}>
-
+                  <p className="bold-text" style={{ fontWeight: 600, fontSize: '1.25rem' }}>
                   My Vehicles
                   </p>
                 </Grid>
               </Grid>
-
-
-
+              <Divider/>
               {
                 this.state.allVehcile.length>0 ?
                 <>
-                  <Grid container style={{ height:'79vh',display:'block',overflow:'hidden',overflowY:'auto'}}>
+                  <Grid container style={{ height:'85vh',display:'block',overflow:'hidden',overflowY:'auto',backgroundColor:"#f6f7fc"}}>
                       {
                         this.state.allVehcile.map((item,i)=><>
-                          <Grid xs={12} >
-                            <div className="card" style={{ cursor: 'pointer' }} onClick={()=>this.addVehicle(item)}>
-                              <div className="status">
+                          <Grid xs={12} style={{width:"100%",display:'flex',justifyContent:'center'}}>
+                            <div className="card" style={{ cursor: 'pointer',width:"90%",border:"1px solid #f0f0f0",backgroundColor:"white" }} onClick={()=>this.addVehicle(item)}>
+                              <div className="status bold-text" style={{backgroundColor:"rgb(252 132 52 / 10%)",color:"#FC8434",borderRadius:"20px",fontSize:"14px"}}>
                                 {item.attributes.status}
                               </div>
                               <div className="card-content">
-
-                                <img src='https://cdn-icons-png.flaticon.com/512/112/112957.png' style={{ marginRight: 10,width:60,height:60 }} />
+                                <img src={CarLogo} style={{ marginRight: 10,width:60,height:20 }} />
                                 <div className="content" style={{padding:'0px 0px 0px 5px',display:'flex',justifyContent:'center',alignItems:'center',flexDirection:'column'}}>
-                                  <p className="title" style={{padding:0,marginBottom:10}}>
+                                  <p className="title bold-text" style={{padding:0,marginBottom:5}}>
                                     {item.attributes.company_name}
                                   </p>
                                   <p className="sub-title">
@@ -75,14 +51,11 @@ class VeichleList extends VeichleListController {
                               </div>
                             </div>
                           </Grid>
-
-
                         </>)
                       }
-
                       </Grid>
-                    <Grid container >
-                      <Grid xs={12}>
+                    <Grid container style={{backgroundColor:"#f6f7fc"}} >
+                      <Grid xs={12} style={{width:"100%",display:'flex',justifyContent:'center'}}>
                         <Button
                           fullWidth={true}
                           className={'btn'}
@@ -92,13 +65,13 @@ class VeichleList extends VeichleListController {
                             backgroundColor: "#2B6FEC",
                             borderRadius: 16,
                             height: 54,
-                            marginBottom: 14,
+                            marginBottom: 20,
                             boxShadow: "none",
                             color: "#F7F7FC",
                             fontWeight: 600,
                             fontSize: 16,
                             marginTop: 30,
-
+                            width:"90%",
                           }}
 
                         >

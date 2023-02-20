@@ -958,9 +958,10 @@ onChange =(e :any)=>{
       this.getIncidentDetailsByIdApiCallId = requestMessage.messageId;
       this.setState({ loading: true });
 
+      const society_id = localStorage.getItem("society_id")
       requestMessage.addData(
         getName(MessageEnum.RestAPIResponceEndPointMessage),
-        `bx_block_custom_form/incidents/${id}`
+        `bx_block_custom_form/incidents/${id}?society_management_id=${society_id}`
       );
 
       requestMessage.addData(

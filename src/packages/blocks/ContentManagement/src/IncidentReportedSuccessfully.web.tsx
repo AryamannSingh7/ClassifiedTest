@@ -56,10 +56,10 @@ class IncidentReportedSuccessfully extends IncidentController {
                   </Link>
                 </Box>
                 <Box className="main-content-block change-password-mainblock">
-                  <Box className="header-block header-block-changepassword">
+                  <Box className="header-block header-block-changepassword" style={{marginTop:"165px"}}>
                     <img src={Tick_Circle_Icon} className="lock-logo" alt="Lock_Icon" />
-                    <h1>Incident Reported<br></br>Successfully</h1>
-                    <p>Your incident has been reported successfully. Your ticket id for reported incident is<br></br><span className="id-title">{id}</span></p>
+                    <h1 className="bold-text">Incident Reported<br></br>Successfully</h1>
+                    <p>Your incident has been reported successfully. Your ticket id for reported incident is<br></br><span className="id-title bold-text">{id}</span></p>
                   </Box>
                 </Box>
                 <Box className="footer-block desktop-ui">

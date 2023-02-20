@@ -198,7 +198,7 @@ class CreateIncident extends IncidentController {
                           </span>
                           <ErrorMessage className="text-error" component="Typography" name="incidentTitle" />
                         </Box>
-                        <Box className="formGroup textarea">
+                        {/* <Box className="formGroup textarea">
                           <img src={Clipboard_Icon} className="clipboard-icon" alt="Clipboard_Icon" />
                           <TextareaAutosize
                             name="description"
@@ -209,10 +209,14 @@ class CreateIncident extends IncidentController {
                             value={values.description}
                           />
                         </Box>
-                        <ErrorMessage className="text-error" component="Typography" name="description" />
-                        {/* <Box className="formGroup">
+                        <ErrorMessage className="text-error" component="Typography" name="description" /> */}
+                        <Box className="formGroup">
                           <Field name="description" type="text" placeholder="Add description" className="formInput" />
-                        </Box> */}
+                          <span className="frmLeftIcons">
+                          <img src={Clipboard_Icon} className="clipboard-icon" alt="Clipboard_Icon" />
+                          </span>
+                          <ErrorMessage className="text-error" component="Typography" name="description" />
+                        </Box>
                         <Box className="formGroup customFileupload">
                           <Button
                             variant="contained"

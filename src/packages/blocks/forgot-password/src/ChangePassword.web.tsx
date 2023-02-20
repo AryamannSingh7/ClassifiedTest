@@ -50,14 +50,14 @@ class ChangePassword extends ForgotPasswordController {
                   </Link>
                 </Box>
                 <Box className="main-content-block desktop-ui">
-                  <Box className="header-block">
+                  <Box className="header-block" style={{paddingTop:"40px",paddingBottom:"10px"}}>
                     {/* <Box display={{ xs: 'flex', md: 'none' }}>
                       <Link href="/EmailAccountLogin">
                         <img src={Tenant_Logo} className="tenant-logo" alt="" />
                       </Link>
                     </Box> */}
-                    <h1 className="bold-text">Change Password</h1>
-                    <h6>You need to change your password. Please enter a new password</h6>
+                    <h1 className="bold-text" style={{fontSize:"26px"}}>Change Password</h1>
+                    <h6 style={{fontSize:"15px"}}>You need to change your password. Please enter a new password</h6>
                   </Box>
                   <Formik
                     initialValues={{
@@ -104,7 +104,7 @@ class ChangePassword extends ForgotPasswordController {
                           </div>
                           <ErrorMessage className="text-error" component="Typography" name="confirmPassword" />
                         </Box>
-                        <Box className="customButton" style={{marginTop:"80px"}}>
+                        <Box className="customButton" style={{marginTop:"60px"}}>
                           <Button variant="contained" type="submit" >change password</Button>
                         </Box>
                       </Form>
