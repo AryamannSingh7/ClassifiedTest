@@ -734,8 +734,7 @@ let pettrn=/^5\d+$/
 
       if(!(pettrn.test(value)))
       {
-      
-        this.setState({error:'Please enter valid mobile',showError:true})
+        this.setState({error:'Please enter valid mobile number',showError:true})
         return false
       }
       else{
