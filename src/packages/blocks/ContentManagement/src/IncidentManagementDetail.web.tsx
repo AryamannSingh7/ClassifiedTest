@@ -71,7 +71,7 @@ class IncidentManagementDetail extends IncidentManagementController {
     // console.log("providerListing-==================>",this.state?.providerListing);
     return (
       <>
-        <Box className="incident-Listing-wrapper desktop-ui" style={{ background: "#E5ECFF" }}>
+        <Box className="incident-Listing-wrapper desktop-ui" style={{ background: "#F7F9FE" }}>
           {/* Dashboard Header -- */}
           <DashboardHeader {...this.props} />
           <Box style={{ display: "flex" }}>
@@ -138,49 +138,49 @@ class IncidentManagementDetail extends IncidentManagementController {
                     </Box>
                     <CardContent className="card-content">
                       <Box className="row-block">
-                        <Box className="card-rows">
+                        <Box className="card-rows" style={{borderBottom:'1px solid #f4f6fb',marginBottom:'0.5rem'}}>
                         <Typography className="title-span" component="span">
                           Affected Area:
                         </Typography>
                           <h4>{attributes?.common_area?.name}</h4>
                         </Box>
-                        <Box className="card-rows">
+                        <Box className="card-rows" style={{borderBottom:'1px solid #f4f6fb',marginBottom:'0.5rem'}}>
                         <Typography className="title-span" component="span">
                          Incident is related to:
                         </Typography>
                           <h4>{attributes?.incident_related?.name}</h4>
                         </Box>
-                        <Box className="card-rows">
+                        <Box className="card-rows" style={{borderBottom:'1px solid #f4f6fb',marginBottom:'0.5rem'}}>
                         <Typography className="title-span" component="span">
                         Incident Number:
                         </Typography>
                           <h4>{id}</h4>
                         </Box>
-                        <Box className="card-rows">
+                        <Box className="card-rows" style={{borderBottom:'1px solid #f4f6fb',marginBottom:'0.5rem'}}>
                         <Typography className="title-span" component="span">
                           Building:
                         </Typography>
                           <h4>{attributes?.apartment_management?.building_name}</h4>
                         </Box>
-                        <Box className="card-rows">
+                        <Box className="card-rows" style={{borderBottom:'1px solid #f4f6fb',marginBottom:'0.5rem'}}>
                         <Typography className="title-span" component="span">
                            Unit:
                         </Typography>
                           <h4>{attributes?.apartment_management?.apartment_name}</h4>
                         </Box>
-                        <Box className="card-rows">
+                        <Box className="card-rows" style={{borderBottom:'1px solid #f4f6fb',marginBottom:'0.5rem'}}>
                         <Typography className="title-span" component="span">
                          Acknowledge by Manager:
                         </Typography>
                           <h4>{attributes?.acknoledged_by_manager}</h4>
                         </Box>
-                        <Box className="card-rows">
+                        <Box className="card-rows" style={{borderBottom:'1px solid #f4f6fb',marginBottom:'0.5rem'}}>
                         <Typography className="title-span" component="span">
                         Latest update from management:
                         </Typography>
                           <h4>{attributes?.last_update_from_management}</h4>
                         </Box>
-                        <Box className="card-rows">
+                        <Box className="card-rows" style={{borderBottom:'1px solid #f4f6fb',marginBottom:'0.5rem'}}>
                         <Typography className="title-span" component="span">
                         Description:
                         </Typography>

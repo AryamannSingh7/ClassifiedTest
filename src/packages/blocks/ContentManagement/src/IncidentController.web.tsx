@@ -749,6 +749,7 @@ confirmOrRejectIncident =(id : any,val : any)=>{
   };
 
   getMyApartmentList = () => {
+    const society_id = localStorage.getItem("society_id")
     try {
       const header = {
         "Content-Type": configJSON.validationApiContentType,
@@ -764,7 +765,7 @@ confirmOrRejectIncident =(id : any,val : any)=>{
 
       requestMessage.addData(
         getName(MessageEnum.RestAPIResponceEndPointMessage),
-        `account_block/accounts/my_apartments`
+        `account_block/accounts/my_apartments?society_management_id=${society_id}`
       );
 
       requestMessage.addData(

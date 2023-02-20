@@ -98,7 +98,7 @@ class IncidentChatBox extends InboxController {
       <div style={{ padding: "0.3rem", backgroundColor: "#ffff", paddingLeft: '0.3rem', marginTop: '1rem' }}>
         <Grid container>
           <Grid item xs={12} style={{ display: 'flex', justifyContent: 'space-between' }}>
-            <Box display='flex' alignItems='center' onClick={() => window.history.back()}>
+            <Box display='flex' alignItems='center' onClick={() => this.props.history.push("/IncidentListing")}>
               <KeyboardBackspaceIcon />
               <span style={{ fontWeight: 'bold', marginLeft: '1rem' }}>
                 Ticket
