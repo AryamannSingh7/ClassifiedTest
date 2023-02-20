@@ -41,32 +41,28 @@ class ViewVeichle extends VeichleListController {
     return (
 
       <>
-        <Grid container spacing={2} className="auth-container">
+        <Grid container spacing={2} className="auth-container" style={{padding: "0"}}>
           <Grid item xs={12} md={7} className="auth-cols" style={{ justifyContent: 'unset' }}>
-              <Grid container className="main-content-block" style={{background:'white',padding:8}}>
-                <Grid xs={12} style={{display:'flex',justifyContent:'space-between'}}>
+              <Grid container className="main-content-block" style={{background:'white',padding:0,minHeight:"50px"}}>
+                <Grid xs={12} style={{display:'flex',justifyContent:'space-between',alignItems:"center"}}>
                   <div style={{display:'flex' ,alignItems:'center'}}>
-
                   <ArrowBackIcon onClick={() => window.history.back()} />
-                  <p style={{ fontWeight: 600, fontSize: '1.25rem' }}>
+                  <p className="bold-text" style={{ fontWeight: 600, fontSize: '1.25rem' }}>
                     My Vehicles
                   </p>
                   </div>
                   <div>
                   <img src={edit} style={{ marginRight: 10, cursor: 'pointer' }} onClick={() => this.props.history.push('/editVehicle')} />
                   <img src={deleteIcon} style={{cursor: 'pointer'}} onClick={()=>this.setState({showDialog:true})} />
-
                   </div>
                 </Grid>
               </Grid>
-            <div style={{ margin: 'auto',background:'#f7f9fe' }}>
-
-
-               <Grid container>
-                <Grid xs={12}>
-                  <div className="card" style={{padding:'2rem',boxShadow:'none',margin:8,border:'1px solid #eef0f6'}}>
-                    <div className="status">
-                      {item.attributes.status}
+            <div style={{background:'#f6f7fc'}}>
+               <Grid container style={{marginTop:"10px"}}>
+                <Grid item xs={12} style={{display:"flex",justifyContent:"center"}}>
+                  <div className="card" style={{width:"80%",padding:'1rem',boxShadow:'none',margin:8,border:'1px solid #f0f0f0',background:"white",marginTop:'10px'}}>
+                    <div className="status bold-text" style={{backgroundColor:"rgb(252 132 52 / 10%)",color:"#FC8434",borderRadius:"20px",fontSize:"14px",marginBottom:"15px"}}>
+                    {item.attributes.status}
                     </div>
                     <div className="card-content">
 
@@ -129,27 +125,16 @@ class ViewVeichle extends VeichleListController {
                       </div>
                     </div>
                   </div>
-
-
                 </Grid>
-
-
-              </Grid>
-
-              <Grid container>
-                <Grid xs={12}>
-                  <p style={{ fontWeight: 800, fontSize: '1.25rem',marginBottom:'0.5rem' }}>
-                    ID
-                  </p>
+                <Grid item xs={12} style={{display:"flex",justifyContent:"center",marginBottom:"30px"}}>
+                      <Box style={{width:"90%"}}>
+                        <p style={{ fontWeight: 800, fontSize: '1.25rem',marginBottom:'0.5rem' }}>
+                          ID
+                        </p>
+                        <img src={item?.attributes?.registration_card_copy?.url} width='100%' style={{borderRadius:"20px"}}/>
+                      </Box>
                 </Grid>
               </Grid>
-              <Grid container>
-                <Grid xs={12}>
-                  <img src={item?.attributes?.registration_card_copy?.url} width='350'/>
-                </Grid>
-              </Grid>
-
-
               {/*
               <Grid container >
                 <Grid xs={12}>

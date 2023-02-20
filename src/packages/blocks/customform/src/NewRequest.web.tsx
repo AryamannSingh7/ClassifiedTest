@@ -35,7 +35,7 @@ class NewRequest extends VeichleListController {
     return (
       <>
         <Box className="login-wrapper reg-wrapper">
-          <Box display={{ xs: 'flex', md: 'none' }} className="backIcon" onClick={() => window.history.back()}><KeyboardBackspaceIcon /></Box>
+          <Box display={{ xs: 'flex', md: 'none' }} className="backIcon" onClick={() => this.props.history.push("/veichleList")}><KeyboardBackspaceIcon /></Box>
           <Grid container spacing={2} className="auth-container">
             <Grid item xs={12} md={7} className="auth-cols">
               <Box className="content-block">
