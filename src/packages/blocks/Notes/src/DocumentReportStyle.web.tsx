@@ -3,7 +3,7 @@ export const DocumentReportStyleWeb: any = {
     "& .navigation": {
       display: "flex",
       justifyContent: "space-between",
-      marginBottom: "20px",
+      marginBottom: "15px",
     },
     "& .navigation > .MuiBox-root": {
       width: "100%",
@@ -13,7 +13,7 @@ export const DocumentReportStyleWeb: any = {
       color: "#FFF",
       width: "220px",
       borderRadius: "8px",
-      padding: "10px",
+      padding: "8px",
       fontWeight: "bold",
     },
     "& .navigation .top-heading": {
@@ -22,7 +22,7 @@ export const DocumentReportStyleWeb: any = {
       justifyContent: "space-between",
       flexDirection: "row",
       width: "100%",
-      marginTop: 10,
+      marginTop: 5,
       marginBottom: 0,
     },
     "& .navigation .sub-heading": {
@@ -45,7 +45,7 @@ export const DocumentReportStyleWeb: any = {
       alignItems: "center",
       justifyContent: "space-between",
       flexDirection: "row",
-      padding: 12,
+      padding: "10px 20px 10px 20px",
       borderRadius: 10,
       border: "1px solid #e4e4e4",
     },
@@ -59,11 +59,10 @@ export const DocumentReportStyleWeb: any = {
       fontSize: "16px",
       marginLeft: "10px",
       wordBreak: "break-all",
-      // textTransform: "capitalize",
     },
     "& .document-box .item button.color-btn": {
-      padding: "5px 11px",
-      minWidth: "60px",
+      padding: "5px 5px",
+      minWidth: "50px",
       borderRadius: "25px",
       fontWeight: "600",
       background: "#FEF9F3",
@@ -87,7 +86,7 @@ export const DocumentReportStyleWeb: any = {
     },
     "& .document-box .card-item": {
       boxShadow: "none",
-      padding: "10px 18px 18px",
+      padding: "18px",
     },
     "& .document-box .card-item .heading": {
       display: "flex",
@@ -96,8 +95,21 @@ export const DocumentReportStyleWeb: any = {
       textTransform: "capitalize",
       marginBottom: "10px",
     },
+    "& .document-box .card-item.resolution-card .heading": {
+      minHeight: "50px",
+      alignItems: "flex-start",
+    },
     "& .document-box .card-item .heading h4": {
       wordBreak: "break-all",
+      "text-overflow": "ellipsis",
+      "-webkit-line-clamp": "2",
+      display: "-webkit-box",
+      overflow: "hidden",
+      "-webkit-box-orient": "vertical",
+      "white-space": "normal",
+    },
+    "& .document-box .card-item .heading .menu button": {
+      padding: "0",
     },
     "& .document-box .card-item .res-info": {
       width: "100%",
@@ -133,6 +145,7 @@ export const DocumentReportStyleWeb: any = {
     "& .document-box.resolutions .item": {
       minHeight: "20px",
       marginTop: "15px",
+      padding: "12px",
     },
     "& .szh-menu-container ul li a": {
       textDecoration: "none",

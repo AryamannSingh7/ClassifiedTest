@@ -5,7 +5,6 @@ import {
   Container,
   IconButton,
   Link,
-  // MenuItem,
   Typography,
   withStyles,
   Box,
@@ -58,7 +57,7 @@ class DocumentListChairman extends DocumentListChairmanController {
 
   handleError = (errors: any, touched: any) => {
     if (errors && touched) {
-      return <small className="error">{errors.title}</small>;
+      return <small className="error">{errors}</small>;
     }
   };
 
@@ -84,7 +83,7 @@ class DocumentListChairman extends DocumentListChairmanController {
       return this.state.resolutionList.map((resolution: any) => {
         return (
           <Grid item xs={12} md={6} lg={4} key={resolution.id}>
-            <Card className="card-item">
+            <Card className="card-item resolution-card">
               <div className="heading">
                 <h4 className="bold-text">{resolution.attributes.title}</h4>
                 <div className="menu">
@@ -349,7 +348,7 @@ class DocumentListChairman extends DocumentListChairmanController {
             validationSchema={this.validationAddForm}
             onSubmit={(values, { resetForm }) => {
               this.setState({ ...this.state, title: values.title.trim(), file: values.file }, () => {
-                this.createDocument();
+                this.createDocument(values);
                 this.handleAddDocumentModal();
                 resetForm();
               });
@@ -425,7 +424,7 @@ class DocumentListChairman extends DocumentListChairmanController {
         </Dialog>
 
         <Dialog
-          className="delete-document"
+          className="delete-document delete-document-dialog"
           fullWidth
           maxWidth="sm"
           onClose={() => this.handleDeleteDocumentModal()}
@@ -567,9 +566,9 @@ class DocumentListChairman extends DocumentListChairmanController {
             <List>
               <ListItem dense className="list-heading">
                 <ListItemIcon />
-                <ListItemText primary={t("Title")} />
-                <ListItemText primary={t("Agenda")} />
-                <ListItemText primary={t("Date & Time")} />
+                <ListItemText primary={t("Title")} className="bold-text" />
+                <ListItemText primary={t("Agenda")} className="bold-text" />
+                <ListItemText primary={t("Date & Time")} className="bold-text" />
               </ListItem>
               {this.meetingList(t)}
             </List>
