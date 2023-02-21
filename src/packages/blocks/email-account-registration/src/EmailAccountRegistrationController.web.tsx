@@ -1465,9 +1465,9 @@ if(value.includes('+'))
   signupSchemaManager = () => {
     const validations = Yup.object().shape({
       //@ts-ignore
-      company_name: Yup.string().required(`Company name is required`).trim().matches("^[a-zA-Z \-]+$","Only characters are allowed in username"),
+      company_name: Yup.string().required(`Company name is required`).trim().matches("^[a-zA-Z\u0600-\u06FF,-\s\d][\s\d\a-zA-Z\u0600-\u06FF,-]*$","Only characters are allowed in username"),
       //@ts-ignore
-      managerName: Yup.string().required(`Manager name is required`).trim().matches("^[a-zA-Z \-]+$","Only characters are allowed in username"),
+      managerName: Yup.string().required(`Manager name is required`).trim().matches("^[a-zA-Z\u0600-\u06FF,-\s\d][\s\d\a-zA-Z\u0600-\u06FF,-]*$","Only characters are allowed in username"),
       // ownerName: Yup.string().required(`Owner name is required`).trim().matches("^[a-zA-Z\-]+$","Only characters are allowed in username"),
       email: Yup.string().email('Email is not valid').required(`Email is required`).trim(),
       // owner_email: Yup.string().email().required(`Owner email is required`).trim(),
@@ -1506,7 +1506,7 @@ if(value.includes('+'))
   signupSchema = () => {
     const validations = Yup.object().shape({
       //@ts-ignore
-      full_name: Yup.string().required(`Name is required`).trim().matches("^[a-zA-Z \-]+$","Only characters are allowed in name"),
+      full_name: Yup.string().required(`Name is required`).trim().matches("^[a-zA-Z\u0600-\u06FF,-\s\d][\s\d\a-zA-Z\u0600-\u06FF,-]*$","Only characters are allowed in name"),
       email: Yup.string().email('Email is not valid').required(`Email is required`).trim(),
       phone: Yup.number()
         .typeError("Only numbers are allowed.")
