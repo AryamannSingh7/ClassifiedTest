@@ -11,6 +11,9 @@ import { withRouter } from "react-router";
 import Loader from "../../../components/src/Loader.web";
 import { withTranslation } from "react-i18next";
 import AlertErrorWeb from "../../../components/src/AlertError.web";
+import PhoneInput from "react-phone-input-2";
+import 'react-phone-input-2/lib/style.css'
+
 
 
 class ManagerRegistration extends EmailAccountRegistrationController {
@@ -205,10 +208,11 @@ class ManagerRegistration extends EmailAccountRegistrationController {
                           border="0.1px solid rgb(209 209 209 / 44%)"
                           borderRadius="16px"
                           bgcolor="#f9f9f9"
+                          style={{overflow:'visible'}}
                         >
                           <Box>
                             <FormControl variant="outlined">
-                              <Select
+                              {/* <Select
                                 name="selectCode"
                                 labelId="demo-simple-select-outlined-label"
                                 id="demo-simple-select-outlined"
@@ -232,7 +236,14 @@ class ManagerRegistration extends EmailAccountRegistrationController {
                                     {item.dial_code}
                                   </MenuItem>
                                 ))}
-                              </Select>
+                              </Select> */}
+                              <PhoneInput
+                            inputProps={{name:'selectCode'}}
+                            // name='selectCode'
+                            enableSearch={true}
+                            value={this.state.selectCode}
+                            onChange={this.handleChangeCCode}
+                            />
                             </FormControl>
                           </Box>
                           <Field
@@ -404,7 +415,7 @@ class ManagerRegistration extends EmailAccountRegistrationController {
                         <Box display="flex" mt="25px" alignItems="center" justifyContent="center">
                           <Typography
                             style={{
-                              color: "#A0A3BD",
+                              color: "black",
                               fontWeight: "normal",
                               fontSize: 15,
                               textAlign: "center",
@@ -428,25 +439,10 @@ class ManagerRegistration extends EmailAccountRegistrationController {
                           </Link>
                         </Box>
 
-                        <Box
-                          display="flex"
-                          mt="25px"
-                          alignItems="flex-start"
-                          justifyContent="center"
-                          className={"sign"}
-                        >
-                          <Typography
-                            style={{
-                              color: "#A0A3BD",
-
-                              textAlign: "center",
-                              fontWeight: "normal",
-                              fontSize: 12,
-                            }}
-                          >
-                            POWERED BY{" "}
-                          </Typography>
-                        </Box>
+                        <Box className="footer-main-block1 bottomBlock1" style={{backgroundColor:"white",marginTop: '25px'}}>
+                  <h6 className="bottom-text" style={{color:'#A0A3BD'}}>POWERED BY</h6>
+                  {/* <img src={Tenant_Logo.default} className="tenant-logo" style={{ cursor: 'pointer'}} onClick={()=>window.open("https://www.TenantInt.com", '_blank').focus()} alt="" /> */}
+                </Box>
                         <Box
                           display="flex"
                           justifyContent="center"

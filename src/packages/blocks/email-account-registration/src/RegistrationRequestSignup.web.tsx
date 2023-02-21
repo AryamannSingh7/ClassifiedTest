@@ -36,7 +36,7 @@ class RegistrationRequestSignup extends EmailAccountRegistrationController {
     return (
       <>
         <Box className="login-wrapper reg-wrapper classWhite" style={{background:'white'}}>
-          <Box display={{ xs: 'flex', md: 'none' }} className="backIcon" onClick={() => window.history.back()}><KeyboardBackspaceIcon /></Box>
+          {/* <Box display={{ xs: 'flex', md: 'none' }} className="backIcon" onClick={() => window.history.back()}><KeyboardBackspaceIcon /></Box> */}
           <Grid container spacing={2} className="auth-container">
             <Grid item xs={12} md={7} className="auth-cols">
               <Box className="content-block">
