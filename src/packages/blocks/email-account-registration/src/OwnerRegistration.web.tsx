@@ -192,7 +192,7 @@ class Registration extends EmailAccountRegistrationController {
                       height="56px"
                       border="0.1px solid rgb(209 209 209 / 44%)"
                       borderRadius="25px"
-                      style={{background:'#f9f9f9'}}
+                      style={{background:'#f9f9f9',overflow:'visible'}}
                     >
                       <Box>
                         <FormControl variant="outlined" >
