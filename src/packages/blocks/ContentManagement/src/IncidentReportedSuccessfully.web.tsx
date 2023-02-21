@@ -64,7 +64,7 @@ class IncidentReportedSuccessfully extends IncidentController {
                 </Box>
                 <Box className="footer-block desktop-ui">
                   <Box className="row-btn customButton" style={{margin:"0"}}>
-                    <Button variant="contained" onClick={() => {
+                    <Button variant="contained" style={{boxShadow:"none"}} onClick={() => {
                       //@ts-ignore
                       this.createChatRoom(localStorage?.getItem("createIncidentId"))
                       localStorage.removeItem("createIncidentId");
