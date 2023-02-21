@@ -50,7 +50,6 @@ import { ROLE } from "../../../framework/src/Enum";
 import { Menu } from "@szhsin/react-menu";
 import "@szhsin/react-menu/dist/core.css";
 import { withTranslation } from "react-i18next";
-import "../../../web/src/i18n.js";
 
 class ScheduledMeetingDetails extends ScheduledMeetingController {
   constructor(props: Props) {
@@ -63,7 +62,6 @@ class ScheduledMeetingDetails extends ScheduledMeetingController {
       this.getScheduleMeetingDetail();
       this.getMeetingResponseList();
       this.getBuildingsList();
-      // this.getManagersList();
       this.getUserList();
       this.getGroupList();
     });
@@ -84,19 +82,14 @@ class ScheduledMeetingDetails extends ScheduledMeetingController {
   }
 
   render() {
-    const { classes } = this.props;
-    const { t }: any = this.props;
-
-    console.log(this.state);
+    const { t, classes }: any = this.props;
 
     return (
       <>
-        <Box style={{ background: "#F4F7FF" }} className={classes.scheduledMeetingDetails}>
-          {/* Dashboard Header -- */}
+        <Box style={{ background: "#F7F9FE" }} className={classes.scheduledMeetingDetails}>
           <DashboardHeader {...this.props} />
           <Box style={{ display: "flex" }}>
             <Grid item xs={3} md={3} sm={3} className="SideBar">
-              {/* Chairman Sidebar -- */}
               <ChairmanSidebarWeb {...this.props} />
             </Grid>
 
@@ -105,14 +98,14 @@ class ScheduledMeetingDetails extends ScheduledMeetingController {
                 <Box className="navigation">
                   <Box>
                     <Typography variant="body1">
-                      {t("Meetings")} / {t("Scheduled Meetings")} /{" "}
+                      {t("Meetings")} / <Link to="/ScheduledMeetings">{t("Scheduled Meetings")}</Link> /{" "}
                       <Box component="span" style={{ color: "blue" }}>
                         {t("Meeting Details")}
                       </Box>
                     </Typography>
                   </Box>
                   <Box className="sub-heading">
-                    <h3>{t("Meeting Details")}</h3>
+                    <h3 className="bold-text">{t("Meeting Details")}</h3>
                     {localStorage.getItem("userType") === ROLE.MANAGER &&
                     this.state.scheduleMeetingDetails &&
                     this.state.scheduleMeetingStatus === "completed" &&
@@ -132,7 +125,9 @@ class ScheduledMeetingDetails extends ScheduledMeetingController {
                 <Box className="meeting-detail-box">
                   <Box className="meeting-top">
                     <Box className="heading">
-                      <h3>{this.state.scheduleMeetingDetails && this.state.scheduleMeetingDetails.attributes.title}</h3>
+                      <h4 className="bold-text">
+                        {this.state.scheduleMeetingDetails && this.state.scheduleMeetingDetails.attributes.title}
+                      </h4>
                       {this.state.scheduleMeetingDetails &&
                         this.state.scheduleMeetingDetails.attributes.meeting_type === "ga_meeting" && (
                           <span className="ga-meeting">{t("GA Meeting")}</span>
@@ -142,7 +137,7 @@ class ScheduledMeetingDetails extends ScheduledMeetingController {
                   </Box>
                   <Divider />
                   <Box className="meeting-details">
-                    <h4>{t("Meeting Details")}</h4>
+                    <h4 className="bold-text">{t("Meeting Details")}</h4>
                     <Box className="items">
                       <span>{t("Date & Time")}: </span>
                       {this.state.scheduleMeetingDetails && (
@@ -172,7 +167,7 @@ class ScheduledMeetingDetails extends ScheduledMeetingController {
                     </Box>
                   </Box>
                   <Box className="meeting-details">
-                    <h4>{t("Scheduling Details")}</h4>
+                    <h4 className="bold-text">{t("Scheduling Details")}</h4>
                     <Box className="items">
                       <span>{t("Scheduled By")}: </span>
                       <p>
@@ -198,7 +193,7 @@ class ScheduledMeetingDetails extends ScheduledMeetingController {
                   {this.state.scheduleMeetingStatus === "cancelled" &&
                     this.state.scheduleMeetingDetails.attributes.meeting_cancel_detail && (
                       <Box className="meeting-details">
-                        <h4>{t("Cancelled Details")}</h4>
+                        <h4 className="bold-text">{t("Cancelled Details")}</h4>
                         <Box className="items">
                           <span>{t("Cancelled By")}: </span>
                           <p>{this.state.scheduleMeetingDetails.attributes.meeting_cancel_detail.cancelled_by}</p>
@@ -219,7 +214,7 @@ class ScheduledMeetingDetails extends ScheduledMeetingController {
                 <Box className="response-box">
                   {this.state.scheduleMeetingDetails && this.state.scheduleMeetingStatus === "scheduled" ? (
                     <Box className="heading">
-                      <h3>{t("Response")}</h3>
+                      <h3 className="bold-text">{t("Response")}</h3>
                       <Box className="status">
                         <div className="item">
                           <img src={AwaitIcon} />
@@ -246,7 +241,7 @@ class ScheduledMeetingDetails extends ScheduledMeetingController {
                     </Box>
                   ) : (
                     <Box className="heading">
-                      <h3>{t("Meeting Attendees")}</h3>
+                      <h3 className="bold-text">{t("Meeting Attendees")}</h3>
                     </Box>
                   )}
                   <Table className="table-box">

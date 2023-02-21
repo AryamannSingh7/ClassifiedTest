@@ -59,19 +59,19 @@ class DashboardBudget extends DashboardBudgetController {
                     <Typography variant="h5">{t("Budget Dashboard")}</Typography>
                     <Box className="select-box">
                       {userType === ROLE.MANAGER && (
-                        <NativeSelect className="select-year">
+                        <select className="select-year">
                           <option value={2022}>Building 1</option>
                           <option value={2021}>Building 2</option>
                           <option value={2020}>Building 3</option>
                           <option value={2019}>Building 4</option>
-                        </NativeSelect>
+                        </select>
                       )}
-                      <NativeSelect className="select-year">
+                      <select className="select-year">
                         <option value={2022}>2022</option>
                         <option value={2021}>2021</option>
                         <option value={2020}>2020</option>
                         <option value={2019}>2019</option>
-                      </NativeSelect>
+                      </select>
                     </Box>
                   </Box>
                 </Box>

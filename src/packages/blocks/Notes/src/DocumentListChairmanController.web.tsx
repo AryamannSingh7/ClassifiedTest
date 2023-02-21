@@ -441,10 +441,10 @@ export default class DocumentListChairmanController extends BlockComponent<Props
   };
 
   // Create Document API
-  createDocument = () => {
+  createDocument = (values: any) => {
     var data = new FormData();
-    data.append("title", this.state.title);
-    data.append("images", this.state.file);
+    data.append("title", values.title.trim());
+    data.append("images", values.file);
 
     if (this.state.docName.toLowerCase() === "policy") {
       data.append("document_type", "Policy");

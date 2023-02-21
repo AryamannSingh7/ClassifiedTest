@@ -24,7 +24,6 @@ import { MeetingsStyleWeb } from "./MeetingsStyle.web";
 import { orange } from "@material-ui/core/colors";
 import moment from "moment";
 import { withTranslation } from "react-i18next";
-import "../../../web/src/i18n.js";
 import MuiDialogTitle from "@material-ui/core/DialogTitle";
 import CloseIcon from "@material-ui/icons/Close";
 
@@ -50,11 +49,7 @@ class MyMeetingDetail extends MyMeetingsController {
   }
 
   render() {
-    const { classes } = this.props;
-    const { t }: any = this.props;
-
-    console.log(this.state);
-    console.log(this.state.meeting && this.state.meeting.attributes.meeting_date_time);
+    const { t, classes }: any = this.props;
 
     return (
       <>
@@ -69,7 +64,7 @@ class MyMeetingDetail extends MyMeetingsController {
                         <KeyboardBackspaceIcon />
                       </IconButton>
                     </Link>
-                    <span>{this.state.meeting && this.state.meeting.attributes.title}</span>
+                    <span className="bold-text">{this.state.meeting && this.state.meeting.attributes.title}</span>
                   </div>
                 </Box>
                 <Container>
@@ -77,7 +72,7 @@ class MyMeetingDetail extends MyMeetingsController {
                     <Box className="meeting-details">
                       <Box className="meeting-detail">
                         <Box className="heading">
-                          <h4>{t("Meeting Details")}</h4>
+                          <h4 className="bold-text">{t("Meeting Details")}</h4>
                           {this.state.meeting && this.state.meeting.attributes.meeting_response && (
                             <span className={this.state.meeting.attributes.meeting_response}>
                               {this.state.meeting.attributes.meeting_response}
@@ -109,7 +104,7 @@ class MyMeetingDetail extends MyMeetingsController {
                       </Box>
                       <Box className="scheduled-detail">
                         <Box className="heading">
-                          <h4>{t("Scheduling Details")}</h4>
+                          <h4 className="bold-text">{t("Scheduling Details")}</h4>
                         </Box>
                         <Card className="scheduled-card">
                           <Grid container spacing={2}>
@@ -196,7 +191,9 @@ class MyMeetingDetail extends MyMeetingsController {
           <DialogContent>
             <Box textAlign="center">
               <img src={CommentIcon} alt="CommentIcon" />
-              <Typography variant="h6">{t("Are you attending the meeting?")}</Typography>
+              <Typography variant="h6" className="bold-text">
+                {t("Are you attending the meeting?")}
+              </Typography>
               <Typography variant="body1">
                 Please confirm whether you are going to attend meeting on{" "}
                 {moment(

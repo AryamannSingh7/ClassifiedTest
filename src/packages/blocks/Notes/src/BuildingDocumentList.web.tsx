@@ -30,9 +30,11 @@ class BuildingDocumentList extends BuildingDocumentListController {
                     <KeyboardBackspaceIcon />
                   </IconButton>
                 </Link>{" "}
-                {this.state.documentType.toLowerCase() === "building-plans"
-                  ? `${t("Building Plans")}`
-                  : `${t(this.state.documentType)}`}
+                <span className="bold-text">
+                  {this.state.documentType.toLowerCase() === "building-plans"
+                    ? `${t("Building Plans")}`
+                    : `${t(this.state.documentType)}`}
+                </span>
               </Box>
               <Container
                 className={`${this.state.documentType.toLowerCase() === "resolutions" &&
@@ -43,7 +45,7 @@ class BuildingDocumentList extends BuildingDocumentListController {
                     <div className="empty-list">
                       <div className="content-box">
                         <img src={NoPdf} />
-                        <h3>{t("No Document Found")}</h3>
+                        <h3 className="bold-text">{t("No Document Found")}</h3>
                       </div>
                     </div>
                   )}
@@ -56,7 +58,7 @@ class BuildingDocumentList extends BuildingDocumentListController {
                               <Card className="card-item">
                                 <Link href={`/BuildingDocuments/${this.state.documentType}/${document.id}/view`}>
                                   <div className="heading">
-                                    <h4>{document.attributes.title}</h4>
+                                    <h4 className="bold-text">{document.attributes.title}</h4>
                                   </div>
                                 </Link>
                                 <div className="res-info">
@@ -72,8 +74,8 @@ class BuildingDocumentList extends BuildingDocumentListController {
                                 <div className="meeting-item">
                                   <div className="item-title">
                                     <img src={PdfImage} />
-                                    <h6>
-                                      Meeting Minute{" "}
+                                    <h6 className="bold-text">
+                                      {t("Meeting Minute")}{" "}
                                       {moment(document.attributes.meeting_date_time, "DD-MM-YYYY HH:mm").format(
                                         "DD-MMM-YYYY"
                                       )}
@@ -121,7 +123,7 @@ class BuildingDocumentList extends BuildingDocumentListController {
                                       <img src={PdfImage} />
                                     </div>
                                     <div className="info">
-                                      <h4>{document.attributes.title}</h4>
+                                      <h4 className="bold-text">{document.attributes.title}</h4>
                                     </div>
                                   </div>
                                 </Link>

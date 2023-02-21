@@ -3,7 +3,7 @@ export const DocumentReportStyleWeb: any = {
     "& .navigation": {
       display: "flex",
       justifyContent: "space-between",
-      marginBottom: "20px",
+      marginBottom: "15px",
     },
     "& .navigation > .MuiBox-root": {
       width: "100%",
@@ -13,7 +13,7 @@ export const DocumentReportStyleWeb: any = {
       color: "#FFF",
       width: "220px",
       borderRadius: "8px",
-      padding: "10px",
+      padding: "8px",
       fontWeight: "bold",
     },
     "& .navigation .top-heading": {
@@ -22,13 +22,16 @@ export const DocumentReportStyleWeb: any = {
       justifyContent: "space-between",
       flexDirection: "row",
       width: "100%",
-      marginTop: 10,
+      marginTop: 5,
       marginBottom: 0,
     },
     "& .navigation .sub-heading": {
       fontWeight: 600,
       wordBreak: "break-all",
-      marginRight: "15px",
+      fontSize: "26px",
+    },
+    "& .navigation .document-heading": {
+      marginTop: "12px",
     },
     "& .document-box": {
       marginBottom: 20,
@@ -42,9 +45,9 @@ export const DocumentReportStyleWeb: any = {
       alignItems: "center",
       justifyContent: "space-between",
       flexDirection: "row",
-      padding: 12,
+      padding: "10px 20px 10px 20px",
       borderRadius: 10,
-      border: "2px solid lightgray",
+      border: "1px solid #e4e4e4",
     },
     "& .document-box .item .heading": {
       display: "flex",
@@ -56,11 +59,10 @@ export const DocumentReportStyleWeb: any = {
       fontSize: "16px",
       marginLeft: "10px",
       wordBreak: "break-all",
-      // textTransform: "capitalize",
     },
     "& .document-box .item button.color-btn": {
-      padding: "5px 11px",
-      minWidth: "60px",
+      padding: "5px 5px",
+      minWidth: "50px",
       borderRadius: "25px",
       fontWeight: "600",
       background: "#FEF9F3",
@@ -68,6 +70,7 @@ export const DocumentReportStyleWeb: any = {
     },
     "& .document-box a, & .navigation a": {
       textDecoration: "none !important",
+      color: "black !important",
     },
     "& .document-box iframe": {
       width: "100%",
@@ -83,7 +86,7 @@ export const DocumentReportStyleWeb: any = {
     },
     "& .document-box .card-item": {
       boxShadow: "none",
-      padding: "10px 18px 18px",
+      padding: "18px",
     },
     "& .document-box .card-item .heading": {
       display: "flex",
@@ -92,8 +95,21 @@ export const DocumentReportStyleWeb: any = {
       textTransform: "capitalize",
       marginBottom: "10px",
     },
+    "& .document-box .card-item.resolution-card .heading": {
+      minHeight: "50px",
+      alignItems: "flex-start",
+    },
     "& .document-box .card-item .heading h4": {
       wordBreak: "break-all",
+      "text-overflow": "ellipsis",
+      "-webkit-line-clamp": "2",
+      display: "-webkit-box",
+      overflow: "hidden",
+      "-webkit-box-orient": "vertical",
+      "white-space": "normal",
+    },
+    "& .document-box .card-item .heading .menu button": {
+      padding: "0",
     },
     "& .document-box .card-item .res-info": {
       width: "100%",
@@ -104,6 +120,8 @@ export const DocumentReportStyleWeb: any = {
     },
     "& .document-box .card-item .res-info p": {
       color: "darkgray",
+      marginBottom: "3px",
+      fontSize: "15px",
     },
     "& .document-box .card-item .res-info .info-item": {
       width: "50%",
@@ -127,6 +145,7 @@ export const DocumentReportStyleWeb: any = {
     "& .document-box.resolutions .item": {
       minHeight: "20px",
       marginTop: "15px",
+      padding: "12px",
     },
     "& .szh-menu-container ul li a": {
       textDecoration: "none",
@@ -157,6 +176,15 @@ export const DocumentReportStyleWeb: any = {
       overflow: "hidden",
       whiteSpace: "nowrap",
       textOverflow: "ellipsis",
+      fontSize: "18px",
+      lineHeight: "18px",
+    },
+    "& .menu span": {
+      overflow: "hidden",
+      whiteSpace: "nowrap",
+      textOverflow: "ellipsis",
+      fontSize: "18px",
+      lineHeight: "18px",
     },
     "& .right-image": {
       padding: "25px 60px",
@@ -174,7 +202,6 @@ export const DocumentReportStyleWeb: any = {
       flexDirection: "row",
       padding: 15,
       borderRadius: 10,
-      // border: "2px solid lightgray",
       background: "white",
     },
     "& .document-box .item .heading": {
@@ -199,6 +226,7 @@ export const DocumentReportStyleWeb: any = {
     },
     "& a": {
       textDecoration: "none !important",
+      color: "black !important",
     },
     "& .szh-menu-container ul li a": {
       textDecoration: "none",
@@ -234,18 +262,17 @@ export const DocumentReportStyleWeb: any = {
       left: 0,
       right: 0,
       bottom: 0,
-      // background: "white",
       display: "flex",
       alignItems: "center",
       justifyContent: "center",
       padding: "10px 0",
-      // boxShadow: "rgba(0, 0, 0, 0.05) 0px 0px 0px 1px",
     },
     "& .upload-button button": {
       background: "#2b6fec",
       color: "white",
       padding: "12px 50px",
       borderRadius: "25px",
+      fontWeight: "600",
     },
     "& .upload-button .MuiGrid-container": {
       width: "fit-content",
@@ -310,6 +337,8 @@ export const DocumentReportStyleWeb: any = {
       overflow: "hidden",
       whiteSpace: "nowrap",
       textOverflow: "ellipsis",
+      fontSize: "18px",
+      lineHeight: "18px",
     },
     "& .right-image": {
       padding: "25px 60px",
@@ -354,10 +383,14 @@ export const DocumentReportStyleWeb: any = {
     },
     "& a": {
       textDecoration: "none !important",
+      color: "black !important",
     },
     "& .list .personal-documents .empty-list": {
       background: "white",
       height: "calc(100% - 40px)",
+    },
+    "& .list .personal-documents .empty-list h3": {
+      marginTop: "20px",
     },
     "& .list .personal-documents .empty-list .content-box": {
       display: "flex",
@@ -375,6 +408,7 @@ export const DocumentReportStyleWeb: any = {
     "& .document .left-side h4": {
       textTransform: "capitalize",
       wordBreak: "break-all",
+      fontSize: "18px",
     },
     "& .document .left-side img": {
       width: "35px",
@@ -402,6 +436,8 @@ export const DocumentReportStyleWeb: any = {
     },
     "& .document-box .card-item .res-info p": {
       color: "darkgray",
+      marginBottom: "3px",
+      fontSize: "15px",
     },
     "& .document-box .card-item .res-info .info-item": {
       width: "50%",
@@ -425,13 +461,14 @@ export const DocumentReportStyleWeb: any = {
     },
     "& .document-box .meeting-item": {
       minHeight: "34px",
+      marginTop: "15px",
       display: "flex",
       alignItems: "center",
       justifyContent: "space-between",
       flexDirection: "row",
-      padding: 15,
-      borderRadius: 10,
-      border: "2px solid lightgray",
+      padding: "10px 15px",
+      borderRadius: 8,
+      border: "2px solid #e4e4e4",
     },
     "& .menu.building-document-menu": {
       justifyContent: "space-between",
@@ -459,6 +496,7 @@ export const DocumentReportStyleWeb: any = {
     "& .meeting-details p": {
       color: "darkgray",
       paddingTop: "5px",
+      fontSize: "14px",
     },
     "& .meeting-details p:first-child": {
       paddingTop: "0",

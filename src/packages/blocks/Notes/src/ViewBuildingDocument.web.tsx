@@ -31,7 +31,7 @@ class ViewBuildingDocument extends ViewBuildingDocumentController {
                       <KeyboardBackspaceIcon />
                     </IconButton>
                   </Link>{" "}
-                  <span>{this.state.documentTitle}</span>
+                  <span className="bold-text">{this.state.documentTitle}</span>
                 </div>
                 <Link href={this.state.documentDownloadUrl} target="_blank">
                   <img src={DownloadImage} alt="download" />
@@ -46,8 +46,8 @@ class ViewBuildingDocument extends ViewBuildingDocumentController {
                     <div className="meeting-item view">
                       <div className="item-title">
                         <img src={PdfImage} />
-                        <h6>
-                          Meeting Minute{" "}
+                        <h6 className="bold-text">
+                          {t("Meeting Minute")}{" "}
                           {moment(this.state.document.attributes.meeting_date_time, "DD-MM-YYYY HH:mm").format(
                             "DD-MMM-YYYY HH:mm"
                           )}
@@ -78,7 +78,7 @@ class ViewBuildingDocument extends ViewBuildingDocumentController {
                       </div>
                     </div>
                     <div className="meeting-details">
-                      <h4>{t("Meeting Details")}</h4>
+                      <h4 className="bold-text">{t("Meeting Details")}</h4>
                       <Card className="card">
                         <p>{t("Date & Time")}:</p>
                         <span>

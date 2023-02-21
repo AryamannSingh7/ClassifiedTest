@@ -79,19 +79,14 @@ class ScheduledMeeting extends ScheduledMeetingController {
   }
 
   render() {
-    const { classes } = this.props;
-    const { t }: any = this.props;
-
-    console.log(this.state);
+    const { t, classes }: any = this.props;
 
     return (
       <>
-        <Box style={{ background: "#F4F7FF" }} className={classes.scheduledMeeting}>
-          {/* Dashboard Header -- */}
+        <Box style={{ background: "#F7F9FE" }} className={classes.scheduledMeeting}>
           <DashboardHeader {...this.props} />
           <Box style={{ display: "flex" }}>
             <Grid item xs={3} md={3} sm={3} className="SideBar">
-              {/* Chairman Sidebar -- */}
               <ChairmanSidebarWeb {...this.props} />
             </Grid>
 
@@ -105,7 +100,7 @@ class ScheduledMeeting extends ScheduledMeetingController {
                         {t("Scheduled Meetings")}
                       </Box>
                     </Typography>
-                    <Typography variant="h5" className="sub-heading">
+                    <Typography variant="h5" className="sub-heading bold-text">
                       {t("Scheduled Meetings")}
                     </Typography>
                   </Box>
@@ -200,7 +195,7 @@ class ScheduledMeeting extends ScheduledMeetingController {
                 <Grid className="meeting-table">
                   <Grid item sm={12} md={12} xs={12}>
                     <Box className="table-top">
-                      <h3>{t("Schedule Meetings")}</h3>
+                      <h4 className="bold-text">{t("Schedule Meetings")}</h4>
                       <div className="search-box">
                         <SearchIcon />
                         <InputBase
@@ -330,7 +325,7 @@ class ScheduledMeeting extends ScheduledMeetingController {
 
         <Dialog fullWidth scroll="paper" open={this.state.isCreateMeetingModalOpen} className="add-meeting">
           <MuiDialogTitle disableTypography className="dialog-heading">
-            <Typography variant="h6">{t("Create New Meeting")}</Typography>
+            <Typography variant="h6" className="bold-text">{t("Create New Meeting")}</Typography>
             <IconButton onClick={() => this.handleCreateMeetingModal()}>
               <CloseIcon />
             </IconButton>
@@ -584,7 +579,7 @@ class ScheduledMeeting extends ScheduledMeetingController {
 
         <Dialog fullWidth scroll="paper" className="add-meeting" open={this.state.isEditMeetingModalOpen}>
           <MuiDialogTitle disableTypography className="dialog-heading">
-            <Typography variant="h6">{t("Edit Meeting")}</Typography>
+            <Typography variant="h6" className="bold-text">{t("Edit Meeting")}</Typography>
             <IconButton onClick={() => this.handleEditMeetingModal()}>
               <CloseIcon />
             </IconButton>
@@ -861,7 +856,7 @@ class ScheduledMeeting extends ScheduledMeetingController {
           <DialogContent style={{ margin: "15px 0" }}>
             <Box textAlign="center">
               <img className="comment-image" src={CommentIcon} alt="comment" />
-              <Typography variant="h6">{t("Cancel Meeting Confirmation")}</Typography>
+              <Typography variant="h6" className="bold-text">{t("Cancel Meeting Confirmation")}</Typography>
               <Typography variant="body1" style={{ marginBottom: "0px" }}>
                 Are you sure want to cancel the meeting scheduled on{" "}
                 {moment(
@@ -897,13 +892,13 @@ class ScheduledMeeting extends ScheduledMeetingController {
           fullWidth
           maxWidth="md"
           open={this.state.isCreateAttendeeModalOpen}
-          className="select-meeting scheduled-meeting"
+          className="select-meeting scheduled-meeting meeting-group-dialog"
         >
           <MuiDialogTitle disableTypography className="dialog-heading">
             {this.state.isEditAttendeeModalOpen ? (
-              <Typography variant="h6">{t("Edit Meeting Group")}</Typography>
+              <Typography variant="h6" className="bold-text">{t("Edit Meeting Group")}</Typography>
             ) : (
-              <Typography variant="h6">{t("Create Meeting Group")}</Typography>
+              <Typography variant="h6" className="bold-text">{t("Create Meeting Group")}</Typography>
             )}
             <IconButton onClick={() => this.handleCreateAttendeeModal()}>
               <CloseIcon />
@@ -1027,7 +1022,7 @@ class ScheduledMeeting extends ScheduledMeetingController {
           </DialogContent>
           <DialogActions className="dialog-button-group">
             <div className="selected-meeting">
-              <h4>
+              <h4 className="bold-text">
                 <span>{this.state.selectedUser.length} </span>user selected
               </h4>
             </div>

@@ -15,6 +15,7 @@ exports[`ViewBuildingDocument User navigates to ViewBuildingDocument 1`] = `
           "display": "flex",
         },
         "& .document .left-side h4": Object {
+          "fontSize": "18px",
           "textTransform": "capitalize",
           "wordBreak": "break-all",
         },
@@ -51,6 +52,8 @@ exports[`ViewBuildingDocument User navigates to ViewBuildingDocument 1`] = `
         },
         "& .document-box .card-item .res-info p": Object {
           "color": "darkgray",
+          "fontSize": "15px",
+          "marginBottom": "3px",
         },
         "& .document-box .card-item .res-info span": Object {
           "color": "black",
@@ -87,13 +90,14 @@ exports[`ViewBuildingDocument User navigates to ViewBuildingDocument 1`] = `
         },
         "& .document-box .meeting-item": Object {
           "alignItems": "center",
-          "border": "2px solid lightgray",
-          "borderRadius": 10,
+          "border": "2px solid #e4e4e4",
+          "borderRadius": 8,
           "display": "flex",
           "flexDirection": "row",
           "justifyContent": "space-between",
+          "marginTop": "15px",
           "minHeight": "34px",
-          "padding": 15,
+          "padding": "10px 15px",
         },
         "& .document-box .meeting-item .icons img": Object {
           "cursor": "pointer",
@@ -126,6 +130,9 @@ exports[`ViewBuildingDocument User navigates to ViewBuildingDocument 1`] = `
           "padding": "20px",
           "textAlign": "center",
         },
+        "& .list .personal-documents .empty-list h3": Object {
+          "marginTop": "20px",
+        },
         "& .meeting-details": Object {},
         "& .meeting-details .card": Object {
           "marginBottom": "10px",
@@ -134,6 +141,7 @@ exports[`ViewBuildingDocument User navigates to ViewBuildingDocument 1`] = `
         },
         "& .meeting-details p": Object {
           "color": "darkgray",
+          "fontSize": "14px",
           "paddingTop": "5px",
         },
         "& .meeting-details p:first-child": Object {
@@ -158,6 +166,8 @@ exports[`ViewBuildingDocument User navigates to ViewBuildingDocument 1`] = `
           "maxWidth": "95%",
         },
         "& .menu span": Object {
+          "fontSize": "18px",
+          "lineHeight": "18px",
           "overflow": "hidden",
           "textOverflow": "ellipsis",
           "whiteSpace": "nowrap",
@@ -178,6 +188,7 @@ exports[`ViewBuildingDocument User navigates to ViewBuildingDocument 1`] = `
           "marginLeft": "10px",
         },
         "& a": Object {
+          "color": "black !important",
           "textDecoration": "none !important",
         },
       },
@@ -227,13 +238,15 @@ exports[`ViewBuildingDocument User navigates to ViewBuildingDocument 1`] = `
         },
         "& .document-box .card-item .res-info p": Object {
           "color": "darkgray",
+          "fontSize": "15px",
+          "marginBottom": "3px",
         },
         "& .document-box .card-item .res-info span": Object {
           "color": "black",
         },
         "& .document-box .item": Object {
           "alignItems": "center",
-          "border": "2px solid lightgray",
+          "border": "1px solid #e4e4e4",
           "borderRadius": 10,
           "display": "flex",
           "flexDirection": "row",
@@ -261,6 +274,7 @@ exports[`ViewBuildingDocument User navigates to ViewBuildingDocument 1`] = `
           "padding": "5px 11px",
         },
         "& .document-box a, & .navigation a": Object {
+          "color": "black !important",
           "textDecoration": "none !important",
         },
         "& .document-box iframe": Object {
@@ -284,9 +298,12 @@ exports[`ViewBuildingDocument User navigates to ViewBuildingDocument 1`] = `
           "justifyContent": "space-between",
           "marginBottom": "20px",
         },
+        "& .navigation .document-heading": Object {
+          "marginTop": "12px",
+        },
         "& .navigation .sub-heading": Object {
+          "fontSize": "26px",
           "fontWeight": 600,
-          "marginRight": "15px",
           "wordBreak": "break-all",
         },
         "& .navigation .top-heading": Object {
@@ -423,6 +440,13 @@ exports[`ViewBuildingDocument User navigates to ViewBuildingDocument 1`] = `
           "marginBottom": "18px",
           "padding": "10px 20px",
         },
+        "& .menu span": Object {
+          "fontSize": "18px",
+          "lineHeight": "18px",
+          "overflow": "hidden",
+          "textOverflow": "ellipsis",
+          "whiteSpace": "nowrap",
+        },
         "& .menu.personal-document-menu": Object {
           "justifyContent": "space-between",
           "textTransform": "capitalize",
@@ -433,6 +457,8 @@ exports[`ViewBuildingDocument User navigates to ViewBuildingDocument 1`] = `
           "maxWidth": "95%",
         },
         "& .menu.personal-document-menu span": Object {
+          "fontSize": "18px",
+          "lineHeight": "18px",
           "overflow": "hidden",
           "textOverflow": "ellipsis",
           "whiteSpace": "nowrap",
@@ -462,9 +488,11 @@ exports[`ViewBuildingDocument User navigates to ViewBuildingDocument 1`] = `
           "background": "#2b6fec",
           "borderRadius": "25px",
           "color": "white",
+          "fontWeight": "600",
           "padding": "12px 50px",
         },
         "& a": Object {
+          "color": "black !important",
           "textDecoration": "none !important",
         },
       },
@@ -494,6 +522,7 @@ exports[`ViewBuildingDocument User navigates to ViewBuildingDocument 1`] = `
           "display": "flex",
         },
         "& .document .left-side h4": Object {
+          "fontSize": "18px",
           "textTransform": "capitalize",
           "wordBreak": "break-all",
         },
@@ -530,6 +559,8 @@ exports[`ViewBuildingDocument User navigates to ViewBuildingDocument 1`] = `
         },
         "& .document-box .card-item .res-info p": Object {
           "color": "darkgray",
+          "fontSize": "15px",
+          "marginBottom": "3px",
         },
         "& .document-box .card-item .res-info span": Object {
           "color": "black",
@@ -566,13 +597,14 @@ exports[`ViewBuildingDocument User navigates to ViewBuildingDocument 1`] = `
         },
         "& .document-box .meeting-item": Object {
           "alignItems": "center",
-          "border": "2px solid lightgray",
-          "borderRadius": 10,
+          "border": "2px solid #e4e4e4",
+          "borderRadius": 8,
           "display": "flex",
           "flexDirection": "row",
           "justifyContent": "space-between",
+          "marginTop": "15px",
           "minHeight": "34px",
-          "padding": 15,
+          "padding": "10px 15px",
         },
         "& .document-box .meeting-item .icons img": Object {
           "cursor": "pointer",
@@ -605,6 +637,9 @@ exports[`ViewBuildingDocument User navigates to ViewBuildingDocument 1`] = `
           "padding": "20px",
           "textAlign": "center",
         },
+        "& .list .personal-documents .empty-list h3": Object {
+          "marginTop": "20px",
+        },
         "& .meeting-details": Object {},
         "& .meeting-details .card": Object {
           "marginBottom": "10px",
@@ -613,6 +648,7 @@ exports[`ViewBuildingDocument User navigates to ViewBuildingDocument 1`] = `
         },
         "& .meeting-details p": Object {
           "color": "darkgray",
+          "fontSize": "14px",
           "paddingTop": "5px",
         },
         "& .meeting-details p:first-child": Object {
@@ -637,6 +673,8 @@ exports[`ViewBuildingDocument User navigates to ViewBuildingDocument 1`] = `
           "maxWidth": "95%",
         },
         "& .menu span": Object {
+          "fontSize": "18px",
+          "lineHeight": "18px",
           "overflow": "hidden",
           "textOverflow": "ellipsis",
           "whiteSpace": "nowrap",
@@ -657,22 +695,23 @@ exports[`ViewBuildingDocument User navigates to ViewBuildingDocument 1`] = `
           "marginLeft": "10px",
         },
         "& a": Object {
+          "color": "black !important",
           "textDecoration": "none !important",
         },
       }
     }
     style={
       Object {
-        "background": "#F8F9FE",
+        "background": "#F7F9FE",
         "height": "100vh",
       }
     }
   >
     <div
-      className="MuiBox-root MuiBox-root-1 & .menu & .menu .name & .menu span & .right-image & .content-area & .document-box .item & .document-box.resolution-box & .document-box .item .heading & .document-box .item .heading h4 & .document-box .item button.color-btn & a & .list .personal-documents .empty-list & .list .personal-documents .empty-list .content-box & .document .left-side & .document .left-side h4 & .document .left-side img & .document-box .card-item & .document-box .card-item .heading & .document-box .card-item .res-info & .document-box .card-item .res-info span & .document-box .card-item .res-info p & .document-box .card-item .res-info .info-item & .document-box .meeting-item .item-title,& .document-box .meeting-item .icons & .document-box .meeting-item .icons img & .document-box .card-item .item-title h6 & .document-box .meeting-item & .menu.building-document-menu & .document-view iframe & .view .item-title h6 & .view & .meeting-details & .meeting-details .card & .meeting-details p & .meeting-details p:first-child & .meeting-details span"
+      className="MuiBox-root MuiBox-root-1 & .menu & .menu .name & .menu span & .right-image & .content-area & .document-box .item & .document-box.resolution-box & .document-box .item .heading & .document-box .item .heading h4 & .document-box .item button.color-btn & a & .list .personal-documents .empty-list & .list .personal-documents .empty-list h3 & .list .personal-documents .empty-list .content-box & .document .left-side & .document .left-side h4 & .document .left-side img & .document-box .card-item & .document-box .card-item .heading & .document-box .card-item .res-info & .document-box .card-item .res-info span & .document-box .card-item .res-info p & .document-box .card-item .res-info .info-item & .document-box .meeting-item .item-title,& .document-box .meeting-item .icons & .document-box .meeting-item .icons img & .document-box .card-item .item-title h6 & .document-box .meeting-item & .menu.building-document-menu & .document-view iframe & .view .item-title h6 & .view & .meeting-details & .meeting-details .card & .meeting-details p & .meeting-details p:first-child & .meeting-details span"
       style={
         Object {
-          "background": "#F8F9FE",
+          "background": "#F7F9FE",
           "height": "100vh",
         }
       }
@@ -1127,7 +1166,9 @@ exports[`ViewBuildingDocument User navigates to ViewBuildingDocument 1`] = `
                           </ForwardRef(Link)>
                         </WithStyles(ForwardRef(Link))>
                          
-                        <span />
+                        <span
+                          className="bold-text"
+                        />
                       </div>
                       <WithStyles(ForwardRef(Link))
                         href=""

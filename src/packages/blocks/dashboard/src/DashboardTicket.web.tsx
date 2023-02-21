@@ -89,7 +89,9 @@ class DashboardTicket extends DashboardTicketController {
                     </Typography>
                   </Box>
                   <Box className="sub-heading-box">
-                    <Typography variant="h5">{t("Ticket Dashboard")}</Typography>
+                    <Typography variant="h5" className="bold-text">
+                      {t("Ticket Dashboard")}
+                    </Typography>
                     <Box className="select-box">
                       {userType === ROLE.MANAGER && (
                         <select
@@ -151,12 +153,14 @@ class DashboardTicket extends DashboardTicketController {
                   </Grid>
                   <Grid item sm={4}>
                     <Card className="dashboard-card-box">
-                      <Box className="card-image">
-                        <img src={ticket_calendar} alt="image" />
-                      </Box>
-                      <h4>
-                        {t("Ticket took more than")} {this.state.configDays} {t("days")}
-                      </h4>
+                      <Link href={`/DashboardTicket/Days/${this.state.configDays}`}>
+                        <Box className="card-image">
+                          <img src={ticket_calendar} alt="image" />
+                        </Box>
+                        <h4 className="bold-text">
+                          {t("Ticket took more than")} {this.state.configDays} {t("days")}
+                        </h4>
+                      </Link>
                       <Box className="card-bottom-info configuration-day">
                         <Box className="info-box">
                           <span>{this.state.ticketDays}</span>
@@ -173,7 +177,7 @@ class DashboardTicket extends DashboardTicketController {
                 <Box className="content-boxes">
                   <Box className="top-content">
                     <Box className="heading">
-                      <h2>{t("Number of tickets opened by Residents")}</h2>
+                      <h2 className="bold-text">{t("Number of tickets opened by Residents")}</h2>
                     </Box>
                     <Box className="right-content">
                       <TextField

@@ -38,10 +38,26 @@ class ChairmanSidebar extends DashboardController {
               id={"Dashboards"}
               style={dashBoard.ListItem}
             >
-              <Typography>
+              <Typography
+                className={`SingleLinkSize ${(pathName === "/DashboardTicket" ||
+                  pathName === "/DashboardGeneral" ||
+                  pathName === "/VisitorList" ||
+                  pathName === "/DashboardBudget" ||
+                  pathName === "/DashboardActions") &&
+                  "highlight-blue"}`}
+              >
                 <DashboardOutlinedIcon />
               </Typography>
-              <Typography className="ListItemText">{t("My Dashboard")}</Typography>
+              <Typography
+                className={`ListItemText ${(pathName === "/DashboardTicket" ||
+                  pathName === "/DashboardGeneral" ||
+                  pathName === "/VisitorList" ||
+                  pathName === "/DashboardBudget" ||
+                  pathName === "/DashboardActions") &&
+                  "highlight-blue"}`}
+              >
+                {t("My Dashboard")}
+              </Typography>
             </AccordionSummary>
 
             <AccordionDetails onClick={() => this.props.navigation.navigate("DashboardGeneral")}>
@@ -189,7 +205,7 @@ class ChairmanSidebar extends DashboardController {
           </Accordion>
           {/* Buildings & Apartments */}
           <Box className="SingleLink">
-            <Typography className="SingleLinkSize">
+            <Typography className={`SingleLinkSize ${pathName === "/Complex" && "highlight-blue"}`}>
               <DashboardOutlinedIcon />
             </Typography>
             <div onClick={() => this.props.navigation.navigate("Complex")}>
@@ -207,7 +223,12 @@ class ChairmanSidebar extends DashboardController {
               <Typography>
                 <img src={meetings} alt="" />
               </Typography>
-              <Typography className="ListItemText">{t("Meeting")}</Typography>
+              <Typography
+                className={`ListItemText ${(pathName === "/ScheduledMeetings" || pathName === "/MeetingMinutes") &&
+                  "highlight-blue"}`}
+              >
+                {t("Meeting")}
+              </Typography>
             </AccordionSummary>
             <AccordionDetails
               style={dashBoard.Item}
@@ -231,7 +252,7 @@ class ChairmanSidebar extends DashboardController {
           </Accordion>
           {/* Poll / Survey */}
           <Box className="SingleLink">
-            <Typography className="SingleLinkSize">
+            <Typography className={`SingleLinkSize ${pathName === "/Polling" && "highlight-blue"}`}>
               <DashboardOutlinedIcon />
             </Typography>
             <div onClick={() => this.props.navigation.navigate("Polling")}>
@@ -246,10 +267,18 @@ class ChairmanSidebar extends DashboardController {
               expandIcon={<ArrowForwardIosOutlinedIcon style={{ width: 16, height: 16 }} />}
               style={dashBoard.ListItem}
             >
-              <Typography>
+              <Typography
+                className={`SingleLinkSize ${(pathName === "/DocumentChairman" || pathName === "/Reports") &&
+                  "highlight-blue"}`}
+              >
                 <DashboardOutlinedIcon />
               </Typography>
-              <Typography className="ListItemText">{t("Documents & Reports")}</Typography>
+              <Typography
+                className={`ListItemText ${(pathName === "/DocumentChairman" || pathName === "/Reports") &&
+                  "highlight-blue"}`}
+              >
+                {t("Documents & Reports")}
+              </Typography>
             </AccordionSummary>
             <AccordionDetails style={dashBoard.Item} onClick={() => this.props.navigation.navigate("DocumentChairman")}>
               <Typography
@@ -267,11 +296,11 @@ class ChairmanSidebar extends DashboardController {
           </Accordion>
           {/* Chat */}
           <Box className="SingleLink">
-            <Typography className="SingleLinkSize">
+            <Typography className={`SingleLinkSize ${pathName === "/ChairmanChat" && "highlight-blue"}`}>
               <DashboardOutlinedIcon />
             </Typography>
             <div onClick={() => this.props.navigation.navigate("ChairmanChat")}>
-              <Typography className={`SingleLinkSize ${pathName === "/chairmanchat" && "highlight-blue"}`}>
+              <Typography className={`SingleLinkSize ${pathName === "/ChairmanChat" && "highlight-blue"}`}>
                 {t("Chat")}
               </Typography>
             </div>
@@ -317,7 +346,7 @@ class ChairmanSidebar extends DashboardController {
           </Accordion>
           {/* Incident Management */}
           <Box className="SingleLink">
-            <Typography className="SingleLinkSize">
+            <Typography className={`SingleLinkSize ${pathName === "/IncidentManagement" && "highlight-blue"}`}>
               <DashboardOutlinedIcon />
             </Typography>
             <div onClick={() => this.props.navigation.navigate("IncidentManagement")}>
@@ -328,7 +357,7 @@ class ChairmanSidebar extends DashboardController {
           </Box>
           {/* Facility Reservation */}
           <Box className="SingleLink">
-            <Typography className="SingleLinkSize">
+            <Typography className={`SingleLinkSize ${pathName === "/ManagerFacilityReservation" && "highlight-blue"}`}>
               <DashboardOutlinedIcon />
             </Typography>
             <div onClick={() => this.props.navigation.navigate("ManagerFacilityReservation")}>

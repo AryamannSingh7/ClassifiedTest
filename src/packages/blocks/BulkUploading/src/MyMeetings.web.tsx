@@ -1,13 +1,12 @@
 // Customizable Area Start
 import React from "react";
-import { Container, IconButton, Link, withStyles, Box, Grid, Tab, MenuItem, Card, Divider } from "@material-ui/core";
-import { Menu } from "@szhsin/react-menu";
+import { Container, IconButton, Link, withStyles, Box, Grid, Tab, Card, Divider } from "@material-ui/core";
+import { Menu, MenuItem } from "@szhsin/react-menu";
 import KeyboardBackspaceIcon from "@material-ui/icons/KeyboardBackspace";
 import MyMeetingsController, { Props } from "./MyMeetingsController.web";
 import { BuildingLogo, SortIcon, FilterIcon, TrueIcon, FalseIcon } from "./assets";
 import { MeetingsStyleWeb } from "./MeetingsStyle.web";
 import { withTranslation } from "react-i18next";
-import "../../../web/src/i18n.js";
 import moment from "moment";
 
 class MyMeetings extends MyMeetingsController {
@@ -27,10 +26,7 @@ class MyMeetings extends MyMeetingsController {
   }
 
   render() {
-    const { classes } = this.props;
-    const { t }: any = this.props;
-
-    console.log(this.state);
+    const { t, classes }: any = this.props;
 
     return (
       <>
@@ -43,7 +39,7 @@ class MyMeetings extends MyMeetingsController {
                     <IconButton onClick={() => this.redirectToDashboard()}>
                       <KeyboardBackspaceIcon />
                     </IconButton>
-                    <span>{t("My Meetings")}</span>
+                    <span className="bold-text">{t("My Meetings")}</span>
                   </div>
                   <div className="right-icon">
                     <Menu
@@ -107,7 +103,7 @@ class MyMeetings extends MyMeetingsController {
                                       <Grid container spacing={2}>
                                         <Grid item xs={12}>
                                           <div className="header">
-                                            <h4>{meeting.attributes.title}</h4>
+                                            <h4 className="bold-text">{meeting.attributes.title}</h4>
                                           </div>
                                         </Grid>
                                       </Grid>
@@ -136,7 +132,7 @@ class MyMeetings extends MyMeetingsController {
                                           <Divider />
                                           {!meeting.attributes.meeting_response ? (
                                             <Box className="decision">
-                                              <h6>{t("Are you attending?")}</h6>
+                                              <h6 className="bold-text">{t("Are you attending?")}</h6>
                                               <div className="status-images">
                                                 <img src={TrueIcon} alt="true" />
                                                 <img src={FalseIcon} alt="false" />
@@ -180,7 +176,7 @@ class MyMeetings extends MyMeetingsController {
                                       <Grid container spacing={2}>
                                         <Grid item xs={12}>
                                           <div className="header">
-                                            <h4>{meeting.attributes.title}</h4>
+                                            <h4 className="bold-text">{meeting.attributes.title}</h4>
                                           </div>
                                         </Grid>
                                       </Grid>

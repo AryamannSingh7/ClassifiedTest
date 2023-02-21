@@ -68,9 +68,11 @@ class PersonalDocumentList extends PersonalDocumentListController {
                     <KeyboardBackspaceIcon />
                   </IconButton>
                 </Link>{" "}
-                {this.state.documentType === "rent-contract" && `${t("Rent Contract")}`}
-                {this.state.documentType === "unit-plan" && `${t("Unit Plan")}`}
-                {this.state.documentType === "other-documents" && `${t("Other Documents")}`}
+                <span className="bold-text">
+                  {this.state.documentType === "rent-contract" && `${t("Rent Contract")}`}
+                  {this.state.documentType === "unit-plan" && `${t("Unit Plan")}`}
+                  {this.state.documentType === "other-documents" && `${t("Other Documents")}`}
+                </span>
               </Box>
               <Container className="content-area document-box list">
                 <div className="personal-documents">
@@ -78,7 +80,7 @@ class PersonalDocumentList extends PersonalDocumentListController {
                     <div className="empty-list">
                       <div className="content-box">
                         <img src={NoPdf} />
-                        <h3>{t("No Document Found")}</h3>
+                        <h3 className="bold-text">{t("No Document Found")}</h3>
                         <p>
                           {t("Looks like you haven't uploaded any documents! you can upload")}{" "}
                           {this.state.documentType === "rent-contract" && `${t("rent contract")}`}
@@ -100,7 +102,7 @@ class PersonalDocumentList extends PersonalDocumentListController {
                                   <img src={PdfImage} />
                                 </div>
                                 <div className="info">
-                                  <h4>{document.attributes.title}</h4>
+                                  <h4 className="bold-text">{document.attributes.title}</h4>
                                   <div className="more-info">
                                     <p>
                                       <span>{document.attributes.images[0].file_size}</span>
@@ -172,7 +174,9 @@ class PersonalDocumentList extends PersonalDocumentListController {
           className="add-document"
         >
           <MuiDialogTitle disableTypography className="dialog-heading">
-            <Typography variant="h6">{t("Add New Document")}</Typography>
+            <Typography variant="h6" className="bold-text">
+              {t("Add New Document")}
+            </Typography>
             <IconButton onClick={() => this.handleAddDocumentModal()}>
               <CloseIcon />
             </IconButton>
@@ -252,7 +256,7 @@ class PersonalDocumentList extends PersonalDocumentListController {
           <DialogContent>
             <Box textAlign="center">
               <img src={DeleteImage} alt="delete" />
-              <Typography variant="h6">
+              <Typography variant="h6" className="bold-text">
                 {t("Delete uploaded")} {this.documentType(t)}
               </Typography>
               <Typography variant="body1">

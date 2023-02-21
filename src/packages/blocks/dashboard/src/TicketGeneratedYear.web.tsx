@@ -27,6 +27,7 @@ import { withRouter } from "react-router";
 import { withTranslation } from "react-i18next";
 import { DashboardStyleWeb } from "./DashboardStyle.web";
 import { ROLE } from "../../../framework/src/Enum";
+import moment from "moment";
 
 class TicketGeneratedYear extends DashboardTicketController {
   constructor(props: Props) {
@@ -35,11 +36,21 @@ class TicketGeneratedYear extends DashboardTicketController {
 
   async componentDidMount(): Promise<void> {
     const year = this.props.navigation.getParam("year");
-    this.setState({ ticketYear: year }, () => {
+    this.setState({ ticketYear: year, filterYear: year }, () => {
       this.getTicketDashboardYearList();
       this.getAllBuildingList();
       this.getTicketByYear();
     });
+  }
+
+  async componentDidUpdate(prevProps: any, prevState: any): Promise<void> {
+    if (
+      prevState.filterYear !== this.state.filterYear ||
+      prevState.filterStatus !== this.state.filterStatus ||
+      prevState.filterBuilding !== this.state.filterBuilding
+    ) {
+      await this.getTicketByYear();
+    }
   }
 
   render() {
@@ -69,16 +80,28 @@ class TicketGeneratedYear extends DashboardTicketController {
                     </Typography>
                   </Box>
                   <Box className="sub-heading-box">
-                    <Typography variant="h5">
+                    <Typography variant="h5" className="bold-text">
                       {t("Tickets Generated in")} {this.state.ticketYear}
                     </Typography>
                     <Box className="select-box">
                       {userType === ROLE.MANAGER && (
                         <>
-                          <select className="select-year">
-                            <option value="">Status</option>
+                          <select
+                            className="select-year"
+                            value={this.state.filterStatus}
+                            onChange={(e: any) => this.setState({ filterStatus: e.target.value })}
+                          >
+                            <option value="">{t("Status")}</option>
+                            <option value="Unresolved">{t("Unresolved")}</option>
+                            <option value="Pending Confirmation">{t("Pending Confirmation")}</option>
+                            <option value="Ongoing">{t("Ongoing")}</option>
+                            <option value="Open">{t("Open")}</option>
                           </select>
-                          <select className="select-year">
+                          <select
+                            className="select-year"
+                            value={this.state.filterBuilding}
+                            onChange={(e: any) => this.setState({ filterBuilding: e.target.value })}
+                          >
                             <option value="" disabled>
                               {t("Select Building")}
                             </option>
@@ -112,12 +135,14 @@ class TicketGeneratedYear extends DashboardTicketController {
                 <Box className="content-boxes ticket-table">
                   <Box className="top-content">
                     <Box className="heading">
-                      <h2>{t("Tickets")}</h2>
+                      <h2 className="bold-text">{t("Tickets")}</h2>
                     </Box>
                     <Box className="right-content">
                       <TextField
                         className="search-unit"
                         placeholder={t("Search by ticket number")}
+                        value={this.state.searchResident}
+                        onChange={(e: any) => this.setState({ searchResident: e.target.value })}
                         InputProps={{
                           startAdornment: (
                             <InputAdornment position="start">
@@ -144,26 +169,50 @@ class TicketGeneratedYear extends DashboardTicketController {
                         </TableRow>
                       </TableHead>
                       <TableBody>
-                        <TableRow>
-                          <TableCell>1</TableCell>
-                          <TableCell>2</TableCell>
-                          <TableCell>3</TableCell>
-                          <TableCell>4</TableCell>
-                          <TableCell>5</TableCell>
-                          <TableCell>6</TableCell>
-                          <TableCell>7</TableCell>
-                          <TableCell>
-                            <span className="status">Resolved</span>
-                          </TableCell>
-                        </TableRow>
+                        {this.state.ticketList.length === 0 && (
+                          <TableRow>
+                            <TableCell colSpan={8}>{t("No ticket found")}</TableCell>
+                          </TableRow>
+                        )}
+                        {this.state.ticketList.map((incident: any, index: number) => {
+                          return (
+                            <TableRow key={incident.id}>
+                              <TableCell>{index + 1}</TableCell>
+                              <TableCell>{incident.attributes.ticket_number}</TableCell>
+                              <TableCell>{incident.attributes.incident_related_to}</TableCell>
+                              <TableCell>{incident.attributes.unit_number}</TableCell>
+                              <TableCell>{incident.attributes.raised_by}</TableCell>
+                              <TableCell>
+                                {moment(incident.attributes.open_date, "DD-MM-YYYY").format("DD MMM YYYY")}
+                              </TableCell>
+                              <TableCell>
+                                {incident.attributes.close_date &&
+                                  moment(incident.attributes.close_date, "DD-MM-YYYY").format("DD MMM YYYY")}
+                              </TableCell>
+                              <TableCell>
+                                <span className="status">{incident.attributes.status}</span>
+                              </TableCell>
+                            </TableRow>
+                          );
+                        })}
                       </TableBody>
                     </Table>
                   </TableContainer>
                   <Box className="unit-pagination">
                     <p>
-                      {t("Showing")} <span>1</span> {t("of")} <span>10</span> {t("results")}
+                      {t("Showing")} <span>{this.state.ticketList.length}</span> {t("of")}{" "}
+                      <span>{this.state.pagination ? this.state.pagination.total_count : 0}</span> {t("results")}
                     </p>
-                    <Pagination count={10} variant="outlined" shape="rounded" />
+                    {this.state.pagination && (
+                      <Pagination
+                        onChange={(event: any, value: any) => this.setState({ page: Number(value) })}
+                        count={this.state.pagination.total_pages}
+                        page={this.state.pagination.current_page}
+                        siblingCount={2}
+                        variant="outlined"
+                        shape="rounded"
+                      />
+                    )}
                   </Box>
                 </Box>
               </Container>
