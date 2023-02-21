@@ -28,7 +28,10 @@ export const DocumentReportStyleWeb: any = {
     "& .navigation .sub-heading": {
       fontWeight: 600,
       wordBreak: "break-all",
-      marginRight: "15px",
+      fontSize: "26px",
+    },
+    "& .navigation .document-heading": {
+      marginTop: "12px",
     },
     "& .document-box": {
       marginBottom: 20,
@@ -44,7 +47,7 @@ export const DocumentReportStyleWeb: any = {
       flexDirection: "row",
       padding: 12,
       borderRadius: 10,
-      border: "2px solid lightgray",
+      border: "1px solid #e4e4e4",
     },
     "& .document-box .item .heading": {
       display: "flex",
@@ -68,6 +71,7 @@ export const DocumentReportStyleWeb: any = {
     },
     "& .document-box a, & .navigation a": {
       textDecoration: "none !important",
+      color: "black !important",
     },
     "& .document-box iframe": {
       width: "100%",
@@ -104,6 +108,8 @@ export const DocumentReportStyleWeb: any = {
     },
     "& .document-box .card-item .res-info p": {
       color: "darkgray",
+      marginBottom: "3px",
+      fontSize: "15px",
     },
     "& .document-box .card-item .res-info .info-item": {
       width: "50%",
@@ -157,6 +163,15 @@ export const DocumentReportStyleWeb: any = {
       overflow: "hidden",
       whiteSpace: "nowrap",
       textOverflow: "ellipsis",
+      fontSize: "18px",
+      lineHeight: "18px",
+    },
+    "& .menu span": {
+      overflow: "hidden",
+      whiteSpace: "nowrap",
+      textOverflow: "ellipsis",
+      fontSize: "18px",
+      lineHeight: "18px",
     },
     "& .right-image": {
       padding: "25px 60px",
@@ -174,7 +189,6 @@ export const DocumentReportStyleWeb: any = {
       flexDirection: "row",
       padding: 15,
       borderRadius: 10,
-      // border: "2px solid lightgray",
       background: "white",
     },
     "& .document-box .item .heading": {
@@ -199,6 +213,7 @@ export const DocumentReportStyleWeb: any = {
     },
     "& a": {
       textDecoration: "none !important",
+      color: "black !important",
     },
     "& .szh-menu-container ul li a": {
       textDecoration: "none",
@@ -234,18 +249,17 @@ export const DocumentReportStyleWeb: any = {
       left: 0,
       right: 0,
       bottom: 0,
-      // background: "white",
       display: "flex",
       alignItems: "center",
       justifyContent: "center",
       padding: "10px 0",
-      // boxShadow: "rgba(0, 0, 0, 0.05) 0px 0px 0px 1px",
     },
     "& .upload-button button": {
       background: "#2b6fec",
       color: "white",
       padding: "12px 50px",
       borderRadius: "25px",
+      fontWeight: "600",
     },
     "& .upload-button .MuiGrid-container": {
       width: "fit-content",
@@ -310,6 +324,8 @@ export const DocumentReportStyleWeb: any = {
       overflow: "hidden",
       whiteSpace: "nowrap",
       textOverflow: "ellipsis",
+      fontSize: "18px",
+      lineHeight: "18px",
     },
     "& .right-image": {
       padding: "25px 60px",
@@ -354,10 +370,14 @@ export const DocumentReportStyleWeb: any = {
     },
     "& a": {
       textDecoration: "none !important",
+      color: "black !important",
     },
     "& .list .personal-documents .empty-list": {
       background: "white",
       height: "calc(100% - 40px)",
+    },
+    "& .list .personal-documents .empty-list h3": {
+      marginTop: "20px",
     },
     "& .list .personal-documents .empty-list .content-box": {
       display: "flex",
@@ -375,6 +395,7 @@ export const DocumentReportStyleWeb: any = {
     "& .document .left-side h4": {
       textTransform: "capitalize",
       wordBreak: "break-all",
+      fontSize: "18px",
     },
     "& .document .left-side img": {
       width: "35px",
@@ -402,6 +423,8 @@ export const DocumentReportStyleWeb: any = {
     },
     "& .document-box .card-item .res-info p": {
       color: "darkgray",
+      marginBottom: "3px",
+      fontSize: "15px",
     },
     "& .document-box .card-item .res-info .info-item": {
       width: "50%",
@@ -425,13 +448,14 @@ export const DocumentReportStyleWeb: any = {
     },
     "& .document-box .meeting-item": {
       minHeight: "34px",
+      marginTop: "15px",
       display: "flex",
       alignItems: "center",
       justifyContent: "space-between",
       flexDirection: "row",
-      padding: 15,
-      borderRadius: 10,
-      border: "2px solid lightgray",
+      padding: "10px 15px",
+      borderRadius: 8,
+      border: "2px solid #e4e4e4",
     },
     "& .menu.building-document-menu": {
       justifyContent: "space-between",
@@ -459,6 +483,7 @@ export const DocumentReportStyleWeb: any = {
     "& .meeting-details p": {
       color: "darkgray",
       paddingTop: "5px",
+      fontSize: "14px",
     },
     "& .meeting-details p:first-child": {
       paddingTop: "0",

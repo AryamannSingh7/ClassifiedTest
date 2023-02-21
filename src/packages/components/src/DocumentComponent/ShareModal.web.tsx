@@ -29,7 +29,9 @@ const ShareDocumentModal = ({ isOpen, handleClose, heading, documentURL }: any) 
   return (
     <Dialog fullWidth onClose={() => handleClose()} open={isOpen} className="select-meeting">
       <MuiDialogTitle disableTypography className="dialog-heading">
-        <Typography variant="h6">{heading}</Typography>
+        <Typography variant="h6" className="bold-text">
+          {heading}
+        </Typography>
         <IconButton onClick={() => handleClose()}>
           <CloseIcon />
         </IconButton>

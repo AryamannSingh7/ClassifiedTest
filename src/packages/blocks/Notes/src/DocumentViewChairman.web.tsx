@@ -4,7 +4,6 @@ import { Button, Container, Typography, withStyles, Box, Grid, Link } from "@mat
 import DocumentViewChairmanController, { Props } from "./DocumentViewChairmanController.web";
 import { DocumentReportStyleWeb } from "./DocumentReportStyle.web";
 import DashboardHeader from "../../dashboard/src/DashboardHeader.web";
-import ChairmanSidebarWeb from "../../dashboard/src/ChairmanSidebar.web";
 import { withTranslation } from "react-i18next";
 import GeneralSideBarWeb from "../../dashboard/src/GeneralSideBar.web";
 
@@ -19,12 +18,10 @@ class DocumentViewChairman extends DocumentViewChairmanController {
     return (
       <>
         <Box style={{ background: "#F4F7FF" }} className={classes.documentChairman}>
-          {/* Dashboard Header -- */}
           <DashboardHeader {...this.props} />
           <Box style={{ display: "flex" }}>
             <Grid item xs={3} md={3} sm={3} className="SideBar">
-              {/* Chairman Sidebar -- */}
-              <GeneralSideBarWeb {...this.props}></GeneralSideBarWeb>
+              <GeneralSideBarWeb {...this.props} />
             </Grid>
 
             <Grid item xs={9} md={9} sm={9} style={{ paddingTop: 35 }}>
@@ -32,7 +29,8 @@ class DocumentViewChairman extends DocumentViewChairmanController {
                 <Box className="navigation">
                   <Box>
                     <Typography variant="body1">
-                      {t("Documents")} / {t(this.state.documentType)} /{" "}
+                      <Link href="/DocumentChairman">{t("Documents")}</Link> /{" "}
+                      <Link href={`/DocumentChairman/${this.state.documentType}`}>{t(this.state.documentType)}</Link> /{" "}
                       <Box
                         component="span"
                         style={{
@@ -44,7 +42,7 @@ class DocumentViewChairman extends DocumentViewChairmanController {
                       </Box>
                     </Typography>
                     <Box className="top-heading">
-                      <Typography variant="h5" className="sub-heading">
+                      <Typography variant="h5" className="sub-heading bold-text">
                         {this.state.document && this.state.document.attributes.title}
                       </Typography>
                       <Link

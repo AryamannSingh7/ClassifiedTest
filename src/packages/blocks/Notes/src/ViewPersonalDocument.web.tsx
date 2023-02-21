@@ -28,7 +28,7 @@ class ViewPersonalDocument extends ViewPersonalDocumentController {
                       <KeyboardBackspaceIcon />
                     </IconButton>
                   </Link>{" "}
-                  <span>{this.state.documentTitle}</span>
+                  <span className="bold-text">{this.state.documentTitle}</span>
                 </div>
                 <Link href={this.state.documentDownloadUrl} target="_blank">
                   <IconButton>

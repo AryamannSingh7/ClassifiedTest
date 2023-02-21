@@ -26,7 +26,7 @@ class PersonalDocument extends PersonalDocumentController {
                 <IconButton onClick={() => this.redirectToDashboard()}>
                   <KeyboardBackspaceIcon />
                 </IconButton>
-                {t("Personal Documents")}
+                <span className="bold-text">{t("Personal Documents")}</span>
               </Box>
               <Container className="content-area document-box">
                 <Grid container spacing={2}>

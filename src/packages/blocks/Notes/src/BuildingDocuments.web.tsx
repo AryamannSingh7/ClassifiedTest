@@ -26,7 +26,7 @@ class BuildingDocuments extends BuildingDocumentController {
                 <IconButton onClick={() => this.handleGotoDashboard()}>
                   <KeyboardBackspaceIcon />
                 </IconButton>{" "}
-                {t("Building Documents")}
+                <span className="bold-text">{t("Building Documents")}</span>
               </Box>
               <Container className="content-area document-box">
                 <Grid container spacing={2}>
