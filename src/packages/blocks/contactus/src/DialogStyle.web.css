@@ -592,6 +592,7 @@
   min-height: 150px !important;
   outline: none;
   margin-top: 20px;
+  resize: none;
 }
 
 .add-meeting .dialog-input {
@@ -710,7 +711,8 @@
 
 .select-meeting.scheduled-meeting .button-group .dialog-input {
   padding: 6px 12px;
-  background-color: #f0f0f0;
+  background-color: #f9f9f9;
+  border: 1px solid #f0f0f0;
 }
 
 .select-meeting.scheduled-meeting .button-group {
@@ -836,21 +838,24 @@
 }
 
 .add-meeting input::placeholder,
+.meeting-group-dialog input::placeholder,
 .add-meeting textarea::placeholder {
-  color: black;
+  color: black !important;
   opacity: 1; /* Firefox */
 }
 
 .add-meeting input:-ms-input-placeholder,
+.meeting-group-dialog input:-ms-input-placeholder,
 .add-meeting textarea:-ms-input-placeholder {
   /* Internet Explorer 10-11 */
-  color: black;
+  color: black !important;
 }
 
 .add-meeting input::-ms-input-placeholder,
+.meeting-group-dialog input::-ms-input-placeholder,
 .add-meeting textarea::-ms-input-placeholder {
   /* Microsoft Edge */
-  color: black;
+  color: black !important;
 }
 
 .edit-profile .profile-picture .picture {

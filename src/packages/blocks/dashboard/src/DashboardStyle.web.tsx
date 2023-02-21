@@ -130,6 +130,7 @@ export const DashboardStyleWeb: any = {
     "& .MuiCard-root .content-box .center-content .image.text h4": {
       marginBottom: "0px",
       color: "#FD9048",
+      minHeight: "unset !important",
     },
     "& .notification-slider": {
       width: "100%",
