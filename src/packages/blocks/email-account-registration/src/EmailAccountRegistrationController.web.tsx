@@ -729,8 +729,15 @@ export default class EmailAccountRegistrationController extends BlockComponent<
     secureTextEntry: true
   };
   checkPhone=(value:any)=>{
+
+
 let pettrn=/^5\d+$/
-    if(this.state.selectCode == '+966' ||this.state.selectCode == '+971' ){
+if(value.includes('+'))
+{
+  console.log('hi')
+  this.setState({error:'Please enter valid mobile number',showError:true})
+  return false
+}else if(this.state.selectCode == '+966' ||this.state.selectCode == '+971' ){
 
       if(!(pettrn.test(value)))
       {
@@ -743,7 +750,7 @@ let pettrn=/^5\d+$/
 
         return true
       }
-    }else{
+    }else {
       return true
 
     }
