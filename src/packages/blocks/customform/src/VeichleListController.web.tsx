@@ -448,8 +448,8 @@ export default class VeichleListController extends BlockComponent<Props, S, SS> 
 
   addVehicleSchema(){
     const validations = Yup.object().shape({
-
-      full_name: Yup.string().required(`This field is required.`).matches(/^[aA-zZ\s]+$/, "Only alphabets are allowed for this field.").trim(),
+// @ts-ignore
+      full_name: Yup.string().required(`This field is required.`).trim().matches("^[a-zA-Z\u0600-\u06FF,-\s ][\s\a-zA-Z\u0600-\u06FF ,-]*$", "Only alphabets are allowed for this field."),
       plateNumber: Yup.string().required(`This field is required.`).trim(),
       carManufacturer: Yup.string().required(`This field is required.`).trim(),
       carModle: Yup.string().required(`This field is required.`).trim(),
