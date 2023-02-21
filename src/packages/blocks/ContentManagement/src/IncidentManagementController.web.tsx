@@ -694,7 +694,7 @@ onChange =(e :any)=>{
     const name = array[1] 
     this.getUnit(id)
     this.setState({ buildingName:e.target?.value})
-    this.setState({ serachBuildingName:name})
+    this.setState({ serachBuildingName:id})
   }
   else if(e.target.name === "statusDetail"){
     const  value = e.target.value

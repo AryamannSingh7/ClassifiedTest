@@ -109,7 +109,7 @@ class IncidentManagement extends IncidentManagementController {
                           this.state?.unitNameData?.map((val, index) => (
                             <MenuItem
                               key={index}
-                              value={val?.apartment_name}
+                              value={val?.id}
                               disabled={this.state.buildingName ? false : true}
                             >
                               {val?.apartment_name}
