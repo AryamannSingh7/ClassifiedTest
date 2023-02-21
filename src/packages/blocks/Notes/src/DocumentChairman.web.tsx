@@ -4,7 +4,6 @@ import { Container, Link, Typography, withStyles, Box, Grid } from "@material-ui
 import DocumentChairmanController, { Props } from "./DocumentChairmanController.web";
 import { DocumentReportStyleWeb } from "./DocumentReportStyle.web";
 import DashboardHeader from "../../dashboard/src/DashboardHeader.web";
-import ChairmanSidebarWeb from "../../dashboard/src/ChairmanSidebar.web";
 import { Document } from "./assets";
 import { withTranslation } from "react-i18next";
 import ChairmanCategoryBox from "../../../components/src/DocumentComponent/ChairmanCategoryBox.web";
@@ -30,21 +29,20 @@ class DocumentChairman extends DocumentChairmanController {
     return (
       <>
         <Box style={{ background: "#F4F7FF" }} className={classes.documentChairman}>
-          {/* Dashboard Header -- */}
           <DashboardHeader {...this.props} />
           <Box style={{ display: "flex" }}>
             <Grid item xs={3} md={3} sm={3} className="SideBar">
-              {/* Chairman Sidebar -- */}
-              {/* <ChairmanSidebarWeb {...this.props} /> */}
-              <GeneralSideBarWeb {...this.props}></GeneralSideBarWeb>
+              <GeneralSideBarWeb {...this.props} />
             </Grid>
 
             <Grid item xs={9} md={9} sm={9} style={{ paddingTop: 35 }}>
               <Container>
                 <Box className="navigation">
                   <Box>
-                    <Typography variant="body1">{t("Documents")}</Typography>
-                    <Typography variant="h5" className="sub-heading">
+                    <Link href="/DocumentChairman">
+                      <Typography variant="body1">{t("Documents")}</Typography>
+                    </Link>
+                    <Typography variant="h5" className="sub-heading document-heading bold-text">
                       {t("Documents")}
                     </Typography>
                   </Box>

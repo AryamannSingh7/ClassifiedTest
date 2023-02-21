@@ -326,6 +326,7 @@ export const MeetingsStyleWeb: any = {
     },
     "& .meeting-detail-box .meeting-details h4": {
       marginBottom: "10px",
+      fontSize: "18px",
     },
     "& .meeting-detail-box .meeting-details .items": {
       borderBottom: "1px solid #f0f0f0",
@@ -342,7 +343,7 @@ export const MeetingsStyleWeb: any = {
       borderRadius: "8px",
     },
     "& .response-box .heading": {
-      padding: "20px",
+      padding: "0 0 10px 0",
       display: "flex",
       justifyContent: "space-between",
       alignItems: "center",
@@ -524,11 +525,11 @@ export const MeetingsStyleWeb: any = {
     },
     "& .top-bar .left-icon span": {
       lineHeight: "18px",
+      fontSize: "18px",
     },
     "& .top-bar .right-icon": {
       display: "flex",
       alignItems: "center",
-      // gap: "10px",
     },
     "& .right-image": {
       padding: "25px 60px",
@@ -683,6 +684,7 @@ export const MeetingsStyleWeb: any = {
     },
     "& .top-bar .left-icon span": {
       textTransform: "capitalize",
+      fontSize: "18px",
     },
     "& .right-image": {
       padding: "23px 60px",
@@ -724,6 +726,7 @@ export const MeetingsStyleWeb: any = {
       color: "white",
       padding: "12px 50px",
       borderRadius: "25px",
+      fontWeight: "600",
     },
     "& .upload-button .MuiGrid-container": {
       width: "fit-content",

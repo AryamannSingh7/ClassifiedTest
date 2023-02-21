@@ -27,7 +27,6 @@ import { DownloadIcon, PdfIcon, CheckIcon } from "./assets";
 import { Link } from "react-router-dom";
 import { ROLE } from "../../../framework/src/Enum";
 import { withTranslation } from "react-i18next";
-import "../../../web/src/i18n.js";
 import moment from "moment";
 
 class MeetingMinuteDetails extends MeetingMinutesController {
@@ -43,19 +42,14 @@ class MeetingMinuteDetails extends MeetingMinutesController {
   }
 
   render() {
-    const { classes } = this.props;
-    const { t }: any = this.props;
-
-    console.log(this.state);
+    const { t, classes }: any = this.props;
 
     return (
       <>
-        <Box style={{ background: "#F4F7FF" }} className={classes.scheduledMeetingDetails}>
-          {/* Dashboard Header -- */}
+        <Box style={{ background: "#F7F9FE" }} className={classes.scheduledMeetingDetails}>
           <DashboardHeader {...this.props} />
           <Box style={{ display: "flex" }}>
             <Grid item xs={3} md={3} sm={3} className="SideBar">
-              {/* Chairman Sidebar -- */}
               <ChairmanSidebarWeb {...this.props} />
             </Grid>
 
@@ -64,12 +58,12 @@ class MeetingMinuteDetails extends MeetingMinutesController {
                 <Box className="navigation">
                   <Box>
                     <Typography variant="body1">
-                      {t("Meetings")} / {t("Meeting Minutes")} /{" "}
+                      {t("Meetings")} / <Link to="/MeetingMinutes">{t("Meeting Minutes")}</Link> /{" "}
                       <Box component="span" style={{ color: "blue" }}>
                         {this.state.meetingMinuteDetails && this.state.meetingMinuteDetails.attributes.title}
                       </Box>
                     </Typography>
-                    <Typography variant="h5" className="sub-heading">
+                    <Typography variant="h5" className="sub-heading bold-text">
                       {t("Meeting Minutes Details")}
                     </Typography>
                   </Box>
@@ -78,14 +72,14 @@ class MeetingMinuteDetails extends MeetingMinutesController {
                   <>
                     <Box className="meeting-detail-box">
                       <Box className="meeting-top">
-                        <h3>
-                          Meeting Minutes{" "}
+                        <h4 className="bold-text">
+                          {t("Meeting Minutes")}{" "}
                           {moment(
                             this.state.meetingMinuteDetails.attributes.meeting_date_time,
                             "DD-MM-YYYY HH:mm",
                             true
                           ).format("MMMM DD, YYYY HH:mm")}
-                        </h3>
+                        </h4>
                         <span className={this.state.meetingMinuteStatus}>{this.state.meetingMinuteStatus}</span>
                       </Box>
                       <Divider />
@@ -100,8 +94,8 @@ class MeetingMinuteDetails extends MeetingMinutesController {
                         <Box className="pdf-detail">
                           <div className="heading">
                             <img src={PdfIcon} alt="pdf" />
-                            <h6>
-                              Meeting Minutes{" "}
+                            <h6 className="bold-text">
+                              {t("Meeting Minutes")}{" "}
                               {moment(
                                 this.state.meetingMinuteDetails.attributes.meeting_date_time,
                                 "DD-MM-YYYY HH:mm",
@@ -121,7 +115,7 @@ class MeetingMinuteDetails extends MeetingMinutesController {
                     {this.state.meetingMinuteDetails.attributes.meeting_mins_status === "rejected" && (
                       <Box className="rejection-box">
                         <Card>
-                          <h4>{t("Rejection Reason")}</h4>
+                          <h4 className="bold-text">{t("Rejection Reason")}</h4>
                           <p>{this.state.meetingMinuteDetails.attributes.meeting_reject_note.note}</p>
                         </Card>
                       </Box>
@@ -164,7 +158,7 @@ class MeetingMinuteDetails extends MeetingMinutesController {
 
         <Dialog fullWidth className="add-meeting" open={this.state.isRejectMeetingModalOpen}>
           <MuiDialogTitle disableTypography className="dialog-heading">
-            <Typography variant="h6">
+            <Typography variant="h6" className="bold-text">
               Reject Meeting Minutes{" "}
               {moment(
                 this.state.meetingMinuteDetails && this.state.meetingMinuteDetails.attributes.meeting_date_time,
@@ -213,7 +207,7 @@ class MeetingMinuteDetails extends MeetingMinutesController {
           <DialogContent style={{ margin: "15px 0" }}>
             <Box textAlign="center">
               <img className="comment-image" src={CheckIcon} alt="check" />
-              <Typography variant="h6">
+              <Typography variant="h6" className="bold-text">
                 Approve meeting minutes{" "}
                 {moment(
                   this.state.meetingMinuteDetails && this.state.meetingMinuteDetails.attributes.meeting_date_time,

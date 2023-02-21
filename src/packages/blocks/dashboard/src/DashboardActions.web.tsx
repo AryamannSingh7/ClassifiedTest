@@ -29,10 +29,11 @@ class DashboardActions extends DashboardActionsController {
           <Box style={{ display: "flex" }}>
             <Grid item xs={3} md={3} sm={3} className="SideBar">
               {/* Chairman Sidebar -- */}
-              {
-                localStorage.getItem('selectUserType') == 'Auditor' ?   <AuditorSideBarWeb {...this.props} /> :    <ChairmanSidebar {...this.props} />
-              }
-           
+              {localStorage.getItem("selectUserType") == "Auditor" ? (
+                <AuditorSideBarWeb {...this.props} />
+              ) : (
+                <ChairmanSidebar {...this.props} />
+              )}
             </Grid>
 
             <Grid xs={9} md={9} sm={9} spacing={4} style={{ paddingTop: 35 }}>
@@ -48,24 +49,24 @@ class DashboardActions extends DashboardActionsController {
                     <Typography variant="h5">{t("Action Assign to me")}</Typography>
                   </Box>
                   <Box className="action-filter-box">
-                    <NativeSelect className="select-year">
+                    <select className="select-year">
                       <option value={2022}>Select Building</option>
                       <option value={2021}>2021</option>
                       <option value={2020}>2020</option>
                       <option value={2019}>2019</option>
-                    </NativeSelect>
-                    <NativeSelect className="select-year">
+                    </select>
+                    <select className="select-year">
                       <option value={2022}>Sort By</option>
                       <option value={2021}>2021</option>
                       <option value={2020}>2020</option>
                       <option value={2019}>2019</option>
-                    </NativeSelect>
-                    <NativeSelect className="select-year">
+                    </select>
+                    <select className="select-year">
                       <option value={2022}>Category</option>
                       <option value={2021}>2021</option>
                       <option value={2020}>2020</option>
                       <option value={2019}>2019</option>
-                    </NativeSelect>
+                    </select>
                     <Button startIcon={<SearchIcon />}>Search</Button>
                   </Box>
                 </Box>

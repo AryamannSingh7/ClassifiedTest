@@ -37,10 +37,20 @@ interface S {
   buildingList: any[];
   filterBuilding: string;
   searchResident: string;
+  filterStatus: string;
+  status: string;
+  category: string;
   pagination: any;
   page: number;
 
+  tookDays: string;
+
+  chairmanStatus: string;
+  chairmanCategory: string;
+
   ticketList: any[];
+
+  categoryList: any[];
   // Customizable Area End
 }
 interface SS {
@@ -55,6 +65,8 @@ export default class DashboardTicketController extends BlockComponent<Props, S, 
   GetTicketByResidentCallId: any;
   GetTicketCardDataCallId: any;
   GetTicketByYearCallId: any;
+  GetIncidentCategoryListCallId: any;
+  GetTicketByDaysCallId: any;
   // Customizable Area End
 
   constructor(props: Props) {
@@ -80,10 +92,20 @@ export default class DashboardTicketController extends BlockComponent<Props, S, 
       buildingList: [],
       filterBuilding: "",
       searchResident: "",
+      filterStatus: "",
+      status: "",
+      category: "",
       pagination: null,
       page: 1,
 
+      tookDays: "",
+
+      chairmanStatus: "",
+      chairmanCategory: "",
+
       ticketList: [],
+
+      categoryList: [],
     };
     // Customizable Area End
     runEngine.attachBuildingBlock(this as IBlock, this.subScribedMessages);
@@ -113,10 +135,12 @@ export default class DashboardTicketController extends BlockComponent<Props, S, 
           this.handleTicketCardResponse(responseJson);
           break;
         case this.GetTicketByResidentCallId:
+        case this.GetTicketByYearCallId:
+        case this.GetTicketByDaysCallId:
           this.handleTicketByResidentResponse(responseJson);
           break;
-        case this.GetTicketByYearCallId:
-          this.handleTicketByYearResponse(responseJson);
+        case this.GetIncidentCategoryListCallId:
+          this.handleCategoryResponse(responseJson);
           break;
         default:
           break;
@@ -172,18 +196,27 @@ export default class DashboardTicketController extends BlockComponent<Props, S, 
 
   // Ticket By Year
   getTicketByYear = async () => {
-    const { filterYear } = this.state;
+    const { filterYear, filterBuilding, filterStatus, searchResident } = this.state;
     const society_id = localStorage.getItem("society_id");
 
     this.GetTicketByYearCallId = await apiCall({
       contentType: "application/json",
       method: "GET",
-      endPoint: `bx_block_dashboard/ticket_dashbords/ticket_in_year?year=${filterYear}&society_management_id=${society_id}`,
+      endPoint: `bx_block_dashboard/ticket_dashbords/ticket_in_year?year=${filterYear}&society_management_id=${society_id}&building_management_id=${filterBuilding}&status=${filterStatus}&search=${searchResident}`,
     });
   };
 
-  handleTicketByYearResponse = (responseJson: any) => {
-    this.setState({ ticketList: responseJson.incident.data, pagination: responseJson.meta.pagination });
+  // Ticket By Year
+  getTicketByDays = async () => {
+    const { filterYear, filterBuilding, filterStatus, searchResident, status, category } = this.state;
+    const society_id = localStorage.getItem("society_id");
+
+    this.GetTicketByDaysCallId = await apiCall({
+      contentType: "application/json",
+      method: "GET",
+      endPoint: `bx_block_dashboard/ticket_dashbords/ticket_took_day?society_management_id=${society_id}&building_management_id=${filterBuilding}&year=${filterYear}&incident_related_id=${category}&status=${filterStatus ||
+        status}&search=${searchResident}`,
+    });
   };
 
   // Config Days
@@ -233,6 +266,21 @@ export default class DashboardTicketController extends BlockComponent<Props, S, 
   handleBuildingListResponse = (responseJson: any) => {
     if (responseJson && responseJson.data) {
       this.setState({ buildingList: responseJson.data });
+    }
+  };
+
+  // Building List
+  getIncidentCategoryList = async () => {
+    this.GetIncidentCategoryListCallId = await apiCall({
+      contentType: "application/json",
+      method: "GET",
+      endPoint: `bx_block_custom_form/incidents/incident_related_list`,
+    });
+  };
+
+  handleCategoryResponse = (responseJson: any) => {
+    if (responseJson && responseJson.data) {
+      this.setState({ categoryList: responseJson.data.incident_relateds });
     }
   };
 

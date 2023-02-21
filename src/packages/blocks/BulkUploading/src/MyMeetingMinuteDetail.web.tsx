@@ -6,7 +6,6 @@ import MyMeetingsController, { Props } from "./MyMeetingsController.web";
 import { BuildingLogo, DownloadIcon, PdfIcon } from "./assets";
 import { MeetingsStyleWeb } from "./MeetingsStyle.web";
 import { withTranslation } from "react-i18next";
-import "../../../web/src/i18n.js";
 import moment from "moment";
 
 class MyMeetingMinuteDetail extends MyMeetingsController {
@@ -22,10 +21,7 @@ class MyMeetingMinuteDetail extends MyMeetingsController {
   }
 
   render() {
-    const { classes } = this.props;
-    const { t }: any = this.props;
-
-    console.log(this.state);
+    const { t, classes }: any = this.props;
 
     return (
       <>
@@ -40,7 +36,7 @@ class MyMeetingMinuteDetail extends MyMeetingsController {
                         <KeyboardBackspaceIcon />
                       </IconButton>
                     </Link>
-                    {t("Meeting Minutes")}
+                    <span className="bold-text">{t("Meeting Minutes")}</span>
                   </div>
                 </Box>
                 <Container>
@@ -58,8 +54,8 @@ class MyMeetingMinuteDetail extends MyMeetingsController {
                       <Box className="pdf-detail">
                         <div className="heading">
                           <img src={PdfIcon} alt="pdf" />
-                          <h6>
-                            Meeting Minutes{" "}
+                          <h6 className="bold-text">
+                            {t("Meeting Minutes")}{" "}
                             {this.state.meeting &&
                               moment(this.state.meeting.attributes.meeting_date_time, "DD-MM-YYYY HH:mm", true).format(
                                 "MMMM DD, YYYY HH:mm"

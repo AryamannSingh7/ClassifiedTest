@@ -7,7 +7,7 @@ const CategoryBox = ({ image, heading, value }: any) => {
     <Box className="item">
       <div className="heading">
         <img src={image} />
-        <h4>{heading}</h4>
+        <h4 className="bold-text">{heading}</h4>
       </div>
       <div>
         {value > 0 && <Button className="color-btn">{value}</Button>}

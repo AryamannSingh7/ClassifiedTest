@@ -5,7 +5,6 @@ import {
   Container,
   IconButton,
   Link,
-  MenuItem,
   Typography,
   withStyles,
   Box,
@@ -27,9 +26,8 @@ import MuiDialogTitle from "@material-ui/core/DialogTitle";
 import DocumentListChairmanController, { Props } from "./DocumentListChairmanController.web";
 import { DocumentReportStyleWeb } from "./DocumentReportStyle.web";
 import DashboardHeader from "../../dashboard/src/DashboardHeader.web";
-import ChairmanSidebarWeb from "../../dashboard/src/ChairmanSidebar.web";
 import { Document, UploadImage, DeleteImage, ShareImage, DownloadImage, PdfImage } from "./assets";
-import { Menu } from "@szhsin/react-menu";
+import { Menu, MenuItem } from "@szhsin/react-menu";
 import "@szhsin/react-menu/dist/core.css";
 import moment from "moment";
 import { Formik, Form } from "formik";
@@ -59,7 +57,7 @@ class DocumentListChairman extends DocumentListChairmanController {
 
   handleError = (errors: any, touched: any) => {
     if (errors && touched) {
-      return <small className="error">{errors.title}</small>;
+      return <small className="error">{errors}</small>;
     }
   };
 
@@ -85,9 +83,9 @@ class DocumentListChairman extends DocumentListChairmanController {
       return this.state.resolutionList.map((resolution: any) => {
         return (
           <Grid item xs={12} md={6} lg={4} key={resolution.id}>
-            <Card className="card-item">
+            <Card className="card-item resolution-card">
               <div className="heading">
-                <h4>{resolution.attributes.title}</h4>
+                <h4 className="bold-text">{resolution.attributes.title}</h4>
                 <div className="menu">
                   <Menu
                     menuButton={
@@ -128,7 +126,7 @@ class DocumentListChairman extends DocumentListChairmanController {
               <div className="res-info">
                 <div className="info-item">
                   <p>{t("Date & Time")}</p>
-                  <span>{moment(resolution.attributes.created_at).format("DD-MMM-YYYY HH:mm")}</span>
+                  <span>{moment(resolution.attributes.created_at).format("DD MMM YYYY HH:mm")}</span>
                 </div>
                 <div className="info-item">
                   <p>{t("Building")}</p>
@@ -138,9 +136,9 @@ class DocumentListChairman extends DocumentListChairmanController {
               <div className="item">
                 <div className="item-title">
                   <img src={PdfImage} />
-                  <h6>
-                    Meeting Minute{" "}
-                    {moment(resolution.attributes.meeting_date_time, "DD-MM-YYYY HH:mm").format("DD-MMM-YYYY")}
+                  <h6 className="bold-text">
+                    {t("Meeting Minute")}{" "}
+                    {moment(resolution.attributes.meeting_date_time, "DD-MM-YYYY HH:mm").format("DD MMM YYYY")}
                   </h6>
                 </div>
                 <div className="icons">
@@ -182,7 +180,7 @@ class DocumentListChairman extends DocumentListChairmanController {
               <Link href={`/DocumentChairman/${this.state.docName}/${document.id}/view`}>
                 <div className="heading">
                   <img src={Document} />
-                  <h4>{document.attributes.title}</h4>
+                  <h4 className="bold-text">{document.attributes.title}</h4>
                 </div>
               </Link>
               <div className="menu">
@@ -294,7 +292,7 @@ class DocumentListChairman extends DocumentListChairmanController {
                   <Box className="navigation">
                     <Box>
                       <Typography variant="body1">
-                        {t("Documents")} /{" "}
+                        <Link href="/DocumentChairman">{t("Documents")}</Link> /{" "}
                         <Box component="span" style={{ color: "blue" }}>
                           {t(
                             this.state.docName.toLowerCase() == "building-plans" ? "Building Plans" : this.state.docName
@@ -302,7 +300,7 @@ class DocumentListChairman extends DocumentListChairmanController {
                         </Box>
                       </Typography>
                       <Box className="top-heading">
-                        <Typography variant="h5" className="sub-heading">
+                        <Typography variant="h5" className="sub-heading bold-text">
                           {t(
                             this.state.docName.toLowerCase() == "building-plans" ? "Building Plans" : this.state.docName
                           )}
@@ -335,7 +333,9 @@ class DocumentListChairman extends DocumentListChairmanController {
           className="add-document"
         >
           <MuiDialogTitle disableTypography className="dialog-heading">
-            <Typography variant="h6">{t("Add New Document")}</Typography>
+            <Typography variant="h6" className="bold-text">
+              {t("Add New Document")}
+            </Typography>
             <IconButton onClick={() => this.handleAddDocumentModal()}>
               <CloseIcon />
             </IconButton>
@@ -348,7 +348,7 @@ class DocumentListChairman extends DocumentListChairmanController {
             validationSchema={this.validationAddForm}
             onSubmit={(values, { resetForm }) => {
               this.setState({ ...this.state, title: values.title.trim(), file: values.file }, () => {
-                this.createDocument();
+                this.createDocument(values);
                 this.handleAddDocumentModal();
                 resetForm();
               });
@@ -391,7 +391,7 @@ class DocumentListChairman extends DocumentListChairmanController {
                           }}
                         >
                           <img src={UploadImage} />
-                          <Typography variant="body1">{t("Upload File")}</Typography>
+                          <p>{t("Upload File")}</p>
                         </div>
                         <input
                           id="myInput"
@@ -424,7 +424,7 @@ class DocumentListChairman extends DocumentListChairmanController {
         </Dialog>
 
         <Dialog
-          className="delete-document"
+          className="delete-document delete-document-dialog"
           fullWidth
           maxWidth="sm"
           onClose={() => this.handleDeleteDocumentModal()}
@@ -433,7 +433,9 @@ class DocumentListChairman extends DocumentListChairmanController {
           <DialogContent>
             <Box textAlign="center">
               <img src={DeleteImage} alt="delete" />
-              <Typography variant="h6">{t("Delete Document")}</Typography>
+              <Typography variant="h6" className="bold-text">
+                {t("Delete Document")}
+              </Typography>
               <Typography variant="body1">{t("Are you sure want to delete?")}</Typography>
               <DialogActions className="dialog-button-group">
                 <Button className="cancel-button" onClick={() => this.handleDeleteDocumentModal()}>
@@ -461,7 +463,9 @@ class DocumentListChairman extends DocumentListChairmanController {
           className="add-document resolutions"
         >
           <MuiDialogTitle disableTypography className="dialog-heading">
-            <Typography variant="h6">{t("Add New Resolution")}</Typography>
+            <Typography variant="h6" className="bold-text">
+              {t("Add New Resolution")}
+            </Typography>
             <IconButton onClick={() => this.handleAddResolutionsModal()}>
               <CloseIcon />
             </IconButton>
@@ -548,10 +552,12 @@ class DocumentListChairman extends DocumentListChairmanController {
           maxWidth="md"
           onClose={() => this.handleSelectMeetingModal()}
           open={this.state.isSelectMeetingModalOpen}
-          className="select-meeting"
+          className="select-meeting meeting-minute-dialog"
         >
           <MuiDialogTitle disableTypography className="dialog-heading">
-            <Typography variant="h6">{t("Select Meeting Minutes")}</Typography>
+            <Typography variant="h6" className="bold-text">
+              {t("Select Meeting Minutes")}
+            </Typography>
             <IconButton onClick={() => this.handleSelectMeetingModal()}>
               <CloseIcon />
             </IconButton>
@@ -560,16 +566,16 @@ class DocumentListChairman extends DocumentListChairmanController {
             <List>
               <ListItem dense className="list-heading">
                 <ListItemIcon />
-                <ListItemText primary={t("Title")} />
-                <ListItemText primary={t("Agenda")} />
-                <ListItemText primary={t("Date & Time")} />
+                <ListItemText primary={t("Title")} className="bold-text" />
+                <ListItemText primary={t("Agenda")} className="bold-text" />
+                <ListItemText primary={t("Date & Time")} className="bold-text" />
               </ListItem>
               {this.meetingList(t)}
             </List>
           </DialogContent>
           <DialogActions className="dialog-button-group">
             <div className="selected-meeting">
-              <h4>{this.showMeetingTitle()}</h4>
+              <h4 className="bold-text">{this.showMeetingTitle()}</h4>
             </div>
             <div className="button-group">
               <Button className="cancel-button" onClick={() => this.handleSelectMeetingModal()}>

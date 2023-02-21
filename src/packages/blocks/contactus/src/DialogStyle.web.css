@@ -2,10 +2,6 @@
   border-bottom: 0;
 }
 
-/* * {
-  font-family: "Century Gothic" !important;
-} */
-
 .select-meeting.MuiDialog-root .MuiDialogContent-dividers,
 .edit-profile.MuiDialog-root .MuiDialogContent-dividers {
   border-bottom: 1px solid rgba(0, 0, 0, 0.12);
@@ -32,9 +28,9 @@
   justify-content: space-between;
   margin-top: 20px;
   padding: 12px 15px;
-  border: 1px solid lightgray;
+  border: 1px solid #f0f0f0;
   border-radius: 5px;
-  background: #efefef;
+  background-color: #f9f9f9;
 }
 
 .modal-document-box .left-side-document {
@@ -73,7 +69,12 @@
 
 .add-document .dialog-input,
 .add-meeting .dialog-input {
-  background-color: #efefef;
+  background-color: #f9f9f9;
+  border: 1px solid #f0f0f0;
+}
+
+.meeting-minute-dialog .MuiCheckbox-colorSecondary.Mui-checked {
+  color: #fc8434;
 }
 
 .add-faq-dialog .dialog-input {
@@ -126,11 +127,13 @@
 }
 
 .add-document .image-box {
-  background-color: #efefef;
+  background-color: #f9f9f9;
+  border-color: #f0f0f0;
 }
 
 .add-document .image-box p {
   margin-top: 10px;
+  color: #adadad;
 }
 
 .add-document .file-name {
@@ -183,7 +186,7 @@
 .cancel-meeting-dialog h6,
 .schedule-dialog h6,
 .save-lease h6 {
-  margin-bottom: 10px;
+  margin-bottom: 6px;
   font-weight: 600;
 }
 
@@ -191,7 +194,7 @@
 .cancel-meeting-dialog p,
 .schedule-dialog p,
 .save-lease p {
-  margin-bottom: 18px;
+  margin-bottom: 15px;
   color: gray;
 }
 
@@ -209,7 +212,7 @@
 }
 
 .resolutions .choose-meeting {
-  border: 1px dashed #2b6fec;
+  background-image: url("data:image/svg+xml,%3csvg width='100%25' height='100%25' xmlns='http://www.w3.org/2000/svg'%3e%3crect width='100%25' height='100%25' fill='none' stroke-dasharray='8' stroke='royalblue' stroke-width='2' stroke-dashoffset='0' stroke-linecap='square'/%3e%3c/svg%3e");
   color: #2b6fec;
   display: flex;
   justify-content: center;
@@ -217,9 +220,13 @@
   margin-top: 20px;
   text-transform: uppercase;
   font-weight: 600;
-  padding: 10px;
+  padding: 12px;
   border-radius: 5px;
   cursor: pointer;
+}
+
+.resolutions .choose-meeting span {
+  font-size: 15px;
 }
 
 .resolutions .change-meeting {
@@ -231,20 +238,23 @@
   margin-top: 20px;
   text-transform: uppercase;
   font-weight: 600;
-  padding: 10px;
+  padding: 12px 15px;
   border-radius: 5px;
 }
 
 .resolutions .change-meeting span:first-child {
   color: black;
+  font-size: 15px;
 }
 
 .resolutions .change-meeting span:last-child {
   cursor: pointer;
+  font-size: 15px;
 }
 
 .select-meeting .list-heading span {
   font-weight: 600;
+  font-family: "Gotham_Bold" !important;
 }
 
 .select-meeting .dialog-button-group {
@@ -261,11 +271,6 @@
 
 .select-meeting .dialog-button-group .button-group button {
   margin-left: 10px;
-}
-
-.szh-menu-container ul {
-  /*left: -100px !important;*/
-  /*top: -20px !important;*/
 }
 
 .pending .szh-menu-container ul {
@@ -393,14 +398,18 @@
   background-color: #2b6fed;
   color: white;
   border-radius: 8px;
-  padding-top: 10px;
-  padding-bottom: 10px;
+  padding-top: 9px;
+  padding-bottom: 9px;
   width: 175px;
   font-weight: 600;
 }
 
 .MuiDialog-root .dialog-button-group {
-  padding: 16px 24px;
+  padding: 10px 24px 20px;
+}
+
+.delete-document .dialog-button-group {
+  padding: 10px 24px;
 }
 
 .MuiDialog-root .dialog-button-group .add-button.Mui-disabled {
@@ -412,8 +421,8 @@
   border: 1px solid #2b6fed;
   background-color: white;
   color: #2b6fed;
-  padding-top: 10px;
-  padding-bottom: 10px;
+  padding-top: 9px;
+  padding-bottom: 9px;
   border-radius: 8px;
   width: 175px;
   font-weight: 600;
@@ -421,6 +430,10 @@
 
 .delete-document .dialog-button-group .cancel-button {
   margin-right: 20px;
+}
+
+.delete-document-dialog .MuiDialog-paperWidthSm {
+  max-width: 500px !important;
 }
 
 .save-lease .MuiDialogContent-root {
@@ -590,6 +603,7 @@
   min-height: 150px !important;
   outline: none;
   margin-top: 20px;
+  resize: none;
 }
 
 .add-meeting .dialog-input {
@@ -708,7 +722,8 @@
 
 .select-meeting.scheduled-meeting .button-group .dialog-input {
   padding: 6px 12px;
-  background-color: #f0f0f0;
+  background-color: #f9f9f9;
+  border: 1px solid #f0f0f0;
 }
 
 .select-meeting.scheduled-meeting .button-group {
@@ -834,21 +849,24 @@
 }
 
 .add-meeting input::placeholder,
+.meeting-group-dialog input::placeholder,
 .add-meeting textarea::placeholder {
-  color: black;
+  color: black !important;
   opacity: 1; /* Firefox */
 }
 
 .add-meeting input:-ms-input-placeholder,
+.meeting-group-dialog input:-ms-input-placeholder,
 .add-meeting textarea:-ms-input-placeholder {
   /* Internet Explorer 10-11 */
-  color: black;
+  color: black !important;
 }
 
 .add-meeting input::-ms-input-placeholder,
+.meeting-group-dialog input::-ms-input-placeholder,
 .add-meeting textarea::-ms-input-placeholder {
   /* Microsoft Edge */
-  color: black;
+  color: black !important;
 }
 
 .edit-profile .profile-picture .picture {
