@@ -420,7 +420,7 @@ export default class EmailAccountRegistrationController extends BlockComponent<
   }
   handleGtUnitApiCallId(responseJson:any,errorReponse:any){
     if (!responseJson.errors) {
-      if(sessionStorage.getItem("selectedUserType") === ROLE.PROPERTY_MANAGER){
+      if(sessionStorage.getItem("selectedUserType") === ROLE.PROPERTY_MANAGER || sessionStorage.getItem("selectedUserType") === ROLE.TENANT){
         this.setState({ allUnit: responseJson.data.apartments})
       }else{
         this.setState({ allUnit: responseJson.data.unit_apartments })
@@ -729,11 +729,19 @@ export default class EmailAccountRegistrationController extends BlockComponent<
     secureTextEntry: true
   };
   checkPhone=(value:any)=>{
+
+
 let pettrn=/^5\d+$/
-    if(this.state.selectCode == '+966'){
+if(value.includes('+'))
+{
+  console.log('hi')
+  this.setState({error:'Please enter valid mobile number',showError:true})
+  return false
+}else if(this.state.selectCode == '+966' ||this.state.selectCode == '+971' ){
 
       if(!(pettrn.test(value)))
       {
+      
         this.setState({error:'Please enter valid mobile number',showError:true})
         return false
       }
@@ -742,7 +750,7 @@ let pettrn=/^5\d+$/
 
         return true
       }
-    }else{
+    }else {
       return true
 
     }
@@ -1089,10 +1097,19 @@ let pettrn=/^5\d+$/
   }
 
   handleChange = (e: any) => {
+    console.log(e)
     if (e.target.value) {
       // @ts-ignore
       // @ts-nocheck
       this.setState({ ...this.state, [e.target.name]: e.target.value }, () => this.getData(e))
+    }
+  }
+  handleChangeCCode = (e: any) => {
+    console.log(e)
+    if (e) {
+      // @ts-ignore
+      // @ts-nocheck
+      this.setState({selectCode: `+${e}` })
     }
   }
 
@@ -1218,7 +1235,7 @@ let pettrn=/^5\d+$/
 
     this.getUnitApiCallId = requestMessage.messageId;
 
-    if(sessionStorage.getItem("selectedUserType") === ROLE.PROPERTY_MANAGER){
+    if(sessionStorage.getItem("selectedUserType") === ROLE.PROPERTY_MANAGER || sessionStorage.getItem("selectedUserType") === ROLE.TENANT){
       requestMessage.addData(
         getName(MessageEnum.RestAPIResponceEndPointMessage),
         `bx_block_property_manager/property_manager_requests/unit_list?society_management_id=${this.state.selectComplex}&building_management_id=${this.state.selectBuilding.id}`

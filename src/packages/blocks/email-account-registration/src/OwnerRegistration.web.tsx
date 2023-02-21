@@ -15,9 +15,12 @@ import { dailCode } from './code'
 import { withRouter } from 'react-router';
 import Loader from "../../../components/src/Loader.web";
 import AlertErrorWeb from "../../../components/src/AlertError.web";
+import 'react-phone-input-2/lib/style.css'
+
 
 // @ts-ignore
 import Autocomplete, { createFilterOptions } from '@material-ui/lab/Autocomplete';
+import PhoneInput from "react-phone-input-2";
 
 
 class Registration extends EmailAccountRegistrationController {
@@ -189,13 +192,13 @@ class Registration extends EmailAccountRegistrationController {
                       height="56px"
                       border="0.1px solid rgb(209 209 209 / 44%)"
                       borderRadius="25px"
-                      style={{background:'#f9f9f9'}}
+                      style={{background:'#f9f9f9',overflow:'visible'}}
                     >
                       <Box>
                         <FormControl variant="outlined" >
                           {/* <InputLabel id="demo-simple-select-outlined-label"><img src={`https://cdn.jsdelivr.net/npm/country-flag-emoji-json@2.0.0/dist/images/AF.svg`} width='15' height='15' />
                           sd</InputLabel> */}
-                          <Select
+                          {/* <Select
                             name='selectCode'
                             labelId="demo-simple-select-outlined-label"
                             id="demo-simple-select-outlined"
@@ -213,7 +216,14 @@ class Registration extends EmailAccountRegistrationController {
                             )
                             }
 
-                          </Select>
+                          </Select> */}
+                          <PhoneInput
+                            inputProps={{name:'selectCode'}}
+                            // name='selectCode'
+                            enableSearch={true}
+                            value={this.state.selectCode}
+                            onChange={this.handleChangeCCode}
+                            />
                      {/* <Autocomplete
   id="combo-box-demo"
   options={dailCode}
@@ -435,7 +445,7 @@ class Registration extends EmailAccountRegistrationController {
                     >
                       <Typography
                         style={{
-                          color: "#A0A3BD",
+                          color: "black",
                           fontWeight: "normal",
                           fontSize: 15,
                           textAlign: "center",
@@ -458,32 +468,10 @@ class Registration extends EmailAccountRegistrationController {
                         Login
                       </Link>
                     </Box>
-
-                    <Box
-                      display="flex"
-                      mt="25px"
-                      alignItems="flex-start"
-                      justifyContent='center'
-                      className={'sign'}
-                    >
-                      <Typography
-                        style={{
-                          color: "#A0A3BD",
-                          textAlign: "center",
-                          fontWeight: "normal",
-                          fontSize: 12,
-
-                        }}
-                      >
-                        POWERED BY
-
-
-
-                        {/* , {t("including the")} */}
-                        {" "}
-
-                      </Typography>
-                    </Box>
+                    <Box className="footer-main-block1 bottomBlock1" style={{backgroundColor:"white",marginTop: '25px'}}>
+                  <h6 className="bottom-text" style={{color:'#A0A3BD'}}>POWERED BY</h6>
+                  {/* <img src={Tenant_Logo.default} className="tenant-logo" style={{ cursor: 'pointer'}} onClick={()=>window.open("https://www.TenantInt.com", '_blank').focus()} alt="" /> */}
+                </Box>
                     <Box display='flex' justifyContent='center' style={{ cursor: 'pointer'}} onClick={()=>//@ts-ignore
                       window.open("https://www.TenantInt.com", '_blank').focus()}>
                       <img src={company_logo}  width='125' height='125' />
