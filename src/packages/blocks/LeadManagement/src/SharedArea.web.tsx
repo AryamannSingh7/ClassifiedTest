@@ -83,7 +83,7 @@ class SharedArea extends SharedAreaController {
                 <Box>
                   <Grid container style={dashBoard.gaMemberMain}>
                     <Grid item xs={6}>
-                      <Typography variant="h5" style={dashBoard.subHeading}>
+                      <Typography variant="h5" style={dashBoard.subHeading} className="bold-text">
                         {this.state.sharedAreaData.name}
                       </Typography>
                     </Grid>
@@ -158,17 +158,17 @@ class SharedArea extends SharedAreaController {
 
                 <Box className="about-building">
                   <Card>
-                    <h4> {t("Details")}</h4>
+                    <h4 className="bold-text">{t("Details")}</h4>
                     <p>{this.state.sharedAreaData.details || "-"}</p>
-
                     <Box className="bottom-detail">
                       <Box className="left-detail">
                         <p>
-                          {t("Total Area")}: <span>{this.state.sharedAreaData.totalArea || "-"}</span>
+                          {t("Total Area")}:{" "}
+                          <span className="bold-text">{this.state.sharedAreaData.totalArea || "-"}</span>
                         </p>
                         <p>
                           {t("Reservation fees")}:{" "}
-                          <span>
+                          <span className="bold-text">
                             {this.state.sharedAreaData.currency} {this.state.sharedAreaData.reservationFee || "-"}{" "}
                             {t("per hour")}
                           </span>
@@ -178,7 +178,7 @@ class SharedArea extends SharedAreaController {
                         <Box className="right-detail">
                           <Box className="name">
                             <img src={Document} alt="" />
-                            <h6>{t("Floor Plan")}</h6>
+                            <h6 className="bold-text">{t("Floor Plan")}</h6>
                           </Box>
                           <Link href={this.state.sharedAreaData.floorPlan.url} target="_blank">
                             <img src={downloadIcon} alt="" />
@@ -193,7 +193,7 @@ class SharedArea extends SharedAreaController {
                   <Card>
                     <Box className="top-content">
                       <Box className="heading">
-                        <h2>{t("Upcoming Reservation")}</h2>
+                        <h2 className="bold-text">{t("Upcoming Reservation")}</h2>
                       </Box>
                       <Box className="right-content">
                         <select
@@ -276,7 +276,9 @@ const DialogBox = (props: any) => {
         maxWidth="md"
       >
         <MuiDialogTitle disableTypography className="dialog-heading">
-          <Typography variant="h6">{t("Edit Details")}</Typography>
+          <Typography variant="h6" className="bold-text">
+            {t("Edit Details")}
+          </Typography>
           <IconButton onClick={() => props.this.handleSharedAreaEditModal()}>
             <CloseIcon />
           </IconButton>
@@ -453,6 +455,7 @@ const EditButton = (props: any) => {
     </>
   );
 };
+
 const dashBoard = {
   navigation: {
     display: "flex",

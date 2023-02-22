@@ -17,7 +17,7 @@ export const BuildingApartmentStyle: any = {
     },
     "& .about-building .MuiCard-root": {
       boxShadow: "none",
-      padding: "15px",
+      padding: "15px 18px",
       borderRadius: "8px",
     },
     "& .about-building h4": {
@@ -32,12 +32,14 @@ export const BuildingApartmentStyle: any = {
       width: "100%",
       backgroundColor: "#2B6FED",
       fontWeight: 600,
-      height: "45px",
+      height: "40px",
       borderRadius: "8px",
       color: "white",
+      boxShadow: "none",
     },
     "& a": {
       textDecoration: "none !important",
+      color: "black !important",
     },
     "& .building-info .MuiCard-root": {
       boxShadow: "none",
@@ -378,6 +380,9 @@ export const BuildingApartmentStyle: any = {
       fontSize: "20px",
       textTransform: "capitalize",
     },
+    "& .heading h4": {
+      fontSize: "22px",
+    },
     "& .location-details .heading": {
       display: "flex",
       justifyContent: "space-between",
@@ -464,6 +469,9 @@ export const BuildingApartmentStyle: any = {
       alignItems: "center",
       justifyContent: "space-around",
       gap: "12px",
+    },
+    "& .related-people .user-details .icons img": {
+      cursor: "pointer",
     },
     "& .related-people .user-details .user-menu": {
       position: "absolute",
@@ -644,6 +652,10 @@ export const BuildingApartmentStyle: any = {
       background: "#FFEAEA",
       color: "#F21717",
     },
+    "& a": {
+      textDecoration: "none !important",
+      color: "black !important",
+    },
   },
   complexDetails: {
     "& .top-bar": {
@@ -660,6 +672,10 @@ export const BuildingApartmentStyle: any = {
       display: "flex",
       alignItems: "center",
       justifyContent: "center",
+    },
+    "& .top-bar .left-icon span": {
+      lineHeight: "18px",
+      fontSize: "18px",
     },
     "& .right-image": {
       padding: "23px 60px",
