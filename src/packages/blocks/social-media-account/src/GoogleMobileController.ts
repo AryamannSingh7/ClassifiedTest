@@ -1,4 +1,3 @@
-// Customizable Area Start
 import { runEngine } from "../../../framework/src/RunEngine";
 
 import {
@@ -78,4 +77,3 @@ class GoogleMobileController {
 
 const googleMobileController = new GoogleMobileController();
 export default googleMobileController;
-// Customizable Area End
