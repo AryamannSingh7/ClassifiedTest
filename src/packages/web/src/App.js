@@ -2,7 +2,6 @@
 import React, { useEffect, useState } from 'react';
 import { View } from 'react-native';
 
-import { getFirebaseToken } from './firebase';
 import { baseURL } from '../../framework/src/config';
 
 import WebRoutesGenerator from '../../components/src/NativeWebRouteWrapper';
@@ -2326,39 +2325,6 @@ const routeMap = {
 };
 
 const App = () => {
-  const [notificationToken, setNotificationToken] = useState('');
-
-  useEffect(() => {
-    if (notificationToken) return;
-    (async () => {
-      try {
-        const res = await getFirebaseToken();
-        setNotificationToken(res);
-
-        if (localStorage.getItem('userToken')) {
-          notificationApiCall(res);
-        }
-      } catch (e) {
-        console.error(e);
-      }
-    })();
-  }, [notificationToken]);
-
-  const notificationApiCall = token => {
-    let requestOptions = {
-      method: 'GET',
-      headers: { token: localStorage.getItem('userToken') }
-    };
-
-    fetch(
-      `${baseURL}/bx_block_notifications/notifications/update_device_id?device_id=${token}`,
-      requestOptions
-    )
-      .then(response => response.text())
-      .then(result => console.log(JSON.stringify(result)))
-      .catch(error => console.log('error', error));
-  };
-
   return (
     <View style={{ height: '100%', width: '100%' }}>
       <Toaster className="toast" position="top-right" reverseOrder={false} />
@@ -2366,7 +2332,6 @@ const App = () => {
       <ModalContainer />
     </View>
   );
-  // }
 };
 
 export default App;

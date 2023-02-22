@@ -99,7 +99,7 @@ class Polling extends PollingController {
                                     }}
                                     className="dialogOption"
                                 >
-                                    <img src={pollcreate} alt="pollcreate" className="DialogIcons"/>
+                                    <img src={pollcreate} alt="pollcreate" className="DialogIcons" width="50px"/>
                                     <p>{t("Create Poll")}</p>
                                 </div>
                                 <div
@@ -110,7 +110,7 @@ class Polling extends PollingController {
                                     }}
                                     className="dialogOption"
                                 >
-                                    <img src={surveycreate} alt="surveycreate" className="DialogIcons"/>
+                                    <img src={surveycreate} alt="surveycreate" className="DialogIcons" width="50px"/>
                                     <p>{t("Create Survey")}</p>
                                 </div>
                             </DialogActions>
@@ -211,7 +211,7 @@ class Polling extends PollingController {
                                             }
                                         </Box>
                                         <Box className="EventsIconsText">
-                                            <Typography className="EventsTitle">{data.title}</Typography>
+                                            <Typography className="EventsTitle bold-text">{data.title}</Typography>
                                         </Box>
                                         <Box className="EventsIconsText" >
                                             <Typography variant="body2" className="textwrap" style={{width:"95%",marginTop:'10px',marginBottom:"10px"}}
@@ -298,7 +298,7 @@ class Polling extends PollingController {
                                                     }
                                                 </Box>
                                                 <Box className="EventsIconsText">
-                                                    <Typography className="EventsTitle">{data.attributes.title}</Typography>
+                                                    <Typography className="EventsTitle bold-text">{data.attributes.title}</Typography>
                                                 </Box>
                                                 <Box className="EventsIconsText" >
                                                     <Typography variant="body2" className="textwrap" style={{width:"95%",marginTop:'10px',marginBottom:"10px"}}

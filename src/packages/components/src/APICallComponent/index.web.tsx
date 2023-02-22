@@ -16,7 +16,7 @@ export const apiCall = async (data: any) => {
 
   apiRequest.addData(getName(MessageEnum.RestAPIRequestHeaderMessage), JSON.stringify(header));
 
-  body && apiRequest.addData(getName(MessageEnum.RestAPIRequestBodyMessage), JSON.stringify(body));
+  body && apiRequest.addData(getName(MessageEnum.RestAPIRequestBodyMessage), body);
 
   apiRequest.addData(getName(MessageEnum.RestAPIRequestMethodMessage), method);
 

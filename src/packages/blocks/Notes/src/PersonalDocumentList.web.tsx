@@ -5,7 +5,6 @@ import {
   Container,
   IconButton,
   Link,
-  MenuItem,
   Typography,
   withStyles,
   Box,
@@ -15,7 +14,7 @@ import {
   FormControl,
   DialogActions,
 } from "@material-ui/core";
-import { Menu } from "@szhsin/react-menu";
+import { Menu, MenuItem } from "@szhsin/react-menu";
 import MoreVertIcon from "@material-ui/icons/MoreVert";
 import CloseIcon from "@material-ui/icons/Close";
 import MuiDialogTitle from "@material-ui/core/DialogTitle";
@@ -80,7 +79,9 @@ class PersonalDocumentList extends PersonalDocumentListController {
                     <div className="empty-list">
                       <div className="content-box">
                         <img src={NoPdf} />
-                        <h3 className="bold-text">{t("No Document Found")}</h3>
+                        <h3 className="bold-text">
+                          No Documents <br /> Found
+                        </h3>
                         <p>
                           {t("Looks like you haven't uploaded any documents! you can upload")}{" "}
                           {this.state.documentType === "rent-contract" && `${t("rent contract")}`}
@@ -95,7 +96,7 @@ class PersonalDocumentList extends PersonalDocumentListController {
                     {this.state.documentsList.map((document: any) => {
                       return (
                         <Grid item xs={12} md={12} lg={12} key={document.id}>
-                          <Box className="item document">
+                          <Box className="item document personal-document">
                             <Link href={`/PersonalDocument/${this.state.documentType}/${document.id}/view`}>
                               <div className="left-side">
                                 <div className="image">

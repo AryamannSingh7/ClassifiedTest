@@ -60,17 +60,17 @@ class PollDetails extends SurveyDetailsMainController {
                             <Typography variant="body1" >
                                 {t("Poll and survey")} / {t("Create Surveys")} / <Box component="span" style={{color: "blue"}}>{t("Survey Details")}</Box>
                             </Typography>
-                            <Typography variant="h5" className="subHeading">{t("Survey Details")}</Typography>
+                            <Typography variant="h5" className="subHeading bold-text">{t("Survey Details")}</Typography>
                         </Box>
                     </Box>
 
-                    <Grid container spacing={4} style={{marginTop: 15}}>
+                    <Grid container spacing={4} style={{marginTop: 0}}>
 
                         <Grid item sm={12} md={12} xs={12}>
                             <Box className="createPSCards">
                                 <Box className="PreviewName">
                                     <Box className="PollName">
-                                        <Typography className="subHeading">{t("Survey Name")}: </Typography>
+                                        <Typography className="subHeading bold-text">{t("Survey Name")}: </Typography>
                                         <Typography className="PollNameText textwrap">
                                             {this.state.SurveyPreviewAnswer.title}
                                         </Typography>
@@ -96,7 +96,7 @@ class PollDetails extends SurveyDetailsMainController {
                                         <CalendarTodayOutlinedIcon style={{color:"grey", fontSize:22}}/>
                                         <Box>
                                             <Typography className="PollNamedate">{t("Start Date")}</Typography>
-                                            <Typography className="PollNameText">
+                                            <Typography className="PollNameText bold-text">
                                                 {/* June 7, 2022 */}
                                                 {/*{moment(this.state.SurveyPreviewAnswer?.start_date).format("MMMM DD, YYYY")}*/}
                                                 {this.state.SurveyPreviewAnswer?.start_date}
@@ -108,7 +108,7 @@ class PollDetails extends SurveyDetailsMainController {
                                         <Box display='flex'>
                                             <Box>
                                                 <Typography className="PollNamedate">{t("End Date")}</Typography>
-                                                <Typography className="PollNameText">
+                                                <Typography className="PollNameText bold-text">
                                                     {/* June 7, 2022 */}
                                                     {/*{moment(this.state.SurveyPreviewAnswer?.end_date).format("MMMM DD, YYYY")}*/}
                                                     {this.state.SurveyPreviewAnswer?.end_date}

@@ -52,6 +52,7 @@
 
 .dialog-heading h6 {
   font-weight: 600;
+  line-height: 24px;
 }
 
 .dialog-input {
@@ -271,6 +272,10 @@
 
 .select-meeting .dialog-button-group .button-group button {
   margin-left: 10px;
+}
+
+.szh-menu-container ul {
+  border-radius: 6px;
 }
 
 .pending .szh-menu-container ul {
@@ -1412,4 +1417,17 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
+}
+
+@media only screen and (max-width: 425px) {
+  .MuiDialog-root .dialog-button-group {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .MuiDialog-root .dialog-button-group button {
+    width: 100% !important;
+    margin: 0 !important;
+  }
 }

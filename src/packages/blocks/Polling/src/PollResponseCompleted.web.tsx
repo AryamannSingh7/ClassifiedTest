@@ -1,68 +1,68 @@
-//@ts-ignore
-//@ts-nocheck
-import React from "react";
-
-//components
+import * as React from "react";
 import {
-  Box,
-  Button,
-  Link,
-  Grid
+  Button, Grid, Box, TextField, Typography, LinearProgress,InputAdornment,Checkbox
 } from "@material-ui/core";
-
-//resorces
-import PersonOutlineIcon from '@material-ui/icons/PersonOutline';
-//resources
-import KeyboardBackspaceIcon from '@material-ui/icons/KeyboardBackspace';
-import { Lock_Icon } from "../src/assets";
+import {success} from "./assets"
+import { makeStyles, withStyles } from '@material-ui/core/styles';
+import ArrowBackIcon from '@material-ui/icons/ArrowBack';
 import { withRouter } from 'react-router';
+import SurveyParticipateController, {
+  Props
+} from "./SurveyParticipateController";
 import Loader from "../../../components/src/Loader.web";
-// Customizable Area End
+import "./Polling.web.css"
+import {withTranslation} from "react-i18next";
+import '../../../web/src/i18n.js';
 
-import PollingController from "./PollingController";
-
-class PollResponseCompleted extends PollingController {
-
+class SurveyParticipate extends SurveyParticipateController {
+  constructor(props: Props) {
+    super(props);
+  }
   render() {
+    // @ts-ignore
+    const {t} = this.props
     return (
-      <>
-          <Box className="login-wrapper reg-wrapper">
-          <Box display={{ xs: 'flex', md: 'none' }} className="backIcon" onClick={() => window.history.back()}><KeyboardBackspaceIcon /></Box>
-          <Grid container spacing={2} className="auth-container">
-            <Grid item xs={12} md={7} className="auth-cols">
-              <Box className="content-block">
-                <Box className="logo-block common-top-padding" display={{ xs: 'none', md: 'flex' }}>
-                  <Link href="/EmailAccountLogin">
-                    {/* <img src={Building_Logo} className="head-logo" alt="" /> */}
-                    <h4>Building Name</h4>
-                  </Link>
+        <>
+          <Grid container>
+            <Grid xs={10} style={{ display:"flex", alignItems:"center", gap:"1rem",margin:"10px 10px"}}>
+              <ArrowBackIcon onClick={() => this.props.history.push("/PollsSurvey")} style={{cursor:"pointer",marginLeft:"5px"}}/>
+            </Grid>
+            <Grid xs={12}>
+              <Box style={{height:"94.5vh",display:'flex',flexDirection:"column",alignItems:'center'}}>
+                <Box style={{display:'flex',flexDirection:"column",alignItems:"center",justifyContent:"center",height:"100%"}}>
+                  <img src={success} style={{marginBottom:"15px"}} />
+                  <Typography variant="h5" style={{textAlign:'center',fontFamily: "Century Gothic",fontWeight:"bold"}}>
+                    {t("Poll Response Submitted")}
+                  </Typography>
+                  <Typography variant="body1" style={{textAlign:'center',fontFamily: "Century Gothic",marginTop:"30px",width:"90%"}}>
+                    {t("Your Poll Response has been submitted successfully")}
+                  </Typography>
                 </Box>
-                <Box className="main-content-block">
-                  <Box className="reg-content-block">
-                    <Box className="header-block chairmanHeaderBlock">
-                      <PersonOutlineIcon className="bank-logo"/>
-                      {/* <img src={request} className="bank-logo" alt="Tenant Logo" /> */}
-                      <h1>Poll Response Submitted</h1>
-                      <h6>Your Poll Response has been submitted successfully</h6>
-                    </Box>
-                  </Box>
-                </Box>
-                <Box className="footer-block">
-                  <Box className="row-btn customButton desktop-ui">
-                    <Button variant="contained" 
-                    onClick={this.getFinalPollAnswerView}
-                    >
-                      Okay
-                    </Button>
-                  </Box>
+                <Box style={{width:"90%",marginBottom:"25px"}}>
+                  <OkButton fullWidth size="large" onClick={() => this.props.history.push("/pollsSurvey")}>{t("Okay")}</OkButton>
                 </Box>
               </Box>
             </Grid>
-
           </Grid>
-        </Box>
-      </>
+        </>
     );
   }
 }
-export default withRouter(PollResponseCompleted);
+export default withTranslation()(withRouter(SurveyParticipate));
+
+const OkButton = withStyles((theme) => ({
+  root: {
+    color: "white",
+    backgroundColor: "#2b6fed",
+    fontWeight:"bold",
+    height:"45px",
+    fontSize:"16px",
+    textTransform:"initial",
+    borderRadius:"100px",
+    '&:hover': {
+      backgroundColor: "#2b6fef",
+    },
+  },
+}))(Button);
+
+// Customizable Area End

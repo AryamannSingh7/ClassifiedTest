@@ -63,7 +63,7 @@ class OwnerComplex extends OwnerComplexController {
                     <IconButton onClick={() => this.handleGotoDashboard()}>
                       <KeyboardBackspaceIcon />
                     </IconButton>
-                    <span>{t("Building Info & Rules")}</span>
+                    <span className="bold-text">{t("Building Info & Rules")}</span>
                   </div>
                 </Box>
                 <Container className="page-container">
@@ -71,14 +71,15 @@ class OwnerComplex extends OwnerComplexController {
                     <Box className="heading-box">
                       <Box className="heading-top">
                         <img src={this.state.complexData.logo} alt="" />
-                        <h4>{this.state.complexData.complexName || "-"}</h4>
+                        <h4 className="bold-text">{this.state.complexData.complexName || "-"}</h4>
                       </Box>
                       <Box className="heading-bottom">
                         <Box className="heading">
-                          <h4>{t("About")}</h4>
+                          <h4 className="bold-text">{t("About")}</h4>
                           <Link
-                            href={`https://maps.google.com/?q=${this.state.complexData.lat},${this.state.complexData.long
-                              }`}
+                            href={`https://maps.google.com/?q=${this.state.complexData.lat},${
+                              this.state.complexData.long
+                            }`}
                             target="_blank"
                           >
                             <span>{t("See complex on map")}</span>
@@ -111,7 +112,7 @@ class OwnerComplex extends OwnerComplexController {
                     </Box>
 
                     <Box className="building-box">
-                      <h4>{t("Buildings")}</h4>
+                      <h4 className="bold-text">{t("Buildings")}</h4>
                       <Grid container spacing={2}>
                         {this.state.complexData.buildingList.length === 0 && (
                           <Grid item xs={12}>
@@ -131,7 +132,7 @@ class OwnerComplex extends OwnerComplexController {
                     </Box>
 
                     <Box className="images-box">
-                      <h4>{t("Photos")}</h4>
+                      <h4 className="bold-text">{t("Photos")}</h4>
                       <Slider ref={(c: any) => (this.slider = c)} {...settings}>
                         {this.state.complexData.photos.length === 0 && <div>{t("No photos available")}</div>}
                         {this.state.complexData.photos.map((photo: any, index: number) => {
@@ -145,7 +146,7 @@ class OwnerComplex extends OwnerComplexController {
                     </Box>
 
                     <Box className="management-team">
-                      <h4>{t("Management Team")}</h4>
+                      <h4 className="bold-text">{t("Management Team")}</h4>
                       <Grid container spacing={2}>
                         <Grid item xs={12}>
                           <Card className="team-member-box">{t("Coming soon")}</Card>
@@ -154,13 +155,13 @@ class OwnerComplex extends OwnerComplexController {
                     </Box>
 
                     <Box className="document-boxes">
-                      <h4>{t("Documents")}</h4>
+                      <h4 className="bold-text">{t("Documents")}</h4>
                       <Grid container spacing={2}>
                         <Grid item xs={12}>
                           <Link href="/BuildingDocuments/Policy">
                             <Card className="document">
                               <img src={Document} alt="" />
-                              <h6>{t("Policy")}</h6>
+                              <h6 className="bold-text">{t("Policy")}</h6>
                             </Card>
                           </Link>
                         </Grid>
@@ -168,7 +169,7 @@ class OwnerComplex extends OwnerComplexController {
                           <Link href="/BuildingDocuments/Resolutions">
                             <Card className="document">
                               <img src={Document} alt="" />
-                              <h6>{t("Resolution")}</h6>
+                              <h6 className="bold-text">{t("Resolution")}</h6>
                             </Card>
                           </Link>
                         </Grid>
