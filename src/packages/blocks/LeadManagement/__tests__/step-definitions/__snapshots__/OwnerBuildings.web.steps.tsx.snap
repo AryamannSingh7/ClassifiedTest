@@ -39,13 +39,13 @@ exports[`OwnerBuildings User navigates to OwnerBuildings 1`] = `
         "& .about-building .MuiCard-root": Object {
           "borderRadius": "8px",
           "boxShadow": "none",
-          "padding": "15px",
+          "padding": "15px 18px",
         },
         "& .about-building .bottom-detail": Object {
           "alignItems": "center",
           "display": "flex",
           "justifyContent": "space-between",
-          "marginTop": "20px",
+          "marginTop": "30px",
         },
         "& .about-building .bottom-detail .right-detail": Object {
           "alignItems": "center",
@@ -78,7 +78,7 @@ exports[`OwnerBuildings User navigates to OwnerBuildings 1`] = `
         },
         "& .about-building p": Object {
           "color": "black",
-          "fontSize": "18px",
+          "fontSize": "16px",
         },
         "& .building-info": Object {
           "marginTop": 12,
@@ -226,6 +226,7 @@ exports[`OwnerBuildings User navigates to OwnerBuildings 1`] = `
           "padding": "12px 20px",
         },
         "& .content-boxes": Object {
+          "boxShadow": "rgba(0, 0, 0, 0.04) 0px 3px 5px",
           "marginBottom": "50px",
           "marginTop": "50px",
         },
@@ -280,7 +281,7 @@ exports[`OwnerBuildings User navigates to OwnerBuildings 1`] = `
           "padding": "20px",
         },
         "& .content-boxes .top-content .heading h2": Object {
-          "fontSize": "22px",
+          "fontSize": "20px",
           "fontWeight": 600,
         },
         "& .content-boxes .top-content .right-content": Object {
@@ -317,9 +318,10 @@ exports[`OwnerBuildings User navigates to OwnerBuildings 1`] = `
         "& .edit-button": Object {
           "backgroundColor": "#2B6FED",
           "borderRadius": "8px",
+          "boxShadow": "none",
           "color": "white",
           "fontWeight": 600,
-          "height": "45px",
+          "height": "40px",
           "width": "100%",
         },
         "& .navigation": Object {
@@ -356,10 +358,11 @@ exports[`OwnerBuildings User navigates to OwnerBuildings 1`] = `
           "color": "black",
         },
         "& a": Object {
+          "color": "black !important",
           "textDecoration": "none !important",
         },
         "& h4": Object {
-          "fontSize": "22px",
+          "fontSize": "20px",
         },
       },
       "complexDetails": Object {
@@ -503,6 +506,10 @@ exports[`OwnerBuildings User navigates to OwnerBuildings 1`] = `
           "alignItems": "center",
           "display": "flex",
           "justifyContent": "center",
+        },
+        "& .top-bar .left-icon span": Object {
+          "fontSize": "18px",
+          "lineHeight": "18px",
         },
         "& a": Object {
           "textDecoration": "none !important",
@@ -652,6 +659,9 @@ exports[`OwnerBuildings User navigates to OwnerBuildings 1`] = `
         "& .family-details .user-details h4": Object {
           "margin": 0,
         },
+        "& .heading h4": Object {
+          "fontSize": "22px",
+        },
         "& .location-details": Object {
           "marginTop": "20px",
         },
@@ -729,6 +739,9 @@ exports[`OwnerBuildings User navigates to OwnerBuildings 1`] = `
           "justifyContent": "space-around",
           "marginTop": "10px",
         },
+        "& .related-people .user-details .icons img": Object {
+          "cursor": "pointer",
+        },
         "& .related-people .user-details .role": Object {
           "background": "#e4edff",
           "borderRadius": "25px",
@@ -787,8 +800,12 @@ exports[`OwnerBuildings User navigates to OwnerBuildings 1`] = `
         "& .unit-details": Object {
           "marginTop": "35px",
         },
+        "& a": Object {
+          "color": "black !important",
+          "textDecoration": "none !important",
+        },
         "& h4": Object {
-          "fontSize": "22px",
+          "fontSize": "20px",
           "fontWeight": 600,
           "textTransform": "capitalize",
         },
@@ -964,6 +981,10 @@ exports[`OwnerBuildings User navigates to OwnerBuildings 1`] = `
           "display": "flex",
           "justifyContent": "center",
         },
+        "& .top-bar .left-icon span": Object {
+          "fontSize": "18px",
+          "lineHeight": "18px",
+        },
         "& a": Object {
           "textDecoration": "none !important",
         },
@@ -977,7 +998,7 @@ exports[`OwnerBuildings User navigates to OwnerBuildings 1`] = `
     }
   >
     <div
-      className="MuiBox-root MuiBox-root-1 & .top-bar & .top-bar .left-icon & .right-image & a & .page-container & .details-box & .heading-box .heading-top & .heading-box .heading-top img & .heading-box .heading-top h4 & .heading-box .heading-bottom .heading & .heading-box .heading-bottom .heading span & .heading-box .heading-bottom .info-item & .heading-box .heading-bottom .info-item span & .building-box & .building-box .building-card & .building-box h4 & .images-box img & .images-box & .images-box h4 & .images-box .slick-track & .images-box .slick-prev & .images-box .slick-next & .management-team & .management-team h4 & .management-team .team-member-box & .management-team .team-member-box > img & .management-team .team-member-box .icons & .management-team .team-member-box .icons div & .document-boxes & .document-boxes h4 & .document-boxes .document & .document-boxes .document h6"
+      className="MuiBox-root MuiBox-root-1 & .top-bar & .top-bar .left-icon & .top-bar .left-icon span & .right-image & a & .page-container & .details-box & .heading-box .heading-top & .heading-box .heading-top img & .heading-box .heading-top h4 & .heading-box .heading-bottom .heading & .heading-box .heading-bottom .heading span & .heading-box .heading-bottom .info-item & .heading-box .heading-bottom .info-item span & .building-box & .building-box .building-card & .building-box h4 & .images-box img & .images-box & .images-box h4 & .images-box .slick-track & .images-box .slick-prev & .images-box .slick-next & .management-team & .management-team h4 & .management-team .team-member-box & .management-team .team-member-box > img & .management-team .team-member-box .icons & .management-team .team-member-box .icons div & .document-boxes & .document-boxes h4 & .document-boxes .document & .document-boxes .document h6"
       style={
         Object {
           "background": "white",
@@ -1438,7 +1459,9 @@ exports[`OwnerBuildings User navigates to OwnerBuildings 1`] = `
                                 </WithStyles(ForwardRef(Typography))>
                               </ForwardRef(Link)>
                             </WithStyles(ForwardRef(Link))>
-                            <span />
+                            <span
+                              className="bold-text"
+                            />
                           </div>
                         </div>
                       </Styled(MuiBox)>
@@ -1485,7 +1508,9 @@ exports[`OwnerBuildings User navigates to OwnerBuildings 1`] = `
                                           alt=""
                                           src=""
                                         />
-                                        <h4>
+                                        <h4
+                                          className="bold-text"
+                                        >
                                           -
                                         </h4>
                                       </div>
@@ -1502,7 +1527,9 @@ exports[`OwnerBuildings User navigates to OwnerBuildings 1`] = `
                                           <div
                                             className="MuiBox-root MuiBox-root-8 heading"
                                           >
-                                            <h4 />
+                                            <h4
+                                              className="bold-text"
+                                            />
                                             <WithStyles(ForwardRef(Link))
                                               href="https://maps.google.com/?q=,"
                                               target="_blank"
@@ -2231,7 +2258,9 @@ exports[`OwnerBuildings User navigates to OwnerBuildings 1`] = `
                                   <div
                                     className="MuiBox-root MuiBox-root-9 images-box"
                                   >
-                                    <h4 />
+                                    <h4
+                                      className="bold-text"
+                                    />
                                     <Slider
                                       infinite={false}
                                       responsive={
@@ -2455,7 +2484,9 @@ exports[`OwnerBuildings User navigates to OwnerBuildings 1`] = `
                                   <div
                                     className="MuiBox-root MuiBox-root-10 management-team"
                                   >
-                                    <h4 />
+                                    <h4
+                                      className="bold-text"
+                                    />
                                     <WithStyles(ForwardRef(Grid))
                                       container={true}
                                       spacing={2}
@@ -2764,7 +2795,9 @@ exports[`OwnerBuildings User navigates to OwnerBuildings 1`] = `
                                   <div
                                     className="MuiBox-root MuiBox-root-11 document-boxes"
                                   >
-                                    <h4 />
+                                    <h4
+                                      className="bold-text"
+                                    />
                                     <WithStyles(ForwardRef(Grid))
                                       container={true}
                                       spacing={2}
@@ -3137,7 +3170,9 @@ exports[`OwnerBuildings User navigates to OwnerBuildings 1`] = `
                                                                         }
                                                                       }
                                                                     />
-                                                                    <h6 />
+                                                                    <h6
+                                                                      className="bold-text"
+                                                                    />
                                                                   </div>
                                                                 </ForwardRef(Paper)>
                                                               </WithStyles(ForwardRef(Paper))>
@@ -3405,7 +3440,9 @@ exports[`OwnerBuildings User navigates to OwnerBuildings 1`] = `
                                                                         }
                                                                       }
                                                                     />
-                                                                    <h6 />
+                                                                    <h6
+                                                                      className="bold-text"
+                                                                    />
                                                                   </div>
                                                                 </ForwardRef(Paper)>
                                                               </WithStyles(ForwardRef(Paper))>

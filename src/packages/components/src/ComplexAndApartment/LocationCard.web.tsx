@@ -7,7 +7,7 @@ const LocationCard = ({ image, style, heading, value }: any) => {
       <img src={image} style={style} />
       <Box className="location-info">
         <p>{heading}</p>
-        <h4>{value}</h4>
+        <h4 className="bold-text">{value}</h4>
       </Box>
     </Card>
   );

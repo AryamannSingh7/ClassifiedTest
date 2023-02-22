@@ -175,7 +175,7 @@ export default class EmailAlertsController extends BlockComponent<Props, S, SS> 
       contentType: "application/json",
       method: "PUT",
       endPoint: `bx_block_emailnotifications/email_alerts/${id}`,
-      body: body,
+      body: JSON.stringify(body),
     });
   };
 
@@ -194,7 +194,7 @@ export default class EmailAlertsController extends BlockComponent<Props, S, SS> 
       contentType: "application/json",
       method: "PUT",
       endPoint: `bx_block_emailnotifications/email_alerts/${this.state.id}`,
-      body: body,
+      body: JSON.stringify(body),
     });
   };
 

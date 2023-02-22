@@ -44,7 +44,7 @@ defineFeature(feature, (test) => {
       mainUnitDetails.addData(getName(MessageEnum.RestAPIResponceDataMessage), mainUnitDetails);
       mainUnitDetails.addData(getName(MessageEnum.RestAPIResponceSuccessMessage), chairmanUnitDetailsMockData);
       instance.GetUnitDetailsCallId = mainUnitDetails;
-      runEngine.sendMessage("Shared Area", mainUnitDetails);
+      runEngine.sendMessage("Unit details", mainUnitDetails);
     });
 
     then("Should load the relation list", async () => {

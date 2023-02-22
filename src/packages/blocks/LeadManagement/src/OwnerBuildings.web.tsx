@@ -64,7 +64,7 @@ class OwnerBuildings extends OwnerBuildingsController {
                         <KeyboardBackspaceIcon />
                       </IconButton>
                     </Link>
-                    <span>{t("Building Info & Rules")}</span>
+                    <span className="bold-text">{t("Building Info & Rules")}</span>
                   </div>
                 </Box>
                 <Container className="page-container">
@@ -72,14 +72,15 @@ class OwnerBuildings extends OwnerBuildingsController {
                     <Box className="heading-box">
                       <Box className="heading-top">
                         <img src={this.state.buildingData.logo} alt="" />
-                        <h4>{this.state.buildingData.buildingName || "-"}</h4>
+                        <h4 className="bold-text">{this.state.buildingData.buildingName || "-"}</h4>
                       </Box>
                       <Box className="heading-bottom">
                         <Box className="heading">
-                          <h4>{t("About")}</h4>
+                          <h4 className="bold-text">{t("About")}</h4>
                           <Link
-                            href={`https://maps.google.com/?q=${this.state.buildingData.lat},${this.state.buildingData.long
-                              }`}
+                            href={`https://maps.google.com/?q=${this.state.buildingData.lat},${
+                              this.state.buildingData.long
+                            }`}
                             target="_blank"
                           >
                             <span>{t("See building on map")}</span>
@@ -110,7 +111,7 @@ class OwnerBuildings extends OwnerBuildingsController {
                     </Box>
 
                     <Box className="images-box">
-                      <h4>{t("Photos")}</h4>
+                      <h4 className="bold-text">{t("Photos")}</h4>
                       <Slider ref={(c: any) => (this.slider = c)} {...settings}>
                         {this.state.buildingData.photos.length === 0 && <div>{t("No photos available")}</div>}
                         {this.state.buildingData.photos.map((photo: any, index: number) => {
@@ -124,7 +125,7 @@ class OwnerBuildings extends OwnerBuildingsController {
                     </Box>
 
                     <Box className="management-team">
-                      <h4>{t("Management Team")}</h4>
+                      <h4 className="bold-text">{t("Management Team")}</h4>
                       <Grid container spacing={2}>
                         <Grid item xs={12}>
                           <Card className="team-member-box">{t("Coming soon")}</Card>
@@ -133,13 +134,13 @@ class OwnerBuildings extends OwnerBuildingsController {
                     </Box>
 
                     <Box className="document-boxes">
-                      <h4>{t("Documents")}</h4>
+                      <h4 className="bold-text">{t("Documents")}</h4>
                       <Grid container spacing={2}>
                         <Grid item xs={12}>
                           <Link href="/BuildingDocuments/Policy">
                             <Card className="document">
                               <img src={Document} alt="" />
-                              <h6>{t("Policy")}</h6>
+                              <h6 className="bold-text">{t("Policy")}</h6>
                             </Card>
                           </Link>
                         </Grid>
@@ -147,7 +148,7 @@ class OwnerBuildings extends OwnerBuildingsController {
                           <Link href="/BuildingDocuments/Resolutions">
                             <Card className="document">
                               <img src={Document} alt="" />
-                              <h6>{t("Resolution")}</h6>
+                              <h6 className="bold-text">{t("Resolution")}</h6>
                             </Card>
                           </Link>
                         </Grid>

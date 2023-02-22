@@ -91,7 +91,6 @@ class Complex extends ComplexController {
 
   render() {
     const { t, classes }: any = this.props;
-
     const userType = localStorage.getItem("userType");
 
     let searchData = this.state.complexData.buildingList.filter((building: any) => {
@@ -109,7 +108,6 @@ class Complex extends ComplexController {
         <Loader loading={this.state.loading} />
 
         <Box className={classes.building} style={{ background: "#F4F7FF" }}>
-          {/* Dashboard Header -- */}
           <DashboardHeader {...this.props} />
           <Box style={{ display: "flex" }}>
             <Grid item xs={3} md={3} sm={3} className="SideBar">
@@ -131,7 +129,7 @@ class Complex extends ComplexController {
                 <Box>
                   <Grid container style={dashBoard.gaMemberMain}>
                     <Grid item xs={6}>
-                      <Typography variant="h5" style={dashBoard.subHeading}>
+                      <Typography variant="h5" style={dashBoard.subHeading} className="bold-text">
                         {t("Complex")}
                       </Typography>
                     </Grid>
@@ -156,7 +154,7 @@ class Complex extends ComplexController {
                       <Box className="building-info-left">
                         <img src={this.state.complexData.logo} alt="" />
                         <Box className="building-name-country">
-                          <h4>{this.state.complexData.complexName}</h4>
+                          <h4 className="bold-text">{this.state.complexData.complexName}</h4>
                           <p>{this.state.complexData.city || "-"}</p>
                         </Box>
                       </Box>
@@ -227,7 +225,7 @@ class Complex extends ComplexController {
 
                 <Box className="about-building">
                   <Card>
-                    <h4> {t("About Complex")}</h4>
+                    <h4 className="bold-text">{t("About Complex")}</h4>
                     <p>{this.state.complexData.aboutUs || "-"}</p>
                   </Card>
                 </Box>
@@ -267,7 +265,7 @@ const DocumentsSharedArea = (props: any) => {
             <>
               <Box className="top-content">
                 <Box className="heading">
-                  <h2>{t("Documents")}</h2>
+                  <h2 className="bold-text">{t("Documents")}</h2>
                 </Box>
                 <Link href="/DocumentChairman">
                   <Box className="right-content">
@@ -365,7 +363,7 @@ const ComplexArea = (props: any) => {
           <Grid item sm={4}>
             <Card>
               <p>{t("Complex Area")}</p>
-              <h2>
+              <h2 className="bold-text">
                 {props.this.state.complexData.complexArea || ""} {props.this.state.complexData.measurement || " "}
               </h2>
             </Card>
@@ -373,13 +371,13 @@ const ComplexArea = (props: any) => {
           <Grid item sm={4}>
             <Card>
               <p>{t("Total Buildings")}</p>
-              <h2>{props.this.state.complexData.totalBuilding}</h2>
+              <h2 className="bold-text">{props.this.state.complexData.totalBuilding}</h2>
             </Card>
           </Grid>
           <Grid item sm={4}>
             <Card>
               <p>{t("Total Units")}</p>
-              <h2>{props.this.state.complexData.totalUnits}</h2>
+              <h2 className="bold-text">{props.this.state.complexData.totalUnits}</h2>
             </Card>
           </Grid>
         </Grid>
@@ -396,7 +394,7 @@ const Building = (props: any) => {
         <Card>
           <Box className="top-content">
             <Box className="heading">
-              <h4>{t("Buildings")}</h4>
+              <h4 className="bold-text">{t("Buildings")}</h4>
             </Box>
             <TextField
               className="search-unit"
@@ -423,7 +421,7 @@ const Building = (props: any) => {
                   <Grid item xs={4} key={building.building_management_id}>
                     <Link href={props.userType === "Security" ? "#" : `/Building/${building.building_management_id}`}>
                       <Box className="building-box">
-                        <h5>{building.building_name}</h5>
+                        <h5 className="bold-text">{building.building_name}</h5>
                       </Box>
                     </Link>
                   </Grid>
@@ -449,7 +447,9 @@ const MapDialog = (props: any) => {
         maxWidth="sm"
       >
         <MuiDialogTitle disableTypography className="dialog-heading">
-          <Typography variant="h6">{t("Location")}</Typography>
+          <Typography variant="h6" className="bold-text">
+            {t("Location")}
+          </Typography>
           <IconButton onClick={() => props.this.handleMapModal()}>
             <CloseIcon />
           </IconButton>
@@ -487,7 +487,9 @@ const ComplexDialog = (props: any) => {
         maxWidth="md"
       >
         <MuiDialogTitle disableTypography className="dialog-heading">
-          <Typography variant="h6">{t("Edit Details")}</Typography>
+          <Typography variant="h6" className="bold-text">
+            {t("Edit Details")}
+          </Typography>
           <IconButton onClick={() => props.this.handleEditComplexModal()}>
             <CloseIcon />
           </IconButton>
@@ -874,5 +876,4 @@ const dashBoard = {
     color: "#b9b9b9",
   },
 };
-
 // Customizable Area End
