@@ -179,7 +179,8 @@ class EmailAccountLogin extends EmailAccountLoginController {
                           {
                             errors.password && touched.password ?
                                 (
-                                    <Typography className="text-error" style={{marginLeft:"5px"}}>{errors.password} </Typography>
+                                    <Typography className="text-error" style={{marginLeft:"5px",fontWeight:600}}
+                                    >{errors.password} </Typography>
                                 ) : null
                           }
                         </Box>

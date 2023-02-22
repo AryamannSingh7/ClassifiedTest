@@ -74,10 +74,9 @@ class PollDetails extends PollingController {
                             <Typography variant="body1" >
                                 {t("Poll and survey")} / {t("Create a Poll")} / <Box component="span" style={{color: "blue"}}>{t("Poll Details")}</Box>
                             </Typography>
-                            <Typography variant="h5" className="subHeading">{t("Poll Details")}</Typography>
+                            <Typography variant="h5" className="subHeading bold-text">{t("Poll Details")}</Typography>
                         </Box>
                     </Box>
-
                     <Grid container spacing={4} style={{marginTop: 15}}>
 
                         <Grid item sm={12} md={12} xs={12}>

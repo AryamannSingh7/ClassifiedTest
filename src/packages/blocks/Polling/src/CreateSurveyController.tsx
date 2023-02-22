@@ -47,6 +47,8 @@ interface S {
   selectedAudienceName:any,
   audienceValidationError:any;
   deleteAudienceId:any;
+  inputType1:any;
+  inputType2:any;
 }
 
 interface SS {
@@ -124,6 +126,8 @@ export default class CoverImageController extends BlockComponent<
       selectedAudienceName:"",
       deleteAudienceId:"",
       audienceValidationError:"",
+      inputType1:"Text",
+      inputType2:"Text"
     };
 
     this.emailReg = new RegExp("");

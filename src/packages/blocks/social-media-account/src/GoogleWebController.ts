@@ -25,10 +25,10 @@ class GoogleWebController {
   ///////////////////////////////////
   // GooGle DESKTOP Methods
   loadAuth2() {
-    //@ts-ignore
+    // @ts-ignore
     window.gapi.load("auth2", () => {
-      //@ts-ignore
-      window.gapi.auth2.init({ client_id: configJSON.clientID });
+      // @ts-ignore
+      window.gapi.auth2?.init({ client_id: configJSON.clientID });
     });
   }
 
