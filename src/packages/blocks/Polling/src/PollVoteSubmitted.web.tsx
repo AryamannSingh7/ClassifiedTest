@@ -128,7 +128,7 @@ class PollVoteSubmitted extends PollingController {
                   </Grid>
                   <Grid xs={12}>
                     <Box marginTop='1.5rem'>
-                        <p style={{ fontSize: '1rem', fontWeight: 600 }}>
+                        <p className="bold-text" style={{ fontSize: '1rem', fontWeight: 600 }}>
                         {this.state.pollPreviewAnswer?.poll?.data.attributes.question}
                         </p>
                     </Box>
