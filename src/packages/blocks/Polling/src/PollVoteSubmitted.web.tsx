@@ -147,6 +147,7 @@ class PollVoteSubmitted extends PollingController {
                             data-label={item.answer_percentage.toFixed(2) + "%"}
                             value={item.answer_percentage}
                             max="100"
+                            style={{color:"white"}}
                           >
                           </progress>
                       </Box>
