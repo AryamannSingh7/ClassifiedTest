@@ -37,10 +37,9 @@ class PollVoteSubmitted extends PollingController {
                     </Box>
                 </Grid>
             </Grid>
-            <Box style={{background: "#F7F9FE",height:"160vh",display:'flex',flexDirection:"column",alignItems:'center'}}>
+            <Box style={{background: "#F7F9FE",minHeight:"95vh",display:'flex',flexDirection:"column",alignItems:'center'}}>
 
             <Grid container style={{ margin: '1rem', width: '90%' }}>
-
               <Grid xs={12} style={{ display:"flex", alignItems:"center", justifyContent:"space-between"}}>
               <Grid xs={12} style={{ display:"flex", alignItems:"center", gap:"1rem",width:"60%"}}>
                     <p className="textwrapStatus bold-text" style={{ fontSize: '18px', fontWeight: 600 }}>
@@ -70,7 +69,7 @@ class PollVoteSubmitted extends PollingController {
                     >
                         <Box>
                             <Typography variant="subtitle2" color="textSecondary">{t("Purpose")}:</Typography>
-                            <Typography style={{color:"black", fontSize:'1.1rem', marginTop:5}} className="pollDetailsPurpose"
+                            <Typography style={{color:"black", fontSize:'15px', marginTop:5}} className="pollDetailsPurpose"
                               dangerouslySetInnerHTML={
                                 { __html: DOMPurify.sanitize(this.state.pollPreviewAnswer?.poll?.data.attributes.description) }
                               }
@@ -79,13 +78,13 @@ class PollVoteSubmitted extends PollingController {
                         </Box>
                         <Box marginTop='1rem'>
                             <Typography variant="subtitle2" color="textSecondary">{t("End Date")}:</Typography>
-                            <Typography style={{color:"black", fontSize:'1rem', marginTop:5}}>
+                            <Typography style={{color:"black", fontSize:'15px', marginTop:5}}>
                               {this.state.pollPreviewAnswer?.poll?.data.attributes.end_date}
                             </Typography>
                         </Box>
                         <Box marginTop='1rem'>
                             <Typography variant="subtitle2" color="textSecondary">{t("Building")}:</Typography>
-                            <Typography style={{color:"black", fontSize:'1rem', marginTop:5}}>
+                            <Typography style={{color:"black", fontSize:'15px', marginTop:5}}>
                               {this.state.pollPreviewAnswer?.poll?.data.attributes.building_name}
                             </Typography>
                         </Box>
@@ -129,7 +128,7 @@ class PollVoteSubmitted extends PollingController {
                   </Grid>
                   <Grid xs={12}>
                     <Box marginTop='1.5rem'>
-                        <p style={{ fontSize: '1rem', fontWeight: 600 }}>
+                        <p className="bold-text" style={{ fontSize: '1rem', fontWeight: 600 }}>
                         {this.state.pollPreviewAnswer?.poll?.data.attributes.question}
                         </p>
                     </Box>
@@ -148,6 +147,7 @@ class PollVoteSubmitted extends PollingController {
                             data-label={item.answer_percentage.toFixed(2) + "%"}
                             value={item.answer_percentage}
                             max="100"
+                            style={{color:"white"}}
                           >
                           </progress>
                       </Box>

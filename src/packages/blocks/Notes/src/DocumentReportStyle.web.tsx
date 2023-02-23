@@ -250,6 +250,11 @@ export const DocumentReportStyleWeb: any = {
       display: "flex",
       alignItems: "center",
     },
+    "& .personal-document .left-side .info": {
+      display: "flex",
+      flexDirection: "column",
+      gap: "6px",
+    },
     "& .document .left-side .info .more-info span": {
       color: "orange",
       marginRight: "5px",

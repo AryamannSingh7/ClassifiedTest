@@ -60,18 +60,18 @@ class PollDetails extends SurveyDetailsMainController {
                             <Typography variant="body1" >
                                 {t("Poll and survey")} / {t("Create Surveys")} / <Box component="span" style={{color: "blue"}}>{t("Survey Details")}</Box>
                             </Typography>
-                            <Typography variant="h5" className="subHeading">{t("Survey Details")}</Typography>
+                            <Typography variant="h5" className="subHeading bold-text">{t("Survey Details")}</Typography>
                         </Box>
                     </Box>
 
-                    <Grid container spacing={4} style={{marginTop: 15}}>
+                    <Grid container spacing={4} style={{marginTop: 0}}>
 
                         <Grid item sm={12} md={12} xs={12}>
                             <Box className="createPSCards">
                                 <Box className="PreviewName">
                                     <Box className="PollName">
                                         <Typography className="subHeading">{t("Survey Name")}: </Typography>
-                                        <Typography className="PollNameText textwrap">
+                                        <Typography className="PollNameText textwrap bold-text">
                                             {this.state.SurveyPreviewAnswer.title}
                                         </Typography>
                                     </Box>
@@ -96,7 +96,7 @@ class PollDetails extends SurveyDetailsMainController {
                                         <CalendarTodayOutlinedIcon style={{color:"grey", fontSize:22}}/>
                                         <Box>
                                             <Typography className="PollNamedate">{t("Start Date")}</Typography>
-                                            <Typography className="PollNameText">
+                                            <Typography className="PollNameText bold-text" style={{fontSize:"13px"}}>
                                                 {/* June 7, 2022 */}
                                                 {/*{moment(this.state.SurveyPreviewAnswer?.start_date).format("MMMM DD, YYYY")}*/}
                                                 {this.state.SurveyPreviewAnswer?.start_date}
@@ -108,7 +108,7 @@ class PollDetails extends SurveyDetailsMainController {
                                         <Box display='flex'>
                                             <Box>
                                                 <Typography className="PollNamedate">{t("End Date")}</Typography>
-                                                <Typography className="PollNameText">
+                                                <Typography className="PollNameText bold-text" style={{fontSize:"13px"}}>
                                                     {/* June 7, 2022 */}
                                                     {/*{moment(this.state.SurveyPreviewAnswer?.end_date).format("MMMM DD, YYYY")}*/}
                                                     {this.state.SurveyPreviewAnswer?.end_date}
@@ -145,7 +145,7 @@ class PollDetails extends SurveyDetailsMainController {
                                 </Box>
                                 <Box className="PollName" style={{marginTop:15}}>
                                     <Typography className="subHeading">{t("Target Audience")}: </Typography>
-                                    <Typography className="PollNameText" style={{color:"#2B6FED"}}>
+                                    <Typography className="PollNameText bold-text" style={{color:"#2B6FED"}}>
                                         {this.state.SurveyPreviewAnswer.survey_audience_name}
                                     </Typography>
                                 </Box>
@@ -159,19 +159,17 @@ class PollDetails extends SurveyDetailsMainController {
                                 <Box className="VoteCountBottom">
                                     <Box className="VoteCountBottomBox">
                                         <img src={awated} alt="awated" />
-                                        <p>{this.state.SurveyPreviewAnswer?.awaited} {t("Awaited")}</p>
+                                        <p className="bold-text">{this.state.SurveyPreviewAnswer?.awaited} {t("Awaited")}</p>
                                     </Box>
                                     <Box className="VoteCountBottomBox" style={{paddingLeft:"50px"}}>
                                         <img src={CheckMark} alt="CheckMark" />
-                                        <p>{this.state.SurveyPreviewAnswer?.total_response} {t("Response Received")}</p>
+                                        <p className="bold-text">{this.state.SurveyPreviewAnswer?.total_response} {t("Response Received")}</p>
                                     </Box>
                                 </Box>
                             </Grid>
                             <Grid  xs={4} style={{display:'flex',justifyContent:"flex-end"}}>
                                 <Box>
-                                    <ReportButton variant="contained" color="primary"
-                                            onClick={() => this.props.history.push(`/SurveyReport?id=${this.state.SurveyPreviewAnswerID}`)}
-                                    >
+                                    <ReportButton variant="contained" color="primary" onClick={() => this.props.history.push(`/SurveyReport?id=${this.state.SurveyPreviewAnswerID}`)}>
                                         {t("GENERATE REPORT")}
                                     </ReportButton>
                                 </Box>
@@ -186,11 +184,10 @@ class PollDetails extends SurveyDetailsMainController {
                             {
                                 this.state.SurveyPreviewAnswer?.survey_questions?.length > 0 &&
                                 this.state.SurveyPreviewAnswer?.survey_questions?.map((item:any,key:any)=>{
-                                    console.log("THIS IS QUESTIONS",item)
                                     return(
                                         <>
                                             <Box style={{margin:"10px 0px"}}>
-                                                <Typography variant={"h6"} style={{fontWeight:"bold"}}>Q{key+1}. {item.title}</Typography>
+                                                <Typography variant={"h6"} className="bold-text" style={{fontWeight:"bold"}}>Q{key+1}. {item.title}</Typography>
                                                 {
                                                     item.question_type === "short_answers" ?
                                                         <Typography style={{marginTop:"5px"}}>{t("Short Answer")}</Typography> :

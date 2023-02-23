@@ -587,16 +587,21 @@ export const MeetingsStyleWeb: any = {
     },
     "& .meeting-list .meeting .header h4": {
       wordBreak: "break-all",
-      marginBottom: "15px",
+      marginBottom: "10px",
+    },
+    "& .meeting-list .MuiGrid-spacing-xs-2 > .MuiGrid-item": {
+      padding: "6px",
     },
     "& .meeting-list .meeting .info": {
       marginBottom: "10px",
     },
     "& .meeting-list .meeting .info span": {
       color: "gray",
+      fontSize: "15px",
     },
     "& .meeting-list .meeting .info p": {
       color: "black",
+      marginTop: "2px",
     },
     "& .templates-list .template": {
       position: "relative",

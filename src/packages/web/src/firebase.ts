@@ -13,7 +13,10 @@ const firebaseAPI = firebase.initializeApp(config);
 
 export const firbaseAnalytic = firebaseAPI.analytics();
 
-const messaging = firebase.messaging();
+let messaging: any = null;
+if (firebase.messaging.isSupported()) {
+  messaging = firebase.messaging();
+}
 
 const key =
   'BFwqSqHJciMUpSZqdknNkuWp9Wn51ZFKGZBiBaB1yZDVO4O85nsNJMI7bt30v-eeXDRGFcorXXE3txd-xcWRguc';

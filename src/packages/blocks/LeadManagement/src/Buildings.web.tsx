@@ -180,7 +180,7 @@ class Buildings extends BuildingsController {
 
   render() {
     const { t, classes }: any = this.props;
-    const  userType = localStorage.getItem("userType");
+    const userType = localStorage.getItem("userType");
     let searchData = this.state.unitList.filter((item: any) => {
       if (this.handleSearch(item)) {
         return item;
@@ -192,13 +192,10 @@ class Buildings extends BuildingsController {
         <Loader loading={this.state.loading} />
 
         <Box className={classes.building} style={{ background: "#F4F7FF" }}>
-          {/* Dashboard Header -- */}
           <DashboardHeader {...this.props} />
           <Box style={{ display: "flex" }}>
             <Grid item xs={3} md={3} sm={3} className="SideBar">
-              {/* Chairman Sidebar -- */}
-              {/* <ChairmanSidebar {...this.props} /> */}
-              <GeneralSideBarWeb {...this.props}></GeneralSideBarWeb> 
+              <GeneralSideBarWeb {...this.props} />
             </Grid>
             <Grid xs={9} md={9} sm={9} spacing={4} style={{ paddingTop: 35 }}>
               <Container>
@@ -216,15 +213,12 @@ class Buildings extends BuildingsController {
                 <Box>
                   <Grid container style={dashBoard.gaMemberMain}>
                     <Grid item xs={6}>
-                      <Typography variant="h5" style={dashBoard.subHeading}>
+                      <Typography variant="h5" style={dashBoard.subHeading} className="bold-text">
                         {t("Buildings & Apartments")}
                       </Typography>
                     </Grid>
-                    {
-                        userType === "Security" ? 
-                        null
-                        :
-                        <Grid item xs={12} sm={2}>
+                    {userType === "Security" ? null : (
+                      <Grid item xs={12} sm={2}>
                         <Button
                           className="edit-button"
                           variant="contained"
@@ -234,9 +228,7 @@ class Buildings extends BuildingsController {
                           {t("Edit Details")}
                         </Button>
                       </Grid>
-                    }
-                  
-                   
+                    )}
                   </Grid>
                 </Box>
 
@@ -246,7 +238,7 @@ class Buildings extends BuildingsController {
                       <Box className="building-info-left">
                         <img src={this.state.buildingData.logo} />
                         <Box className="building-name-country">
-                          <h4>{this.handleValidText(this.state.buildingData.buildingName)}</h4>
+                          <h4 className="bold-text">{this.handleValidText(this.state.buildingData.buildingName)}</h4>
                           <p>{this.handleValidText(this.state.buildingData.city)}</p>
                         </Box>
                       </Box>
@@ -263,7 +255,7 @@ class Buildings extends BuildingsController {
 
                 <Box className="about-building">
                   <Card>
-                    <h4>{t("About Building Name")}</h4>
+                    <h4 className="bold-text">{t("About Building Name")}</h4>
                     <p>{this.handleValidText(this.state.buildingData.aboutBuilding)}</p>
                   </Card>
                 </Box>
@@ -273,7 +265,7 @@ class Buildings extends BuildingsController {
                     <Grid item sm={4}>
                       <Card>
                         <p>{t("Building Area")}</p>
-                        <h2>
+                        <h2 className="bold-text">
                           {this.handleValidText(this.state.buildingData.buildingArea)}{" "}
                           {this.handleValidEmptyText(this.state.buildingData.measurement)}
                         </h2>
@@ -282,13 +274,13 @@ class Buildings extends BuildingsController {
                     <Grid item sm={4}>
                       <Card>
                         <p>{t("Total Floors")}</p>
-                        <h2>{this.handleValidText(this.state.buildingData.totalFloor)}</h2>
+                        <h2 className="bold-text">{this.handleValidText(this.state.buildingData.totalFloor)}</h2>
                       </Card>
                     </Grid>
                     <Grid item sm={4}>
                       <Card>
                         <p>{t("Total Units")}</p>
-                        <h2>{this.handleValidText(this.state.buildingData.totalUnit)}</h2>
+                        <h2 className="bold-text">{this.handleValidText(this.state.buildingData.totalUnit)}</h2>
                       </Card>
                     </Grid>
                   </Grid>
@@ -305,7 +297,7 @@ class Buildings extends BuildingsController {
                       <>
                         <Box className="top-content">
                           <Box className="heading">
-                            <h2>{t("Documents")}</h2>
+                            <h2 className="bold-text">{t("Documents")}</h2>
                           </Box>
                           <Link href="/DocumentChairman">
                             <Box className="right-content">
@@ -370,7 +362,7 @@ class Buildings extends BuildingsController {
                       <>
                         <Box className="top-content">
                           <Box className="heading">
-                            <h2>{t("Units")}</h2>
+                            <h2 className="bold-text">{t("Units")}</h2>
                           </Box>
                           <Box className="right-content">
                             <select
@@ -472,7 +464,7 @@ class Buildings extends BuildingsController {
                       <>
                         <Box className="top-content">
                           <Box className="heading">
-                            <h2>{t("Shared Area")}</h2>
+                            <h2 className="bold-text">{t("Shared Area")}</h2>
                           </Box>
                         </Box>
                         <Divider />
@@ -488,7 +480,7 @@ class Buildings extends BuildingsController {
                                         onClick={() => this.props.navigation.navigate("SharedArea")}
                                       >
                                         <img src={Document} />
-                                        <h4>{sharedArea.name}</h4>
+                                        <h4 className="bold-text">{sharedArea.name}</h4>
                                       </div>
                                     </Box>
                                   </Link>
@@ -514,7 +506,9 @@ class Buildings extends BuildingsController {
           maxWidth="md"
         >
           <MuiDialogTitle disableTypography className="dialog-heading">
-            <Typography variant="h6">{t("Edit Details")}</Typography>
+            <Typography variant="h6" className="bold-text">
+              {t("Edit Details")}
+            </Typography>
             <IconButton onClick={() => this.handleEditBuildingModal()}>
               <CloseIcon />
             </IconButton>
@@ -727,7 +721,9 @@ class Buildings extends BuildingsController {
           maxWidth="sm"
         >
           <MuiDialogTitle disableTypography className="dialog-heading">
-            <Typography variant="h6">{t("Location")}</Typography>
+            <Typography variant="h6" className="bold-text">
+              {t("Location")}
+            </Typography>
             <IconButton onClick={() => this.handleMapModal()}>
               <CloseIcon />
             </IconButton>
@@ -902,5 +898,4 @@ const dashBoard = {
     color: "#b9b9b9",
   },
 };
-
 // Customizable Area End

@@ -66,7 +66,7 @@ class PollReport extends PollingController {
                                 <Typography variant="h5" className="subHeading">{t("Poll Report")}</Typography>
                             </Box>  
                             <Box className="downloadReport">
-                                <button onClick={this.handleDownload} className="reportbtn">
+                                <button onClick={this.handleDownload} className="reportbtn" style={{backgroundColor:"2B6FED",border:"0px"}}>
                                     {t("DOWNLOAD REPORT")}
                                 </button>
                             </Box>

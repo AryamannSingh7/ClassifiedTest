@@ -68,13 +68,12 @@ class SurveyPreview extends SurveyPreviewController {
                               </Box>
                           </Box>
 
-                          <Grid container spacing={4} style={{marginTop: 15}}>
-
+                          <Grid container spacing={4} style={{marginTop: 0}}>
                               <Grid item sm={12} md={12} xs={12}>
                                   <Box className="createPSCards">
                                       <Box className="PreviewName">
                                           <Box className="PollName">
-                                              <Typography className="subHeading">{t("Survey Name")}: </Typography>
+                                              <Typography className="subHeading bold-text">{t("Survey Name")}: </Typography>
                                               <Typography className="PollNameText textwrap">
                                                   {this.state.SurveyData.title}
                                               </Typography>

@@ -9,6 +9,7 @@ import * as Yup from "yup";
 import { imgPasswordInVisible, imgPasswordVisible } from "./assets";
 import { ApiCatchErrorResponse, ApiErrorResponse } from "../../../components/src/APIErrorResponse";
 import toast from "react-hot-toast";
+import { apiCall } from "../../../components/src/APICallComponent/index.web";
 // Customizable Area End
 
 export const configJSON = require("./config");
@@ -18,6 +19,7 @@ export interface Props {
   id: string;
   // Customizable Area Start
   classes: any;
+  history: any;
   // Customizable Area End
 }
 
@@ -48,6 +50,8 @@ interface S {
   familyId: string;
   familyMemberName: string;
   editFamilyForm: EditFamilyForm;
+
+  buildingId: string;
   // Customizable Area End
 }
 
@@ -114,6 +118,7 @@ export default class UnitDetailsController extends BlockComponent<Props, S, SS> 
   GetRelationListCallId: any;
   GetIDProofListCallId: any;
   GetConfigurationListCallId: any;
+  CreateChatRoomAPIId: any;
 
   constructor(props: Props) {
     super(props);
@@ -190,6 +195,8 @@ export default class UnitDetailsController extends BlockComponent<Props, S, SS> 
         idProof: "",
         idNumber: "",
       },
+
+      buildingId: "",
     };
     runEngine.attachBuildingBlock(this as IBlock, this.subScribedMessages);
 
@@ -228,6 +235,9 @@ export default class UnitDetailsController extends BlockComponent<Props, S, SS> 
           break;
         case this.GetConfigurationListCallId:
           this.handleGetConfigurationListResponse(responseJson);
+          break;
+        case this.CreateChatRoomAPIId:
+          this.handleChatRoomAPIResponse(responseJson);
           break;
         default:
           break;
@@ -314,6 +324,7 @@ export default class UnitDetailsController extends BlockComponent<Props, S, SS> 
             : [],
           relatedPeople: responseJson.data.attributes.related_people,
         },
+        buildingId: responseJson.data.attributes.building_management.id,
       });
     }
   };
@@ -622,6 +633,30 @@ export default class UnitDetailsController extends BlockComponent<Props, S, SS> 
       return text;
     } else {
       return "-";
+    }
+  };
+
+  openChat = async (id: any) => {
+    let formData = new FormData();
+    formData.append("chat[chatable_type]", "AccountBlock::Account");
+    formData.append("chat[chatable_id]", localStorage.getItem("userId") || "{}");
+    formData.append("chat[chat_with_account]", id);
+
+    this.CreateChatRoomAPIId = await apiCall({
+      method: "POST",
+      endPoint: `bx_block_chat/chats`,
+      body: formData,
+    });
+  };
+
+  handleChatRoomAPIResponse = (responseJson: any) => {
+    if (responseJson && responseJson.data) {
+      localStorage.setItem("selectedChat", JSON.stringify(responseJson.data));
+      // @ts-ignore
+      this.props.history.push({
+        pathname: "/chairmanchat",
+        state: { data: responseJson.data },
+      });
     }
   };
   // Customizable Area End

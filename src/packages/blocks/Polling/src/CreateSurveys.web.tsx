@@ -63,6 +63,7 @@ import '../../../web/src/i18n.js';
 import DateRangeOutlinedIcon from "@material-ui/icons/DateRangeOutlined";
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 import Menu from '@material-ui/core/Menu';
+import AlertError from "../../../components/src/AlertError.web";
 import DeleteIcon from '@material-ui/icons/Delete';
 import BackspaceIcon from '@material-ui/icons/Backspace';
 const currencies = [
@@ -136,7 +137,9 @@ class CreateSurveys extends CreateSurveyController {
                                             <TextField
                                                 label="Start Date" variant="outlined"
                                                 style={{width:"100%"}}
-                                                type="date" name="startDate"  fullWidth
+                                                className="dateInputBox"
+                                                name="startDate"  fullWidth
+                                                placeholder="Start Date"
                                                 id="SurveyQuestion"
                                                 format='DD/MM/YYYY'
                                                 value={this.state.SurveyData.startDate}
@@ -152,13 +155,17 @@ class CreateSurveys extends CreateSurveyController {
                                                     ),
                                                 }
                                                 }
+                                                type={this.state.inputType1}
+                                                onFocus={()=> this.setState({inputType1:"date"})}
                                             />
                                             <p style={{color:"red"}}>{t(this.state.pollDateError)}</p>
                                         </Box>
                                         <Box style={{width:"100%"}}>
                                             <TextField label="End Date" variant="outlined"
-                                                       type="date" name="endDate"  fullWidth
+                                                       name="endDate"  fullWidth
                                                        style={{width:"100%"}}
+                                                       placeholder="End Date"
+                                                       className="dateInputBox"
                                                        id="SurveyQuestion"
                                                        value={this.state.SurveyData.endDate}
                                                        onChange={this.handlePollDataChange}
@@ -172,6 +179,8 @@ class CreateSurveys extends CreateSurveyController {
                                                                </InputAdornment>
                                                            )
                                                        }}
+                                                       type={this.state.inputType2}
+                                                       onFocus={()=> this.setState({inputType2:"date"})}
                                             />
                                             <p style={{color:"red"}}>{t(this.state.pollEndDateError)}</p>
                                         </Box>
@@ -269,7 +278,7 @@ class CreateSurveys extends CreateSurveyController {
                                                         <MenuItem value="checkbox">{t("Multiple Choice Questions")}</MenuItem>
                                                         <MenuItem value="options">{t("Options")}</MenuItem>
                                                     </Select>
-                                                    <p style={{color:"red"}}>{t(item.questionTypeError)}</p>
+                                                    <p style={{color:"red"}}>{t(item.question_typeError)}</p>
                                                 </FormControl>
                                                 <TextField  label={t("Enter question")} variant="outlined"
                                                             name="question"
@@ -392,6 +401,7 @@ class CreateSurveys extends CreateSurveyController {
                 </Modal>
             </Grid>
         </Box>
+        <AlertError show={this.state.showError} handleClose={()=> this.setState({showError:false})} message={this.state.error}/>
     </Box>
      </>
       );

@@ -52,7 +52,7 @@ class EmailAccountLogin extends EmailAccountLoginController {
                     <h4>Building Name</h4>
                   </Link>
                 </Box>
-                <Box className="main-content-block desktop-ui">
+                <Box className="main-content-block desktop-ui inputPlaceholderRegistration">
                   <Box className="header-block" style={{marginBottom:"30px"}}>
                     <Box display={{ xs: 'flex', md: 'none' }}>
                       <Link href="/EmailAccountLogin">
@@ -114,7 +114,7 @@ class EmailAccountLogin extends EmailAccountLoginController {
                         {/*  </FormControl>*/}
                         {/*</Box>*/}
                         <Box style={{marginBottom:"20px"}}>
-                          <Box className="formGroup" style={{marginBottom:"0px"}}>
+                          <Box className="formGroup" style={{marginBottom:"0px",border:"0.1px solid rgb(209 209 209 / 100%)",borderRadius:"16px",backgroundColor:"#f9f9f9"}}>
                             <Field name="email" type="text" placeholder="Email ID" className="formInput" />
                             <span className="frmLeftIcons">
                             <img src={Email_Icon} className="frm-icons" alt="Email Icon" style={{marginTop:"-2px"}}/>
@@ -131,7 +131,7 @@ class EmailAccountLogin extends EmailAccountLoginController {
                           }
                         </Box>
                         <Box style={{marginBottom:"15px"}}>
-                          <Box className="formGroup" style={{marginBottom:"0px"}}>
+                          <Box className="formGroup" style={{marginBottom:"0px",border:"0.1px solid rgb(209 209 209 / 100%)",borderRadius:"16px",backgroundColor:"#f9f9f9"}}>
                             <Field name="password" type={values.showPassword ? "text" : "password"} placeholder="Password" className="formInput" />
                             <span className="frmLeftIcons">
                             <img src={Lock_User_Icon} className="frm-icons" alt="Email Icon"  style={{marginTop:"-3px"}} />
@@ -179,7 +179,8 @@ class EmailAccountLogin extends EmailAccountLoginController {
                           {
                             errors.password && touched.password ?
                                 (
-                                    <Typography className="text-error" style={{marginLeft:"5px"}}>{errors.password} </Typography>
+                                    <Typography className="text-error" style={{marginLeft:"5px",fontWeight:600}}
+                                    >{errors.password} </Typography>
                                 ) : null
                           }
                         </Box>

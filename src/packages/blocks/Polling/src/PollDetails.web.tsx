@@ -50,6 +50,7 @@ import DateRangeOutlinedIcon from "@material-ui/icons/DateRangeOutlined";
 import TextEditor from "./TextEditorSurvey.web";
 import {withStyles} from "@material-ui/core/styles";
 import CreateIcon from "@material-ui/icons/Create";
+import moment from "moment";
 
 function createData(name:any, unit:any) {
     return { name, unit };
@@ -84,7 +85,7 @@ class PollDetails extends PollingController {
                 </Box>
                 <Grid container spacing={4} style={{marginTop: 1}}>
                     <Grid item sm={12} md={12} xs={12}>
-                        <Box className="createPSCards">
+                        <Box className="createPSCards" style={{backgroundColor:"#fcfcfc",marginTop:"1px"}}>
                             <Box className="PreviewName">
                                 <Box className="PollName">
                                     <Typography className="subHeading">{t("Poll Name:")} </Typography>
@@ -106,19 +107,19 @@ class PollDetails extends PollingController {
                                         <Box>
                                             {
                                                 this.state.pollPreviewAnswer?.poll?.data?.attributes?.status == "upcoming" &&
-                                                <Typography variant="body1" className={"statusOngoingBlue"}>
+                                                <Typography variant="body1" className={"statusOngoingBlue bold-text"}>
                                                     {this.state.pollPreviewAnswer?.poll?.data?.attributes?.status == "upcoming" && <>{t('upcoming')}</>}
                                                 </Typography>
                                             }
                                             {
                                                 this.state.pollPreviewAnswer?.poll?.data?.attributes?.status == "ongoing" &&
-                                                <Typography variant="body1" className={"statusOngoingRed"}>
+                                                <Typography variant="body1" className={"statusOngoingRed bold-text"}>
                                                     {this.state.pollPreviewAnswer?.poll?.data?.attributes?.status == "ongoing" && <>{t('Ongoing')}</>}
                                                 </Typography>
                                             }
                                             {
                                                 this.state.pollPreviewAnswer?.poll?.data?.attributes?.status == "completed" &&
-                                                <Typography variant="body1" className={"statusOngoingGreen"}>
+                                                <Typography variant="body1" className={"statusOngoingGreen bold-text"}>
                                                     {this.state.pollPreviewAnswer?.poll?.data?.attributes?.status == "completed" && <>{t('completed')}</>}
                                                 </Typography>
                                             }
@@ -128,26 +129,26 @@ class PollDetails extends PollingController {
 
                             <Box className="DateSectionPreviewpoll">
                                 <Box className="datebox">
-                                    <CalendarTodayOutlinedIcon style={{color:"grey", fontSize:22}}/>
+                                    <CalendarTodayOutlinedIcon style={{color:"grey", fontSize:25}}/>
                                     <Box>
-                                        <Typography className="PollNamedate">{t("Start Date")}</Typography>
-                                        <Typography className="PollNameText">
+                                        <Typography className="PollNamedate" style={{fontSize:"12px"}}>{t("Start Date")}</Typography>
+                                        <Typography className="PollNameText" style={{fontSize:"15px"}}>
                                             {/* June 7, 2022 */}
-                                            {this.state.pollPreviewAnswer?.poll?.data?.attributes?.start_date}</Typography>
+                                            {moment(this.state.pollPreviewAnswer?.poll?.data?.attributes?.start_date,"DD/MM/YYYY").format("MMMM DD, YYYY")}</Typography>
                                     </Box>
                                 </Box>
                                 <Box className="datebox">
                                     <CalendarTodayOutlinedIcon style={{color:"grey", fontSize:22}}/>
                                     <Box display='flex'>
                                         <Box>
-                                            <Typography className="PollNamedate">{t("End Date")}</Typography>
-                                            <Typography className="PollNameText">
+                                            <Typography className="PollNamedate" style={{fontSize:"12px"}}>{t("End Date")}</Typography>
+                                            <Typography className="PollNameText" style={{fontSize:"15px"}}>
                                                 {/* June 7, 2022 */}
-                                            {this.state.pollPreviewAnswer?.poll?.data?.attributes?.end_date}</Typography>
+                                            {moment(this.state.pollPreviewAnswer?.poll?.data?.attributes?.end_date,"DD/MM/YYYY").format("MMMM DD, YYYY")}</Typography>
                                         </Box>
                                         {
                                             this.state.pollPreviewAnswer?.poll?.data?.attributes?.status  == "ongoing" &&
-                                            <IconButton onClick={()=> this.setState({dateWindow:true})} style={{padding:"3px",marginTop:"20px"}}><CreateIcon style={{color:"#FC8434",alignSelf:'flex-end'}} fontSize="small"/></IconButton>
+                                            <IconButton onClick={()=> this.setState({dateWindow:true,endDate:new Date(this.state.pollPreviewAnswer?.poll?.data?.attributes?.end_date)})} style={{padding:"3px",marginTop:"23px"}}><CreateIcon style={{color:"#FC8434",alignSelf:'flex-end'}} fontSize="small"/></IconButton>
                                         }
                                     </Box>
                                 </Box>
@@ -381,7 +382,7 @@ class PollDetails extends PollingController {
                                                style={{width:"100%",backgroundColor:"ghostwhite"}}
                                                id="SurveyQuestion"
                                                value={this.state.endDate}
-                                               defaultValue={new Date(this.state.SurveyPreviewAnswer?.end_date)}
+                                               defaultValue={new Date(this.state.endDate)}
                                                onChange={(e)=> this.setState({endDate:e.target.value})}
                                                InputProps={{
                                                    // min: "2019-01-24",
@@ -394,6 +395,9 @@ class PollDetails extends PollingController {
                                                    )
                                                }}
                                     />
+                                    {
+                                        console.log("SELECTED DATE",this.state.endDate)
+                                    }
                                     <p style={{color:"red"}}>{t(this.state.endDateError)}</p>
                                 </Box>
                             </Box>

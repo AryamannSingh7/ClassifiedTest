@@ -202,7 +202,7 @@ export default class FaqChairmanController extends BlockComponent<Props, S, SS> 
       contentType: "application/json",
       method: "POST",
       endPoint: `society_managements/${society_id}/bx_block_interactive_faqs/interactive_faq_categories`,
-      body: body,
+      body: JSON.stringify(body),
     });
   };
 
@@ -254,7 +254,7 @@ export default class FaqChairmanController extends BlockComponent<Props, S, SS> 
       endPoint: `society_managements/${society_id}/bx_block_interactive_faqs/interactive_faqs/${
         this.state.selectedFaqId
       }`,
-      body: body,
+      body: JSON.stringify(body),
     });
   };
 
@@ -311,7 +311,7 @@ export default class FaqChairmanController extends BlockComponent<Props, S, SS> 
       contentType: "application/json",
       method: "POST",
       endPoint: `society_managements/${society_id}/bx_block_interactive_faqs/interactive_faqs`,
-      body: body,
+      body: JSON.stringify(body),
     });
   };
 
