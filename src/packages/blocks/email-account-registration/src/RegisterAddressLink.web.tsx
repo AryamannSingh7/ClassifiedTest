@@ -109,7 +109,6 @@ class RegisterAddressLinkLink extends EmailAccountRegistrationController {
                             label="Country"
                             style={{
                               borderRadius: 25,
-                          
                               color: "#b5b5b5",
                               paddingLeft:55
                             }}
@@ -171,7 +170,7 @@ class RegisterAddressLinkLink extends EmailAccountRegistrationController {
                       </Grid>
                     </Grid>
                     <Box className="commonForm" style={{marginTop:0,marginBottom:0,}}>
-                      <Box className="formGroup customSelect">
+                      <Box className="formGroup customSelect" style={{marginBottom:"5px"}}>
                         <Box className="formInputGrp">
                           {/* <ReactSelect
                             options={this.state.allComplex}
@@ -207,9 +206,10 @@ class RegisterAddressLinkLink extends EmailAccountRegistrationController {
                           </span>
                         </Box>
                       </Box>
-                      <ErrorMessage className="text-error" component="Typography" name="selectComplex" />
+                       {/*@ts-ignore*/}
+                      <ErrorMessage className="text-errorSelect" component="Typography" name="selectComplex" style={{marginLeft:"30px",marginBottom:"10px"}} />
                     </Box>
-                    <Grid container style={{ margin: "1rem", marginTop:0,marginBottom:0,width: "90%" }}>
+                    <Grid container style={{ margin: "1rem",marginBottom:0,width: "90%",marginTop:"15px" }}>
                       <Grid xs={12} className='formGroup customSelect'>
                         <FormControl variant="outlined" fullWidth>
                           {/* <InputLabel
