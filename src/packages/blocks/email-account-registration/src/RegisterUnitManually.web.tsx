@@ -35,7 +35,7 @@ class RegisterUnitManually extends EmailAccountRegistrationController {
 
       <>
         <Grid container spacing={2} className="auth-container">
-          <Grid item xs={12} md={7} className="auth-cols" style={{ justifyContent: 'unset' }}>
+          <Grid item xs={12} md={7} className="auth-cols inputPlaceholderRegistration" style={{ justifyContent: 'unset' }}>
             <div>
 
         <Grid container style={{ margin: '1rem', width: '90%' }}>

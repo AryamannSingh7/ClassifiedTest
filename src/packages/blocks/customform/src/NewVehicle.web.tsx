@@ -34,7 +34,7 @@ class NewVeichleList extends VeichleListController {
     return (
       <>
         <Grid container spacing={2} className="auth-container">
-          <Grid item xs={12} md={7} className="auth-cols" style={{ justifyContent: 'unset' }}>
+          <Grid item xs={12} md={7} className="auth-cols inputPlaceholderRegistration" style={{ justifyContent: 'unset' }}>
             <Grid container style={{padding:"15px 5px"}}>
               <Grid xs={12} style={{ display: 'flex', alignItems: 'center' }}>
                 <ArrowBackIcon onClick={() => window.history.back()} />
@@ -256,7 +256,7 @@ class NewVeichleList extends VeichleListController {
                             <img src={upload} width='25' height='25'/>
                             
                             <label htmlFor="file1"
-                            style={{ color:'rgb(33 33 33 / 33%)',textAlign:"center",marginTop:"10px"}}>
+                            style={{ color:'#7a7878',textAlign:"center",marginTop:"10px"}}>
                               {t("Upload car registration image")}
                             </label>
                             <input

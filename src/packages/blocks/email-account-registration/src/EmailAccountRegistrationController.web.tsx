@@ -732,9 +732,10 @@ export default class EmailAccountRegistrationController extends BlockComponent<
 
 
 let pettrn=/^5\d+$/
+
 if(value.includes('+'))
 {
-  console.log('hi')
+  
   this.setState({error:'Please enter valid mobile number',showError:true})
   return false
 }else if(this.state.selectCode == '+966' ||this.state.selectCode == '+971' ){
@@ -746,12 +747,25 @@ if(value.includes('+'))
         return false
       }
       else{
-      
+      if(value.length==9){
+
 
         return true
+      }else{
+        this.setState({error:'Please enter valid mobile number',showError:true})
+        return false
+      }
+
       }
     }else {
-      return true
+      if(value.length==10){
+
+
+        return true
+      }else{
+        this.setState({error:'Please enter valid mobile number',showError:true})
+        return false
+      }
 
     }
   }
@@ -1475,9 +1489,9 @@ if(value.includes('+'))
         .typeError("Only numbers are allowed.")
         .required("Mobile number is required.")
         .positive("Negative numbers are not allowed.")
-        .integer("Number can't contain a decimal.")
-        .min(100000000, "Minimum 9 digits are required.")
-        .max(1000000000, "Maximum 9 digits are allowed."),
+        .integer("Number can't contain a decimal."),
+        // .min(100000000, "Minimum 9 digits are required.")
+        // .max(1000000000, "Maximum 9 digits are allowed."),
       // owner_phone: Yup.number()
       //   .typeError("Only numbers are allowed.")
       //   .required("Mobile number is required.")
@@ -1512,9 +1526,9 @@ if(value.includes('+'))
         .typeError("Only numbers are allowed.")
         .required("Mobile number is required.")
         .positive("Negative numbers are not allowed.")
-        .integer("Number can't contain a decimal.")
-        .min(100000000, "Minimum 9 digits are required.")
-        .max(1000000000, "Maximum 9 digits are allowed."),
+        .integer("Number can't contain a decimal."),
+        // .min(100000000, "Minimum 9 digits are required.")
+        // .max(1000000000, "Maximum 9 digits are allowed."),
       password: Yup
         .string()
         .min(8, `Minimum Password length is 8.`)

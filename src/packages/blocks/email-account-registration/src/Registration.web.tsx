@@ -102,7 +102,7 @@ class Registration extends EmailAccountRegistrationController  {
                     <Box className='formGroup'>
                       <Box
                         className="formInputGrp"
-                        style={{border:"0.1px solid rgb(209 209 209 / 100%)",borderRadius:"16px",backgroundColor:"#f9f9f9"}}
+                        style={{border:"0.1px solid rgb(209 209 209 / 100%)",borderRadius:"25px",backgroundColor:"#f9f9f9"}}
                       >
                         <Field
                           className="formInput"
@@ -147,7 +147,7 @@ class Registration extends EmailAccountRegistrationController  {
                       {/* email */}
                       <Box
                         className="formInputGrp"
-                        style={{border:"0.1px solid rgb(209 209 209 / 100%)",borderRadius:"16px",backgroundColor:"#f9f9f9"}}
+                        style={{border:"0.1px solid rgb(209 209 209 / 100%)",borderRadius:"25px",backgroundColor:"#f9f9f9"}}
                       >
 
 
@@ -201,7 +201,7 @@ class Registration extends EmailAccountRegistrationController  {
                         height="56px"
                         border="0.1px solid rgb(209 209 209 / 44%)"
                         borderRadius="25px"
-                        style={{border:"0.1px solid rgb(209 209 209 / 100%)",borderRadius:"16px",backgroundColor:"#f9f9f9",overflow:"visible"}}
+                        style={{border:"0.1px solid rgb(209 209 209 / 100%)",borderRadius:"25px",backgroundColor:"#f9f9f9",overflow:"visible"}}
                       >
                         <Box>
                           <FormControl variant="outlined" >
@@ -307,7 +307,7 @@ class Registration extends EmailAccountRegistrationController  {
                       {/* pass */}
                       <Box
                         className="formInputGrp"
-                        style={{border:"0.1px solid rgb(209 209 209 / 100%)",borderRadius:"16px",backgroundColor:"#f9f9f9"}}
+                        style={{border:"0.1px solid rgb(209 209 209 / 100%)",borderRadius:"25px",backgroundColor:"#f9f9f9"}}
                       >
 
                         <Field
@@ -376,7 +376,7 @@ class Registration extends EmailAccountRegistrationController  {
                       {/* confirm */}
                       <Box
                         className="formInputGrp"
-                        style={{border:"0.1px solid rgb(209 209 209 / 100%)",borderRadius:"16px",backgroundColor:"#f9f9f9"}}
+                        style={{border:"0.1px solid rgb(209 209 209 / 100%)",borderRadius:"25px",backgroundColor:"#f9f9f9"}}
                       >
                         <span className="frmLeftIcons">
 

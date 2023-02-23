@@ -49,7 +49,7 @@ class ChangePassword extends ForgotPasswordController {
                     <h4>Building Name</h4>
                   </Link>
                 </Box>
-                <Box className="main-content-block desktop-ui">
+                <Box className="main-content-block desktop-ui inputPlaceholderRegistration">
                   <Box className="header-block" style={{paddingTop:"40px",paddingBottom:"10px"}}>
                     {/* <Box display={{ xs: 'flex', md: 'none' }}>
                       <Link href="/EmailAccountLogin">
@@ -77,7 +77,7 @@ class ChangePassword extends ForgotPasswordController {
                     {({ values, touched, errors, isValid, setFieldValue, handleChange }) => (
                       <Form translate="yes" className="commonForm">
                         <Box className="formGroup">
-                          <div className="formInputGrp">
+                          <div className="formInputGrp" style={{border:'0.1px solid rgb(209 209 209 / 100%)',borderRadius:25}}>
                             <Field type={values.newShowPassword ? "text" : "password"} name="newPassword" placeholder="New Password" className="formInput" />
                             <span className="frmLeftIcons">
                               <img src={Lock_User_Icon} className="frm-icons" alt="Lock Icon" />
@@ -91,7 +91,7 @@ class ChangePassword extends ForgotPasswordController {
                           <ErrorMessage className="text-error" component="Typography" name="newPassword" />
                         </Box>
                         <Box className="formGroup">
-                          <div className="formInputGrp">
+                          <div className="formInputGrp" style={{border:'0.1px solid rgb(209 209 209 / 100%)',borderRadius:25}}>
                             <Field type={values.confirmShowPassword ? "text" : "password"} name="confirmPassword" placeholder="Confirm Password" className="formInput" />
                             <span className="frmLeftIcons">
                               <img src={Lock_User_Icon} className="frm-icons" alt="Lock Icon" />

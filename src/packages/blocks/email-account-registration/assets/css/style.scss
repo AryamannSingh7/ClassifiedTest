@@ -361,7 +361,7 @@ input#mobile:focus {
 .react-tel-input .form-control{
   width: 6rem !important;
   border: none !important;
-  color: #BEBEBE !important;
+  color: #7a7878 !important;
   font-size: 16px !important;
   pointer-events: none;
   background:#f9f9f9 !important;
@@ -374,6 +374,11 @@ input#mobile:focus {
   width: 329px;
 }
 
+@-moz-document url-prefix(){
+  .select-type .middle-section .para{
+  margin-top: 5 !important;
+  }
+}
 .inputPlaceholderRegistration {
   input::placeholder,
   textarea::placeholder {
@@ -398,4 +403,8 @@ input#mobile:focus {
     /* Microsoft Edge */
     color: #7a7878 !important;
   }
+}
+
+#demo-simple-select-outlined{
+  color: #7a7878 !important;
 }

@@ -35,7 +35,7 @@ class EditRequest extends VeichleListController {
     return (
       <>
         <Box className="login-wrapper reg-wrapper">
-          <Box display={{ xs: 'flex', md: 'none' }} className="backIcon" onClick={() => window.history.back()}><KeyboardBackspaceIcon /></Box>
+          <Box display={{ xs: 'flex', md: 'none' }} className="backIcon" onClick={() => this.props.history.push("/veichleList")}><KeyboardBackspaceIcon /></Box>
           <Grid container spacing={2} className="auth-container">
             <Grid item xs={12} md={7} className="auth-cols">
               <Box className="content-block">
@@ -47,7 +47,7 @@ class EditRequest extends VeichleListController {
                 </Box>
                 <Box className="main-content-block">
                   <Box className="reg-content-block">
-                    <Box className="header-block chairmanHeaderBlock">
+                    <Box className="header-block chairmanHeaderBlock" style={{paddingTop:'13rem'}}>
                       {/* <img src={Tenant_Logo} className="tenant-logo" alt="Tenant Logo" /> */}
                       <img src={info} className="bank-logo" alt="Tenant Logo" />
                       <h1 style={{ fontWeight: 'bold' }}>Edited Details <br/>
