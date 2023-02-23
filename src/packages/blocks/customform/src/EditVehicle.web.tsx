@@ -40,7 +40,7 @@ class EditVeichleList extends VeichleListController {
 
       <>
         <Grid container spacing={2} className="auth-container">
-          <Grid item xs={12} md={7} className="auth-cols" style={{ justifyContent: 'unset' }}>
+          <Grid item xs={12} md={7} className="auth-cols inputPlaceholderRegistration" style={{ justifyContent: 'unset' }}>
             <Grid container>
               <Grid xs={12} style={{ display: 'flex', alignContent: 'center',borderBottom:'1px solid #0000001f',paddingBottom:'0.25rem' }}>
                 <ArrowBackIcon onClick={() => window.history.back()} style={{marginTop:'0.25rem'}}/>
