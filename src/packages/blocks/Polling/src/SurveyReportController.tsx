@@ -6,6 +6,7 @@ import MessageEnum, {
   getName
 } from "../../../framework/src/Messages/MessageEnum";
 import { runEngine } from "../../../framework/src/RunEngine";
+const {baseURL} = require("../../../framework/src/config")
 // import {toast} from "react-toastify";
 
 export const configJSON = require("./config");
@@ -94,6 +95,11 @@ export default class CoverImageController extends BlockComponent<
     this.getSurveyGenerateReport(this.state.currentReportPage)
   }
 
+  handleDownload = async () => {
+    const survey =  window.location.search ? window.location.search.split("=")[1] : null;
+    const societyID = localStorage.getItem("society_id")
+    await this.manageDownloadPDF(`society_managements/${societyID}/bx_block_survey/surveys/${survey}/download_report.pdf`,`SurveyResponse_${survey}.pdf`)
+  }
 
   async receive(from: string, message: Message) {
     if(getName(MessageEnum.RestAPIResponceMessage) === message.id) {
@@ -139,6 +145,33 @@ export default class CoverImageController extends BlockComponent<
     })
   }
 
+  manageDownloadPDF = async (path:any,fileName:any) => {
+    const token:any = localStorage.getItem("userToken")
+    const myHeaders = new Headers();
+    myHeaders.append("token",token);
+    let requestOptions:any = {
+      method: 'GET',
+      headers: myHeaders,
+    };
+    const response = await fetch(`${baseURL}/${path}`,requestOptions)
+    const resBlob = await response.blob()
+    const url = window.URL.createObjectURL(
+        new Blob([resBlob]),
+    );
+    const link = document.createElement('a');
+    link.href = url;
+    link.setAttribute(
+        'download',
+        fileName,
+    );
+    // Append to html link element page
+    document.body.appendChild(link);
+    // Start download
+    link.click();
+    // Clean up and remove the link
+    // @ts-ignore
+    link.parentNode.removeChild(link);
+  }
 
   apiCall = async (data: any) => {
     const { contentType, method, endPoint, body } = data;

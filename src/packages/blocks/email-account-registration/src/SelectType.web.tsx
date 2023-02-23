@@ -54,7 +54,7 @@ class SelectType extends EmailAccountRegistrationController {
                     className={"select-type " + (this.state.userType == "Owner Resident" ? " active-box" : "")}
                     alignItems="center"
                     justifyContent="space-between"
-                    border="0.1px solid rgb(209 209 209 / 44%)"
+                    border="1px solid rgb(209 209 209 / 100%)"
                     borderRadius="16px"
                     bgcolor="white"
                     marginTop="1rem"
@@ -69,7 +69,7 @@ class SelectType extends EmailAccountRegistrationController {
                         //@ts-ignore
                         for="radCreateMode"
                         className={"title" + (this.state.userType == "Owner Resident" ? " active-type" : "")}
-                        style={{ padding: "0px",color:"#939292",marginBottom:"0px"}}
+                        style={{ padding: "0px",color:"#7a7878",marginBottom:"0px"}}
                       >
                         Resident Owner
                       </label>
@@ -95,7 +95,7 @@ class SelectType extends EmailAccountRegistrationController {
                     justifyContent="space-between"
                     className={"select-type " + (this.state.userType == "Tenant" ? " active-box" : "")}
                     alignItems="center"
-                    border="0.1px solid rgb(209 209 209 / 44%)"
+                    border="0.1px solid rgb(209 209 209 / 100%)"
                     borderRadius="16px"
                     bgcolor="white"
                     marginTop="1rem"
@@ -110,7 +110,7 @@ class SelectType extends EmailAccountRegistrationController {
                         //@ts-ignore
                         for="radCreateMode2"
                         className={"title" + (this.state.userType == "Tenant" ? " active-type" : "")}
-                        style={{ padding: "0px",color:"#939292",marginBottom:"0px"}}
+                        style={{ padding: "0px",color:"#7a7878",marginBottom:"0px"}}
                       >
                         Tenant
                       </label>
@@ -136,7 +136,7 @@ class SelectType extends EmailAccountRegistrationController {
                     justifyContent="space-between"
                     className={"select-type" + (this.state.userType == "Owner" ? " active-box" : "")}
                     alignItems="center"
-                    border="0.1px solid rgb(209 209 209 / 44%)"
+                    border="0.1px solid rgb(209 209 209 / 100%)"
                     borderRadius="16px"
                     bgcolor="white"
                     marginTop="1rem"
@@ -151,7 +151,7 @@ class SelectType extends EmailAccountRegistrationController {
                         //@ts-ignore
                         for="radCreateMode5"
                         className={"title" + (this.state.userType == "Owner" ? " active-type" : "")}
-                        style={{ padding: "0px",color:"#939292",marginBottom:"0px"}}
+                        style={{ padding: "0px",color:"#7a7878",marginBottom:"0px"}}
                       >
                         Owner
                       </label>
@@ -177,7 +177,7 @@ class SelectType extends EmailAccountRegistrationController {
                     justifyContent="space-between"
                     className={"select-type" + (this.state.userType == "Property Manager" ? " active-box" : "")}
                     alignItems="center"
-                    border="0.1px solid rgb(209 209 209 / 44%)"
+                    border="0.1px solid rgb(209 209 209 / 100%)"
                     borderRadius="16px"
                     bgcolor="white"
                     marginTop="1rem"
@@ -192,7 +192,7 @@ class SelectType extends EmailAccountRegistrationController {
                         //@ts-ignore
                         for="radCreateMode3"
                         className={"title" + (this.state.userType == "Property Manager" ? " active-type" : "")}
-                        style={{ padding: "0px",color:"#939292",marginBottom:"0px"}}
+                        style={{ padding: "0px",color:"#7a7878",marginBottom:"0px"}}
                       >
                         Property Manager
                       </label>
@@ -231,7 +231,7 @@ class SelectType extends EmailAccountRegistrationController {
                       color: "#F7F7FC",
                       fontWeight: 600,
                       fontSize: 16,
-                      marginTop: 80,
+                      marginTop: 40,
                     }}
                     onClick={this.updateTypeOwner}
                   >

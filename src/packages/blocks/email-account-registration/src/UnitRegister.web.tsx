@@ -66,7 +66,7 @@ class RegisterUnit extends EmailAccountRegistrationController {
               justifyContent='space-between'
               className={'select-type ' + (this.state.unitRegisterType == 'Linkage' ? ' active-box' :'')}
               alignItems="center"
-              border="0.1px solid rgb(209 209 209 / 44%)"
+              border="0.1px solid rgb(209 209 209 / 100%)"
               borderRadius="16px"
               bgcolor="white"
               marginTop='1rem'
@@ -77,7 +77,7 @@ class RegisterUnit extends EmailAccountRegistrationController {
                     <img src={this.state.unitRegisterType == 'Linkage' ? LinkageSelected :Linkage} />
                 </Box>
                 <Box className="middle-section" style={{display:"flex",flexDirection:"column",marginBottom:"0px",width:"70%"}}>
-                      <label for="radCreateMode" className={"title" + (this.state.unitRegisterType == 'Linkage' ? ' active-type' : '')}  style={{ padding: "0px",color:"#939292",marginBottom:"0px"}}>
+                      <label for="radCreateMode" className={"title" + (this.state.unitRegisterType == 'Linkage' ? ' active-type' : '')}  style={{ padding: "0px",color:"#7a7878",marginBottom:"0px"}}>
                   Linkage
                       </label>
                       <br/>
@@ -97,7 +97,7 @@ class RegisterUnit extends EmailAccountRegistrationController {
               justifyContent='space-between'
               className={'select-type ' + (this.state.unitRegisterType == 'Manual' ? ' active-box' :'')}
               alignItems="center"
-              border="0.1px solid rgb(209 209 209 / 44%)"
+              border="0.1px solid rgb(209 209 209 / 100%)"
               borderRadius="16px"
               bgcolor="white"
               marginTop='1rem'
@@ -108,7 +108,7 @@ class RegisterUnit extends EmailAccountRegistrationController {
                 <img src={this.state.unitRegisterType == 'Manual' ? ManualSelected : manual} />
               </Box>
               <Box className="middle-section" style={{display:"flex",flexDirection:"column",marginBottom:"0px",width:"70%"}}>
-                      <label for="radCreateMode2" className={"title" + (this.state.unitRegisterType == 'Manual' ? ' active-type' : '')}  style={{ padding: "0px",color:"#939292",marginBottom:"0px"}}>
+                      <label for="radCreateMode2" className={"title" + (this.state.unitRegisterType == 'Manual' ? ' active-type' : '')}  style={{ padding: "0px",color:"#7a7878",marginBottom:"0px"}}>
                   Manual
                       </label><br/>
                       <label for="radCreateMode2" className="para" style={this.state.unitRegisterType == "Manual" ? {color:"#181d25",marginTop:"-12px",marginBottom:"5px"} :{color:"#939292",marginTop:"-12px",marginBottom:"5px"}}>
@@ -141,7 +141,7 @@ class RegisterUnit extends EmailAccountRegistrationController {
                 color: "#F7F7FC",
                 fontWeight: 600,
                 fontSize: 16,
-                marginTop: 100
+                marginTop: 15
               }}
               onClick={this.registerUnit}
             >

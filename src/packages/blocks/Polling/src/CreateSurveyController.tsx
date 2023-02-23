@@ -49,6 +49,8 @@ interface S {
   deleteAudienceId:any;
   inputType1:any;
   inputType2:any;
+  error:any;
+  showError:boolean;
 }
 
 interface SS {
@@ -127,7 +129,9 @@ export default class CoverImageController extends BlockComponent<
       deleteAudienceId:"",
       audienceValidationError:"",
       inputType1:"Text",
-      inputType2:"Text"
+      inputType2:"Text",
+      error:"",
+      showError:false
     };
 
     this.emailReg = new RegExp("");
@@ -629,17 +633,24 @@ export default class CoverImageController extends BlockComponent<
     this.setState({
       isSubmitted:true
     })
-    if(this.handleValidation()){
-      localStorage.setItem('Survey_Data', JSON.stringify({
-        PollFormData:this.state.SurveyData,
-        PollOptions:this.state.surveyQuestions,
-        PollDescription:this.state.textEditor,
-        selectedAudience:this.state.selectedAudience,
-        selectedAudienceId:this.state.selectedAudienceId,
-        selectedAudienceName:this.state.selectedAudienceName,
-      }))
-      // @ts-ignore
-      this.props.history.push("/SurveyPreview")
+    if(this.state.surveyQuestions.length > 0){
+      if(this.handleValidation()){
+        localStorage.setItem('Survey_Data', JSON.stringify({
+          PollFormData:this.state.SurveyData,
+          PollOptions:this.state.surveyQuestions,
+          PollDescription:this.state.textEditor,
+          selectedAudience:this.state.selectedAudience,
+          selectedAudienceId:this.state.selectedAudienceId,
+          selectedAudienceName:this.state.selectedAudienceName,
+        }))
+        // @ts-ignore
+        this.props.history.push("/SurveyPreview")
+      }
+    }else{
+      this.setState({
+        showError:true,
+        error:"No Question added! Please add minimum one question."
+      })
     }
   }
 
@@ -649,27 +660,34 @@ export default class CoverImageController extends BlockComponent<
     this.setState({
       isSubmitted: true,
     })
-    if (this.handleValidation() || preview) {
-      this.setState({
-        loading:true
-      })
-      let reqPayload = {
-        "society_id": societyID,
-        "survey":
-            {
-              "type_name": "survey",
-              "title": this.state.SurveyData.title,
-              "description": this.state.SurveyData.description,
-              "target_audience_type":this.state.selectedAudience,
-              "survey_audience_ids":this.state.selectedAudienceId ? [this.state.selectedAudienceId] : "",
-              "schedule": "1",
-              "start_date": this.state.SurveyData.startDate,
-              "end_date": this.state.SurveyData.endDate,
-              "survey_questions_attributes": this.state.surveyQuestions,
-            }
+    if(this.state.surveyQuestions.length > 0){
+      if (this.handleValidation() || preview) {
+        this.setState({
+          loading:true
+        })
+        let reqPayload = {
+          "society_id": societyID,
+          "survey":
+              {
+                "type_name": "survey",
+                "title": this.state.SurveyData.title,
+                "description": this.state.SurveyData.description,
+                "target_audience_type":this.state.selectedAudience,
+                "survey_audience_ids":this.state.selectedAudienceId ? [this.state.selectedAudienceId] : "",
+                "schedule": "1",
+                "start_date": this.state.SurveyData.startDate,
+                "end_date": this.state.SurveyData.endDate,
+                "survey_questions_attributes": this.state.surveyQuestions,
+              }
+        }
+        await this.addSurveyData(reqPayload);
+        localStorage.removeItem("Survey_Data")
       }
-      await this.addSurveyData(reqPayload);
-      localStorage.removeItem("Survey_Data")
+    }else{
+      this.setState({
+        showError:true,
+        error:"No Question added! Please add minimum one question."
+      })
     }
   }
 

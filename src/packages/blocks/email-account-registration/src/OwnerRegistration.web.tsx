@@ -140,15 +140,12 @@ class Registration extends EmailAccountRegistrationController {
                     <Box
                       className="formInputGrp"
                     >
-
-
                       <Field
                         name="email"
                         placeholder={"Email ID (will be your user name)"}
-                        className="formInput"
+                        className="formInput dateInputBox"
                       />
                       <span className="frmLeftIcons">
-
                         <img src={email} />
                       </span>
                     </Box>
