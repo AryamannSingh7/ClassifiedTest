@@ -112,7 +112,7 @@ class ManagerRegistration extends EmailAccountRegistrationController {
                           alignItems="center"
                           height="56px"
                           border="0.1px solid rgb(209 209 209 / 100%)"
-                          borderRadius="16px"
+                          borderRadius="25px"
                           bgcolor="#f9f9f9"
                           marginTop="1rem"
                         >
@@ -143,7 +143,7 @@ class ManagerRegistration extends EmailAccountRegistrationController {
                           alignItems="center"
                           height="56px"
                           border="0.1px solid rgb(209 209 209 / 100%)"
-                          borderRadius="16px"
+                          borderRadius="25px"
                           bgcolor="#f9f9f9"
                           marginTop="1rem"
                         >
@@ -174,7 +174,7 @@ class ManagerRegistration extends EmailAccountRegistrationController {
                           alignItems="center"
                           height="56px"
                           border="0.1px solid rgb(209 209 209 / 100%)"
-                          borderRadius="16px"
+                          borderRadius="25px"
                           bgcolor="#f9f9f9"
                           marginTop="1rem"
                         >
@@ -206,7 +206,7 @@ class ManagerRegistration extends EmailAccountRegistrationController {
                           alignItems="center"
                           height="56px"
                           border="0.1px solid rgb(209 209 209 / 100%)"
-                          borderRadius="16px"
+                          borderRadius="25px"
                           bgcolor="#f9f9f9"
                           style={{overflow:'visible'}}
                         >
@@ -272,7 +272,7 @@ class ManagerRegistration extends EmailAccountRegistrationController {
                           height="56px"
                           mt="20px"
                           border="0.1px solid rgb(209 209 209 / 100%)"
-                          borderRadius="16px"
+                          borderRadius="25px"
                           bgcolor="#f9f9f9"
                         >
                           <img src={password} style={{ paddingLeft: "0.5rem" }} />
@@ -336,7 +336,7 @@ class ManagerRegistration extends EmailAccountRegistrationController {
                           height="56px"
                           mt="20px"
                           border="0.1px solid rgb(209 209 209 / 100%)"
-                          borderRadius="16px"
+                          borderRadius="25px"
                           bgcolor="#f9f9f9"
                         >
                           <img src={password} style={{ paddingLeft: "0.5rem" }} />
