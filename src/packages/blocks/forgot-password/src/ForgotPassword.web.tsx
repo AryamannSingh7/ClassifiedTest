@@ -50,7 +50,7 @@ class ForgotPassword extends ForgotPasswordController {
                     <h4>Building Name</h4>
                   </Link>
                 </Box>
-                <Box className="main-content-block desktop-ui">
+                <Box className="main-content-block desktop-ui inputPlaceholderRegistration">
                   <Box className="header-block">
                     {/* <Box display={{ xs: 'flex', md: 'none' }}>
                       <Link href="/EmailAccountLogin">
@@ -76,7 +76,7 @@ class ForgotPassword extends ForgotPasswordController {
                       <Form translate="yes" className="commonForm">
                         <Box className="formGroup">
                           <label htmlFor="" className="textfieldLabel">Enter your regestered Email or Mobile Number</label>
-                          <div className="formInputGrp">
+                          <div className="formInputGrp" style={{border:'0.1px solid rgb(209 209 209 / 100%)',borderRadius:25}}>
                             <Field type="text" name="email" placeholder="Email ID or Mobile Number" className="formInput" />
                             <span className="frmLeftIcons">
                               <img src={Email_Icon} className="frm-icons" alt="Email Icon" />
