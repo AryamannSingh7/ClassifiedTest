@@ -157,7 +157,10 @@ class PollsSurvey extends PollsSurveyController {
                       )
                   }
                 })
-                : null
+                :
+                <Box style={{minHeight:"500px",display:"flex",alignItems:"center",justifyContent:"center"}}>
+                    <Typography color="textSecondary" className="bold-text">No Polls/Survey Found!</Typography>
+                </Box>
                 }
 
                 </TabPanel>
@@ -219,7 +222,10 @@ class PollsSurvey extends PollsSurveyController {
                         </Box>
                       )
                     })
-                    : null
+                    :
+                    <Box style={{minHeight:"500px",display:"flex",alignItems:"center",justifyContent:"center"}}>
+                        <Typography color="textSecondary" className="bold-text">No Polls/Survey Found!</Typography>
+                    </Box>
                     }
                 </TabPanel>
               </Grid>
@@ -241,7 +247,7 @@ class PollsSurvey extends PollsSurveyController {
               {/*@ts-ignore*/}
               <Fade in={this.state.filterModal}>
                   <div>
-                      <Box style={{width:"100%",minHeight:"50%",backgroundColor:"white",borderRadius:"10px 10px 0px 0px",position:"absolute",left:0,bottom:0}}>
+                      <Box style={{width:"100%",height:"auto",backgroundColor:"white",borderRadius:"10px 10px 0px 0px",position:"absolute",left:0,bottom:0}}>
                         <Box style={{display:'flex',flexDirection:'column',justifyContent:'space-between'}}>
                             <Box style={{margin:"15px"}}>
                                 <Box style={{display:'flex',justifyContent:"space-between",alignItems:"center"}}>
@@ -276,8 +282,9 @@ class PollsSurvey extends PollsSurveyController {
                                     </FormControl>
                                 </Box>
                             </Box>
-                            <Box style={{margin:"15px",marginTop:"50px"}}>
-                                <Button onClick={this.applyFilter} variant="contained" color="primary" fullWidth style={{borderRadius:"50px"}}>{t("Apply")}</Button>
+                            <Divider/>
+                            <Box style={{margin:"15px",marginTop:"20px"}}>
+                                <Button onClick={this.applyFilter} variant="contained" color="primary" fullWidth style={{borderRadius:"50px",backgroundColor:"2b6fed",height:"40px"}}>{t("Apply")}</Button>
                             </Box>
                         </Box>
                       </Box>
