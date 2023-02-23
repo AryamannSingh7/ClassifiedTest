@@ -95,7 +95,7 @@ class SurveyParticipate extends SurveyParticipateController {
                 </p>
               </Grid>
               <Grid xs={12}>
-              <Box style={{background: "#E5ECFF",minHeight:"100vh",display:'flex',flexDirection:"column",alignItems:'center',justifyContent:"space-between"}}>
+              <Box style={{background: "#F7F9FE",minHeight:"100vh",display:'flex',flexDirection:"column",alignItems:'center',justifyContent:"space-between"}}>
                       <Box style={{width:"85%"}}>
                           <Box style={{marginTop:"25px",marginBottom:"10px"}}>
                               <BorderLinearProgress variant="determinate" value={(100/(this.state.totalQuestion+1))*(this.state.currentQuestion+1)} style={{border:".5px gray"}}/>
@@ -282,23 +282,23 @@ class SurveyParticipate extends SurveyParticipateController {
                               this.state.currentQuestion !== 0  && this.state.currentQuestion !== this.state.totalQuestion && this.state.totalQuestion !== 1 &&
                               <>
                                   <Grid item xs={6}>
-                                      <Button onClick={this.handlePrevious} fullWidth variant="text" style={{borderRadius:"50px",}} size="large" color="primary">Back</Button>
+                                      <Button onClick={this.handlePrevious} fullWidth variant="text" style={{borderRadius:"50px",color:"#2B6FED"}} size="large" color="primary">Back</Button>
                                   </Grid>
                                   <Grid item xs={6}>
-                                      <Button onClick={this.handleNext} fullWidth variant="contained" style={{borderRadius:"50px",}} size="large" color="primary">Next</Button>
+                                      <Button onClick={this.handleNext} fullWidth variant="contained" style={{borderRadius:"50px",backgroundColor:"#2B6FED"}} size="large" color="primary">Next</Button>
                                   </Grid>
                               </>
                           }
                           {
                               this.state.currentQuestion === 0  && this.state.totalQuestion !== 0 &&
                               <Grid item xs={12}>
-                                  <Button onClick={this.handleNext} fullWidth variant="contained" style={{borderRadius:"50px",}} size="large" color="primary">Next</Button>
+                                  <Button onClick={this.handleNext} fullWidth variant="contained" style={{borderRadius:"50px",backgroundColor:"#2B6FED"}} size="large" color="primary">Next</Button>
                               </Grid>
                           }
                           {
                               this.state.currentQuestion === this.state.totalQuestion &&
                               <Grid item xs={12}>
-                                  <Button onClick={this.handleSubmit} fullWidth variant="contained" style={{borderRadius:"50px",}} size="large" color="primary">Submit</Button>
+                                  <Button onClick={this.handleSubmit} fullWidth variant="contained" style={{borderRadius:"50px",backgroundColor:"#2B6FED"}} size="large" color="primary">Submit</Button>
                               </Grid>
                           }
                       </Grid>
