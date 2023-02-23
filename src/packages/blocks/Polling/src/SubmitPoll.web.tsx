@@ -106,7 +106,7 @@ class SubmitPoll extends PollingController {
                         <AccountCircleOutlinedIcon style={{color:'#054c94'}}/>
                         <Box marginLeft='0.5rem'>
                             <p>{t("Published By")}:</p>
-                            <p style={{color:"black", fontSize:'1rem', marginTop:10}}>
+                            <p style={{color:"black", fontSize:'1rem', marginTop:5}}>
                               {this.state.pollPreviewAnswer.poll?.data?.attributes.publish_by}
                             </p>
                         </Box>
@@ -116,7 +116,7 @@ class SubmitPoll extends PollingController {
                         <DateRangeOutlinedIcon style={{color:'#054c94'}}/>
                         <Box marginLeft='0.5rem'>
                             <p>{t("Published Date")}:</p>
-                            <p style={{color:"black", fontSize:'1rem', marginTop:10}}>
+                            <p style={{color:"black", fontSize:'1rem', marginTop:5}}>
                               {this.state.pollPreviewAnswer.poll?.data?.attributes.publish_date}
                             </p>
                         </Box>
