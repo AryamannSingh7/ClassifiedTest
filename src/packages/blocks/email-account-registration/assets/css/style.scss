@@ -373,3 +373,29 @@ input#mobile:focus {
 .custom1 .MuiFormControl-root{
   width: 329px;
 }
+
+.inputPlaceholderRegistration {
+  input::placeholder,
+  textarea::placeholder {
+    color: #7a7878 !important;
+    opacity: 1; /* Firefox */
+  }
+
+  input:-ms-input-placeholder,
+  textarea:-ms-input-placeholder {
+    /* Internet Explorer 10-11 */
+    color: #7a7878 !important;
+  }
+
+  input::-ms-input-placeholder,
+  textarea::-ms-input-placeholder {
+    /* Microsoft Edge */
+    color: #7a7878 !important;
+  }
+
+  .form-control input::-ms-input-placeholder,
+  textarea::-ms-input-placeholder {
+    /* Microsoft Edge */
+    color: #7a7878 !important;
+  }
+}
