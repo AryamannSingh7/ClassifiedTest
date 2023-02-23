@@ -54,7 +54,7 @@ class SelectType extends EmailAccountRegistrationController {
                     className={"select-type " + (this.state.userType == "Owner Resident" ? " active-box" : "")}
                     alignItems="center"
                     justifyContent="space-between"
-                    border="1px solid rgb(209 209 209 / 100%)"
+                    border="0.1px solid rgb(209 209 209 / 100%)"
                     borderRadius="16px"
                     bgcolor="white"
                     marginTop="1rem"
