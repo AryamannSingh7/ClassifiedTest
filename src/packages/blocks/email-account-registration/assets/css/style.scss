@@ -373,3 +373,9 @@ input#mobile:focus {
 .custom1 .MuiFormControl-root{
   width: 329px;
 }
+
+@-moz-document url-prefix(){
+  .select-type .middle-section .para{
+  margin-top: 5 !important;
+  }
+}
