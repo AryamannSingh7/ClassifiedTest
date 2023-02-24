@@ -82,6 +82,8 @@ interface S {
   descriptionError:any;
   inputType1:any;
   inputType2:any;
+  showError:boolean;
+  error:any;
 
 }
 
@@ -228,6 +230,8 @@ export default class PollingController extends BlockComponent<
       descriptionError:"",
       inputType1:"text",
       inputType2:"text",
+      error:"",
+      showError:false,
     };
     runEngine.attachBuildingBlock(this as IBlock, this.subScribedMessages);
 
@@ -631,7 +635,6 @@ export default class PollingController extends BlockComponent<
           pollTitleError:"Title can't be empty."
         })
       }
-
       if(this.state.PollData?.startDate){
         if(this.state.PollData?.startDate !== ""){
           if(this.dateIsValid(this.state.PollData.startDate)){
@@ -744,59 +747,66 @@ export default class PollingController extends BlockComponent<
           this.setState({
             isSubmitted:true
           })
-          if(this.handleValidation() || preview){
-            if(this.state.PreViewPollData.length || Object.keys(this.state.PreViewPollData).length){
-              let reqPayload = {
-                "society_id": societyID,
-                "poll":
-                    {
-                      "type_name":"poll",
-                      "title": this.state.PreViewPollData.PollFormData.title,
-                      "description": this.state.PreViewPollData.PollFormData.description,
-                      "poll_type": this.state.PreViewPollData.PollType,
-                      "schedule": "1",
-                      "start_date": this.state.PreViewPollData.PollFormData.startDate,
-                      "end_date": this.state.PreViewPollData.PollFormData.endDate,
-                      "question": this.state.PreViewPollData.PollFormData.question,
-                      "polling_options_attributes": this.state.PreViewPollData.PollOptions,
-                    }
-              }
-              await this.addPollData(reqPayload);
-              //@ts-ignore
-              // await this.props.history.push("/Polling")
-              this.setState({
-                PollData: this.state.InitialPollData,
-                options: this.state.Initialoptions,
-                checked: this.state.checked,
-                textEditorVal : this.state.initialtextEditorVal,
-              })
-            } else{
+          if(this.state.options.length>0){
+            if(this.handleValidation() || preview){
+              if(this.state.PreViewPollData.length || Object.keys(this.state.PreViewPollData).length){
+                let reqPayload = {
+                  "society_id": societyID,
+                  "poll":
+                      {
+                        "type_name":"poll",
+                        "title": this.state.PreViewPollData.PollFormData.title,
+                        "description": this.state.PreViewPollData.PollFormData.description,
+                        "poll_type": this.state.PreViewPollData.PollType,
+                        "schedule": "1",
+                        "start_date": this.state.PreViewPollData.PollFormData.startDate,
+                        "end_date": this.state.PreViewPollData.PollFormData.endDate,
+                        "question": this.state.PreViewPollData.PollFormData.question,
+                        "polling_options_attributes": this.state.PreViewPollData.PollOptions,
+                      }
+                }
+                await this.addPollData(reqPayload);
+                //@ts-ignore
+                // await this.props.history.push("/Polling")
+                this.setState({
+                  PollData: this.state.InitialPollData,
+                  options: this.state.Initialoptions,
+                  checked: this.state.checked,
+                  textEditorVal : this.state.initialtextEditorVal,
+                })
+              } else{
 
-              let reqPayload = {
-                "society_id": societyID,
-                "poll":
-                    {
-                      "type_name":"poll",
-                      "title": this.state.PollData.title,
-                      "description": this.state.PollData.description,
-                      "poll_type": this.state.checked,
-                      "schedule": "1",
-                      "start_date": this.state.PollData.startDate,
-                      "end_date": this.state.PollData.endDate,
-                      "question": this.state.PollData.question,
-                      "polling_options_attributes": this.state.options,
-                    }
+                let reqPayload = {
+                  "society_id": societyID,
+                  "poll":
+                      {
+                        "type_name":"poll",
+                        "title": this.state.PollData.title,
+                        "description": this.state.PollData.description,
+                        "poll_type": this.state.checked,
+                        "schedule": "1",
+                        "start_date": this.state.PollData.startDate,
+                        "end_date": this.state.PollData.endDate,
+                        "question": this.state.PollData.question,
+                        "polling_options_attributes": this.state.options,
+                      }
+                }
+                await this.addPollData(reqPayload);
+                //@ts-ignore
+                // await this.props.history.push("/Polling")
+                this.setState({
+                  PollData: this.state.InitialPollData,
+                  options: this.state.Initialoptions,
+                  checked: this.state.checked,
+                  textEditorVal : this.state.initialtextEditorVal,
+                })
               }
-              await this.addPollData(reqPayload);
-              //@ts-ignore
-              // await this.props.history.push("/Polling")
-              this.setState({
-                PollData: this.state.InitialPollData,
-                options: this.state.Initialoptions,
-                checked: this.state.checked,
-                textEditorVal : this.state.initialtextEditorVal,
-              })
             }
+          }else{
+            this.setState({
+              showError:true,
+              error:"No option added! Please add one option."
+            })
           }
           await localStorage.removeItem('Polls_Data');
     }
@@ -805,16 +815,24 @@ export default class PollingController extends BlockComponent<
       this.setState({
         isSubmitted:true
       })
-       if(this.handleValidation()){
-         localStorage.setItem('Polls_Data', JSON.stringify({
-           "PollFormData":this.state.PollData,
-           "PollType":this.state.checked ,
-           "PollOptions":this.state.options,
-           "PollDescription":this.state.textEditorVal
-         }))
-         // @ts-ignore
-         this.props.history.push("/PollPreview")
+       if(this.state.options.length > 0){
+         if(this.handleValidation()){
+           localStorage.setItem('Polls_Data', JSON.stringify({
+             "PollFormData":this.state.PollData,
+             "PollType":this.state.checked ,
+             "PollOptions":this.state.options,
+             "PollDescription":this.state.textEditorVal
+           }))
+           // @ts-ignore
+           this.props.history.push("/PollPreview")
+         }
+       }else{
+         this.setState({
+           showError:true,
+           error:"No option added! Please add one option."
+         })
        }
+
     }
 
     addOptionsFields = () => {

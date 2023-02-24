@@ -63,6 +63,7 @@ import '../../../web/src/i18n.js';
 import DateRangeOutlinedIcon from "@material-ui/icons/DateRangeOutlined";
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 import Menu from '@material-ui/core/Menu';
+import AlertError from "../../../components/src/AlertError.web";
 import DeleteIcon from '@material-ui/icons/Delete';
 import BackspaceIcon from '@material-ui/icons/Backspace';
 const currencies = [
@@ -277,7 +278,7 @@ class CreateSurveys extends CreateSurveyController {
                                                         <MenuItem value="checkbox">{t("Multiple Choice Questions")}</MenuItem>
                                                         <MenuItem value="options">{t("Options")}</MenuItem>
                                                     </Select>
-                                                    <p style={{color:"red"}}>{t(item.questionTypeError)}</p>
+                                                    <p style={{color:"red"}}>{t(item.question_typeError)}</p>
                                                 </FormControl>
                                                 <TextField  label={t("Enter question")} variant="outlined"
                                                             name="question"
@@ -400,6 +401,7 @@ class CreateSurveys extends CreateSurveyController {
                 </Modal>
             </Grid>
         </Box>
+        <AlertError show={this.state.showError} handleClose={()=> this.setState({showError:false})} message={this.state.error}/>
     </Box>
      </>
       );

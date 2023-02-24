@@ -35,7 +35,7 @@ class RegisterUnitManually extends EmailAccountRegistrationController {
 
       <>
         <Grid container spacing={2} className="auth-container">
-          <Grid item xs={12} md={7} className="auth-cols" style={{ justifyContent: 'unset' }}>
+          <Grid item xs={12} md={7} className="auth-cols inputPlaceholderRegistration" style={{ justifyContent: 'unset' }}>
             <div>
 
         <Grid container style={{ margin: '1rem', width: '90%' }}>
@@ -130,7 +130,7 @@ class RegisterUnitManually extends EmailAccountRegistrationController {
                       id="demo-simple-select-outlined"
                       onChange={(e) => { this.handleChange(e); setFieldValue("selectCountry", e.target.value) }}
                       label="Country"
-                      style={{ borderRadius: 25, border: '0px solid #e9dede', color: '#BEBEBE',   paddingLeft:55 }}
+                      style={{ borderRadius: 25, border: '0.1px solid rgb(209 209 209 / 100%)', color: '#BEBEBE',   paddingLeft:55 }}
                     >
 
                       <MenuItem value=" ">
@@ -164,7 +164,7 @@ class RegisterUnitManually extends EmailAccountRegistrationController {
                       id="demo-simple-select-outlined"
                       onChange={(e) => { this.handleChange(e); setFieldValue("selectCity", e.target.value) }}
                       label="City"
-                      style={{ borderRadius: 25, border: '0px solid #e9dede', color: '#BEBEBE',paddingLeft:55 }}
+                      style={{ borderRadius: 25, border: '0.1px solid rgb(209 209 209 / 100%)', color: '#BEBEBE',paddingLeft:55 }}
                     >
                       <MenuItem value=" ">
                               Select city
@@ -225,7 +225,7 @@ class RegisterUnitManually extends EmailAccountRegistrationController {
                       id="demo-simple-select-outlined"
                       onChange={(e) => { this.handleChange(e); setFieldValue("selectBuilding", e.target.value) }}
                       label="Building"
-                      style={{ borderRadius: 25, border: '0px solid #e9dede', color: '#BEBEBE',paddingLeft:55 }}
+                      style={{ borderRadius: 25, border: '0.1px solid rgb(209 209 209 / 100%)', color: '#BEBEBE',paddingLeft:55 }}
                     >
                       <MenuItem value=" ">
                               Select building
@@ -253,7 +253,7 @@ class RegisterUnitManually extends EmailAccountRegistrationController {
                       id="demo-simple-select-outlined"
                       onChange={(e) => { this.handleChange(e); setFieldValue("selectUnit", e.target.value) }}
                       label="Unit"
-                      style={{ borderRadius: 25, border: '0px solid #e9dede', color: '#b5b5b5' }}
+                      style={{ borderRadius: 25, border: '0.1px solid rgb(209 209 209 / 100%)', color: '#b5b5b5' }}
                     >
                       <MenuItem value="">
                         <em>None</em>
@@ -273,7 +273,7 @@ class RegisterUnitManually extends EmailAccountRegistrationController {
                             value={values.selectUnit}
                       placeholder={"Enter Unit"}
                       className="formInput1"
-                      style={{border:0,paddingLeft:'15px',color:'#BEBEBE',paddingLeft:55,marginTop:9,paddingBottom:22,width:'100%'}}
+                      style={{border:0,paddingLeft:'15px',color:'#BEBEBE',paddingLeft:55,marginTop:7,paddingBottom:18,width:'100%',border: '0.1px solid rgb(209 209 209 / 100%)',borderRadius:25}}
                             value={this.state.selectUnit}
                             onChange={(e) => { this.handleChange2(e); setFieldValue("selectUnit", e.target.value) }}
                     />

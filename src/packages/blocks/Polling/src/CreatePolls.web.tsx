@@ -36,6 +36,7 @@ import { withTranslation } from 'react-i18next';
 
 import '../../../web/src/i18n.js';
 import BackspaceIcon from '@material-ui/icons/Backspace';
+import AlertError from "../../../components/src/AlertError.web";
 class CreatePolls extends PollingController {
   constructor(props: Props) {
     super(props);
@@ -86,7 +87,7 @@ class CreatePolls extends PollingController {
                         <Grid container spacing={4} style={{paddingTop: 0}}>
                             <Grid item sm={12} md={12} xs={12}>
                             <Box className="createPSCards" style={{paddingBottom:"15px"}}>
-                                <TextField label={t("Title of the Poll")} variant="outlined"
+                                <TextField label={t("Name of the Poll")} variant="outlined"
                                     name="title"
                                     value={this.state.PollData.title}
                                     onChange={this.handlePollDataChange}
@@ -247,6 +248,7 @@ class CreatePolls extends PollingController {
         </Box>
     </Box>
     <Loader loading={this.state.loading} />
+      <AlertError show={this.state.showError} handleClose={()=> this.setState({showError:false})} message={this.state.error}/>
      </>
       );
   }

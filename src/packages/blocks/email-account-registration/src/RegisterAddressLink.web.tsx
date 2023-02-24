@@ -34,7 +34,7 @@ class RegisterAddressLinkLink extends EmailAccountRegistrationController {
     return (
       <>
         <Grid container spacing={2} className="auth-container">
-          <Grid item xs={12} md={7} className="auth-cols" style={{ justifyContent: "unset" }}>
+          <Grid item xs={12} md={7} className="auth-cols inputPlaceholderRegistration" style={{ justifyContent: "unset" }}>
             <div>
               <Grid container style={{ margin: "1rem", width: "90%",marginBottom:0 }}>
                 <Grid xs={12}>
@@ -109,7 +109,6 @@ class RegisterAddressLinkLink extends EmailAccountRegistrationController {
                             label="Country"
                             style={{
                               borderRadius: 25,
-                          
                               color: "#b5b5b5",
                               paddingLeft:55
                             }}
@@ -120,7 +119,7 @@ class RegisterAddressLinkLink extends EmailAccountRegistrationController {
                   </ListItemIcon>
                   <ListItemText primary="Inbox" />
                   </MenuItem> */}
-                            <MenuItem value=" ">Select Country</MenuItem>
+                            <MenuItem value=" " style={{color:"#7a7878 "}}>Select Country</MenuItem>
                             {this.state.allContries &&
                               this.state.allContries.map((item) => (
                                 <MenuItem key={item} value={item}>
@@ -158,7 +157,7 @@ class RegisterAddressLinkLink extends EmailAccountRegistrationController {
                             label="City"
                             style={{ borderRadius: 25, color: "#b5b5b5",paddingLeft:55 }}
                           >
-                            <MenuItem value=" ">Select city</MenuItem>
+                            <MenuItem value=" " style={{color:"#7a7878 "}}>Select city</MenuItem>
                             {this.state.allCity &&
                               this.state.allCity.map((item) => (
                                 <MenuItem key={item} value={item}>
@@ -171,7 +170,7 @@ class RegisterAddressLinkLink extends EmailAccountRegistrationController {
                       </Grid>
                     </Grid>
                     <Box className="commonForm" style={{marginTop:0,marginBottom:0,}}>
-                      <Box className="formGroup customSelect">
+                      <Box className="formGroup customSelect" style={{marginBottom:"5px"}}>
                         <Box className="formInputGrp">
                           {/* <ReactSelect
                             options={this.state.allComplex}
@@ -207,9 +206,10 @@ class RegisterAddressLinkLink extends EmailAccountRegistrationController {
                           </span>
                         </Box>
                       </Box>
-                      <ErrorMessage className="text-error" component="Typography" name="selectComplex" />
+                       {/*@ts-ignore*/}
+                      <ErrorMessage className="text-errorSelect" component="Typography" name="selectComplex" style={{marginLeft:"30px",marginBottom:"10px"}} />
                     </Box>
-                    <Grid container style={{ margin: "1rem", marginTop:0,marginBottom:0,width: "90%" }}>
+                    <Grid container style={{ margin: "1rem",marginBottom:0,width: "90%",marginTop:"15px" }}>
                       <Grid xs={12} className='formGroup customSelect'>
                         <FormControl variant="outlined" fullWidth>
                           {/* <InputLabel
@@ -234,7 +234,7 @@ class RegisterAddressLinkLink extends EmailAccountRegistrationController {
                             label="Building"
                             style={{ borderRadius: 25, color: "#b5b5b5",paddingLeft:55 }}
                           >
-                            <MenuItem value=" ">Select building</MenuItem>
+                            <MenuItem value=" " style={{color:"#7a7878 "}}>Select building</MenuItem>
                             {this.state.allBuilding &&
                               this.state.allBuilding.map((item: any) => (
                                 <MenuItem key={item.id} value={item}>
@@ -271,7 +271,7 @@ class RegisterAddressLinkLink extends EmailAccountRegistrationController {
                             label="Unit"
                             style={{ borderRadius: 25, color: "#b5b5b5",paddingLeft:55 }}
                           >
-                            <MenuItem value=" ">Select unit</MenuItem>
+                            <MenuItem value=" " style={{color:"#7a7878 "}}>Select unit</MenuItem>
                             {this.state.allUnit &&
                               this.state.allUnit.map((item: any) => (
                                 <MenuItem key={item.id} value={item}>

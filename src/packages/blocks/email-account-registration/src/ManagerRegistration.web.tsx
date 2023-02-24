@@ -83,7 +83,7 @@ class ManagerRegistration extends EmailAccountRegistrationController {
             </Grid>
 
             <Grid container className="main-content-block">
-              <Grid xs={12}>
+              <Grid xs={12} className="inputPlaceholderRegistration">
                 <Formik
                   initialValues={{
                     email: "",
@@ -111,8 +111,8 @@ class ManagerRegistration extends EmailAccountRegistrationController {
                           overflow="hidden"
                           alignItems="center"
                           height="56px"
-                          border="0.1px solid rgb(209 209 209 / 44%)"
-                          borderRadius="16px"
+                          border="0.1px solid rgb(209 209 209 / 100%)"
+                          borderRadius="25px"
                           bgcolor="#f9f9f9"
                           marginTop="1rem"
                         >
@@ -142,8 +142,8 @@ class ManagerRegistration extends EmailAccountRegistrationController {
                           overflow="hidden"
                           alignItems="center"
                           height="56px"
-                          border="0.1px solid rgb(209 209 209 / 44%)"
-                          borderRadius="16px"
+                          border="0.1px solid rgb(209 209 209 / 100%)"
+                          borderRadius="25px"
                           bgcolor="#f9f9f9"
                           marginTop="1rem"
                         >
@@ -173,8 +173,8 @@ class ManagerRegistration extends EmailAccountRegistrationController {
                           overflow="hidden"
                           alignItems="center"
                           height="56px"
-                          border="0.1px solid rgb(209 209 209 / 44%)"
-                          borderRadius="16px"
+                          border="0.1px solid rgb(209 209 209 / 100%)"
+                          borderRadius="25px"
                           bgcolor="#f9f9f9"
                           marginTop="1rem"
                         >
@@ -205,8 +205,8 @@ class ManagerRegistration extends EmailAccountRegistrationController {
                           overflow="hidden"
                           alignItems="center"
                           height="56px"
-                          border="0.1px solid rgb(209 209 209 / 44%)"
-                          borderRadius="16px"
+                          border="0.1px solid rgb(209 209 209 / 100%)"
+                          borderRadius="25px"
                           bgcolor="#f9f9f9"
                           style={{overflow:'visible'}}
                         >
@@ -271,8 +271,8 @@ class ManagerRegistration extends EmailAccountRegistrationController {
                           alignItems="center"
                           height="56px"
                           mt="20px"
-                          border="0.1px solid rgb(209 209 209 / 44%)"
-                          borderRadius="16px"
+                          border="0.1px solid rgb(209 209 209 / 100%)"
+                          borderRadius="25px"
                           bgcolor="#f9f9f9"
                         >
                           <img src={password} style={{ paddingLeft: "0.5rem" }} />
@@ -335,8 +335,8 @@ class ManagerRegistration extends EmailAccountRegistrationController {
                           alignItems="center"
                           height="56px"
                           mt="20px"
-                          border="0.1px solid rgb(209 209 209 / 44%)"
-                          borderRadius="16px"
+                          border="0.1px solid rgb(209 209 209 / 100%)"
+                          borderRadius="25px"
                           bgcolor="#f9f9f9"
                         >
                           <img src={password} style={{ paddingLeft: "0.5rem" }} />

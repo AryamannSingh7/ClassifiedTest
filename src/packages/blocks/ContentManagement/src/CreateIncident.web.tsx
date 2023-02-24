@@ -68,7 +68,7 @@ class CreateIncident extends IncidentController {
                     <h4>Add New Incident</h4>
                   </Box>
                 </Box>
-                <Box className="content-block-wrapper common-incident-block desktop-ui">
+                <Box className="content-block-wrapper common-incident-block desktop-ui inputPlaceholderRegistration">
                   <Formik
                     initialValues={{
                       commonArea: " ",
@@ -221,9 +221,14 @@ class CreateIncident extends IncidentController {
                           <Button
                             variant="contained"
                             component="label"
+                          
+
                           >
                             <img src={Upload_Icon} className="upload-icon" alt="upload-icon" />
+                            <p   style={{color:'#7a7878'}}>
+
                             Add Image / Video
+                            </p>
                             <input
                               name='media'
                               type="file"
