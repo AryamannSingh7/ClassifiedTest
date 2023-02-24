@@ -15,6 +15,7 @@ import {
   InputAdornment,
   Divider,
   Link,
+  Tab,
 } from "@material-ui/core";
 import Box from "@material-ui/core/Box";
 import Grid from "@material-ui/core/Grid";
@@ -29,29 +30,26 @@ import { DashboardStyleWeb } from "./DashboardStyle.web";
 import { ROLE } from "../../../framework/src/Enum";
 import moment from "moment";
 
-class TicketGeneratedYear extends DashboardTicketController {
+class AvgResolutionTicket extends DashboardTicketController {
   constructor(props: Props) {
     super(props);
   }
 
   async componentDidMount(): Promise<void> {
-    const year = this.props.navigation.getParam("year");
-    this.setState({ ticketYear: year, filterYear: year }, () => {
-      this.getTicketDashboardYearList();
-      this.getAllBuildingList();
-      this.getTicketByYear();
-    });
+    this.getTicketDashboardYearList();
+    this.getAllBuildingList();
+    this.getIncidentCategoryList();
   }
 
   async componentDidUpdate(prevProps: any, prevState: any): Promise<void> {
     if (
       prevState.searchResident !== this.state.searchResident ||
+      prevState.category !== this.state.category ||
       prevState.filterYear !== this.state.filterYear ||
-      prevState.filterStatus !== this.state.filterStatus ||
       prevState.filterBuilding !== this.state.filterBuilding ||
       prevState.page !== this.state.page
     ) {
-      await this.getTicketByYear();
+      await this.getAverageResolutionTicket();
     }
   }
 
@@ -62,11 +60,9 @@ class TicketGeneratedYear extends DashboardTicketController {
     return (
       <>
         <Box className={classes.generalDashboard}>
-          {/* Dashboard Header -- */}
           <DashboardHeader {...this.props} />
           <Box style={{ display: "flex" }}>
             <Grid item xs={3} md={3} sm={3} className="SideBar">
-              {/* Chairman Sidebar -- */}
               <ChairmanSidebar {...this.props} />
             </Grid>
 
@@ -77,31 +73,20 @@ class TicketGeneratedYear extends DashboardTicketController {
                     <Typography variant="body1">
                       {t("My Dashboard")} / <Link href="/DashboardTicket">{t("Ticket Dashboard")}</Link> /{" "}
                       <Box component="span" style={{ color: "blue" }}>
-                        {t("Tickets Generated in")} {this.state.ticketYear}
+                        {t("Average Resolution Time")}
                       </Box>
                     </Typography>
                   </Box>
                   <Box className="sub-heading-box">
                     <Typography variant="h5" className="bold-text">
-                      {t("Tickets Generated in")} {this.state.ticketYear}
+                      {t("Average Resolution Time")}
                     </Typography>
                     <Box className="select-box">
                       {userType === ROLE.MANAGER && (
                         <>
                           <select
-                            className="select-year"
-                            value={this.state.filterStatus}
-                            onChange={(e: any) => this.setState({ filterStatus: e.target.value })}
-                          >
-                            <option value="">{t("Status")}</option>
-                            <option value="Unresolved">{t("Unresolved")}</option>
-                            <option value="Pending Confirmation">{t("Pending Confirmation")}</option>
-                            <option value="Ongoing">{t("Ongoing")}</option>
-                            <option value="Open">{t("Open")}</option>
-                          </select>
-                          <select
-                            className="select-year"
                             value={this.state.filterBuilding}
+                            className="select-year"
                             onChange={(e: any) => this.setState({ filterBuilding: e.target.value })}
                           >
                             <option value="" disabled>
@@ -115,36 +100,63 @@ class TicketGeneratedYear extends DashboardTicketController {
                               );
                             })}
                           </select>
+                          <select
+                            value={this.state.filterYear}
+                            onChange={(e: any) => this.setState({ filterYear: e.target.value })}
+                            className="select-year"
+                          >
+                            {this.state.yearList.map((year: any) => {
+                              return (
+                                <option value={year} key={year}>
+                                  {year}
+                                </option>
+                              );
+                            })}
+                          </select>
+                          <select className="select-year">
+                            <option value="">{t("Sort By")}</option>
+                            <option value="">{t("Asc")}</option>
+                            <option value="">{t("Desc")}</option>
+                          </select>
                         </>
                       )}
-                      <select
-                        className="select-year"
-                        value={this.state.filterYear}
-                        onChange={(e: any) => this.setState({ filterYear: e.target.value })}
-                      >
-                        {this.state.yearList.map((year: any) => {
-                          return (
-                            <option value={year} key={year}>
-                              {year}
-                            </option>
-                          );
-                        })}
-                      </select>
                     </Box>
+                  </Box>
+                </Box>
+
+                <Box className="category-box">
+                  <Box className="category">
+                    {this.state.categoryList.map((category: any) => {
+                      return (
+                        <Tab
+                          key={category.id}
+                          onClick={() => {
+                            this.setState({ category: category.id, page: 1 }, () => {});
+                          }}
+                          label={category.name}
+                          className={category.id === this.state.category ? "active" : ""}
+                        />
+                      );
+                    })}
                   </Box>
                 </Box>
 
                 <Box className="content-boxes ticket-table">
                   <Box className="top-content">
                     <Box className="heading">
-                      <h2 className="bold-text">{t("Tickets")}</h2>
+                      <h2 className="bold-text">
+                        {this.state.totalTicket} {t("Tickets")}
+                      </h2>
+                      <p>
+                        Average Resolution Time <span>{this.state.avgDays} Days</span>
+                      </p>
                     </Box>
                     <Box className="right-content">
                       <TextField
                         className="search-unit"
-                        placeholder={t("Search by ticket number")}
                         value={this.state.searchResident}
                         onChange={(e: any) => this.setState({ searchResident: e.target.value })}
+                        placeholder={t("Search by ticket number")}
                         InputProps={{
                           startAdornment: (
                             <InputAdornment position="start">
@@ -162,12 +174,10 @@ class TicketGeneratedYear extends DashboardTicketController {
                         <TableRow>
                           <TableCell>{t("#")}</TableCell>
                           <TableCell>{t("Ticket No")}</TableCell>
-                          <TableCell>{t("Incident related to")}</TableCell>
-                          <TableCell>{t("Unit Number")}</TableCell>
                           <TableCell>{t("Raised By")}</TableCell>
                           <TableCell>{t("Open Date")}</TableCell>
                           <TableCell>{t("Close Date")}</TableCell>
-                          <TableCell>{t("Status")}</TableCell>
+                          <TableCell>{t("Resolution Time")}</TableCell>
                         </TableRow>
                       </TableHead>
                       <TableBody>
@@ -180,17 +190,7 @@ class TicketGeneratedYear extends DashboardTicketController {
                           return (
                             <TableRow key={incident.id}>
                               <TableCell>{index + 1}</TableCell>
-                              <TableCell
-                                className="ticket-number"
-                                onClick={() => {
-                                  localStorage.setItem("incidentManagementDetailId", incident.id);
-                                  this.props.navigation.navigate("IncidentManagementDetail");
-                                }}
-                              >
-                                {incident.id}
-                              </TableCell>
-                              <TableCell>{incident.attributes.incident_related_to}</TableCell>
-                              <TableCell>{incident.attributes.unit_number}</TableCell>
+                              <TableCell>{incident.id}</TableCell>
                               <TableCell>{incident.attributes.raised_by}</TableCell>
                               <TableCell>
                                 {moment(incident.attributes.open_date, "DD-MM-YYYY").format("DD MMM YYYY")}
@@ -199,9 +199,7 @@ class TicketGeneratedYear extends DashboardTicketController {
                                 {incident.attributes.close_date &&
                                   moment(incident.attributes.close_date, "DD-MM-YYYY").format("DD MMM YYYY")}
                               </TableCell>
-                              <TableCell>
-                                <span className="status">{incident.attributes.status}</span>
-                              </TableCell>
+                              <TableCell>{incident.attributes.day_to_close}</TableCell>
                             </TableRow>
                           );
                         })}
@@ -235,5 +233,5 @@ class TicketGeneratedYear extends DashboardTicketController {
 }
 
 // @ts-ignore
-export default withTranslation()(withStyles(DashboardStyleWeb)(withRouter(TicketGeneratedYear)));
+export default withTranslation()(withStyles(DashboardStyleWeb)(withRouter(AvgResolutionTicket)));
 // Customizable Area End

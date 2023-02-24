@@ -53,7 +53,7 @@ class DashboardTicket extends DashboardTicketController {
   }
 
   async componentDidUpdate(prevProps: any, prevState: any): Promise<void> {
-    if (prevState.searchResident !== this.state.searchResident) {
+    if (prevState.searchResident !== this.state.searchResident || prevState.page !== this.state.page) {
       await this.getTicketByResident();
     }
   }
@@ -61,8 +61,6 @@ class DashboardTicket extends DashboardTicketController {
   render() {
     const { t, classes }: any = this.props;
     const userType = localStorage.getItem("userType");
-
-    console.log(this.state);
 
     return (
       <>
@@ -130,14 +128,16 @@ class DashboardTicket extends DashboardTicketController {
 
                 <Grid container spacing={4}>
                   <Grid item sm={4}>
-                    <ChairmanNumberCard
-                      image={ticketclock}
-                      heading={t("Average Resolution Time")}
-                      titleOne=""
-                      valueOne={this.state.avgResolutionDay + ""}
-                      titleTwo={t("days")}
-                      valueTwo=""
-                    />
+                    <Link href="/AvgResolutionTicket">
+                      <ChairmanNumberCard
+                        image={ticketclock}
+                        heading={t("Average Resolution Time")}
+                        titleOne=""
+                        valueOne={this.state.avgResolutionDay + ""}
+                        titleTwo={t("days")}
+                        valueTwo=""
+                      />
+                    </Link>
                   </Grid>
                   <Grid item sm={4}>
                     <Link href={`/DashboardTicket/Year/${this.state.filterYear}`}>
@@ -212,6 +212,11 @@ class DashboardTicket extends DashboardTicketController {
                         </TableRow>
                       </TableHead>
                       <TableBody>
+                        {this.state.ticketList.length === 0 && (
+                          <TableRow>
+                            <TableCell colSpan={userType === ROLE.MANAGER ? 4 : 3}>{t("No ticket found")}</TableCell>
+                          </TableRow>
+                        )}
                         {this.state.ticketList.map((incident: any) => (
                           <TableRow key={incident.id}>
                             <TableCell>{incident.attributes.name}</TableCell>
@@ -253,14 +258,16 @@ class DashboardTicket extends DashboardTicketController {
           onClose={() => this.handleConfigModal()}
         >
           <MuiDialogTitle disableTypography className="dialog-heading">
-            <Typography variant="h6">{t("Configure Days")}</Typography>
+            <Typography variant="h6" className="bold-text">
+              {t("Configure Days")}
+            </Typography>
             <IconButton onClick={() => this.handleConfigModal()}>
               <CloseIcon />
             </IconButton>
           </MuiDialogTitle>
           <Divider />
           <DialogContent>
-            <Box className="config-dialog-box">
+            <Box className="config-dialog-box bold-text">
               {t("Tickets took more than")}{" "}
               <Input
                 placeholder={t("Enter Days")}
@@ -270,7 +277,7 @@ class DashboardTicket extends DashboardTicketController {
               {t("days")}
             </Box>
           </DialogContent>
-          <Divider />
+          <hr className="config-hr" />
           <DialogActions className="dialog-button-group">
             <Button className="cancel-button" onClick={() => this.handleConfigModal()}>
               {t("Cancel")}

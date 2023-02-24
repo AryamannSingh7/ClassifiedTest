@@ -51,6 +51,9 @@ interface S {
   ticketList: any[];
 
   categoryList: any[];
+
+  avgDays: string;
+  totalTicket: string;
   // Customizable Area End
 }
 interface SS {
@@ -67,6 +70,7 @@ export default class DashboardTicketController extends BlockComponent<Props, S, 
   GetTicketByYearCallId: any;
   GetIncidentCategoryListCallId: any;
   GetTicketByDaysCallId: any;
+  GetAverageResolutionTicketCallId: any;
   // Customizable Area End
 
   constructor(props: Props) {
@@ -106,6 +110,9 @@ export default class DashboardTicketController extends BlockComponent<Props, S, 
       ticketList: [],
 
       categoryList: [],
+
+      avgDays: "",
+      totalTicket: "",
     };
     // Customizable Area End
     runEngine.attachBuildingBlock(this as IBlock, this.subScribedMessages);
@@ -141,6 +148,9 @@ export default class DashboardTicketController extends BlockComponent<Props, S, 
           break;
         case this.GetIncidentCategoryListCallId:
           this.handleCategoryResponse(responseJson);
+          break;
+        case this.GetAverageResolutionTicketCallId:
+          this.handleAverageResolutionTicketResponse(responseJson);
           break;
         default:
           break;
@@ -206,7 +216,7 @@ export default class DashboardTicketController extends BlockComponent<Props, S, 
     });
   };
 
-  // Ticket By Year
+  // Ticket By Day
   getTicketByDays = async () => {
     const { filterYear, filterBuilding, filterStatus, searchResident, status, category } = this.state;
     const society_id = localStorage.getItem("society_id");
@@ -216,6 +226,27 @@ export default class DashboardTicketController extends BlockComponent<Props, S, 
       method: "GET",
       endPoint: `bx_block_dashboard/ticket_dashbords/ticket_took_day?society_management_id=${society_id}&building_management_id=${filterBuilding}&year=${filterYear}&incident_related_id=${category}&status=${filterStatus ||
         status}&search=${searchResident}`,
+    });
+  };
+
+  // Avg Resolution Ticket
+  getAverageResolutionTicket = async () => {
+    const { filterYear, filterBuilding, searchResident, category } = this.state;
+    const society_id = localStorage.getItem("society_id");
+
+    this.GetAverageResolutionTicketCallId = await apiCall({
+      contentType: "application/json",
+      method: "GET",
+      endPoint: `bx_block_dashboard/ticket_dashbords/average_ticket?society_management_id=${society_id}&building_management_id=${filterBuilding}&year=${filterYear}&incident_related_id=${category}&search=${searchResident}`,
+    });
+  };
+
+  handleAverageResolutionTicketResponse = (responseJson: any) => {
+    this.setState({
+      avgDays: responseJson.average_time,
+      totalTicket: responseJson.total_tickets,
+      ticketList: responseJson.incident.data,
+      pagination: responseJson.meta.pagination,
     });
   };
 
@@ -280,7 +311,11 @@ export default class DashboardTicketController extends BlockComponent<Props, S, 
 
   handleCategoryResponse = (responseJson: any) => {
     if (responseJson && responseJson.data) {
-      this.setState({ categoryList: responseJson.data.incident_relateds });
+      this.setState({ categoryList: responseJson.data.incident_relateds }, () => {
+        if (this.state.categoryList.length > 0) {
+          this.setState({ category: this.state.categoryList[0].id });
+        }
+      });
     }
   };
 

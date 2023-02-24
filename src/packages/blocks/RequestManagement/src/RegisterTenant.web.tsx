@@ -82,7 +82,7 @@ class RegisterTenant extends RegisterTenantController {
                       >
                         <KeyboardBackspaceIcon />
                       </IconButton>
-                      <span>{t("Register A Tenant")}</span>
+                      <span className="bold-text">{t("Register A Tenant")}</span>
                     </div>
                   </Box>
                   <Container className="page-container">
@@ -466,7 +466,7 @@ class RegisterTenant extends RegisterTenantController {
                       >
                         <KeyboardBackspaceIcon />
                       </IconButton>
-                      <span>{t("Register A Tenant")}</span>
+                      <span className="bold-text">{t("Register A Tenant")}</span>
                     </div>
                   </Box>
 

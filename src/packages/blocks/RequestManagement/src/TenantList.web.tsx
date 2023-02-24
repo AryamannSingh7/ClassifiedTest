@@ -37,14 +37,14 @@ class TenantList extends TenantListController {
                         <KeyboardBackspaceIcon />
                       </IconButton>
                     </Link>
-                    <span>{t("My Tenants")}</span>
+                    <span className="bold-text">{t("My Tenants")}</span>
                   </div>
                 </Box>
                 {this.state.tenantList.length === 0 ? (
                   <Box className="empty-list">
                     <div className="content-box">
                       <img src={NoTenant} />
-                      <h3>{t("No Tenant Registered")}</h3>
+                      <h3 className="bold-text">{t("No Tenant Registered")}</h3>
                       <Box>
                         <p>{t("Looks like you haven’t registered any tenant!")}</p>
                         <p>{t("You can fill form to register tenant by tapping on below button")}</p>

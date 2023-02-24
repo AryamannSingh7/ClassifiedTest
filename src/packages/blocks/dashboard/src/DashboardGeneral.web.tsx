@@ -71,7 +71,9 @@ class DashboardGeneral extends DashboardGeneralController {
                     </Typography>
                   </Box>
                   <Box className="sub-heading-box">
-                    <Typography variant="h5">{t("General Dashboard")}</Typography>
+                    <Typography variant="h5" className="bold-text">
+                      {t("General Dashboard")}
+                    </Typography>
                     {userType === ROLE.CHAIRMAN && (
                       <select
                         className="select-year"
@@ -250,7 +252,7 @@ class DashboardGeneral extends DashboardGeneralController {
                 </Grid>
 
                 <Box className="upcoming-events-box">
-                  <Typography variant="h5" style={dashBoard.EventsHeading}>
+                  <Typography variant="h5" style={dashBoard.EventsHeading} className="bold-text">
                     {t("Upcoming Events")}
                   </Typography>
                   <Grid container spacing={4}>
@@ -260,7 +262,7 @@ class DashboardGeneral extends DashboardGeneralController {
                           <Card className="event-card">
                             <Box className="event-heading">
                               <Box>
-                                <h4>{meeting.attributes.title}</h4>
+                                <h4 className="bold-text">{meeting.attributes.title}</h4>
                                 <p>{meeting.attributes.agenda}</p>
                               </Box>
                             </Box>

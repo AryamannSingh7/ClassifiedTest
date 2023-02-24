@@ -48,11 +48,13 @@ class TicketGeneratedDays extends DashboardTicketController {
 
   async componentDidUpdate(prevProps: any, prevState: any): Promise<void> {
     if (
+      prevState.searchResident !== this.state.searchResident ||
       prevState.status !== this.state.status ||
       prevState.category !== this.state.category ||
       prevState.filterYear !== this.state.filterYear ||
       prevState.filterStatus !== this.state.filterStatus ||
-      prevState.filterBuilding !== this.state.filterBuilding
+      prevState.filterBuilding !== this.state.filterBuilding ||
+      prevState.page !== this.state.page
     ) {
       await this.getTicketByDays();
     }
@@ -244,7 +246,15 @@ class TicketGeneratedDays extends DashboardTicketController {
                           return (
                             <TableRow key={incident.id}>
                               <TableCell>{index + 1}</TableCell>
-                              <TableCell>{incident.attributes.ticket_number}</TableCell>
+                              <TableCell
+                                className="ticket-number"
+                                onClick={() => {
+                                  localStorage.setItem("incidentManagementDetailId", incident.id);
+                                  this.props.navigation.navigate("IncidentManagementDetail");
+                                }}
+                              >
+                                {incident.id}
+                              </TableCell>
                               <TableCell>{incident.attributes.raised_by}</TableCell>
                               <TableCell>{incident.attributes.incident_related_to}</TableCell>
                               <TableCell>

@@ -19,6 +19,7 @@ export const TenantStyle: any = {
     },
     "& .top-bar .left-icon span": {
       lineHeight: "18px",
+      fontSize: "18px",
     },
     "& .top-bar .right-icon": {
       display: "flex",
@@ -224,6 +225,10 @@ export const TenantStyle: any = {
       alignItems: "center",
       justifyContent: "center",
     },
+    "& .top-bar .left-icon span": {
+      lineHeight: "18px",
+      fontSize: "18px",
+    },
     "& .top-bar .right-icon img": {
       marginLeft: "15px",
     },
@@ -405,6 +410,7 @@ export const TenantStyle: any = {
       right: 0,
     },
     "& .next-button button": {
+      fontWeight: "600",
       minWidth: "300px",
       background: "#2b6fec",
       color: "white",

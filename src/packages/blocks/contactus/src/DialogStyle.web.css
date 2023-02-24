@@ -1398,12 +1398,27 @@
 }
 
 .configuration-dialog .config-dialog-box .MuiInputBase-root {
-  background: #f0f0f0;
-  border: 1px solid #d2d2d2;
+  background: #f9f9f9;
+  border: 1px solid #f0f0f0;
   border-radius: 8px;
   padding: 8px 15px;
   width: 125px;
   margin: 0 8px;
+}
+
+.configuration-dialog .config-dialog-box input::placeholder {
+  color: #7a7878 !important;
+  opacity: 1; /* Firefox */
+}
+
+.configuration-dialog .config-dialog-box input:-ms-input-placeholder {
+  /* Internet Explorer 10-11 */
+  color: #7a7878 !important;
+}
+
+.configuration-dialog .config-dialog-box input::-ms-input-placeholder {
+  /* Microsoft Edge */
+  color: #7a7878 !important;
 }
 
 .dashboard-info-tooltip {
@@ -1417,6 +1432,15 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
+}
+
+.config-hr {
+  border: none;
+  height: 0.5px;
+  margin: 0;
+  flex-shrink: 0;
+  background-color: rgba(0, 0, 0, 0.12);
+  margin-bottom: 8px;
 }
 
 @media only screen and (max-width: 425px) {
