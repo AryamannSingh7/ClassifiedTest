@@ -69,7 +69,7 @@ class NewVeichleList extends VeichleListController {
                       setFieldValue, setFieldError }) => (
                       <Form className="commonForm" translate="yes" >
                         <Box className='formGroup'>
-                          <Box className="formInputGrp" style={{marginBottom:"25px",marginTop:"20px"}}>
+                          <Box className="formInputGrp" style={{marginBottom:"25px",marginTop:"20px",border:"0.1px solid rgb(209 209 209 / 100%)",borderRadius:"25px"}}>
                             <Field
                             style={{width:'100%'}}
                               className="formInput"
@@ -111,7 +111,7 @@ class NewVeichleList extends VeichleListController {
                   ) : null} */}
 
                           {/* plate number */}
-                          <Box className="formInputGrp" style={{marginBottom:"25px"}}>
+                          <Box className="formInputGrp" style={{marginBottom:"25px",border:"0.1px solid rgb(209 209 209 / 100%)",borderRadius:"25px"}}>
                             <Field
                               style={{ width: '100%' }}
                               name="plateNumber"
@@ -154,7 +154,7 @@ class NewVeichleList extends VeichleListController {
 
                           {/* car manufacture */}
 
-                          <Box className="formInputGrp" style={{marginBottom:"25px"}}>
+                          <Box className="formInputGrp" style={{marginBottom:"25px",border:"0.1px solid rgb(209 209 209 / 100%)",borderRadius:"25px"}}>
                             <Field
                               style={{ width: '100%' }}
                               name="carManufacturer"
@@ -183,7 +183,7 @@ class NewVeichleList extends VeichleListController {
 
                           {/* car model */}
 
-                          <Box className="formInputGrp" style={{marginBottom:"25px"}}>
+                          <Box className="formInputGrp" style={{marginBottom:"25px",border:"0.1px solid rgb(209 209 209 / 100%)",borderRadius:"25px"}}>
                             <Field
                               style={{ width: '100%' }}
                               name="carModle"
@@ -213,7 +213,7 @@ class NewVeichleList extends VeichleListController {
 
                           {/* car color */}
 
-                          <Box className="formInputGrp" style={{marginBottom:"25px"}}>
+                          <Box className="formInputGrp" style={{marginBottom:"25px",border:"0.1px solid rgb(209 209 209 / 100%)",borderRadius:"25px"}}>
                             <Field
                               style={{ width: '100%' }}
                               name="carColor"

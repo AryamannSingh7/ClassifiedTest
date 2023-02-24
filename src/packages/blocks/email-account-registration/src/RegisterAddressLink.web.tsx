@@ -291,7 +291,10 @@ class RegisterAddressLinkLink extends EmailAccountRegistrationController {
                         SEND REGISTRATION REQUEST
                       </Button>
                     </Box>
+                
+
                   </Form>
+                  
                 )}
               </Formik>
             </div>
