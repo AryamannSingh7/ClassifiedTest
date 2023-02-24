@@ -158,6 +158,16 @@ li {
   font-weight: 600;
 }
 
+.text-errorSelect {
+  color: $WARNING;
+  font-size: 14px !important;
+  margin-bottom: 25px !important;
+  display: flex;
+  margin-left: 15px;
+  margin-top: 5px !important;
+  font-weight: 600;
+}
+
 .text-success {
   color: $GREEN;
   font-size: 13px !important;
