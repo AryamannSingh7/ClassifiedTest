@@ -799,6 +799,7 @@
 
 .optionBox {
   background-color: #f9f9f9;
+  border: 1px solid rgb(209,209,209);
   border-radius: 5rem;
   margin-bottom: 14px;
   box-shadow: none;
