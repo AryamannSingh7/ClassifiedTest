@@ -109,12 +109,15 @@ class CreateSurveys extends CreateSurveyController {
                     <Box className="navigation">
                         <Box>
                             <Typography variant="body1" >
-                            {t("Poll and survey")} / <Box component="span" style={{color: "blue"}}>{t("Create a Survey")}</Box>
+                                <Box component="span" onClick={()=> this.props.history.push("/Polling")} style={{cursor:"pointer"}}>
+                                    {t("Poll and survey ")}
+                                </Box>{" "}/{" "}
+                                <Box component="span" style={{color: "blue"}}>{t("Create a Survey")}</Box>
                             </Typography>
-                            <Typography variant="h4" className="subHeading">{t("Create a Survey")}</Typography>
+                            <Typography variant="h4" className="subHeading bold-text">{t("Create a Survey")}</Typography>
                         </Box>
                     </Box>
-                    <Box style={{marginTop:"50px"}}>
+                    <Box style={{marginTop:"10px"}}>
 
                     </Box>
                     <form>

@@ -46,7 +46,7 @@ class Visitors extends VisitorAddController{
                 </Grid>
                 <Divider/>
                 <Box style={{minHeight:"95%",display:'flex',flexDirection:"column",alignItems:'center',justifyContent:"space-between"}} >
-                    <Grid container spacing={2} style={{width:"90%"}}>
+                    <Grid container spacing={2} style={{width:"90%"}} className="inputPlaceholderRegistration">
                         <Formik initialValues={{
                             visitorName:this.state?.visitorDetails?.name,
                             phone: this.state?.visitorDetails?.mobile_number?.mobile_number,
@@ -75,6 +75,7 @@ class Visitors extends VisitorAddController{
                                                     className="formInput"
                                                     name="visitorName"
                                                     placeholder={t("Visitor Name")}
+                                                    style={{border:"0.1px solid rgb(209 209 209 / 100%)",borderRadius:"25px"}}
                                                 />
                                                 <span className="frmLeftIcons">
                                                     <img src={user} />
@@ -90,7 +91,7 @@ class Visitors extends VisitorAddController{
                                                 overflow="hidden"
                                                 alignItems="center"
                                                 height="56px"
-                                                border="0.1px solid rgb(209 209 209 / 44%)"
+                                                border="0.1px solid rgb(209 209 209)"
                                                 borderRadius="25px"
                                                 bgcolor="#f9f9f9"
                                             >
@@ -150,7 +151,7 @@ class Visitors extends VisitorAddController{
                                                             }}
                                                         >
                                                             <AddIcon style={{fontSize:"45px",color:"#9c9c9c"}}/>
-                                                            <Typography variant="body1" color="textSecondary">{t("Add Visitor ID copy")}</Typography>
+                                                            <Typography variant="body1" color="textSecondary" style={{color:"#7a7878"}}>{t("Add Visitor ID copy")}</Typography>
                                                             <Typography variant="body1">({t("optional")})</Typography>
                                                         </div>
                                                 }
@@ -174,7 +175,7 @@ class Visitors extends VisitorAddController{
                                         </Grid>
                                         <Grid className="add-visitor" item xs={6}>
                                             <FormControl fullWidth>
-                                                <div className="date-time">
+                                                <div className="date-time" style={{border:"0.1px solid rgb(209 209 209 / 100%)",borderRadius:"25px"}}>
                                                     <Input
                                                         value={values.date}
                                                         style={{color:"gray"}}
@@ -191,6 +192,7 @@ class Visitors extends VisitorAddController{
                                                         }}
                                                         type={this.state.inputType1}
                                                         onFocus={()=> this.setState({inputType1:"date"})}
+
                                                     />
                                                 </div>
                                                 {errors.date && touched.date && <small className="error">{errors.date}</small>}
@@ -198,7 +200,7 @@ class Visitors extends VisitorAddController{
                                         </Grid>
                                         <Grid className="add-visitor" item xs={6}>
                                             <FormControl fullWidth>
-                                                <div className="date-time">
+                                                <div className="date-time" style={{border:"0.1px solid rgb(209 209 209 / 100%)",borderRadius:"25px"}}>
                                                     <Input
                                                         value={values.time}
                                                         style={{color:"gray"}}
@@ -230,11 +232,12 @@ class Visitors extends VisitorAddController{
                                             </FormControl>
                                         </Grid>
                                         <Grid className='formGroup' item xs={12} style={{marginTop:"-10px"}}>
-                                            <Box className="formInputGrp">
+                                            <Box className="formInputGrp" >
                                                 <Field
                                                     className="formInput"
                                                     name="carPlateNo"
                                                     placeholder={t("Car Plate Number")}
+                                                    style={{border:"0.1px solid rgb(209 209 209 / 100%)",borderRadius:"25px"}}
                                                 />
                                                 <span className="frmLeftIcons">
                                                     <img src={list} />

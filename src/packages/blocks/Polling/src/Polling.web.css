@@ -31,6 +31,7 @@
   background: #fff;
   border-radius: 10px;
   cursor: pointer;
+  box-shadow: 4px 0px 14px #e9e9e9;
 }
 
 .CreatePSIcons {
@@ -176,6 +177,7 @@
   background: #fff;
   border-radius: 10px;
   cursor: pointer;
+  box-shadow: 4px 0px 14px #e9e9e9;
 }
 
 .CardsIcons {
@@ -224,6 +226,7 @@
   background: #fff;
   border-radius: 10px;
   cursor: pointer;
+  box-shadow: 4px 0px 14px #e9e9e9;
 }
 
 .EventsIconsText .EventsTitle {
@@ -720,6 +723,7 @@
   padding-bottom: 1rem;
   background: #fff;
   border-radius: 10px;
+  box-shadow: 4px 0px 14px #e9e9e9;
 }
 
 .TableHeader {
