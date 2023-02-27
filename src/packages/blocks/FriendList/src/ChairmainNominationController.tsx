@@ -80,10 +80,14 @@ export default class CoverImageController extends BlockComponent<
       const responseJson = message.getData(getName(MessageEnum.RestAPIResponceSuccessMessage));
       var errorReponse = message.getData(getName(MessageEnum.RestAPIResponceErrorMessage));
       if(this.getNominationListId === apiRequestCallId ){
-        console.log("NOMINATION",responseJson,errorReponse)
         if(responseJson.hasOwnProperty("chairman_nominations") && responseJson.code === 200){
           this.setState({
             nominationsList:responseJson?.chairman_nominations?.data,
+            loading:false
+          })
+        }else {
+          this.setState({
+            nominationsList:[],
             loading:false
           })
         }

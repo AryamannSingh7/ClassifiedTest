@@ -70,7 +70,7 @@ class VisitorsList extends VisitorsListController {
                                                 {t("Visitors")}
                                             </Box>
                                         </Typography>
-                                        <Typography variant="h5" className="sub-heading">
+                                        <Typography variant="h5" className="sub-heading bold-text">
                                             {t("Visitors")}
                                         </Typography>
                                     </Box>
@@ -140,7 +140,7 @@ class VisitorsList extends VisitorsListController {
                                 <Box className="meeting-table">
                                     <Grid item sm={12} md={12} xs={12}>
                                         <Box className="table-top">
-                                            <h3>Visitors</h3>
+                                            <h3 className="bold-text">Visitors</h3>
                                             <Box className="filter">
                                                 <Box className="search-box">
                                                     <SearchIcon />

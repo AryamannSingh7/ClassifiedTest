@@ -8,6 +8,7 @@ import DateRangeOutlinedIcon from '@material-ui/icons/DateRangeOutlined';
 import { makeStyles,withStyles } from '@material-ui/core/styles';
 import { withRouter } from 'react-router';
 import {exampleImg, filterIcon} from "./assets";
+import {shortIcon} from "../../BroadcastMessage/src/assets"
 import PastVisitorController, {
   Props
 } from "./PastVisitorController";
@@ -42,13 +43,13 @@ class Announcement extends PastVisitorController{
                   <Grid xs={12} style={{ display:"flex", alignItems:"center", gap:"1rem",justifyContent:"space-between"}} >
                       <Box style={{ display:"flex", alignItems:"center", gap:"5px"}}>
                           <ArrowBackIcon onClick={() => window.history.back()} />
-                          <p style={{ fontSize: '1rem', fontWeight: 600 }}>
+                          <p className="bold-text" style={{ fontSize: '18px'}}>
                               {t("Past Visitors")}
                           </p>
                       </Box>
                           <Box>
                               <IconButton style={{padding:"8px"}} onClick={this.handleClick} >
-                                  <img src={filterIcon} />
+                                  <img src={shortIcon} />
                               </IconButton>
                           </Box>
                           <Menu
@@ -61,10 +62,10 @@ class Announcement extends PastVisitorController{
                                   'aria-labelledby': 'basic-button',
                               }}
                           >
-                              <MenuItem onClick={this.handle1Month}>{t("Last")} 1 {t("Month")}</MenuItem>
-                              <MenuItem onClick={this.handle3Month}>{t("Last")} 3 {t("Month")}</MenuItem>
-                              <MenuItem onClick={this.handle6Month}>{t("Last")} 6 {t("Month")}</MenuItem>
-                              <MenuItem onClick={this.handle12Month}>{t("Last")} 12 {t("Month")}</MenuItem>
+                              <MenuItem style={{minHeight:"30px"}} onClick={this.handle1Month}>{t("Last")} 1 {t("Month")}</MenuItem>
+                              <MenuItem style={{minHeight:"30px"}} onClick={this.handle3Month}>{t("Last")} 3 {t("Month")}</MenuItem>
+                              <MenuItem style={{minHeight:"30px"}} onClick={this.handle6Month}>{t("Last")} 6 {t("Month")}</MenuItem>
+                              <MenuItem style={{minHeight:"30px"}} onClick={this.handle12Month}>{t("Last")} 12 {t("Month")}</MenuItem>
                           </Menu>
                   </Grid>
                 </Grid>
@@ -82,16 +83,16 @@ class Announcement extends PastVisitorController{
                                             bgcolor="white"
                                             marginTop='1rem'
                                             padding='1rem'
-                                            style={{boxShadow:"rgba(99, 99, 99, 0.2) 0px 2px 8px 0px"}}
+                                            style={{boxShadow:"4px 0px 14px #ececec"}}
                                             onClick={()=> this.props.history.push(`/VisitorDetails/past?id=${item.id}`)}
                                         >
                                             <Box style={{minWidth:"100%"}}>
                                                 <Box style={{display:"flex",alignItems:"center"}}>
-                                                    <Box style={{marginRight:"20px"}}>
-                                                        <img src={item.profilePic || exampleImg.default} height="55px" width="55px" style={{borderRadius:"100px"}}/>
+                                                    <Box style={{marginRight:"15px"}}>
+                                                        <img src={item.profilePic || exampleImg} height="55px" width="55px" style={{borderRadius:"100px"}}/>
                                                     </Box>
                                                     <Box style={{display:'flex',flexDirection:"column",justifyContent:"center"}}>
-                                                        <Typography variant={"body1"} style={{fontWeight:"bold"}}>
+                                                        <Typography className="bold-text" variant={"body1"}>
                                                             {item?.attributes?.name}
                                                         </Typography>
                                                         <Typography variant={"subtitle2"} color="textSecondary" style={{marginBottom:"5px"}} >

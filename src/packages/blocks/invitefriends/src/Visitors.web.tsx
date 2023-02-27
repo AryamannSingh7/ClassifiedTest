@@ -29,7 +29,7 @@ class Visitors extends VisitorController{
                   <Grid item xs={12} style={{ display:"flex", alignItems:"center", gap:"1rem",justifyContent:"space-between"}} >
                       <Box style={{ display:"flex", alignItems:"center", gap:"1rem"}}>
                           <ArrowBackIcon onClick={() => this.props.history.push("/")} />
-                          <p style={{ fontSize: '1.2rem', fontWeight: 600 }}>
+                          <p className="bold-text" style={{fontSize: '18px'}}>
                               {t("My Visitors")}
                           </p>
                       </Box>
@@ -46,13 +46,13 @@ class Visitors extends VisitorController{
                                 bgcolor="white"
                                 marginTop='1.5rem'
                                 padding='1.5rem'
-                                style={{boxShadow:"rgba(99, 99, 99, 0.2) 0px 2px 8px 0px"}}
+                                style={{boxShadow:"4px 0px 14px #ececec"}}
                                 onClick={()=>this.props.history.push("/ScheduledVisitors")}
                             >
                                 <Box style={{minWidth:"100%"}}>
                                     <Box style={{display:"flex",alignItems:"center"}}>
                                         <img src={sceduledVisitor} style={{marginRight:"20px"}}/>
-                                        <Typography variant={"body1"} style={{fontWeight:"bold"}}>
+                                        <Typography variant={"body1"} style={{fontSize:"17px"}} className="bold-text">
                                             {t("Scheduled Visitors")}
                                         </Typography>
                                     </Box>
@@ -68,13 +68,13 @@ class Visitors extends VisitorController{
                                 bgcolor="white"
                                 marginTop='1rem'
                                 padding='1.5rem'
-                                style={{boxShadow:"rgba(99, 99, 99, 0.2) 0px 2px 8px 0px"}}
+                                style={{boxShadow:"4px 0px 14px #ececec"}}
                                 onClick={()=>this.props.history.push("/PastVisitors")}
                             >
                                 <Box style={{minWidth:"100%"}}>
                                     <Box style={{display:"flex",alignItems:"center"}}>
                                         <img src={pastVisitor} style={{marginRight:"20px"}}/>
-                                        <Typography variant={"body1"} style={{fontWeight:"bold"}}>
+                                        <Typography variant={"body1"} style={{fontSize:"17px"}} className="bold-text">
                                             {t("Past Visitors")}
                                         </Typography>
                                     </Box>
