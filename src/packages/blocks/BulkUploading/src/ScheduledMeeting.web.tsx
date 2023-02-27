@@ -189,7 +189,7 @@ class ScheduledMeeting extends ScheduledMeetingController {
                     </Button>
                   </Box>
                   <Box className="create-meeting">
-                    <Button onClick={() => this.openCreateMeetingModal()}>{t("+ Create New Meeting")}</Button>
+                    <Button onClick={() => this.openCreateMeetingModal()}>{t("Create New Meeting")}</Button>
                   </Box>
                 </Box>
                 <Grid className="meeting-table">
@@ -238,7 +238,7 @@ class ScheduledMeeting extends ScheduledMeetingController {
                           return (
                             <TableRow key={index}>
                               <TableCell>{index + 1}</TableCell>
-                              <TableCell className="ellipse">
+                              <TableCell className={meeting.attributes.meeting_type === "ga_meeting" ? "ellipse":""}>
                                 {meeting.attributes.title}{" "}
                                 {meeting.attributes.meeting_type === "ga_meeting" && (
                                   <span className="ga-meeting">{t("GA Meeting")}</span>
@@ -252,8 +252,8 @@ class ScheduledMeeting extends ScheduledMeetingController {
                               {localStorage.getItem("userType") === ROLE.MANAGER && (
                                 <TableCell>{meeting.attributes?.building?.name}</TableCell>
                               )}
-                              <TableCell className="ellipse">{meeting.attributes.place}</TableCell>
-                              <TableCell className="ellipse">{meeting.attributes.agenda}</TableCell>
+                              <TableCell className="ellipse-one">{meeting.attributes.place}</TableCell>
+                              <TableCell className="ellipse-one">{meeting.attributes.agenda}</TableCell>
                               <TableCell>
                                 <span className={meeting.attributes.status}>{meeting.attributes.status}</span>
                               </TableCell>

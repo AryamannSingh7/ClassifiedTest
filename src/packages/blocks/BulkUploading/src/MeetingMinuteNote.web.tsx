@@ -87,7 +87,7 @@ class MeetingMinuteNote extends MeetingMinutesController {
                 </Box>
                 <Box className="meeting-minute-note">
                   {this.state.isNotePreviewOpen ? (
-                    <Card>
+                    <Card className="meeting-preview-card">
                       <h4 style={{ marginBottom: "20px" }} className="bold-text">
                         {t("Meeting Minutes")}{" "}
                         {moment(

@@ -209,8 +209,8 @@ class MeetingMinutes extends MeetingMinutesController {
                           return (
                             <TableRow key={index}>
                               <TableCell>{index + 1}</TableCell>
-                              <TableCell className="ellipse">{meeting.attributes.title}</TableCell>
-                              <TableCell className="ellipse">{meeting.attributes.agenda}</TableCell>
+                              <TableCell className="ellipse-one">{meeting.attributes.title}</TableCell>
+                              <TableCell className="ellipse-one">{meeting.attributes.agenda}</TableCell>
                               {localStorage.getItem("userType") === ROLE.MANAGER && (
                                 <TableCell>{meeting.attributes?.building?.name}</TableCell>
                               )}

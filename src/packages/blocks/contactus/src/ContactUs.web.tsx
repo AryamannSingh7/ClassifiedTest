@@ -8,7 +8,6 @@ import ChairmanSidebarWeb from "../../dashboard/src/ChairmanSidebar.web";
 import { FaqChairmanStyleWeb } from "./FaqChairmanStyle.web";
 import ContactUsController, { Props } from "./ContactusController.web";
 import { withTranslation } from "react-i18next";
-import "../../../web/src/i18n.js";
 import { Form, Formik } from "formik";
 
 class ContactUsChairman extends ContactUsController {
@@ -17,19 +16,14 @@ class ContactUsChairman extends ContactUsController {
   }
 
   render() {
-    const { t }: any = this.props;
-    const { classes } = this.props;
-
-    console.log(this.state);
+    const { t, classes }: any = this.props;
 
     return (
       <>
         <Box style={{ background: "#F4F7FF" }} className={classes.contactUs}>
-          {/* Dashboard Header -- */}
           <DashboardHeader {...this.props} />
           <Box style={{ display: "flex" }}>
             <Grid item xs={3} md={3} sm={3} className="SideBar">
-              {/* Chairman Sidebar -- */}
               <ChairmanSidebarWeb {...this.props} />
             </Grid>
 
@@ -43,7 +37,7 @@ class ContactUsChairman extends ContactUsController {
                         {t("Contact Us")}
                       </Box>
                     </Typography>
-                    <Typography variant="h5" className="sub-heading">
+                    <Typography variant="h5" className="sub-heading bold-text">
                       {t("Contact Us")}
                     </Typography>
                   </Box>

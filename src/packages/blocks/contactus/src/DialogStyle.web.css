@@ -1406,17 +1406,39 @@
   margin: 0 8px;
 }
 
-.configuration-dialog .config-dialog-box input::placeholder {
+.select-penalty-type {
+  position: relative;
+}
+.select-penalty-type .MuiSelect-root {
+  width: 100% !important;
+  padding-left: 56px !important;
+}
+.select-penalty-type .select-with-icon {
+  width: 100% !important;
+}
+.select-penalty-type img {
+  position: absolute;
+  left: 16px;
+  top: 38px;
+}
+
+.configuration-dialog .config-dialog-box input::placeholder,
+.save-lease input::placeholder,
+.penalty-dialog input::placeholder {
   color: #7a7878 !important;
   opacity: 1; /* Firefox */
 }
 
-.configuration-dialog .config-dialog-box input:-ms-input-placeholder {
+.configuration-dialog .config-dialog-box input:-ms-input-placeholder,
+.save-lease input:-ms-input-placeholder,
+.penalty-dialog input:-ms-input-placeholder {
   /* Internet Explorer 10-11 */
   color: #7a7878 !important;
 }
 
-.configuration-dialog .config-dialog-box input::-ms-input-placeholder {
+.configuration-dialog .config-dialog-box input::-ms-input-placeholder,
+.save-lease input::-ms-input-placeholder,
+.penalty-dialog input::-ms-input-placeholder {
   /* Microsoft Edge */
   color: #7a7878 !important;
 }
