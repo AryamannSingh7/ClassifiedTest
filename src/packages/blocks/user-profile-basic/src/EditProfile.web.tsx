@@ -135,6 +135,7 @@ class EditProfile extends ProfileController {
 
                           <Box
                             className="formInputGrp"
+                            style={{border:"0.1px solid rgb(209 209 209 / 100%)",borderRadius:"25px",backgroundColor:"#f9f9f9"}}
                           >
 
 
@@ -174,6 +175,7 @@ class EditProfile extends ProfileController {
                             border="0.1px solid rgb(209 209 209 / 44%)"
                             borderRadius="25px"
                             bgcolor="#f9f9f9"
+                            style={{border:"0.1px solid rgb(209 209 209 / 100%)",borderRadius:"25px",backgroundColor:"#f9f9f9"}}
                           >
                             <Box>
                               <FormControl variant="outlined" >
@@ -244,6 +246,7 @@ class EditProfile extends ProfileController {
                           {/* email */}
                           <Box
                             className="formInputGrp"
+                            style={{border:"0.1px solid rgb(209 209 209 / 100%)",borderRadius:"25px",backgroundColor:"#f9f9f9"}}
                           >
                                                         <Field
                               className="formInput"
@@ -274,6 +277,7 @@ class EditProfile extends ProfileController {
                           {/* Bio */}
                           <Box
                             className="formInputGrp"
+                            style={{border:"0.1px solid rgb(209 209 209 / 100%)",borderRadius:"25px",backgroundColor:"#f9f9f9"}}
                           >
 
 
@@ -333,6 +337,7 @@ class EditProfile extends ProfileController {
                           {/* DOB */}
                           <Box
                             className="formInputGrp"
+                            style={{border:"0.1px solid rgb(209 209 209 / 100%)",borderRadius:"25px",backgroundColor:"#f9f9f9"}}
                           >
 
 
@@ -364,6 +369,7 @@ class EditProfile extends ProfileController {
                           {/* Hobbies */}
                           <Box
                             className="formInputGrp"
+                            style={{border:"0.1px solid rgb(209 209 209 / 100%)",borderRadius:"25px",backgroundColor:"#f9f9f9"}}
                           >
 
 
@@ -408,6 +414,7 @@ class EditProfile extends ProfileController {
                           {/* Twitter */}
                           <Box
                             className="formInputGrp"
+                            style={{border:"0.1px solid rgb(209 209 209 / 100%)",borderRadius:"25px",backgroundColor:"#f9f9f9"}}
                           >
 
 
@@ -441,6 +448,7 @@ class EditProfile extends ProfileController {
                           {/* fb */}
                           <Box
                             className="formInputGrp"
+                            style={{border:"0.1px solid rgb(209 209 209 / 100%)",borderRadius:"25px",backgroundColor:"#f9f9f9"}}
                           >
 
 
@@ -473,6 +481,7 @@ class EditProfile extends ProfileController {
                           {/* Insta */}
                           <Box
                             className="formInputGrp"
+                            style={{border:"0.1px solid rgb(209 209 209 / 100%)",borderRadius:"25px",backgroundColor:"#f9f9f9"}}
                           >
 
 
@@ -505,6 +514,7 @@ class EditProfile extends ProfileController {
                           {/* snap */}
                           <Box
                             className="formInputGrp"
+                            style={{border:"0.1px solid rgb(209 209 209 / 100%)",borderRadius:"25px",backgroundColor:"#f9f9f9"}}
                           >
 
 
