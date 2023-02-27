@@ -103,35 +103,37 @@ class VisitorsList extends VisitorsListController {
                                             })
                                             }
                                         </Select>
-                                        <Box className="classifiedFormGroup">
-                                  <Box className="visitorTextfield">  
-                                <TextField  
-                                  label="date" variant="outlined"
-                                  style={{ borderRadius: "8px", border: "1px solid #F0F0F0" ,backgroundColor:"white"}}
-                                  type="date" name="date" 
-                                  format='DD/MM/YYYY'
-                                  value={this.state.date}
-                                  onChange={(e)=> this.setState({date:e.target.value})}
-                                  InputProps={{
-                                    // min: "2019-01-24",
-                                    //@ts-ignore
-                                    max: "5000-05-31",
-                                    startAdornment: (
-                                      <InputAdornment position="start">
-                                        {/* <DateRangeOutlinedIcon /> */}
-                                      </InputAdornment>
-                                    ),
-                                    endAdornment: (
-                                      <InputAdornment position="end">
-                                        {/* <DateRangeOutlinedIcon /> */}
-                                      </InputAdornment>
-                                    ),
-                                  }
-                                  }
-                                />
-                                </Box>  
-                                </Box>  
-                            
+                                        {
+                                            localStorage.getItem("userType") === "security" &&
+                                            <Box className="classifiedFormGroup">
+                                                <Box className="visitorTextfield">
+                                                    <TextField
+                                                        label="date" variant="outlined"
+                                                        style={{ borderRadius: "8px", border: "1px solid #F0F0F0" ,backgroundColor:"white"}}
+                                                        type="date" name="date"
+                                                        format='DD/MM/YYYY'
+                                                        value={this.state.date}
+                                                        onChange={(e)=> this.setState({date:e.target.value})}
+                                                        InputProps={{
+                                                            // min: "2019-01-24",
+                                                            //@ts-ignore
+                                                            max: "5000-05-31",
+                                                            startAdornment: (
+                                                                <InputAdornment position="start">
+                                                                    {/* <DateRangeOutlinedIcon /> */}
+                                                                </InputAdornment>
+                                                            ),
+                                                            endAdornment: (
+                                                                <InputAdornment position="end">
+                                                                    {/* <DateRangeOutlinedIcon /> */}
+                                                                </InputAdornment>
+                                                            ),
+                                                        }
+                                                        }
+                                                    />
+                                                </Box>
+                                            </Box>
+                                        }
                           <Button onClick={()=> this.getVisitorList(this.state.searchQuery,1)} startIcon={<img src={SearchIconImage} />}>Search</Button>
                                     </Box>
                                 </Box>
