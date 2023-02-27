@@ -46,7 +46,9 @@ class UnitTotalExpense extends UnitTotalExpenseController {
                         <KeyboardBackspaceIcon />
                       </IconButton>
                     </Link>
-                    <span>{`${t("Unit")} ${this.state.unitName} ${t("Building")} ${this.state.buildingName}`}</span>
+                    <span className="bold-text">{`${t("Unit")} ${this.state.unitName} ${t("Building")} ${
+                      this.state.buildingName
+                    }`}</span>
                   </Box>
                   <Box className="right-icon">
                     <IconButton onClick={() => this.handleFilterModal()}>
@@ -99,7 +101,7 @@ class UnitTotalExpense extends UnitTotalExpenseController {
                                 <Grid container spacing={2}>
                                   <Grid item xs={12}>
                                     <Box className="heading">
-                                      <h4>
+                                      <h4 className="bold-text">
                                         {moment(expense.attributes.expense_date, "YYYY-MM-DD").format("MMMM DD, YYYY")}
                                       </h4>
                                     </Box>
@@ -110,7 +112,7 @@ class UnitTotalExpense extends UnitTotalExpenseController {
                                         <Grid item xs={6}>
                                           <Box className="unit-expense-card-box">
                                             <span>{t("Cost")}</span>
-                                            <p>{`${expense.attributes.address.currency} ${
+                                            <p className="bold-text">{`${expense.attributes.address.currency} ${
                                               expense.attributes.expense_amount
                                             }`}</p>
                                           </Box>
@@ -118,37 +120,39 @@ class UnitTotalExpense extends UnitTotalExpenseController {
                                         <Grid item xs={6}>
                                           <Box className="unit-expense-card-box">
                                             <span>{t("Issue")}</span>
-                                            <p>{expense.attributes.issue_title}</p>
+                                            <p className="bold-text">{expense.attributes.issue_title}</p>
                                           </Box>
                                         </Grid>
                                         <Grid item xs={6}>
                                           <Box className="unit-expense-card-box">
                                             <span>{t("Category")}</span>
-                                            <p>{expense.attributes.expense_category.title}</p>
+                                            <p className="bold-text">{expense.attributes.expense_category.title}</p>
                                           </Box>
                                         </Grid>
                                         <Grid item xs={6}>
                                           <Box className="unit-expense-card-box">
                                             <span>{t("Building Name")}</span>
-                                            <p>{expense.attributes.building_management.name}</p>
+                                            <p className="bold-text">{expense.attributes.building_management.name}</p>
                                           </Box>
                                         </Grid>
                                         <Grid item xs={6}>
                                           <Box className="unit-expense-card-box">
                                             <span>{t("Unit Number")}</span>
-                                            <p>{expense.attributes.apartment_management.apartment_name}</p>
+                                            <p className="bold-text">
+                                              {expense.attributes.apartment_management.apartment_name}
+                                            </p>
                                           </Box>
                                         </Grid>
                                         <Grid item xs={6}>
                                           <Box className="unit-expense-card-box">
                                             <span>{t("Resolved By")}</span>
-                                            <p>{expense.attributes.resolved_by}</p>
+                                            <p className="bold-text">{expense.attributes.resolved_by}</p>
                                           </Box>
                                         </Grid>
                                         <Grid item xs={12}>
                                           <Box className="unit-expense-card-box">
                                             <span>{t("Summary")}</span>
-                                            <p>{expense.attributes.summary}</p>
+                                            <p className="bold-text">{expense.attributes.summary}</p>
                                           </Box>
                                         </Grid>
                                       </Grid>
@@ -179,7 +183,7 @@ class UnitTotalExpense extends UnitTotalExpenseController {
         >
           <Box className="condition-box filter-box">
             <Box className="heading">
-              <p>{t("Filter")}</p>
+              <p className="bold-text">{t("Filter")}</p>
               <span className="clear-all-text" onClick={() => this.handleClearFilter()}>
                 {t("Clear All")}
               </span>

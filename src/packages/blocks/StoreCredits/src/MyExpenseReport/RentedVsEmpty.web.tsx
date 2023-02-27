@@ -30,7 +30,7 @@ class RentedVsEmpty extends RentedVsEmptyController {
                         <KeyboardBackspaceIcon />
                       </IconButton>
                     </Link>
-                    <span>{t("Rented vs Empty Unit")}</span>
+                    <span className="bold-text">{t("Rented vs Empty Unit")}</span>
                   </Box>
                 </Box>
                 <Container>
@@ -42,7 +42,7 @@ class RentedVsEmpty extends RentedVsEmptyController {
                             <div className="content-box">
                               <Link href="/RentedVsEmpty/Rented">
                                 <div className="left-content">
-                                  <h4 className="heading">{t("Rented")}</h4>
+                                  <h4 className="heading bold-text">{t("Rented")}</h4>
                                   <div className="state">
                                     <p>{t("Rented")}</p>
                                     <Button className="yellow">{this.state.rentedUnit}</Button>
@@ -61,7 +61,7 @@ class RentedVsEmpty extends RentedVsEmptyController {
                               </div>
                               <Link href="/RentedVsEmpty/Empty">
                                 <div className="right-content">
-                                  <h4 className="heading">{t("Empty Units")}</h4>
+                                  <h4 className="heading bold-text">{t("Empty Units")}</h4>
                                   <div className="state">
                                     <p>{t("Empty")}</p>
                                     <Button className="yellow">{this.state.emptyUnit}</Button>
@@ -76,7 +76,7 @@ class RentedVsEmpty extends RentedVsEmptyController {
                       <Grid container spacing={2}>
                         <Grid item xs={12}>
                           <Box className="heading">
-                            <h4>{t("Citywise Rented vs Empty Units")}</h4>
+                            <h4 className="bold-text">{t("Citywise Rented vs Empty Units")}</h4>
                           </Box>
                         </Grid>
                         {this.state.cityWiseRentedVsEmpty.length === 0 && (

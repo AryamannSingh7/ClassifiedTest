@@ -28,7 +28,11 @@ class RentedAndEmpty extends RentedAndEmptyController {
                         <KeyboardBackspaceIcon />
                       </IconButton>
                     </Link>
-                    {this.state.isRentedUnit ? <span>{t("Rented Unit")}</span> : <span>{t("Empty Unit")}</span>}
+                    {this.state.isRentedUnit ? (
+                      <span className="bold-text">{t("Rented Unit")}</span>
+                    ) : (
+                      <span className="bold-text">{t("Empty Unit")}</span>
+                    )}
                   </Box>
                 </Box>
                 <Container>

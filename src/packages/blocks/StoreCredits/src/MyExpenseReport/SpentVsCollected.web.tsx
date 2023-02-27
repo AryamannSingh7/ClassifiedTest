@@ -34,7 +34,7 @@ class SpentVsCollected extends SpentVsCollectedController {
                         <KeyboardBackspaceIcon />
                       </IconButton>
                     </Link>
-                    <span>{t("Spent vs collected amount")}</span>
+                    <span className="bold-text">{t("Spent vs collected amount")}</span>
                   </Box>
                   <Box className="right-icon">
                     <Menu
@@ -56,7 +56,7 @@ class SpentVsCollected extends SpentVsCollectedController {
                       <Grid container spacing={2}>
                         <Grid item xs={12}>
                           <Box className="heading">
-                            <h4>{t("Spent vs collected amount")}</h4>
+                            <h4 className="bold-text">{t("Spent vs collected amount")}</h4>
                             <select
                               name="year"
                               id="year"
@@ -79,7 +79,7 @@ class SpentVsCollected extends SpentVsCollectedController {
                           <Card className="big-box">
                             <div className="content-box">
                               <div className="left-content">
-                                <h4 className="heading">{t("Spent Amount")}</h4>
+                                <h4 className="heading bold-text">{t("Spent Amount")}</h4>
                                 <div className="state">
                                   <p>{t("Collected")}</p>
                                   <Button className="yellow">{this.validateCurrency(this.state.spentAmount)}</Button>
@@ -96,7 +96,7 @@ class SpentVsCollected extends SpentVsCollectedController {
                                 <div className="vertical-line" />
                               </div>
                               <div className="right-content">
-                                <h4 className="heading">{t("Collected Amount")}</h4>
+                                <h4 className="heading bold-text">{t("Collected Amount")}</h4>
                                 <div className="state">
                                   <p>{t("Due")}</p>
                                   <Button className="yellow">
@@ -112,7 +112,7 @@ class SpentVsCollected extends SpentVsCollectedController {
                       <Grid container spacing={2}>
                         <Grid item xs={12}>
                           <Box className="heading">
-                            <h4>{t("Unitwise spent vs collected report")}</h4>
+                            <h4 className="bold-text">{t("Unitwise spent vs collected report")}</h4>
                           </Box>
                         </Grid>
                         {this.state.unitWiseData.length === 0 && (
@@ -138,7 +138,7 @@ class SpentVsCollected extends SpentVsCollectedController {
                       <Grid container spacing={2}>
                         <Grid item xs={12}>
                           <Box className="heading">
-                            <h4>{t("Citywise spent vs collected report")}</h4>
+                            <h4 className="bold-text">{t("Citywise spent vs collected report")}</h4>
                           </Box>
                         </Grid>
                         {this.state.cityWiseData.length === 0 && (
