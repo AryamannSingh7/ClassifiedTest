@@ -13,33 +13,13 @@ import {
   Typography,
   DialogActions,
 } from "@material-ui/core";
-import MuiDialogTitle from "@material-ui/core/DialogTitle";
-import CloseIcon from "@material-ui/icons/Close";
 import KeyboardBackspaceIcon from "@material-ui/icons/KeyboardBackspace";
-import {
-  EmailShareButton,
-  FacebookShareButton,
-  LinkedinShareButton,
-  RedditShareButton,
-  TelegramShareButton,
-  TumblrShareButton,
-  TwitterShareButton,
-  WhatsappShareButton,
-  EmailIcon,
-  FacebookIcon,
-  LinkedinIcon,
-  RedditIcon,
-  TelegramIcon,
-  TumblrIcon,
-  TwitterIcon,
-  WhatsappIcon,
-} from "react-share";
 import { ContractsStyleWeb } from "./ContractsStyle.web";
 import TemplateDetailController, { Props } from "./TemplateDetailController.web";
 import { BuildingLogo, DownloadIcon, ShareIcon, ExclamationIcon } from "./assets";
 import { withTranslation } from "react-i18next";
-import "../../../web/src/i18n.js";
 import Loader from "../../../components/src/Loader.web";
+import ShareDocumentModal from "../../../components/src/DocumentComponent/ShareModal.web";
 
 class TemplateDetail extends TemplateDetailController {
   constructor(props: Props) {
@@ -47,12 +27,7 @@ class TemplateDetail extends TemplateDetailController {
   }
 
   render() {
-    const { classes } = this.props;
-    const { t }: any = this.props;
-
-    const sharePopupWidth = 500;
-    const sharePopupHeight = 700;
-    const shareTitle = "TI 1 Final Leap";
+    const { t, classes }: any = this.props;
 
     return (
       <>
@@ -69,7 +44,7 @@ class TemplateDetail extends TemplateDetailController {
                         <KeyboardBackspaceIcon />
                       </IconButton>
                     </Link>
-                    <span>{this.state.templateData.templateName}</span>
+                    <span className="bold-text">{this.state.templateData.templateName}</span>
                   </div>
                   <div className="right-icon">
                     <Link href={this.state.templateData.templateUrl} target="_blank">
@@ -136,7 +111,9 @@ class TemplateDetail extends TemplateDetailController {
           <DialogContent>
             <Box textAlign="center">
               <img src={ExclamationIcon} alt="ExclamationIcon" />
-              <Typography variant="h6">{t("Delete lease Template?")}</Typography>
+              <Typography variant="h6" className="bold-text">
+                {t("Delete lease Template?")}
+              </Typography>
               <Typography variant="body1">
                 {t("Are you sure want to delete lease template?")} {t("Once deleted you won't be able to retrieve.")}
               </Typography>
@@ -148,96 +125,12 @@ class TemplateDetail extends TemplateDetailController {
           </DialogContent>
         </Dialog>
 
-        <Dialog
-          fullWidth
-          onClose={() => this.handleShareModal()}
-          open={this.state.isShareModalOpen}
-          className="select-meeting"
-        >
-          <MuiDialogTitle disableTypography className="dialog-heading">
-            <Typography variant="h6">{t("Share")}</Typography>
-            <IconButton onClick={() => this.handleShareModal()}>
-              <CloseIcon />
-            </IconButton>
-          </MuiDialogTitle>
-          <DialogContent>
-            <div className="share-box">
-              <FacebookShareButton
-                url={this.state.shareUrl}
-                title={shareTitle}
-                windowWidth={sharePopupWidth}
-                windowHeight={sharePopupHeight}
-                // @ts-ignore
-                children={<FacebookIcon />}
-                translate
-              />
-              <TwitterShareButton
-                url={this.state.shareUrl}
-                title={shareTitle}
-                windowWidth={sharePopupWidth}
-                windowHeight={sharePopupHeight}
-                // @ts-ignore
-                children={<TwitterIcon />}
-                translate
-              />
-              <WhatsappShareButton
-                url={this.state.shareUrl}
-                title={shareTitle}
-                windowWidth={sharePopupWidth}
-                windowHeight={sharePopupHeight}
-                separator=":: "
-                // @ts-ignore
-                children={<WhatsappIcon />}
-                translate
-              />
-              <LinkedinShareButton
-                url={this.state.shareUrl}
-                title={shareTitle}
-                windowWidth={sharePopupWidth}
-                windowHeight={sharePopupHeight}
-                // @ts-ignore
-                children={<LinkedinIcon />}
-                translate
-              />
-              <EmailShareButton
-                url={this.state.shareUrl}
-                title={shareTitle}
-                windowWidth={sharePopupWidth}
-                windowHeight={sharePopupHeight}
-                // @ts-ignore
-                children={<EmailIcon />}
-                translate
-              />
-              <RedditShareButton
-                url={this.state.shareUrl}
-                title={shareTitle}
-                windowWidth={sharePopupWidth}
-                windowHeight={sharePopupHeight}
-                // @ts-ignore
-                children={<RedditIcon />}
-                translate
-              />
-              <TelegramShareButton
-                url={this.state.shareUrl}
-                title={shareTitle}
-                windowWidth={sharePopupWidth}
-                windowHeight={sharePopupHeight}
-                // @ts-ignore
-                children={<TelegramIcon />}
-                translate
-              />
-              <TumblrShareButton
-                url={this.state.shareUrl}
-                title={shareTitle}
-                windowWidth={sharePopupWidth}
-                windowHeight={sharePopupHeight}
-                // @ts-ignore
-                children={<TumblrIcon />}
-                translate
-              />
-            </div>
-          </DialogContent>
-        </Dialog>
+        <ShareDocumentModal
+          isOpen={this.state.isShareModalOpen}
+          handleClose={this.handleShareModal}
+          heading={t("Share")}
+          documentURL={this.state.shareUrl}
+        />
       </>
     );
   }
