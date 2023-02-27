@@ -41,6 +41,11 @@ interface S {
   };
 
   isNewNotification: boolean;
+
+  realState: any;
+  buildingCategory: any;
+  personalCategory: any;
+  currency: string;
   // Customizable Area End
 }
 interface SS {
@@ -57,6 +62,7 @@ export default class DashboardController extends BlockComponent<Props, S, SS> {
   GetNotificationCallId: any = "";
   GetManagerRequestCallId: any;
   checkLoginId:string = "";
+  GetOwnerDashboardStatisticCallId:string = "";
   // Customizable Area End
 
   constructor(props: Props) {
@@ -95,6 +101,11 @@ export default class DashboardController extends BlockComponent<Props, S, SS> {
       },
 
       isNewNotification: false,
+
+      realState: null,
+      buildingCategory: null,
+      personalCategory: null,
+      currency: ""
     };
     // Customizable Area End
     runEngine.attachBuildingBlock(this as IBlock, this.subScribedMessages);
@@ -112,6 +123,7 @@ export default class DashboardController extends BlockComponent<Props, S, SS> {
 
     if (window.location.pathname.split("/")[1] === "OwnerDashboard") {
       this.getManagerRequestList();
+      this.getOwnerDashboardStatistic();
     }
 
     this.getNotification();
@@ -178,6 +190,25 @@ export default class DashboardController extends BlockComponent<Props, S, SS> {
     this.setState({isNewNotification: responseJson.new_notification})
   }
 
+  getOwnerDashboardStatistic = async () => {
+    const society_id = localStorage.getItem("society_id");
+
+    this.GetOwnerDashboardStatisticCallId = await apiCall({
+      contentType: "application/json",
+      method: "GET",
+      endPoint: `bx_block_dashboard/owner_dashbords?society_management_id=${society_id}`,
+    });
+  }
+
+  handleOwnerDashboardStatisticResponse = (responseJson: any) => {
+    this.setState({
+      realState: responseJson.data.attributes.real_state_details,
+      buildingCategory: responseJson.data.attributes.building_categories,
+      personalCategory: responseJson.data.attributes.personal_categories,
+      currency: responseJson.data.attributes.currency,
+    });
+  }
+
   checkLoginResponse = (responseJson:any) => {
     if(!responseJson?.hasOwnProperty("month")){
       localStorage.removeItem("userToken")
@@ -220,6 +251,9 @@ export default class DashboardController extends BlockComponent<Props, S, SS> {
           break;
         case this.GetNotificationCallId:
           this.handleNewNotificationResponse(responseJson);
+          break;
+        case this.GetOwnerDashboardStatisticCallId:
+          this.handleOwnerDashboardStatisticResponse(responseJson);
           break;
         case this.checkLoginId:
           this.checkLoginResponse(responseJson)

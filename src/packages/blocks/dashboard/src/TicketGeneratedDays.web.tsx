@@ -266,7 +266,7 @@ class TicketGeneratedDays extends DashboardTicketController {
                               </TableCell>
                               <TableCell>{incident.attributes.day_to_close}</TableCell>
                               <TableCell>
-                                <span className="status">{incident.attributes.status}</span>
+                                <span className={incident.attributes.status}>{incident.attributes.status}</span>
                               </TableCell>
                             </TableRow>
                           );

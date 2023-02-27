@@ -200,7 +200,7 @@ class TicketGeneratedYear extends DashboardTicketController {
                                   moment(incident.attributes.close_date, "DD-MM-YYYY").format("DD MMM YYYY")}
                               </TableCell>
                               <TableCell>
-                                <span className="status">{incident.attributes.status}</span>
+                                <span className={incident.attributes.status}>{incident.attributes.status}</span>
                               </TableCell>
                             </TableRow>
                           );

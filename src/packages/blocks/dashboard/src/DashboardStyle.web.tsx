@@ -405,6 +405,7 @@ export const DashboardStyleWeb: any = {
       borderRadius: "8px",
       background: "white",
       marginTop: "30px",
+      marginBottom: "30px",
     },
     "& .content-boxes .top-content": {
       display: "flex",
@@ -490,9 +491,17 @@ export const DashboardStyleWeb: any = {
     "& .content-boxes.ticket-table input": {
       width: "220px",
     },
-    "& .content-boxes.ticket-table .status": {
+    "& .content-boxes.ticket-table .unit-table span.Resolved": {
       background: "#D4FFE3",
       color: "#1EC65B",
+      fontWeight: 600,
+      padding: "5px 10px",
+      borderRadius: "25px",
+      fontSize: "14px",
+    },
+    "& .content-boxes.ticket-table .unit-table span": {
+      background: "#ffdcdc",
+      color: "#F21717",
       fontWeight: 600,
       padding: "5px 10px",
       borderRadius: "25px",

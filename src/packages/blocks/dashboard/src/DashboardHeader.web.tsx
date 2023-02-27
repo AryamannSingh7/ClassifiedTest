@@ -52,11 +52,9 @@ class DashboardHeader extends DashboardController {
   };
 
   gotoProfilePage = () => {
-    if(localStorage.getItem('selectUserType')=='Auditor'){
-
-    this.props.navigation.navigate("AuditorProfile");
-    }else{
-
+    if (localStorage.getItem("selectUserType") == "Auditor") {
+      this.props.navigation.navigate("AuditorProfile");
+    } else {
       this.props.navigation.navigate("ChairmanProfile");
     }
   };
@@ -143,7 +141,9 @@ class DashboardHeader extends DashboardController {
           <DialogContent>
             <Box textAlign="center">
               <img src={LogoutDialogIcon} alt="ExclamationIcon" />
-              <Typography variant="h6">{t("Are you sure you want to logout?")}</Typography>
+              <Typography variant="h6" className="bold-text">
+                {t("Are you sure you want to logout?")}
+              </Typography>
               <Typography variant="body1">{t("You will be returned to the login screen")}</Typography>
               <DialogActions className="dialog-button-group">
                 <Button className="close" onClick={() => this.handleLogoutModal()}>
