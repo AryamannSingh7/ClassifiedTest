@@ -30,7 +30,6 @@ import {
 import LeaseFormController, { Props } from "./LeaseFormController.web";
 import { Formik, Form } from "formik";
 import { withTranslation } from "react-i18next";
-import "../../../web/src/i18n.js";
 
 class LeaseForm extends LeaseFormController {
   constructor(props: Props) {
@@ -74,8 +73,8 @@ class LeaseForm extends LeaseFormController {
   }
 
   render() {
-    const { classes } = this.props;
-    const { t }: any = this.props;
+    const {} = this.props;
+    const { t, classes }: any = this.props;
 
     const isEditTemplate = window.sessionStorage.getItem("isEditFlow");
     const page = window.sessionStorage.getItem("page");
@@ -91,12 +90,14 @@ class LeaseForm extends LeaseFormController {
                     <IconButton onClick={() => this.gotoSelectTemplatePage()}>
                       <KeyboardBackspaceIcon />
                     </IconButton>
-                    <span>{t("Issue a Lease")}</span>
+                    <span className="bold-text">{t("Issue a Lease")}</span>
                   </div>
                 </Box>
                 <Container className="page-container">
                   <Box className="issue-lease-content form">
-                    <h4 style={{ marginTop: "18px" }}>{t("Residential Rental Lease Agreement")}</h4>
+                    <h4 className="bold-text" style={{ marginTop: "18px" }}>
+                      {t("Residential Rental Lease Agreement")}
+                    </h4>
                     <Formik
                       enableReinitialize={true}
                       initialValues={this.state.leaseForm}
