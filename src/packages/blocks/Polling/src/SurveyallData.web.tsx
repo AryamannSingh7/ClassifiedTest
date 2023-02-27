@@ -41,7 +41,7 @@ class PollsallData extends SurveyAllDataController {
     const {t} = this.props
     return ( 
       <>
-        <Box style={{background: "#E5ECFF"}}>
+        <Box style={{background: "#F7F9FE"}}>
             <DashboardHeader {...this.props}/>
         
             <Box style={{display: "flex"}}>
@@ -56,9 +56,14 @@ class PollsallData extends SurveyAllDataController {
                     <Box className="navigation">
                         <Box>
                             <Typography variant="body1" >
-                                {t("My Dashboard")} / {t("Poll and surveys")} / <Box component="span" style={{color: "blue"}}>{t("Surveys")}</Box>
+                                <Box component="span" onClick={()=> this.props.history.push("/DashboardGeneral")} style={{cursor:"pointer"}}>{t("My Dashboard")} </Box>
+                                /{" "}
+                                <Box component="span" onClick={()=> this.props.history.push("/Polling")} style={{cursor:"pointer"}}>
+                                    {t("Poll and survey ")}
+                                </Box>{" "}
+                                / <Box component="span" style={{color: "blue"}}>{t("Surveys")}</Box>
                             </Typography>
-                            <Typography variant="h5" className="subHeading">{t("Poll / Surveys")}</Typography>
+                            <Typography variant="h5" className="subHeading bold-text">{t("Surveys")}</Typography>
                         </Box>
                         <Box>
                             <FormControl className='YearMain'>
@@ -73,7 +78,7 @@ class PollsallData extends SurveyAllDataController {
                     <Grid container spacing={4} style={{marginTop: 15,marginBottom:20}} className="link-decoration">
                         <Grid item sm={6} md={4} xs={12}>
                             <Link href="/CreateSurveys">
-                                <Box className="CreatePSsingle" style={{minHeight:"80px",paddingBottom:"52px"}}>
+                                <Box className="CreatePSsingle" style={{minHeight:"80px",paddingBottom:"52px",boxShadow:"4px 0px 14px #e9e9e9"}}>
                                     <Box sx={{ml:1, mb:2}}>
                                     <img src={pollandsurvey} alt="pollandsurvey" />
                                     </Box>
