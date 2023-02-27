@@ -44,18 +44,17 @@ class NewFamily extends FamilyController {
         <Grid container spacing={2} className="auth-container">
           <Grid item xs={12} md={7} className="auth-cols" style={{ justifyContent: 'unset' }}>
             <Grid container>
-              <Grid xs={12} style={{ display: 'flex', alignItems: 'center',borderBottom:'1px solid #f2f2f2' }}>
+              <Grid xs={12} style={{ display: 'flex', alignItems: 'center',borderBottom:'1px solid #f2f2f2' ,marginTop:"12px"}}>
                 <ArrowBackIcon onClick={() => window.history.back()} className='btn' />
-                <p style={{ fontWeight: 600, fontSize: '1.25rem' }}>
-
+                <p className="bold-text" style={{paddingLeft:"10px"}}>
                   Family Members
                 </p>
               </Grid>
             </Grid>
             <div>
 
-              <Grid container className="main-content-block">
-                <Grid xs={12}>
+              <Grid container className="main-content-block" style={{marginTop:"25px"}}>
+                <Grid xs={12} className="inputPlaceholderRegistration">
                   <Formik initialValues={{
                     full_name: "",
                     relation: "",
@@ -84,7 +83,7 @@ class NewFamily extends FamilyController {
                             <Avatar src={values.bannerUrl} />
 
                             <label for="file1"
-                              style={{ color: '#FC8434',fontWeight:'bold'}}>
+                              style={{ color: '#ed9757',fontWeight:'bold'}}>
                               Change Profile Picture
                             </label>
                             <input
@@ -136,6 +135,7 @@ class NewFamily extends FamilyController {
 
                           <Box
                             className="formInputGrp"
+                            style={{border:"0.1px solid rgb(209 209 209 / 100%)",borderRadius:"25px",backgroundColor:"#f9f9f9",marginTop:"14px"}}
                           >
 
 
@@ -185,7 +185,7 @@ class NewFamily extends FamilyController {
                           > */}
 
 {/* R4ealtion */}
-                            <FormControl variant="outlined" fullWidth style={{marginTop:'15px'}}>
+                            <FormControl variant="outlined" fullWidth style={{marginTop:'15px'}} style={{border:"0.1px solid rgb(209 209 209 / 100%)",borderRadius:"25px",backgroundColor:"#f9f9f9" ,marginTop:"14px"}}>
 
                               <InputLabel id="demo-simple-select-outlined-label" style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
                                 <img src={Hyperlink} />
@@ -250,11 +250,11 @@ class NewFamily extends FamilyController {
                   ) : null} */}
 
                           {/* Id type */}
-                          <FormControl variant="outlined" fullWidth style={{marginTop:'15px'}}>
+                          <FormControl variant="outlined" fullWidth style={{marginTop:'15px'}} style={{border:"0.1px solid rgb(209 209 209 / 100%)",borderRadius:"25px",backgroundColor:"#f9f9f9" ,marginTop:"14px"}}>
 
                             <InputLabel id="demo-simple-select-outlined-label" style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
-                              <img src={Hyperlink} />
-                              Type of ID Proof</InputLabel>
+                              <img src={User3} />
+                             National ID Number</InputLabel>
                             <Select
                               name='IDoption'
                               labelId="demo-simple-select-outlined-label"
@@ -309,6 +309,7 @@ class NewFamily extends FamilyController {
 
                           <Box
                             className="formInputGrp"
+                            style={{border:"0.1px solid rgb(209 209 209 / 100%)",borderRadius:"25px",backgroundColor:"#f9f9f9" ,marginTop:"14px"}}
                           >
                             <Field
                               name="IDnumber"
