@@ -135,16 +135,7 @@ class PollReport extends SurveyReportController {
                                                     <TableCell component="th" scope="row">{index + 1}</TableCell>
                                                     <TableCell align="start">{row.name}</TableCell>
                                                     <TableCell align="start">
-                                                        {
-                                                            row.unit_number?.map((item,key)=>{
-                                                                return(
-                                                                    <>
-                                                                        {item}
-                                                                    </>
-                                                                )
-                                                            })
-
-                                                        }
+                                                        {row.unit_number.join(",")}
                                                     </TableCell>
                                                     <TableCell align="start"><Button variant="contained" color="inherit" onClick={()=>this.handleOpenAudienceModal(row.response_details)}>{t("View")}</Button></TableCell>
                                                 </TableRow>

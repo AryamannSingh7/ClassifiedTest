@@ -21,16 +21,15 @@ class SurveyParticipate extends React.Component<any, any> {
         <>
           <Grid container>
               <Grid xs={10} style={{ display:"flex", alignItems:"center", gap:"1rem",margin:"10px 10px"}}>
-                <ArrowBackIcon onClick={() => this.props.history.push("/Visitors")} style={{cursor:"pointer",marginLeft:"5px"}}/>
               </Grid>
               <Grid xs={12}>
               <Box style={{height:"94.5vh",display:'flex',flexDirection:"column",alignItems:'center'}}>
                 <Box style={{display:'flex',flexDirection:"column",alignItems:"center",justifyContent:"center",height:"100%"}}>
                     <img src={visitorSuccess} style={{marginBottom:"15px"}} />
-                    <Typography variant="h4" style={{textAlign:'center',fontFamily: "Century Gothic",fontWeight:"bold"}}>
+                    <Typography variant="h4" className="bold-text" style={{textAlign:'center',fontSize:"26px",width:"80%"}}>
                         {t("Visitor Request Added")}
                     </Typography>
-                    <Typography variant="body1" style={{textAlign:'center',fontFamily: "Century Gothic",marginTop:"30px",width:"90%"}}>
+                    <Typography variant="body1" style={{textAlign:'center',fontFamily: "Century Gothic",marginTop:"30px",width:"80%"}}>
                         {t("Visitor Request Added Success")}
                     </Typography>
                 </Box>

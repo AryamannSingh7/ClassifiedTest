@@ -59,13 +59,13 @@ export default class VisitorDetailsController extends BlockComponent<
       sortBy : "" ,
       status:"",
       visitorDetails:{
-          id:"1",
-          name:"Sean K. Wilt",
-          profilePic:"https://www.shareicon.net/data/128x128/2016/09/15/829453_user_512x512.png",
-          time:"16:30",
-          date:"10-03-2022",
-          building:"Green Villa",
-          phoneNo:"+966-1234567890"
+          id:"",
+          name:"",
+          profilePic:"",
+          time:"",
+          date:"",
+          building:"",
+          phoneNo:""
         },
       deleteConfirmModal:false,
       visitorId:""
