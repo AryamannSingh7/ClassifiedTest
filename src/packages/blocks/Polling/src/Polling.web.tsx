@@ -65,7 +65,9 @@ class Polling extends PollingController {
                 <Box className="navigation">
                     <Box>
                         <Typography variant="body1" >
-                        {t("My Dashboard")} / <Box component="span" style={{color: "blue"}}>{t("Poll and surveys")}</Box>
+                            <Box component="span" onClick={()=> this.props.history.push("/DashboardGeneral")} style={{cursor:"pointer"}}> {t("My Dashboard ")}</Box>
+                            {" "}/{" "}
+                            <Box component="span" style={{color: "blue"}}>{t("Poll and surveys")}</Box>
                         </Typography>
                         <Typography variant="h5" className="subHeading bold-text">{t("Poll / Surveys")}</Typography>
                     </Box>
@@ -117,19 +119,19 @@ class Polling extends PollingController {
                         </Box>
                     </Dialog>
 
-                    <Grid item sm={6} md={4} xs={12}>
+                    <Grid item sm={6} md={4} xs={12} >
                         {/*@ts-ignore*/}
                         <Box className="Cards" onClick={() => this.props.history.push("/PollsallData")}>
                             <Box sx={{ml:1.5, mb:2}} className="CardsIcons">
                                 <img src={pollcreate} alt="pollcreate" />
                             </Box>
                             <Typography className="subHeading">{t("Polls Created")}</Typography>
-                            <Box className="bottomTwoSpan" style={{minHeight:"20px"}}>
+                            <Box className="bottomTwoSpan" style={{minHeight:"20px",marginBottom:"4px"}}>
                                 <Typography variant="body2" className="bottomColor">
                                     {this.state.totalPollsCount.polls_count ? this.state.totalPollsCount.polls_count : ''}
                                 </Typography>
                             </Box>
-                            <Box className="bottomTwoSpan" style={{marginBottom:"1rem"}}>
+                            <Box className="bottomTwoSpan" style={{height:"2rem",marginBottom:"4px"}}>
                                 <Typography variant="body2">
                                     {t("Last poll created on")} {this.state.totalPollsCount.last_poll_created_at ? this.state.totalPollsCount.last_poll_created_at : ''}
                                 </Typography>
@@ -144,12 +146,12 @@ class Polling extends PollingController {
                             <img src={surveycreate} alt="surveycreate" />
                             </Box>
                             <Typography className="subHeading">{t("Surveys Created")}</Typography>
-                            <Box className="bottomTwoSpan" style={{minHeight:"20px"}}>
+                            <Box className="bottomTwoSpan" style={{minHeight:"20px",marginBottom:"4px"}}>
                                 <Typography variant="body2" className="bottomColor">
                                     {this.state.totalSurveyCount.survey_count ? this.state.totalSurveyCount.survey_count : ''}
                                 </Typography>
                             </Box>
-                            <Box className="bottomTwoSpan" style={{marginBottom:"1rem"}}>
+                            <Box className="bottomTwoSpan" style={{height:"2rem",marginBottom:"4px"}}>
                                 <Typography variant="body2">{t("Last Survey created on")} {" "}
                                     {this.state.totalSurveyCount.last_survey_created_at ? this.state.totalSurveyCount.last_survey_created_at : ''}
                                 </Typography>

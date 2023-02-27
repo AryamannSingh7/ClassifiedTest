@@ -43,6 +43,7 @@ class PollReport extends PollingController {
   render() {
     // @ts-ignore
     const {t} = this.props
+    const pollID =  window.location.search ? window.location.search.split("=")[1] : null;
     return ( 
       <>
     <Box style={{background: "#F7F9FE"}}>
@@ -61,7 +62,13 @@ class PollReport extends PollingController {
                         <Box className="navigation">
                             <Box>
                                 <Typography variant="body1" >
-                                    {t("Poll and survey")} / {t("Create a Poll")} / {t("Poll Details")}/ <Box component="span" style={{color: "blue"}}>{t("Poll Report")}</Box>
+                                    <Box component="span" onClick={()=> this.props.history.push("/Polling")} style={{cursor:"pointer"}}>{t("Poll and survey")}
+                                    </Box>
+                                    {" "}/{" "}
+                                    <Box component="span" onClick={()=> this.props.history.push("/PollsallData")} style={{cursor:"pointer"}}>
+                                        {t("Created Polls")}
+                                    </Box>{" "}/ {" "} <Box component="span" onClick={()=> this.props.history.push(`/PollDetails?id=${pollID}`)} style={{cursor:"pointer"}}> {t("Poll Details")} </Box> /
+                                    <Box component="span" style={{color: "blue"}}>{t("Poll Report")}</Box>
                                 </Typography>
                                 <Typography variant="h5" className="subHeading">{t("Poll Report")}</Typography>
                             </Box>  

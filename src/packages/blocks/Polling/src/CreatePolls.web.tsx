@@ -78,7 +78,9 @@ class CreatePolls extends PollingController {
                     <Box className="navigation">
                         <Box>
                             <Typography variant="body1" >
-                            {t("Poll and survey")} / <Box component="span" style={{color: "blue"}} >{t("Create a Poll")}</Box>
+                            <Box component="span" onClick={()=> this.props.history.push("/Polling")} style={{cursor:"pointer"}}>
+                                {t("Poll and survey ")}
+                            </Box>{" "}/ <Box component="span" style={{color: "blue"}} >{t("Create a Poll")}</Box>
                             </Typography>
                             <Typography variant="h5" className="subHeading bold-text" style={{fontSize:"30px"}}>{t("Create a Poll")}</Typography>
                         </Box>

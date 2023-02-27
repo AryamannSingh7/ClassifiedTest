@@ -15,6 +15,7 @@ export const configJSON = require("./config");
 export interface Props {
   navigation: any;
   id: string;
+  history:any;
 }
 
 interface S {

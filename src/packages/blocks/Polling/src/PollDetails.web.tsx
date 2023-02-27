@@ -78,7 +78,13 @@ class PollDetails extends PollingController {
                 <Box className="navigation">
                     <Box>
                         <Typography variant="body1" >
-                        {t("Poll and survey")} / {t("Create a Poll")} / <Box component="span" style={{color: "blue"}}>{t("Poll Details")}</Box>
+                            <Box component="span" onClick={()=> this.props.history.push("/Polling")} style={{cursor:"pointer"}}>{t("Poll and survey")}
+                            </Box>
+                            /{" "}
+                            <Box component="span" onClick={()=> this.props.history.push("/PollsallData")} style={{cursor:"pointer"}}>
+                                {t("Created Polls")}
+                            </Box>{" "}/{" "}
+                            <Box component="span" style={{color: "blue"}}>{t("Poll Details")}</Box>
                         </Typography>
                         <Typography variant="h5" className="subHeading bold-text" style={{fontSize:"30px"}}>{t("Poll Details")}</Typography>
                     </Box>

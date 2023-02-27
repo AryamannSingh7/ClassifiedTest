@@ -59,9 +59,14 @@ class PollsallData extends PollingController {
                     <Box className="navigation">
                         <Box>
                             <Typography variant="body1" >
-                            {t("My Dashboard")} / {t("Poll and surveys")} / <Box component="span" style={{color: "blue"}}>{t("Polls")}</Box>
+                                <Box component="span" onClick={()=> this.props.history.push("/DashboardGeneral")} style={{cursor:"pointer"}}>{t("My Dashboard")} </Box>
+                                /{" "}
+                                <Box component="span" onClick={()=> this.props.history.push("/Polling")} style={{cursor:"pointer"}}>
+                                {t("Poll and survey ")}
+                                </Box>{" "}
+                                / <Box component="span" style={{color: "blue"}}>{t("Polls")}</Box>
                             </Typography>
-                            <Typography variant="h5" className="subHeading">{t("Poll / Surveys")}</Typography>
+                            <Typography variant="h5" className="subHeading bold-text">{t("Polls")}</Typography>
                         </Box>
                         <Box>
                             <FormControl className='YearMain'>
@@ -76,7 +81,7 @@ class PollsallData extends PollingController {
                     <Grid container spacing={4} style={{marginTop: 15,marginBottom:20}} className="link-decoration">
                         <Grid item sm={6} md={4} xs={12}>
                             <Link
-                            //@ts-ignore 
+                            //@ts-ignore
                             onClick={() => this.props.history.push("/CreatePolls")}>
                                 <Box className="CreatePSsingle" style={{minHeight:"80px",paddingBottom:"55px"}}>
                                     <Box sx={{ml:1, mb:2}}>
@@ -191,6 +196,6 @@ class PollsallData extends PollingController {
 }
 
 //@ts-ignore
-export default withTranslation()(withRouter(PollsallData)); 
+export default  withTranslation()(withRouter(PollsallData));
 
 // Customizable Area End

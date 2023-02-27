@@ -870,6 +870,10 @@
   padding: 12px 12px 10px !important;
 }
 
+.surveyTextBox textarea{
+  margin-top: 10px!important;
+}
+
 .optionBoxSelected {
   background-color: #2b6fec;
   border-radius: 5rem;

@@ -111,13 +111,13 @@ class SurveyParticipate extends SurveyParticipateController {
                                       this.state.SurveyQuestions[this.state.currentQuestion]?.question_type === "short_answers" &&
                                       <Box style={{width:"100%",marginTop:"15px"}}>
                                           <TextField
-                                              id="outlined-multiline-static"
+                                              id="outlined-multiline-static surveyTextBox"
                                               multiline
                                               minRows={5}
                                               value={this.state.questionShortAns}
                                               onChange={this.handleShortAns}
                                               fullWidth
-                                              style={{marginTop:"15px",border:"1px solid #f0f0f0",borderRadius:"20px",overflow:"hidden",backgroundColor:"#f9f9f9"}}
+                                              style={{marginTop:"15px",border:"1px solid rgb(209 209 209 / 100%)",borderRadius:"20px",overflow:"hidden",backgroundColor:"#f9f9f9"}}
                                               InputProps={{
                                                   startAdornment: (
                                                       <InputAdornment position="start">
@@ -169,6 +169,7 @@ class SurveyParticipate extends SurveyParticipateController {
                                                                                   :
                                                                                   {
                                                                                       backgroundColor: "#f9f9f9",
+                                                                                      border:"1px solid rgb(209 209 209 / 100%)",
                                                                                       borderRadius: '5rem',
                                                                                       marginBottom: 14,
                                                                                       boxShadow: "none",
@@ -228,6 +229,7 @@ class SurveyParticipate extends SurveyParticipateController {
                                                                                       {
                                                                                           backgroundColor: "#f9f9f9",
                                                                                           borderRadius: '5rem',
+                                                                                          border:"1px solid rgb(209 209 209 / 100%)",
                                                                                           marginBottom: 14,
                                                                                           boxShadow: "none",
                                                                                           color: "#212121",
@@ -256,13 +258,13 @@ class SurveyParticipate extends SurveyParticipateController {
                                       <Box style={{width:"100%",marginTop:"15px"}}>
                                           <Typography varian="subtitle2" style={{fontWeight:"bold"}}>Please share your concern</Typography>
                                           <TextField
-                                              id="outlined-multiline-static"
+                                              id="outlined-multiline-static surveyTextBox"
                                               multiline
                                               minRows={5}
                                               value={this.state.questionShortAns}
                                               onChange={this.handleShortAns}
                                               fullWidth
-                                              style={{marginTop:"15px",border:"1px solid #f0f0f0",borderRadius:"20px",overflow:"hidden",backgroundColor:"#f9f9f9"}}
+                                              style={{marginTop:"15px",border:"1px solid rgb(209 209 209 / 100%)",borderRadius:"20px",overflow:"hidden",backgroundColor:"#f9f9f9"}}
                                               InputProps={{
                                                   startAdornment: (
                                                       <InputAdornment position="start">
@@ -282,23 +284,23 @@ class SurveyParticipate extends SurveyParticipateController {
                               this.state.currentQuestion !== 0  && this.state.currentQuestion !== this.state.totalQuestion && this.state.totalQuestion !== 1 &&
                               <>
                                   <Grid item xs={6}>
-                                      <Button onClick={this.handlePrevious} fullWidth variant="text" style={{borderRadius:"50px",color:"#2B6FED"}} size="large" color="primary">Back</Button>
+                                      <Button onClick={this.handlePrevious} fullWidth variant="text" style={{borderRadius:"50px",color:"#2B6FED",height:"50px"}} size="large" color="primary">Back</Button>
                                   </Grid>
                                   <Grid item xs={6}>
-                                      <Button onClick={this.handleNext} fullWidth variant="contained" style={{borderRadius:"50px",backgroundColor:"#2B6FED"}} size="large" color="primary">Next</Button>
+                                      <Button onClick={this.handleNext} fullWidth variant="contained" style={{borderRadius:"50px",backgroundColor:"#2B6FED",height:"50px"}} size="large" color="primary">Next</Button>
                                   </Grid>
                               </>
                           }
                           {
                               this.state.currentQuestion === 0  && this.state.totalQuestion !== 0 &&
                               <Grid item xs={12}>
-                                  <Button onClick={this.handleNext} fullWidth variant="contained" style={{borderRadius:"50px",backgroundColor:"#2B6FED"}} size="large" color="primary">Next</Button>
+                                  <Button onClick={this.handleNext} fullWidth variant="contained" style={{borderRadius:"50px",backgroundColor:"#2B6FED",height:"50px"}} size="large" color="primary">Next</Button>
                               </Grid>
                           }
                           {
                               this.state.currentQuestion === this.state.totalQuestion &&
                               <Grid item xs={12}>
-                                  <Button onClick={this.handleSubmit} fullWidth variant="contained" style={{borderRadius:"50px",backgroundColor:"#2B6FED"}} size="large" color="primary">Submit</Button>
+                                  <Button onClick={this.handleSubmit} fullWidth variant="contained" style={{borderRadius:"50px",backgroundColor:"#2B6FED",height:"50px"}} size="large" color="primary">Submit</Button>
                               </Grid>
                           }
                       </Grid>
