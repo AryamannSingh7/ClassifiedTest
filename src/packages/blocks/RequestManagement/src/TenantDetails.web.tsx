@@ -38,8 +38,7 @@ class TenantDetails extends TenantListController {
   }
 
   render() {
-    const { t }: any = this.props;
-    const { classes } = this.props;
+    const { t, classes }: any = this.props;
 
     return (
       <>
@@ -56,7 +55,7 @@ class TenantDetails extends TenantListController {
                         <KeyboardBackspaceIcon />
                       </IconButton>
                     </Link>
-                    <span>{t("Tenant")}</span>
+                    <span className="bold-text">{t("Tenant")}</span>
                   </div>
                   <div className="right-icon">
                     <img src={DeleteIcon} alt="" onClick={() => this.handleDeleteTenant()} />
@@ -70,7 +69,7 @@ class TenantDetails extends TenantListController {
                 <Box className="tenant-detail-box">
                   <Container>
                     <Box className="detail">
-                      <h4>{t("Tenant Details")}</h4>
+                      <h4 className="bold-text">{t("Tenant Details")}</h4>
                       <Card className="detail-box">
                         <Grid container spacing={2} className="info">
                           <Grid item xs={6}>
@@ -78,7 +77,7 @@ class TenantDetails extends TenantListController {
                               <img src={TenantName} alt="" />
                               <Box className="item-data">
                                 <span>{t("Tenant Name")}</span>
-                                <p>{this.state.tenantData.tenantName || "-"}</p>
+                                <p className="bold-text">{this.state.tenantData.tenantName || "-"}</p>
                               </Box>
                             </Box>
                           </Grid>
@@ -87,7 +86,7 @@ class TenantDetails extends TenantListController {
                               <img src={TenantType} alt="" />
                               <Box className="item-data">
                                 <span>{t("Tenant Type")}</span>
-                                <p>{this.state.tenantData.tenantType || "-"}</p>
+                                <p className="bold-text">{this.state.tenantData.tenantType || "-"}</p>
                               </Box>
                             </Box>
                           </Grid>
@@ -96,7 +95,7 @@ class TenantDetails extends TenantListController {
                               <img src={BuildingName} alt="" />
                               <Box className="item-data">
                                 <span>{t("Building Name")}</span>
-                                <p>{this.state.tenantData.buildingName || "-"}</p>
+                                <p className="bold-text">{this.state.tenantData.buildingName || "-"}</p>
                               </Box>
                             </Box>
                           </Grid>
@@ -105,7 +104,7 @@ class TenantDetails extends TenantListController {
                               <img src={UnitNumber} alt="" />
                               <Box className="item-data">
                                 <span>{t("Unit Number")}</span>
-                                <p>{this.state.tenantData.unitNumber || "-"}</p>
+                                <p className="bold-text">{this.state.tenantData.unitNumber || "-"}</p>
                               </Box>
                             </Box>
                           </Grid>
@@ -114,7 +113,7 @@ class TenantDetails extends TenantListController {
                               <img src={CityIcon} alt="" />
                               <Box className="item-data">
                                 <span>{t("City")}</span>
-                                <p>{this.state.tenantData.city || "-"}</p>
+                                <p className="bold-text">{this.state.tenantData.city || "-"}</p>
                               </Box>
                             </Box>
                           </Grid>
@@ -123,7 +122,7 @@ class TenantDetails extends TenantListController {
                               <img src={PhoneNumber} alt="" />
                               <Box className="item-data">
                                 <span>{t("Phone Number")}</span>
-                                <p>{this.state.tenantData.phoneNumber || "-"}</p>
+                                <p className="bold-text">{this.state.tenantData.phoneNumber || "-"}</p>
                               </Box>
                             </Box>
                           </Grid>
@@ -132,7 +131,7 @@ class TenantDetails extends TenantListController {
                               <img src={EmailIcon} alt="" />
                               <Box className="item-data">
                                 <span>{t("Email Address")}</span>
-                                <p>{this.state.tenantData.email || "-"}</p>
+                                <p className="bold-text">{this.state.tenantData.email || "-"}</p>
                               </Box>
                             </Box>
                           </Grid>
@@ -141,7 +140,9 @@ class TenantDetails extends TenantListController {
                               <img src={LeaseIcon} alt="" />
                               <Box className="item-data">
                                 <span>{t("Lease Issued")}</span>
-                                <p>{this.state.tenantData.isLeaseIssued ? `${t("Yes")}` : `${t("No")}`}</p>
+                                <p className="bold-text">
+                                  {this.state.tenantData.isLeaseIssued ? `${t("Yes")}` : `${t("No")}`}
+                                </p>
                               </Box>
                             </Box>
                           </Grid>
@@ -158,7 +159,7 @@ class TenantDetails extends TenantListController {
                               <img src={IdType} alt="" />
                               <Box className="item-data">
                                 <span>{t("ID Type")}</span>
-                                <p>{this.state.tenantData.IdType || "-"}</p>
+                                <p className="bold-text">{this.state.tenantData.IdType || "-"}</p>
                               </Box>
                             </Box>
                           </Grid>
@@ -167,7 +168,7 @@ class TenantDetails extends TenantListController {
                               <img src={IdNumber} alt="" />
                               <Box className="item-data">
                                 <span>{t("ID Number")}</span>
-                                <p>{this.state.tenantData.IdNumber || "-"}</p>
+                                <p className="bold-text">{this.state.tenantData.IdNumber || "-"}</p>
                               </Box>
                             </Box>
                           </Grid>
@@ -176,7 +177,7 @@ class TenantDetails extends TenantListController {
                               <img src={CalenderIcon} alt="" />
                               <Box className="item-data">
                                 <span>{t("ID Expiration Date")}</span>
-                                <p>
+                                <p className="bold-text">
                                   {moment(this.state.tenantData.IdExpDate, "YYYY-MM-DD").format("MMMM DD, YYYY") || "-"}
                                 </p>
                               </Box>
@@ -194,7 +195,7 @@ class TenantDetails extends TenantListController {
                               <Card className="pdf-card">
                                 <Box className="heading">
                                   <img src={PdfIcon} alt="" />
-                                  <span>{document?.file_name?.split(".")[0] || "Contract"}</span>
+                                  <span className="bold-text">{document?.file_name?.split(".")[0] || "Contract"}</span>
                                 </Box>
                                 <Link href={document.url} target="_blank">
                                   <img src={DownloadIcon} alt="" />

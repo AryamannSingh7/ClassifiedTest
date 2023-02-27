@@ -73,7 +73,7 @@ class TenantList extends TenantListController {
                                     <Grid item xs={12}>
                                       <div className="header">
                                         <Link href={`/Tenant/${tenant.id}`}>
-                                          <h4>
+                                          <h4 className="bold-text">
                                             Building {tenant.attributes.building_management.name} Unit{" "}
                                             {tenant.attributes.apartment_management.apartment_name}
                                           </h4>
