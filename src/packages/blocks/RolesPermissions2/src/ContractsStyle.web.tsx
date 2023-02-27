@@ -18,6 +18,10 @@ export const ContractsStyleWeb: any = {
       alignItems: "center",
       justifyContent: "center",
     },
+    "& .top-bar .left-icon span": {
+      lineHeight: "18px",
+      fontSize: "18px",
+    },
     "& .top-bar .right-icon": {
       display: "flex",
       alignItems: "center",
@@ -166,6 +170,10 @@ export const ContractsStyleWeb: any = {
       alignItems: "center",
       justifyContent: "center",
     },
+    "& .top-bar .left-icon span": {
+      lineHeight: "18px",
+      fontSize: "18px",
+    },
     "& .top-bar .right-icon img": {
       marginLeft: "15px",
     },
@@ -276,6 +284,10 @@ export const ContractsStyleWeb: any = {
       alignItems: "center",
       justifyContent: "center",
     },
+    "& .top-bar .left-icon span": {
+      lineHeight: "18px",
+      fontSize: "18px",
+    },
     "& .top-bar .right-icon img": {
       marginLeft: "15px",
     },
@@ -352,7 +364,7 @@ export const ContractsStyleWeb: any = {
     "& .templates-list": {
       width: "100% !important",
     },
-    "& .templates-list h3": {
+    "& .templates-list h4": {
       margin: "15px 0",
       fontWeight: "600",
     },
@@ -472,7 +484,7 @@ export const ContractsStyleWeb: any = {
       marginBottom: "15px",
     },
     "& .renew-form .contract-info-box .contract-info span": {
-      color: "lightgray",
+      color: "#9f9f9f",
       fontSize: "14px",
     },
   },
@@ -494,6 +506,10 @@ export const ContractsStyleWeb: any = {
       display: "flex",
       alignItems: "center",
       justifyContent: "center",
+    },
+    "& .top-bar .left-icon span": {
+      lineHeight: "18px",
+      fontSize: "18px",
     },
     "& .top-bar .right-icon img": {
       marginLeft: "15px",
@@ -552,6 +568,10 @@ export const ContractsStyleWeb: any = {
       display: "flex",
       alignItems: "center",
       justifyContent: "center",
+    },
+    "& .top-bar .left-icon span": {
+      lineHeight: "18px",
+      fontSize: "18px",
     },
     "& .top-bar .right-icon img": {
       marginLeft: "15px",
@@ -632,7 +652,7 @@ export const ContractsStyleWeb: any = {
       display: "flex",
       alignItems: "center",
       justifyContent: "space-between",
-      marginBottom: "10px",
+      marginBottom: "20px",
     },
     "& .upload-button .penalty-detail .header img": {
       width: "30px",

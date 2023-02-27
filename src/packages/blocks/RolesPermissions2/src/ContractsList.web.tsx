@@ -43,7 +43,7 @@ class ContractsList extends ContractsListController {
                         <KeyboardBackspaceIcon />
                       </IconButton>
                     </Link>
-                    {t("Contracts")}
+                    <span className="bold-text">{t("Contracts")}</span>
                   </div>
                   <div className="right-icon">
                     <Menu
@@ -137,7 +137,7 @@ class ContractsList extends ContractsListController {
                                       <Grid item xs={12}>
                                         <div className="header">
                                           <Link href={`/Contract/${contract.id}`}>
-                                            <h4>{`Contract ${contract.id}`}</h4>
+                                            <h4 className="bold-text">{`Contract ${contract.id}`}</h4>
                                           </Link>
                                           <div className="right-menu">
                                             <Menu
@@ -249,7 +249,7 @@ class ContractsList extends ContractsListController {
                                         <div className="image">
                                           <img src={TemplateIcon} alt="" />
                                         </div>
-                                        <h4>{template.attributes.template_name}</h4>
+                                        <h4 className="bold-text">{template.attributes.template_name}</h4>
                                       </div>
                                     </Link>
                                     <div className="right-menu">

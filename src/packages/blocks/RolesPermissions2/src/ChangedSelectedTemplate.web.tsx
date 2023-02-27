@@ -24,9 +24,8 @@ import LeaseFormController, { Props } from "./LeaseFormController.web";
 import { Formik, Form } from "formik";
 import { Link } from "react-router-dom";
 import { ContractsStyleWeb } from "./ContractsStyle.web";
-import { BuildingLogo, CardIcon, CubeIcon, EditIcon, PenaltyAmountIcon } from "./assets";
+import { BuildingLogo, CardIcon, CubeIcon, EditIcon, PAmountIcon, PCardIcon, PenaltyAmountIcon } from "./assets";
 import { withTranslation } from "react-i18next";
-import "../../../web/src/i18n.js";
 
 class ChangedSelectedTemplate extends LeaseFormController {
   constructor(props: Props) {
@@ -56,8 +55,7 @@ class ChangedSelectedTemplate extends LeaseFormController {
   }
 
   render() {
-    const { classes } = this.props;
-    const { t }: any = this.props;
+    const { t, classes }: any = this.props;
 
     const customConditionText = JSON.parse(window.sessionStorage.getItem("condition") as any);
 
@@ -72,7 +70,7 @@ class ChangedSelectedTemplate extends LeaseFormController {
                     <IconButton onClick={() => this.gotoLeaseFormPage()}>
                       <KeyboardBackspaceIcon />
                     </IconButton>
-                    <span>{t("Issue a Lease")}</span>
+                    <span className="bold-text">{t("Issue a Lease")}</span>
                   </div>
                 </Box>
                 <Container className="page-container">
@@ -82,7 +80,7 @@ class ChangedSelectedTemplate extends LeaseFormController {
                       {this.state.selectedPaymentTermText.length !== 0 && (
                         <>
                           <br />
-                          <h4>{t("Payment Terms")}</h4>
+                          <h4 className="bold-text">{t("Payment Terms")}</h4>
                         </>
                       )}
                       {this.state.selectedPaymentTermText.map((condition: any) => {
@@ -91,7 +89,7 @@ class ChangedSelectedTemplate extends LeaseFormController {
                       {this.state.selectedPersonalConditionText.length !== 0 && (
                         <>
                           <br />
-                          <h4>{t("Personal Conditions")}</h4>
+                          <h4 className="bold-text">{t("Personal Conditions")}</h4>
                         </>
                       )}
                       {this.state.selectedPersonalConditionText.map((condition: any) => {
@@ -100,7 +98,7 @@ class ChangedSelectedTemplate extends LeaseFormController {
                       <br />
                       {customConditionText.isEditorCondition && (
                         <>
-                          <h4>{t("Custom Condition")}</h4>
+                          <h4 className="bold-text">{t("Custom Condition")}</h4>
                           <div dangerouslySetInnerHTML={{ __html: customConditionText.editorCondition }} />
                         </>
                       )}
@@ -135,7 +133,7 @@ class ChangedSelectedTemplate extends LeaseFormController {
                         {this.state.penalty && (
                           <>
                             <div className="header">
-                              <h4>{t("Penalty Details")}</h4>
+                              <h4 className="bold-text">{t("Penalty Details")}</h4>
                               <img
                                 src={EditIcon}
                                 onClick={() => {
@@ -160,7 +158,7 @@ class ChangedSelectedTemplate extends LeaseFormController {
                                   </Box>
                                   <Box>
                                     <span>{t("How Penalty will be counted?")}</span>
-                                    <p>{t(this.state.penalty.penanlty_counted)}</p>
+                                    <p className="bold-text">{t(this.state.penalty.penanlty_counted)}</p>
                                   </Box>
                                 </Grid>
                                 <Grid item xs={6} className="content-item">
@@ -169,7 +167,7 @@ class ChangedSelectedTemplate extends LeaseFormController {
                                   </Box>
                                   <Box>
                                     <span>{t("Penalty Amount")}</span>
-                                    <p>{this.state.penalty.amount}</p>
+                                    <p className="bold-text">{this.state.penalty.amount}</p>
                                   </Box>
                                 </Grid>
                               </Grid>
@@ -205,9 +203,9 @@ class ChangedSelectedTemplate extends LeaseFormController {
           onClose={() => this.handleConditionModal()}
         >
           <Box className="condition-box">
-            <h2>{t("Add More Conditions")}</h2>
+            <h2 className="bold-text">{t("Add More Conditions")}</h2>
             <Box className="content-box">
-              <h4>{t("Personal Conditions")}</h4>
+              <h4 className="bold-text">{t("Personal Conditions")}</h4>
               {this.state.personalCondition.map((condition: any, index: number) => {
                 return (
                   <Box className="condition" key={index}>
@@ -238,7 +236,7 @@ class ChangedSelectedTemplate extends LeaseFormController {
               })}
             </Box>
             <Box className="content-box">
-              <h4>{t("Payment Terms")}</h4>
+              <h4 className="bold-text">{t("Payment Terms")}</h4>
               {this.state.paymentTerm.map((term: any, index: number) => {
                 return (
                   <Box className="condition" key={index}>
@@ -343,27 +341,27 @@ class ChangedSelectedTemplate extends LeaseFormController {
               return (
                 <Form onSubmit={handleSubmit} translate="true">
                   <Box>
-                    <h4>{t("Penalty for late payments")}</h4>
+                    <h4 className="bold-text">{t("Penalty for late payments")}</h4>
                     <FormControl fullWidth>
-                      <Select
-                        displayEmpty
-                        value={values.penaltyType}
-                        variant="filled"
-                        name="penaltyType"
-                        onChange={handleChange}
-                        onBlur={handleBlur}
-                        className="select-with-icon"
-                        input={<OutlinedInput />}
-                      >
-                        <MenuItem value="" disabled>
-                          <ListItemIcon>
-                            <img src={CubeIcon} alt="" />
-                          </ListItemIcon>
-                          {t("How penalty will be counted")}
-                        </MenuItem>
-                        <MenuItem value="Fixed Percentage">{t("Fixed Percentage of Rent")}</MenuItem>
-                        <MenuItem value="Fixed Amount">{t("Fixed Amount")}</MenuItem>
-                      </Select>
+                      <Box className="select-penalty-type">
+                        <Select
+                          displayEmpty
+                          value={values.penaltyType}
+                          variant="filled"
+                          name="penaltyType"
+                          onChange={handleChange}
+                          onBlur={handleBlur}
+                          className="select-with-icon"
+                          input={<OutlinedInput />}
+                        >
+                          <MenuItem value="" disabled>
+                            {t("How penalty will be counted")}
+                          </MenuItem>
+                          <MenuItem value="Fixed Percentage">{t("Fixed Percentage of Rent")}</MenuItem>
+                          <MenuItem value="Fixed Amount">{t("Fixed Amount")}</MenuItem>
+                        </Select>
+                        <img src={PCardIcon} alt="" />
+                      </Box>
                       {errors.penaltyType && touched.penaltyType && <p className="error">{t(errors.penaltyType)}</p>}
                     </FormControl>
                     {values.penaltyType && (
@@ -381,7 +379,7 @@ class ChangedSelectedTemplate extends LeaseFormController {
                           }
                           startAdornment={
                             <InputAdornment position="start">
-                              <img src={CubeIcon} alt="" />
+                              <img src={PAmountIcon} alt="" />
                             </InputAdornment>
                           }
                         />
