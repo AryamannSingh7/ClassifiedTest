@@ -120,6 +120,21 @@ export default class CoverImageController extends BlockComponent<
     }
   }
 
+  handleReportPagination = (e:any,newVal:any) => {
+    this.setState({
+      currentReportPage:newVal
+    })
+    this.getSurveyGenerateReport(newVal)
+  }
+
+  handleReportSearch = (e:any) => {
+    this.setState({
+      reportSearch:e.target.value
+    })
+    this.getSurveyGenerateReport(this.state.currentReportPage,e.target.value)
+  }
+
+
   getSurveyGenerateReport = async (page:any,search?:any) => {
     const societyID = localStorage.getItem("society_id")
     const surveyID =  window.location.search ? window.location.search.split("=")[1] : null;

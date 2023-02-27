@@ -22,60 +22,6 @@ import {withTranslation} from "react-i18next";
 import '../../../web/src/i18n.js';
 import CheckCircleIcon from '@material-ui/icons/CheckCircle';
 
-const exampleQuestion = [
-    {
-        question:"Would you like to join events organized by building ? ",
-        options:[
-            {
-                text:"yes"
-            },
-            {
-                text:"no"
-            }
-        ],
-        showTextBox:true,
-        textBoxLabel:"if No,Please share your concerns"
-    },
-    {
-        question:"What kind of events would you like to be part of ?",
-        options:[
-            {
-                text:"Charity Events"
-            },
-            {
-                text:"Speaker Sessions"
-            },
-            {
-                text:"Holiday Celebrations"
-            },
-            {
-                text:"Others"
-            },
-
-        ],
-        showTextBox:true,
-        textBoxLabel:"Please share your concerns"
-    },
-    {
-        question:"How often would you like to attend an event in a year",
-        options:[
-            {
-                text:"Once a year"
-            },
-            {
-                text:"Twice a year"
-            },
-            {
-                text:"Once a every Quarter"
-            },
-            {
-                text:"Once a month"
-            },
-        ],
-        showTextBox:false,
-    },
-]
-
 class SurveyParticipate extends SurveyMyResponseController {
     constructor(props: Props) {
         super(props);
@@ -87,8 +33,8 @@ class SurveyParticipate extends SurveyMyResponseController {
         <>
           <Grid container>
               <Grid xs={10} style={{ display:"flex", alignItems:"center", gap:"1rem",margin:"1rem"}}>
-                <ArrowBackIcon onClick={() => this.props.history.push("/PollsSurvey")} style={{cursor:"pointer",marginLeft:"5px"}}/>
-                <p style={{ fontSize: '1.2rem', fontWeight: 600 }}>
+                <ArrowBackIcon onClick={() => window.history.back()} style={{cursor:"pointer",marginLeft:"5px"}}/>
+                <p className="bold-text" style={{ fontSize: '1.2rem', fontWeight: 600 }}>
                     {t("View My Response")}
                 </p>
               </Grid>
@@ -102,7 +48,7 @@ class SurveyParticipate extends SurveyMyResponseController {
                                       <>
                                           <Box key={key} style={{marginTop:"1rem",marginBottom:"1rem",display:'flex',flexDirection:"column",alignItems:'center'}}>
                                               <Box style={{alignSelf: "flex-start"}}>
-                                                  <p style={{ fontSize: '1rem', fontWeight: 600}}>
+                                                  <p className="bold-text" style={{ fontSize: '16px', fontWeight: 600,marginTop:"10px"}}>
                                                       {
                                                           `${item.survey_question}`
                                                       }
@@ -119,8 +65,8 @@ class SurveyParticipate extends SurveyMyResponseController {
                                                           value={item.concern}
                                                           onChange={this.handleShortAns}
                                                           fullWidth
-                                                          disabled
-                                                          style={{marginTop:"15px",border:"1px solid #f0f0f0",borderRadius:"20px",overflow:"hidden",backgroundColor:"#f9f9f9"}}
+                                                          aria-readonly
+                                                          style={{marginTop:"15px",border:"1px solid rgb(209 209 209 / 100%)",borderRadius:"20px",overflow:"hidden",backgroundColor:"#f9f9f9",marginBottom:"15px"}}
                                                           InputProps={{
                                                               startAdornment: (
                                                                   <InputAdornment position="start">
@@ -207,8 +153,8 @@ class SurveyParticipate extends SurveyMyResponseController {
                                                               value={item.concern}
                                                               onChange={this.handleShortAns}
                                                               fullWidth
-                                                              disabled
-                                                              style={{marginTop:"15px",border:"1px solid #f0f0f0",borderRadius:"20px",overflow:"hidden",backgroundColor:"#f9f9f9"}}
+                                                              aria-readonly
+                                                              style={{marginTop:"15px",border:"1px solid rgb(209 209 209 / 100%)",borderRadius:"20px",overflow:"hidden",backgroundColor:"#f9f9f9",marginBottom:"15px"}}
                                                               InputProps={{
                                                                   startAdornment: (
                                                                       <InputAdornment position="start">

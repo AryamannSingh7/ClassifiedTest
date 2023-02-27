@@ -84,7 +84,7 @@ class VisitorDetails extends VisitorDetailsController {
                                                 {t("Visitors Details")}
                                             </Box>
                                         </Typography>
-                                        <Typography variant="h5" className="sub-heading">
+                                        <Typography variant="h5" className="sub-heading bold-text ">
                                             {t("Visitors Details")}
                                         </Typography>
                                     </Box>

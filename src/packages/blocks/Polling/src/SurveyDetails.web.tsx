@@ -111,7 +111,7 @@ class PollDetails extends PollingController {
                                     <Box className="datebox">
                                         <CalendarTodayOutlinedIcon style={{color:"grey", fontSize:22}}/>
                                         <Box>
-                                            <Typography className="PollNamedate">Start Date</Typography>
+                                            <Typography className="PollNamedate">{t("Start Date")}</Typography>
                                             <Typography className="PollNameText">
                                                 {/* June 7, 2022 */}
                                                 {this.state.pollPreviewAnswer?.poll?.data?.attributes?.start_date}</Typography>
@@ -120,7 +120,7 @@ class PollDetails extends PollingController {
                                     <Box className="datebox">
                                         <CalendarTodayOutlinedIcon style={{color:"grey", fontSize:22}}/>
                                         <Box>
-                                            <Typography className="PollNamedate">End Date</Typography>
+                                            <Typography className="PollNamedate">{t("End Date")}</Typography>
                                             <Typography className="PollNameText">
                                                 {/* June 7, 2022 */}
                                             {this.state.pollPreviewAnswer?.poll?.data?.attributes?.end_date}</Typography>
@@ -129,7 +129,7 @@ class PollDetails extends PollingController {
                                 </Box>
                                 <Box style={{marginTop:15}}>
                                     <Box className="infoIcon">
-                                        <Typography variant="subtitle1">Description</Typography>  
+                                        <Typography variant="subtitle1">{t("Description")}</Typography>
                                         <InfoIcon style={{color:"grey", fontSize:18}}/>
                                     </Box>
                                     <Box style={{marginTop:5, overflowWrap:"break-word"}}>

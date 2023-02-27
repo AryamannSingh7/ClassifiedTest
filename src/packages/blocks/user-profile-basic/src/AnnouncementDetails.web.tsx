@@ -20,6 +20,7 @@ import { SuggestionStyleWeb } from "./SuggestionStyle.web";
 import { avatarIcon, calenderIcon, CheckIcon, phone, poolImage } from "./assets";
 import moment from "moment";
 import {withTranslation} from "react-i18next";
+import InfoIcon from "@material-ui/icons/Info";
 
 class AnnouncementDetails extends AnnouncementDetailsController {
   constructor(props: Props) {
@@ -45,47 +46,51 @@ class AnnouncementDetails extends AnnouncementDetailsController {
                 <Box className="navigation">
                   <Box>
                     <Typography variant="body1">
-                      {t("Community Management")} / {t("Announcements")} /{" "}
+                      {t("Community Management")} /
+                      <Box component="span" onClick={()=> this.props.history.push("/Announcements")} style={{cursor:"pointer"}}>{t("Announcements")} / </Box>{" "}
                       <Box component="span" style={{ color: "blue" }}>
                         {t("Announcement Details")}
                       </Box>
                     </Typography>
                   </Box>
                   <Box className="sub-heading">
-                    <h3>{t("Announcement Details")}</h3>
+                    <h3 className="bold-text ">{t("Announcement Details")}</h3>
                     <Button onClick={() => this.handleWithdrawModal()}>{t("withdraw Announcement")}</Button>
                   </Box>
                 </Box>
                 <Box className="content-box">
                   <Box className="suggestion-detail">
                     <Card>
+                      <Box className="heading">
+                        <p>
+                          <span className="bold-text">{this.state.AnnouncementDetails?.title}</span>
+                        </p>
+                        <span className="blue-span" style={{fontSize:"12px"}}>{this.state.AnnouncementDetails?.announcement_category}</span>
+                      </Box>
                       {
                         this.state?.AnnouncementDetails?.image?.url &&
                           <img src={this.state?.AnnouncementDetails?.image?.url} />
                       }
-                      <Box className="heading">
-                        <p>
-                          <span>{this.state.AnnouncementDetails?.title}</span>
-                        </p>
-                        <span className="blue-span">{this.state.AnnouncementDetails?.announcement_category}</span>
+                      <Box className="infoIcon">
+                        <Typography variant="subtitle1">{t("Description")}</Typography>
+                        <InfoIcon style={{color:"grey", fontSize:18}}/>
                       </Box>
-                      <p>{t("Description")} :</p>
-                      <p>
+                      <p style={{fontSize:"16px"}}>
                         {this.state.AnnouncementDetails?.description}
                       </p>
                       <Box className="suggestion-info">
                         <Box className="info">
-                          <img src={avatarIcon} />
+                          <img src={avatarIcon} width="25px" />
                           <Box>
-                            <p className="heading">{t("Announced By")}:</p>
-                            <p>{this.state.AnnouncementDetails?.announcement_by}</p>
+                            <p className="heading" style={{fontSize:"14px"}}>{t("Announced By")}:</p>
+                            <p style={{fontSize:"16px"}}>{this.state.AnnouncementDetails?.announcement_by}</p>
                           </Box>
                         </Box>
                         <Box className="info">
-                          <img src={calenderIcon} />
+                          <img src={calenderIcon} width="20px" />
                           <Box>
-                            <p className="heading">{t("Announced On")}:</p>
-                            <p>{moment(this.state.AnnouncementDetails?.announcement_on,'DD/MM/YYYY').format("MMMM DD,YYYY")}</p>
+                            <p className="heading" style={{fontSize:"14px"}}>{t("Announced On")}:</p>
+                            <p style={{fontSize:"16px"}}>{moment(this.state.AnnouncementDetails?.announcement_on,'DD/MM/YYYY').format("MMMM DD,YYYY")}</p>
                           </Box>
                         </Box>
                       </Box>
@@ -110,7 +115,7 @@ class AnnouncementDetails extends AnnouncementDetailsController {
               <Typography variant="body1" style={{ marginBottom: "0px" }}>
                 {t("Announcement_Withdraw_Caution")}
               </Typography>
-              <DialogActions className="dialog-button-group">
+              <DialogActions className="dialog-button-group" style={{marginTop:"15px"}}>
                 <Button className="cancel-button" style={{ width: "200px" }} onClick={() => this.handleWithdrawModal()}>
                   {t("Close")}
                 </Button>

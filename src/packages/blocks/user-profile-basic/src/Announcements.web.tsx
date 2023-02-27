@@ -63,7 +63,7 @@ class Announcements extends AnnouncementsController {
                         {t("Announcements")}
                       </Box>
                     </Typography>
-                    <Typography variant="h5" className="sub-heading">
+                    <Typography variant="h5" className="sub-heading bold-text">
                       {t("Announcements")}
                     </Typography>
                   </Box>
@@ -102,10 +102,10 @@ class Announcements extends AnnouncementsController {
                     <Button onClick={() => this.handleCreateAnnouncementModal()}>{t("Create New Announcement")}</Button>
                   </Box>
                 </Box>
-                <Box className="meeting-table">
+                <Box className="meeting-table" style={{boxShadow:"4px 0px 14px #e9e9e9"}}>
                   <Grid item sm={12} md={12} xs={12}>
                     <Box className="table-top">
-                      <h3>{t("Announcements")}</h3>
+                      <h3 className="bold-text">{t("Announcements")}</h3>
                       <Box className="filter">
                         <Box className="search-box">
                           <SearchIcon />

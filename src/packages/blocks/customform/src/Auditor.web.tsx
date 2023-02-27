@@ -26,7 +26,7 @@ class AuditorDashboardGeneral extends AuditorController {
     const {t} = this.props
     return (
       <>
-        <Box style={{ background: "#E5ECFF" }}>
+        <Box style={{ background: "#F7F9FE" }}>
           {/* Dashboard Header -- */}
           <DashboardHeader {...this.props} />
           <Box style={{ display: "flex" }}>

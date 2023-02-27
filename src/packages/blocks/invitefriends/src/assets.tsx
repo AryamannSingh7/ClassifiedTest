@@ -18,5 +18,5 @@ export const phone = require("../assets/Phone.png");
 export const exampleId = require("../assets/exampleId.png")
 export const visitorSuccess = require("../assets/VisitorSuccess.png")
 export const list = require("../assets/List.png")
-export const exampleImg = require("../assets/img.png")
+export const exampleImg = require("../assets/userIconV.png")
 export const editPencil = require("../assets/eidtPencil.png")

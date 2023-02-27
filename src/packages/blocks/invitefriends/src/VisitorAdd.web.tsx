@@ -23,6 +23,9 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import RadioButtonUncheckedIcon from "@material-ui/icons/RadioButtonUnchecked";
 import RadioButtonCheckedIcon from '@material-ui/icons/RadioButtonChecked';
 import {withTranslation} from "react-i18next";
+import PhoneInput from "react-phone-input-2";
+import AlertError from "../../../components/src/AlertError.web";
+
 class Visitors extends VisitorAddController{
   constructor(props: Props) {
     super(props);
@@ -46,7 +49,7 @@ class Visitors extends VisitorAddController{
                 </Grid>
                 <Divider/>
                 <Box style={{minHeight:"95%",display:'flex',flexDirection:"column",alignItems:'center',justifyContent:"space-between"}} >
-                    <Grid container spacing={2} style={{width:"90%"}}>
+                    <Grid container spacing={2} style={{width:"90%"}} className="inputPlaceholderRegistration">
                         <Formik initialValues={{
                             visitorName:this.state?.visitorDetails?.name,
                             phone: this.state?.visitorDetails?.mobile_number?.mobile_number,
@@ -75,6 +78,7 @@ class Visitors extends VisitorAddController{
                                                     className="formInput"
                                                     name="visitorName"
                                                     placeholder={t("Visitor Name")}
+                                                    style={{border:"0.1px solid rgb(209 209 209 / 100%)",borderRadius:"25px"}}
                                                 />
                                                 <span className="frmLeftIcons">
                                                     <img src={user} />
@@ -87,33 +91,23 @@ class Visitors extends VisitorAddController{
                                                 marginTop='.5rem'
                                                 className='formInputGrp'
                                                 display="flex"
-                                                overflow="hidden"
+                                                overflow="visible"
                                                 alignItems="center"
                                                 height="56px"
-                                                border="0.1px solid rgb(209 209 209 / 44%)"
+                                                border="0.1px solid rgb(209 209 209)"
                                                 borderRadius="25px"
                                                 bgcolor="#f9f9f9"
                                             >
                                                 <Box>
                                                     <FormControl variant="outlined" >
-                                                        <Select
-                                                            name='selectCode'
-                                                            labelId="demo-simple-select-outlined-label"
-                                                            id="demo-simple-select-outlined"
-                                                            onChange={this.handleChange}
-                                                            label="Unit"
+                                                        <PhoneInput
+                                                            inputProps={{name:'selectCode'}}
+                                                            // name='selectCode'
+                                                            enableSearch={true}
                                                             value={this.state.selectCode}
-                                                            style={{color:'gray'}}
-                                                        >
-                                                            <MenuItem value="">
-                                                                <em>None</em>
-                                                            </MenuItem>
-                                                            {dailCode.map((item) =>
-                                                                <MenuItem key={item.dial_code} value={item.dial_code}> <img src={`https://cdn.jsdelivr.net/npm/country-flag-emoji-json@2.0.0/dist/images/${item.code}.svg`} width='15' height='15' style={{marginRight:'5px'}}   />
-                                                                    {item.dial_code}</MenuItem>
-
-                                                            )}
-                                                        </Select>
+                                                            onChange={this.handleChangeCCode}
+                                                            country={'us'}
+                                                        />
                                                     </FormControl>
                                                 </Box>
                                                 <Field
@@ -129,7 +123,7 @@ class Visitors extends VisitorAddController{
                                                         fontSize: 16,
                                                         marginRight: 10,
                                                         backgroundColor:'#f9f9f9',
-                                                        marginLeft: 21,
+                                                        marginLeft: 5,
                                                         outline: "none"
                                                     }}
                                                 />
@@ -150,7 +144,7 @@ class Visitors extends VisitorAddController{
                                                             }}
                                                         >
                                                             <AddIcon style={{fontSize:"45px",color:"#9c9c9c"}}/>
-                                                            <Typography variant="body1" color="textSecondary">{t("Add Visitor ID copy")}</Typography>
+                                                            <Typography variant="body1" color="textSecondary" style={{color:"#7a7878"}}>{t("Add Visitor ID copy")}</Typography>
                                                             <Typography variant="body1">({t("optional")})</Typography>
                                                         </div>
                                                 }
@@ -174,7 +168,7 @@ class Visitors extends VisitorAddController{
                                         </Grid>
                                         <Grid className="add-visitor" item xs={6}>
                                             <FormControl fullWidth>
-                                                <div className="date-time">
+                                                <div className="date-time" style={{border:"0.1px solid rgb(209 209 209 / 100%)",borderRadius:"25px"}}>
                                                     <Input
                                                         value={values.date}
                                                         style={{color:"gray"}}
@@ -191,6 +185,7 @@ class Visitors extends VisitorAddController{
                                                         }}
                                                         type={this.state.inputType1}
                                                         onFocus={()=> this.setState({inputType1:"date"})}
+
                                                     />
                                                 </div>
                                                 {errors.date && touched.date && <small className="error">{errors.date}</small>}
@@ -198,7 +193,7 @@ class Visitors extends VisitorAddController{
                                         </Grid>
                                         <Grid className="add-visitor" item xs={6}>
                                             <FormControl fullWidth>
-                                                <div className="date-time">
+                                                <div className="date-time" style={{border:"0.1px solid rgb(209 209 209 / 100%)",borderRadius:"25px"}}>
                                                     <Input
                                                         value={values.time}
                                                         style={{color:"gray"}}
@@ -230,11 +225,12 @@ class Visitors extends VisitorAddController{
                                             </FormControl>
                                         </Grid>
                                         <Grid className='formGroup' item xs={12} style={{marginTop:"-10px"}}>
-                                            <Box className="formInputGrp">
+                                            <Box className="formInputGrp" >
                                                 <Field
                                                     className="formInput"
                                                     name="carPlateNo"
                                                     placeholder={t("Car Plate Number")}
+                                                    style={{border:"0.1px solid rgb(209 209 209 / 100%)",borderRadius:"25px"}}
                                                 />
                                                 <span className="frmLeftIcons">
                                                     <img src={list} />
@@ -252,7 +248,7 @@ class Visitors extends VisitorAddController{
                         )}
                         </Formik>
                     </Grid>
-
+                <AlertError  show={this.state.showError} handleClose={()=> this.setState({showError: false})} message={this.state.error} />
                 </Box>
             </Grid>
         </>

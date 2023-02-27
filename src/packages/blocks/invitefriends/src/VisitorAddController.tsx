@@ -32,6 +32,8 @@ interface S {
   visitorDetails:any;
   inputType1:any;
   inputType2:any;
+  error:any;
+  showError:boolean;
 }
 
 interface SS {
@@ -72,6 +74,8 @@ export default class CoverImageController extends BlockComponent<
       visitorDetails:{},
       inputType1:"text",
       inputType2:"text",
+      error:"",
+      showError:false,
     };
 
     this.emailReg = new RegExp("");
@@ -88,6 +92,15 @@ export default class CoverImageController extends BlockComponent<
   handleChange = (e: any) => {
     if (e.target.value) {
       this.setState({ ...this.state, [e.target.name]: e.target.value })
+    }
+  }
+
+  handleChangeCCode = (e: any) => {
+    console.log(e)
+    if (e) {
+      // @ts-ignore
+      // @ts-nocheck
+      this.setState({selectCode: `+${e}` })
     }
   }
 
@@ -142,9 +155,7 @@ export default class CoverImageController extends BlockComponent<
           .typeError("Only numbers are allowed.")
           .required("Mobile number is required.")
           .positive("Negative numbers are not allowed.")
-          .integer("Number can't contain a decimal.")
-          .min(100000000, "Minimum 9 digits are required.")
-          .max(1000000000, "Maximum 9 digits are allowed."),
+          .integer("Number can't contain a decimal."),
       photo: Yup.mixed(),
       date: Yup.string()
           .required("Required")
@@ -176,20 +187,52 @@ export default class CoverImageController extends BlockComponent<
 
   createVisitorRequest(values:any){
     console.log("Values",values)
-    let formData = new FormData()
-    formData.append('visitor[name]',values.visitorName)
-    formData.append('visitor[mobile_number]', this.state.selectCode+values.phone)
-    formData.append('visitor[schedule_date]', values.date)
-    formData.append('visitor[schedule_time]',values.time)
-    if(values.photo !== ""){
-      formData.append('visitor[image]',values.photo,values.photo.name)
+    if(this.checkPhone(values.phone)){
+      let formData = new FormData()
+      formData.append('visitor[name]',values.visitorName)
+      formData.append('visitor[mobile_number]', this.state.selectCode+values.phone)
+      formData.append('visitor[schedule_date]', values.date)
+      formData.append('visitor[schedule_time]',values.time)
+      if(values.photo !== ""){
+        formData.append('visitor[image]',values.photo,values.photo.name)
+      }
+      formData.append('visitor[comming_with_vehicle]', values.withCar)
+      formData.append('visitor[vehicle_detail][car_number]', values.carPlateNo)
+      if(this.state.visitorId){
+        this.updateVisitor(formData)
+      }else{
+        this.createVisitor(formData)
+      }
     }
-    formData.append('visitor[comming_with_vehicle]', values.withCar)
-    formData.append('visitor[vehicle_detail][car_number]', values.carPlateNo)
-    if(this.state.visitorId){
-      this.updateVisitor(formData)
-    }else{
-      this.createVisitor(formData)
+  }
+
+  checkPhone=(value:any)=>{
+    let pettrn = /^5\d+$/
+    if(value.includes('+'))
+    {
+      this.setState({error:'Please enter valid mobile number',showError:true})
+      return false
+    }else if(this.state.selectCode == '+966' ||this.state.selectCode == '+971' ){
+      if(!(pettrn.test(value)))
+      {
+        this.setState({error:'Please enter valid mobile number',showError:true})
+        return false
+      }
+      else{
+        if(value.length==9){
+          return true
+        }else{
+          this.setState({error:'Please enter valid mobile number',showError:true})
+          return false
+        }
+      }
+    }else {
+      if(value.length==10){
+        return true
+      }else{
+        this.setState({error:'Please enter valid mobile number',showError:true})
+        return false
+      }
     }
   }
 

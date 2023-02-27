@@ -189,7 +189,7 @@ class ChairmanSidebar extends DashboardController {
                 {t("Invoices")}
               </Typography>
             </AccordionDetails>
-            <AccordionDetails onClick={() => this.props.navigation.navigate("CommunityCharmainReceiptsUserProfile")}>
+            <AccordionDetails onClick={() => this.props.navigation.navigate("CharmainReceipts")}>
               <Typography
                 variant="body2"
                 className={`cursor-pointer ${pathName === "/CharmainReceipts" && "highlight"}`}

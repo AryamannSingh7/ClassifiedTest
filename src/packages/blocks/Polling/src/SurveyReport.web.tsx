@@ -61,9 +61,10 @@ class PollReport extends SurveyReportController {
 
   render() {
     const {t} = this.props
+    const surveyId =  window.location.search ? window.location.search.split("=")[1] : null;
     return ( 
       <>
-    <Box style={{background: "#E5ECFF"}}>
+    <Box style={{background: "#F7F9FE"}}>
         <DashboardHeader {...this.props}/>
       
         <Box style={{display: "flex"}}>
@@ -79,7 +80,13 @@ class PollReport extends SurveyReportController {
                         <Box className="navigation">
                             <Box>
                                 <Typography variant="body1" >
-                                    {t("Poll and survey")} / {t("Create a Survey")} / {t("Survey Details")}/ <Box component="span" style={{color: "blue"}}>{t("Survey Report")}</Box>
+                                    <Box component="span" onClick={()=> this.props.history.push("/Polling")} style={{cursor:"pointer"}}>{t("Poll and survey")}
+                                    </Box>
+                                    {" "}/{" "}
+                                    <Box component="span" onClick={()=> this.props.history.push("/SurveyAllData")} style={{cursor:"pointer"}}>
+                                        {t("Created Surveys")}
+                                    </Box>{" "}/ {" "} <Box component="span" onClick={()=> this.props.history.push(`/SurveyDetails?id=${surveyId}`)} style={{cursor:"pointer"}}> {t("Survey Details")} </Box> /{" "}
+                                    <Box component="span" style={{color: "blue"}}>{t("Survey Report")}</Box>
                                 </Typography>
                                 <Typography variant="h5" className="subHeading">{t("Survey Report")}</Typography>
                             </Box>  
@@ -92,9 +99,9 @@ class PollReport extends SurveyReportController {
                     </Grid>
                     <Grid style={{marginTop: "2rem", marginBottom:"5rem"}} className="PollResponseMain">
                         <Grid item sm={12} md={12} xs={12}>
-                            <Box class="tableTopSearch">
+                            <Box class="tableTopSearch" style={{marginTop:"0px"}}>
                                 <h4>{this.state.surveyName}</h4>
-                                <div className="searchBox">
+                                <div className="searchBox" style={{width:"250px"}}>
                                     <div className="searchIcon">
                                     <SearchIcon />
                                     </div>
@@ -128,16 +135,7 @@ class PollReport extends SurveyReportController {
                                                     <TableCell component="th" scope="row">{index + 1}</TableCell>
                                                     <TableCell align="start">{row.name}</TableCell>
                                                     <TableCell align="start">
-                                                        {
-                                                            row.unit_number?.map((item,key)=>{
-                                                                return(
-                                                                    <>
-                                                                        {item}
-                                                                    </>
-                                                                )
-                                                            })
-
-                                                        }
+                                                        {row.unit_number.join(",")}
                                                     </TableCell>
                                                     <TableCell align="start"><Button variant="contained" color="inherit" onClick={()=>this.handleOpenAudienceModal(row.response_details)}>{t("View")}</Button></TableCell>
                                                 </TableRow>
