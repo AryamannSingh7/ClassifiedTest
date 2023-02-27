@@ -443,23 +443,34 @@
     & .customSelect {
       margin-right: 10px;
       margin-bottom: 0;
-
       & .MuiOutlinedInput-root {
         padding-left: 0;
       }
-
+      
       &.danger {
+        background-color: transparent !important;
         & .MuiOutlinedInput-root {
           // background-color: #fde8e7;
         }
-
+        & #demo-simple-select-outlined,
         & .MuiInputBase-input {
-          color: $WARNING_SHADE1;
+          color: $WARNING_SHADE1 !important;
           font-weight: bold;
         }
 
         & .MuiSelect-icon {
           color: $WARNING_SHADE1;
+        }
+        & .MuiOutlinedInput-root {
+          background-color: #ffeded;
+          border: 0 !important;
+        }
+        & .MuiSelect-outlined
+        {
+          &.MuiSelect-outlined
+          {
+            background-color: #ffeded;
+          }
         }
       }
 
@@ -467,14 +478,25 @@
         & .MuiOutlinedInput-root {
           background-color: $GREEN_SHADE1;
         }
-
+        & #demo-simple-select-outlined,
         & .MuiInputBase-input {
-          color: $GREEN;
+          color: $GREEN !important;
           font-weight: bold;
         }
 
         & .MuiSelect-icon {
           color: $GREEN;
+        }
+        & .MuiOutlinedInput-root {
+          background-color:  $GREEN_SHADE1;
+          border: 0 !important;
+        }
+        & .MuiSelect-outlined
+        {
+          &.MuiSelect-outlined
+          {
+            background-color: $GREEN_SHADE1;
+          }
         }
       }
 
@@ -482,14 +504,24 @@
         & .MuiOutlinedInput-root {
           // background-color: $ORANGE_SHADE1;
         }
-
+        & #demo-simple-select-outlined,
         & .MuiInputBase-input {
-          color: $ORANGE;
+          color: $ORANGE !important;
           font-weight: bold;
         }
-
         & .MuiSelect-icon {
           color: $ORANGE;
+        }
+        & .MuiOutlinedInput-root {
+          background-color:  $ORANGE_SHADE1;
+          border: 0 !important;
+        }
+        & .MuiSelect-outlined
+        {
+          &.MuiSelect-outlined
+          {
+            background-color: $ORANGE_SHADE1;
+          }
         }
       }
     }
@@ -514,6 +546,7 @@
     & .card-rows {
       display: flex;
       margin: 10px 0;
+      border-bottom:1px solid #fdfafa ;
 
       & h4 {
         padding-left: 20px;
