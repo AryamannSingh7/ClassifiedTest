@@ -148,7 +148,7 @@ class MeetingMinuteNote extends MeetingMinutesController {
           fullWidth
           onClose={() => this.handleSubmitNoteModal()}
           open={this.state.isSubmitNoteModalOpen}
-          className="cancel-meeting-dialog"
+          className="cancel-meeting-dialog submit-meeting-minute-dialog"
         >
           <DialogContent style={{ margin: "15px 0" }}>
             <Box textAlign="center">
@@ -156,7 +156,7 @@ class MeetingMinuteNote extends MeetingMinutesController {
               <Typography variant="h6" className="bold-text">
                 {t("Submit Meeting Minutes")}
               </Typography>
-              <Typography variant="body1" style={{ marginBottom: "0px" }}>
+              <Typography variant="body1" style={{ marginBottom: "8px" }}>
                 {t("Are you sure you want to submit meeting minutes?")}
               </Typography>
               <DialogActions className="dialog-button-group">

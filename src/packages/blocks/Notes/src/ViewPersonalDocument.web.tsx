@@ -1,10 +1,9 @@
 // Customizable Area Start
 import React from "react";
 import { Container, IconButton, Link, withStyles, Box, Grid } from "@material-ui/core";
-import KeyboardBackspaceIcon from "@material-ui/icons/KeyboardBackspace";
 import ViewPersonalDocumentController, { Props } from "./ViewPersonalDocumentController.web";
 import { DocumentReportStyleWeb } from "./DocumentReportStyle.web";
-import { DownloadImage } from "./assets";
+import { BackIcon, DownloadImage } from "./assets";
 import { withTranslation } from "react-i18next";
 import SidebarImageComponent from "../../../components/src/OwnerSidebarImage.web";
 
@@ -25,7 +24,7 @@ class ViewPersonalDocument extends ViewPersonalDocumentController {
                 <div className="name">
                   <Link href={`/PersonalDocument/${this.state.documentType}`}>
                     <IconButton>
-                      <KeyboardBackspaceIcon />
+                      <img src={BackIcon} alt="" />
                     </IconButton>
                   </Link>{" "}
                   <span className="bold-text">{this.state.documentTitle}</span>

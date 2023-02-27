@@ -9,3 +9,4 @@ export const DownloadImage = require("../assets/download.png");
 export const PdfImage = require("../assets/pdf.png");
 export const BuildingLogo = require("../assets/building.png");
 export const NoPdf = require("../assets/no-pdf.png");
+export const BackIcon = require("../assets/back-icon.png");

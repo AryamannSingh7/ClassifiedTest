@@ -80,7 +80,11 @@ class MeetingMinuteDetails extends MeetingMinutesController {
                             true
                           ).format("MMMM DD, YYYY HH:mm")}
                         </h4>
-                        <span className={this.state.meetingMinuteStatus}>{this.state.meetingMinuteStatus}</span>
+                        <span className={this.state.meetingMinuteStatus}>
+                          {this.state.meetingMinuteStatus == "pending"
+                            ? "Pending Approval"
+                            : this.state.meetingMinuteStatus}
+                        </span>
                       </Box>
                       <Divider />
                       <Box className="meeting-minute-details">

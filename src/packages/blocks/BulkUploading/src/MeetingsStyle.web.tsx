@@ -341,7 +341,7 @@ export const MeetingsStyleWeb: any = {
     },
     "& .meeting-detail-box .meeting-details .items": {
       borderBottom: "1px solid #f0f0f0",
-      padding: "15px 0",
+      padding: "12px 0",
     },
     "& .meeting-detail-box .meeting-details .items p": {
       display: "inline-block",
@@ -360,6 +360,8 @@ export const MeetingsStyleWeb: any = {
       justifyContent: "space-between",
       alignItems: "center",
       background: "white",
+      marginLeft: "14px",
+      marginRight: "14px",
     },
     "& .response-box h3": {
       fontWeight: "600",
@@ -378,6 +380,9 @@ export const MeetingsStyleWeb: any = {
     },
     "& .response-box .status p span": {
       fontWeight: "600",
+    },
+    "& .response-box td": {
+      padding: "14px",
     },
     "& .button-box": {
       display: "flex",
@@ -487,6 +492,7 @@ export const MeetingsStyleWeb: any = {
       padding: "5px 10px",
       borderRadius: "25px",
       textTransform: "capitalize",
+      fontWeight: "600",
     },
     "& .response-box .table-box th": {
       fontWeight: "600",
@@ -749,7 +755,10 @@ export const MeetingsStyleWeb: any = {
       width: "fit-content",
     },
     "& .meeting-detail": {
-      marginBottom: "20px",
+      margin: "0 8px 20px 8px",
+    },
+    "& .scheduled-detail": {
+      margin: "0 8px 20px 8px",
     },
     "& .meeting-detail .heading": {
       display: "flex",
@@ -776,7 +785,7 @@ export const MeetingsStyleWeb: any = {
     "& .meeting-detail .meeting-card": {
       padding: "20px",
       borderRadius: "8px",
-      boxShadow: "none",
+      boxShadow: "4px 0px 14px #e9e9e9",
     },
     "& .meeting-detail .meeting-card p": {
       fontWeight: "600",
@@ -784,7 +793,7 @@ export const MeetingsStyleWeb: any = {
     "& .scheduled-detail .scheduled-card": {
       padding: "20px",
       borderRadius: "8px",
-      boxShadow: "none",
+      boxShadow: "4px 0px 14px #e9e9e9",
     },
     "& .scheduled-detail .scheduled-card .item": {
       display: "flex",

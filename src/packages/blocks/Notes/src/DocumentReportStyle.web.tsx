@@ -180,7 +180,7 @@ export const DocumentReportStyleWeb: any = {
       whiteSpace: "nowrap",
       textOverflow: "ellipsis",
       fontSize: "18px",
-      lineHeight: "18px",
+      lineHeight: "24px",
     },
     "& .menu span": {
       overflow: "hidden",
@@ -314,6 +314,7 @@ export const DocumentReportStyleWeb: any = {
     "& .list .personal-documents .content-box h3": {
       fontWeight: "600",
       marginBottom: "15px",
+      fontSize: "22px",
     },
     "& .document-view": {
       background: "white",
@@ -346,7 +347,7 @@ export const DocumentReportStyleWeb: any = {
       whiteSpace: "nowrap",
       textOverflow: "ellipsis",
       fontSize: "18px",
-      lineHeight: "18px",
+      lineHeight: "24px",
     },
     "& .right-image": {
       padding: "25px 60px",
