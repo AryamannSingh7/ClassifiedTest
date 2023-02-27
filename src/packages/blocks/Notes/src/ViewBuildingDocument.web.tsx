@@ -39,7 +39,7 @@ class ViewBuildingDocument extends ViewBuildingDocumentController {
               </Box>
               <Container className="content-area document-box">
                 <div className="document-view">
-                  <iframe src={this.state.documentUrl} />
+                  <iframe src={this.state.documentUrl + "#toolbar=0&navpanes=0&scrollbar=0&view=FitH"} />
                 </div>
                 {this.state.documentType.toLowerCase() === "resolutions" && this.state.document && (
                   <>

@@ -28,7 +28,7 @@ class DocumentChairman extends DocumentChairmanController {
 
     return (
       <>
-        <Box style={{ background: "#F4F7FF" }} className={classes.documentChairman}>
+        <Box style={{ background: "#F7F9FE" }} className={classes.documentChairman}>
           <DashboardHeader {...this.props} />
           <Box style={{ display: "flex" }}>
             <Grid item xs={3} md={3} sm={3} className="SideBar">
@@ -47,7 +47,7 @@ class DocumentChairman extends DocumentChairmanController {
                     </Typography>
                   </Box>
                 </Box>
-                <Box className="document-box">
+                <Box className="document-box document-card">
                   <Grid container spacing={2}>
                     <Grid item xs={12} md={6} lg={4}>
                       <Link href="/DocumentChairman/Policy">

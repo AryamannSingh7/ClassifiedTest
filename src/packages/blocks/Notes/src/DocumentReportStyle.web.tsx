@@ -39,6 +39,9 @@ export const DocumentReportStyleWeb: any = {
       background: "#FFF",
       padding: 20,
     },
+    "& .document-card": {
+      boxShadow: "4px 0px 14px #e9e9e9",
+    },
     "& .document-box .item": {
       minHeight: "34px",
       display: "flex",
@@ -85,7 +88,7 @@ export const DocumentReportStyleWeb: any = {
       borderRadius: 5,
     },
     "& .document-box .card-item": {
-      boxShadow: "none",
+      boxShadow: "4px 0px 14px #e9e9e9",
       padding: "18px",
     },
     "& .document-box .card-item .heading": {
@@ -374,7 +377,7 @@ export const DocumentReportStyleWeb: any = {
     "& .document-box .item .heading h4": {
       fontWeight: "600",
       fontSize: "16px",
-      marginLeft: "10px",
+      marginLeft: "15px",
       wordBreak: "break-all",
       textTransform: "capitalize",
     },

@@ -52,7 +52,7 @@ class DocumentListChairman extends DocumentListChairmanController {
   };
 
   documentClass = (documentPage: any) => {
-    return documentPage === "resolutions" ? "resolutions" : "";
+    return documentPage === "resolutions" ? "resolutions" : "document-card";
   };
 
   handleError = (errors: any, touched: any) => {
@@ -278,7 +278,7 @@ class DocumentListChairman extends DocumentListChairmanController {
 
     return (
       <>
-        <Box style={{ background: "#F4F7FF" }} className={classes.documentChairman}>
+        <Box style={{ background: "#F7F9FE" }} className={classes.documentChairman}>
           {/* Dashboard Header -- */}
           <DashboardHeader {...this.props} />
           <Box style={{ display: "flex" }}>
