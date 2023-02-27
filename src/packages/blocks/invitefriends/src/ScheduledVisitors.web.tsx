@@ -40,11 +40,11 @@ class ScheduledVisitors  extends ScheduledVisitorController{
       return (
         <>
             <Grid item xs={12} md={12} className="auth-cols">
-                <Grid container style={{ margin: '1.5rem 1rem', width: '95%' }} >
+                <Grid container style={{ margin: '1rem', width: '95%' }} >
                   <Grid xs={12} style={{ display:"flex", alignItems:"center", gap:"1rem",justifyContent:"space-between"}} >
                       <Box style={{ display:"flex", alignItems:"center", gap:"5px"}}>
                           <ArrowBackIcon onClick={() => window.history.back()} />
-                          <p style={{ fontSize: '1rem', fontWeight: 600 }}>
+                          <p className="bold-text" style={{ fontSize: '18px ', fontWeight: 600 }}>
                               {t("Scheduled Visitors")}
                           </p>
                       </Box>
@@ -135,25 +135,25 @@ const VisitorBox = (props:any) => {
             bgcolor="white"
             marginTop='1rem'
             padding='1rem'
-            style={{boxShadow:"rgba(99, 99, 99, 0.2) 0px 2px 8px 0px"}}
+            style={{boxShadow:"4px 0px 14px #ececec"}}
         >
             <Box style={{minWidth:"100%",display:"flex",justifyContent:"space-between"}}>
                 <Box style={{display:"flex",alignItems:"center"}} onClick={()=> props.history.push(`/VisitorDetails?id=${props.item.id}`)}>
-                    <Box style={{marginRight:"20px"}}>
-                        <img src={props.item.profilePic || exampleImg.default} height="55px" width="55px" style={{borderRadius:"100px"}}/>
+                    <Box style={{marginRight:"15px"}}>
+                        <img src={props.item.profilePic || exampleImg} height="50px" width="50px" style={{borderRadius:"150px"}}/>
                     </Box>
                     <Box style={{display:'flex',flexDirection:"column",justifyContent:"center"}}>
-                        <Typography variant={"body1"} style={{fontWeight:"bold"}}>
+                        <Typography className="bold-text" variant={"body1"}>
                             {props.item?.attributes?.name}
                         </Typography>
-                        <Typography variant={"subtitle2"} color="textSecondary" style={{marginBottom:"5px"}} >
+                        <Typography variant={"subtitle2"} color="textSecondary" style={{marginBottom:"5px",fontSize:"14px"}} >
                             {moment(props.item?.attributes?.schedule_time).format("DD MMM YYYY - hh:mm")}
                         </Typography>
                     </Box>
                 </Box>
-                <Box style={{display:'flex',alignItems:"center"}}>
+                <Box style={{display:'flex',alignItems:"center",justifySelf:"flex-end"}}>
                     <IconButton onClick={handleClick} style={{padding:"5px"}}>
-                        <MoreVertIcon style={{color:"#c0c0c0",fontSize:"1.8rem"}}/>
+                        <MoreVertIcon style={{color:"#c0c0c0",fontSize:"1.5rem"}}/>
                     </IconButton>
                     <Menu
                         id="simple-menu"
@@ -162,8 +162,8 @@ const VisitorBox = (props:any) => {
                         open={Boolean(anchorEl)}
                         onClose={handleClose}
                     >
-                        <MenuItem onClick={handleEdit}>{t("Edit")}</MenuItem>
-                        <MenuItem onClick={handleDelete}>{t("Delete")}</MenuItem>
+                        <MenuItem style={{minHeight:"30px"}} onClick={handleEdit}>{t("Edit")}</MenuItem>
+                        <MenuItem style={{minHeight:"30px"}} onClick={handleDelete}>{t("Delete")}</MenuItem>
                     </Menu>
                 </Box>
             </Box>

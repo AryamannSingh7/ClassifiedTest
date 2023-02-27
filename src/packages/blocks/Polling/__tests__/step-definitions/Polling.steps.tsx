@@ -12,7 +12,8 @@ const navigation = require("react-navigation")
 
 const screenProps = {
     navigation: navigation,
-    id: "Polling"
+    id: "Polling",
+    history:{},
   }
 
 const feature = loadFeature('./__tests__/features/Polling-scenario.feature');
