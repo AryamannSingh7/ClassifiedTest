@@ -18,10 +18,9 @@ import { Menu, MenuItem } from "@szhsin/react-menu";
 import MoreVertIcon from "@material-ui/icons/MoreVert";
 import CloseIcon from "@material-ui/icons/Close";
 import MuiDialogTitle from "@material-ui/core/DialogTitle";
-import KeyboardBackspaceIcon from "@material-ui/icons/KeyboardBackspace";
 import PersonalDocumentListController, { Props } from "./PersonalDocumentListController.web";
 import { DocumentReportStyleWeb } from "./DocumentReportStyle.web";
-import { UploadImage, DeleteImage, NoPdf, PdfImage } from "./assets";
+import { UploadImage, DeleteImage, NoPdf, PdfImage, BackIcon } from "./assets";
 import moment from "moment";
 import { withTranslation } from "react-i18next";
 import ShareDocumentModal from "../../../components/src/DocumentComponent/ShareModal.web";
@@ -58,13 +57,16 @@ class PersonalDocumentList extends PersonalDocumentListController {
 
     return (
       <>
-        <Box className={classes.personalDocument} style={{ background: "#F7F9FE", height: "100vh" }}>
+        <Box
+          className={classes.personalDocument}
+          style={{ background: this.state.documentsList.length === 0 ? "white" : "#F7F9FE", height: "100vh" }}
+        >
           <Grid container>
             <Grid item xs={12} md={7}>
               <Box display={{ xs: "flex", md: "flex" }} className="menu">
                 <Link href="/PersonalDocument">
                   <IconButton>
-                    <KeyboardBackspaceIcon />
+                    <img src={BackIcon} alt="" />
                   </IconButton>
                 </Link>{" "}
                 <span className="bold-text">

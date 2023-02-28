@@ -68,7 +68,7 @@ class EditTenant extends RegisterTenantController {
                         <KeyboardBackspaceIcon />
                       </IconButton>
                     </Link>
-                    <span>{t("Edit A Tenant")}</span>
+                    <span className="bold-text">{t("Edit A Tenant")}</span>
                   </div>
                 </Box>
                 <Container className="page-container">
@@ -151,9 +151,7 @@ class EditTenant extends RegisterTenantController {
                                       return (
                                         <MenuItem key={country.dial_code} value={country.dial_code}>
                                           <img
-                                            src={`https://cdn.jsdelivr.net/npm/country-flag-emoji-json@2.0.0/dist/images/${
-                                              country.code
-                                            }.svg`}
+                                            src={`https://cdn.jsdelivr.net/npm/country-flag-emoji-json@2.0.0/dist/images/${country.code}.svg`}
                                             width="15"
                                             height="15"
                                             style={{ marginRight: "5px" }}

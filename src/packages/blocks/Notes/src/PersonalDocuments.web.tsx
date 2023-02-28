@@ -1,8 +1,7 @@
 // Customizable Area Start
 import React from "react";
 import { Container, IconButton, Link, withStyles, Box, Grid } from "@material-ui/core";
-import KeyboardBackspaceIcon from "@material-ui/icons/KeyboardBackspace";
-import { Document } from "./assets";
+import { BackIcon, Document } from "./assets";
 import { DocumentReportStyleWeb } from "./DocumentReportStyle.web";
 import PersonalDocumentController, { Props } from "./PersonalDocumentsController.web";
 import { withTranslation } from "react-i18next";
@@ -24,7 +23,7 @@ class PersonalDocument extends PersonalDocumentController {
             <Grid item xs={12} md={7}>
               <Box display={{ xs: "flex", md: "flex" }} className="menu">
                 <IconButton onClick={() => this.redirectToDashboard()}>
-                  <KeyboardBackspaceIcon />
+                  <img src={BackIcon} alt="" />
                 </IconButton>
                 <span className="bold-text">{t("Personal Documents")}</span>
               </Box>

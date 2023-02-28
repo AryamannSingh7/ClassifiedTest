@@ -6,7 +6,6 @@ import IssueContractController, { Props } from "./IssueContractController.web";
 import { ContractsStyleWeb } from "./ContractsStyle.web";
 import { BuildingLogo, TemplateIcon } from "./assets";
 import { withTranslation } from "react-i18next";
-import "../../../web/src/i18n.js";
 
 class IssueContract extends IssueContractController {
   constructor(props: Props) {
@@ -18,8 +17,7 @@ class IssueContract extends IssueContractController {
   }
 
   render() {
-    const { classes } = this.props;
-    const { t }: any = this.props;
+    const { t, classes }: any = this.props;
 
     return (
       <>
@@ -34,33 +32,13 @@ class IssueContract extends IssueContractController {
                         <KeyboardBackspaceIcon />
                       </IconButton>
                     </Link>
-                    <span>{t("Issue a Lease")}</span>
+                    <span className="bold-text">{t("Issue a Lease")}</span>
                   </div>
                 </Box>
                 <Container className="page-container">
                   <Box className="issue-lease-content">
-                    {/* <Box className="select-input-box">
-                      <Select
-                        displayEmpty
-                        value=""
-                        variant="filled"
-                        fullWidth
-                        className="select-input"
-                        input={<OutlinedInput />}
-                      >
-                        <MenuItem value="" disabled>
-                          <ListItemIcon>
-                            <img src={EarthIcon} alt="" />
-                          </ListItemIcon>
-                          {t("Country")}
-                        </MenuItem>
-                        <MenuItem value={10}>Ten</MenuItem>
-                        <MenuItem value={20}>Twenty</MenuItem>
-                        <MenuItem value={30}>Thirty</MenuItem>
-                      </Select>
-                    </Box> */}
                     <Box className="templates-list">
-                      <h3>{t("Select Lease Template")}</h3>
+                      <h4 className="bold-text">{t("Select Lease Template")}</h4>
                       <Grid container spacing={2}>
                         {this.state.templatesList.length === 0 && (
                           <Grid item xs={12}>
@@ -75,7 +53,7 @@ class IssueContract extends IssueContractController {
                                   <div className="image">
                                     <img src={TemplateIcon} alt="" />
                                   </div>
-                                  <h4>{template.attributes.title}</h4>
+                                  <h4 className="bold-text">{template.attributes.title}</h4>
                                 </div>
                                 {index === 0 && (
                                   <div className="right-menu">

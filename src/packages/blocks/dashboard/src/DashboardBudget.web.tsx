@@ -2,7 +2,6 @@
 import React from "react";
 import { riyal, expense, statistic, removeuser, approvedbudget, keyrented } from "./assets";
 import { Container, Typography, withStyles, Card, Link, Box, Grid } from "@material-ui/core";
-import NativeSelect from "@material-ui/core/NativeSelect";
 import DashboardBudgetController, { Props } from "../../../blocks/dashboard/src/DashboardBudgetController.web";
 import DashboardHeader from "./DashboardHeader.web";
 import ChairmanSidebar from "./ChairmanSidebar.web";
@@ -29,6 +28,16 @@ class DashboardBudget extends DashboardBudgetController {
     super(props);
   }
 
+  async componentDidMount(): Promise<void> {
+    this.getBudgetDashboardYearList();
+    this.getAllBuildingList();
+  }
+
+  async componentDidUpdate(prevProps: any, prevState: any): Promise<void> {
+    if (prevState.filterBuilding !== this.state.filterBuilding || prevState.filterYear !== this.state.filterYear) {
+    }
+  }
+
   render() {
     const { t, classes }: any = this.props;
     const userType = localStorage.getItem("userType");
@@ -36,11 +45,9 @@ class DashboardBudget extends DashboardBudgetController {
     return (
       <>
         <Box className={classes.generalDashboard}>
-          {/* Dashboard Header -- */}
           <DashboardHeader {...this.props} />
           <Box style={{ display: "flex" }}>
             <Grid item xs={3} md={3} sm={3} className="SideBar">
-              {/* Chairman Sidebar -- */}
               <ChairmanSidebar {...this.props} />
             </Grid>
 
@@ -56,21 +63,40 @@ class DashboardBudget extends DashboardBudgetController {
                     </Typography>
                   </Box>
                   <Box className="sub-heading-box">
-                    <Typography variant="h5">{t("Budget Dashboard")}</Typography>
+                    <Typography variant="h5" className="bold-text">
+                      {t("Budget Dashboard")}
+                    </Typography>
                     <Box className="select-box">
                       {userType === ROLE.MANAGER && (
-                        <select className="select-year">
-                          <option value={2022}>Building 1</option>
-                          <option value={2021}>Building 2</option>
-                          <option value={2020}>Building 3</option>
-                          <option value={2019}>Building 4</option>
+                        <select
+                          className="select-year"
+                          value={this.state.filterBuilding}
+                          onChange={(e: any) => this.setState({ filterBuilding: e.target.value })}
+                        >
+                          <option value="" disabled>
+                            {t("Select Building")}
+                          </option>
+                          {this.state.buildingList.map((building: any) => {
+                            return (
+                              <option value={building.id} key={building.id}>
+                                {building.attributes.name}
+                              </option>
+                            );
+                          })}
                         </select>
                       )}
-                      <select className="select-year">
-                        <option value={2022}>2022</option>
-                        <option value={2021}>2021</option>
-                        <option value={2020}>2020</option>
-                        <option value={2019}>2019</option>
+                      <select
+                        value={this.state.filterYear}
+                        onChange={(e: any) => this.setState({ filterYear: e.target.value })}
+                        className="select-year"
+                      >
+                        {this.state.yearList.map((year: any) => {
+                          return (
+                            <option value={year} key={year}>
+                              {year}
+                            </option>
+                          );
+                        })}
                       </select>
                     </Box>
                   </Box>
@@ -82,7 +108,7 @@ class DashboardBudget extends DashboardBudgetController {
                       <Box className="card-image">
                         <img src={riyal} alt="image" />
                       </Box>
-                      <h4>{t("Collected vs Budget Amount")}</h4>
+                      <h4 className="bold-text">{t("Collected vs Budget Amount")}</h4>
                       <Box className="info-box">
                         <p>{t("Collected")}</p>
                         <span>SR 12000</span>
@@ -98,7 +124,7 @@ class DashboardBudget extends DashboardBudgetController {
                       <Box className="card-image">
                         <img src={keyrented} alt="image" />
                       </Box>
-                      <h4>{t("Total Rent Due vs Rent Collected")}</h4>
+                      <h4 className="bold-text">{t("Total Rent Due vs Rent Collected")}</h4>
                       <Box className="info-box">
                         <p>{t("Rent Due")}</p>
                         <span>SR 12000</span>
@@ -114,7 +140,7 @@ class DashboardBudget extends DashboardBudgetController {
                       <Box className="card-image">
                         <img src={removeuser} alt="image" />
                       </Box>
-                      <h4> {t("Number of members have not paid management fee")}</h4>
+                      <h4 className="bold-text">{t("Number of members have not paid management fee")}</h4>
                       <Box className="info-box">
                         <span>27</span>
                         <p>{t("Members")}</p>
@@ -161,7 +187,7 @@ class DashboardBudget extends DashboardBudgetController {
                   <Grid item sm={6}>
                     <Card className="budget-table-content-box">
                       <Box className="header">
-                        <h4>{t("Total Expenses Breakdown")}</h4>
+                        <h4 className="bold-text">{t("Total Expenses Breakdown")}</h4>
                       </Box>
                       <hr />
                       <Box className="body">
@@ -179,14 +205,14 @@ class DashboardBudget extends DashboardBudgetController {
                       <hr />
                       <Box className="footer">
                         <p>Total Expenses</p>
-                        <h4>SR 12,000</h4>
+                        <h4 className="bold-text">SR 12,000</h4>
                       </Box>
                     </Card>
                   </Grid>
                   <Grid item sm={6}>
                     <Card className="budget-table-content-box">
                       <Box className="header">
-                        <h4>{t("Collected Fees")}</h4>
+                        <h4 className="bold-text">{t("Collected Fees")}</h4>
                       </Box>
                       <hr />
                       <Box className="body">
@@ -204,7 +230,7 @@ class DashboardBudget extends DashboardBudgetController {
                       <hr />
                       <Box className="footer">
                         <p>Total Expenses</p>
-                        <h4>SR 12,000</h4>
+                        <h4 className="bold-text">SR 12,000</h4>
                       </Box>
                     </Card>
                   </Grid>

@@ -31,7 +31,7 @@ class RegisterPropertyManagerSuccess extends RegisterPropertyManagerController {
                 <Container className="page-container">
                   <Box className="success-page">
                     <img src={SuccessIcon} alt="" />
-                    <h4>{t("Property Manager added Successfully")}</h4>
+                    <h4 className="bold-text">{t("Property Manager added Successfully")}</h4>
                     <p>
                       {t(
                         "Property Manager has been added successfully to manage your property. He will receive link to register himself using the provided email address and mobile number."

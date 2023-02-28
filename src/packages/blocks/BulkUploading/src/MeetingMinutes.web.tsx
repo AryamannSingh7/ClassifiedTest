@@ -191,11 +191,11 @@ class MeetingMinutes extends MeetingMinutesController {
                       <TableHead>
                         <TableRow>
                           <TableCell>#</TableCell>
-                          <TableCell>{t("Title")}</TableCell>
-                          <TableCell>{t("Agenda")}</TableCell>
-                          {localStorage.getItem("userType") === ROLE.MANAGER && <TableCell>{t("Building")}</TableCell>}
-                          <TableCell>{t("Date & Time")}</TableCell>
-                          <TableCell>{t("Status")}</TableCell>
+                          <TableCell className="bold-text">{t("Title")}</TableCell>
+                          <TableCell className="bold-text">{t("Agenda")}</TableCell>
+                          {localStorage.getItem("userType") === ROLE.MANAGER && <TableCell className="bold-text">{t("Building")}</TableCell>}
+                          <TableCell className="bold-text">{t("Date & Time")}</TableCell>
+                          <TableCell className="bold-text">{t("Status")}</TableCell>
                           <TableCell />
                         </TableRow>
                       </TableHead>
@@ -209,8 +209,8 @@ class MeetingMinutes extends MeetingMinutesController {
                           return (
                             <TableRow key={index}>
                               <TableCell>{index + 1}</TableCell>
-                              <TableCell className="ellipse">{meeting.attributes.title}</TableCell>
-                              <TableCell className="ellipse">{meeting.attributes.agenda}</TableCell>
+                              <TableCell className="ellipse-one">{meeting.attributes.title}</TableCell>
+                              <TableCell className="ellipse-one">{meeting.attributes.agenda}</TableCell>
                               {localStorage.getItem("userType") === ROLE.MANAGER && (
                                 <TableCell>{meeting.attributes?.building?.name}</TableCell>
                               )}
@@ -224,7 +224,7 @@ class MeetingMinutes extends MeetingMinutesController {
                                   {meeting.attributes.meeting_mins_status}
                                 </span>
                               </TableCell>
-                              <TableCell>
+                              <TableCell className="meeting-menu">
                                 <Menu
                                   menuButton={
                                     <IconButton>

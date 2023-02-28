@@ -35,7 +35,7 @@ class TotalExpense extends TotalExpenseController {
                         <KeyboardBackspaceIcon />
                       </IconButton>
                     </Link>
-                    <span>{t("Total Expenses")}</span>
+                    <span className="bold-text">{t("Total Expenses")}</span>
                   </Box>
                   <Box className="right-icon">
                     <Menu
@@ -57,7 +57,7 @@ class TotalExpense extends TotalExpenseController {
                       <Grid container spacing={2}>
                         <Grid item xs={12}>
                           <Box className="heading">
-                            <h4>
+                            <h4 className="bold-text">
                               {this.state.selectedYear} {t("Expense Report")}
                             </h4>
                             <select
@@ -85,7 +85,7 @@ class TotalExpense extends TotalExpenseController {
                                 <img src={ExpenseIcon} alt="" />
                               </Box>
                               <Box className="content-box">
-                                <h4>{t("Total Expenses")}</h4>
+                                <h4 className="bold-text">{t("Total Expenses")}</h4>
                                 <h4 className="amount">
                                   {this.validateCurrency(
                                     this.state.totalExpense.currency,
@@ -101,7 +101,7 @@ class TotalExpense extends TotalExpenseController {
                       <Grid container spacing={2}>
                         <Grid item xs={12}>
                           <Box className="heading">
-                            <h4>{t("Categorywise Expense Report")}</h4>
+                            <h4 className="bold-text">{t("Categorywise Expense Report")}</h4>
                           </Box>
                         </Grid>
                         {this.state.categoryWiseExpense.length === 0 && (
@@ -125,7 +125,7 @@ class TotalExpense extends TotalExpenseController {
                       <Grid container spacing={2}>
                         <Grid item xs={12}>
                           <Box className="heading">
-                            <h4>{t("Unitwise Expense Report")}</h4>
+                            <h4 className="bold-text">{t("Unitwise Expense Report")}</h4>
                           </Box>
                         </Grid>
                         {this.state.unitWiseExpense.length === 0 && (
@@ -153,7 +153,7 @@ class TotalExpense extends TotalExpenseController {
                       <Grid container spacing={2}>
                         <Grid item xs={12}>
                           <Box className="heading">
-                            <h4>{t("Citywise Expense Report")}</h4>
+                            <h4 className="bold-text">{t("Citywise Expense Report")}</h4>
                           </Box>
                         </Grid>
                         {this.state.cityWiseExpense.length === 0 && (

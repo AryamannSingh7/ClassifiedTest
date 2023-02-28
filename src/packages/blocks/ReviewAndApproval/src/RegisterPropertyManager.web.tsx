@@ -85,7 +85,7 @@ class RegisterPropertyManager extends RegisterPropertyManagerController {
                         <KeyboardBackspaceIcon />
                       </IconButton>
                     </Link>
-                    <span>{t("Add Property Manager")}</span>
+                    <span className="bold-text">{t("Add Property Manager")}</span>
                   </div>
                 </Box>
                 <Container className="page-container">
@@ -173,7 +173,9 @@ class RegisterPropertyManager extends RegisterPropertyManagerController {
                                       return (
                                         <MenuItem key={country.dial_code} value={country.dial_code}>
                                           <img
-                                            src={`https://cdn.jsdelivr.net/npm/country-flag-emoji-json@2.0.0/dist/images/${country.code}.svg`}
+                                            src={`https://cdn.jsdelivr.net/npm/country-flag-emoji-json@2.0.0/dist/images/${
+                                              country.code
+                                            }.svg`}
                                             width="15"
                                             height="15"
                                             style={{ marginRight: "5px" }}
@@ -202,13 +204,15 @@ class RegisterPropertyManager extends RegisterPropertyManagerController {
                                   <p className="error">{t(errors.mobileNumber)}</p>
                                 )}
                               </FormControl>
-                              <h4 style={{ marginTop: "18px" }}>{t("Property Details")}</h4>
+                              <h4 className="bold-text" style={{ marginTop: "18px" }}>
+                                {t("Property Details")}
+                              </h4>
                               {this.state.propertyList.map((property: any, index: number) => {
                                 return (
                                   <Box className="rent-history-box unit-box" key={index}>
                                     <Box className="heading">
-                                      <h4>
-                                        Building {property.buildingName} Unit {property.unitName}
+                                      <h4 className="bold-text">
+                                        {t("Building")} {property.buildingName} {t("Unit")} {property.unitName}
                                       </h4>
                                       <Box className="box-icons">
                                         <img
@@ -399,7 +403,11 @@ class RegisterPropertyManager extends RegisterPropertyManagerController {
               return (
                 <Form onSubmit={handleSubmit} translate="yes">
                   <Box>
-                    {this.state.propertyId ? <h4>{t("Edit Property")}</h4> : <h4>{t("Add Another Property")}</h4>}
+                    {this.state.propertyId ? (
+                      <h4 className="bold-text">{t("Edit Property")}</h4>
+                    ) : (
+                      <h4 className="bold-text">{t("Add Another Property")}</h4>
+                    )}
                     <FormControl fullWidth>
                       <Input
                         value={values.country}

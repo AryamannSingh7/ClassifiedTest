@@ -388,12 +388,24 @@ export default class PropertyManagerDetailsController extends BlockComponent<Pro
   };
 
   registerPropertyFormSchema: any = Yup.object().shape({
-    buildingId: Yup.string().required("Required").matches(/\S/, "Required"),
-    unitId: Yup.string().required("Required").matches(/\S/, "Required"),
-    startDate: Yup.string().required("Required").matches(/\S/, "Required"),
-    endDate: Yup.string().required("Required").matches(/\S/, "Required"),
-    feeType: Yup.string().required("Required").matches(/\S/, "Required"),
-    rent: Yup.string().required("Required").matches(/\S/, "Required"),
+    buildingId: Yup.string()
+      .required("Required")
+      .matches(/\S/, "Required"),
+    unitId: Yup.string()
+      .required("Required")
+      .matches(/\S/, "Required"),
+    startDate: Yup.string()
+      .required("Required")
+      .matches(/\S/, "Required"),
+    endDate: Yup.string()
+      .required("Required")
+      .matches(/\S/, "Required"),
+    feeType: Yup.string()
+      .required("Required")
+      .matches(/\S/, "Required"),
+    rent: Yup.string()
+      .required("Required")
+      .matches(/\S/, "Required"),
   });
 
   handleEditPropertyModal = () => {

@@ -18,7 +18,7 @@ import MoreVertIcon from "@material-ui/icons/MoreVert";
 import KeyboardBackspaceIcon from "@material-ui/icons/KeyboardBackspace";
 import IssueContractController, { Props } from "./IssueContractController.web";
 import { ContractsStyleWeb } from "./ContractsStyle.web";
-import { BuildingLogo, TemplateIcon, BuildingIcon, CubeIcon } from "./assets";
+import { TemplateIcon, BuildingIcon, CubeIcon } from "./assets";
 import { withTranslation } from "react-i18next";
 import moment from "moment";
 import SidebarImageComponent from "../../../components/src/OwnerSidebarImage.web";
@@ -44,7 +44,7 @@ class IssueLease extends IssueContractController {
                         <KeyboardBackspaceIcon />
                       </IconButton>
                     </Link>
-                    <span>{t("Issue a Lease")}</span>
+                    <span className="bold-text">{t("Issue a Lease")}</span>
                   </div>
                 </Box>
                 <Container className="page-container">
@@ -142,7 +142,7 @@ class IssueLease extends IssueContractController {
                           <Grid container spacing={2}>
                             <Grid item xs={12}>
                               <div className="header">
-                                <h4>Contract {this.state.contract.id}</h4>
+                                <h4 className="bold-text">Contract {this.state.contract.id}</h4>
                                 <div className="right-menu">
                                   <Menu
                                     menuButton={
@@ -220,7 +220,7 @@ class IssueLease extends IssueContractController {
                       </Box>
                     ) : (
                       <Box className="templates-list">
-                        <h3>{t("Select Lease Template")}</h3>
+                        <h4 className="bold-text">{t("Select Lease Template")}</h4>
                         <Grid container spacing={2}>
                           {this.state.templatesList.length === 0 && (
                             <Grid item xs={12}>
@@ -235,7 +235,7 @@ class IssueLease extends IssueContractController {
                                     <div className="image">
                                       <img src={TemplateIcon} alt="" />
                                     </div>
-                                    <h4>{template.attributes.title}</h4>
+                                    <h4 className="bold-text">{template.attributes.title}</h4>
                                   </div>
                                   {index === 0 && (
                                     <div className="right-menu">

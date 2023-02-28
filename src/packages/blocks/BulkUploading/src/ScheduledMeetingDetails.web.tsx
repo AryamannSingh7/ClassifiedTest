@@ -141,7 +141,7 @@ class ScheduledMeetingDetails extends ScheduledMeetingController {
                     <Box className="items">
                       <span>{t("Date & Time")}: </span>
                       {this.state.scheduleMeetingDetails && (
-                        <p>
+                        <p className="bold-text">
                           {moment(
                             this.state.scheduleMeetingDetails.attributes.meeting_date_time,
                             "DD-MM-YYYY HH:mm",
@@ -152,25 +152,29 @@ class ScheduledMeetingDetails extends ScheduledMeetingController {
                     </Box>
                     <Box className="items">
                       <span>{t("Place")}: </span>
-                      <p>{this.state.scheduleMeetingDetails && this.state.scheduleMeetingDetails.attributes.place}</p>
+                      <p className="bold-text">
+                        {this.state.scheduleMeetingDetails && this.state.scheduleMeetingDetails.attributes.place}
+                      </p>
                     </Box>
                     <Box className="items">
                       <span>{t("Building")}: </span>
-                      <p>
+                      <p className="bold-text">
                         {this.state.scheduleMeetingDetails &&
                           this.state.scheduleMeetingDetails.attributes.building.name}
                       </p>
                     </Box>
                     <Box className="items">
                       <span>{t("Agenda")}: </span>
-                      <p>{this.state.scheduleMeetingDetails && this.state.scheduleMeetingDetails.attributes.agenda}</p>
+                      <p className="bold-text">
+                        {this.state.scheduleMeetingDetails && this.state.scheduleMeetingDetails.attributes.agenda}
+                      </p>
                     </Box>
                   </Box>
                   <Box className="meeting-details">
                     <h4 className="bold-text">{t("Scheduling Details")}</h4>
                     <Box className="items">
                       <span>{t("Scheduled By")}: </span>
-                      <p>
+                      <p className="bold-text">
                         {this.state.scheduleMeetingDetails &&
                           this.state.scheduleMeetingDetails.attributes.meeting_schedule_detail &&
                           this.state.scheduleMeetingDetails.attributes.meeting_schedule_detail.scheduled_by}
@@ -179,7 +183,7 @@ class ScheduledMeetingDetails extends ScheduledMeetingController {
                     <Box className="items">
                       <span>{t("Scheduled On")}: </span>
                       {this.state.scheduleMeetingDetails && (
-                        <p>
+                        <p className="bold-text">
                           {moment(
                             this.state.scheduleMeetingDetails.attributes.meeting_schedule_detail &&
                               this.state.scheduleMeetingDetails.attributes.meeting_schedule_detail.scheduled_on,
@@ -196,11 +200,13 @@ class ScheduledMeetingDetails extends ScheduledMeetingController {
                         <h4 className="bold-text">{t("Cancelled Details")}</h4>
                         <Box className="items">
                           <span>{t("Cancelled By")}: </span>
-                          <p>{this.state.scheduleMeetingDetails.attributes.meeting_cancel_detail.cancelled_by}</p>
+                          <p className="bold-text">
+                            {this.state.scheduleMeetingDetails.attributes.meeting_cancel_detail.cancelled_by}
+                          </p>
                         </Box>
                         <Box className="items">
                           <span>{t("Cancelled On")}: </span>
-                          <p>
+                          <p className="bold-text">
                             {moment(
                               this.state.scheduleMeetingDetails.attributes.meeting_cancel_detail.cancelled_on,
                               "DD-MM-YYYY HH:mm",
@@ -247,12 +253,12 @@ class ScheduledMeetingDetails extends ScheduledMeetingController {
                   <Table className="table-box">
                     <TableHead>
                       <TableRow>
-                        <TableCell>{t("Name")}</TableCell>
-                        <TableCell>{t("Building")}</TableCell>
-                        <TableCell>{t("Unit No.")}</TableCell>
-                        <TableCell>{t("Floor Number")}</TableCell>
+                        <TableCell className="bold-text">{t("Name")}</TableCell>
+                        <TableCell className="bold-text">{t("Building")}</TableCell>
+                        <TableCell className="bold-text">{t("Unit No.")}</TableCell>
+                        <TableCell className="bold-text">{t("Floor Number")}</TableCell>
                         {this.state.scheduleMeetingDetails && this.state.scheduleMeetingStatus !== "cancelled" && (
-                          <TableCell>{t("Response")}</TableCell>
+                          <TableCell className="bold-text">{t("Response")}</TableCell>
                         )}
                       </TableRow>
                     </TableHead>
@@ -396,7 +402,7 @@ class ScheduledMeetingDetails extends ScheduledMeetingController {
                               onBlur={handleBlur}
                               name="date"
                               className="date"
-                              min={moment().format("YYYY-MM-DD")}
+                              // min={moment().format("YYYY-MM-DD")}
                               type="date"
                             />
                           </div>

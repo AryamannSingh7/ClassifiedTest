@@ -31,7 +31,7 @@ class PropertyManagerRequest extends PropertyManagerRequestController {
                         <KeyboardBackspaceIcon />
                       </IconButton>
                     </Link>
-                    {t("New Request")}
+                    <span className="bold-text">{t("New Request")}</span>
                   </div>
                 </Box>
                 <Container>
@@ -52,7 +52,7 @@ class PropertyManagerRequest extends PropertyManagerRequestController {
                                     <Grid container spacing={2}>
                                       <Grid item xs={12}>
                                         <div className="header">
-                                          <h4>
+                                          <h4 className="bold-text">
                                             {request.attributes.property_manager &&
                                               this.validationText(request.attributes.property_manager.name)}
                                           </h4>

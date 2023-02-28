@@ -39,6 +39,7 @@ import Loader from "../../../components/src/Loader.web";
 import moment from "moment";
 import { Menu, MenuItem as MenuItemMenu } from "@szhsin/react-menu";
 import MoreVertIcon from "@material-ui/icons/MoreVert";
+import PhoneInput from "react-phone-input-2";
 
 class RegisterTenant extends RegisterTenantController {
   constructor(props: Props) {
@@ -82,7 +83,7 @@ class RegisterTenant extends RegisterTenantController {
                       >
                         <KeyboardBackspaceIcon />
                       </IconButton>
-                      <span>{t("Register A Tenant")}</span>
+                      <span className="bold-text">{t("Register A Tenant")}</span>
                     </div>
                   </Box>
                   <Container className="page-container">
@@ -466,7 +467,7 @@ class RegisterTenant extends RegisterTenantController {
                       >
                         <KeyboardBackspaceIcon />
                       </IconButton>
-                      <span>{t("Register A Tenant")}</span>
+                      <span className="bold-text">{t("Register A Tenant")}</span>
                     </div>
                   </Box>
 
@@ -478,7 +479,7 @@ class RegisterTenant extends RegisterTenantController {
                             <img src={PdfIcon} alt="" />
                             <Box className="pdf-info">
                               <Box className="heading">
-                                <h4>{this.state.contract.name}</h4>
+                                <h4 className="bold-text">{this.state.contract.name}</h4>
                                 <div className="right-menu">
                                   <Menu
                                     menuButton={

@@ -7,7 +7,6 @@ import { ContractsStyleWeb } from "./ContractsStyle.web";
 import { BuildingLogo } from "./assets";
 import RichTextEditor from "react-rte";
 import { withTranslation } from "react-i18next";
-import "../../../web/src/i18n.js";
 
 const toolbarConfig: any = {
   display: ["INLINE_STYLE_BUTTONS"],
@@ -36,8 +35,7 @@ class AddCondition extends LeaseFormController {
   }
 
   render() {
-    const { classes } = this.props;
-    const { t }: any = this.props;
+    const { t, classes }: any = this.props;
 
     return (
       <>
@@ -58,7 +56,7 @@ class AddCondition extends LeaseFormController {
                     >
                       <KeyboardBackspaceIcon />
                     </IconButton>
-                    <span>{t("Add More Condition")}</span>
+                    <span className="bold-text">{t("Add More Condition")}</span>
                   </div>
                 </Box>
                 <Container className="page-container">

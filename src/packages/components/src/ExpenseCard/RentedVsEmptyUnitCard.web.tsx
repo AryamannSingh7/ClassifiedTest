@@ -5,7 +5,7 @@ const RentedVsEmptyUnitCard = ({ heading, titleOne, valueOne, titleTwo, valueTwo
   return (
     <Card className="rented-empty-card">
       <Box className="heading">
-        <h4>{heading}</h4>
+        <h4 className="bold-text">{heading}</h4>
         {status && <span className={status}>{status}</span>}
       </Box>
       <Grid container spacing={2}>

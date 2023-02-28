@@ -68,7 +68,11 @@ class AddEditExpense extends AddEditExpenseController {
                     <IconButton onClick={() => this.handleNavigationBack()}>
                       <KeyboardBackspaceIcon />
                     </IconButton>
-                    {this.state.expenseId ? <span>{t("Edit Expense")}</span> : <span>{t("Add Another Expense")}</span>}
+                    {this.state.expenseId ? (
+                      <span className="bold-text">{t("Edit Expense")}</span>
+                    ) : (
+                      <span className="bold-text">{t("Add Another Expense")}</span>
+                    )}
                   </Box>
                 </Box>
                 <Container className="page-container">
