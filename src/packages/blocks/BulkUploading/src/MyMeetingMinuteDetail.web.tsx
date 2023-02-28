@@ -1,9 +1,8 @@
 // Customizable Area Start
 import React from "react";
 import { Container, IconButton, Link, withStyles, Box, Grid } from "@material-ui/core";
-import KeyboardBackspaceIcon from "@material-ui/icons/KeyboardBackspace";
 import MyMeetingsController, { Props } from "./MyMeetingsController.web";
-import { BuildingLogo, DownloadIcon, PdfIcon } from "./assets";
+import { BackIcon, BuildingLogo, DownloadIcon, PdfIcon } from "./assets";
 import { MeetingsStyleWeb } from "./MeetingsStyle.web";
 import { withTranslation } from "react-i18next";
 import moment from "moment";
@@ -33,7 +32,7 @@ class MyMeetingMinuteDetail extends MyMeetingsController {
                   <div className="left-icon">
                     <Link href="/MyMeetings">
                       <IconButton>
-                        <KeyboardBackspaceIcon />
+                        <img src={BackIcon} alt="" />
                       </IconButton>
                     </Link>
                     <span className="bold-text">{t("Meeting Minutes")}</span>

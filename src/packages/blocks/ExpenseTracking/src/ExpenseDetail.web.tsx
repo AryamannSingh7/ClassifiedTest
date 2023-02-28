@@ -51,7 +51,7 @@ class ExpenseDetail extends ExpenseDetailController {
                     <IconButton onClick={() => this.handleNavigationToUnitExpenseList()}>
                       <KeyboardBackspaceIcon />
                     </IconButton>
-                    <span>{t("Expense Details")}</span>
+                    <span className="bold-text">{t("Expense Details")}</span>
                   </Box>
                   <Box className="right-icon">
                     <IconButton onClick={() => this.handleExpenseModal()}>
@@ -67,40 +67,40 @@ class ExpenseDetail extends ExpenseDetailController {
                     <Box className="tenant-list">
                       <Grid container spacing={2}>
                         <Grid item xs={12}>
-                          <h4 style={{ marginBottom: "15px" }}>
+                          <h4 className="bold-text" style={{ marginBottom: "15px" }}>
                             {moment(this.state.expenseDetails.expenseDate, "YYYY-MM-DD").format("MMMM DD, YYYY")}
                           </h4>
                           <Card className="tenant">
                             <Grid container spacing={2} className="info expense-details">
                               <Grid item xs={6}>
                                 <span>{t("Cost")}</span>
-                                <p>
+                                <p className="bold-text">
                                   {this.state.expenseDetails.currency + " " + this.state.expenseDetails.expenseCost}
                                 </p>
                               </Grid>
                               <Grid item xs={6}>
                                 <span>{t("Issue")}</span>
-                                <p>{this.state.expenseDetails.expenseIssue}</p>
+                                <p className="bold-text">{this.state.expenseDetails.expenseIssue}</p>
                               </Grid>
                               <Grid item xs={6}>
                                 <span>{t("Category")}</span>
-                                <p>{this.state.expenseDetails.category}</p>
+                                <p className="bold-text">{this.state.expenseDetails.category}</p>
                               </Grid>
                               <Grid item xs={6}>
                                 <span>{t("Building")}</span>
-                                <p>{this.state.expenseDetails.buildingName}</p>
+                                <p className="bold-text">{this.state.expenseDetails.buildingName}</p>
                               </Grid>
                               <Grid item xs={6}>
                                 <span>{t("Unit Number")}</span>
-                                <p>{this.state.expenseDetails.unitName}</p>
+                                <p className="bold-text">{this.state.expenseDetails.unitName}</p>
                               </Grid>
                               <Grid item xs={6}>
                                 <span>{t("Resolved By")}</span>
-                                <p>{this.state.expenseDetails.resolvedBy}</p>
+                                <p className="bold-text">{this.state.expenseDetails.resolvedBy}</p>
                               </Grid>
                               <Grid item xs={12}>
                                 <span>{t("Summary")}</span>
-                                <p>{this.state.expenseDetails.summary}</p>
+                                <p className="bold-text">{this.state.expenseDetails.summary}</p>
                               </Grid>
                             </Grid>
                           </Card>
@@ -126,7 +126,9 @@ class ExpenseDetail extends ExpenseDetailController {
           <DialogContent>
             <Box textAlign="center">
               <img src={DeleteExpenseIcon} alt="ExclamationIcon" />
-              <Typography variant="h6">{t("Delete registered expense confirmation")}</Typography>
+              <Typography variant="h6" className="bold-text">
+                {t("Delete registered expense confirmation")}
+              </Typography>
               <Typography variant="body1">
                 {t(
                   "Are you sure want to delete registered expense from this app? Once deleted you will lose its details"

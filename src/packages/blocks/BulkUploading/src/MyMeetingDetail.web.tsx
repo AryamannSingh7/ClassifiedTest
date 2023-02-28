@@ -17,9 +17,8 @@ import {
   FormControlLabel,
   RadioGroup,
 } from "@material-ui/core";
-import KeyboardBackspaceIcon from "@material-ui/icons/KeyboardBackspace";
 import MyMeetingsController, { Props } from "./MyMeetingsController.web";
-import { BuildingLogo, CommentIcon, UserIcon, CalenderBlueIcon } from "./assets";
+import { BuildingLogo, CommentIcon, UserIcon, CalenderBlueIcon, BackIcon } from "./assets";
 import { MeetingsStyleWeb } from "./MeetingsStyle.web";
 import { orange } from "@material-ui/core/colors";
 import moment from "moment";
@@ -61,7 +60,7 @@ class MyMeetingDetail extends MyMeetingsController {
                   <div className="left-icon">
                     <Link href="/MyMeetings">
                       <IconButton>
-                        <KeyboardBackspaceIcon />
+                        <img src={BackIcon} alt="" />
                       </IconButton>
                     </Link>
                     <span className="bold-text">{this.state.meeting && this.state.meeting.attributes.title}</span>
@@ -94,6 +93,10 @@ class MyMeetingDetail extends MyMeetingsController {
                             <Grid item xs={12}>
                               <span>{t("Place")}: </span>
                               <p>{this.state.meeting && this.state.meeting.attributes.place}</p>
+                            </Grid>
+                            <Grid item xs={12}>
+                              <span>{t("Building")}: </span>
+                              <p>{this.state.meeting && this.state.meeting.attributes.building.name}</p>
                             </Grid>
                             <Grid item xs={12}>
                               <span>{t("Agenda")}: </span>

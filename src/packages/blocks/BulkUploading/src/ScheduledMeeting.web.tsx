@@ -153,6 +153,7 @@ class ScheduledMeeting extends ScheduledMeetingController {
                       <MenuItem value="" disabled>
                         {t("Select Status")}
                       </MenuItem>
+                      <MenuItem value="">{t("All")}</MenuItem>
                       <MenuItem value="scheduled">{t("Scheduled")}</MenuItem>
                       <MenuItem value="completed">{t("Completed")}</MenuItem>
                       <MenuItem value="cancelled">{t("Cancelled")}</MenuItem>
@@ -189,7 +190,7 @@ class ScheduledMeeting extends ScheduledMeetingController {
                     </Button>
                   </Box>
                   <Box className="create-meeting">
-                    <Button onClick={() => this.openCreateMeetingModal()}>{t("+ Create New Meeting")}</Button>
+                    <Button onClick={() => this.openCreateMeetingModal()}>{t("Create New Meeting")}</Button>
                   </Box>
                 </Box>
                 <Grid className="meeting-table">
@@ -218,13 +219,13 @@ class ScheduledMeeting extends ScheduledMeetingController {
                     <Table className="table-box">
                       <TableHead>
                         <TableRow>
-                          <TableCell>#</TableCell>
-                          <TableCell>{t("Title")}</TableCell>
-                          <TableCell>{t("Date & Time")}</TableCell>
-                          {localStorage.getItem("userType") === ROLE.MANAGER && <TableCell>{t("Building")}</TableCell>}
-                          <TableCell>{t("Place")}</TableCell>
-                          <TableCell>{t("Agenda")}</TableCell>
-                          <TableCell>{t("Status")}</TableCell>
+                          <TableCell className="bold-text">#</TableCell>
+                          <TableCell className="bold-text">{t("Title")}</TableCell>
+                          <TableCell className="bold-text">{t("Date & Time")}</TableCell>
+                          {localStorage.getItem("userType") === ROLE.MANAGER && <TableCell className="bold-text">{t("Building")}</TableCell>}
+                          <TableCell className="bold-text">{t("Place")}</TableCell>
+                          <TableCell className="bold-text">{t("Agenda")}</TableCell>
+                          <TableCell className="bold-text">{t("Status")}</TableCell>
                           <TableCell />
                         </TableRow>
                       </TableHead>
@@ -238,7 +239,7 @@ class ScheduledMeeting extends ScheduledMeetingController {
                           return (
                             <TableRow key={index}>
                               <TableCell>{index + 1}</TableCell>
-                              <TableCell className="ellipse">
+                              <TableCell className={meeting.attributes.meeting_type === "ga_meeting" ? "ellipse":""}>
                                 {meeting.attributes.title}{" "}
                                 {meeting.attributes.meeting_type === "ga_meeting" && (
                                   <span className="ga-meeting">{t("GA Meeting")}</span>
@@ -252,12 +253,12 @@ class ScheduledMeeting extends ScheduledMeetingController {
                               {localStorage.getItem("userType") === ROLE.MANAGER && (
                                 <TableCell>{meeting.attributes?.building?.name}</TableCell>
                               )}
-                              <TableCell className="ellipse">{meeting.attributes.place}</TableCell>
-                              <TableCell className="ellipse">{meeting.attributes.agenda}</TableCell>
+                              <TableCell className="ellipse-one">{meeting.attributes.place}</TableCell>
+                              <TableCell className="ellipse-one">{meeting.attributes.agenda}</TableCell>
                               <TableCell>
                                 <span className={meeting.attributes.status}>{meeting.attributes.status}</span>
                               </TableCell>
-                              <TableCell>
+                              <TableCell className="s-meeting-menu">
                                 <Menu
                                   menuButton={
                                     <IconButton>
@@ -498,7 +499,7 @@ class ScheduledMeeting extends ScheduledMeetingController {
                           ) : (
                             <img src={GreyCheckIcon} alt="" />
                           )}
-                          <span>{t("Owner")}</span>
+                          <span className="bold-text">{t("Owner")}</span>
                         </Box>
                         <Box
                           className={`${this.state.selectedGroup.includes("resident") && "active"} attendee`}
@@ -512,7 +513,7 @@ class ScheduledMeeting extends ScheduledMeetingController {
                           ) : (
                             <img src={GreyCheckIcon} alt="" />
                           )}
-                          <span>{t("Resident")}</span>
+                          <span className="bold-text">{t("Resident")}</span>
                         </Box>
                         {this.state.groupList.map((group: any) => {
                           return (
@@ -527,6 +528,7 @@ class ScheduledMeeting extends ScheduledMeetingController {
                                 <img src={GreyCheckIcon} alt="" />
                               )}
                               <span
+                                className="bold-text"
                                 onClick={() => {
                                   this.handleSelectedGroupList(group.id.toString());
                                   touched["attendeeIds"] = true;
@@ -646,7 +648,7 @@ class ScheduledMeeting extends ScheduledMeetingController {
                               onBlur={handleBlur}
                               name="date"
                               className="date"
-                              min={moment().format("YYYY-MM-DD")}
+                              // min={moment().format("YYYY-MM-DD")}
                               type="date"
                             />
                             <img src={DateIcon} alt="" />

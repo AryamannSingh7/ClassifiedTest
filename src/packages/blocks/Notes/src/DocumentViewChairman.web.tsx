@@ -17,7 +17,7 @@ class DocumentViewChairman extends DocumentViewChairmanController {
 
     return (
       <>
-        <Box style={{ background: "#F4F7FF" }} className={classes.documentChairman}>
+        <Box style={{ background: "#F7F9FE" }} className={classes.documentChairman}>
           <DashboardHeader {...this.props} />
           <Box style={{ display: "flex" }}>
             <Grid item xs={3} md={3} sm={3} className="SideBar">
@@ -54,7 +54,7 @@ class DocumentViewChairman extends DocumentViewChairmanController {
                     </Box>
                   </Box>
                 </Box>
-                <Box className="document-box">
+                <Box className="document-box document-card">
                   <iframe
                     src={`${this.state.document &&
                       this.state.document.attributes.images[0].url}#toolbar=0&navpanes=0&scrollbar=0&view=FitH`}

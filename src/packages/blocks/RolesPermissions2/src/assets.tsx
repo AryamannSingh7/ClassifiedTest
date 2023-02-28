@@ -23,3 +23,5 @@ export const PenaltyAmountIcon = require("../assets/penalty-amount.png");
 export const LeaseGeneratorIcon = require("../assets/lease-generate.png");
 export const SaveTemplateIcon = require("../assets/save-template.png");
 export const ComplexIcon = require("../assets/complex.png");
+export const PCardIcon = require("../assets/panelty-card.png");
+export const PAmountIcon = require("../assets/panelty-amount.png");

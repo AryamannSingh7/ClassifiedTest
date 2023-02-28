@@ -1,24 +1,11 @@
 // Customizable Area Start
-//@ts-nocheck
-//@ts-ignore
-
 import React from "react";
-import {
-  Container,
-  Typography,
-  Box,
-  Link,
-  Grid,
-  withStyles,
-} from "@material-ui/core";
+import { Container, Typography, Box, Link, Grid, withStyles } from "@material-ui/core";
 import DashboardHeader from "../../dashboard/src/DashboardHeader.web";
 import ChairmanSidebarWeb from "../../dashboard/src/ChairmanSidebar.web";
 import { FaqChairmanStyleWeb } from "./FaqChairmanStyle.web";
-import SubscriptionDetailController, {
-  Props,
-} from "./SubscriptionDetailController.web";
-import { withTranslation } from 'react-i18next';
-import '../../../web/src/i18n.js';
+import SubscriptionDetailController, { Props } from "./SubscriptionDetailController.web";
+import { withTranslation } from "react-i18next";
 
 class SubscriptionDetail extends SubscriptionDetailController {
   constructor(props: Props) {
@@ -26,20 +13,14 @@ class SubscriptionDetail extends SubscriptionDetailController {
   }
 
   render() {
-    const {t} = this.props
-    const { classes } = this.props;
+    const { t, classes }: any = this.props;
 
     return (
       <>
-        <Box
-          style={{ background: "#F4F7FF" }}
-          className={classes.subscriptionDetails}
-        >
-          {/* Dashboard Header -- */}
+        <Box style={{ background: "#F4F7FF" }} className={classes.subscriptionDetails}>
           <DashboardHeader {...this.props} />
           <Box style={{ display: "flex" }}>
             <Grid item xs={3} md={3} sm={3} className="SideBar">
-              {/* Chairman Sidebar -- */}
               <ChairmanSidebarWeb {...this.props} />
             </Grid>
 
@@ -53,7 +34,7 @@ class SubscriptionDetail extends SubscriptionDetailController {
                         {t("Subscription Detail")}
                       </Box>
                     </Typography>
-                    <Typography variant="h5" className="sub-heading">
+                    <Typography variant="h5" className="sub-heading bold-text">
                       {t("Subscription Detail")}
                     </Typography>
                   </Box>
@@ -61,7 +42,7 @@ class SubscriptionDetail extends SubscriptionDetailController {
 
                 <Box className="subscription-detail">
                   <Box className="info">
-                    <Typography variant="h6" className="heading">
+                    <Typography variant="h6" className="heading bold-text">
                       {t("Tenant International Premium Plan")}
                     </Typography>
                     <Link href="">{t("Learn More")}</Link>
@@ -69,33 +50,31 @@ class SubscriptionDetail extends SubscriptionDetailController {
                   <hr />
                   <Box className="info data">
                     <Typography variant="body1">{t("Plan Name")}</Typography>
-                    <Typography variant="body1" className="heading">
+                    <Typography variant="body1" className="heading bold-text">
                       {t("Tenant International Premium Plan")}
                     </Typography>
                   </Box>
                   <Box className="info data">
                     <Typography variant="body1">{t("Validity")}</Typography>
-                    <Typography variant="body1" className="heading">
+                    <Typography variant="body1" className="heading bold-text">
                       01-02-2022 to 26-25-2056
                     </Typography>
                   </Box>
                   <Box className="info data">
                     <Typography variant="body1">{t("Paid on")}</Typography>
-                    <Typography variant="body1" className="heading">
+                    <Typography variant="body1" className="heading bold-text">
                       01-02-2022
                     </Typography>
                   </Box>
                   <Box className="info data">
                     <Typography variant="body1">{t("Payment Status")}</Typography>
-                    <Typography variant="body1" className="heading">
-                      Paid
+                    <Typography variant="body1" className="heading bold-text">
+                      {t("Paid")}
                     </Typography>
                   </Box>
                   <Box className="info data">
-                    <Typography variant="body1">
-                      {t("Remaining Days till expiration")}
-                    </Typography>
-                    <Typography variant="body1" className="heading">
+                    <Typography variant="body1">{t("Remaining Days till expiration")}</Typography>
+                    <Typography variant="body1" className="heading bold-text">
                       158 {t("days")}
                     </Typography>
                   </Box>

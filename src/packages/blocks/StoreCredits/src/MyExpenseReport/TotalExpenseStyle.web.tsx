@@ -84,6 +84,7 @@ export const TotalExpenseStyle: any = {
         display: "flex",
         alignItems: "center",
         justifyContent: "space-between",
+        fontSize: "16px",
         "& select": {
           background: "white",
           borderRadius: "25px",
@@ -277,6 +278,7 @@ export const TotalExpenseStyle: any = {
       },
       "& h4": {
         marginBottom: "16px",
+        fontSize: "16px",
       },
       "& span": {
         color: "grey",

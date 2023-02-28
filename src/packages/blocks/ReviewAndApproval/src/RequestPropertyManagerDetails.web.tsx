@@ -31,14 +31,14 @@ class RequestPropertyManagerDetails extends RequestPropertyManagerDetailsControl
                         <KeyboardBackspaceIcon />
                       </IconButton>
                     </Link>
-                    <span>{this.state.propertyDetails.managerName || "-"}</span>
+                    <span className="bold-text">{this.state.propertyDetails.managerName || "-"}</span>
                   </div>
                 </Box>
                 <Container>
                   <Box className="list-box">
                     <Box className="content-box">
                       <Box className="details-box-item">
-                        <h4>{t("Property Manager Details")}</h4>
+                        <h4 className="bold-text">{t("Property Manager Details")}</h4>
                         <Card>
                           <Grid container spacing={2}>
                             <Grid item xs={12}>
@@ -46,7 +46,9 @@ class RequestPropertyManagerDetails extends RequestPropertyManagerDetailsControl
                                 <img src={BlueManagerIcon} alt="" />
                                 <Box className="box-item-content">
                                   <span>{t("Manager Name")}</span>
-                                  <p>{this.validationText(this.state.propertyDetails.managerName)}</p>
+                                  <p className="bold-text">
+                                    {this.validationText(this.state.propertyDetails.managerName)}
+                                  </p>
                                 </Box>
                               </Box>
                             </Grid>
@@ -55,7 +57,9 @@ class RequestPropertyManagerDetails extends RequestPropertyManagerDetailsControl
                                 <img src={BlueCompanyIcon} alt="" />
                                 <Box className="box-item-content">
                                   <span>{t("Company Name")}</span>
-                                  <p>{this.validationText(this.state.propertyDetails.companyName)}</p>
+                                  <p className="bold-text">
+                                    {this.validationText(this.state.propertyDetails.companyName)}
+                                  </p>
                                 </Box>
                               </Box>
                             </Grid>
@@ -64,7 +68,9 @@ class RequestPropertyManagerDetails extends RequestPropertyManagerDetailsControl
                                 <img src={BluePhoneIcon} alt="" />
                                 <Box className="box-item-content">
                                   <span>{t("Phone Number")}</span>
-                                  <p>{this.validationText(this.state.propertyDetails.phoneNumber)}</p>
+                                  <p className="bold-text">
+                                    {this.validationText(this.state.propertyDetails.phoneNumber)}
+                                  </p>
                                 </Box>
                               </Box>
                             </Grid>
@@ -73,7 +79,7 @@ class RequestPropertyManagerDetails extends RequestPropertyManagerDetailsControl
                                 <img src={BlueEmailIcon} alt="" />
                                 <Box className="box-item-content">
                                   <span>{t("Email Address")}</span>
-                                  <p>{this.validationText(this.state.propertyDetails.email)}</p>
+                                  <p className="bold-text">{this.validationText(this.state.propertyDetails.email)}</p>
                                 </Box>
                               </Box>
                             </Grid>
@@ -82,13 +88,13 @@ class RequestPropertyManagerDetails extends RequestPropertyManagerDetailsControl
                       </Box>
 
                       <Box className="details-box-item">
-                        <h4>{t("Property Details")}</h4>
+                        <h4 className="bold-text">{t("Property Details")}</h4>
                         <Grid container spacing={2}>
                           <Grid item xs={12}>
                             <Card>
                               <Box className="heading-box-item">
-                                <h4>
-                                  Building {this.state.propertyDetails.buildingName} Unit{" "}
+                                <h4 className="bold-text">
+                                  {t("Building")} {this.state.propertyDetails.buildingName} {t("Unit")}{" "}
                                   {this.state.propertyDetails.unitName}
                                 </h4>
                                 <Box className="right-box-item">

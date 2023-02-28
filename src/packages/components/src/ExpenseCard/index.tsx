@@ -5,7 +5,7 @@ const ExpenseCard = ({ heading, title, value }: any) => {
   return (
     <Card className="expense-card">
       <Box className="expense-card-box">
-        <h4>{heading}</h4>
+        <h4 className="bold-text">{heading}</h4>
         <p>{title}</p>
         <h4 className="amount">{value}</h4>
       </Box>

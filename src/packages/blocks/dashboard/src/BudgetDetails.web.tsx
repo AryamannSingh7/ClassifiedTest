@@ -2,7 +2,7 @@
 import React from "react";
 import DashboardHeader from "./DashboardHeader.web";
 import ChairmanSidebar from "./ChairmanSidebar.web";
-import { Container, Typography, withStyles, Card } from "@material-ui/core";
+import { Container, Typography, withStyles, Card, Link, Button } from "@material-ui/core";
 import Box from "@material-ui/core/Box";
 import Grid from "@material-ui/core/Grid";
 import NativeSelect from "@material-ui/core/NativeSelect";
@@ -33,6 +33,16 @@ class BudgetDetails extends DashboardBudgetController {
     super(props);
   }
 
+  async componentDidMount(): Promise<void> {
+    this.getBudgetDashboardYearList();
+    this.getAllBuildingList();
+  }
+
+  async componentDidUpdate(prevProps: any, prevState: any): Promise<void> {
+    if (prevState.filterBuilding !== this.state.filterBuilding || prevState.filterYear !== this.state.filterYear) {
+    }
+  }
+
   render() {
     const { t, classes }: any = this.props;
     const userType = localStorage.getItem("userType");
@@ -40,11 +50,9 @@ class BudgetDetails extends DashboardBudgetController {
     return (
       <>
         <Box className={classes.generalDashboard}>
-          {/* Dashboard Header -- */}
           <DashboardHeader {...this.props} />
           <Box style={{ display: "flex" }}>
             <Grid item xs={3} md={3} sm={3} className="SideBar">
-              {/* Chairman Sidebar -- */}
               <ChairmanSidebar {...this.props} />
             </Grid>
 
@@ -53,29 +61,48 @@ class BudgetDetails extends DashboardBudgetController {
                 <Box className="navigation">
                   <Box>
                     <Typography variant="body1">
-                      My Dashboards / Budget Dashboard /{" "}
+                      {t("My Dashboards")} / <Link href="/DashboardBudget">{t("Budget Dashboard")}</Link> /{" "}
                       <Box component="span" style={{ color: "blue" }}>
-                        Budget 2022
+                        {t("Budget")} 2022
                       </Box>
                     </Typography>
                   </Box>
                   <Box className="sub-heading-box">
-                    <Typography variant="h5">{t("Budget Dashboard")}</Typography>
+                    <Typography variant="h5" className="bold-text">
+                      {t("Budget")} 2022
+                    </Typography>
                     <Box className="select-box">
                       {userType === ROLE.MANAGER && (
-                        <NativeSelect className="select-year">
-                          <option value={2022}>Building 1</option>
-                          <option value={2021}>Building 2</option>
-                          <option value={2020}>Building 3</option>
-                          <option value={2019}>Building 4</option>
-                        </NativeSelect>
+                        <select
+                          className="select-year"
+                          value={this.state.filterBuilding}
+                          onChange={(e: any) => this.setState({ filterBuilding: e.target.value })}
+                        >
+                          <option value="" disabled>
+                            {t("Select Building")}
+                          </option>
+                          {this.state.buildingList.map((building: any) => {
+                            return (
+                              <option value={building.id} key={building.id}>
+                                {building.attributes.name}
+                              </option>
+                            );
+                          })}
+                        </select>
                       )}
-                      <NativeSelect className="select-year">
-                        <option value={2022}>2022</option>
-                        <option value={2021}>2021</option>
-                        <option value={2020}>2020</option>
-                        <option value={2019}>2019</option>
-                      </NativeSelect>
+                      <select
+                        value={this.state.filterYear}
+                        onChange={(e: any) => this.setState({ filterYear: e.target.value })}
+                        className="select-year"
+                      >
+                        {this.state.yearList.map((year: any) => {
+                          return (
+                            <option value={year} key={year}>
+                              {year}
+                            </option>
+                          );
+                        })}
+                      </select>
                     </Box>
                   </Box>
                 </Box>
@@ -83,7 +110,7 @@ class BudgetDetails extends DashboardBudgetController {
                   <Grid item sm={12}>
                     <Card className="budget-table-content-box">
                       <Box className="header">
-                        <h4>Budget 2022</h4>
+                        <h4 className="bold-text">Budget 2022</h4>
                       </Box>
                       <hr />
                       <Box className="body">
@@ -94,18 +121,23 @@ class BudgetDetails extends DashboardBudgetController {
                         {rows.map((row: any) => (
                           <Box className="table-content">
                             <p>{row.Name}</p>
-                            <span>{row.Amount}</span>
+                            <span className="bold-text">{row.Amount}</span>
                           </Box>
                         ))}
                       </Box>
                       <hr />
                       <Box className="footer">
                         <p>Total Expenses</p>
-                        <h4>SR 12,000</h4>
+                        <h4 className="bold-text">SR 12,000</h4>
                       </Box>
                     </Card>
                   </Grid>
                 </Grid>
+                {userType === ROLE.MANAGER && (
+                  <Box className="print-report-box">
+                    <Button>{t("Print Report")}</Button>
+                  </Box>
+                )}
               </Container>
             </Grid>
           </Box>

@@ -235,7 +235,9 @@ export const DashboardStyleWeb: any = {
           color: "white",
           borderRadius: "8px",
           fontWeight: "600",
-          padding: "7px 18px",
+          padding: "8px 20px",
+          fontSize: "14px",
+          textTransform: "capitalize",
         },
         "& .action-content-box": {
           display: "flex",
@@ -403,12 +405,22 @@ export const DashboardStyleWeb: any = {
       borderRadius: "8px",
       background: "white",
       marginTop: "30px",
+      marginBottom: "30px",
     },
     "& .content-boxes .top-content": {
       display: "flex",
       justifyContent: "space-between",
       alignItems: "center",
       padding: "20px",
+    },
+    "& .content-boxes .top-content .heading": {
+      display: "flex",
+      alignItems: "center",
+      gap: "20px",
+      "& span": {
+        color: "#FC8434",
+        fontWeight: "600",
+      },
     },
     "& .content-boxes .top-content .right-content": {
       display: "flex",
@@ -479,9 +491,17 @@ export const DashboardStyleWeb: any = {
     "& .content-boxes.ticket-table input": {
       width: "220px",
     },
-    "& .content-boxes.ticket-table .status": {
+    "& .content-boxes.ticket-table .unit-table span.Resolved": {
       background: "#D4FFE3",
       color: "#1EC65B",
+      fontWeight: 600,
+      padding: "5px 10px",
+      borderRadius: "25px",
+      fontSize: "14px",
+    },
+    "& .content-boxes.ticket-table .unit-table span": {
+      background: "#ffdcdc",
+      color: "#F21717",
       fontWeight: 600,
       padding: "5px 10px",
       borderRadius: "25px",
@@ -499,6 +519,58 @@ export const DashboardStyleWeb: any = {
     },
     "& .upcoming-events-box": {
       marginBottom: "30px",
+    },
+    "& input::placeholder": {
+      color: "black",
+      opacity: 1,
+    },
+    "& input:-ms-input-placeholde": {
+      color: "black",
+    },
+    "& input::-ms-input-placeholder": {
+      color: "black",
+    },
+    "& .category-box": {
+      marginBottom: "15px",
+      display: "flex",
+      justifyContent: "space-between",
+      alignItems: "center",
+    },
+    "& .category-box .category": {
+      display: "flex",
+      maxWidth: "75%",
+      overflowX: "auto",
+      alignItems: "center",
+    },
+    "& .category-box .category .MuiTab-root": {
+      borderRadius: "25px",
+      background: "#EDF0F9",
+      marginRight: "10px",
+      textTransform: "capitalize",
+      fontSize: "16px",
+      padding: "6px 20px",
+      minWidth: "auto",
+      minHeight: "auto",
+      color: "gray",
+    },
+    "& .category-box .category .MuiTab-root.active": {
+      fontWeight: "600",
+      background: "#2C6DF3",
+      color: "white",
+      opacity: 1,
+    },
+    "& .ticket-number": {
+      cursor: "pointer",
+    },
+    "& .print-report-box": {
+      textAlign: "right",
+      "& button": {
+        backgroundColor: "#2b6fec",
+        color: "white",
+        padding: "12px 30px",
+        borderRadius: "8px",
+        fontWeight: "600",
+      },
     },
   },
 };

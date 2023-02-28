@@ -57,7 +57,7 @@ class MyExpenseList extends MyExpenseListController {
                     <IconButton onClick={() => this.handleNavigationToOwnerDashboard()}>
                       <KeyboardBackspaceIcon />
                     </IconButton>
-                    <span>{t("My Expenses")}</span>
+                    <span className="bold-text">{t("My Expenses")}</span>
                   </Box>
                   <IconButton className="right-icon" onClick={() => this.handleFilterModal()}>
                     <img src={FilterIcon} alt="filter" />
@@ -80,9 +80,9 @@ class MyExpenseList extends MyExpenseListController {
                                   <Grid container spacing={2}>
                                     <Grid item xs={12}>
                                       <Box className="header">
-                                        <h4>
-                                          Society: {building.attributes.society_management.name}, Building:{" "}
-                                          {building.attributes.building_management.name}, Unit:{" "}
+                                        <h4 className="bold-text">
+                                          {t("Society")}: {building.attributes.society_management.name}, {t("Building")}
+                                          : {building.attributes.building_management.name}, {t("Unit")}:{" "}
                                           {building.attributes.apartment_name}
                                         </h4>
                                         <Box className="right-menu">
@@ -129,7 +129,7 @@ class MyExpenseList extends MyExpenseListController {
         >
           <Box className="condition-box filter-box">
             <Box className="heading">
-              <p>{t("Filter")}</p>
+              <p className="bold-text">{t("Filter")}</p>
               <span className="clear-all-text" onClick={() => this.handleClearFilter()}>
                 {t("Clear All")}
               </span>

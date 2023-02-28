@@ -26,7 +26,6 @@ import { ContractsStyleWeb } from "./ContractsStyle.web";
 import { BuildingLogo, ExclamationIcon, CalenderIcon, DurationIcon, RentAmountIcon, CurrencyIcon } from "./assets";
 import { withTranslation } from "react-i18next";
 import { Formik, Form } from "formik";
-import "../../../web/src/i18n.js";
 
 class RenewContract extends RenewContractController {
   constructor(props: Props) {
@@ -34,8 +33,7 @@ class RenewContract extends RenewContractController {
   }
 
   render() {
-    const { classes } = this.props;
-    const { t }: any = this.props;
+    const { t, classes }: any = this.props;
 
     return (
       <>
@@ -50,7 +48,7 @@ class RenewContract extends RenewContractController {
                         <KeyboardBackspaceIcon />
                       </IconButton>
                     </Link>
-                    <span>{t("Renew Contract")}</span>
+                    <span className="bold-text">{t("Renew Contract")}</span>
                   </div>
                 </Box>
                 <Container className="page-container">
@@ -58,7 +56,9 @@ class RenewContract extends RenewContractController {
                     <Box className="select-input-box">
                       <Box className="contract-info-box">
                         <Card className="contract-info">
-                          <h4>Contract {this.state.contractId}</h4>
+                          <h4 className="bold-text">
+                            {t("Contract")} {this.state.contractId}
+                          </h4>
                           <Grid container spacing={2}>
                             <Grid item xs={6}>
                               <span>{t("Tenant Name")}</span>
@@ -216,7 +216,9 @@ class RenewContract extends RenewContractController {
           <DialogContent>
             <Box textAlign="center">
               <img src={ExclamationIcon} alt="ExclamationIcon" />
-              <Typography variant="h6">{t("Renew Contract")}</Typography>
+              <Typography variant="h6" className="bold-text">
+                {t("Renew Contract")}
+              </Typography>
               <Typography variant="body1">
                 {t("Are you sure want to renew contract with")} {this.state.contractData.tenantName}?
               </Typography>

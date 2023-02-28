@@ -33,14 +33,14 @@ class CityWiseRentedVsEmpty extends CityWiseRentedVsEmptyController {
                         <KeyboardBackspaceIcon />
                       </IconButton>
                     </Link>
-                    <span>{t("Citywise Rented vs Empty Units")}</span>
+                    <span className="bold-text">{t("Citywise Rented vs Empty Units")}</span>
                   </Box>
                 </Box>
                 <Container>
                   <Box className="tenant-list-box">
                     <Box className="tenant-list total-expense">
                       <Box className="city-wise-heading">
-                        <h4>{this.state.cityName}</h4>
+                        <h4 className="bold-text">{this.state.cityName}</h4>
                         <Box className="right-menu">
                           <Menu
                             align="end"

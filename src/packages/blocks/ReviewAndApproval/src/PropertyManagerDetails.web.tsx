@@ -68,7 +68,9 @@ class PropertyManagerDetails extends PropertyManagerDetailsController {
                         <KeyboardBackspaceIcon />
                       </IconButton>
                     </Link>
-                    <span>{this.validationText(this.state.propertyManagerDetails.managerName)}</span>
+                    <span className="bold-text">
+                      {this.validationText(this.state.propertyManagerDetails.managerName)}
+                    </span>
                   </div>
                   <div className="right-icon">
                     <img
@@ -90,7 +92,7 @@ class PropertyManagerDetails extends PropertyManagerDetailsController {
                 <Container>
                   <Box className="list-box">
                     <Box className="details-box-item">
-                      <h4>{t("Property Manager Details")}</h4>
+                      <h4 className="bold-text">{t("Property Manager Details")}</h4>
                       <Card>
                         <Grid container spacing={2}>
                           <Grid item xs={12}>
@@ -98,7 +100,9 @@ class PropertyManagerDetails extends PropertyManagerDetailsController {
                               <img src={BlueManagerIcon} alt="" />
                               <Box className="box-item-content">
                                 <span>{t("Manager Name")}</span>
-                                <p>{this.validationText(this.state.propertyManagerDetails.managerName)}</p>
+                                <p className="bold-text">
+                                  {this.validationText(this.state.propertyManagerDetails.managerName)}
+                                </p>
                               </Box>
                             </Box>
                           </Grid>
@@ -107,7 +111,9 @@ class PropertyManagerDetails extends PropertyManagerDetailsController {
                               <img src={BlueCompanyIcon} alt="" />
                               <Box className="box-item-content">
                                 <span>{t("Company Name")}</span>
-                                <p>{this.validationText(this.state.propertyManagerDetails.companyName)}</p>
+                                <p className="bold-text">
+                                  {this.validationText(this.state.propertyManagerDetails.companyName)}
+                                </p>
                               </Box>
                             </Box>
                           </Grid>
@@ -116,7 +122,9 @@ class PropertyManagerDetails extends PropertyManagerDetailsController {
                               <img src={BluePhoneIcon} alt="" />
                               <Box className="box-item-content">
                                 <span>{t("Phone Number")}</span>
-                                <p>{this.validationText(this.state.propertyManagerDetails.phoneNumber)}</p>
+                                <p className="bold-text">
+                                  {this.validationText(this.state.propertyManagerDetails.phoneNumber)}
+                                </p>
                               </Box>
                             </Box>
                           </Grid>
@@ -125,7 +133,9 @@ class PropertyManagerDetails extends PropertyManagerDetailsController {
                               <img src={BlueEmailIcon} alt="" />
                               <Box className="box-item-content">
                                 <span>{t("Email Address")}</span>
-                                <p>{this.validationText(this.state.propertyManagerDetails.email)}</p>
+                                <p className="bold-text">
+                                  {this.validationText(this.state.propertyManagerDetails.email)}
+                                </p>
                               </Box>
                             </Box>
                           </Grid>
@@ -134,7 +144,7 @@ class PropertyManagerDetails extends PropertyManagerDetailsController {
                     </Box>
 
                     <Box className="details-box-item">
-                      <h4>{t("Property Details")}</h4>
+                      <h4 className="bold-text">{t("Property Details")}</h4>
                       <Grid container spacing={2}>
                         {this.state.propertyManagerDetails.propertyList.length === 0 && (
                           <Grid item xs={12}>
@@ -146,8 +156,8 @@ class PropertyManagerDetails extends PropertyManagerDetailsController {
                             <Grid item xs={12} key={index}>
                               <Card>
                                 <Box className="heading-box-item">
-                                  <h4>
-                                    Building {property.attributes.building_management.name} Unit{" "}
+                                  <h4 className="bold-text">
+                                    {t("Building")} {property.attributes.building_management.name} {t("Unit")}{" "}
                                     {property.attributes.apartment_management.apartment_name}
                                   </h4>
                                   <Box className="right-box-item">
@@ -181,7 +191,9 @@ class PropertyManagerDetails extends PropertyManagerDetailsController {
                                     <Grid item xs={12}>
                                       <Box className="box-item-content">
                                         <span>{t("Charges")}</span>
-                                        <p>{property.attributes.fixed_persentage_of_rent}/Month</p>
+                                        <p>
+                                          {property.attributes.fixed_persentage_of_rent} / {t("Month")}
+                                        </p>
                                       </Box>
                                     </Grid>
                                   )}
@@ -194,7 +206,7 @@ class PropertyManagerDetails extends PropertyManagerDetailsController {
                     </Box>
 
                     <Box className="details-box-item">
-                      <h4>{t("Identity Proof")}</h4>
+                      <h4 className="bold-text">{t("Identity Proof")}</h4>
                       <Card>
                         <Grid container spacing={2}>
                           <Grid item xs={6}>
@@ -202,7 +214,9 @@ class PropertyManagerDetails extends PropertyManagerDetailsController {
                               <img src={BlueTypeIcon} alt="" />
                               <Box className="box-item-content">
                                 <span>{t("ID Type")}</span>
-                                <p>{this.validationText(this.state.propertyManagerDetails.IdType)}</p>
+                                <p className="bold-text">
+                                  {this.validationText(this.state.propertyManagerDetails.IdType)}
+                                </p>
                               </Box>
                             </Box>
                           </Grid>
@@ -211,7 +225,9 @@ class PropertyManagerDetails extends PropertyManagerDetailsController {
                               <img src={BlueNumberIcon} alt="" />
                               <Box className="box-item-content">
                                 <span>{t("ID Number")}</span>
-                                <p>{this.validationText(this.state.propertyManagerDetails.IdNumber)}</p>
+                                <p className="bold-text">
+                                  {this.validationText(this.state.propertyManagerDetails.IdNumber)}
+                                </p>
                               </Box>
                             </Box>
                           </Grid>
@@ -220,7 +236,7 @@ class PropertyManagerDetails extends PropertyManagerDetailsController {
                               <img src={BlueDateIcon} alt="" />
                               <Box className="box-item-content">
                                 <span>{t("ID Expiration Date")}</span>
-                                <p>
+                                <p className="bold-text">
                                   {this.state.propertyManagerDetails.IdDate
                                     ? moment(this.state.propertyManagerDetails.IdDate, "YYYY-MM-DD").format(
                                         "MMMM DD, YYYY"
@@ -239,7 +255,7 @@ class PropertyManagerDetails extends PropertyManagerDetailsController {
                         <Card>
                           <Box className="heading">
                             <img src={PdfIcon} alt="" />
-                            <h4>
+                            <h4 className="bold-text">
                               {this.state.propertyManagerDetails.managerName +
                                 " " +
                                 this.state.propertyManagerDetails.IdType}{" "}
@@ -284,7 +300,7 @@ class PropertyManagerDetails extends PropertyManagerDetailsController {
               return (
                 <Form onSubmit={handleSubmit} translate="yes">
                   <Box>
-                    <h4>{t("Edit Property")}</h4>
+                    <h4 className="bold-text">{t("Edit Property")}</h4>
                     <FormControl fullWidth>
                       <Input
                         value={values.country}
@@ -353,8 +369,7 @@ class PropertyManagerDetails extends PropertyManagerDetailsController {
                         name="startDate"
                         className="select-input input"
                         placeholder={t("Contract Start Date")}
-                        type="text"
-                        onFocus={(e: any) => (e.target.type = "date")}
+                        type="date"
                         startAdornment={
                           <InputAdornment position="start">
                             <img src={IDDateIcon} alt="" />
@@ -372,8 +387,7 @@ class PropertyManagerDetails extends PropertyManagerDetailsController {
                           name="endDate"
                           className="select-input input"
                           placeholder={t("Contract End Date")}
-                          type="text"
-                          onFocus={(e: any) => (e.target.type = "date")}
+                          type="date"
                           min={values.startDate}
                         />
                         <img src={IDDateIcon} alt="" />

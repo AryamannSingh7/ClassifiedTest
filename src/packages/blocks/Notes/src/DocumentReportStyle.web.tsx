@@ -39,6 +39,9 @@ export const DocumentReportStyleWeb: any = {
       background: "#FFF",
       padding: 20,
     },
+    "& .document-card": {
+      boxShadow: "4px 0px 14px #e9e9e9",
+    },
     "& .document-box .item": {
       minHeight: "34px",
       display: "flex",
@@ -85,7 +88,7 @@ export const DocumentReportStyleWeb: any = {
       borderRadius: 5,
     },
     "& .document-box .card-item": {
-      boxShadow: "none",
+      boxShadow: "4px 0px 14px #e9e9e9",
       padding: "18px",
     },
     "& .document-box .card-item .heading": {
@@ -177,7 +180,7 @@ export const DocumentReportStyleWeb: any = {
       whiteSpace: "nowrap",
       textOverflow: "ellipsis",
       fontSize: "18px",
-      lineHeight: "18px",
+      lineHeight: "24px",
     },
     "& .menu span": {
       overflow: "hidden",
@@ -311,6 +314,7 @@ export const DocumentReportStyleWeb: any = {
     "& .list .personal-documents .content-box h3": {
       fontWeight: "600",
       marginBottom: "15px",
+      fontSize: "22px",
     },
     "& .document-view": {
       background: "white",
@@ -343,7 +347,7 @@ export const DocumentReportStyleWeb: any = {
       whiteSpace: "nowrap",
       textOverflow: "ellipsis",
       fontSize: "18px",
-      lineHeight: "18px",
+      lineHeight: "24px",
     },
     "& .right-image": {
       padding: "25px 60px",
@@ -374,7 +378,7 @@ export const DocumentReportStyleWeb: any = {
     "& .document-box .item .heading h4": {
       fontWeight: "600",
       fontSize: "16px",
-      marginLeft: "10px",
+      marginLeft: "15px",
       wordBreak: "break-all",
       textTransform: "capitalize",
     },

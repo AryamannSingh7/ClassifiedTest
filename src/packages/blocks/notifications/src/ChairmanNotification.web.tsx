@@ -56,7 +56,7 @@ class ChairmanNotification extends ChairmanNotificationController {
                         {t("Notifications")}
                       </Box>
                     </Typography>
-                    <Typography variant="h5" className="sub-heading">
+                    <Typography variant="h5" className="sub-heading bold-text">
                       {t("Notifications")}
                     </Typography>
                   </Box>
@@ -90,7 +90,7 @@ class ChairmanNotification extends ChairmanNotificationController {
                                       )}
                                       {/* <span className="unit">Unit 1</span> */}
                                     </Box>
-                                    <h4>{notification.attributes.contents}</h4>
+                                    <h4 className="bold-text">{notification.attributes.contents}</h4>
                                     <p>{notification.attributes.description}</p>
                                     <p className="time">{moment(notification.attributes.created_at).fromNow()}</p>
                                     <Button
@@ -158,7 +158,7 @@ class ChairmanNotification extends ChairmanNotificationController {
                                         </Menu>
                                       </Box>
                                     </Box>
-                                    <h4>{notification.attributes.contents}</h4>
+                                    <h4 className="bold-text">{notification.attributes.contents}</h4>
                                     <p>{notification.attributes.description}</p>
                                     <p className="time">{moment(notification.attributes.created_at).fromNow()}</p>
                                   </Box>

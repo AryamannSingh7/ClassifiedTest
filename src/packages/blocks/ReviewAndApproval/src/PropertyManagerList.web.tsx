@@ -34,7 +34,7 @@ class PropertyManagerList extends PropertyManagerListController {
                         <KeyboardBackspaceIcon />
                       </IconButton>
                     </Link>
-                    {t("Property Manager")}
+                    <span className="bold-text">{t("Property Manager")}</span>
                   </div>
                   <div className="right-icon">
                     <Menu
@@ -58,7 +58,7 @@ class PropertyManagerList extends PropertyManagerListController {
                             <Link href="/PropertyManagers/Request">
                               <Card className="contract">
                                 <Box className="new-req-box">
-                                  <h4>{t("New Request")}</h4>
+                                  <h4 className="bold-text">{t("New Request")}</h4>
                                   <Box className="right-side-req-box">
                                     {this.state.requestPropertyManagerList.length > 0 && (
                                       <Button>{this.state.requestPropertyManagerList.length}</Button>
@@ -82,11 +82,11 @@ class PropertyManagerList extends PropertyManagerListController {
                             });
                             return (
                               <Grid item xs={12} key={index}>
-                                <Card className="contract">
+                                <Card className="contract manager-card">
                                   <Grid container spacing={2}>
                                     <Grid item xs={12}>
                                       <div className="header">
-                                        <h4>{propertyManager.attributes.name || "-"}</h4>
+                                        <h4 className="bold-text">{propertyManager.attributes.name || "-"}</h4>
                                         <div className="right-menu">
                                           <Menu
                                             menuButton={

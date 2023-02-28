@@ -1,10 +1,9 @@
 // Customizable Area Start
 import React from "react";
 import { Container, IconButton, Link, withStyles, Box, Grid, Card } from "@material-ui/core";
-import KeyboardBackspaceIcon from "@material-ui/icons/KeyboardBackspace";
 import ViewBuildingDocumentController, { Props } from "./ViewBuildingDocumentController.web";
 import { DocumentReportStyleWeb } from "./DocumentReportStyle.web";
-import { DownloadImage, PdfImage, ShareImage } from "./assets";
+import { BackIcon, DownloadImage, PdfImage, ShareImage } from "./assets";
 import moment from "moment";
 import { withTranslation } from "react-i18next";
 import ShareDocumentModal from "../../../components/src/DocumentComponent/ShareModal.web";
@@ -28,7 +27,7 @@ class ViewBuildingDocument extends ViewBuildingDocumentController {
                 <div className="name">
                   <Link href={`/BuildingDocuments/${this.state.documentType}`}>
                     <IconButton>
-                      <KeyboardBackspaceIcon />
+                      <img src={BackIcon} alt="" />
                     </IconButton>
                   </Link>{" "}
                   <span className="bold-text">{this.state.documentTitle}</span>
@@ -39,7 +38,7 @@ class ViewBuildingDocument extends ViewBuildingDocumentController {
               </Box>
               <Container className="content-area document-box">
                 <div className="document-view">
-                  <iframe src={this.state.documentUrl} />
+                  <iframe src={this.state.documentUrl + "#toolbar=0&navpanes=0&scrollbar=0&view=FitH"} />
                 </div>
                 {this.state.documentType.toLowerCase() === "resolutions" && this.state.document && (
                   <>

@@ -16,7 +16,7 @@ export const BuildingApartmentStyle: any = {
       marginTop: 50,
     },
     "& .about-building .MuiCard-root": {
-      boxShadow: "none",
+      boxShadow: "4px 0px 14px #e9e9e9",
       padding: "15px 18px",
       borderRadius: "8px",
     },
@@ -42,7 +42,7 @@ export const BuildingApartmentStyle: any = {
       color: "black !important",
     },
     "& .building-info .MuiCard-root": {
-      boxShadow: "none",
+      boxShadow: "4px 0px 14px #e9e9e9",
       padding: "20px",
       borderRadius: "8px",
     },
@@ -137,7 +137,7 @@ export const BuildingApartmentStyle: any = {
       marginTop: "50px",
     },
     "& .stat-boxes .MuiCard-root": {
-      boxShadow: "none",
+      boxShadow: "4px 0px 14px #e9e9e9",
       padding: "20px",
       display: "flex",
       flexDirection: "column",
@@ -247,7 +247,7 @@ export const BuildingApartmentStyle: any = {
       marginTop: "50px",
     },
     "& .building-list .MuiCard-root": {
-      boxShadow: "none",
+      boxShadow: "4px 0px 14px #e9e9e9",
       borderRadius: "8px",
     },
     "& .building-list .top-content": {
@@ -330,7 +330,7 @@ export const BuildingApartmentStyle: any = {
       fontWeight: 600,
     },
     "& .shared-table .MuiCard-root": {
-      boxShadow: "none",
+      boxShadow: "4px 0px 14px #e9e9e9",
       borderRadius: "8px",
     },
     "& .Empty": {
@@ -414,7 +414,7 @@ export const BuildingApartmentStyle: any = {
     },
     "& .location-details .location-data .MuiCard-root": {
       padding: "30px 20px",
-      boxShadow: "none",
+      boxShadow: "4px 0px 14px #e9e9e9",
       display: "flex",
       gap: "15px",
       borderRadius: "8px",
@@ -432,7 +432,7 @@ export const BuildingApartmentStyle: any = {
       marginBottom: "10px",
     },
     "& .related-people .user-details": {
-      boxShadow: "none",
+      boxShadow: "4px 0px 14px #e9e9e9",
       padding: "30px 20px 20px 20px",
       display: "flex",
       alignItems: "center",
@@ -494,7 +494,7 @@ export const BuildingApartmentStyle: any = {
       position: "unset",
     },
     "& .family-details .user-details": {
-      boxShadow: "none",
+      boxShadow: "4px 0px 14px #e9e9e9",
       padding: "20px",
       display: "block",
       borderRadius: "8px",
@@ -527,7 +527,7 @@ export const BuildingApartmentStyle: any = {
       marginBottom: "10px",
     },
     "& .active-incident .incident-card": {
-      boxShadow: "none",
+      boxShadow: "4px 0px 14px #e9e9e9",
       padding: "20px",
       borderRadius: "8px",
     },
@@ -561,7 +561,7 @@ export const BuildingApartmentStyle: any = {
       marginBottom: "10px",
     },
     "& .rent-history .history-data .MuiCard-root": {
-      boxShadow: "none",
+      boxShadow: "4px 0px 14px #e9e9e9",
       padding: "20px",
       borderRadius: "8px",
     },
