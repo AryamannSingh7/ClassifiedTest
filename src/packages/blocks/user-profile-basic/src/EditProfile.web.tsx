@@ -9,7 +9,7 @@ import PermIdentityIcon from '@material-ui/icons/PermIdentity';
 
 import MailOutlineIcon from '@material-ui/icons/MailOutline';
 import HomeIcon from '@material-ui/icons/Home';
-import { Building1, calendar, emailedit, fbedit, heart, instaedit,  message, mobile, snapedit,twitteredit, user,} from "./assets";
+import { Building1, calendar, emailedit, fbedit, heart, instaedit,  message, mobile, NoProfile_Img, Pencil, snapedit,twitteredit, user,} from "./assets";
 import { withRouter } from 'react-router';
 import Loader from "../../../components/src/Loader.web";
 import '../assets/css/style.scss';
@@ -19,7 +19,11 @@ import { dailCode } from "../../email-account-registration/src/code";
 import CircleCheckedFilled from '@material-ui/icons/CheckCircle';
 import CircleUnchecked from '@material-ui/icons/RadioButtonUnchecked';
 import ChipInput from 'material-ui-chip-input'
+import KeyboardBackspaceIcon from '@material-ui/icons/KeyboardBackspace';
 import OtpInput from 'react-otp-input';
+import PhoneInput from 'react-phone-input-2'
+import 'react-phone-input-2/lib/style.css'
+import { Hyperlink } from "../../customform/src/assets";
 class EditProfile extends ProfileController {
   async componentDidMount() {
     // this.getProfile()
@@ -32,10 +36,10 @@ class EditProfile extends ProfileController {
       <>
         <Grid container spacing={2} className="auth-container">
           <Grid item xs={12} md={7} className="auth-cols" style={{ justifyContent: 'unset' }}>
-            <Grid container>
-              <Grid xs={12} style={{ display: 'flex', alignItems: 'center', borderBottom: '3px solid #f2f2f2',gap:'0.25rem',marginTop:'1.25rem', }}>
-                <ArrowBackIcon onClick={() => window.history.back()} /> {" "}
-                <p style={{ fontWeight: 600, fontSize: '1.25rem' }}>
+            <Grid container style={{borderBottom:'2px solid #f2efef'}}>
+              <Grid xs={12} style={{ display: 'flex', alignItems: 'center',gap:'0.25rem',marginBottom:5 }}>
+                <KeyboardBackspaceIcon onClick={() => window.history.back()} /> {" "}
+                <p style={{ fontWeight: 600, fontSize: '17px',paddingLeft:8 }}>
 
                  {" "} Edit My Profile
                 </p>
@@ -44,7 +48,7 @@ class EditProfile extends ProfileController {
             <div>
 
               <Grid container className="main-content-block" style={{marginTop:'1.5rem'}}>
-                <Grid xs={12}>
+                <Grid xs={12} className='inputPlaceholderRegistration'>
                   <Formik initialValues={{
                     bannerUrl:profileData?.attributes?.profile_pic?.url,
                     full_name: profileData?.attributes?.full_name?.name,
@@ -80,10 +84,10 @@ class EditProfile extends ProfileController {
                             marginTop: '1rem',
                             marginBottom: '1.5rem'
                           }}>
-                            <Avatar src={values.bannerUrl} />
+                            <Avatar src={values.bannerUrl || NoProfile_Img} className="info-icon" style={{width:50,height:50}} />
 
                             <label htmlFor="file1"
-                              style={{ color: '#FC8434', fontWeight: 'bold' }}>
+                              style={{ color: '#FC8434',fontSize:'1rem'}} className='text-bold'>
                               Change Profile Picture
                             </label>
                             <input
@@ -135,6 +139,7 @@ class EditProfile extends ProfileController {
 
                           <Box
                             className="formInputGrp"
+                            style={{border:"0.1px solid rgb(209 209 209 / 100%)",borderRadius:"25px",backgroundColor:"#f9f9f9"}}
                           >
 
 
@@ -174,6 +179,7 @@ class EditProfile extends ProfileController {
                             border="0.1px solid rgb(209 209 209 / 44%)"
                             borderRadius="25px"
                             bgcolor="#f9f9f9"
+                            style={{border:"0.1px solid rgb(209 209 209 / 100%)",borderRadius:"25px",backgroundColor:"#f9f9f9"}}
                           >
                             <Box>
                               <FormControl variant="outlined" >
@@ -244,6 +250,7 @@ class EditProfile extends ProfileController {
                           {/* email */}
                           <Box
                             className="formInputGrp"
+                            style={{border:"0.1px solid rgb(209 209 209 / 100%)",borderRadius:"25px",backgroundColor:"#f9f9f9"}}
                           >
                                                         <Field
                               className="formInput"
@@ -274,6 +281,7 @@ class EditProfile extends ProfileController {
                           {/* Bio */}
                           <Box
                             className="formInputGrp"
+                            style={{border:"0.1px solid rgb(209 209 209 / 100%)",borderRadius:"25px",backgroundColor:"#f9f9f9"}}
                           >
 
 
@@ -285,7 +293,7 @@ class EditProfile extends ProfileController {
 
                             />
                             <span className="frmLeftIcons">
-                              <img src={message} />
+                              <img src={Hyperlink} />
                             </span>
                           </Box>
                           {errors.bio && touched.bio ? (
@@ -333,6 +341,7 @@ class EditProfile extends ProfileController {
                           {/* DOB */}
                           <Box
                             className="formInputGrp"
+                            style={{border:"0.1px solid rgb(209 209 209 / 100%)",borderRadius:"25px",backgroundColor:"#f9f9f9"}}
                           >
 
 
@@ -364,6 +373,7 @@ class EditProfile extends ProfileController {
                           {/* Hobbies */}
                           <Box
                             className="formInputGrp"
+                            style={{border:"0.1px solid rgb(209 209 209 / 100%)",borderRadius:"25px",backgroundColor:"#f9f9f9"}}
                           >
 
 
@@ -408,6 +418,7 @@ class EditProfile extends ProfileController {
                           {/* Twitter */}
                           <Box
                             className="formInputGrp"
+                            style={{border:"0.1px solid rgb(209 209 209 / 100%)",borderRadius:"25px",backgroundColor:"#f9f9f9"}}
                           >
 
 
@@ -441,6 +452,7 @@ class EditProfile extends ProfileController {
                           {/* fb */}
                           <Box
                             className="formInputGrp"
+                            style={{border:"0.1px solid rgb(209 209 209 / 100%)",borderRadius:"25px",backgroundColor:"#f9f9f9"}}
                           >
 
 
@@ -473,6 +485,7 @@ class EditProfile extends ProfileController {
                           {/* Insta */}
                           <Box
                             className="formInputGrp"
+                            style={{border:"0.1px solid rgb(209 209 209 / 100%)",borderRadius:"25px",backgroundColor:"#f9f9f9"}}
                           >
 
 
@@ -505,6 +518,7 @@ class EditProfile extends ProfileController {
                           {/* snap */}
                           <Box
                             className="formInputGrp"
+                            style={{border:"0.1px solid rgb(209 209 209 / 100%)",borderRadius:"25px",backgroundColor:"#f9f9f9"}}
                           >
 
 
@@ -571,7 +585,8 @@ class EditProfile extends ProfileController {
             style: {
               borderRadius: '15px',
               padding: '2rem',
-              margin: 0
+              margin: 0,
+              overflow:'visible'
             },
           }}
         >
@@ -602,7 +617,7 @@ class EditProfile extends ProfileController {
             </Grid>
           </Grid>
           <Grid container>
-            <Grid item>
+            <Grid item className='inputPlaceholderRegistration'>
               <Formik initialValues={{
                 phone: '',
               }}
@@ -621,18 +636,19 @@ class EditProfile extends ProfileController {
                       marginTop='1rem'
                       className='formInputGrp'
                       display="flex"
-                      overflow="hidden"
+                      overflow="visible"
                       alignItems="center"
                       height="56px"
                       border="0.1px solid rgb(209 209 209 / 44%)"
                       borderRadius="25px"
                       bgcolor="#f9f9f9"
+                      style={{border:"0.1px solid rgb(209 209 209 / 100%)",borderRadius:"25px",backgroundColor:"#f9f9f9"}}
                     >
                       <Box>
                         <FormControl variant="outlined" >
                           {/* <InputLabel id="demo-simple-select-outlined-label"><img src={`https://cdn.jsdelivr.net/npm/country-flag-emoji-json@2.0.0/dist/images/AF.svg`} width='15' height='15' />
                           sd</InputLabel> */}
-                          <Select
+                          {/* <Select
                             name='selectCode'
                             labelId="demo-simple-select-outlined-label"
 
@@ -651,7 +667,15 @@ class EditProfile extends ProfileController {
                             )
                             }
 
-                          </Select>
+                          </Select> */}
+                            <PhoneInput
+                            inputProps={{name:'selectCode'}}
+                            // name='selectCode'
+                            enableSearch={true}
+                            value={this.state.selectCode}
+                            onChange={this.handleChangeCCode}
+  country={'us'}
+/>
                         </FormControl>
 
                       </Box>

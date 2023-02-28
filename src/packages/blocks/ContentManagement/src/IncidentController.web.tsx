@@ -724,7 +724,7 @@ confirmOrRejectIncident =(id : any,val : any)=>{
       this.getIncidentListingApiCallId = requestMessage.messageId;
       this.setState({ loading: true });
 
-     const  getSortByOrStatus = `bx_block_custom_form/incidents?society_management_id=${society_id}?sort_type=${sortBy}&filter_by=${status}`
+     const  getSortByOrStatus = `bx_block_custom_form/incidents?society_management_id=${society_id}&sort_type=${sortBy}&filter_by=${status}`
 
       requestMessage.addData(
         getName(MessageEnum.RestAPIResponceEndPointMessage),

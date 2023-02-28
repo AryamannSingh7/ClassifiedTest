@@ -43,9 +43,9 @@ class IncidentListing extends IncidentController {
     return (
       <>
         <Box className="login-wrapper incident-wrapper" >
-          <Grid container spacing={2} className="auth-container">
+          <Grid container spacing={2} className="auth-container" style={{backgroundColor:'#f6f7fc'}}>
             <Grid item xs={12} md={7} className="auth-cols">
-              <Box className="content-block">
+              <Box className="content-block" style={{justifyContent:"flex-start"}}  >
                 <Box className="content-header">
                   <Box className="left-block blocks">
                     <Box className="backIcons" onClick={() => this.redirectToDashboard()}><KeyboardBackspaceIcon /></Box>

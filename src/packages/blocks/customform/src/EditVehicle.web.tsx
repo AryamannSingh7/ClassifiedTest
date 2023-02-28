@@ -79,6 +79,7 @@ class EditVeichleList extends VeichleListController {
                         <Box className='formGroup'>
                           <Box
                             className="formInputGrp"
+                            style={{marginBottom:"25px",border:"0.1px solid rgb(209 209 209 / 100%)",borderRadius:"25px"}}
                           >
 
 
@@ -125,6 +126,7 @@ class EditVeichleList extends VeichleListController {
                           {/* plate number */}
                           <Box
                             className="formInputGrp"
+                            style={{marginBottom:"25px",border:"0.1px solid rgb(209 209 209 / 100%)",borderRadius:"25px"}}
                           >
 
 
@@ -171,6 +173,7 @@ class EditVeichleList extends VeichleListController {
 
                           <Box
                             className="formInputGrp"
+                            style={{marginBottom:"25px",border:"0.1px solid rgb(209 209 209 / 100%)",borderRadius:"25px"}}
                           >
                             <Field
                               name="carManufacturer"
@@ -202,6 +205,7 @@ class EditVeichleList extends VeichleListController {
 
                           <Box
                             className="formInputGrp"
+                            style={{marginBottom:"25px",border:"0.1px solid rgb(209 209 209 / 100%)",borderRadius:"25px"}}
                           >
                             <Field
                               name="carModle"
@@ -233,6 +237,7 @@ class EditVeichleList extends VeichleListController {
 
                           <Box
                             className="formInputGrp"
+                            style={{marginBottom:"25px",border:"0.1px solid rgb(209 209 209 / 100%)",borderRadius:"25px"}}
                           >
                             <Field
                               name="carColor"

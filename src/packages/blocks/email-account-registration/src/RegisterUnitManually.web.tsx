@@ -289,6 +289,7 @@ class RegisterUnitManually extends EmailAccountRegistrationController {
               <Box className="customButton" style={{width:'90%',margin:'1rem'}} >
                 <Button variant="contained" type="submit">SEND REGISTRATION REQUEST</Button>
               </Box>
+               {JSON.stringify(errors, null, 2)} 
 
             </Form>
           )}

@@ -1469,6 +1469,8 @@ if(value.includes('+'))
 
   addressSchemaManual = () => {
     const validations = Yup.object().shape({
+      selectCountry: Yup.string().required(`Country is required`).trim(),
+      selectCity:Yup.string().required(`City is required`).trim(),
       selectBuilding: Yup.string().required(`Building is required`).trim(),
       selectComplex: Yup.string().required(`Complex is required`).trim(),
       selectUnit: Yup.string().required(`Unit is required`).trim(),
