@@ -55,7 +55,7 @@ class UnitExpenseList extends UnitExpenseListController {
                     <IconButton onClick={() => this.handleNavigationToExpense()}>
                       <KeyboardBackspaceIcon />
                     </IconButton>
-                    <span>
+                    <span className="bold-text">
                       Building {this.state.buildingName} Unit {this.state.unitName}
                     </span>
                   </Box>
@@ -86,7 +86,7 @@ class UnitExpenseList extends UnitExpenseListController {
                                 <Grid container spacing={2}>
                                   <Grid item xs={12}>
                                     <Box className="header">
-                                      <h4>
+                                      <h4 className="bold-text">
                                         {moment(expense.attributes.expense_date, "YYYY-MM-DD").format("MMMM DD, YYYY")}
                                       </h4>
                                       <Box className="right-menu">
@@ -164,7 +164,7 @@ class UnitExpenseList extends UnitExpenseListController {
         >
           <Box className="condition-box filter-box">
             <Box className="heading">
-              <p>{t("Filter")}</p>
+              <p className="bold-text">{t("Filter")}</p>
               <span className="clear-all-text" onClick={() => this.handleClearFilter()}>
                 {t("Clear All")}
               </span>

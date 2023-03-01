@@ -1,10 +1,9 @@
 // Customizable Area Start
 import React from "react";
 import { Container, IconButton, Link, withStyles, Box, Grid, Card } from "@material-ui/core";
-import KeyboardBackspaceIcon from "@material-ui/icons/KeyboardBackspace";
 import BuildingDocumentListController, { Props } from "./BuildingDocumentListController.web";
 import { DocumentReportStyleWeb } from "./DocumentReportStyle.web";
-import { PdfImage, ShareImage, DownloadImage, NoPdf } from "./assets";
+import { PdfImage, ShareImage, DownloadImage, NoPdf, BackIcon } from "./assets";
 import moment from "moment";
 import { withTranslation } from "react-i18next";
 import SidebarImageComponent from "../../../components/src/OwnerSidebarImage.web";
@@ -27,7 +26,7 @@ class BuildingDocumentList extends BuildingDocumentListController {
               <Box display={{ xs: "flex", md: "flex" }} className="menu">
                 <Link href="/BuildingDocuments">
                   <IconButton>
-                    <KeyboardBackspaceIcon />
+                    <img src={BackIcon} alt="" />
                   </IconButton>
                 </Link>{" "}
                 <span className="bold-text">

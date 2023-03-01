@@ -6,7 +6,6 @@ import SelectedTemplateController, { Props } from "./SelectedTemplateController.
 import { ContractsStyleWeb } from "./ContractsStyle.web";
 import { BuildingLogo } from "./assets";
 import { withTranslation } from "react-i18next";
-import "../../../web/src/i18n.js";
 
 class SelectedTemplate extends SelectedTemplateController {
   constructor(props: Props) {
@@ -14,8 +13,7 @@ class SelectedTemplate extends SelectedTemplateController {
   }
 
   render() {
-    const { classes } = this.props;
-    const { t }: any = this.props;
+    const { t, classes }: any = this.props;
 
     return (
       <>
@@ -28,7 +26,7 @@ class SelectedTemplate extends SelectedTemplateController {
                     <IconButton onClick={() => this.goBackPage()}>
                       <KeyboardBackspaceIcon />
                     </IconButton>
-                    <span>{t("Issue a Lease")}</span>
+                    <span className="bold-text">{t("Issue a Lease")}</span>
                   </div>
                 </Box>
                 <Container className="page-container">

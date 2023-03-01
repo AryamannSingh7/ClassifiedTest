@@ -52,7 +52,7 @@ class DocumentListChairman extends DocumentListChairmanController {
   };
 
   documentClass = (documentPage: any) => {
-    return documentPage === "resolutions" ? "resolutions" : "";
+    return documentPage === "resolutions" ? "resolutions" : "document-card";
   };
 
   handleError = (errors: any, touched: any) => {
@@ -86,7 +86,7 @@ class DocumentListChairman extends DocumentListChairmanController {
             <Card className="card-item resolution-card">
               <div className="heading">
                 <h4 className="bold-text">{resolution.attributes.title}</h4>
-                <div className="menu">
+                <div className="menu resolution-menu">
                   <Menu
                     menuButton={
                       <IconButton>
@@ -183,7 +183,7 @@ class DocumentListChairman extends DocumentListChairmanController {
                   <h4 className="bold-text">{document.attributes.title}</h4>
                 </div>
               </Link>
-              <div className="menu">
+              <div className="menu document-menu">
                 <Menu
                   menuButton={
                     <IconButton>
@@ -233,7 +233,7 @@ class DocumentListChairman extends DocumentListChairmanController {
     } else {
       return this.state.meetingsList.map((meeting: any) => {
         return (
-          <ListItem key={meeting.id}>
+          <ListItem key={meeting.id} className="meeting-minute-row">
             <ListItemIcon>
               <Checkbox
                 edge="start"
@@ -278,7 +278,7 @@ class DocumentListChairman extends DocumentListChairmanController {
 
     return (
       <>
-        <Box style={{ background: "#F4F7FF" }} className={classes.documentChairman}>
+        <Box style={{ background: "#F7F9FE" }} className={classes.documentChairman}>
           {/* Dashboard Header -- */}
           <DashboardHeader {...this.props} />
           <Box style={{ display: "flex" }}>
@@ -523,12 +523,16 @@ class DocumentListChairman extends DocumentListChairmanController {
             )}
             {this.state.selectedMeeting ? (
               <div className="change-meeting">
-                <span>{this.state.selectedMeeting && this.state.selectedMeeting.attributes.title}</span>
-                <span onClick={() => this.handleSelectMeetingModal()}>{t("Change")}</span>
+                <span className="bold-text">
+                  {this.state.selectedMeeting && this.state.selectedMeeting.attributes.title}
+                </span>
+                <span className="bold-text" onClick={() => this.handleSelectMeetingModal()}>
+                  {t("Change")}
+                </span>
               </div>
             ) : (
               <div className="choose-meeting" onClick={() => this.handleSelectMeetingModal()}>
-                <span>{t("Choose Meeting")}</span>
+                <span className="bold-text">{t("Choose Meeting")}</span>
               </div>
             )}
           </DialogContent>

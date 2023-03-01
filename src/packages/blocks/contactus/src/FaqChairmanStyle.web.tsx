@@ -16,10 +16,10 @@ export const FaqChairmanStyleWeb: any = {
     },
     "& .contact-us-form .title-input": {
       borderRadius: 8,
-      border: "1px solid #ced4da",
       fontSize: 15,
       padding: "16px 26px 16px 15px",
       outline: "none",
+      border: "1px solid #F0F0F0",
       background: "#F9F9F9",
     },
     "& .contact-us-form .MuiFormControl-root": {
@@ -45,7 +45,7 @@ export const FaqChairmanStyleWeb: any = {
     },
     "& .contact-us-form .select-input": {
       borderRadius: 8,
-      border: "1px solid #ced4da",
+      border: "1px solid #F0F0F0",
       fontSize: 15,
       padding: "16px 26px 16px 15px",
       background: "#F9F9F9",
@@ -53,7 +53,7 @@ export const FaqChairmanStyleWeb: any = {
     },
     "& .contact-us-form .textarea-input": {
       borderRadius: 8,
-      border: "1px solid #ced4da",
+      border: "1px solid #F0F0F0",
       fontSize: 15,
       padding: "16px 26px 16px 15px",
       height: "150px",

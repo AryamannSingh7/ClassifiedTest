@@ -18,6 +18,10 @@ export const PropertyManagerStyleWeb: any = {
       alignItems: "center",
       justifyContent: "center",
     },
+    "& .top-bar .left-icon span": {
+      fontSize: "18px",
+      lineHeight: "18px",
+    },
     "& .top-bar .right-icon": {
       display: "flex",
       alignItems: "center",
@@ -72,11 +76,14 @@ export const PropertyManagerStyleWeb: any = {
     "& .upload-button .MuiGrid-container": {
       width: "fit-content",
     },
+    "& .contracts-list .contract.manager-card": {
+      boxShadow: "4px 0px 14px #e9e9e9",
+    },
     "& .contracts-list .contract": {
-      padding: "10px 25px",
+      padding: "15px 25px",
       borderRadius: "10px",
       background: "white",
-      boxShadow: "4px 0px 14px #ececec",
+      boxShadow: "none",
       "& h4": {
         fontSize: "17px",
       },
@@ -134,8 +141,12 @@ export const PropertyManagerStyleWeb: any = {
         display: "flex",
         alignItems: "center",
         justifyContent: "space-between",
+        marginBottom: "10px",
         "& h4": {
           wordBreak: "break-all",
+        },
+        "& .right-menu button": {
+          padding: "0",
         },
       },
     },
@@ -164,6 +175,10 @@ export const PropertyManagerStyleWeb: any = {
       display: "flex",
       alignItems: "center",
       justifyContent: "center",
+    },
+    "& .top-bar .left-icon span": {
+      fontSize: "18px",
+      lineHeight: "18px",
     },
     "& .top-bar .right-icon img": {
       marginLeft: "15px",
@@ -490,6 +505,7 @@ export const PropertyManagerStyleWeb: any = {
     },
     "& .top-bar .left-icon span": {
       fontSize: "18px",
+      lineHeight: "18px",
     },
     "& .top-bar .right-icon": {
       display: "flex",

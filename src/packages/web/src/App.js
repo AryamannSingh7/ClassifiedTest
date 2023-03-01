@@ -87,6 +87,7 @@ import RegistrationRequest from '../../blocks/email-account-login/src/Registrati
 import ChairmanRegistrationRequest from '../../blocks/email-account-login/src/ChairmanRegistrationRequest.web';
 import DashboardGeneral from '../../blocks/dashboard/src/DashboardGeneral.web';
 import DashboardTicket from '../../blocks/dashboard/src/DashboardTicket.web';
+import AvgResolutionTicket from '../../blocks/dashboard/src/AvgResolutionTicket.web';
 import TicketGeneratedYear from '../../blocks/dashboard/src/TicketGeneratedYear.web';
 import TicketGeneratedDays from '../../blocks/dashboard/src/TicketGeneratedDays.web';
 import DashboardActions from '../../blocks/dashboard/src/DashboardActions.web';
@@ -1314,6 +1315,12 @@ const routeMap = {
   TicketGeneratedDays: {
     component: TicketGeneratedDays,
     path: '/DashboardTicket/Days/:days',
+    roles: [ROLE.CHAIRMAN, ROLE.MANAGER],
+    exact: true
+  },
+  AvgResolutionTicket: {
+    component: AvgResolutionTicket,
+    path: '/AvgResolutionTicket',
     roles: [ROLE.CHAIRMAN, ROLE.MANAGER],
     exact: true
   },

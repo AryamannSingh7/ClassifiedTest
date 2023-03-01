@@ -191,13 +191,13 @@ class CreateIncident extends IncidentController {
                             <ErrorMessage className="text-error" component="Typography" name="incidentRelated" />
                           </FormControl>
                         </Box>
-                        <Box className="formGroup">
+                        <Box className="formGroup" style={{marginBottom:"25px",border:"0.1px solid rgb(209 209 209 / 100%)",borderRadius:"25px"}}>
                           <Field name="incidentTitle" type="text" placeholder="Incident Title" className="formInput" />
                           <span className="frmLeftIcons">
                             <img src={Warning_Icon} className="frm-icons" alt="Warning Icon" />
                           </span>
-                          <ErrorMessage className="text-error" component="Typography" name="incidentTitle" />
                         </Box>
+                          <ErrorMessage className="text-error" component="Typography" name="incidentTitle" />
                         {/* <Box className="formGroup textarea">
                           <img src={Clipboard_Icon} className="clipboard-icon" alt="Clipboard_Icon" />
                           <TextareaAutosize
@@ -210,13 +210,13 @@ class CreateIncident extends IncidentController {
                           />
                         </Box>
                         <ErrorMessage className="text-error" component="Typography" name="description" /> */}
-                        <Box className="formGroup">
+                        <Box className="formGroup" style={{marginBottom:"25px",border:"0.1px solid rgb(209 209 209 / 100%)",borderRadius:"25px"}}>
                           <Field name="description" type="text" placeholder="Add description" className="formInput" />
                           <span className="frmLeftIcons">
                           <img src={Clipboard_Icon} className="clipboard-icon" alt="Clipboard_Icon" />
                           </span>
-                          <ErrorMessage className="text-error" component="Typography" name="description" />
                         </Box>
+                          <ErrorMessage className="text-error" component="Typography" name="description" />
                         <Box className="formGroup customFileupload">
                           <Button
                             variant="contained"

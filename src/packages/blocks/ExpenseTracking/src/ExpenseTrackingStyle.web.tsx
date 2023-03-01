@@ -22,6 +22,7 @@ export const ExpenseTrackingStyle: any = {
     },
     "& .top-bar .left-icon span": {
       lineHeight: "18px",
+      fontSize: "18px",
     },
     "& .top-bar .right-icon": {
       display: "flex",
@@ -77,6 +78,13 @@ export const ExpenseTrackingStyle: any = {
       display: "flex",
       alignItems: "center",
       justifyContent: "space-between",
+      marginBottom: "10px",
+    },
+    "& .tenant-list-box .tenant .header .right-menu button": {
+      padding: "0",
+    },
+    "& .tenant-list-box .tenant .header h4": {
+      fontSize: "16px",
     },
     "& .tenant-list-box .tenant .info span": {
       color: "gray",
@@ -108,6 +116,10 @@ export const ExpenseTrackingStyle: any = {
       display: "flex",
       alignItems: "center",
       justifyContent: "center",
+    },
+    "& .top-bar .left-icon span": {
+      lineHeight: "18px",
+      fontSize: "18px",
     },
     "& .top-bar .right-icon img": {
       marginLeft: "15px",

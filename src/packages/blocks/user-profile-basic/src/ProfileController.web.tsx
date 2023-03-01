@@ -35,7 +35,7 @@ export interface S {
   enableReTypePasswordField: boolean;
   countryCodeSelected: string;
   phone: string;
-  error: string | null;
+  error: any;
   userType: string | null;
   allContries: [];
   selectCountry: string;
@@ -60,7 +60,9 @@ export interface S {
   showDialog2: boolean;
   profiledata:any;
   values:any,
-  showDialogDelete:boolean
+  showDialogDelete:boolean,
+  showError:boolean
+
   // Customizable Area End
 }
 
@@ -171,7 +173,9 @@ const profileData = JSON.parse(localStorage.getItem('profileData') ||'{}')
       profiledata:null,
       values:null,
       showDialogDelete:false,
-  showDialog1:false
+  showDialog1:false,
+  showError:false
+
 
       // Customizable Area End
     };
@@ -1856,8 +1860,49 @@ this.setState({loading:true})
     });
     return validations
   }
-  updatePhone=(values:any)=>{
+  checkPhone=(value:any)=>{
 
+
+    let pettrn=/^5\d+$/
+    
+    if(value.includes('+'))
+    {
+      
+      this.setState({error:'Please enter valid mobile number',showError:true})
+      return false
+    }else if(this.state.selectCode == '+966' ||this.state.selectCode == '+971' ){
+    
+          if(!(pettrn.test(value)))
+          {
+          
+            this.setState({error:'Please enter valid mobile number',showError:true})
+            return false
+          }
+          else{
+          if(value.length==9){
+    
+    
+            return true
+          }else{
+            this.setState({error:'Please enter valid mobile number',showError:true})
+            return false
+          }
+    
+          }
+        }else {
+          if(value.length==10){
+    
+    
+            return true
+          }else{
+            this.setState({error:'Please enter valid mobile number',showError:true})
+            return false
+          }
+    
+        }
+      }
+  updatePhone=(values:any)=>{
+if(this.checkPhone(values.phone)){
 this.setState({loading:true,error:null})
     const header = {
       "token": localStorage.getItem('userToken'),
@@ -1892,7 +1937,7 @@ this.setState({loading:true,error:null})
     );
 
     runEngine.sendMessage(requestMessage.id, requestMessage);
-    return true;
+    return true;}
 
   }
   handleAddChip=(fn:any,data:any,values:any)=>{
@@ -1959,6 +2004,15 @@ let userType=localStorage.getItem('userType')
     }
 
   }
+  handleChangeCCode = (e: any) => {
+    console.log(e)
+    if (e) {
+      // @ts-ignore
+      // @ts-nocheck
+      this.setState({selectCode: `+${e}` })
+    }
+  }
+
 
   // Customizable Area End
 }

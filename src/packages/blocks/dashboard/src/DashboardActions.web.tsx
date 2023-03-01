@@ -24,11 +24,9 @@ class DashboardActions extends DashboardActionsController {
     return (
       <>
         <Box className={classes.generalDashboard}>
-          {/* Dashboard Header -- */}
           <DashboardHeader {...this.props} />
           <Box style={{ display: "flex" }}>
             <Grid item xs={3} md={3} sm={3} className="SideBar">
-              {/* Chairman Sidebar -- */}
               {localStorage.getItem("selectUserType") == "Auditor" ? (
                 <AuditorSideBarWeb {...this.props} />
               ) : (
@@ -46,7 +44,9 @@ class DashboardActions extends DashboardActionsController {
                     </Box>
                   </Typography>
                   <Box className="sub-heading-box">
-                    <Typography variant="h5">{t("Action Assign to me")}</Typography>
+                    <Typography variant="h5" className="bold-text">
+                      {t("Action Assign to me")}
+                    </Typography>
                   </Box>
                   <Box className="action-filter-box">
                     <select className="select-year">
@@ -74,7 +74,7 @@ class DashboardActions extends DashboardActionsController {
                   <Grid container spacing={2}>
                     <Grid item sm={12}>
                       <Card className="action-card">
-                        <h4>To approve a budget report 2022</h4>
+                        <h4 className="bold-text">To approve a budget report 2022</h4>
                         <p className="description">
                           Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque gravida, enim ut tincidunt
                           vehicula, liberoan te laoreet nisl, nec vulputate nibh ligula quis risus.
@@ -85,28 +85,28 @@ class DashboardActions extends DashboardActionsController {
                               <img src={ActionBuilding} alt="" />
                               <Box>
                                 <span>Building</span>
-                                <p>Building 1</p>
+                                <p className="bold-text">Building 1</p>
                               </Box>
                             </Box>
                             <Box className="action-info">
                               <img src={ActionAssign} alt="" />
                               <Box>
                                 <span>Assigned by</span>
-                                <p>John Deo</p>
+                                <p className="bold-text">John Deo</p>
                               </Box>
                             </Box>
                             <Box className="action-info">
                               <img src={ActionCalender} alt="" />
                               <Box>
                                 <span>Assigned on</span>
-                                <p>June 14, 2023</p>
+                                <p className="bold-text">June 14, 2023</p>
                               </Box>
                             </Box>
                             <Box className="action-info">
                               <img src={ActionCalender} alt="" />
                               <Box>
                                 <span>Due till</span>
-                                <p>June 14, 2023</p>
+                                <p className="bold-text">June 14, 2023</p>
                               </Box>
                             </Box>
                           </Box>

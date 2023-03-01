@@ -2,9 +2,8 @@
 import React from "react";
 import { Container, IconButton, Link, withStyles, Box, Grid, Tab, Card, Divider } from "@material-ui/core";
 import { Menu, MenuItem } from "@szhsin/react-menu";
-import KeyboardBackspaceIcon from "@material-ui/icons/KeyboardBackspace";
 import MyMeetingsController, { Props } from "./MyMeetingsController.web";
-import { BuildingLogo, SortIcon, FilterIcon, TrueIcon, FalseIcon } from "./assets";
+import { BuildingLogo, SortIcon, FilterIcon, TrueIcon, FalseIcon, BackIcon } from "./assets";
 import { MeetingsStyleWeb } from "./MeetingsStyle.web";
 import { withTranslation } from "react-i18next";
 import moment from "moment";
@@ -37,7 +36,7 @@ class MyMeetings extends MyMeetingsController {
                 <Box display={{ xs: "flex", md: "flex" }} className="top-bar">
                   <div className="left-icon">
                     <IconButton onClick={() => this.redirectToDashboard()}>
-                      <KeyboardBackspaceIcon />
+                      <img src={BackIcon} alt="" />
                     </IconButton>
                     <span className="bold-text">{t("My Meetings")}</span>
                   </div>

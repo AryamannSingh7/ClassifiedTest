@@ -4,7 +4,7 @@ import { Card, Grid } from "@material-ui/core";
 const UnitCard = ({ heading, titleOne, valueOne, titleTwo, valueTwo }: any) => {
   return (
     <Card className="rented-empty-card">
-      <h4>{heading}</h4>
+      <h4 className="bold-text">{heading}</h4>
       <Grid container spacing={2}>
         <Grid item xs={6}>
           <span>{titleOne}</span>

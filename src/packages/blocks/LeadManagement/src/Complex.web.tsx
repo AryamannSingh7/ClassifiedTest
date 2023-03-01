@@ -322,7 +322,7 @@ const DocumentsSharedArea = (props: any) => {
             <>
               <Box className="top-content">
                 <Box className="heading">
-                  <h2>{t("Shared Area")}</h2>
+                  <h2 className="bold-text">{t("Shared Area")}</h2>
                 </Box>
               </Box>
               <Divider />
@@ -338,7 +338,7 @@ const DocumentsSharedArea = (props: any) => {
                         >
                           <div className="heading">
                             <img src={Document} />
-                            <h4>{sharedArea.name}</h4>
+                            <h4 className="bold-text">{sharedArea.name}</h4>
                           </div>
                         </Box>
                       </Grid>

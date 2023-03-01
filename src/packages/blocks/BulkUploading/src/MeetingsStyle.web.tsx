@@ -88,6 +88,7 @@ export const MeetingsStyleWeb: any = {
       marginBottom: "20px",
       borderRadius: "8px",
       fontFamily: "Century Gothic",
+      // boxShadow: "4px 0px 14px #e9e9e9",
     },
     "& .meeting-table .table-top": {
       padding: "20px",
@@ -129,9 +130,6 @@ export const MeetingsStyleWeb: any = {
       borderBottom: "1px solid #f0f0f0",
       fontFamily: "Century Gothic !important",
     },
-    "& .meeting-table .table-box .MuiTableHead-root th": {
-      // fontFamily: "Century Gothic !important",
-    },
     "& .meeting-table .table-box .MuiTableRow-root": {
       borderBottom: "1px solid #f0f0f0",
       fontFamily: "Century Gothic",
@@ -141,6 +139,15 @@ export const MeetingsStyleWeb: any = {
       textTransform: "capitalize",
     },
     "& .meeting-table .table-box .ellipse": {
+      maxWidth: "160px",
+      overflow: "hidden",
+      whiteSpace: "nowrap",
+      textOverflow: "ellipsis",
+      "-webkit-line-clamp": 2,
+      "-webkit-box-orient": "vertical",
+      display: "inline-grid",
+    },
+    "& .meeting-table .table-box .ellipse-one": {
       maxWidth: "160px",
       overflow: "hidden",
       whiteSpace: "nowrap",
@@ -217,6 +224,9 @@ export const MeetingsStyleWeb: any = {
       padding: "20px",
       boxShadow: "none",
     },
+    "& .meeting-minute-note .MuiCard-root.meeting-preview-card": {
+      boxShadow: "4px 0px 14px #e9e9e9",
+    },
     "& .meeting-minute-note .MuiCard-root p": {
       marginBottom: "10px",
     },
@@ -292,6 +302,7 @@ export const MeetingsStyleWeb: any = {
       marginBottom: "50px",
       marginTop: "25px",
       borderRadius: "8px",
+      boxShadow: "4px 0px 14px #e9e9e9",
     },
     "& .meeting-detail-box .meeting-top": {
       display: "flex",
@@ -330,7 +341,7 @@ export const MeetingsStyleWeb: any = {
     },
     "& .meeting-detail-box .meeting-details .items": {
       borderBottom: "1px solid #f0f0f0",
-      padding: "15px 0",
+      padding: "12px 0",
     },
     "& .meeting-detail-box .meeting-details .items p": {
       display: "inline-block",
@@ -341,6 +352,7 @@ export const MeetingsStyleWeb: any = {
       marginBottom: "100px",
       background: "white",
       borderRadius: "8px",
+      boxShadow: "4px 0px 14px #e9e9e9",
     },
     "& .response-box .heading": {
       padding: "0 0 10px 0",
@@ -348,6 +360,8 @@ export const MeetingsStyleWeb: any = {
       justifyContent: "space-between",
       alignItems: "center",
       background: "white",
+      marginLeft: "14px",
+      marginRight: "14px",
     },
     "& .response-box h3": {
       fontWeight: "600",
@@ -366,6 +380,9 @@ export const MeetingsStyleWeb: any = {
     },
     "& .response-box .status p span": {
       fontWeight: "600",
+    },
+    "& .response-box td": {
+      padding: "14px",
     },
     "& .button-box": {
       display: "flex",
@@ -475,6 +492,7 @@ export const MeetingsStyleWeb: any = {
       padding: "5px 10px",
       borderRadius: "25px",
       textTransform: "capitalize",
+      fontWeight: "600",
     },
     "& .response-box .table-box th": {
       fontWeight: "600",
@@ -498,7 +516,7 @@ export const MeetingsStyleWeb: any = {
     },
     "& .rejection-box .MuiCard-root": {
       padding: "20px",
-      boxShadow: "none",
+      boxShadow: "4px 0px 14px #e9e9e9",
       margin: "0 0 20px",
     },
     "& .rejection-box .MuiCard-root h4": {
@@ -737,7 +755,10 @@ export const MeetingsStyleWeb: any = {
       width: "fit-content",
     },
     "& .meeting-detail": {
-      marginBottom: "20px",
+      margin: "0 8px 20px 8px",
+    },
+    "& .scheduled-detail": {
+      margin: "0 8px 20px 8px",
     },
     "& .meeting-detail .heading": {
       display: "flex",
@@ -764,7 +785,7 @@ export const MeetingsStyleWeb: any = {
     "& .meeting-detail .meeting-card": {
       padding: "20px",
       borderRadius: "8px",
-      boxShadow: "none",
+      boxShadow: "4px 0px 14px #e9e9e9",
     },
     "& .meeting-detail .meeting-card p": {
       fontWeight: "600",
@@ -772,7 +793,7 @@ export const MeetingsStyleWeb: any = {
     "& .scheduled-detail .scheduled-card": {
       padding: "20px",
       borderRadius: "8px",
-      boxShadow: "none",
+      boxShadow: "4px 0px 14px #e9e9e9",
     },
     "& .scheduled-detail .scheduled-card .item": {
       display: "flex",
