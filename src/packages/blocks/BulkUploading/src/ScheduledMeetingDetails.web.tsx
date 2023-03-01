@@ -40,6 +40,8 @@ import {
   Dots,
   BlueCheckIcon,
   GreyCheckIcon,
+  DateIcon,
+  TimeIcon,
 } from "./assets";
 import { Formik, Form } from "formik";
 import moment from "moment";
@@ -220,7 +222,7 @@ class ScheduledMeetingDetails extends ScheduledMeetingController {
                 <Box className="response-box">
                   {this.state.scheduleMeetingDetails && this.state.scheduleMeetingStatus === "scheduled" ? (
                     <Box className="heading">
-                      <h3 className="bold-text">{t("Response")}</h3>
+                      <h3 className="bold-text">{t("Meeting Attendees")}</h3>
                       <Box className="status">
                         <div className="item">
                           <img src={AwaitIcon} />
@@ -405,6 +407,7 @@ class ScheduledMeetingDetails extends ScheduledMeetingController {
                               // min={moment().format("YYYY-MM-DD")}
                               type="date"
                             />
+                            <img src={DateIcon} alt="" />
                           </div>
                           {errors.date && touched.date && <small className="error">{t(errors.date)}</small>}
                         </FormControl>
@@ -413,6 +416,7 @@ class ScheduledMeetingDetails extends ScheduledMeetingController {
                         <FormControl fullWidth>
                           <div className="date-time">
                             <Input
+                              className="time"
                               value={values.time}
                               onChange={(e: any) => {
                                 setFieldValue("time", e.target.value);
@@ -423,6 +427,7 @@ class ScheduledMeetingDetails extends ScheduledMeetingController {
                               fullWidth
                               type="time"
                             />
+                            <img src={TimeIcon} alt="" />
                           </div>
                           {errors.time && touched.time && <small className="error">{t(errors.time)}</small>}
                         </FormControl>
@@ -481,30 +486,6 @@ class ScheduledMeetingDetails extends ScheduledMeetingController {
                       />
                       {errors.agenda && touched.agenda && <small className="error">{t(errors.agenda)}</small>}
                     </FormControl>
-                    {/* {localStorage.getItem("userType") !== ROLE.MANAGER && (
-                    <FormControl fullWidth>
-                      <Select
-                        displayEmpty
-                        value={values.momWriter}
-                        onChange={handleChange}
-                        onBlur={handleBlur}
-                        name="momWriter"
-                        className="dialog-select-input"
-                      >
-                        <MenuItem value="" disabled>
-                          Designated Meeting of Minutes writer
-                        </MenuItem>
-                        {this.state.managersList.map((manager: any) => {
-                          return (
-                            <MenuItem value={manager.id} key={manager.id}>
-                              {manager.full_name}
-                            </MenuItem>
-                          );
-                        })}
-                      </Select>
-                      {errors.momWriter && touched.momWriter && <small className="error">{errors.momWriter}</small>}
-                    </FormControl>
-                  )} */}
                     <FormControl fullWidth>
                       <Select
                         value={values.status}
@@ -545,7 +526,7 @@ class ScheduledMeetingDetails extends ScheduledMeetingController {
                           ) : (
                             <img src={GreyCheckIcon} alt="" />
                           )}
-                          <span>{t("Owner")}</span>
+                          <span className="bold-text">{t("Owner")}</span>
                         </Box>
                         <Box
                           className={`${this.state.selectedGroup.includes("resident") && "active"} attendee`}
@@ -559,7 +540,7 @@ class ScheduledMeetingDetails extends ScheduledMeetingController {
                           ) : (
                             <img src={GreyCheckIcon} alt="" />
                           )}
-                          <span>{t("Resident")}</span>
+                          <span className="bold-text">{t("Resident")}</span>
                         </Box>
                         {this.state.groupList.map((group: any) => {
                           return (
@@ -574,6 +555,7 @@ class ScheduledMeetingDetails extends ScheduledMeetingController {
                                 <img src={GreyCheckIcon} alt="" />
                               )}
                               <span
+                                className="bold-text"
                                 onClick={() => {
                                   this.handleSelectedGroupList(group.id.toString());
                                   touched["attendeeIds"] = true;
@@ -633,9 +615,13 @@ class ScheduledMeetingDetails extends ScheduledMeetingController {
         >
           <MuiDialogTitle disableTypography className="dialog-heading">
             {this.state.isEditAttendeeModalOpen ? (
-              <Typography variant="h6">{t("Edit Meeting Group")}</Typography>
+              <Typography variant="h6" className="bold-text">
+                {t("Edit Meeting Group")}
+              </Typography>
             ) : (
-              <Typography variant="h6">{t("Create Meeting Group")}</Typography>
+              <Typography variant="h6" className="bold-text">
+                {t("Create Meeting Group")}
+              </Typography>
             )}
             <IconButton onClick={() => this.handleCreateAttendeeModal()}>
               <CloseIcon />
@@ -723,11 +709,11 @@ class ScheduledMeetingDetails extends ScheduledMeetingController {
                         onChange={(e: any) => (e.target.checked ? this.selectAllUser() : this.removeAllUser())}
                       />
                     </TableCell>
-                    <TableCell>{t("Name")}</TableCell>
-                    <TableCell>{t("Building")}</TableCell>
-                    <TableCell>{t("Unit No.")}</TableCell>
-                    <TableCell>{t("Floor Number")}</TableCell>
-                    <TableCell>{t("User Type")}</TableCell>
+                    <TableCell className="bold-text">{t("Name")}</TableCell>
+                    <TableCell className="bold-text">{t("Building")}</TableCell>
+                    <TableCell className="bold-text">{t("Unit No.")}</TableCell>
+                    <TableCell className="bold-text">{t("Floor Number")}</TableCell>
+                    <TableCell className="bold-text">{t("User Type")}</TableCell>
                   </TableRow>
                 </TableHead>
                 <TableBody>
@@ -805,7 +791,9 @@ class ScheduledMeetingDetails extends ScheduledMeetingController {
           <DialogContent style={{ margin: "15px 0" }}>
             <Box textAlign="center">
               <img className="comment-image" src={CommentIcon} alt="comment" />
-              <Typography variant="h6">{t("Cancel Meeting Confirmation")}</Typography>
+              <Typography variant="h6" className="bold-text">
+                {t("Cancel Meeting Confirmation")}
+              </Typography>
               <Typography variant="body1" style={{ marginBottom: "0px" }}>
                 Are you sure want to cancel the meeting scheduled on{" "}
                 {moment(
@@ -847,7 +835,9 @@ class ScheduledMeetingDetails extends ScheduledMeetingController {
           <DialogContent style={{ margin: "15px 0" }}>
             <Box textAlign="center">
               <img className="comment-image" src={CommentIcon} alt="comment" />
-              <Typography variant="h6">{t("Complete Meeting Confirmation")}</Typography>
+              <Typography variant="h6" className="bold-text">
+                {t("Complete Meeting Confirmation")}
+              </Typography>
               <Typography variant="body1" style={{ marginBottom: "0px" }}>
                 Are you sure want to complete the meeting scheduled on{" "}
                 {moment(

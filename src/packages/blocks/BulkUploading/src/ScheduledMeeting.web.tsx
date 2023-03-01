@@ -150,10 +150,7 @@ class ScheduledMeeting extends ScheduledMeetingController {
                         });
                       }}
                     >
-                      <MenuItem value="" disabled>
-                        {t("Select Status")}
-                      </MenuItem>
-                      <MenuItem value="">{t("All")}</MenuItem>
+                      <MenuItem value="">{t("Select Status")}</MenuItem>
                       <MenuItem value="scheduled">{t("Scheduled")}</MenuItem>
                       <MenuItem value="completed">{t("Completed")}</MenuItem>
                       <MenuItem value="cancelled">{t("Cancelled")}</MenuItem>
@@ -167,7 +164,7 @@ class ScheduledMeeting extends ScheduledMeetingController {
                         });
                       }}
                       type="text"
-                      placeholder={t("Date")}
+                      placeholder={t("Select Date")}
                       className="input date"
                       onFocus={(e: any) => (e.target.type = "date")}
                     />
@@ -770,7 +767,7 @@ class ScheduledMeeting extends ScheduledMeetingController {
                           ) : (
                             <img src={GreyCheckIcon} alt="" />
                           )}
-                          <span>{t("Owner")}</span>
+                          <span className="bold-text">{t("Owner")}</span>
                         </Box>
                         <Box
                           className={`${this.state.selectedGroup.includes("resident") && "active"} attendee`}
@@ -784,7 +781,7 @@ class ScheduledMeeting extends ScheduledMeetingController {
                           ) : (
                             <img src={GreyCheckIcon} alt="" />
                           )}
-                          <span>{t("Resident")}</span>
+                          <span className="bold-text">{t("Resident")}</span>
                         </Box>
                         {this.state.groupList.map((group: any) => {
                           return (
@@ -798,7 +795,7 @@ class ScheduledMeeting extends ScheduledMeetingController {
                               ) : (
                                 <img src={GreyCheckIcon} alt="" />
                               )}
-                              <span
+                              <span className="bold-text"
                                 onClick={() => {
                                   this.handleSelectedGroupList(group.id.toString());
                                   touched["attendeeIds"] = true;
@@ -988,11 +985,11 @@ class ScheduledMeeting extends ScheduledMeetingController {
                         onChange={(e: any) => (e.target.checked ? this.selectAllUser() : this.removeAllUser())}
                       />
                     </TableCell>
-                    <TableCell>{t("Name")}</TableCell>
-                    <TableCell>{t("Building")}</TableCell>
-                    <TableCell>{t("Unit No.")}</TableCell>
-                    <TableCell>{t("Floor Number")}</TableCell>
-                    <TableCell>{t("User Type")}</TableCell>
+                    <TableCell className="bold-text">{t("Name")}</TableCell>
+                    <TableCell className="bold-text">{t("Building")}</TableCell>
+                    <TableCell className="bold-text">{t("Unit No.")}</TableCell>
+                    <TableCell className="bold-text">{t("Floor Number")}</TableCell>
+                    <TableCell className="bold-text">{t("User Type")}</TableCell>
                   </TableRow>
                 </TableHead>
                 <TableBody>
