@@ -35,6 +35,7 @@ class Visitors extends VisitorController{
                       </Box>
                   </Grid>
                 </Grid>
+                <Divider/>
                 <Box style={{background: "#F7F9FE",minHeight:"95%",display:'flex',flexDirection:"column",alignItems:'center',justifyContent:"space-between"}} >
                     <Grid container spacing={2} style={{width:"90%"}}>
                         <Grid item xs={12}>
@@ -82,12 +83,13 @@ class Visitors extends VisitorController{
                             </Box>
                         </Grid>
                     </Grid>
-                    <Box style={{width:"90%",marginBottom:"50px",marginTop:"10px"}}>
+                    <Box style={{width:"90%",marginBottom:"20px",marginTop:"10px"}}>
                         <CloseButton variant="contained" fullWidth size="large" onClick={()=> this.props.history.push("/AddVisitor")}>
                             {t("Add Visitor Request")}
                         </CloseButton>
                     </Box>
                 </Box>
+                <Box style={{background: "#F7F9FE",minHeight:"auto"}}></Box>
             </Grid>
         </>
     );
