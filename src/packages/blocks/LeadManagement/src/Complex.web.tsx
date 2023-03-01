@@ -397,7 +397,7 @@ const Building = (props: any) => {
               <h4 className="bold-text">{t("Buildings")}</h4>
             </Box>
             <TextField
-              className="search-unit"
+              className="search-unit search-building"
               value={props.this.state.dataSearch}
               placeholder={t("Search by building name")}
               onChange={(e: any) => {
@@ -509,7 +509,7 @@ const ComplexDialog = (props: any) => {
                 <DialogContent dividers>
                   <Box className="profile-picture">
                     <img src={values.displayLogo} alt="profile" className="picture building" />
-                    <p className="logo-text" onClick={() => props.this.uploadLogo.click()}>
+                    <p className="logo-text bold-text" onClick={() => props.this.uploadLogo.click()}>
                       {t("Change Logo")}
                     </p>
                     <input

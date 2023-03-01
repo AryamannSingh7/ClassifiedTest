@@ -116,7 +116,7 @@ class PersonalDocumentList extends PersonalDocumentListController {
                                 </div>
                               </div>
                             </Link>
-                            <div className="right-menu">
+                            <div className="right-menu personal-document-menu">
                               <Menu
                                 menuButton={
                                   <IconButton>

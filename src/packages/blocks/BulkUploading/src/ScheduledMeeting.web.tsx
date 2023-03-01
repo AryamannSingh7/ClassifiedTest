@@ -1011,7 +1011,7 @@ class ScheduledMeeting extends ScheduledMeetingController {
                         <TableCell>{user.attributes.building_management.name}</TableCell>
                         <TableCell>{user.attributes.unit_number}</TableCell>
                         <TableCell>{user.attributes.floor_number}</TableCell>
-                        <TableCell>{user.attributes.user_type.toString()}</TableCell>
+                        <TableCell className="group-user-type">{user.attributes.user_type.toString()}</TableCell>
                       </TableRow>
                     );
                   })}

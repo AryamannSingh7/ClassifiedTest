@@ -527,13 +527,13 @@ class UnitDetails extends UnitDetailsController {
                       {t("Building & Apartments")} /{" "}
                       <Link href={`/Building/${this.state.buildingId}`}>{t("Buildings")}</Link> /{" "}
                       <Box component="span" style={{ color: "blue" }}>
-                        {this.state.unitData.unitName}
+                        {t("Unit")} {this.state.unitData.unitName}
                       </Box>
                     </Typography>
                   </Box>
                 </Box>
                 <Typography variant="h5" style={dashBoard.subHeading} className="bold-text">
-                  {this.state.unitData.unitName}
+                  {t("Unit")} {this.state.unitData.unitName}
                 </Typography>
 
                 {/* Building Location Details */}
@@ -1108,8 +1108,9 @@ const dashBoard = {
   },
   subHeading: {
     fontWeight: 600,
-    marginTop: 15,
-    fontSize: "30px",
+    marginTop: 10,
+    marginBottom: 20,
+    fontSize: "26px",
   },
   commonFont: {
     fontWeight: 600,

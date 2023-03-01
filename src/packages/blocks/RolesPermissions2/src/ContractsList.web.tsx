@@ -139,7 +139,7 @@ class ContractsList extends ContractsListController {
                                           <Link href={`/Contract/${contract.id}`}>
                                             <h4 className="bold-text">{`Contract ${contract.id}`}</h4>
                                           </Link>
-                                          <div className="right-menu">
+                                          <div className="right-menu personal-document-menu">
                                             <Menu
                                               menuButton={
                                                 <IconButton>
@@ -252,7 +252,7 @@ class ContractsList extends ContractsListController {
                                         <h4 className="bold-text">{template.attributes.template_name}</h4>
                                       </div>
                                     </Link>
-                                    <div className="right-menu">
+                                    <div className="right-menu personal-document-menu">
                                       <Menu
                                         menuButton={
                                           <IconButton>

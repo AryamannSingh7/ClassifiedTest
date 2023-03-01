@@ -40,7 +40,7 @@
 }
 
 .modal-document-box .left-side-document p {
-  font-size: 18px;
+  font-size: 16px;
 }
 
 .modal-document-box .right-side-document svg {
@@ -794,9 +794,10 @@
   position: unset;
 }
 
-.select-meeting.scheduled-meeting td {
-  padding-top: 10px;
-  padding-bottom: 10px;
+.select-meeting.scheduled-meeting td,
+.select-meeting.scheduled-meeting th {
+  padding-top: 0px;
+  padding-bottom: 0px;
 }
 
 .select-meeting.scheduled-meeting th {
@@ -808,8 +809,8 @@
   align-items: center;
   gap: 15px;
   overflow-y: hidden;
-  padding-top: 40px;
-  padding-bottom: 40px;
+  padding-top: 32px;
+  padding-bottom: 32px;
 }
 
 .select-meeting.scheduled-meeting .MuiTableCell-root {
@@ -1535,6 +1536,17 @@
   flex-shrink: 0;
   background-color: rgba(0, 0, 0, 0.12);
   margin-bottom: 8px;
+}
+
+.group-user-type {
+  /* width: 100px;
+  text-overflow: ellipsis;
+  -webkit-line-clamp: 1; */
+  /* display: -webkit-box; */
+  /* overflow: hidden;
+  word-break: break-all;
+  -webkit-box-orient: vertical;
+  white-space: normal; */
 }
 
 @media only screen and (max-width: 425px) {

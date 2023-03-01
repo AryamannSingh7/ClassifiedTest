@@ -288,32 +288,6 @@ export default class ScheduledMeetingController extends BlockComponent<Props, S,
       ApiCatchErrorResponse(errorResponse);
     }
 
-    // // Get All Manager List API Response
-    // if (
-    //   getName(MessageEnum.RestAPIResponceMessage) === message.id &&
-    //   this.GetAllManagersCallId !== null &&
-    //   this.GetAllManagersCallId === message.getData(getName(MessageEnum.RestAPIResponceDataMessage))
-    // ) {
-    //   this.GetAllManagersCallId = null;
-
-    //   var responseJson = message.getData(getName(MessageEnum.RestAPIResponceSuccessMessage));
-
-    //   if (responseJson.manager) {
-    //     this.setState({
-    //       managersList: responseJson.manager,
-    //     });
-    //   }
-
-    //   var errorResponse = message.getData(getName(MessageEnum.RestAPIResponceErrorMessage));
-
-    //   if (responseJson && responseJson.meta && responseJson.meta.token) {
-    //     runEngine.unSubscribeFromMessages(this, this.subScribedMessages);
-    //   } else {
-    //     ApiErrorResponse(responseJson);
-    //   }
-    //   ApiCatchErrorResponse(errorResponse);
-    // }
-
     // Create Meeting API Response
     if (
       getName(MessageEnum.RestAPIResponceMessage) === message.id &&
@@ -735,14 +709,17 @@ export default class ScheduledMeetingController extends BlockComponent<Props, S,
     date: Yup.string()
       .required("Required")
       .matches(/\S/, "Required"),
+    status: Yup.string()
+      .required("Required")
+      .matches(/\S/, "Required"),
     time: Yup.string()
       .required("Required")
       .matches(/\S/, "Required")
-      .when("date", (date: any, schema: any) => {
+      .when(["status", "date"], (status: any, date: any, schema: any) => {
         const newDate = date && moment(date, "YYYY-MM-DD").format("DD-MM-YYYY");
         return schema.test({
           test: (time: any) => {
-            if (date && time) {
+            if (status == "scheduled" && date && time) {
               const test = moment(newDate + ` ${time}`, "DD-MM-YYYY HH:mm").format("YYYY-MM-DD HH:mm");
               return moment(test).isAfter(new Date());
             }
@@ -751,12 +728,6 @@ export default class ScheduledMeetingController extends BlockComponent<Props, S,
           message: "You have entered past time",
         });
       }),
-    // momWriter: Yup.string()
-    //   .required("Required")
-    //   .matches(/\S/, "Required"),
-    status: Yup.string()
-      .required("Required")
-      .matches(/\S/, "Required"),
     meetingType: Yup.string()
       .required("Required")
       .matches(/\S/, "Required"),
@@ -764,8 +735,6 @@ export default class ScheduledMeetingController extends BlockComponent<Props, S,
       is: (meetingGroupIds) => meetingGroupIds.length === 0,
       then: Yup.array().min(1, "Required"),
     }),
-
-    // file: Yup.mixed().required("Required"),
   });
 
   // Get All Meeting API
@@ -846,29 +815,11 @@ export default class ScheduledMeetingController extends BlockComponent<Props, S,
   };
 
   // // Get All Manager List API
-  // getManagersList = () => {
-  //   const header = {
-  //     "Content-Type": configJSON.ApiContentType,
-  //     token: localStorage.getItem("userToken"),
-  //   };
-
-  //   const apiRequest = new Message(getName(MessageEnum.RestAPIRequestMessage));
-
-  //   this.GetAllManagersCallId = apiRequest.messageId;
-
   //   const society_id = localStorage.getItem("society_id");
   //   apiRequest.addData(
   //     getName(MessageEnum.RestAPIResponceEndPointMessage),
   //     `society_managements/${society_id}/bx_block_meeting/meetings/get_manager`
   //   );
-
-  //   apiRequest.addData(getName(MessageEnum.RestAPIRequestHeaderMessage), JSON.stringify(header));
-
-  //   apiRequest.addData(getName(MessageEnum.RestAPIRequestMethodMessage), configJSON.apiMethodTypeGet);
-
-  //   runEngine.sendMessage(apiRequest.id, apiRequest);
-  //   return true;
-  // };
 
   // Create Meeting API
   createMeeting = (values: Form) => {
@@ -1188,31 +1139,6 @@ export default class ScheduledMeetingController extends BlockComponent<Props, S,
     runEngine.sendMessage(apiRequest.id, apiRequest);
     return true;
   };
-
-  // // Get Group Ids List API
-  // getGroupIdsList = (id: any) => {
-  //   const header = {
-  //     "Content-Type": configJSON.ApiContentType,
-  //     token: localStorage.getItem("userToken"),
-  //   };
-
-  //   const apiRequest = new Message(getName(MessageEnum.RestAPIRequestMessage));
-
-  //   this.GetGroupIdsCallId = apiRequest.messageId;
-
-  //   const society_id = localStorage.getItem("society_id");
-  //   apiRequest.addData(
-  //     getName(MessageEnum.RestAPIResponceEndPointMessage),
-  //     `society_managements/${society_id}/bx_block_meeting/meeting_groups/group_member_ids?building_management_id=${society_id}&id=${id}`
-  //   );
-
-  //   apiRequest.addData(getName(MessageEnum.RestAPIRequestHeaderMessage), JSON.stringify(header));
-
-  //   apiRequest.addData(getName(MessageEnum.RestAPIRequestMethodMessage), configJSON.apiMethodTypeGet);
-
-  //   runEngine.sendMessage(apiRequest.id, apiRequest);
-  //   return true;
-  // };
 
   // Get Owner Ids List API
   getOwnerIdsList = () => {
