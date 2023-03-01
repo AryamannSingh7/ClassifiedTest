@@ -119,10 +119,11 @@ class PollsSurvey extends PollsSurveyController {
                           >
                               <Box style={{minWidth:"100%"}}>
                                   <Box style={{textTransform:"capitalize"}}><p style={{color:"rgba(24,29,37,0.5)",fontSize:"14px"}}>{item.attributes.type_name}</p></Box>
-                                  <Box marginTop='0.8rem' className="bold-text"><h4>{item.attributes.title}</h4></Box>
+                                  <Box marginTop='0.8rem' className="bold-text textwrap"><h4>{item.attributes.title}</h4></Box>
                                   <Box marginTop='0.7rem' style={{width:"95%",overflow:"hidden",color:"#666666"}}>
                                       <p
                                           style={{color:"666666",fontSize:"14px"}}
+                                          className="textwrap"
                                           dangerouslySetInnerHTML={
                                               { __html: DOMPurify.sanitize(item.attributes.description) }
                                           }
@@ -184,10 +185,11 @@ class PollsSurvey extends PollsSurveyController {
                         >
                           <Box style={{minWidth:"100%"}}>
                             <Box style={{textTransform:"capitalize"}}><p style={{color:"rgba(24,29,37,0.5)",fontSize:"14px"}}>{items.attributes.type_name}</p></Box>
-                            <Box marginTop='0.8rem' className="bold-text" style={{width:"95%",overflow:"hidden"}}><h4>{items.attributes.title}</h4></Box>
+                            <Box marginTop='0.8rem' className="bold-text textwrap" style={{width:"95%",overflow:"hidden"}}><h4>{items.attributes.title}</h4></Box>
                             <Box marginTop='0.7rem' style={{width:"95%",overflow:"hidden",color:"#666666"}}>
                               <p
                                   style={{color:"666666",fontSize:"14px"}}
+                                  className="textwrap"
                                   dangerouslySetInnerHTML={
                                     { __html: DOMPurify.sanitize(items.attributes.description) }
                                   }

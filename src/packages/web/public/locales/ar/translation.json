@@ -719,7 +719,7 @@
   "Last": "آخر",
   "Month": "شهر",
   "Scheduled Visitors": "الزوار المجدولين",
-  "Scheduled Visit Cancel Caution": "هل أنت متأكد أنك تريد إلغاء هذه الزيارة المجدولة؟",
+  "Scheduled_Visit_Cancel_Caution": "هل أنت متأكد أنك تريد إلغاء هذه الزيارة المجدولة؟",
   "Edit Visitor Request": "تحرير طلب الزائر",
   "Add Visitor Request": "إضافة طلب زائر",
   "Visitor Phone": "هاتف الزائر",

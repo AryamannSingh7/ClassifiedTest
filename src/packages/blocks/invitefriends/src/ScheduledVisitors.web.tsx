@@ -50,6 +50,7 @@ class ScheduledVisitors  extends ScheduledVisitorController{
                       </Box>
                   </Grid>
                 </Grid>
+                <Divider/>
                 <Box style={{background: "#F7F9FE",minHeight:"100vh",display:'flex',flexDirection:"column",alignItems:'center'}} >
                     <Grid container spacing={2} style={{width:"90%",marginTop:"10px"}}>
                         {
@@ -83,11 +84,11 @@ class ScheduledVisitors  extends ScheduledVisitorController{
                                 <Box>
                                     <img src={userIcon} />
                                 </Box>
-                                <Typography variant="h6" style={{color:"black",fontWeight:"bold",marginTop:"15px",marginBottom:"10px",textAlign:"center"}}>
+                                <Typography className="bold-text " style={{fontSize:"20px",color:"black",fontWeight:"bold",marginTop:"15px",marginBottom:"10px",textAlign:"center",width:"80%"}}>
                                     {t("Scheduled Visitors")}
                                 </Typography>
                                 <Typography variant="body2" style={{textAlign:"center"}}>
-                                    {("Scheduled Visit Cancel Caution")}
+                                    {t("Scheduled_Visit_Cancel_Caution")}
                                 </Typography>
                                 <Box style={{marginTop:"15px",width:"90%",display:"flex",flexDirection:"column",alignItems:"center"}}>
                                     {/*@ts-ignore*/}
@@ -153,7 +154,7 @@ const VisitorBox = (props:any) => {
                 </Box>
                 <Box style={{display:'flex',alignItems:"center",justifySelf:"flex-end"}}>
                     <IconButton onClick={handleClick} style={{padding:"5px"}}>
-                        <MoreVertIcon style={{color:"#c0c0c0",fontSize:"1.5rem"}}/>
+                        <MoreVertIcon style={{color:"#000000",fontSize:"1.5rem"}}/>
                     </IconButton>
                     <Menu
                         id="simple-menu"
@@ -186,12 +187,12 @@ const CloseButton = withStyles((theme) => ({
 
 const PublishButton = withStyles((theme) => ({
     root: {
-        color: "#2b6fed",
+        color: "#8d8d8d",
         backgroundColor: "white",
         fontWeight:"bold",
         height:"45px",
         '&:hover': {
-            color: "#2b6fef",
+            color: "#8d8d8d",
         },
     },
 }))(Button);

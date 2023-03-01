@@ -22,36 +22,7 @@ import Modal from "@material-ui/core/Modal";
 import RadioButtonUncheckedIcon from '@material-ui/icons/RadioButtonUnchecked';
 import CheckCircleIcon from '@material-ui/icons/CheckCircle';
 import {withTranslation} from "react-i18next";
-
-
-
-const filterList = [
-    {
-        id:1,
-        name:"Management Announcement"
-    },
-    {
-        id:2,
-        name:"Change in Service"
-    },
-    {
-        id:3,
-        name:"Building Rules"
-    },
-    {
-        id:4,
-        name:"New Green Initiatives"
-    },
-    {
-        id:5,
-        name:"Renovation"
-    },
-    {
-        id:6,
-        name:"Interruption"
-    },
-
-]
+import AlertError from "../../../components/src/AlertError.web";
 
 
 class Announcement extends BuildingAnnouncementController{
@@ -77,7 +48,11 @@ class Announcement extends BuildingAnnouncementController{
                       {
                           this.state.deleteSelectFlag ?
                               <Box style={{display:"flex"}}>
-                                  <Button onClick={this.selectAllDelete} style={{color:"FC8434",fontWeight:"bold",textTransform:"capitalize"}}>Select All</Button>
+                                  {
+                                      this.state.selectedAnnoucment.length > 0 ?
+                                          <Button onClick={this.deSelectAllDelete} style={{color:"FC8434",fontWeight:"bold",textTransform:"capitalize"}}>Deselect All</Button> :
+                                          <Button onClick={this.selectAllDelete} style={{color:"FC8434",fontWeight:"bold",textTransform:"capitalize"}}>Select All</Button>
+                                  }
                                   <IconButton style={{padding:"8px"}} onClick={this.handleOpenDeleteModal}>
                                       <img src={deleteIcon} />
                                   </IconButton>
@@ -110,8 +85,9 @@ class Announcement extends BuildingAnnouncementController{
                                             alignItems="center"
                                             borderRadius="15px"
                                             bgcolor="white"
-                                            marginTop='1rem'
+                                            marginTop='.7rem'
                                             padding='1rem'
+                                            boxShadow="4px 0px 14px #e9e9e9;"
                                             onClick={()=> this.manageRedirect(item.id)}
                                         >
                                             <Box style={{minWidth:"100%"}}>
@@ -140,7 +116,7 @@ class Announcement extends BuildingAnnouncementController{
                                 )
                             })
                             :
-                            <Box style={{height:"50vh",width:"100%",display:"flex",alignItems:"center",justifyContent:"center"}}>
+                            <Box style={{height:"80vh",width:"100%",display:"flex",alignItems:"center",justifyContent:"center"}}>
                                 <Typography variant="h6" color="textSecondary">{t("No Announcement data found")}</Typography>
                             </Box>
                         }
@@ -240,6 +216,7 @@ class Announcement extends BuildingAnnouncementController{
                         </Box>
                     </Fade>
                 </Modal>
+                <AlertError show={this.state.showError} handleClose={()=> this.setState({showError:false})} message={this.state.error} />
             </Grid>
         </>
     );
