@@ -17,6 +17,8 @@ import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 import ProfileController from "./ProfileController.web";
+import AlertErrorWeb from "../../../components/src/AlertError.web";
+
 import FamilyListWeb from "../../customform/src/FamilyList.web";
 class Profile extends ProfileController {
 
@@ -454,6 +456,8 @@ this.getProfile()
           </Box>
         </Dialog>
         <Loader loading={this.state.loading} />
+        <AlertErrorWeb show={this.state.showError} handleClose={()=> this.setState({showError:false,error:null})} message={this.state.error} />
+
       </>
 
     )
