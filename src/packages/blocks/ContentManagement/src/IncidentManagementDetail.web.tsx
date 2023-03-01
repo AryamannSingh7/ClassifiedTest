@@ -50,6 +50,7 @@ import ChairmanSidebar from "../../dashboard/src/ChairmanSidebar.web";
 import { Close_Icon, Bank_Icon, Box_Icon, Building1,Tick_Circle_Icon } from "./assets";
 import IncidentChatWeb from "../../customform/src/IncidentChat.web";
 //import IncidentChatDrawer from "./IncidentChatDrawer.web";
+import AlertErrorWeb from "../../../components/src/AlertError.web"
 
 class IncidentManagementDetail extends IncidentManagementController {
   constructor(props: Props) {
@@ -88,19 +89,7 @@ class IncidentManagementDetail extends IncidentManagementController {
                     </Typography>
                     <Typography variant="h5" style={dashBoard.subHeading}>Incidents Details</Typography>
                   </Box>
-                  <Box>
-                    <FormControl style={dashBoard.YearMain} className='yearTab'>
-                      <NativeSelect className='yearSelection'
-                        value={this.state.Year}
-                        onChange={this.handleChange}
-                      >
-                        <option value={2022}>2022</option>
-                        <option value={2021}>2021</option>
-                        <option value={2020}>2020</option>
-                        <option value={2019}>2019</option>
-                      </NativeSelect>
-                    </FormControl>
-                  </Box>
+                 
                 </Box>
                 <Box className="content-block-wrapper incident-detail-card-block">
                   <Card className="incident-detail-card card">
@@ -226,7 +215,7 @@ class IncidentManagementDetail extends IncidentManagementController {
                             >assign incident to provider</Button>
                             :
                             <Box className="user-btn-box">
-                              <h6 className="user-title">{attributes?.assign_incidents?.data?.attributes?.provider?.full_name}</h6>
+                              <h6 className="user-title bold-text">{attributes?.assign_incidents?.data?.attributes?.provider?.full_name}</h6>
                               <Button className="change-btn" onClick={() => this.providerList(apartmentManagementId)}>change</Button>
                             </Box>
                         }
@@ -407,6 +396,7 @@ class IncidentManagementDetail extends IncidentManagementController {
           >
              <IncidentChatWeb/>  
           </Drawer>
+          <AlertErrorWeb show={this.state.showError} handleClose={()=> this.setState({showError:false,error:null})} message={this.state.error} />  
       </>
     )
   }
