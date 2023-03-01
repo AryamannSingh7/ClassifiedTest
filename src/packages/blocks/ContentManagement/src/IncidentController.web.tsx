@@ -777,7 +777,7 @@ confirmOrRejectIncident =(id : any,val : any)=>{
 
       requestMessage.addData(
         getName(MessageEnum.RestAPIResponceEndPointMessage),
-        `account_block/accounts/my_apartments?society_management_id=${society_id}`
+        `account_block/my_apartments?society_management_id=${society_id}`
       );
 
       requestMessage.addData(

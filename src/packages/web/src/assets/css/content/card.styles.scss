@@ -37,7 +37,7 @@
 
     & .title-span {
       font-size: 0.9rem;
-      color: $GRAY_SHADE2;
+      color: #6f6e71;
       margin-bottom: 10px;
     }
 
@@ -50,7 +50,7 @@
         font-family: $Gotham_Light;
         font-size: 16px;
         font-weight: 500;
-        color: $GRAY_SHADE2;
+        color:#6f6e71;
 
         @include mq(tablet-portrait-large-up) {
           font-size: 14px;
@@ -454,7 +454,7 @@
         }
         & #demo-simple-select-outlined,
         & .MuiInputBase-input {
-          color: $WARNING_SHADE1 !important;
+          color: #d84755 !important;
           font-weight: bold;
         }
 

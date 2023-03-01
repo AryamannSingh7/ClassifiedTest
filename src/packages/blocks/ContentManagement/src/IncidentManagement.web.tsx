@@ -58,7 +58,7 @@ class IncidentManagement extends IncidentManagementController {
               {/* Chairman Sidebar -- */}
               <ChairmanSidebar {...this.props} />
             </Grid>
-            <Grid xs={9} md={9} sm={9} spacing={4} style={{ paddingTop: 35 }}>
+            <Grid xs={9} md={9} sm={9} spacing={4} style={{ paddingTop: 35 ,backgroundColor:"#f4f7ff" }}>
               <Container>
                 <Box style={dashBoard.navigation}>
                   <Box>
