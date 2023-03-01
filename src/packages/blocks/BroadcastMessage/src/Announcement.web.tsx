@@ -14,30 +14,6 @@ import AnnouncementController, {
 import './style.css'
 import {withTranslation} from "react-i18next";
 
-const data = [
-    {
-        id:"1",
-        complexName:"Complex Name",
-        buildingCount:"04",
-        buildingName:"Building 1",
-        unitNo:"304",
-    },
-    {
-        id:"2",
-        complexName:"Complex Name",
-        buildingCount:"04",
-        buildingName:"Building 2",
-        unitNo:"304",
-    },
-    {
-        id:"3",
-        complexName:"Complex Name",
-        buildingCount:"04",
-        buildingName:"Building 3",
-        unitNo:"304",
-    }
-]
-
 class Announcement extends AnnouncementController{
   constructor(props: Props) {
     super(props);
@@ -74,6 +50,7 @@ class Announcement extends AnnouncementController{
                                             bgcolor="white"
                                             marginTop='1rem'
                                             padding='1.2rem 1.4rem'
+                                            boxShadow="4px 0px 14px #e9e9e9;"
                                             onClick={()=>this.manageRedirect(item.id,item.attributes.complex_name)}
                                         >
                                             <Box style={{minWidth:"100%"}}>

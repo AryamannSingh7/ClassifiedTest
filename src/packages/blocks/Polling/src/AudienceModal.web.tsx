@@ -153,9 +153,9 @@ class AudienceModal extends AudienceModalController {
                                                 />
                                             </TableCell>
                                             <TableCell style={{borderBottom:"none"}} align="left">{item?.attributes?.full_name}</TableCell>
-                                            <TableCell style={{borderBottom:"none"}} align="left">{item?.attributes?.unit_number}</TableCell>
+                                            <TableCell style={{borderBottom:"none"}} align="left">{item?.attributes?.unit_number.join(",")}</TableCell>
                                             <TableCell style={{borderBottom:"none"}} align="left">{item?.attributes?.floor_number}</TableCell>
-                                            <TableCell style={{borderBottom:"none"}} align="left">{item.attributes.user_type.join(", ")}</TableCell>
+                                            <TableCell style={{borderBottom:"none"}} align="left">{item.attributes.user_type.join(",")}</TableCell>
                                         </TableRow>
                                     )):
                                         <Box style={{width:"100%",display:'flex',alignItems:'center'}}>

@@ -78,7 +78,7 @@ class Visitors extends VisitorAddController{
                                                     className="formInput"
                                                     name="visitorName"
                                                     placeholder={t("Visitor Name")}
-                                                    style={{border:"0.1px solid rgb(209 209 209 / 100%)",borderRadius:"25px"}}
+                                                    style={{border:"0.1px solid rgb(209 209 209 / 100%)",borderRadius:"25px",color:"rgba(0, 0, 0, 0.6)"}}
                                                 />
                                                 <span className="frmLeftIcons">
                                                     <img src={user} />
@@ -178,7 +178,7 @@ class Visitors extends VisitorAddController{
                                                         onBlur={handleBlur}
                                                         name="date"
                                                         placeholder={t("Select Date")}
-                                                        className="date"
+                                                        className="date visitorDateInput"
                                                         // @ts-ignore
                                                         inputProps={{
                                                             min:moment().format("YYYY-MM-DD")
@@ -228,9 +228,10 @@ class Visitors extends VisitorAddController{
                                             <Box className="formInputGrp" >
                                                 <Field
                                                     className="formInput"
+                                                    disabled={values.withCar === "false"}
                                                     name="carPlateNo"
                                                     placeholder={t("Car Plate Number")}
-                                                    style={{border:"0.1px solid rgb(209 209 209 / 100%)",borderRadius:"25px"}}
+                                                    style={{border:"0.1px solid rgb(209 209 209 / 100%)",borderRadius:"25px",color:"rgba(0, 0, 0, 0.6)"}}
                                                 />
                                                 <span className="frmLeftIcons">
                                                     <img src={list} />

@@ -48,7 +48,7 @@ class Announcement extends PastVisitorController{
                           </p>
                       </Box>
                           <Box>
-                              <IconButton style={{padding:"8px"}} onClick={this.handleClick} >
+                              <IconButton style={{padding:"0px 8px"}} onClick={this.handleClick} >
                                   <img src={shortIcon} />
                               </IconButton>
                           </Box>
@@ -69,6 +69,7 @@ class Announcement extends PastVisitorController{
                           </Menu>
                   </Grid>
                 </Grid>
+                <Divider/>
                 <Box style={{background: "#F7F9FE",minHeight:"100vh",display:'flex',flexDirection:"column",alignItems:'center'}} >
                     <Grid container spacing={2} style={{width:"90%",marginTop:"10px"}}>
                         {

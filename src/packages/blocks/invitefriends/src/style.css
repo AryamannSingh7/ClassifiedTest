@@ -44,6 +44,9 @@
     font-size: 16px;
 }
 
+.visitorDateInput input {
+    min-width: 130px !important;
+}
 .add-visitor .reject-note {
     border-radius: 5px;
     border: 1px solid lightgray;

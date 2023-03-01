@@ -34,6 +34,8 @@ interface S {
   categoryList:any;
   filterCategory:any;
   shortBy:any;
+  showError:boolean;
+  error:any;
 }
 
 interface SS {
@@ -76,6 +78,8 @@ export default class CoverImageController extends BlockComponent<
       categoryList:[],
       filterCategory:[],
       shortBy:false,
+      error:"",
+      showError:false,
     };
 
     this.emailReg = new RegExp("");
@@ -131,12 +135,18 @@ export default class CoverImageController extends BlockComponent<
   }
 
   handleDelete = () => {
-    const data = {
-      "announcement": {
-        "ids":this.state.selectedAnnoucment
+    if(this.state.selectedAnnoucment.length > 0){
+      const data = {
+        "announcement": {
+          "ids":this.state.selectedAnnoucment
+        }
       }
+      this.onDeleteAnnouncement(data)
+    }else{
+      this.setState({error: "Please select at-least 1 announcement to delete!", showError: true})
     }
-    this.onDeleteAnnouncement(data)
+
+
   }
   DeleteFlagTrue() {
     this.setState({
@@ -175,9 +185,14 @@ export default class CoverImageController extends BlockComponent<
   }
 
   handleOpenDeleteModal () {
-    this.setState({
-      deleteConfirmModal:true
-    })
+    if(this.state.selectedAnnoucment.length > 0){
+      this.setState({
+        deleteConfirmModal:true
+      })
+    }else{
+      this.setState({error: "Please select at-least one announcement to delete!", showError: true})
+    }
+
   }
 
   handleShort = () => {
@@ -231,9 +246,14 @@ export default class CoverImageController extends BlockComponent<
     const updatedArray = this.state.announcementList.map((item:any)=>{
       return item.id
     })
-    console.log("UPDATED",updatedArray)
     this.setState({
       selectedAnnoucment:updatedArray
+    })
+  }
+
+  deSelectAllDelete = () => {
+    this.setState({
+      selectedAnnoucment:[]
     })
   }
 
