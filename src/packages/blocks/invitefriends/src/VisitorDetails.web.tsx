@@ -61,6 +61,7 @@ class VisitorDetails extends VisitorDetailsController{
                           }
                   </Grid>
                 </Grid>
+                <Divider/>
                 <Box style={{background: "#F7F9FE",minHeight:"100vh",display:'flex',flexDirection:"column",alignItems:'center'}} >
                     <Grid container spacing={2} style={{width:"90%",marginTop:"10px"}}>
                         <Grid item xs={12}>
@@ -77,7 +78,7 @@ class VisitorDetails extends VisitorDetailsController{
                                 <Box style={{minWidth:"100%"}}>
                                     <Box style={{display:"flex",alignItems:"center"}}>
                                         <Box style={{marginRight:"20px"}}>
-                                            <img src={this.state.visitorDetails.profilePic || exampleImg.default} height="55px" width="55px" style={{borderRadius:"100px"}}/>
+                                            <img src={this.state.visitorDetails.profilePic || exampleImg} height="55px" width="55px" style={{borderRadius:"100px"}}/>
                                         </Box>
                                         <Box style={{display:'flex',flexDirection:"column",justifyContent:"center"}}>
                                             <Typography variant={"body1"} style={{fontWeight:"bold"}}>

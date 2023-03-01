@@ -118,14 +118,7 @@ class PollReport extends PollingController {
                                                     <TableCell align="left">{row.attributes?.name_and_option?.data?.attributes?.full_name}</TableCell>
                                                     <TableCell align="left">
                                                         {
-                                                            row.attributes?.name_and_option?.data?.attributes?.unit_number?.map((item:any,key:any)=>{
-                                                                return(
-                                                                    <>
-                                                                        {item}
-                                                                    </>
-                                                                )
-                                                            })
-
+                                                            row.attributes?.name_and_option?.data?.attributes?.unit_number?.join(",")
                                                         }
                                                     </TableCell>
                                                     <TableCell align="left">{row.attributes?.name_and_option?.data?.attributes?.option}</TableCell>

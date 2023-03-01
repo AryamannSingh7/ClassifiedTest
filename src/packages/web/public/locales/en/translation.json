@@ -718,7 +718,7 @@
   "Last": "Last",
   "Month": "Month",
   "Scheduled Visitors": "Scheduled Visitors",
-  "Scheduled Visit Cancel Caution": "Are you sure that you want to cancel this scheduled visit?",
+  "Scheduled_Visit_Cancel_Caution": "Are you sure that you want to cancel this scheduled visit?",
   "Edit Visitor Request": "Edit Visitor Request",
   "Add Visitor Request": "Add Visitor Request",
   "Visitor Phone": "Visitor Phone",
