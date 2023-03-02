@@ -51,7 +51,7 @@ class NeighboursListing extends NeighboursController {
   }
   componentDidMount(): any {
     this.getNeighboursListing('','')
-    // this.getBuilding() 
+    this.getBuilding()
   }
 
   render() {
