@@ -93,7 +93,7 @@ class ChairmanLogin extends ChairmanAccountLoginController {
                   </Box>
                 </Box>
              
-                <Box className="main-content-block desktop-ui">
+                <Box className="main-content-block desktop-ui inputPlaceholderRegistration">
                   <Box className="header-block">
                     <Box display={{ xs: 'flex', md: 'none' }}>
                       <img src={Tenant_Logo.default} className="tenant-logo" style={{ cursor: 'pointer'}} onClick={()=>window.open("https://www.TenantInt.com", '_blank').focus()} alt="" />
@@ -164,7 +164,7 @@ class ChairmanLogin extends ChairmanAccountLoginController {
                           }
                         </Box>
                         <Box style={{marginBottom: "25px"}}>
-                          <Box className="formGroup">
+                          <Box className="formGroup" style={{border:"0.1px solid rgb(209 209 209 / 100%)",borderRadius:"25px",backgroundColor:"#f9f9f9"}}>
                             <Field name="email" type="text" placeholder="Email ID" className="formInput" />
                             <span className="frmLeftIcons">
                             <img src={Email_Icon} className="frm-icons" alt="Email Icon" style={{marginTop:"2px"}} />
@@ -183,7 +183,7 @@ class ChairmanLogin extends ChairmanAccountLoginController {
                           </Box>
                         </Box>
                         <Box>
-                          <Box className="formGroup">
+                          <Box className="formGroup" style={{border:"0.1px solid rgb(209 209 209 / 100%)",borderRadius:"25px",backgroundColor:"#f9f9f9"}}>
                             <Field name="password" type={values.showPassword ? "text" : "password"} placeholder="Password" className="formInput" />
                             <span className="frmLeftIcons">
                             <img src={Lock_User_Icon} className="frm-icons" alt="Email Icon" style={{marginTop:"-2px"}}/>
