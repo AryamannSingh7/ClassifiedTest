@@ -40,7 +40,7 @@
 }
 
 .modal-document-box .left-side-document p {
-  font-size: 18px;
+  font-size: 16px;
 }
 
 .modal-document-box .right-side-document svg {
@@ -66,7 +66,7 @@
 .dialog-input {
   padding: 15px 26px 15px 12px;
   border: 1px solid #f0f0f0;
-  font-size: 16px;
+  font-size: 14px;
   border-radius: 5px;
   -webkit-border-radius: 5px;
   -moz-border-radius: 5px;
@@ -100,7 +100,7 @@
 .dialog-select-input {
   border-radius: 5px;
   border: 1px solid #f0f0f0;
-  font-size: 16px;
+  font-size: 14px;
   padding: 15px 26px 15px 12px;
   color: #494949;
   background-color: white;
@@ -127,7 +127,7 @@
 .dialog-textarea-input {
   border-radius: 5px;
   border: 1px solid #f0f0f0;
-  font-size: 16px;
+  font-size: 14px;
   padding: 15px 26px 15px 12px;
   color: #494949;
   background-color: white;
@@ -143,6 +143,7 @@
 .add-document .image-box p {
   margin-top: 10px;
   color: #adadad;
+  font-size: 14px;
 }
 
 .add-document .file-name {
@@ -235,7 +236,7 @@
 }
 
 .resolutions .choose-meeting span {
-  font-size: 15px;
+  font-size: 14px;
 }
 
 .resolutions .change-meeting {
@@ -253,12 +254,12 @@
 
 .resolutions .change-meeting span:first-child {
   color: black;
-  font-size: 15px;
+  font-size: 14px;
 }
 
 .resolutions .change-meeting span:last-child {
   cursor: pointer;
-  font-size: 15px;
+  font-size: 14px;
 }
 
 .select-meeting .list-heading span {
@@ -293,6 +294,11 @@
 .pending .szh-menu-container ul {
   left: -150px !important;
   top: -12px !important;
+}
+
+.personal-document-menu .szh-menu-container ul {
+  left: -100px !important;
+  top: -10px !important;
 }
 
 .document-menu .szh-menu-container ul {
@@ -435,8 +441,8 @@
   background-color: #2b6fed;
   color: white;
   border-radius: 8px;
-  padding-top: 9px;
-  padding-bottom: 9px;
+  /* padding-top: 9px;
+  padding-bottom: 9px; */
   width: 175px;
   font-weight: 600;
 }
@@ -450,16 +456,16 @@
 }
 
 .MuiDialog-root .dialog-button-group .add-button.Mui-disabled {
-  background-color: #d9d9d9;
-  color: gray;
+  background-color: #2b6fed;
+  color: white;
 }
 
 .MuiDialog-root .dialog-button-group .cancel-button {
   border: 1px solid #2b6fed;
   background-color: white;
   color: #2b6fed;
-  padding-top: 9px;
-  padding-bottom: 9px;
+  /* padding-top: 9px;
+  padding-bottom: 9px; */
   border-radius: 8px;
   width: 175px;
   font-weight: 600;
@@ -789,9 +795,10 @@
   position: unset;
 }
 
-.select-meeting.scheduled-meeting td {
-  padding-top: 10px;
-  padding-bottom: 10px;
+.select-meeting.scheduled-meeting td,
+.select-meeting.scheduled-meeting th {
+  padding-top: 0px;
+  padding-bottom: 0px;
 }
 
 .select-meeting.scheduled-meeting th {
@@ -803,8 +810,8 @@
   align-items: center;
   gap: 15px;
   overflow-y: hidden;
-  padding-top: 40px;
-  padding-bottom: 40px;
+  padding-top: 32px;
+  padding-bottom: 32px;
 }
 
 .select-meeting.scheduled-meeting .MuiTableCell-root {
@@ -834,7 +841,7 @@
   border-radius: 8px;
   padding-top: 10px;
   padding-bottom: 10px;
-  width: 100px;
+  width: 125px;
   font-weight: 600;
 }
 
@@ -939,7 +946,7 @@
 
 .edit-profile .input-with-icon,
 .edit-profile .select-with-icon {
-  border: 1px solid #c6c6c6;
+  border: 1px solid #f0f0f0;
   border-radius: 8px;
   background: #f9f9f9;
   padding: 15px;
@@ -970,7 +977,7 @@
   display: flex;
   height: 100%;
   align-items: center;
-  border: 1px solid #c6c6c6;
+  border: 1px solid #f0f0f0;
   border-radius: 8px;
   background-color: #f9f9f9;
 }
@@ -1171,7 +1178,7 @@
   height: 120px;
   background-color: #f9f9f9;
   border-radius: 8px;
-  border: 2px dashed lightgray;
+  border: 3px dashed #f0f0f0;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -1199,11 +1206,16 @@
 .edit-building label {
   margin-bottom: 8px;
   color: black;
+  font-size: 15px;
+}
+
+.edit-building .MuiInputBase-input {
+  padding-left: 8px;
 }
 
 .edit-building .about-us {
   border-radius: 5px;
-  border: 1px solid lightgray;
+  border: 1px solid #f0f0f0;
   font-size: 16px;
   padding: 15px 26px 15px 12px;
   color: #494949;
@@ -1340,7 +1352,7 @@
 .edit-unit .past-date .input-with-icon {
   width: 100%;
   outline: none;
-  padding-left: 36px;
+  padding-left: 40px;
   height: 54px;
   font-size: 16px;
 }
@@ -1363,11 +1375,11 @@
 }
 
 .edit-unit-modal-config .select-input {
-  border: 1px solid #c6c6c6;
+  border: 1px solid #f0f0f0;
   border-radius: 8px;
   background: #f9f9f9;
   width: 100%;
-  padding-left: 22px;
+  padding-left: 35px;
 }
 
 .edit-unit-modal-config .select-input .MuiSelect-root {
@@ -1475,6 +1487,8 @@
 
 .configuration-dialog .config-dialog-box input::placeholder,
 .save-lease input::placeholder,
+.search-building input::placeholder,
+.edit-profile input::placeholder,
 .add-meeting input::placeholder,
 .add-meeting textarea::placeholder,
 .penalty-dialog input::placeholder {
@@ -1484,6 +1498,8 @@
 
 .configuration-dialog .config-dialog-box input:-ms-input-placeholder,
 .save-lease input:-ms-input-placeholder,
+.search-building input:-ms-input-placeholder,
+.edit-profile input:-ms-input-placeholder,
 .add-meeting input:-ms-input-placeholder,
 .add-meeting textarea:-ms-input-placeholder,
 .penalty-dialog input:-ms-input-placeholder {
@@ -1492,7 +1508,8 @@
 }
 
 .configuration-dialog .config-dialog-box input::-ms-input-placeholder,
-.save-lease input::-ms-input-placeholder,
+.edit-profile input::-ms-input-placeholder,
+.search-building input::-ms-input-placeholder,
 .add-meeting input::-ms-input-placeholder,
 .add-meeting textarea::-ms-input-placeholder,
 .penalty-dialog input::-ms-input-placeholder {
@@ -1520,6 +1537,17 @@
   flex-shrink: 0;
   background-color: rgba(0, 0, 0, 0.12);
   margin-bottom: 8px;
+}
+
+.group-user-type {
+  /* width: 100px;
+  text-overflow: ellipsis;
+  -webkit-line-clamp: 1; */
+  /* display: -webkit-box; */
+  /* overflow: hidden;
+  word-break: break-all;
+  -webkit-box-orient: vertical;
+  white-space: normal; */
 }
 
 @media only screen and (max-width: 425px) {

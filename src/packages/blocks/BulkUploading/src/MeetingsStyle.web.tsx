@@ -88,7 +88,7 @@ export const MeetingsStyleWeb: any = {
       marginBottom: "20px",
       borderRadius: "8px",
       fontFamily: "Century Gothic",
-      // boxShadow: "4px 0px 14px #e9e9e9",
+      boxShadow: "4px 0px 14px #e9e9e9",
     },
     "& .meeting-table .table-top": {
       padding: "20px",
@@ -227,9 +227,6 @@ export const MeetingsStyleWeb: any = {
     "& .meeting-minute-note .MuiCard-root.meeting-preview-card": {
       boxShadow: "4px 0px 14px #e9e9e9",
     },
-    "& .meeting-minute-note .MuiCard-root p": {
-      marginBottom: "10px",
-    },
     "& .meeting-minute-note .MuiCard-root .editor .public-DraftEditor-content > div": {
       minHeight: "300px",
     },
@@ -238,6 +235,7 @@ export const MeetingsStyleWeb: any = {
       justifyContent: "flex-end",
       alignItems: "center",
       gap: "20px",
+      marginBottom: "50px",
     },
     "& .meeting-minute-note .note-button button.preview": {
       background: "#2B6FED",
@@ -256,6 +254,12 @@ export const MeetingsStyleWeb: any = {
       fontWeight: "600",
       marginTop: "20px",
       width: "150px",
+    },
+    "& .note-details-box": {
+      display: "flex",
+      alignItems: "center",
+      gap: "10px",
+      marginBottom: "10px",
     },
   },
   scheduledMeetingDetails: {

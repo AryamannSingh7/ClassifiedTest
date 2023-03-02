@@ -79,7 +79,7 @@ export const ContractsStyleWeb: any = {
       left: 0,
       right: 0,
       bottom: 0,
-      background: "#F4F7FF",
+      // background: "#F7F9FE",
       display: "flex",
       alignItems: "center",
       justifyContent: "center",

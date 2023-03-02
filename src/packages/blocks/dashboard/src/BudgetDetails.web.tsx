@@ -5,28 +5,10 @@ import ChairmanSidebar from "./ChairmanSidebar.web";
 import { Container, Typography, withStyles, Card, Link, Button } from "@material-ui/core";
 import Box from "@material-ui/core/Box";
 import Grid from "@material-ui/core/Grid";
-import NativeSelect from "@material-ui/core/NativeSelect";
 import DashboardBudgetController, { Props } from "./DashboardBudgetController.web";
 import { DashboardStyleWeb } from "./DashboardStyle.web";
 import { withTranslation } from "react-i18next";
 import { ROLE } from "../../../framework/src/Enum";
-
-function createData(Name: any, Amount: any) {
-  return { Name, Amount };
-}
-
-const rows = [
-  createData("Sales Revenue", 10000),
-  createData("Cost of Services Sold", 2300),
-  createData("Operating Expenses", 26285),
-  createData("Operating Income", 30050),
-  createData("Other Revenue and Expenses", 10356),
-  createData("Sales Revenue", 10000),
-  createData("Cost of Services Sold", 2300),
-  createData("Operating Expenses", 26285),
-  createData("Operating Income", 30050),
-  createData("Other Revenue and Expenses", 10356),
-];
 
 class BudgetDetails extends DashboardBudgetController {
   constructor(props: Props) {
@@ -36,10 +18,12 @@ class BudgetDetails extends DashboardBudgetController {
   async componentDidMount(): Promise<void> {
     this.getBudgetDashboardYearList();
     this.getAllBuildingList();
+    this.getBudgetDetails();
   }
 
   async componentDidUpdate(prevProps: any, prevState: any): Promise<void> {
     if (prevState.filterBuilding !== this.state.filterBuilding || prevState.filterYear !== this.state.filterYear) {
+      this.getBudgetDetails();
     }
   }
 
@@ -63,33 +47,15 @@ class BudgetDetails extends DashboardBudgetController {
                     <Typography variant="body1">
                       {t("My Dashboards")} / <Link href="/DashboardBudget">{t("Budget Dashboard")}</Link> /{" "}
                       <Box component="span" style={{ color: "blue" }}>
-                        {t("Budget")} 2022
+                        {t("Budget")} {this.state.filterYear}
                       </Box>
                     </Typography>
                   </Box>
                   <Box className="sub-heading-box">
                     <Typography variant="h5" className="bold-text">
-                      {t("Budget")} 2022
+                      {t("Budget")} {this.state.filterYear}
                     </Typography>
                     <Box className="select-box">
-                      {userType === ROLE.MANAGER && (
-                        <select
-                          className="select-year"
-                          value={this.state.filterBuilding}
-                          onChange={(e: any) => this.setState({ filterBuilding: e.target.value })}
-                        >
-                          <option value="" disabled>
-                            {t("Select Building")}
-                          </option>
-                          {this.state.buildingList.map((building: any) => {
-                            return (
-                              <option value={building.id} key={building.id}>
-                                {building.attributes.name}
-                              </option>
-                            );
-                          })}
-                        </select>
-                      )}
                       <select
                         value={this.state.filterYear}
                         onChange={(e: any) => this.setState({ filterYear: e.target.value })}
@@ -108,9 +74,11 @@ class BudgetDetails extends DashboardBudgetController {
                 </Box>
                 <Grid container spacing={4} style={{ marginBottom: 30 }}>
                   <Grid item sm={12}>
-                    <Card className="budget-table-content-box">
+                    <Card className="budget-table-content-box" id="budget-details">
                       <Box className="header">
-                        <h4 className="bold-text">Budget 2022</h4>
+                        <h4 className="bold-text">
+                          {t("Budget")} {this.state.filterYear}
+                        </h4>
                       </Box>
                       <hr />
                       <Box className="body">
@@ -118,24 +86,41 @@ class BudgetDetails extends DashboardBudgetController {
                           <span>{t("Name")}</span>
                           <span>{t("Amount")}</span>
                         </Box>
-                        {rows.map((row: any) => (
-                          <Box className="table-content">
-                            <p>{row.Name}</p>
-                            <span className="bold-text">{row.Amount}</span>
+                        {this.state.facility.map((facility: any) => (
+                          <Box className="table-content" key={facility.id}>
+                            <p>{facility.budget_category}</p>
+                            <span className="bold-text">
+                              {this.state.currency} {facility.allocate_budget}
+                            </span>
                           </Box>
                         ))}
                       </Box>
                       <hr />
                       <Box className="footer">
-                        <p>Total Expenses</p>
-                        <h4 className="bold-text">SR 12,000</h4>
+                        <p>{t("Approved Amount")}</p>
+                        <h4 className="bold-text">
+                          {this.state.currency} {this.state.approveAmount}
+                        </h4>
                       </Box>
                     </Card>
                   </Grid>
                 </Grid>
                 {userType === ROLE.MANAGER && (
                   <Box className="print-report-box">
-                    <Button>{t("Print Report")}</Button>
+                    <Button
+                      onClick={() => {
+                        window.print();
+                        // let printContents: any = window.document.getElementById("budget-details");
+                        // if (printContents != null) {
+                        //   printContents = printContents.innerHTML;
+                        //   var originalContents = document.body.innerHTML;
+                        //   document.body.innerHTML = printContents;
+                        //   document.body.innerHTML = originalContents;
+                        // }
+                      }}
+                    >
+                      {t("Print Report")}
+                    </Button>
                   </Box>
                 )}
               </Container>

@@ -287,10 +287,12 @@ export default class DashboardTicketController extends BlockComponent<Props, S, 
 
   // Building List
   getAllBuildingList = async () => {
+    const society_id = localStorage.getItem("society_id");
+
     this.GetAllBuildingListCallId = await apiCall({
       contentType: "application/json",
       method: "GET",
-      endPoint: `bx_block_settings/building_managements`,
+      endPoint: `bx_block_settings/building_managements?society_management_id=${society_id}`,
     });
   };
 

@@ -22,3 +22,4 @@ export const BlueCheckIcon = require("../assets/blue-check.png");
 export const DateIcon = require("../assets/calender.png");
 export const TimeIcon = require("../assets/time.png");
 export const BackIcon = require("../assets/back-icon.png");
+export const DetailsIcon = require("../assets/details.png");

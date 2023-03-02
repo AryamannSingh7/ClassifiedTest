@@ -19,7 +19,7 @@ import DashboardHeader from "../../dashboard/src/DashboardHeader.web";
 import ChairmanSidebarWeb from "../../dashboard/src/ChairmanSidebar.web";
 import { MeetingsStyleWeb } from "./MeetingsStyle.web";
 import RichTextEditor from "react-rte";
-import { CheckIcon } from "./assets";
+import { CheckIcon, DetailsIcon } from "./assets";
 import { withTranslation } from "react-i18next";
 import moment from "moment";
 
@@ -107,7 +107,10 @@ class MeetingMinuteNote extends MeetingMinutesController {
                     </Card>
                   ) : (
                     <Card>
-                      <p>{t("Details")}</p>
+                      <Box className="note-details-box">
+                        <p>{t("Details")} </p>
+                        <img src={DetailsIcon} alt="" />
+                      </Box>
                       <RichTextEditor className="editor" value={this.state.meetingNote} onChange={this.onChange} />
                     </Card>
                   )}

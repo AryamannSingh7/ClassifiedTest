@@ -116,7 +116,7 @@ class PersonalDocumentList extends PersonalDocumentListController {
                                 </div>
                               </div>
                             </Link>
-                            <div className="right-menu">
+                            <div className="right-menu personal-document-menu">
                               <Menu
                                 menuButton={
                                   <IconButton>
@@ -125,7 +125,11 @@ class PersonalDocumentList extends PersonalDocumentListController {
                                 }
                               >
                                 <MenuItem>
-                                  <Link href={document.attributes.images[0].download_url} target="_blank">
+                                  <Link
+                                    download={document.attributes.title}
+                                    href={document.attributes.images[0].download_url}
+                                    target="_blank"
+                                  >
                                     {t("Download")}
                                   </Link>
                                 </MenuItem>

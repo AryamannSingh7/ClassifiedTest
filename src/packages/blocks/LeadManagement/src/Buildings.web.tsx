@@ -302,7 +302,7 @@ class Buildings extends BuildingsController {
                           <Link href="/DocumentChairman">
                             <Box className="right-content">
                               <img src={upload} alt="|" />
-                              <span>{t("Upload")}</span>
+                              <span className="bold-text">{t("Upload")}</span>
                             </Box>
                           </Link>
                         </Box>
@@ -367,7 +367,7 @@ class Buildings extends BuildingsController {
                           <Box className="right-content">
                             <select
                               value={this.state.status}
-                              className="unit-select"
+                              className="unit-select bold-text"
                               onChange={(e: any) => this.setState({ status: e.target.value, page: 1 })}
                             >
                               <option disabled value="-">
@@ -400,11 +400,11 @@ class Buildings extends BuildingsController {
                             <TableHead>
                               <TableRow>
                                 <TableCell>#</TableCell>
-                                <TableCell>{t("Unit Number")}</TableCell>
-                                <TableCell>{t("Floor Number")}</TableCell>
-                                <TableCell>{t("Resident Name")}</TableCell>
-                                <TableCell>{t("Owner")}</TableCell>
-                                <TableCell>{t("Status")}</TableCell>
+                                <TableCell className="bold-text">{t("Unit Number")}</TableCell>
+                                <TableCell className="bold-text">{t("Floor Number")}</TableCell>
+                                <TableCell className="bold-text">{t("Resident Name")}</TableCell>
+                                <TableCell className="bold-text">{t("Owner")}</TableCell>
+                                <TableCell className="bold-text">{t("Status")}</TableCell>
                                 <TableCell />
                               </TableRow>
                             </TableHead>
@@ -441,9 +441,8 @@ class Buildings extends BuildingsController {
                         </TableContainer>
                         <Box className="unit-pagination">
                           <p>
-                            {t("Showing")} <span>{this.state.pagination ? this.state.pagination.total_pages : 0}</span>{" "}
-                            {t("of")} <span>{this.state.pagination ? this.state.pagination.total_count : 0}</span>{" "}
-                            {t("results")}
+                            {t("Showing")} <span>{searchData.length}</span> {t("of")}{" "}
+                            <span>{this.state.pagination ? this.state.pagination.total_count : 0}</span> {t("results")}
                           </p>
                           {this.state.pagination && (
                             <Pagination
@@ -528,7 +527,7 @@ class Buildings extends BuildingsController {
                   <DialogContent dividers>
                     <Box className="profile-picture">
                       <img src={values.displayLogo} alt="profile" className="picture building" />
-                      <p className="logo-text" onClick={() => this.uploadLogo.click()}>
+                      <p className="logo-text bold-text" onClick={() => this.uploadLogo.click()}>
                         {t("Change Logo")}
                       </p>
                       <input

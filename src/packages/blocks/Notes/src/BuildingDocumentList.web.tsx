@@ -96,6 +96,7 @@ class BuildingDocumentList extends BuildingDocumentListController {
                                       }}
                                     />
                                     <Link
+                                      download={document.attributes.title}
                                       href={
                                         document.attributes.meeting_mins_pdf && document.attributes.meeting_mins_pdf.url
                                       }

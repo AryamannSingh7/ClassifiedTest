@@ -69,7 +69,7 @@ button {
   flex-direction: row;
   padding: 15px;
   border-radius: 10px;
-  border: 2px solid #e4e4e4;
+  border: 1px solid #e4e4e4;
 }
 
 .document-box-box .item .heading {
@@ -86,7 +86,7 @@ button {
 }
 
 .document-box-box .item button.color-btn {
-  padding: 5px 11px;
+  padding: 4px 10px;
   min-width: 60px;
   border-radius: 25px;
   font-weight: 600;
