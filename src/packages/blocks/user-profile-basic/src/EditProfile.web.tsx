@@ -24,6 +24,8 @@ import OtpInput from 'react-otp-input';
 import PhoneInput from 'react-phone-input-2'
 import 'react-phone-input-2/lib/style.css'
 import { Hyperlink } from "../../customform/src/assets";
+import AlertErrorWeb from "../../../components/src/AlertError.web";
+
 class EditProfile extends ProfileController {
   async componentDidMount() {
     // this.getProfile()
@@ -784,6 +786,8 @@ class EditProfile extends ProfileController {
 
         </Dialog>
         <Loader loading={this.state.loading} />
+        <AlertErrorWeb show={this.state.showError} handleClose={()=> this.setState({showError:false,error:null})} message={this.state.error} />
+
       </>
 
     )

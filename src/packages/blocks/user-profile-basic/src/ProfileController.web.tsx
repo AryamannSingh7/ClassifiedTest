@@ -35,7 +35,7 @@ export interface S {
   enableReTypePasswordField: boolean;
   countryCodeSelected: string;
   phone: string;
-  error: string | null;
+  error: any;
   userType: string | null;
   allContries: [];
   selectCountry: string;
@@ -60,7 +60,9 @@ export interface S {
   showDialog2: boolean;
   profiledata:any;
   values:any,
-  showDialogDelete:boolean
+  showDialogDelete:boolean,
+  showError:boolean
+
   // Customizable Area End
 }
 
@@ -171,7 +173,9 @@ const profileData = JSON.parse(localStorage.getItem('profileData') ||'{}')
       profiledata:null,
       values:null,
       showDialogDelete:false,
-  showDialog1:false
+  showDialog1:false,
+  showError:false
+
 
       // Customizable Area End
     };
