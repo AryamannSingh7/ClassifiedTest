@@ -33,6 +33,7 @@ import '../../../web/src/i18n.js';
 import {SearchIconImage} from "../../StoreCredits/src/assets"
 //resorces
 import { Users_Icon, Bank_Icon, Box_Icon, Building1,incedentBuilding,incedentUnit,incedentUser } from "../src/assets";
+import AlertErrorWeb from "../../../components/src/AlertError.web"
 
 class IncidentManagement extends IncidentManagementController {
   constructor(props: Props) {
@@ -57,19 +58,19 @@ class IncidentManagement extends IncidentManagementController {
               {/* Chairman Sidebar -- */}
               <ChairmanSidebar {...this.props} />
             </Grid>
-            <Grid xs={9} md={9} sm={9} spacing={4} style={{ paddingTop: 35 }}>
+            <Grid xs={9} md={9} sm={9} spacing={4} style={{ paddingTop: 35 ,backgroundColor:"#f4f7ff" }}>
               <Container>
                 <Box style={dashBoard.navigation}>
                   <Box>
                     <Typography variant="body1" >
                       {t("My Dashboard")} / {t("General Dashboard")} /<Box component="span" style={{ color: "blue" }}> {t("Incidents")}</Box>
                     </Typography>
-                    <Typography variant="h5" style={dashBoard.subHeading}>{t("Incidents")}</Typography>
+                    <Typography variant="h5" className="bold-text" style={dashBoard.subHeading}>{t("Incidents")}</Typography>
                   </Box>
                 </Box>
-                <Box className="sorting-header">
-                  <Box className="formGroup customSelect">
-                    <FormControl variant="outlined" >
+                <Box className="sorting-header inputPlaceholderRegistration">
+                  <Box className="formGroup customSelect"  style={{border:"0.1px solid rgb(209 209 209 / 100%)",borderRadius:"25px",backgroundColor:"#f9f9f9"}}>
+                    <FormControl variant="outlined">
                       <Select
                         name="buildingName"
                         labelId="demo-simple-select-outlined-label"
@@ -93,7 +94,7 @@ class IncidentManagement extends IncidentManagementController {
                       </Select>
                     </FormControl>
                   </Box>
-                  <Box className="formGroup customSelect">
+                  <Box className="formGroup customSelect" style={{border:"0.1px solid rgb(209 209 209 / 100%)",borderRadius:"25px",backgroundColor:"#f9f9f9"}}>
                     <FormControl variant="outlined" >
                       <Select
                         name="unitName"
@@ -120,7 +121,7 @@ class IncidentManagement extends IncidentManagementController {
                     </FormControl>
                   </Box>
 
-                  <Box className="formGroup customSelect">
+                  <Box className="formGroup customSelect" style={{border:"0.1px solid rgb(209 209 209 / 100%)",borderRadius:"25px",backgroundColor:"#f9f9f9"}}>
                     <FormControl variant="outlined" >
                       <Select
                         name="status"
@@ -187,6 +188,7 @@ class IncidentManagement extends IncidentManagementController {
             </Grid>
           </Box>
         </Box>
+        <AlertErrorWeb show={this.state.showError} handleClose={()=> this.setState({showError:false,error:null})} message={this.state.error} />
         <Loader loading={this.state.loading} />
       </>
     )

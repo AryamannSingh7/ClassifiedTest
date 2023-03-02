@@ -36,7 +36,7 @@ export interface S {
   countryCodeSelected: string;
   phone: string;
   userType: string | null;
-  error: string | null;
+  error: any;
   loading: boolean;
   userTypeData:any;
   anchorEl :any ;
@@ -52,7 +52,8 @@ export interface S {
   commonAreaData:any,
   incidentRelatedData:any,
   incidentListing:any,
-  showDialog:any;
+  showDialog:any,
+  showError:boolean
   // Customizable Area End
 }
 
@@ -140,7 +141,8 @@ export default class IncidentController extends BlockComponent<
       notImageOrVideoError:false,
       sizeError:false,
       file :{},
-      showDialog:false
+      showDialog:false,
+      showError:false
       // Customizable Area End
     };
 
@@ -172,6 +174,14 @@ export default class IncidentController extends BlockComponent<
 
     ) {
      this.getIncidentListing(this.state.sortBy ,this.state.status)
+    }
+  }
+
+  showError = () => {
+    if(this.state.error){
+      this.setState({
+        showError:true
+      })
     }
   }
 
@@ -227,9 +237,9 @@ export default class IncidentController extends BlockComponent<
           } else {
             this.setState({ error: responseJson?.error || "Something went wrong!" });
           }
-
-          this.parseApiCatchErrorResponse(this.state.error);
-          this.setState({loading: false , error:null})
+          this.showError()
+          //this.parseApiCatchErrorResponse(this.state.error);
+          this.setState({loading: false})
         }
         else if (apiRequestCallId === this.apiupdateIncidentCallId) {
           if (responseJson && responseJson.data) {
@@ -243,9 +253,9 @@ export default class IncidentController extends BlockComponent<
           } else {
             this.setState({ error: responseJson?.error || "Something went wrong!" });
           }
-
-          this.parseApiCatchErrorResponse(this.state.error);
-          this.setState({loading: false , error:null})
+          this.showError()
+         // this.parseApiCatchErrorResponse(this.state.error);
+          this.setState({loading: false})
         }
         else if (apiRequestCallId === this.getIncidentListingApiCallId) {
           if (responseJson && responseJson?.data ) {
@@ -258,8 +268,9 @@ export default class IncidentController extends BlockComponent<
           } else {
             this.setState({ error: responseJson?.error || "Something went wrong!" });
           }
-          this.parseApiCatchErrorResponse(this.state.error);
-          this.setState({loading: false , error:null})
+          this.showError()
+         // this.parseApiCatchErrorResponse(this.state.error);
+          this.setState({loading: false})
         }
         else if (apiRequestCallId === this.getIncidentDetailsByIdApiCallId) {
           if (responseJson && responseJson?.data ) {
@@ -276,8 +287,9 @@ export default class IncidentController extends BlockComponent<
           } else {
             this.setState({ error: responseJson?.error || "Something went wrong!" });
           }
-          this.parseApiCatchErrorResponse(this.state.error);
-          this.setState({loading: false , error:null})
+          this.showError()
+          //this.parseApiCatchErrorResponse(this.state.error);
+          this.setState({loading: false})
         }
         else if (apiRequestCallId === this.getCommonAreaApiCallId) {
           if (responseJson && responseJson?.data ) {
@@ -291,8 +303,8 @@ export default class IncidentController extends BlockComponent<
           } else {
             this.setState({ error: responseJson?.error || "Something went wrong!" });
           }
-          this.parseApiCatchErrorResponse(this.state.error);
-          this.setState({loading: false , error:null})
+          this.showError()
+          this.setState({loading: false})
         }
         else if (apiRequestCallId === this.getIncidentRelatedApiCallId) {
           if (responseJson && responseJson?.data ) {
@@ -306,8 +318,8 @@ export default class IncidentController extends BlockComponent<
           } else {
             this.setState({ error: responseJson?.error || "Something went wrong!" });
           }
-          this.parseApiCatchErrorResponse(this.state.error);
-          this.setState({loading: false , error:null})
+          this.showError()
+          this.setState({loading: false})
         } else if (apiRequestCallId === this.createChatRoomAPIId) {
           if (responseJson && responseJson?.data) {
             console.log("createChatRoom ========================>", responseJson)
@@ -320,8 +332,8 @@ export default class IncidentController extends BlockComponent<
           } else {
             this.setState({ error: responseJson?.error || "Something went wrong!" });
           }
-          this.parseApiCatchErrorResponse(this.state.error);
-          this.setState({ loading: false, error: null })
+          this.showError()
+          this.setState({ loading: false})
         }
         else if (apiRequestCallId === this.getMyApartmentListApiCallId) {
           if (responseJson && responseJson?.data ) {
@@ -335,8 +347,8 @@ export default class IncidentController extends BlockComponent<
           } else {
             this.setState({ error: responseJson?.error || "Something went wrong!" });
           }
-          this.parseApiCatchErrorResponse(this.state.error);
-          this.setState({loading: false , error:null})
+          this.showError()
+          this.setState({loading: false})
         }
       }
     }
@@ -765,7 +777,7 @@ confirmOrRejectIncident =(id : any,val : any)=>{
 
       requestMessage.addData(
         getName(MessageEnum.RestAPIResponceEndPointMessage),
-        `account_block/accounts/my_apartments?society_management_id=${society_id}`
+        `account_block/my_apartments?society_management_id=${society_id}`
       );
 
       requestMessage.addData(

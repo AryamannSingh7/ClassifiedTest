@@ -550,8 +550,7 @@ getNeighboursDetails= (id :any) => {
       );
       this.getNeighboursListingApiCallId = requestMessage.messageId;
       this.setState({ loading: true });
-
-      const getNeighboursListing =`/account_block/accounts/neighobour_list?search_term=${serachApartmentName}&building_management_id=${myApartment}`
+      const getNeighboursListing =`/account_block/neighobour_list?search_term=${serachApartmentName}&building_management_id=${myApartment}`
       requestMessage.addData(
         getName(MessageEnum.RestAPIResponceEndPointMessage),
         getNeighboursListing
