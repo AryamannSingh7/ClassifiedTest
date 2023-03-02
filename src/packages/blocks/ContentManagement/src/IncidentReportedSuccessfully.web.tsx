@@ -24,6 +24,8 @@ import * as Yup from "yup";
 import CountryCodeSelector from "../../country-code-selector/src/CountryCodeSelector";
 import IncidentController, { Props } from "./IncidentController.web";
 //Customizable Area End
+import AlertErrorWeb from "../../../components/src/AlertError.web"
+
 
 //resorces
 import { Tenant_Logo, Building_Logo, Tick_Circle_Icon, Building1 } from "../src/assets";
@@ -86,6 +88,7 @@ class IncidentReportedSuccessfully extends IncidentController {
             </Grid>
           </Grid>
         </Box>
+        <AlertErrorWeb show={this.state.showError} handleClose={()=> this.setState({showError:false,error:null})} message={this.state.error} />
         <Loader loading={this.state.loading} />
       </>
     )

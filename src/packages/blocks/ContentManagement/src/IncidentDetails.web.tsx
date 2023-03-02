@@ -57,7 +57,6 @@ class IncidentDetails extends IncidentController {
   }
 
   render() {
-    console.log(",image: val===========>", this.state?.file)
     const { navigation } = this.props;
     const id = this.state?.getIncidentDetails?.id;
     const attributes = this.state?.getIncidentDetails?.attributes;

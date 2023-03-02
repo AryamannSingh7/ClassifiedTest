@@ -63,4 +63,6 @@ export const TwitterGreen = require("../assets/twitter-green.png");
 export const InstaGreen = require("../assets/insta.png");
 export const SnapGreen = require("../assets/snap-green.png");
 export const EmailGreen = require("../assets/email-green.png");
+export const Lock = require("../assets/lock.png");
+
 

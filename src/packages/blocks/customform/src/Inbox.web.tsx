@@ -55,15 +55,18 @@ class Inbox extends InboxController {
 
   dateToFromNowDaily( myDate:any ) {
 
+let v=new Date(myDate).toLocaleTimeString().slice(0, -3)
+let currentTime = moment(v, "HH:mm").format("h:mm A")
+console.log('123c',currentTime)
     // get from-now for this date
     var fromNow = moment.utc( myDate ).fromNow();
-console.log(moment( myDate ).calendar())
+
     // ensure the date is displayed with today and yesterday
     return moment( myDate ).calendar( null, {
         // when the date is closer, specify custom values
         lastWeek: '[Last] dddd',
         lastDay:  '[Yesterday]',
-        sameDay:  '[Today]',
+        sameDay:  currentTime,
         nextDay:  '[Tomorrow]',
         nextWeek: 'dddd',
         // when the date is further away, use from-now functionality             
@@ -90,12 +93,12 @@ console.log(moment( myDate ).calendar())
     let profileData =this.state.profileData
     return (
       <>
-        <Box className="login-wrapper reg-wrapper" style={{margin:0}}>
+        <Box className="login-wrapper reg-wrapper" style={{margin:0,background:'white',marginTop:5}}>
           <Grid container style={{padding:'0 1rem' ,borderBottom:'1px solid #f2f2f2'}}>
             <Grid item xs={12} style={{display:'flex',justifyContent:'space-between'}}>
           <Box  display='flex' alignItems='center' width={this.state.isSearch ? '7%':'100%'} onClick={() => window.history.back()}>
             <KeyboardBackspaceIcon />
-            <span style={{fontWeight:'bold'}}>
+            <span className="text-bold" style={{marginLeft:'0.2rem'}}>
              {
                     this.state.isSearch ? '' :'My Chat'
              }
@@ -144,7 +147,7 @@ console.log(moment( myDate ).calendar())
 
             </Grid>
           </Grid>
-          <Grid container spacing={2} className="auth-container" style={{ padding: '0 2rem', marginTop: '1rem' }}>
+          <Grid container spacing={2} className="auth-container" style={{marginTop: '1rem' }}>
             <Grid item xs={12} md={7}
               className="auth-cols" style={{ justifyContent :'normal'}} >
             {
@@ -196,7 +199,7 @@ const ChatBox = (props:any) => {
   const item =props?.item;
   return(
   <>
-    <Box key={item} display='flex' style={{ gap: '1rem',maxHeight:'5rem',marginTop:'1rem',cursor:'pointer',borderBottom:'1px solid #f2f2f2' }} onClick={() => props.this.openChat(item)}>
+    <Box key={item} display='flex' style={{ gap: '1rem',maxHeight:'5rem',marginTop:'1rem',cursor:'pointer',borderBottom:'1px solid #F8F8F8',paddingLeft:'2rem',paddingRight:'2rem' }} onClick={() => props.this.openChat(item)}>
                     <img src={item?.attributes?.chat_with_account?.id != localStorage.getItem('userId') ?item?.attributes?.chat_with_account?.attributes?.profile_pic?.url || NoProfile_Img:item?.attributes?.chatable?.attributes?.profile_pic?.url || NoProfile_Img } width='50' height='50' style={{ borderRadius: 25 }} />
                     
                     <Box padding='0.25rem' width='100%' >

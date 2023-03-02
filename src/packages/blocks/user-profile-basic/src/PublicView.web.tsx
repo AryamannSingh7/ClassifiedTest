@@ -18,6 +18,8 @@ import ProfileController from "./ProfileController.web";
 import { dailCode } from "../../email-account-registration/src/code";
 import CircleCheckedFilled from '@material-ui/icons/CheckCircle';
 import CircleUnchecked from '@material-ui/icons/RadioButtonUnchecked';
+import KeyboardBackspaceIcon from '@material-ui/icons/KeyboardBackspace';
+
 class PublicView extends ProfileController {
 
   async componentDidMount() {
@@ -37,8 +39,8 @@ class PublicView extends ProfileController {
           <Grid item xs={12} md={7} className="auth-cols" style={{ justifyContent: 'unset' }}>
             <Grid container>
               <Grid xs={12} style={{ display: 'flex', alignItems: 'center', borderBottom: '1px solid #f2f2f2',marginTop:'1.25rem' }}>
-                <ArrowBackIcon onClick={() => window.history.back()} />
-                <p style={{ fontWeight: 600, fontSize: '1.25rem' }}>
+                <KeyboardBackspaceIcon onClick={() => window.history.back()} />
+                <p className="text-bold" style={{marginLeft:'0.25rem'}}>
 
                   Publish on Community Page
                 </p>
@@ -51,7 +53,7 @@ class PublicView extends ProfileController {
                 </div>
               </Grid>
             </Grid>
-            <div>
+            <div style={{background:'#F8F9FE'}}>
 
               <Grid container className="main-content-block">
                 <Grid xs={12}>
