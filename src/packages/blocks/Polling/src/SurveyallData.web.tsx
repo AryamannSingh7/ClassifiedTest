@@ -110,6 +110,10 @@ class PollsallData extends SurveyAllDataController {
                                                     data.attributes.status == "completed" &&
                                                     <Typography variant="body2" className={"statusOngoingGreen"}>{data.attributes.status}</Typography>
                                                 }
+                                                {
+                                                    data.attributes.status == "Terminated" &&
+                                                    <Typography variant="body2" className={"statusTerminatedRed"} >{t('Terminated')}</Typography>
+                                                }
                                             </Box>
                                             <Box className="EventsIconsText">
                                                 <Typography className="EventsTitle" style={{width:"95%"}}>{data.attributes.title}</Typography>

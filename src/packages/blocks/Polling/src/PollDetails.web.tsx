@@ -129,6 +129,12 @@ class PollDetails extends PollingController {
                                                     {this.state.pollPreviewAnswer?.poll?.data?.attributes?.status == "completed" && <>{t('completed')}</>}
                                                 </Typography>
                                             }
+                                            {
+                                                this.state.pollPreviewAnswer?.poll?.data?.attributes?.status == "Terminated" &&
+                                                <Typography variant="body1" className={"statusTerminatedRed bold-text"} style={{paddingRight:"15px"}}>
+                                                    {this.state.pollPreviewAnswer?.poll?.data?.attributes?.status == "Terminated" && <>{t('Terminated')}</>}
+                                                </Typography>
+                                            }
                                         </Box>
                                     }
                             </Box>

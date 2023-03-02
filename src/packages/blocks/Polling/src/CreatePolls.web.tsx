@@ -61,7 +61,9 @@ class CreatePolls extends PollingController {
 
   render() {
       // @ts-ignore
-    const {t} = this.props
+      const {t} = this.props
+      // @ts-ignore
+      const language = this.props.i18n.language
       return (
       <>
     <Box style={{background: "#F7F9FE"}}>
@@ -75,11 +77,11 @@ class CreatePolls extends PollingController {
 
             <Grid xs={9} md={9} sm={9} spacing={4} style={{paddingTop: 35}}>
                 <Container>
-                    <Box className="navigation">
+                    <Box className="navigation" dir={language === "en" ? "ltr" : "rtl"}>
                         <Box>
                             <Typography variant="body1" >
                             <Box component="span" onClick={()=> this.props.history.push("/Polling")} style={{cursor:"pointer"}}>
-                                {t("Poll and survey ")}
+                                {t("Poll and survey")}
                             </Box>{" "}/ <Box component="span" style={{color: "blue"}} >{t("Create a Poll")}</Box>
                             </Typography>
                             <Typography variant="h5" className="subHeading bold-text" style={{fontSize:"30px"}}>{t("Create a Poll")}</Typography>
@@ -92,6 +94,9 @@ class CreatePolls extends PollingController {
                                 <TextField label={t("Name of the Poll")} variant="outlined"
                                     name="title"
                                     value={this.state.PollData.title}
+                                    // @ts-ignore
+                                    className={language !== "en" ? "placeHolderAlignment" : ""}
+                                    dir={language === "en" ? "ltr" : "rtl"}
                                     onChange={this.handlePollDataChange}
                                      fullWidth
                                     inputProps={{ maxLength: 50 }}
@@ -100,12 +105,13 @@ class CreatePolls extends PollingController {
                                 <Box className="DateSection">
                                     <Box style={{width:"100%"}}>
                                         <TextField
-                                            label="Start Date"
+                                            label={t("Start Date")}
                                             placeholder={t("Start Date")}
                                             className="dateInputBox"
                                             variant="outlined"
                                             style={{width:"100%"}}
                                             name="startDate"  fullWidth
+                                            dir={language === "en" ? "ltr" : "rtl"}
                                             format='DD/MM/YYYY'
                                             value={this.state.PollData.startDate}
                                             onChange={this.handlePollDataChange}
@@ -125,11 +131,12 @@ class CreatePolls extends PollingController {
                                         <p style={{color:"red"}}>{t(this.state.pollDateError)}</p>
                                     </Box>
                                     <Box style={{width:"100%"}}>
-                                        <TextField label="End Date"
+                                        <TextField label={t("End Date")}
                                                    placeholder={t("End Date")}
                                                    className="dateInputBox"
                                                    variant="outlined"
                                                    name="endDate"  fullWidth
+                                                   dir={language === "en" ? "ltr" : "rtl"}
                                                    style={{width:"100%"}}
                                                    value={this.state.PollData.endDate}
                                                    onChange={this.handlePollDataChange}
@@ -152,7 +159,7 @@ class CreatePolls extends PollingController {
                                 {/*<p style={{color:"red"}}>{this.state.pollDateError}</p>*/}
 
                                 <Box style={{width:"100%"}}>
-                                    <Box className="infoIcon">
+                                    <Box className="infoIcon" dir={language === "en" ? "ltr" : "rtl"}>
                                         <Typography variant="subtitle1">{t("Description")}</Typography>
                                         <InfoIcon style={{color:"grey", fontSize:18}}/>
                                     </Box>
@@ -164,7 +171,7 @@ class CreatePolls extends PollingController {
                                     </Box>
                                     <p style={{color:"red"}}>{t(this.state.pollDescriptionError)}</p>
                                 </Box>
-                                <Box className="anonymousSwitch">
+                                <Box className="anonymousSwitch" dir={language === "en" ? "ltr" : "rtl"}>
                                     <Box className="infoIcon">
                                         <Typography variant="subtitle1">{t("Make it anonymous poll")}</Typography>
                                         <InfoIcon style={{color:"grey", fontSize:18}}/>
@@ -186,10 +193,13 @@ class CreatePolls extends PollingController {
                         </Grid>
 
                         <Grid item sm={12} md={12} xs={12} style={{marginTop:"70px"}}>
-                            <Box className="createPSCards">
+                            <Box className="createPSCards" dir={language === "en" ? "ltr" : "rtl"}>
                                 <TextField  label={t("enter question")} variant="outlined"
                                 name="question"
                                 value={this.state.PollData.question}
+                                // @ts-ignore
+                                className={language !== "en" ? "placeHolderAlignment" : ""}
+                                dir={language === "en" ? "ltr" : "rtl"}
                                 onChange={this.handlePollDataChange}
                                  fullWidth
                                 inputProps={{ maxLength: 100 }}
@@ -202,13 +212,16 @@ class CreatePolls extends PollingController {
                                                     <TextField key={index}
                                                                label={t("Option") + " - " + (index + 1)} variant="outlined"
                                                                name="text"
+                                                               dir={language === "en" ? "ltr" : "rtl"}
+                                                                // @ts-ignore
+                                                               className={language !== "en" ? "placeHolderAlignment" : ""}
                                                                value={inputfield.text}
                                                                onChange={(event) => this.handleOptionsChange(index, event)}
                                                                fullWidth style={{marginTop:20}}
                                                     />
                                                     <p style={{color:"red"}}>{t(inputfield.error)}</p>
                                                 </Box>
-                                                <Box style={{display:'flex',alignItems:"center",justifyContent:'center'}}>
+                                                <Box style={{display:'flex',alignItems:"center",justifyContent:'center'}} dir={language === "en" ? "ltr" : "rtl"}>
                                                     <IconButton style={{marginTop:"15px",marginLeft:"5px"}} onClick={()=>this.deleteOption(index)}>
                                                         <BackspaceIcon fontSize="large" style={{color:"red"}} />
                                                     </IconButton>
@@ -221,7 +234,7 @@ class CreatePolls extends PollingController {
 
                                 <Button variant="outlined" color="primary"
                                 onClick={() => this.addOptionsFields()}
-                                className="addOptions">{t("ADD OPTION")}</Button>
+                                className="addOptions" >{t("ADD OPTION")}</Button>
 
                                 </Box>
                             </Grid>
@@ -242,9 +255,7 @@ class CreatePolls extends PollingController {
                                 >{t("PUBLISH")}</ApproveButton>
                             </Box>
                         </Box>
-
                     </form>
-                    
                 </Container>
             </Grid>
         </Box>

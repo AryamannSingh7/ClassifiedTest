@@ -94,6 +94,10 @@ class PollDetails extends SurveyDetailsMainController {
                                             this.state.SurveyPreviewAnswer.status == "completed" &&
                                             <Typography variant="body1" className={"statusOngoingGreen"}>{this.state.SurveyPreviewAnswer.status}</Typography>
                                         }
+                                        {
+                                            this.state.SurveyPreviewAnswer.status == "Terminated" &&
+                                            <Typography variant="body2" className={"statusTerminatedRed"} >{t('Terminated')}</Typography>
+                                        }
                                     </Box>
                                 </Box>
                                 
