@@ -65,6 +65,8 @@ class PollDetails extends PollingController {
   render() {
     //@ts-ignore
     const {t} = this.props
+    // @ts-ignore
+    const language = this.props.i18n.language
     return ( 
       <>
         <Box style={{background: "#F7F9FE"}}>
@@ -73,7 +75,7 @@ class PollDetails extends PollingController {
         <Grid item xs={3} md={3} sm={3} className="SideBar">
             <ChairmanSidebar {...this.props}/>
         </Grid>
-        <Grid xs={9} md={9} sm={9} spacing={4} style={{paddingTop: 35}}>
+        <Grid xs={9} md={9} sm={9} spacing={4} style={{paddingTop: 35}} dir={language === "en" ? "ltr" : "rtl"}>
             <Container>
                 <Box className="navigation">
                     <Box>

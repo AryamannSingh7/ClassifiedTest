@@ -392,8 +392,8 @@
     text-align: center;
 }
 .placeHolderAlignment label {
-  text-align: right !important;
-  width: 98%;
+    text-align: right !important;
+    width: 98%;
 }
 .statusRejected{
   background: #FFEAEA;

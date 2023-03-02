@@ -78,7 +78,17 @@ class Announcement extends AnnouncementController{
                                                         </Box>
                                                         <Box>
                                                             <Typography variant="subtitle2" >{t("Unit Number")}</Typography>
-                                                            <Typography variant="subtitle2" style={{fontWeight:"bold"}}>{Array.isArray(item.attributes?.unit_number?.isArray || 0) ? item.attributes?.unit_number?.join(",") : item.attributes?.unit_number || 0}</Typography>
+                                                            <Typography variant="subtitle2" style={{fontWeight:"bold",maxWidth:"80px",textOverflow:"ellipsis",overflow:"hidden"}}>{
+                                                                item.attributes?.unit_number.map((units:any,keys:any)=> {
+                                                                    if(item.attributes?.unit_number.length === 1){
+                                                                        return units.apartment_name
+                                                                    }else if(keys === item.attributes?.unit_number.length){
+                                                                        return units.apartment_name
+                                                                    }else{
+                                                                        return `${units.apartment_name},`
+                                                                    }
+                                                                })
+                                                            }</Typography>
                                                         </Box>
                                                     </Grid>
                                                 </Grid>
