@@ -171,6 +171,7 @@
 .Cards {
   padding-top: 30px;
   padding-left: 15px;
+  padding-right: 15px;
   padding-bottom: 25px;
   background: #fff;
   border-radius: 10px;
@@ -217,9 +218,7 @@
 }
 
 .EventsCards {
-  padding-top: 15px;
-  padding-left: 15px;
-  padding-bottom: 15px;
+  padding: 15px;
   background: #fff;
   border-radius: 10px;
   cursor: pointer;
@@ -377,6 +376,7 @@
   text-transform: capitalize;
   min-width: 50px;
   font-weight: 800 !important;
+  text-align: center;
 }
 
 .statusOngoingRed{
@@ -389,8 +389,12 @@
     min-width: 50px;
     text-transform: capitalize;
     font-weight: 800 !important;
+    text-align: center;
 }
-
+.placeHolderAlignment label {
+  text-align: right !important;
+  width: 98%;
+}
 .statusRejected{
   background: #FFEAEA;
   padding: 5px 15px;
@@ -454,18 +458,6 @@
   text-transform: capitalize;
   min-width: 50px;
   cursor: pointer;
-}
-
-.statusOngoingRed {
-  background: #ffdede;
-  padding: 5px 15px;
-  border-radius: 30px;
-  color: #f27200;
-  display: initial;
-  min-height: 20px;
-  min-width: 20px;
-  text-transform: capitalize;
-  font-weight: 800 !important;
 }
 
 .statusCompleted {

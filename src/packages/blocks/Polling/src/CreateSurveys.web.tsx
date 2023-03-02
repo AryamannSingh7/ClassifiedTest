@@ -93,6 +93,8 @@ class CreateSurveys extends CreateSurveyController {
   render() {
     // @ts-ignore
     const {t} = this.props
+    // @ts-ignore
+    const language = this.props.i18n.language
     return ( 
       <>
     <Box style={{background: "#F7F9FE"}}>
@@ -106,11 +108,11 @@ class CreateSurveys extends CreateSurveyController {
 
             <Grid xs={9} md={9} sm={9} spacing={4} style={{paddingTop: 35}}>
                 <Container>
-                    <Box className="navigation">
+                    <Box className="navigation" dir={language === "en" ? "ltr" : "rtl"}>
                         <Box>
                             <Typography variant="body1" >
                                 <Box component="span" onClick={()=> this.props.history.push("/Polling")} style={{cursor:"pointer"}}>
-                                    {t("Poll and survey ")}
+                                    {t("Poll and survey")}
                                 </Box>{" "}/{" "}
                                 <Box component="span" style={{color: "blue"}}>{t("Create a Survey")}</Box>
                             </Typography>
@@ -123,10 +125,13 @@ class CreateSurveys extends CreateSurveyController {
                     <form>
                         <Grid container spacing={4}>
                             <Grid item sm={12} md={12} xs={12}>
-                                <Box className="createPSCards">
+                                <Box className="createPSCards" dir={language === "en" ? "ltr" : "rtl"}>
                                     <TextField label={t("Name of the Survey")} variant="outlined"
                                     name="title"
                                     id="SurveyQuestion"
+                                    // @ts-ignore
+                                    className={language !== "en" ? "placeHolderAlignment" : ""}
+                                    dir={language === "en" ? "ltr" : "rtl"}
                                     value={this.state.SurveyData.title}
                                     onChange={this.handlePollDataChange}
                                     inputProps={{
@@ -142,7 +147,7 @@ class CreateSurveys extends CreateSurveyController {
                                                 style={{width:"100%"}}
                                                 className="dateInputBox"
                                                 name="startDate"  fullWidth
-                                                placeholder="Start Date"
+                                                placeholder={t("Start Date")}
                                                 id="SurveyQuestion"
                                                 format='DD/MM/YYYY'
                                                 value={this.state.SurveyData.startDate}
@@ -208,22 +213,24 @@ class CreateSurveys extends CreateSurveyController {
                                             <Grid container spacing={2}>
                                                 <Grid item>
                                                     <AudienceSelectBox
-                                                        name="OWNERS"
+                                                        name={t("OWNERS")}
                                                         selected={this.state.selectedAudience === "Owner"}
                                                         isMenu={false}
                                                         selectAudience={(id:any,name:any)=> this.selectAudience(id,name)}
                                                         audienceId={"Owner"}
                                                         t={t}
+                                                        language={language}
                                                     />
                                                 </Grid>
                                                 <Grid item>
                                                     <AudienceSelectBox
-                                                        name="RESIDENTS"
+                                                        name={t("RESIDENTS")}
                                                         selected={this.state.selectedAudience === "Resident"}
                                                         isMenu={false}
                                                         selectAudience={(id:any,name:any)=> this.selectAudience(id,name)}
                                                         audienceId={"Resident"}
                                                         t={t}
+                                                        language={language}
                                                     />
                                                 </Grid>
                                                 {
@@ -240,6 +247,7 @@ class CreateSurveys extends CreateSurveyController {
                                                                     selectAudience={(id:any,name:any)=> this.selectAudience(id,name)}
                                                                     audienceId={item.id}
                                                                     t={t}
+                                                                    language={language}
                                                                 />
                                                             </Grid>
                                                         )
@@ -264,16 +272,18 @@ class CreateSurveys extends CreateSurveyController {
                             {
                                 this.state.surveyQuestions.map((item:any,key:any)=>{
                                     return(
-                                        <Grid item sm={12} md={12} xs={12} >
-                                            <Box className="createPSCards">
-                                                <FormControl variant="outlined" fullWidth>
+                                        <Grid item sm={12} md={12} xs={12}>
+                                            <Box className="createPSCards" dir={language === "en" ? "ltr" : "rtl"}>
+                                                <FormControl variant="outlined" fullWidth dir={language === "en" ? "ltr" : "rtl"}>
                                                     <InputLabel id="question-type">{t("Select Type of Question")}</InputLabel>
                                                     <Select
                                                         labelId="question-type"
                                                         id="question-type-select"
                                                         value={item.question_type}
                                                         label="Age"
-                                                        className="selectSurveyType"
+                                                        // @ts-ignore
+                                                        className={language !== "en" ? "selectSurveyType placeHolderAlignment" : "selectSurveyType"}
+                                                        dir={language === "en" ? "ltr" : "rtl"}
                                                         style={{width:"100%",border:"1px solid #ECECEC",borderRadius:"10px",backgroundColor:"#f9f9f9",marginRight:"10px"}}
                                                         onChange={(e)=> this.handleQuestionType(key,e)}
                                                     >
@@ -283,12 +293,15 @@ class CreateSurveys extends CreateSurveyController {
                                                     </Select>
                                                     <p style={{color:"red"}}>{t(item.question_typeError)}</p>
                                                 </FormControl>
-                                                <TextField  label={t("Enter question")} variant="outlined"
+                                                <TextField  label={t("enter question")} variant="outlined"
                                                             name="question"
                                                             inputProps={{
                                                                 maxLength: 500
                                                             }}
                                                             id="SurveyQuestion"
+                                                            // @ts-ignore
+                                                            className={language !== "en" ? "placeHolderAlignment" : ""}
+                                                            dir={language === "en" ? "ltr" : "rtl"}
                                                             value={item.title}
                                                             onChange={(e)=>this.handleQuestion(key,e)}
                                                             required fullWidth style={{marginTop:20,borderRadius:"10px"}}
@@ -304,6 +317,9 @@ class CreateSurveys extends CreateSurveyController {
                                                                         label={t("Option") + " - " + (index + 1)} variant="outlined"
                                                                         name="text"
                                                                         id="SurveyQuestionOptions"
+                                                                        // @ts-ignore
+                                                                        className={language !== "en" ? "selectSurveyType placeHolderAlignment" : "selectSurveyType"}
+                                                                        dir={language === "en" ? "ltr" : "rtl"}
                                                                         value={inputfield.text}
                                                                         onChange={(event) => this.handleOptionsChange(key,index, event)}
                                                                         required fullWidth style={{marginTop:20}}
@@ -330,7 +346,7 @@ class CreateSurveys extends CreateSurveyController {
                                                         </Button>
                                                     }
                                                     <Button variant="outlined" color="secondary" className="removeOptions" style={{marginTop:"20px"}} onClick={()=> this.deleteQuestion(key)}>
-                                                        Remove Question
+                                                        {t("Remove Question")}
                                                     </Button>
                                                 </Box>
                                             </Box>
@@ -424,6 +440,7 @@ const dashBoard = {
 const AudienceSelectBox = (props:any) => {
     const [anchorEl, setAnchorEl] = React.useState(null);
     const {t} = props
+    const {language} = props
     const handleClick = (event:any) => {
         setAnchorEl(event.currentTarget);
     };
@@ -452,11 +469,10 @@ const AudienceSelectBox = (props:any) => {
                         :
                         {border:"1px solid #f0f0f0",borderRadius:"8px",cursor:'pointer',backgroundColor:"#f9f9f9",minHeight:"24px"}
                 }
+
             >
-                <Box
-                    style={{padding:"10px 13px",display:"flex",alignItems:"center"}}
-                >
-                    <Box style={{display:'flex',alignItems:'center'}} onClick={()=>props.selectAudience(props.audienceId,props.name)}>
+                <Box style={{padding:"10px 13px",display:"flex",alignItems:"center"}} dir={language === "en" ? "ltr" : "rtl"}>
+                    <Box style={{display:'flex',alignItems:'center'}} onClick={()=>props.selectAudience(props.audienceId,props.name)} dir={language === "en" ? "ltr" : "rtl"}>
                         <img
                             src={props.selected ? audienceChecked : audienceCheck}
                             height="10px"
@@ -465,9 +481,9 @@ const AudienceSelectBox = (props:any) => {
                             variant="body2"
                             style={
                                 props.selected ?
-                                    {minHeight:"24px",fontWeight:"bold",color:"#2b6fed",marginLeft:"5px",fontFamily:"Century Gothic",textTransform:"uppercase"}
+                                    {minHeight:"24px",fontWeight:"bold",color:"#2b6fed",marginLeft:"5px",marginRight:"5px",fontFamily:"Century Gothic",textTransform:"uppercase"}
                                     :
-                                    {minHeight:"24px",fontWeight:"bold",color:"#9a9fa5",marginLeft:"5px",fontFamily:"Century Gothic",textTransform:"uppercase"}
+                                    {minHeight:"24px",fontWeight:"bold",color:"#9a9fa5",marginLeft:"5px",marginRight:"5px",fontFamily:"Century Gothic",textTransform:"uppercase"}
                             }
                         >
                             {props.name}

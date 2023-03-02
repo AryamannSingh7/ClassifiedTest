@@ -42,6 +42,8 @@ class PollsallData extends PollingController {
   render() {
     //@ts-ignore
     const {t} = this.props
+    // @ts-ignore
+    const language = this.props.i18n.language
     return ( 
       <>
         <Box style={{background: "#F7F9FE"}}>
@@ -56,13 +58,13 @@ class PollsallData extends PollingController {
                 <Grid xs={9} md={9} sm={9} spacing={4} style={{paddingTop: 35}}>
               
                 <Container>
-                    <Box className="navigation">
+                    <Box className="navigation" dir={language === "en" ? "ltr" : "rtl"}>
                         <Box>
                             <Typography variant="body1" >
                                 <Box component="span" onClick={()=> this.props.history.push("/DashboardGeneral")} style={{cursor:"pointer"}}>{t("My Dashboard")} </Box>
                                 /{" "}
                                 <Box component="span" onClick={()=> this.props.history.push("/Polling")} style={{cursor:"pointer"}}>
-                                {t("Poll and survey ")}
+                                {t("Poll and survey")}
                                 </Box>{" "}
                                 / <Box component="span" style={{color: "blue"}}>{t("Polls")}</Box>
                             </Typography>
@@ -98,39 +100,26 @@ class PollsallData extends PollingController {
                                     <>
                                     <Grid item sm={6} md={4} xs={12} >
                                         <Box className="EventsCards"
+                                             dir={language === "en" ? "ltr" : "rtl"}
                                             // @ts-ignore
                                              onClick={() => this.props.history.push("/PollDetails?id=" + data.id)}
                                         >
                                             <Box className="EventsIconsText">
                                                 {
                                                     data.status == "upcoming" &&
-                                                    <Typography variant="body2" className={"statusOngoingBlue"}>
-                                                        {
-
-                                                            data.status == "upcoming" && <>{t('upcoming')}</>
-                                                        }
-                                                    </Typography>
+                                                    <Typography variant="body2" className={"statusOngoingBlue"}>{t('upcoming')} </Typography>
                                                 }
                                                 {
                                                     data.status == "ongoing" &&
-                                                    <Typography variant="body2" className={"statusOngoingRed"}>
-
-                                                        {
-
-                                                            data.status == "ongoing" && <>{t('Ongoing')}</>
-                                                        }
-                                                    </Typography>
+                                                    <Typography variant="body2" className={"statusOngoingRed"}>{t('Ongoing')}  </Typography>
                                                 }
                                                 {
                                                     data.status == "completed" &&
-                                                    <Typography variant="body2" className={"statusOngoingGreen"}>
-
-                                                        {
-
-                                                            data.status == "completed" && <>{t('completed')}</>
-                                                        }
-
-                                                    </Typography>
+                                                    <Typography variant="body2" className={"statusOngoingGreen"}>{t('completed')}</Typography>
+                                                }
+                                                {
+                                                    data.status == "Terminated" &&
+                                                    <Typography variant="body2" className={"statusTerminatedRed"} >{t('Terminated')}</Typography>
                                                 }
                                             </Box>
                                             <Box className="EventsIconsText">
