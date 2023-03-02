@@ -5,28 +5,10 @@ import ChairmanSidebar from "./ChairmanSidebar.web";
 import { Container, Typography, withStyles, Card, Link, Button } from "@material-ui/core";
 import Box from "@material-ui/core/Box";
 import Grid from "@material-ui/core/Grid";
-import NativeSelect from "@material-ui/core/NativeSelect";
 import DashboardBudgetController, { Props } from "./DashboardBudgetController.web";
 import { DashboardStyleWeb } from "./DashboardStyle.web";
 import { withTranslation } from "react-i18next";
 import { ROLE } from "../../../framework/src/Enum";
-
-function createData(Name: any, Amount: any) {
-  return { Name, Amount };
-}
-
-const rows = [
-  createData("Sales Revenue", 10000),
-  createData("Cost of Services Sold", 2300),
-  createData("Operating Expenses", 26285),
-  createData("Operating Income", 30050),
-  createData("Other Revenue and Expenses", 10356),
-  createData("Sales Revenue", 10000),
-  createData("Cost of Services Sold", 2300),
-  createData("Operating Expenses", 26285),
-  createData("Operating Income", 30050),
-  createData("Other Revenue and Expenses", 10356),
-];
 
 class BudgetDetails extends DashboardBudgetController {
   constructor(props: Props) {
@@ -74,24 +56,6 @@ class BudgetDetails extends DashboardBudgetController {
                       {t("Budget")} {this.state.filterYear}
                     </Typography>
                     <Box className="select-box">
-                      {userType === ROLE.MANAGER && (
-                        <select
-                          className="select-year"
-                          value={this.state.filterBuilding}
-                          onChange={(e: any) => this.setState({ filterBuilding: e.target.value })}
-                        >
-                          <option value="" disabled>
-                            {t("Select Building")}
-                          </option>
-                          {this.state.buildingList.map((building: any) => {
-                            return (
-                              <option value={building.id} key={building.id}>
-                                {building.attributes.name}
-                              </option>
-                            );
-                          })}
-                        </select>
-                      )}
                       <select
                         value={this.state.filterYear}
                         onChange={(e: any) => this.setState({ filterYear: e.target.value })}

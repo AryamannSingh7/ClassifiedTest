@@ -66,7 +66,7 @@
 .dialog-input {
   padding: 15px 26px 15px 12px;
   border: 1px solid #f0f0f0;
-  font-size: 16px;
+  font-size: 14px;
   border-radius: 5px;
   -webkit-border-radius: 5px;
   -moz-border-radius: 5px;
@@ -100,7 +100,7 @@
 .dialog-select-input {
   border-radius: 5px;
   border: 1px solid #f0f0f0;
-  font-size: 16px;
+  font-size: 14px;
   padding: 15px 26px 15px 12px;
   color: #494949;
   background-color: white;
@@ -127,7 +127,7 @@
 .dialog-textarea-input {
   border-radius: 5px;
   border: 1px solid #f0f0f0;
-  font-size: 16px;
+  font-size: 14px;
   padding: 15px 26px 15px 12px;
   color: #494949;
   background-color: white;
@@ -143,6 +143,7 @@
 .add-document .image-box p {
   margin-top: 10px;
   color: #adadad;
+  font-size: 14px;
 }
 
 .add-document .file-name {
@@ -235,7 +236,7 @@
 }
 
 .resolutions .choose-meeting span {
-  font-size: 15px;
+  font-size: 14px;
 }
 
 .resolutions .change-meeting {
@@ -253,12 +254,12 @@
 
 .resolutions .change-meeting span:first-child {
   color: black;
-  font-size: 15px;
+  font-size: 14px;
 }
 
 .resolutions .change-meeting span:last-child {
   cursor: pointer;
-  font-size: 15px;
+  font-size: 14px;
 }
 
 .select-meeting .list-heading span {
@@ -440,8 +441,8 @@
   background-color: #2b6fed;
   color: white;
   border-radius: 8px;
-  padding-top: 9px;
-  padding-bottom: 9px;
+  /* padding-top: 9px;
+  padding-bottom: 9px; */
   width: 175px;
   font-weight: 600;
 }
@@ -463,8 +464,8 @@
   border: 1px solid #2b6fed;
   background-color: white;
   color: #2b6fed;
-  padding-top: 9px;
-  padding-bottom: 9px;
+  /* padding-top: 9px;
+  padding-bottom: 9px; */
   border-radius: 8px;
   width: 175px;
   font-weight: 600;
