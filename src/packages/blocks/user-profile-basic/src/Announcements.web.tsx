@@ -176,7 +176,7 @@ class Announcements extends AnnouncementsController {
           </MuiDialogTitle>
           <DialogContent dividers>
             <FormControl fullWidth style={{marginBottom:"15px"}}>
-              <select className="dialog-select-input" value={this.state.selectedBuilding} onChange={(e)=> this.setState({selectedBuilding:e.target.value})}>
+              <select className="dialog-select-input" style={{backgroundColor:"#f9f9f9"}} value={this.state.selectedBuilding} onChange={(e)=> this.setState({selectedBuilding:e.target.value})}>
                 <option value="" disabled>
                   {t("Select Building")}
                 </option>
@@ -202,7 +202,7 @@ class Announcements extends AnnouncementsController {
               />
             </FormControl>
             <FormControl fullWidth>
-              <select className="dialog-select-input" value={this.state.selectedCategory} onChange={(e)=> this.setState({selectedCategory:e.target.value})}>
+              <select className="dialog-select-input" style={{backgroundColor:"#f9f9f9"}} value={this.state.selectedCategory} onChange={(e)=> this.setState({selectedCategory:e.target.value})}>
                 <option value="" disabled>
                   {t("Select Category")}
                 </option>
@@ -217,7 +217,7 @@ class Announcements extends AnnouncementsController {
               </select>
             </FormControl>
             <FormControl fullWidth>
-              <textarea className="dialog-textarea-input" placeholder={t("Description")} value={this.state.selectedDescription} onChange={(e) => this.setState({selectedDescription:e.target.value})} />
+              <textarea className="dialog-textarea-input" style={{backgroundColor:"#f9f9f9"}} placeholder={t("Description")} value={this.state.selectedDescription} onChange={(e) => this.setState({selectedDescription:e.target.value})} />
             </FormControl>
             <FormControl fullWidth>
               <div
