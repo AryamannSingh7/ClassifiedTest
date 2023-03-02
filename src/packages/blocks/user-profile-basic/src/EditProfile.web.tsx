@@ -9,7 +9,7 @@ import PermIdentityIcon from '@material-ui/icons/PermIdentity';
 
 import MailOutlineIcon from '@material-ui/icons/MailOutline';
 import HomeIcon from '@material-ui/icons/Home';
-import { Building1, calendar, emailedit, fbedit, heart, instaedit,  message, mobile, NoProfile_Img, Pencil, snapedit,twitteredit, user,} from "./assets";
+import { Building1, calendar, emailedit, fbedit, heart, instaedit,  Lock,  message, mobile, NoProfile_Img, Pencil, snapedit,twitteredit, user,} from "./assets";
 import { withRouter } from 'react-router';
 import Loader from "../../../components/src/Loader.web";
 import '../assets/css/style.scss';
@@ -90,7 +90,7 @@ class EditProfile extends ProfileController {
 
                             <label htmlFor="file1"
                               style={{ color: '#FC8434',fontSize:'1rem'}} className='text-bold'>
-                              Change Profile Picture
+                              Add Profile Picture
                             </label>
                             <input
                               id="file1"
@@ -399,7 +399,7 @@ class EditProfile extends ProfileController {
                               onDelete={(chip, index) => this.handleDeleteChip(setFieldValue, chip, values.hobbies, index)}
 
                             />
-                            <span className="frmLeftIcons">
+                            <span className="frmLeftIcons" style={{top:'39%'}}>
                               <img src={heart} />
                             </span>
                           </Box>
@@ -749,7 +749,7 @@ class EditProfile extends ProfileController {
           <Grid container>
             <Grid xs={12} style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', marginBottom: 10 }}>
 
-              <img src={mobile} />
+              <img src={Lock} width='50' height='50' />
             </Grid>
           </Grid>
           <Grid container>
@@ -763,7 +763,7 @@ class EditProfile extends ProfileController {
           </Grid>
           <Grid container>
             <Grid xs={12} style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', marginBottom: 10 }}>
-              <p style={{ fontWeight: 400, fontSize: '0.8rem', textAlign: 'center' }}>
+              <p style={{ fontWeight: 400, fontSize: '0.9rem', textAlign: 'center',marginBottom:'0.5rem' }}>
                 Enter OTP sent to your mobile number for verification.
               </p>
             </Grid>
@@ -779,7 +779,7 @@ class EditProfile extends ProfileController {
                 />
               </Box>
               <Box className="customButton row-btn">
-                <Button variant="contained" onClick={() => { this.verifyOtp() }}>SEND</Button>
+                <Button variant="contained" onClick={() => { this.verifyOtp() }}>SUBMIT</Button>
               </Box>
             </Grid>
           </Grid>

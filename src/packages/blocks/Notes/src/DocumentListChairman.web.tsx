@@ -96,6 +96,7 @@ class DocumentListChairman extends DocumentListChairmanController {
                   >
                     <MenuItem>
                       <Link
+                        download={resolution.attributes.title}
                         href={resolution.attributes.attachments && resolution.attributes.attachments[0].url}
                         target="_blank"
                       >
@@ -151,6 +152,7 @@ class DocumentListChairman extends DocumentListChairmanController {
                     }
                   />
                   <Link
+                    download={resolution.attributes.title}
                     href={resolution.attributes.meeting_mins_pdf && resolution.attributes.meeting_mins_pdf.url}
                     target="_blank"
                   >
@@ -192,7 +194,11 @@ class DocumentListChairman extends DocumentListChairmanController {
                   }
                 >
                   <MenuItem>
-                    <Link href={document.attributes.images[0].download_url} target="_blank">
+                    <Link
+                      download={document.attributes.title}
+                      href={document.attributes.images[0].download_url}
+                      target="_blank"
+                    >
                       {t("Download")}
                     </Link>
                   </MenuItem>

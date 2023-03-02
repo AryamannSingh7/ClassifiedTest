@@ -26,7 +26,7 @@ export const BuildingApartmentStyle: any = {
     },
     "& .about-building p": {
       color: "black",
-      fontSize: "16px",
+      fontSize: "15px",
     },
     "& .edit-button": {
       width: "100%",
@@ -149,6 +149,7 @@ export const BuildingApartmentStyle: any = {
     "& .stat-boxes h2": {
       color: "#FC8434",
       fontWeight: 600,
+      textAlign: "center",
     },
     "& .stat-boxes p": {
       color: "black",
@@ -191,7 +192,7 @@ export const BuildingApartmentStyle: any = {
     "& .content-boxes .top-content .right-content": {
       display: "flex",
       alignItems: "center",
-      gap: "5px",
+      gap: "18px",
     },
     "& .content-boxes .top-content .right-content span": {
       color: "#FC8434",
@@ -207,6 +208,12 @@ export const BuildingApartmentStyle: any = {
       justifyContent: "space-between",
       alignItems: "center",
     },
+    "& .content-boxes .unit-pagination button.Mui-selected": {
+      background: "#FC8434",
+      color: "white",
+      border: "0",
+      fontWeight: 600,
+    },
     "& .content-boxes .unit-pagination p": {
       fontWeight: 600,
     },
@@ -216,6 +223,9 @@ export const BuildingApartmentStyle: any = {
     },
     "& .content-boxes .unit-table th": {
       fontWeight: 600,
+    },
+    "& .content-boxes .unit-table .MuiTableCell-root": {
+      padding: "14px 16px",
     },
     "& .content-boxes .unit-select": {
       fontWeight: 600,
@@ -227,6 +237,17 @@ export const BuildingApartmentStyle: any = {
       borderRadius: "8px",
       border: "1px solid lightgray",
       padding: "5px 10px",
+      width: "250px",
+    },
+    "& .content-boxes .search-unit input::placeholder": {
+      color: "black !important",
+      opacity: "1 !important",
+    },
+    "& .content-boxes .search-unit input:-ms-input-placeholder": {
+      color: "black !important",
+    },
+    "& .content-boxes .search-unit input::-ms-input-placeholder": {
+      color: "black !important",
     },
     "& .content-boxes .search-unit svg": {
       fill: "darkgrey",

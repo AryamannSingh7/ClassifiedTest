@@ -18,6 +18,8 @@ import MenuItem from '@material-ui/core/MenuItem';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 import ProfileController from "./ProfileController.web";
 import AlertErrorWeb from "../../../components/src/AlertError.web";
+import KeyboardBackspaceIcon from '@material-ui/icons/KeyboardBackspace';
+
 
 import FamilyListWeb from "../../customform/src/FamilyList.web";
 class Profile extends ProfileController {
@@ -37,10 +39,10 @@ this.getProfile()
           <Grid item xs={12} md={7} className="auth-cols" style={{ justifyContent: 'unset', overflowY: 'auto', overflowX: 'hidden' }}>
             <Grid container>
               <Grid xs={12} style={{ display: 'flex', alignItems: 'center' }}>
-                <div className="flex" style={{width:'100%',borderBottom:'3px solid #F2F2F2',marginTop:'1.25rem'}}>
+                <div className="flex" style={{width:'100%',borderBottom:'3px solid #F2F2F2'}}>
                   <div style={{ display: "flex", alignItems: 'center', gap: '0.5rem' }}>
 
-                    <ArrowBackIcon onClick={this.redirectToDashboard} />
+                    <KeyboardBackspaceIcon onClick={this.redirectToDashboard} />
                     <p style={{ fontWeight: 600, fontSize: '1.25rem' }}>
 
                       My Profile

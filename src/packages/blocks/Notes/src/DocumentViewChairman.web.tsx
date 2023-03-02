@@ -46,6 +46,7 @@ class DocumentViewChairman extends DocumentViewChairmanController {
                         {this.state.document && this.state.document.attributes.title}
                       </Typography>
                       <Link
+                        download={this.state.document && this.state.document.attributes.title}
                         href={this.state.document && this.state.document.attributes.images[0].download_url}
                         target="_blank"
                       >

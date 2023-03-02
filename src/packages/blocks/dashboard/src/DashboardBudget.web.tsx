@@ -31,6 +31,7 @@ class DashboardBudget extends DashboardBudgetController {
   async componentDidMount(): Promise<void> {
     this.getBudgetDashboardYearList();
     this.getAllBuildingList();
+    this.getBudgetDashboardData();
   }
 
   async componentDidUpdate(prevProps: any, prevState: any): Promise<void> {
@@ -111,11 +112,15 @@ class DashboardBudget extends DashboardBudgetController {
                       <h4 className="bold-text">{t("Collected vs Budget Amount")}</h4>
                       <Box className="info-box">
                         <p>{t("Collected")}</p>
-                        <span>SR 12000</span>
+                        <span>
+                          {this.state.currency} {this.state.budgetCollected}
+                        </span>
                       </Box>
                       <Box className="info-box">
                         <p>{t("Budget")}</p>
-                        <span>SR 12000</span>
+                        <span>
+                          {this.state.currency} {this.state.budgetAmount}
+                        </span>
                       </Box>
                     </Card>
                   </Grid>
@@ -127,11 +132,15 @@ class DashboardBudget extends DashboardBudgetController {
                       <h4 className="bold-text">{t("Total Rent Due vs Rent Collected")}</h4>
                       <Box className="info-box">
                         <p>{t("Rent Due")}</p>
-                        <span>SR 12000</span>
+                        <span>
+                          {this.state.currency} {this.state.rentDue}
+                        </span>
                       </Box>
                       <Box className="info-box">
                         <p>{t("Rent Collected")}</p>
-                        <span>SR 12000</span>
+                        <span>
+                          {this.state.currency} {this.state.rentCollected}
+                        </span>
                       </Box>
                     </Card>
                   </Grid>
@@ -142,7 +151,7 @@ class DashboardBudget extends DashboardBudgetController {
                       </Box>
                       <h4 className="bold-text">{t("Number of members have not paid management fee")}</h4>
                       <Box className="info-box">
-                        <span>27</span>
+                        <span>{this.state.member}</span>
                         <p>{t("Members")}</p>
                       </Box>
                     </Card>
@@ -152,7 +161,7 @@ class DashboardBudget extends DashboardBudgetController {
                       image={expense}
                       heading={t("Total Expenses")}
                       titleOne=""
-                      valueOne="SR 12,000"
+                      valueOne={`${this.state.currency} ${this.state.totalExpense}`}
                       titleTwo=""
                       valueTwo=""
                     />
@@ -162,9 +171,9 @@ class DashboardBudget extends DashboardBudgetController {
                       image={statistic}
                       heading={t("Occupancy Rate")}
                       titleOne={t("Sold")}
-                      valueOne="12%"
+                      valueOne={`${this.state.rateSold} %`}
                       titleTwo={t("Unsold")}
-                      valueTwo="12%"
+                      valueTwo={`${this.state.rateUnsold} %`}
                     />
                   </Grid>
                   <Grid item sm={4}>
@@ -175,7 +184,7 @@ class DashboardBudget extends DashboardBudgetController {
                           userType === ROLE.CHAIRMAN ? t("Approved Budget Amount") : t("Remaining budget amount")
                         }
                         titleOne=""
-                        valueOne="SR 19,000"
+                        valueOne={`${this.state.currency} ${this.state.totalBudget}`}
                         titleTwo=""
                         valueTwo=""
                       />
@@ -229,7 +238,7 @@ class DashboardBudget extends DashboardBudgetController {
                       </Box>
                       <hr />
                       <Box className="footer">
-                        <p>Total Expenses</p>
+                        <p>Total Collection</p>
                         <h4 className="bold-text">SR 12,000</h4>
                       </Box>
                     </Card>

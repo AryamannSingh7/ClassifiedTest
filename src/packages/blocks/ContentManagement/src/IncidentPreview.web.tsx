@@ -32,6 +32,8 @@ import * as Yup from "yup";
 import FullscreenIcon from '@material-ui/icons/Fullscreen';
 import CountryCodeSelector from "../../country-code-selector/src/CountryCodeSelector";
 import IncidentController, { Props } from "./IncidentController.web";
+import AlertErrorWeb from "../../../components/src/AlertError.web"
+
 //Customizable Area End
 
 //resorces
@@ -199,6 +201,7 @@ class IncidentPreview extends IncidentController {
             </Box>
           </Dialog>
         </Box>
+        <AlertErrorWeb show={this.state.showError} handleClose={()=> this.setState({showError:false,error:null})} message={this.state.error} />
         <Loader loading={this.state.loading} />
       </>
     )

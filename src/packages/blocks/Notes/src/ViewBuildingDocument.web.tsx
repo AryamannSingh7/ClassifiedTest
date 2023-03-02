@@ -66,6 +66,7 @@ class ViewBuildingDocument extends ViewBuildingDocumentController {
                           }}
                         />
                         <Link
+                          download={this.state.documentTitle}
                           href={
                             this.state.document.attributes.meeting_mins_pdf &&
                             this.state.document.attributes.meeting_mins_pdf.url
