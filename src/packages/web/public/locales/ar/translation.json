@@ -1059,5 +1059,11 @@
   "Your rent due alert has been set.": ".تم تعيين تنبيه استحقاق الإيجار الخاص بك",
   "days before rent expires you and tenant will receive email notification for the same.": ".قبل أيام من انتهاء صلاحية الإيجار ، ستتلقى أنت والمستأجر إشعارًا بالبريد الإلكتروني لنفسه",
   "Your management fee alert has been set.": ".تم تعيين تنبيه الرسوم الإدارية الخاص بك",
-  "days before management fee due you will receive email notification.": ".قبل أيام من دفع رسوم الإدارة المستحقة ، ستتلقى إشعارًا بالبريد الإلكتروني"
+  "days before management fee due you will receive email notification.": ".قبل أيام من دفع رسوم الإدارة المستحقة ، ستتلقى إشعارًا بالبريد الإلكتروني",
+  "Members": "أعضاء",
+  "Reservation": "حجز",
+  "Collection": "مجموعة",
+  "Planned": "مخطط",
+  "Received": "تلقى",
+  "Vehicles": "مركبات"
 }

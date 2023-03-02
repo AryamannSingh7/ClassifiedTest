@@ -103,9 +103,7 @@ class EditTenant extends RegisterTenantController {
                                       {t("Type of Tenant")}
                                     </MenuItem>
                                     <MenuItem value="Individual">{t("Individual Person")}</MenuItem>
-                                    <MenuItem value="Company" disabled>
-                                      {t("Company")}
-                                    </MenuItem>
+                                    <MenuItem value="Company">{t("Company")}</MenuItem>
                                   </Select>
                                   <img src={GreyTenantType} alt="" />
                                 </Box>
@@ -364,17 +362,17 @@ class EditTenant extends RegisterTenantController {
                                   <p className="error">{t(errors.otherDocument)}</p>
                                 )}
                               </FormControl>
-                              <Box className="next-button submit-button edit-tenant-button">
-                                <Button
-                                  className="cancel"
-                                  onClick={() =>
-                                    this.props.navigation.navigate("TenantDetails", { id: this.state.tenantId })
-                                  }
-                                >
-                                  {t("Cancel")}
-                                </Button>
-                                <Button type="submit">{t("Edit")}</Button>
-                              </Box>
+                            </Box>
+                            <Box className="next-button submit-button edit-tenant-button">
+                              <Button
+                                className="cancel"
+                                onClick={() =>
+                                  this.props.navigation.navigate("TenantDetails", { id: this.state.tenantId })
+                                }
+                              >
+                                {t("Cancel")}
+                              </Button>
+                              <Button type="submit">{t("Edit")}</Button>
                             </Box>
                           </Form>
                         );

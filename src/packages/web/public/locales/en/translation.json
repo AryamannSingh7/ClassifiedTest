@@ -1065,5 +1065,11 @@
   "Your rent due alert has been set.": "Your rent due alert has been set.",
   "days before rent expires you and tenant will receive email notification for the same.": "days before rent expires you and tenant will receive email notification for the same.",
   "Your management fee alert has been set.": "Your management fee alert has been set.",
-  "days before management fee due you will receive email notification.": "days before management fee due you will receive email notification."
+  "days before management fee due you will receive email notification.": "days before management fee due you will receive email notification.",
+  "Members": "Member",
+  "Reservation": "Reservation",
+  "Collection": "Collection",
+  "Planned": "Planned",
+  "Received": "Received",
+  "Vehicles": "Vehicles"
 }

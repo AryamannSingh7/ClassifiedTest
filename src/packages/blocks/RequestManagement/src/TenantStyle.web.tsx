@@ -9,6 +9,8 @@ export const TenantStyle: any = {
       padding: "10px 20px",
       justifyContent: "space-between",
       zIndex: "9999",
+      position: "sticky",
+      top: "0",
       borderBottom: "2px solid #e2e2ef",
     },
     "& .top-bar .left-icon": {
@@ -48,6 +50,28 @@ export const TenantStyle: any = {
       flexDirection: "column",
       gap: "12px",
     },
+    "& .upload-button": {
+      position: "sticky",
+      bottom: 0,
+      left: 0,
+      right: 0,
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "center",
+      padding: "10px 0",
+    },
+    "& .upload-button .MuiGrid-root": {
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "center",
+    },
+    "&  .upload-button button": {
+      background: "#2b6fec",
+      color: "white",
+      padding: "12px 50px",
+      borderRadius: "25px",
+      fontWeight: 600,
+    },
     "& .empty-list .content-box h3": {
       fontWeight: 600,
     },
@@ -82,28 +106,6 @@ export const TenantStyle: any = {
       position: "relative",
       overflow: "hidden",
     },
-    "& .tenant-list-box .upload-button": {
-      position: "sticky",
-      bottom: 0,
-      left: 0,
-      right: 0,
-      display: "flex",
-      alignItems: "center",
-      justifyContent: "center",
-      padding: "10px 0",
-    },
-    "& .tenant-list-box .upload-button .MuiGrid-root": {
-      display: "flex",
-      alignItems: "center",
-      justifyContent: "center",
-    },
-    "& .tenant-list-box .upload-button button": {
-      background: "#2b6fec",
-      color: "white",
-      padding: "12px 50px",
-      borderRadius: "25px",
-      fontWeight: 600,
-    },
     "& .tenant-list-box .tenant-list": {
       height: "calc(100% - 70px)",
       overflowX: "hidden",
@@ -136,6 +138,8 @@ export const TenantStyle: any = {
       padding: "10px 20px",
       justifyContent: "space-between",
       zIndex: "9999",
+      position: "sticky",
+      top: "0",
       borderBottom: "2px solid #e2e2ef",
     },
     "& .top-bar .left-icon": {
@@ -241,7 +245,7 @@ export const TenantStyle: any = {
     },
     "& .page-container": {
       overflowY: "auto",
-      height: "85vh",
+      height: "88vh",
     },
     "& .issue-lease-content .select-input-box .select-input": {
       background: "#F9F9F9",

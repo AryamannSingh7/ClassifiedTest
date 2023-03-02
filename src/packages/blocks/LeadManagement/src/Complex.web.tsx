@@ -160,7 +160,7 @@ class Complex extends ComplexController {
                       </Box>
                       <Box className="building-info-right" onClick={() => this.handleMapModal()}>
                         <img src={location} alt="|" />
-                        <span>{t("See building on map")}</span>
+                        <span className="bold-text">{t("See building on map")}</span>
                       </Box>
                     </Box>
                     <Box className="building-info-bottom">
@@ -533,7 +533,7 @@ const ComplexDialog = (props: any) => {
                   </Box>
                   <Grid container spacing={2} className="edit-building">
                     <Grid item md={12}>
-                      <InputLabel>{t("Upload Photos")}</InputLabel>
+                      <InputLabel className="photo-label">{t("Upload Photos")}</InputLabel>
                       <Grid container spacing={4}>
                         <Grid item md={3}>
                           <Box className="upload-photo" onClick={() => props.this.uploadImages.click()}>

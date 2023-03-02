@@ -151,7 +151,7 @@ class TenantDetails extends TenantListController {
                     </Box>
 
                     <Box className="detail">
-                      <h4>{t("Identity Proof")}</h4>
+                      <h4 className="bold-text">{t("Identity Proof")}</h4>
                       <Card className="detail-box">
                         <Grid container spacing={2} className="info">
                           <Grid item xs={6}>

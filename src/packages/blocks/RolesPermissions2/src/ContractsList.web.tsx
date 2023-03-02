@@ -218,15 +218,6 @@ class ContractsList extends ContractsListController {
                             })}
                           </Grid>
                         </div>
-                        <div className="upload-button">
-                          <Grid container>
-                            <Grid item xs={12} md={12}>
-                              <Link href="/IssueContract">
-                                <Button>{t("Issue A New Contract")}</Button>
-                              </Link>
-                            </Grid>
-                          </Grid>
-                        </div>
                       </div>
                     </Box>
                   )}
@@ -291,17 +282,30 @@ class ContractsList extends ContractsListController {
                             })}
                           </Grid>
                         </div>
-                        <div className="upload-button">
-                          <Grid container>
-                            <Grid item xs={12} md={12}>
-                              <Link href="/IssueLease">
-                                <Button>{t("Create Another Template")}</Button>
-                              </Link>
-                            </Grid>
-                          </Grid>
-                        </div>
                       </div>
                     </Box>
+                  )}
+                  {this.state.isContractOpen && (
+                    <div className="upload-button">
+                      <Grid container>
+                        <Grid item xs={12} md={12}>
+                          <Link href="/IssueContract">
+                            <Button className="bold-text">{t("Issue A New Contract")}</Button>
+                          </Link>
+                        </Grid>
+                      </Grid>
+                    </div>
+                  )}
+                  {!this.state.isContractOpen && (
+                    <div className="upload-button">
+                      <Grid container>
+                        <Grid item xs={12} md={12}>
+                          <Link href="/IssueLease">
+                            <Button className="bold-text">{t("Create Another Template")}</Button>
+                          </Link>
+                        </Grid>
+                      </Grid>
+                    </div>
                   )}
                 </Container>
               </Box>
