@@ -51,7 +51,7 @@ class NeighboursListing extends NeighboursController {
   }
   componentDidMount(): any {
     this.getNeighboursListing('','')
-    this.getBuilding() 
+    // this.getBuilding() 
   }
 
   render() {
@@ -61,12 +61,12 @@ class NeighboursListing extends NeighboursController {
       <>
         <Box className="login-wrapper incident-wrapper neighbour-listing-wrapper">
           <Grid container spacing={2} className="auth-container">
-            <Grid item xs={12} md={7} className="auth-cols">
-              <Box className="content-block common_content_block common_content_block">
+            <Grid item xs={12} md={7} className="auth-cols inputPlaceholderRegistration">
+              <Box className="content-block common_content_block common_content_block " style={{backgroundColor:"#f8f9fe",height:"102%"}}>
                 <Box className="content-header">
                   <Box className="left-block blocks">
                     <Box className="backIcons" onClick={() => window.history.back()}><KeyboardBackspaceIcon /></Box>
-                    <h4 style={{display: "flex"}} className={this.state?.searchOrCancel === true ? "neighbor-title" : ""} >My Neighbours</h4>
+                    <h4 style={{display: "flex"}} className={this.state?.searchOrCancel === true ? "neighbor-title bold=text" : "bold=text"} >My Neighbours</h4>
                   </Box>
                   {
                      this.state.searchOrCancel === true ? 
