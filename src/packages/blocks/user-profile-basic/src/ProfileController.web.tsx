@@ -283,11 +283,13 @@ const profileData = JSON.parse(localStorage.getItem('profileData') ||'{}')
             location.reload();
 
           } else if (responseJson?.errors) {
-            let error = responseJson.errors[0];
+            let error =responseJson.errors[0].errors;
             this.setState({ error });
           } else {
-            this.setState({ error: responseJson?.error || "Something went wrong!" });
-            this.parseApiCatchErrorResponse(this.state.error);
+            this.setState({ error: responseJson.errors[0].errors || "Something went wrong!" });
+            // this.parseApiCatchErrorResponse(this.state.error);
+            this.setState({showError:true})
+
           }
           this.setState({ loading: false })
 
@@ -300,13 +302,17 @@ const profileData = JSON.parse(localStorage.getItem('profileData') ||'{}')
 
             let error = responseJson.errors;
             this.setState({ error },()=>console.log(this.state.error));
-            ApiCatchErrorResponse(error)
+            // ApiCatchErrorResponse(error)
+            this.setState({error:responseJson?.error,showError:true})
+
             // this.parseApiCatchErrorResponse(this.state.error);
             // this.parseApiCatchErrorResponse(errorReponse);
           } else {
-            this.setState({ error: responseJson?.error || "Something went wrong!" });
-            this.parseApiCatchErrorResponse(this.state.error);
-            this.parseApiCatchErrorResponse(errorReponse);
+            this.setState({ error: responseJson?.errors || "Something went wrong!" });
+            // this.parseApiCatchErrorResponse(this.state.error);
+            // this.parseApiCatchErrorResponse(errorReponse);
+            this.setState({error:responseJson?.error,showError:true})
+
           }
           this.setState({ loading: false })
 

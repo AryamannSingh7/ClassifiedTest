@@ -49,6 +49,8 @@ class Polling extends PollingController {
   render() {
     //@ts-ignore
     const {t} = this.props
+    //@ts-ignore
+    const language = this.props.i18n.language
     return (
       <>
     <Box style={{background: "#F7F9FE"}}>
@@ -62,10 +64,10 @@ class Polling extends PollingController {
 
             <Grid xs={9} md={9} sm={9} spacing={4} style={{paddingTop: 35}}>
             <Container className="link-decoration">
-                <Box className="navigation">
+                <Box className="navigation" dir={language === "en" ? "ltr" : "rtl"}>
                     <Box>
                         <Typography variant="body1" >
-                            <Box component="span" onClick={()=> this.props.history.push("/DashboardGeneral")} style={{cursor:"pointer"}}> {t("My Dashboard ")}</Box>
+                            <Box component="span" onClick={()=> this.props.history.push("/DashboardGeneral")} style={{cursor:"pointer"}}> {t("My Dashboard")}</Box>
                             {" "}/{" "}
                             <Box component="span" style={{color: "blue"}}>{t("Poll and surveys")}</Box>
                         </Typography>
@@ -121,7 +123,7 @@ class Polling extends PollingController {
 
                     <Grid item sm={6} md={4} xs={12} >
                         {/*@ts-ignore*/}
-                        <Box className="Cards" onClick={() => this.props.history.push("/PollsallData")}>
+                        <Box className="Cards" onClick={() => this.props.history.push("/PollsallData")} dir={language === "en" ? "ltr" : "rtl"}>
                             <Box sx={{ml:1.5, mb:2}} className="CardsIcons">
                                 <img src={pollcreate} alt="pollcreate" />
                             </Box>
@@ -141,7 +143,7 @@ class Polling extends PollingController {
 
                     <Grid item sm={6} md={4} xs={12}>
                         {/*@ts-ignore*/}
-                        <Box className="Cards" onClick={() => this.props.history.push("/SurveyAllData")}>
+                        <Box className="Cards" onClick={() => this.props.history.push("/SurveyAllData")} dir={language === "en" ? "ltr" : "rtl"}>
                             <Box sx={{ml:1, mb:2}} className="CardsIcons">
                             <img src={surveycreate} alt="surveycreate" />
                             </Box>
@@ -161,7 +163,7 @@ class Polling extends PollingController {
 
                 </Grid>
 
-                <Box className="RecentItems">
+                <Box className="RecentItems" dir={language === "en" ? "ltr" : "rtl"}>
                     <Typography className="Recenttitle bold-text">{t("Recent Polls")}</Typography>
                     <Link href="/PollsallData" >
                         <Typography className="ViewAll">{t("View All")}</Typography>
@@ -179,37 +181,24 @@ class Polling extends PollingController {
                                     <Box className="EventsCards"
                                     // @ts-ignore
                                     onClick={() => this.props.history.push("/PollDetails?id=" + data.id)}
+                                    dir={language === "en" ? "ltr" : "rtl"}
                                     >
                                         <Box className="EventsIconsText">
                                             {
-                                                data.status == "upcoming" &&
-                                                <Typography variant="body2" className={"statusOngoingBlue"}>
-                                            {
-
-                                              data.status == "upcoming" && <>{t('upcoming')}</>
-                                            }
-                                                  </Typography>
+                                                    data.status == "upcoming" &&
+                                                    <Typography variant="body2" className={"statusOngoingBlue"}>{t('upcoming')}</Typography>
                                             }
                                             {
                                                 data.status == "ongoing" &&
-                                                <Typography variant="body2" className={"statusOngoingRed"}>
-
-                                            {
-
-                                              data.status == "ongoing" && <>{t('Ongoing')}</>
-                                            }
-                                                </Typography>
+                                                <Typography variant="body2" className={"statusOngoingRed"}>{t('Ongoing')}</Typography>
                                             }
                                             {
                                                 data.status == "completed" &&
-                                                <Typography variant="body2" className={"statusOngoingGreen"}>
-
-                                            {
-
-                                              data.status == "completed" && <>{t('completed')}</>
+                                                <Typography variant="body2" className={"statusOngoingGreen"}>{t('completed')}</Typography>
                                             }
-
-                                                </Typography>
+                                            {
+                                                data.status == "Terminated" &&
+                                                <Typography variant="body2" className={"statusTerminatedRed"} >{t('Terminated')}</Typography>
                                             }
                                         </Box>
                                         <Box className="EventsIconsText">
@@ -267,7 +256,7 @@ class Polling extends PollingController {
 
                 </Grid>
 
-                <Box className="RecentItems">
+                <Box className="RecentItems" dir={language === "en" ? "ltr" : "rtl"}>
                     <Typography className="Recenttitle bold-text">{t("Recent Surveys")}</Typography>
                     <Link href="/SurveyAllData" >
                         <Typography className="ViewAll">{t("View All")}</Typography>
@@ -284,6 +273,7 @@ class Polling extends PollingController {
                                             <Box className="EventsCards"
                                                 // @ts-ignore
                                                  onClick={() => this.props.history.push("/SurveyDetails?id=" + data.id)}
+                                                 dir={language === "en" ? "ltr" : "rtl"}
                                             >
                                                 <Box className="EventsIconsText">
                                                     {
@@ -297,6 +287,10 @@ class Polling extends PollingController {
                                                     {
                                                         data.attributes.status == "completed" &&
                                                         <Typography variant="body2" className={"statusOngoingGreen"}>{t("Completed")}</Typography>
+                                                    }
+                                                    {
+                                                        data.attributes.status == "Terminated" &&
+                                                        <Typography variant="body2" className={"statusTerminatedRed"} >{t('Terminated')}</Typography>
                                                     }
                                                 </Box>
                                                 <Box className="EventsIconsText">

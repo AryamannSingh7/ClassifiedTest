@@ -43,6 +43,7 @@ import {
 } from "../src/assets";
 import { Visibility, VisibilityOff } from "@material-ui/icons";
 import LockOpenIcon from '@material-ui/icons/LockOpen';
+import AlertErrorWeb from "../../../components/src/AlertError.web"
 
 class CreateIncident extends IncidentController {
   constructor(props: Props) {
@@ -295,6 +296,7 @@ class CreateIncident extends IncidentController {
             </Grid>
           </Grid>
         </Box>
+        <AlertErrorWeb show={this.state.showError} handleClose={()=> this.setState({showError:false,error:null})} message={this.state.error} />
         <Loader loading={this.state.loading} />
       </>
     )

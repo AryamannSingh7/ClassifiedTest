@@ -1071,5 +1071,12 @@
   "Collection": "Collection",
   "Planned": "Planned",
   "Received": "Received",
-  "Vehicles": "Vehicles"
+  "Vehicles": "Vehicles",
+  "Create a Poll": "Create a Poll",
+  "Last Survey created on": "Last Survey created on",
+  "Polls": "Polls",
+  "This Week": "This Week",
+  "This Month": "This Month",
+  "This Year": "This Year",
+  "Remove Question": "Remove Question"
 }

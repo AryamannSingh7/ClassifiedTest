@@ -745,7 +745,7 @@ if(this.state.allVehcile.length<3){
     this.acceptRequestAPICallId = requestMessage.messageId;
     requestMessage.addData(
       getName(MessageEnum.RestAPIResponceEndPointMessage),
-      `bx_block_vehicle/vehicles/${item.id}`
+      `bx_block_vehicle/vehicles/${item.id}?role=Chairman`
     );
 
     requestMessage.addData(
@@ -893,7 +893,7 @@ console.log(this.state.buildingName)
     this.getVehicleListApiCallId = requestMessage.messageId;
     requestMessage.addData(
       getName(MessageEnum.RestAPIResponceEndPointMessage),
-      `bx_block_vehicle/vehicles?search_building=${this.state.selectBuilding}&search_unit=${value.unit}&filter_by=${value.status}`
+      `bx_block_vehicle/vehicles?search_building=${this.state.selectBuilding=='All'? '':this.state.selectBuilding}&search_unit=${value.unit=='All' ? '':value.unit}&filter_by=${value.status =='All'?'':value.status}`
     );
 
     requestMessage.addData(

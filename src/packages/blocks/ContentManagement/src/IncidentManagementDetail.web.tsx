@@ -50,6 +50,7 @@ import ChairmanSidebar from "../../dashboard/src/ChairmanSidebar.web";
 import { Close_Icon, Bank_Icon, Box_Icon, Building1,Tick_Circle_Icon } from "./assets";
 import IncidentChatWeb from "../../customform/src/IncidentChat.web";
 //import IncidentChatDrawer from "./IncidentChatDrawer.web";
+import AlertErrorWeb from "../../../components/src/AlertError.web"
 
 class IncidentManagementDetail extends IncidentManagementController {
   constructor(props: Props) {
@@ -86,26 +87,14 @@ class IncidentManagementDetail extends IncidentManagementController {
                     <Typography variant="body1" >
                       My Dashboard / General Dashboard / Incidents/<Box component="span" style={{ color: "blue" }}> Incidents Detail</Box>
                     </Typography>
-                    <Typography variant="h5" style={dashBoard.subHeading}>Incidents Details</Typography>
+                    <Typography variant="h5" className="bold-text" style={dashBoard.subHeading}>Incidents Details</Typography>
                   </Box>
-                  <Box>
-                    <FormControl style={dashBoard.YearMain} className='yearTab'>
-                      <NativeSelect className='yearSelection'
-                        value={this.state.Year}
-                        onChange={this.handleChange}
-                      >
-                        <option value={2022}>2022</option>
-                        <option value={2021}>2021</option>
-                        <option value={2020}>2020</option>
-                        <option value={2019}>2019</option>
-                      </NativeSelect>
-                    </FormControl>
-                  </Box>
+                 
                 </Box>
                 <Box className="content-block-wrapper incident-detail-card-block">
                   <Card className="incident-detail-card card">
                     <Box className="card-header">
-                      <Typography component="h4">
+                      <Typography component="h4" className="bold-text">
                         {attributes?.incident_title}
                       </Typography>
                       <Box className={this.state?.statusDetail === 'Pending Confirmation' ? "formGroup customSelect warning" :
@@ -117,7 +106,17 @@ class IncidentManagementDetail extends IncidentManagementController {
                             id="demo-simple-select-outlined"
                             onChange={(e) => { this.onChange(e) }}
                             value={this.state?.statusDetail}
-
+                            MenuProps={{
+                              anchorOrigin: {
+                                vertical: 'bottom',
+                                horizontal: 'left',
+                              },
+                              transformOrigin: {
+                                vertical: 'top',
+                                horizontal: 'left',
+                              },
+                              getContentAnchorEl: null,
+                            }}
                           >
                             <MenuItem disabled value=" ">
                               Select Status
@@ -142,49 +141,49 @@ class IncidentManagementDetail extends IncidentManagementController {
                         <Typography className="title-span" component="span">
                           Affected Area:
                         </Typography>
-                          <h4>{attributes?.common_area?.name}</h4>
+                          <h4 className="bold-text">{attributes?.common_area?.name}</h4>
                         </Box>
                         <Box className="card-rows" style={{borderBottom:'1px solid #f4f6fb',marginBottom:'0.5rem'}}>
                         <Typography className="title-span" component="span">
                          Incident is related to:
                         </Typography>
-                          <h4>{attributes?.incident_related?.name}</h4>
+                          <h4 className="bold-text">{attributes?.incident_related?.name}</h4>
                         </Box>
                         <Box className="card-rows" style={{borderBottom:'1px solid #f4f6fb',marginBottom:'0.5rem'}}>
                         <Typography className="title-span" component="span">
                         Incident Number:
                         </Typography>
-                          <h4>{id}</h4>
+                          <h4 className="bold-text">{id}</h4>
                         </Box>
                         <Box className="card-rows" style={{borderBottom:'1px solid #f4f6fb',marginBottom:'0.5rem'}}>
                         <Typography className="title-span" component="span">
                           Building:
                         </Typography>
-                          <h4>{attributes?.apartment_management?.building_name}</h4>
+                          <h4 className="bold-text">{attributes?.apartment_management?.building_name}</h4>
                         </Box>
                         <Box className="card-rows" style={{borderBottom:'1px solid #f4f6fb',marginBottom:'0.5rem'}}>
                         <Typography className="title-span" component="span">
                            Unit:
                         </Typography>
-                          <h4>{attributes?.apartment_management?.apartment_name}</h4>
+                          <h4 className="bold-text">{attributes?.apartment_management?.apartment_name}</h4>
                         </Box>
                         <Box className="card-rows" style={{borderBottom:'1px solid #f4f6fb',marginBottom:'0.5rem'}}>
                         <Typography className="title-span" component="span">
                          Acknowledge by Manager:
                         </Typography>
-                          <h4>{attributes?.acknoledged_by_manager}</h4>
+                          <h4 className="bold-text">{attributes?.acknoledged_by_manager}</h4>
                         </Box>
                         <Box className="card-rows" style={{borderBottom:'1px solid #f4f6fb',marginBottom:'0.5rem'}}>
                         <Typography className="title-span" component="span">
                         Latest update from management:
                         </Typography>
-                          <h4>{attributes?.last_update_from_management}</h4>
+                          <h4 className="bold-text">{attributes?.last_update_from_management}</h4>
                         </Box>
                         <Box className="card-rows" style={{borderBottom:'1px solid #f4f6fb',marginBottom:'0.5rem'}}>
                         <Typography className="title-span" component="span">
                         Description:
                         </Typography>
-                          <h4>{attributes?.description}</h4>
+                          <h4 className="bold-text">{attributes?.description}</h4>
                         </Box>
                       </Box>
                       {
@@ -218,7 +217,12 @@ class IncidentManagementDetail extends IncidentManagementController {
                           </>
                           : null
                       }
-                      <Box className="incident-button-row customButton">
+                    
+                    </CardContent>
+                  </Card>
+                </Box>
+
+                <Box className="incident-button-row customButton">
                         {
                           attributes?.assign_incidents?.data === null ?
                             <Button variant="outlined"
@@ -226,15 +230,12 @@ class IncidentManagementDetail extends IncidentManagementController {
                             >assign incident to provider</Button>
                             :
                             <Box className="user-btn-box">
-                              <h6 className="user-title">{attributes?.assign_incidents?.data?.attributes?.provider?.full_name}</h6>
-                              <Button className="change-btn" onClick={() => this.providerList(apartmentManagementId)}>change</Button>
+                              <h6 className="user-title bold-text">{attributes?.assign_incidents?.data?.attributes?.provider?.full_name}</h6>
+                              <Button className="change-btn" style={{color:"#3769fc"}} onClick={() => this.providerList(apartmentManagementId)}>change</Button>
                             </Box>
                         }
                         <Button variant="contained" onClick={() => this.createChatRoom(this.state?.getIncidentDetails?.id)}>start/view ticket conversation</Button>
                       </Box>
-                    </CardContent>
-                  </Card>
-                </Box>
               </Container>
               {/* chat */}
        
@@ -407,6 +408,7 @@ class IncidentManagementDetail extends IncidentManagementController {
           >
              <IncidentChatWeb/>  
           </Drawer>
+          <AlertErrorWeb show={this.state.showError} handleClose={()=> this.setState({showError:false,error:null})} message={this.state.error} />  
       </>
     )
   }

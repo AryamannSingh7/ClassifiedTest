@@ -29,6 +29,8 @@ import IncidentController, { Props } from "./IncidentController.web";
 
 //resorces
 import { Tenant_Logo, Building1, Grid_Icon, Filter_Icon } from "../src/assets";
+import AlertErrorWeb from "../../../components/src/AlertError.web"
+
 
 class IncidentListing extends IncidentController {
   constructor(props: Props) {
@@ -88,6 +90,7 @@ class IncidentListing extends IncidentController {
                 <Box className="content-block-wrapper common-incident-block" style={{backgroundColor:'#f6f7fc'}}>
                   <Box className="incident-content-wrapper">
                     {
+                      this.state.incidentListing?.length !== 0 ?
                       this.state?.incidentListing?.map((val :any, index : any) => (
                         <>
                           <Card className="incident-card card" key={index} onClick={() => this.getIncidentDetails(val.id)}>
@@ -143,6 +146,8 @@ class IncidentListing extends IncidentController {
                           </Card>
                         </>
                       ))
+                      :
+                      <h1 className='bold-text' style={{marginTop:"190px", paddingBottom:"150px"}}>No Incident found..!!</h1>
                     }
                   </Box>
                   <Box className="customButton" style={{paddingTop:"24px"}}>
@@ -164,6 +169,7 @@ class IncidentListing extends IncidentController {
             </Grid>
           </Grid>
         </Box>
+        <AlertErrorWeb show={this.state.showError} handleClose={()=> this.setState({showError:false,error:null})} message={this.state.error} />
         <Loader loading={this.state.loading} />
       </>
     )

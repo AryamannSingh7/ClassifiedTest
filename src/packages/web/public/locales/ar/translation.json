@@ -1065,5 +1065,12 @@
   "Collection": "مجموعة",
   "Planned": "مخطط",
   "Received": "تلقى",
-  "Vehicles": "مركبات"
+  "Vehicles": "مركبات",
+  "Create a Poll": "إنشاء استطلاع",
+  "Last Survey created on": "تم إنشاء آخر استطلاع في",
+  "Polls": "استطلاعات الرأي",
+  "This Week": "هذا الاسبوع",
+  "This Month": "هذا الشهر",
+  "This Year": "هذا العام",
+  "Remove Question": "إزالة السؤال"
 }

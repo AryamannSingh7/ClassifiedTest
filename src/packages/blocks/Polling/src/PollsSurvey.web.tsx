@@ -147,6 +147,10 @@ class PollsSurvey extends PollsSurveyController {
                                                       item.attributes.status == "completed" &&
                                                       <Typography variant="body2" className={"statusOngoingGreen"} style={{padding:"2px 15px"}}>{item.attributes.status}</Typography>
                                                   }
+                                                  {
+                                                      item.attributes.status == "Terminated" &&
+                                                      <Typography variant="body2" className={"statusTerminatedRed"} style={{padding:"2px 15px"}}>{item.attributes.status}</Typography>
+                                                  }
                                               </Box> :
                                               <Box className="EventsIconsText">
                                                   <Typography variant="body2" className={"statusOngoingGreen"} style={{padding:"2px 15px"}}>Submitted</Typography>
@@ -213,6 +217,10 @@ class PollsSurvey extends PollsSurveyController {
                                             {
                                                 items.attributes.status == "completed" &&
                                                 <Typography variant="body2" className={"statusOngoingGreen"} style={{padding:"2px 15px"}}>{items.attributes.status}</Typography>
+                                            }
+                                            {
+                                                items.attributes.status == "Terminated" &&
+                                                <Typography variant="body2" className={"statusTerminatedRed"} style={{padding:"2px 15px"}}>{items.attributes.status}</Typography>
                                             }
                                         </Box> :
                                         <Box className="EventsIconsText">

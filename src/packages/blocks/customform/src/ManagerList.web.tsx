@@ -106,6 +106,9 @@ class ManagerList extends ManagerController {
                               <MenuItem value=" " >
                                 {t("Status")}
                               </MenuItem>
+                              <MenuItem value="All" >
+                                {t("All")}
+                              </MenuItem>
                               <MenuItem value="Pending Approval">
                                 {t("Pending")}
                               </MenuItem>
@@ -137,6 +140,9 @@ class ManagerList extends ManagerController {
                               <MenuItem disabled value=" " >
                                 {t("Select Building")}
                               </MenuItem>
+                              <MenuItem value="All" >
+                                {t("All")}
+                              </MenuItem>
                               {
                                 this.state?.buildingNameData?.map((val:any, index:any) => (
                                   <MenuItem
@@ -166,6 +172,9 @@ class ManagerList extends ManagerController {
                                   <MenuItem disabled value=" " >
                                     {t("Select Unit")}
                                   </MenuItem>
+                                  <MenuItem value="All" >
+                                {t("All")}
+                              </MenuItem>
 
                               {    this.state?.allUnit?.map((val:any, index:any) => (
                                     <MenuItem
