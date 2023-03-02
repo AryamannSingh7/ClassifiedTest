@@ -244,7 +244,7 @@ class Buildings extends BuildingsController {
                       </Box>
                       <Box className="building-info-right" onClick={() => this.handleMapModal()}>
                         <img src={location} alt="|" />
-                        <span>{t("See building on map")}</span>
+                        <span className="bold-text">{t("See building on map")}</span>
                       </Box>
                     </Box>
                     <Box className="building-info-bottom">{this.unitImageSlider()}</Box>
@@ -426,7 +426,7 @@ class Buildings extends BuildingsController {
                                         {t(this.handleStatus(unit.attributes.status))}
                                       </span>
                                     </TableCell>
-                                    <TableCell>
+                                    <TableCell className="unit-menu">
                                       <Menu menuButton={<MoreVertIcon />}>
                                         <MenuItem>
                                           <Link href={`/UnitDetail/${unit.id}`}>{t("View")}</Link>
@@ -551,7 +551,7 @@ class Buildings extends BuildingsController {
                     </Box>
                     <Grid container spacing={2} className="edit-building">
                       <Grid item md={12}>
-                        <InputLabel>{t("Upload Photos")}</InputLabel>
+                        <InputLabel className="photo-label">{t("Upload Photos")}</InputLabel>
                         <Grid container spacing={4}>
                           <Grid item md={3}>
                             <Box className="upload-photo" onClick={() => this.uploadImages.click()}>

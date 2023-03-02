@@ -61,8 +61,9 @@ export default class DashboardController extends BlockComponent<Props, S, SS> {
   getUnreadCountAPIId: any = "";
   GetNotificationCallId: any = "";
   GetManagerRequestCallId: any;
-  checkLoginId:string = "";
-  GetOwnerDashboardStatisticCallId:string = "";
+  checkLoginId: string = "";
+  GetOwnerDashboardStatisticCallId: string = "";
+  GetResidentDashboardStatisticCallId: string = "";
   // Customizable Area End
 
   constructor(props: Props) {
@@ -124,6 +125,8 @@ export default class DashboardController extends BlockComponent<Props, S, SS> {
     if (window.location.pathname.split("/")[1] === "OwnerDashboard") {
       this.getManagerRequestList();
       this.getOwnerDashboardStatistic();
+    } else {
+      this.getResidentDashboardStatistic();
     }
 
     this.getNotification();
@@ -201,12 +204,34 @@ export default class DashboardController extends BlockComponent<Props, S, SS> {
   }
 
   handleOwnerDashboardStatisticResponse = (responseJson: any) => {
-    this.setState({
-      realState: responseJson.data.attributes.real_state_details,
-      buildingCategory: responseJson.data.attributes.building_categories,
-      personalCategory: responseJson.data.attributes.personal_categories,
-      currency: responseJson.data.attributes.currency,
+    if(responseJson && responseJson.data)  {
+      this.setState({
+        realState: responseJson.data.attributes.real_state_details,
+        buildingCategory: responseJson.data.attributes.building_categories,
+        personalCategory: responseJson.data.attributes.personal_categories,
+        currency: responseJson.data.attributes.currency,
+      });
+    }
+  }
+
+  getResidentDashboardStatistic = async () => {
+    const society_id = localStorage.getItem("society_id");
+
+    this.GetResidentDashboardStatisticCallId = await apiCall({
+      contentType: "application/json",
+      method: "GET",
+      endPoint: `bx_block_dashboard/resident_dashbords?society_management_id=${society_id}`,
     });
+  }
+
+  handleResidentDashboardStatisticResponse = (responseJson: any) => {
+    if(responseJson && responseJson.data) {
+      this.setState({
+        buildingCategory: responseJson.data.attributes.building_services,
+        personalCategory: responseJson.data.attributes.personal_services,
+        currency: responseJson.data.attributes.currency,
+      });
+    }
   }
 
   checkLoginResponse = (responseJson:any) => {
@@ -254,6 +279,9 @@ export default class DashboardController extends BlockComponent<Props, S, SS> {
           break;
         case this.GetOwnerDashboardStatisticCallId:
           this.handleOwnerDashboardStatisticResponse(responseJson);
+          break;
+        case this.GetResidentDashboardStatisticCallId:
+          this.handleResidentDashboardStatisticResponse(responseJson)
           break;
         case this.checkLoginId:
           this.checkLoginResponse(responseJson)

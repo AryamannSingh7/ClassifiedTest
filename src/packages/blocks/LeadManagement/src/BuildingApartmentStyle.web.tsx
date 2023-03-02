@@ -13,7 +13,7 @@ export const BuildingApartmentStyle: any = {
       marginBottom: 15,
     },
     "& .about-building": {
-      marginTop: 50,
+      marginTop: 36,
     },
     "& .about-building .MuiCard-root": {
       boxShadow: "4px 0px 14px #e9e9e9",
@@ -76,13 +76,13 @@ export const BuildingApartmentStyle: any = {
     "& .building-info .building-info-right": {
       display: "flex",
       gap: "5px",
-      alignItems: "center",
+      // alignItems: "center",
       color: "#FC8434",
       fontWeight: 600,
       cursor: "pointer",
     },
     "& .building-info .building-info-bottom .slick-list .slick-slide": {
-      // width: "170px !important",
+      width: "188px !important",
       height: "100px !important",
     },
     "& .building-info .building-info-bottom .slick-list .slick-track": {
@@ -134,7 +134,7 @@ export const BuildingApartmentStyle: any = {
       left: "0px",
     },
     "& .stat-boxes": {
-      marginTop: "50px",
+      marginTop: "36px",
     },
     "& .stat-boxes .MuiCard-root": {
       boxShadow: "4px 0px 14px #e9e9e9",
@@ -150,12 +150,13 @@ export const BuildingApartmentStyle: any = {
       color: "#FC8434",
       fontWeight: 600,
       textAlign: "center",
+      fontSize: "25px",
     },
     "& .stat-boxes p": {
       color: "black",
     },
     "& .content-boxes": {
-      marginTop: "50px",
+      marginTop: "36px",
       marginBottom: "50px",
       boxShadow: "rgba(0, 0, 0, 0.04) 0px 3px 5px",
     },
@@ -167,6 +168,9 @@ export const BuildingApartmentStyle: any = {
       boxShadow: "rgba(0, 0, 0, 0.35) 0px 5px 15px",
       border: "0",
       textTransform: "capitalize",
+    },
+    "& .content-boxes .MuiTab-root span": {
+      fontWeight: 600,
     },
     "& .content-boxes .MuiTab-root.Mui-selected": {
       borderTopLeftRadius: "8px",
@@ -192,7 +196,7 @@ export const BuildingApartmentStyle: any = {
     "& .content-boxes .top-content .right-content": {
       display: "flex",
       alignItems: "center",
-      gap: "18px",
+      gap: "10px",
     },
     "& .content-boxes .top-content .right-content span": {
       color: "#FC8434",
@@ -229,8 +233,9 @@ export const BuildingApartmentStyle: any = {
     },
     "& .content-boxes .unit-select": {
       fontWeight: 600,
-      padding: "12px 40px 12px 10px",
+      padding: "12px 10px",
       borderRadius: "8px",
+      width: "125px",
       border: "1px solid lightgray",
     },
     "& .content-boxes .search-unit .MuiInput-root": {
@@ -265,7 +270,7 @@ export const BuildingApartmentStyle: any = {
       position: "unset",
     },
     "& .building-list": {
-      marginTop: "50px",
+      marginTop: "36px",
     },
     "& .building-list .MuiCard-root": {
       boxShadow: "4px 0px 14px #e9e9e9",
@@ -312,7 +317,7 @@ export const BuildingApartmentStyle: any = {
       padding: "15px",
     },
     "& .building-list .bottom-content .building-box h5": {
-      fontSize: "20px",
+      fontSize: "18px",
       color: "#FC8434",
       fontWeight: 600,
     },
@@ -358,8 +363,13 @@ export const BuildingApartmentStyle: any = {
       padding: "5px 12px",
       borderRadius: "25px",
       fontWeight: 600,
-      color: "#2B6FED",
-      background: "#e7efff",
+      color: "#1EC65B",
+      background: "#e2ffec",
+      textTransform: "capitalize",
+      display: "flex",
+      justifyContent: "center",
+      alignItems: "center",
+      width: "82px",
     },
     "& .Rented": {
       padding: "5px 12px",
@@ -367,19 +377,34 @@ export const BuildingApartmentStyle: any = {
       fontWeight: 600,
       background: "#ffeee2",
       color: "#FC8434",
+      textTransform: "capitalize",
+      display: "flex",
+      justifyContent: "center",
+      alignItems: "center",
+      width: "82px",
     },
     "& .Occupied": {
       padding: "5px 12px",
       borderRadius: "25px",
       fontWeight: 600,
-      background: "#d2ffe2",
-      color: "#1EC65B",
+      color: "#2B6FED",
+      background: "#e7efff",
+      textTransform: "capitalize",
+      display: "flex",
+      justifyContent: "center",
+      alignItems: "center",
+      width: "82px",
     },
     "& .No-Own": {
       padding: "5px 12px",
       borderRadius: "25px",
       fontWeight: 600,
       background: "#ffd9d9",
+      textTransform: "capitalize",
+      display: "flex",
+      justifyContent: "center",
+      alignItems: "center",
+      width: "82px",
       color: "red",
     },
   },
@@ -398,7 +423,7 @@ export const BuildingApartmentStyle: any = {
     },
     "& h4": {
       fontWeight: 600,
-      fontSize: "20px",
+      fontSize: "18px",
       textTransform: "capitalize",
     },
     "& .heading h4": {
@@ -601,6 +626,7 @@ export const BuildingApartmentStyle: any = {
     },
     "& .building-info-bottom .slick-list .slick-slide": {
       height: "100px !important",
+      width: "188px !important",
     },
     "&  .building-info-bottom .slick-list .slick-track": {
       display: "flex",
