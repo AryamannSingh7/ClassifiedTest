@@ -72,8 +72,8 @@ class Visitors extends VisitorAddController{
                               setFieldValue }) => (
                                 <Form className="commonForm" translate="yes" style={{width:"100%",marginTop:"25px"}} >
                                     <Grid container spacing={1}>
-                                        <Grid className='formGroup' item xs={12}>
-                                            <Box className="formInputGrp">
+                                        <Grid className='formGroup' item xs={12} style={{marginBottom:"10px"}}>
+                                            <Box className="formInputGrp" >
                                                 <Field
                                                     className="formInput"
                                                     name="visitorName"
@@ -211,7 +211,7 @@ class Visitors extends VisitorAddController{
                                                 {errors.time && touched.time && <small className="error">{errors.time}</small>}
                                             </FormControl>
                                         </Grid>
-                                        <Grid item xs={12} style={{marginTop:"10px"}}>
+                                        <Grid item xs={12} style={{marginTop:"15px",marginBottom:"4px",marginLeft:"5px"}}>
                                             <Typography>
                                                 {t("Is visitor coming with car?")}
                                             </Typography>
