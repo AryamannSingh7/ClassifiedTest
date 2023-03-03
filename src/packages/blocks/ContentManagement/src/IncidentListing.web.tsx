@@ -41,7 +41,6 @@ class IncidentListing extends IncidentController {
   }
   render() {
     const { navigation } = this.props;
-    console.log("this.state?.incidentListing==========>", this.state?.incidentListing)
     return (
       <>
         <Box className="login-wrapper incident-wrapper" >
