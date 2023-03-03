@@ -63,7 +63,8 @@ class IncidentListing extends IncidentController {
                         anchorEl={this.state.anchorEl}
                         keepMounted
                         open={Boolean(this.state.anchorEl)}
-                        onClose={() => this.handleClose("" ,"")}
+                        onClose={() => this.handleClose("" ,"")}  
+                        style={{top:"28px"}}
                       >
                         <MenuItem onClick={(e) => this.handleClose(e, "asc")}>Ascending</MenuItem>
                         <MenuItem onClick={(e) => this.handleClose(e, "desc")}>Descending</MenuItem>
@@ -79,6 +80,7 @@ class IncidentListing extends IncidentController {
                       keepMounted
                       open={Boolean(this.state.anchorEl_1)}
                       onClose={() => this.handleClose_1("","")}
+                      style={{top:"28px"}}
                     >
                       <MenuItem onClick={(e) => this.handleClose_1(e, "Unresolved")}>Unresolved</MenuItem>
                       <MenuItem onClick={(e) => this.handleClose_1(e, "Resolved")}>Resolved</MenuItem>
