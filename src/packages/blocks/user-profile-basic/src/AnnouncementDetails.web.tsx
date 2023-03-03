@@ -111,15 +111,15 @@ class AnnouncementDetails extends AnnouncementDetailsController {
           <DialogContent style={{ margin: "15px 0" }}>
             <Box textAlign="center">
               <img className="comment-image" src={CheckIcon} alt="check" />
-              <Typography variant="h6">{t("Withdraw Announcement")}</Typography>
-              <Typography variant="body1" style={{ marginBottom: "0px" }}>
+              <Typography className="bold-text" variant="h6" style={{fontSize:"22px"}}>{t("Withdraw Announcement")}</Typography>
+              <Typography variant="body1" style={{ marginBottom: "0px",color:"#181d25",fontSize:"16px" }}>
                 {t("Announcement_Withdraw_Caution")}
               </Typography>
               <DialogActions className="dialog-button-group" style={{marginTop:"15px"}}>
-                <Button className="cancel-button" style={{ width: "200px" }} onClick={() => this.handleWithdrawModal()}>
+                <Button className="cancel-button" style={{ width: "200px",fontSize:"16px",height:"55px",marginRight:"10px" }} onClick={() => this.handleWithdrawModal()}>
                   {t("Close")}
                 </Button>
-                <Button style={{ width: "200px" }} className="add-button" onClick={this.handleWithdraw}>
+                <Button style={{ width: "200px",fontSize:"16px",height:"55px" }} className="add-button" onClick={this.handleWithdraw}>
                   {t("Confirm")}
                 </Button>
               </DialogActions>

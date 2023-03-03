@@ -70,8 +70,12 @@ class Announcements extends AnnouncementsController {
                 </Box>
                 <Box className="top-bar">
                   <Box className="filter">
-                    <Select displayEmpty value={this.state.filterCategory} className="select-input"  onChange={(e) => this.setState({filterCategory:e.target.value})}>
-                      <MenuItem value="" disabled>
+                    <Select displayEmpty
+                            value={this.state.filterCategory}
+                            className="select-input"
+                            onChange={(e) => this.setState({filterCategory:e.target.value})}
+                      >
+                      <MenuItem value="">
                         {t("Category")}
                       </MenuItem>
                       {
@@ -84,7 +88,7 @@ class Announcements extends AnnouncementsController {
                       }
                     </Select>
                     <Select displayEmpty value={this.state.filerYear} className="select-input" onChange={(e)=> this.setState({filerYear:e.target.value})}>
-                      <MenuItem value="" disabled>
+                      <MenuItem value="">
                         {t("Year")}
                       </MenuItem>
                       {
