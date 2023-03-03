@@ -43,3 +43,4 @@ export const BuildingLogo = require("../assets/building-main.png");
 export const ManagementChat = require("../assets/management-chat.png");
 export const ManagementPhone = require("../assets/management-call.png");
 export const ManagementEmail = require("../assets/management-email.png");
+export const UserIcon = require("../assets/user.png");

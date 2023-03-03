@@ -205,7 +205,13 @@
 .schedule-dialog p,
 .save-lease p {
   margin-bottom: 15px;
-  color: gray;
+  color: 181d25;
+  font-size: 14px;
+  line-height: 20px;
+}
+
+.dashboard-sidebar .list-menu p {
+  font-size: 16px;
 }
 
 .delete-document .dialog-button-group,
@@ -296,14 +302,24 @@
   top: -10px !important;
 }
 
+.list-unit-menu .szh-menu-container ul {
+  left: -95px !important;
+  top: -10px !important;
+}
+
 .unit-menu .szh-menu-container ul {
   left: -78px !important;
   top: -6px !important;
 }
 
+.unit-list-menu .szh-menu-container ul {
+  left: -120px !important;
+  top: 20px !important;
+}
+
 .pending .szh-menu-container ul {
-  left: -150px !important;
-  top: -12px !important;
+  left: -160px !important;
+  top: -10px !important;
 }
 
 .personal-document-menu .szh-menu-container ul {
@@ -561,12 +577,16 @@
 .penalty-dialog h4 {
   font-weight: 600;
   margin-top: 20px;
+  font-size: 18px;
 }
 
 .rent-history-dialog .select-input.input {
-  margin-top: 20px;
-  background-color: #f3f3f3;
+  margin-top: 18px;
+  background-color: #f9f9f9;
   width: 100%;
+  height: 56px;
+  font-size: 16px;
+  border: 1px solid #f0f0f0;
 }
 
 .rent-history-dialog .select-box .select-input {
@@ -590,7 +610,10 @@
   outline: none;
   padding: 17px 10px 17px 55px;
   font-size: 16px;
-  border: none;
+  border: 1px solid #f0f0f0;
+  appearance: none;
+  -webkit-appearance: textfield;
+  -moz-appearance: textfield;
 }
 
 .rent-history-dialog .custom-input-box img,
@@ -1048,6 +1071,7 @@
   padding-top: 10px;
   padding-bottom: 10px;
   font-weight: 600;
+  width: 100%;
   min-width: 300px;
 }
 

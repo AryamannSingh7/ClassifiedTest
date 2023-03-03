@@ -441,7 +441,6 @@ export const BuildingApartmentStyle: any = {
     },
     "& .location-details .heading .heading-right .map-modal": {
       display: "flex",
-      alignItems: "center",
       gap: "12px",
       fontWeight: "600",
       color: "#FC8434",
@@ -508,6 +507,8 @@ export const BuildingApartmentStyle: any = {
       justifyContent: "center",
       alignItems: "center",
       gap: "5px",
+      minHeight: "70px",
+      textAlign: "center",
     },
     "& .related-people .user-details .icons": {
       marginTop: "10px",

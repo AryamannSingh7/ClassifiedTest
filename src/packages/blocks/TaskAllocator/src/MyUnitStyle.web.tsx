@@ -9,7 +9,7 @@ export const MyUnitStyle: any = {
       padding: "10px 20px",
       justifyContent: "space-between",
       zIndex: "9999",
-      borderBottom: "2px solid #e2e2ef",
+      borderBottom: "2px solid #F2F2F2",
     },
     "& .top-bar .left-icon": {
       display: "flex",
@@ -34,14 +34,15 @@ export const MyUnitStyle: any = {
     "& a": {
       textDecoration: "none !important",
     },
-    "& .tenant-list-box": {
-      marginTop: "15px",
-      height: "88vh",
-      position: "relative",
-      overflow: "hidden",
+    "& .tenant-empty-list p": {
+      fontSize: "16px",
+      lineHeight: "20px",
+    },
+    "& .right-menu button": {
+      padding: "0px",
     },
     "& .tenant-list-box .upload-button": {
-      position: "sticky",
+      position: "fixed",
       bottom: 0,
       left: 0,
       right: 0,
@@ -49,6 +50,7 @@ export const MyUnitStyle: any = {
       alignItems: "center",
       justifyContent: "center",
       padding: "10px 0",
+      background: "#F7F9FE",
     },
     "& .tenant-list-box .upload-button .MuiGrid-root": {
       display: "flex",
@@ -63,32 +65,40 @@ export const MyUnitStyle: any = {
       fontWeight: 600,
     },
     "& .tenant-list-box .tenant-list": {
-      height: "calc(100% - 90px)",
+      height: "100%",
+      overflow: "hidden",
+      maxHeight: "calc(100vh - 152px)",
+      overflowY: "auto",
+      position: "relative",
+      marginTop: "15px",
       overflowX: "hidden",
     },
     "& .tenant-list-box .tenant": {
       borderRadius: "8px",
-      boxShadow: "none",
+      boxShadow: "4px 0px 14px #e9e9e9",
       padding: "12px",
     },
     "& .tenant-list-box .tenant .city": {
-      color: "lightslategrey",
+      color: "#181D25",
+      fontSize: "14px",
     },
     "& .tenant-list-box .tenant .header": {
       display: "flex",
       alignItems: "center",
       justifyContent: "space-between",
       minHeight: "20px",
+      marginBottom: "6px",
     },
     "& .tenant-list-box .tenant .header h4": {
       cursor: "pointer",
+      fontSize: "16px",
     },
     "& .tenant-list-box .tenant .info": {
-      marginTop: "10px",
+      marginTop: "5px",
     },
     "& .tenant-list-box .tenant .info span.header": {
       color: "black",
-      fontSize: "16px",
+      fontSize: "14px",
       overflow: "hidden",
       whiteSpace: "nowrap",
       textOverflow: "ellipsis",
@@ -100,10 +110,13 @@ export const MyUnitStyle: any = {
       display: "block",
       borderRadius: "25px",
       fontWeight: 600,
-      padding: "8px 20px",
+      padding: "4px 15px",
       background: "#ffeadc",
       color: "#FC8434",
       marginTop: "5px",
+      "& span": {
+        fontFamily: "Gotham_Bold !important",
+      },
     },
     "& .tenant-list-box .tenant .info button span": {
       color: "#FC8434",
@@ -137,7 +150,7 @@ export const MyUnitStyle: any = {
       background: "#FFFFFF",
       padding: "10px 20px",
       justifyContent: "space-between",
-      borderBottom: "2px solid #F9F9F9",
+      borderBottom: "2px solid #F2F2F2",
       position: "sticky",
       top: "0",
     },
@@ -161,7 +174,8 @@ export const MyUnitStyle: any = {
     },
     "& .page-container": {
       overflowY: "auto",
-      height: "88vh",
+      height: "100%",
+      maxHeight: "calc(100vh - 190px)",
     },
     "& .issue-lease-content .select-input-box .select-input": {
       background: "#F9F9F9",
@@ -169,6 +183,20 @@ export const MyUnitStyle: any = {
       borderRadius: "30px",
       marginTop: "18px",
       width: "100%",
+      height: "56px",
+      fontSize: "16px",
+    },
+    "& .issue-lease-content .select-input-box .select-input input::placeholder": {
+      color: "#212121",
+      opacity: 1,
+    },
+    "& .issue-lease-content .select-input-box .select-input input:-ms-input-placeholder": {
+      color: "#212121",
+      opacity: 1,
+    },
+    "& .issue-lease-content .select-input-box .select-input input::-ms-input-placeholder": {
+      color: "#212121",
+      opacity: 1,
     },
     "& .issue-lease-content .MuiSelect-root": {
       background: "#F9F9F9",
@@ -196,6 +224,7 @@ export const MyUnitStyle: any = {
     },
     "& .issue-lease-content .select-input-box .input.select-input": {
       padding: "12px 15px",
+      appearance: "none",
     },
     "& .issue-lease-content .select-input-box .input.select-input .MuiInputAdornment-positionStart": {
       marginRight: "25px",
@@ -239,7 +268,7 @@ export const MyUnitStyle: any = {
         justifyContent: "space-between",
         gap: "10px",
         "& .MuiFormControlLabel-root": {
-          border: "1px solid lightgrey",
+          border: "1px solid #F0F0F0",
           borderRadius: "25px",
           padding: "5px 10px",
           fontWeight: 600,
@@ -256,28 +285,35 @@ export const MyUnitStyle: any = {
           "& span.MuiTypography-root": {
             fontWeight: 600,
             color: "#939292",
+            fontFamily: "Gotham_Bold !important",
           },
         },
         "& .non-rented.MuiFormControlLabel-root": {
           "& span.MuiTypography-root": {
             fontWeight: 600,
             color: "#2B6FED",
+            fontFamily: "Gotham_Bold !important",
           },
         },
       },
       "& .add-rent-history-btn": {
         width: "100%",
-        margin: "15px 0",
+        marginTop: "15px",
         fontSize: "16px",
         fontWeight: 600,
-        border: "1px solid lightgrey",
+        border: "1px solid #DEDEDE",
         borderRadius: "25px",
         padding: "10px",
+        fontFamily: "Gotham_Bold !important",
+        "& span": {
+          fontWeight: 600,
+          fontFamily: "Gotham_Bold !important",
+        },
       },
       "& .rent-history-box": {
         padding: "12px 20px",
         margin: "10px 0",
-        border: "1px solid lightgrey",
+        border: "1px solid #F2F2F2",
         borderRadius: "8px",
         "& .heading": {
           display: "flex",
@@ -285,19 +321,27 @@ export const MyUnitStyle: any = {
           justifyContent: "space-between",
         },
         "& .heading h4": {
-          fontSize: "18px",
+          fontSize: "15px",
         },
         "& .tenant-name": {
           margin: "8px 0",
+          fontSize: "14px",
+        },
+        "& .info-box": {
+          marginTop: "8px",
         },
         "& .info": {
-          marginTop: "8px",
+          marginBottom: "4px",
           display: "flex",
           alignItems: "center",
           justifyContent: "space-between",
           "& span": {
             fontWeight: 600,
             color: "#FC8434",
+            fontSize: "14px",
+          },
+          "& p": {
+            fontSize: "14px",
           },
         },
       },
@@ -350,7 +394,7 @@ export const MyUnitStyle: any = {
       padding: "10px 0",
       boxShadow: "none",
       marginTop: "20px",
-      gap: "15px",
+      gap: "5px",
     },
     "& .next-button button": {
       minWidth: "300px",
@@ -374,20 +418,22 @@ export const MyUnitStyle: any = {
       fontSize: "14px",
     },
     "& ::placeholder": {
-      color: "black",
+      color: "#212121",
       opacity: 1,
     },
     "& :-ms-input-placeholder": {
-      color: "black",
+      color: "#212121",
       opacity: 1,
     },
     "& ::-ms-input-placeholder": {
-      color: "black",
+      color: "#212121",
       opacity: 1,
     },
     "& .form.issue-lease-content .next-button": {
-      position: "sticky",
+      position: "fixed",
       bottom: 0,
+      left: 0,
+      right: 0,
     },
     "& .unit-box-currency": {
       position: "relative",
@@ -409,7 +455,7 @@ export const MyUnitStyle: any = {
       padding: "10px 20px",
       justifyContent: "space-between",
       zIndex: "9999",
-      borderBottom: "2px solid #e2e2ef",
+      borderBottom: "2px solid #F2F2F2",
     },
     "& .top-bar .left-icon": {
       display: "flex",
@@ -434,7 +480,7 @@ export const MyUnitStyle: any = {
     },
     "& .tenant-detail-box": {
       background: "white",
-      height: "88vh",
+      height: "85vh",
       overflow: "auto",
     },
     "& .upload-button": {
@@ -473,15 +519,22 @@ export const MyUnitStyle: any = {
           fontWeight: 600,
           color: "#FC8434",
           cursor: "pointer",
+          fontSize: "14px",
+        },
+        "& h4": {
+          fontSize: "18px",
         },
       },
     },
+    "& .tenant-detail-box .detail> h4": {
+      fontSize: "18px",
+    },
     "& .tenant-detail-box .detail .detail-box": {
       borderRadius: "8px",
-      marginTop: "10px",
+      marginTop: "12px",
       boxShadow: "none",
       padding: "15px 20px",
-      border: "1px solid #e2e2ef",
+      border: "1px solid #f2f2f2",
     },
     "& .tenant-detail-box .detail .detail-box .info-item": {
       display: "flex",
@@ -494,27 +547,31 @@ export const MyUnitStyle: any = {
     "& .tenant-detail-box .detail .detail-box .info-item .item-data": {
       display: "flex",
       flexDirection: "column",
-      gap: "6px",
+      gap: "4px",
     },
     "& .tenant-detail-box .detail .detail-box .info-item span": {
       lineHeight: "20px",
+      fontSize: "14px",
+      color: "#121210",
     },
     "& .tenant-detail-box .detail .detail-box .info-item p": {
       fontWeight: 600,
+      fontSize: "14px",
     },
     "& .tenant-detail-box .detail .detail-box .info-item p.tenant-link-text": {
       color: "#FC8434",
     },
     "& .rent-history-grid": {
       overflowX: "hidden",
-      height: "88vh",
+      height: "85vh",
       background: "white",
     },
     "& .rent-history-grid .rent-history-box": {
-      minHeight: "calc(100% - 78px)",
+      minHeight: "calc(100% - 80px)",
     },
     "& .view-all-text": {
       color: "#FC8434",
+      fontSize: "14px",
     },
     "& .rent-history-box": {
       "& .header": {
@@ -530,29 +587,43 @@ export const MyUnitStyle: any = {
           color: "#FC8434",
           cursor: "pointer",
         },
+        "& h4": {
+          fontSize: "18px",
+        },
       },
       "& .rent-history": {
         padding: "12px 20px",
         margin: "10px 0",
-        border: "1px solid lightgrey",
+        border: "1px solid #F2F2F2",
         borderRadius: "8px",
         "& .date": {
-          margin: "10px 0",
+          margin: "6px 0 10px 0",
+          color: "#121210",
+          fontSize: "14px",
         },
         "& h4": {
-          fontSize: "18px",
+          fontSize: "16px",
         },
         "& .left-side h4": {
-          fontSize: "18px",
+          fontSize: "16px",
+        },
+        "& .MuiDivider-root": {
+          background: "#F2F2F2",
+        },
+        "& .history-info-box": {
+          marginTop: "8px",
+          display: "flex",
+          flexDirection: "column",
+          gap: "3px",
         },
         "& .info": {
-          marginTop: "8px",
           display: "flex",
           alignItems: "center",
           justifyContent: "space-between",
           "& span": {
             fontWeight: 600,
             color: "#FC8434",
+            fontSize: "14px",
           },
         },
       },
@@ -567,6 +638,7 @@ export const MyUnitStyle: any = {
       },
       "& h4": {
         marginBottom: "10px",
+        fontSize: "18px",
       },
       "& .slick-track": {
         display: "flex",
@@ -589,7 +661,7 @@ export const MyUnitStyle: any = {
       padding: "10px 20px",
       justifyContent: "space-between",
       zIndex: "9999",
-      borderBottom: "2px solid #e2e2ef",
+      borderBottom: "2px solid #F2F2F2",
     },
     "& .top-bar .left-icon": {
       display: "flex",
@@ -614,7 +686,7 @@ export const MyUnitStyle: any = {
     },
     "& .tenant-detail-box": {
       background: "white",
-      height: "88vh",
+      height: "85vh",
       overflow: "auto",
     },
     "& .profile-top-box": {

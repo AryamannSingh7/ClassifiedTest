@@ -57,6 +57,7 @@ import { withTranslation } from "react-i18next";
 import i18next from "i18next";
 import { Menu } from "@szhsin/react-menu";
 import "@szhsin/react-menu/dist/core.css";
+import moment from "moment";
 
 const MenuList = [
   {
@@ -313,7 +314,7 @@ class ResidentDashboard extends DashboardController {
                         title={t("Last Uploaded")}
                         value={
                           this.state.buildingCategory &&
-                          this.state.buildingCategory.building_documents.count + " Days Ago"
+                          moment(this.state.buildingCategory.building_documents.count, "DD-MM-YYYY").fromNow()
                         }
                       />
                     </Link>
@@ -391,7 +392,7 @@ class ResidentDashboard extends DashboardController {
                         image={keyhand}
                         heading={t("Register Rent Payment")}
                         title={t("Register Rent")}
-                        value={this.state.personalCategory && this.state.personalCategory.my_invoice.count}
+                        value={0}
                       />
                     </Link>
                   </Grid>

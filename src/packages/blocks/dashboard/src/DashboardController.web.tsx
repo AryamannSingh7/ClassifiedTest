@@ -4,6 +4,7 @@ import { BlockComponent } from "../../../framework/src/BlockComponent";
 import MessageEnum, { getName } from "../../../framework/src/Messages/MessageEnum";
 import { runEngine } from "../../../framework/src/RunEngine";
 import { apiCall } from "../../../components/src/APICallComponent/index.web";
+import { ROLE } from "../../../framework/src/Enum";
 
 // Customizable Area Start
 // Customizable Area End
@@ -122,10 +123,11 @@ export default class DashboardController extends BlockComponent<Props, S, SS> {
     }
     this.getProfile();
 
-    if (window.location.pathname.split("/")[1] === "OwnerDashboard") {
+    const userType = localStorage.getItem("userType");
+    if (userType === ROLE.OWNER) {
       this.getManagerRequestList();
       this.getOwnerDashboardStatistic();
-    } else {
+    } else if(userType === ROLE.OWNER_RESIDENT || userType === ROLE.TENANT) {
       this.getResidentDashboardStatistic();
     }
 
@@ -246,7 +248,7 @@ export default class DashboardController extends BlockComponent<Props, S, SS> {
     if (getName(MessageEnum.SessionResponseMessage) === message.id) {
       let token = message.getData(getName(MessageEnum.SessionResponseToken));
       this.setState({ token: token, loading: true }, () => {
-        this.getDashboardData();
+        // this.getDashboardData();
       });
     }
 

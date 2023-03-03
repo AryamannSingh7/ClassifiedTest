@@ -94,7 +94,7 @@ class EditMyUnit extends RegisterUnitController {
                         return (
                           <Form onSubmit={handleSubmit} translate="true">
                             <Box className="select-input-box">
-                              <h4 className="bold-text" style={{ marginTop: "18px" }}>
+                              <h4 className="bold-text" style={{ marginTop: "18px", fontSize: "18px" }}>
                                 {t("Location Details")}
                               </h4>
                               <FormControl fullWidth>
@@ -144,10 +144,10 @@ class EditMyUnit extends RegisterUnitController {
                                   href={`https://maps.google.com/?q=${this.state.lat},${this.state.long}`}
                                   target="_blank"
                                 >
-                                  <span>{t("See building on map")}</span>
+                                  <span className="bold-text">{t("See building on map")}</span>
                                 </Link>
                               </Box>
-                              <h4 className="bold-text" style={{ marginTop: "18px" }}>
+                              <h4 className="bold-text" style={{ marginTop: "18px", fontSize: "18px" }}>
                                 {t("Unit Details")}
                               </h4>
                               <FormControl fullWidth>
@@ -238,7 +238,7 @@ class EditMyUnit extends RegisterUnitController {
                                 />
                               </FormControl>
                               <Grid container spacing={2}>
-                                <Grid item xs={7}>
+                                <Grid item xs={12} sm={12} md={7}>
                                   <FormControl fullWidth>
                                     <Box className="unit-box-currency">
                                       <Input
@@ -258,7 +258,7 @@ class EditMyUnit extends RegisterUnitController {
                                     </Box>
                                   </FormControl>
                                 </Grid>
-                                <Grid item xs={5}>
+                                <Grid item xs={12} sm={12} md={5}>
                                   <FormControl fullWidth>
                                     <Input
                                       value={values.date}
@@ -305,7 +305,7 @@ class EditMyUnit extends RegisterUnitController {
                               </FormControl>
                               {values.type === "Rented" && (
                                 <>
-                                  <h4 className="bold-text" style={{ marginTop: "18px" }}>
+                                  <h4 className="bold-text" style={{ marginTop: "18px", fontSize: "18px" }}>
                                     {t("Rent History")}
                                   </h4>
                                   {this.state.rentHistoryList.map((rentHistory: any) => {
@@ -313,11 +313,9 @@ class EditMyUnit extends RegisterUnitController {
                                       <Box className="rent-history-box" key={rentHistory.id}>
                                         <Box className="heading">
                                           <h4 className="bold-text">
-                                            {moment(rentHistory.attributes.start_date, "YYYY-MM-DD").format(
-                                              "MMMM YYYY"
-                                            )}{" "}
+                                            {moment(rentHistory.attributes.start_date, "YYYY-MM-DD").format("MMM YYYY")}{" "}
                                             to{" "}
-                                            {moment(rentHistory.attributes.end_date, "YYYY-MM-DD").format("MMMM YYYY")}
+                                            {moment(rentHistory.attributes.end_date, "YYYY-MM-DD").format("MMM YYYY")}
                                           </h4>
                                           <img
                                             onClick={() => {
@@ -331,21 +329,23 @@ class EditMyUnit extends RegisterUnitController {
                                         </Box>
                                         <p className="tenant-name">{rentHistory.attributes.tenant_name}</p>
                                         <Divider />
-                                        <Box className="info">
-                                          <p>{t("Rent Amount (Monthly)")}</p>
-                                          <span>
-                                            {this.state.currency +
-                                              " " +
-                                              Number(rentHistory.attributes.rent_amount).toLocaleString()}
-                                          </span>
-                                        </Box>
-                                        <Box className="info">
-                                          <p>{t("Received Amount")}</p>
-                                          <span>
-                                            {this.state.currency +
-                                              " " +
-                                              Number(rentHistory.attributes.received_amount).toLocaleString()}
-                                          </span>
+                                        <Box className="info-box">
+                                          <Box className="info">
+                                            <p>{t("Rent Amount (Monthly)")}</p>
+                                            <span>
+                                              {this.state.currency +
+                                                " " +
+                                                Number(rentHistory.attributes.rent_amount).toLocaleString()}
+                                            </span>
+                                          </Box>
+                                          <Box className="info">
+                                            <p>{t("Received Amount")}</p>
+                                            <span>
+                                              {this.state.currency +
+                                                " " +
+                                                Number(rentHistory.attributes.received_amount).toLocaleString()}
+                                            </span>
+                                          </Box>
                                         </Box>
                                       </Box>
                                     );
@@ -354,7 +354,9 @@ class EditMyUnit extends RegisterUnitController {
                                     className="add-rent-history-btn"
                                     onClick={() => this.handleCloseRentHistoryModal()}
                                   >
-                                    {t("+ Add Rent History")}
+                                    {this.state.rentHistoryList.length == 0
+                                      ? `${t("+ Add Rent History")}`
+                                      : `${t("+ Add Another Rent History")}`}
                                   </Button>
                                   <FormControl fullWidth>
                                     <Box className="unit-box-currency">
