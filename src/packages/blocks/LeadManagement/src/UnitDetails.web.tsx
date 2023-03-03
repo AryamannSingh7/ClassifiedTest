@@ -60,6 +60,7 @@ import {
   nextIcon,
   mapLocation,
   previousIcon,
+  UserIcon,
 } from "./assets";
 import { BuildingApartmentStyle } from "./BuildingApartmentStyle.web";
 //@ts-ignore
@@ -95,7 +96,7 @@ class UnitDetails extends UnitDetailsController {
           <Box className="heading-right">
             <Box className="map-modal" onClick={() => this.handleMapModal()}>
               <img src={location} alt="" />
-              <span>{t("See building on map")}</span>
+              <span className="bold-text">{t("See building on map")}</span>
             </Box>
           </Box>
         </Box>
@@ -223,7 +224,9 @@ class UnitDetails extends UnitDetailsController {
                       component="img"
                       height="140"
                       image={
-                        people.account.data.attributes.profile_pic && people.account.data.attributes.profile_pic.url
+                        (people.account.data.attributes.profile_pic &&
+                          people.account.data.attributes.profile_pic.url) ||
+                        UserIcon
                       }
                       alt={people.account.data.attributes.full_name.name}
                       style={dashBoard.profileImage}
@@ -231,8 +234,10 @@ class UnitDetails extends UnitDetailsController {
                     <h4 className="bold-text">{people.apartment_name}</h4>
                     <p>{people.account.data.attributes.full_name.name}</p>
                     <Box className="roles-box">
-                      {people.roles.map((role: any) => {
-                        return <span className="role">{role.name}</span>;
+                      {people.roles.map((role: any, index: any) => {
+                        if (index < 3) {
+                          return <span className="role">{role.name}</span>;
+                        }
                       })}
                     </Box>
                     <Box className="icons">
@@ -574,7 +579,7 @@ class UnitDetails extends UnitDetailsController {
                           </Box>
                         </Card>
                       </Grid>
-                      {this.state.unitData.rentStatus === "Rented" && (
+                      {this.state.unitData.rentStatus === "rented" && (
                         <>
                           <Grid item sm={4}>
                             <Card>
@@ -592,7 +597,7 @@ class UnitDetails extends UnitDetailsController {
                               <img src={currency_icon} style={dashBoard.locationIcon} />
                               <Box className="location-info">
                                 <p>{t("Rent Amount")}</p>
-                                <h4 className="bold-text">{this.state.unitData.rentAmount || "-"} / Month</h4>
+                                <h4 className="bold-text">{this.state.unitData.rentAmount || "0"} / Month</h4>
                               </Box>
                             </Card>
                           </Grid>
@@ -602,8 +607,11 @@ class UnitDetails extends UnitDetailsController {
                               <Box className="location-info">
                                 <p>{t("Rent Tenure")}</p>
                                 <h4 className="bold-text">
-                                  {moment(this.state.unitData.rentStartDate, "YYYY-MM-DD").format("MMM DD, YYYY")} -
-                                  {moment(this.state.unitData.rentEndDate, "YYYY-MM-DD").format("MMM DD, YYYY")}
+                                  {this.state.unitData.rentStartDate &&
+                                    moment(this.state.unitData.rentStartDate, "YYYY-MM-DD").format("MMM DD, YYYY")}{" "}
+                                  -
+                                  {this.state.unitData.rentEndDate &&
+                                    moment(this.state.unitData.rentEndDate, "YYYY-MM-DD").format("MMM DD, YYYY")}
                                 </h4>
                               </Box>
                             </Card>
