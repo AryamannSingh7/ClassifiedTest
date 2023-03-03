@@ -42,6 +42,7 @@ class PollDetails extends SurveyDetailsMainController {
     //@ts-ignore
     const {t} = this.props
     // @ts-ignore
+    const language = this.props.i18n.language
       return (
       <>
     <Box style={{background: "#F7F9FE"}}>
@@ -53,7 +54,7 @@ class PollDetails extends SurveyDetailsMainController {
                 <ChairmanSidebar {...this.props}/>
             </Grid>
 
-            <Grid xs={9} md={9} sm={9} spacing={4} style={{paddingTop: 35}}>
+            <Grid xs={9} md={9} sm={9} spacing={4} style={{paddingTop: 35}}  dir={language === "en" ? "ltr" : "rtl"}>
                 <Container>
                     <Box className="navigation">
                         <Box>

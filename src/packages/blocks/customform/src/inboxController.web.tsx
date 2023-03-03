@@ -980,5 +980,21 @@ this.setState({ singleChatRoom: responseJson.data[0].attributes.messages, select
     
       }
 
+      redirectToList(){
+
+     if(localStorage.getItem('userType')=='Owner' ||localStorage.getItem('userType')=='Resident' ){
+
+    this.props.history.push('/incidentListing')
+      
+
+     }else{
+      console.log('123',this.props)
+      // @ts-ignore
+      this.props.onClose()
+
+     }
+
+      }
+
   // Customizable Area End
 }

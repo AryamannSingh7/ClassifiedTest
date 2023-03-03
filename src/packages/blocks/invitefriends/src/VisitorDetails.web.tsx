@@ -77,7 +77,7 @@ class VisitorDetails extends VisitorDetailsController{
                             >
                                 <Box style={{minWidth:"100%"}}>
                                     <Box style={{display:"flex",alignItems:"center"}}>
-                                        <Box style={{marginRight:"20px"}}>
+                                        <Box style={{marginRight:"10px"}}>
                                             <img src={this.state.visitorDetails.profilePic || exampleImg} height="55px" width="55px" style={{borderRadius:"100px"}}/>
                                         </Box>
                                         <Box style={{display:'flex',flexDirection:"column",justifyContent:"center"}}>
