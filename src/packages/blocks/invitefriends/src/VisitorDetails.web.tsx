@@ -121,7 +121,7 @@ class VisitorDetails extends VisitorDetailsController{
                                                 {t("Phone Number")}:
                                             </Typography>
                                             <Typography variant="subtitle2" style={{fontWeight:"bold"}}>
-                                                {this.state?.visitorDetails?.mobile_number?.full_mobile_number}
+                                                +{this.state?.visitorDetails?.mobile_number?.country_code}-{this.state?.visitorDetails?.mobile_number?.mobile_number}
                                             </Typography>
                                         </Box>
                                     </Box>
