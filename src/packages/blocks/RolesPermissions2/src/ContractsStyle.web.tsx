@@ -62,7 +62,7 @@ export const ContractsStyleWeb: any = {
     "& .list-box": {
       overflowY: "auto",
       overflowX: "hidden",
-      height: "78vh",
+      height: "68vh",
     },
     "& .content-box": {
       position: "relative",
@@ -79,7 +79,7 @@ export const ContractsStyleWeb: any = {
       left: 0,
       right: 0,
       bottom: 0,
-      // background: "#F7F9FE",
+      background: "#F7F9FE",
       display: "flex",
       alignItems: "center",
       justifyContent: "center",
@@ -89,7 +89,7 @@ export const ContractsStyleWeb: any = {
     "& .upload-button button": {
       background: "#2b6fec",
       color: "white",
-      padding: "12px 50px",
+      padding: "10px 25px",
       borderRadius: "25px",
       fontWeight: 600,
     },
@@ -126,7 +126,7 @@ export const ContractsStyleWeb: any = {
     },
     "& .templates-list .template": {
       position: "relative",
-      padding: "25px",
+      padding: "10px",
     },
     "& .templates-list .template .content": {
       display: "flex",
@@ -148,6 +148,7 @@ export const ContractsStyleWeb: any = {
     },
     "& .templates-list .template h4": {
       textAlign: "center",
+      lineHeight: "22px",
     },
   },
   detailPage: {
@@ -365,6 +366,9 @@ export const ContractsStyleWeb: any = {
       width: "100% !important",
     },
     "& .templates-list h4": {
+      fontWeight: "600",
+    },
+    "& .templates-list > h4": {
       margin: "15px 0",
       fontWeight: "600",
     },
@@ -373,7 +377,7 @@ export const ContractsStyleWeb: any = {
       background: "white",
       boxShadow: "4px 0px 14px #ececec",
       position: "relative",
-      padding: "25px",
+      padding: "10px",
       cursor: "pointer",
     },
     "& .templates-list .template .content": {
@@ -381,6 +385,7 @@ export const ContractsStyleWeb: any = {
       alignItems: "center",
       justifyContent: "center",
       flexDirection: "column",
+      padding: "30px 20px 20px 20px",
     },
     "& .templates-list .template .right-menu": {
       position: "absolute",
@@ -403,6 +408,7 @@ export const ContractsStyleWeb: any = {
     },
     "& .templates-list .template h4": {
       textAlign: "center",
+      lineHeight: "22px",
     },
     "& .contract-info ": {
       margin: "15px 0",
@@ -545,7 +551,7 @@ export const ContractsStyleWeb: any = {
     "& .upload-button button": {
       background: "#2b6fec",
       color: "white",
-      padding: "12px 50px",
+      padding: "10px 25px",
       borderRadius: "25px",
       fontWeight: 600,
     },
@@ -590,7 +596,7 @@ export const ContractsStyleWeb: any = {
     },
     "& .page-container .template-box .template-view": {
       overflowY: "auto",
-      height: "46%",
+      height: "40%",
     },
     "& .page-container .add-condition .template-view": {
       overflowY: "auto",
@@ -627,7 +633,7 @@ export const ContractsStyleWeb: any = {
     "& .upload-button button": {
       background: "#2b6fec",
       color: "white",
-      padding: "12px 50px",
+      padding: "10px 25px",
       borderRadius: "25px",
       minWidth: "300px",
       marginTop: "10px",

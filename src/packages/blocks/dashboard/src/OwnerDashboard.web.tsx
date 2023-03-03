@@ -8,7 +8,7 @@ import {
   Link,
   Typography,
   IconButton,
-  MenuItem,
+  // MenuItem,
   Drawer,
   Divider,
   Avatar,
@@ -63,7 +63,7 @@ import i18next from "i18next";
 import CloseIcon from "@material-ui/icons/Close";
 import ArrowForwardIosOutlinedIcon from "@material-ui/icons/ArrowForwardIosOutlined";
 import DashboardController, { Props } from "./DashboardController.web";
-import { Menu } from "@szhsin/react-menu";
+import { Menu, MenuItem } from "@szhsin/react-menu";
 import "@szhsin/react-menu/dist/core.css";
 //@ts-ignore
 import Slider from "react-slick";

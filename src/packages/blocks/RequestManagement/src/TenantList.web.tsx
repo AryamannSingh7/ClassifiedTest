@@ -19,8 +19,7 @@ class TenantList extends TenantListController {
   }
 
   render() {
-    const { t }: any = this.props;
-    const { classes } = this.props;
+    const { t, classes }: any = this.props;
 
     return (
       <>
@@ -78,7 +77,7 @@ class TenantList extends TenantListController {
                                             {tenant.attributes.apartment_management.apartment_name}
                                           </h4>
                                         </Link>
-                                        <div className="right-menu">
+                                        <div className="right-menu tenant-menu">
                                           <Menu
                                             menuButton={
                                               <IconButton>
@@ -131,15 +130,15 @@ class TenantList extends TenantListController {
                           })}
                         </Grid>
                       </div>
-                      <div className="upload-button">
-                        <Grid container>
-                          <Grid item xs={12} md={12}>
-                            <Link href="/RegisterTenant">
-                              <Button>{t("Register Another Tenant")}</Button>
-                            </Link>
-                          </Grid>
+                    </div>
+                    <div className="upload-button">
+                      <Grid container>
+                        <Grid item xs={12} md={12}>
+                          <Link href="/RegisterTenant">
+                            <Button>{t("Register Another Tenant")}</Button>
+                          </Link>
                         </Grid>
-                      </div>
+                      </Grid>
                     </div>
                   </Container>
                 )}
