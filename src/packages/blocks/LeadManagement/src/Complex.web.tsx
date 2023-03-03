@@ -627,8 +627,8 @@ const ComplexDialog = (props: any) => {
                           <MenuItem value="" disabled>
                             {t("Area Measurement")}
                           </MenuItem>
-                          <MenuItem value="sqfeet">{t("Sq ft")}</MenuItem>
-                          <MenuItem value="sqmeter">{t("Sq m")}</MenuItem>
+                          <MenuItem value="Sqft">{t("Sqft")}</MenuItem>
+                          <MenuItem value="Sqm">{t("Sq m")}</MenuItem>
                         </Select>
                       </Box>
                       {errors.measurement && touched.measurement && (

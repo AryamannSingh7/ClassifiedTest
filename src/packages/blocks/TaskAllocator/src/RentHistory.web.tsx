@@ -42,7 +42,7 @@ class RentHistory extends RentHistoryController {
       <>
         <Loader loading={this.state.loading} />
 
-        <Box style={{ background: "#F4F7FF", height: "100vh", overflowY: "hidden" }} className={classes.tenantDetails}>
+        <Box style={{ background: "white", height: "100vh", overflowY: "hidden" }} className={classes.tenantDetails}>
           <Grid container>
             <Grid item xs={12} md={7}>
               <Box className="faq-step">
@@ -107,23 +107,25 @@ class RentHistory extends RentHistoryController {
                               )}
                             </Box>
                             <Divider />
-                            <Box className="info">
-                              <p>{t("Rent Amount (Monthly)")}</p>
-                              <span>
-                                {(history.attributes.currency &&
-                                  this.validationText(history.attributes.currency.currency)) +
-                                  " " +
-                                  Number(this.validationText(history.attributes.rent_amount)).toLocaleString()}
-                              </span>
-                            </Box>
-                            <Box className="info">
-                              <p>{t("Received Amount")}</p>
-                              <span>
-                                {(history.attributes.currency &&
-                                  this.validationText(history.attributes.currency.currency)) +
-                                  " " +
-                                  Number(this.validationText(history.attributes.received_amount)).toLocaleString()}
-                              </span>
+                            <Box className="history-info-box">
+                              <Box className="info">
+                                <p>{t("Rent Amount (Monthly)")}</p>
+                                <span>
+                                  {(history.attributes.currency &&
+                                    this.validationText(history.attributes.currency.currency)) +
+                                    " " +
+                                    Number(this.validationText(history.attributes.rent_amount)).toLocaleString()}
+                                </span>
+                              </Box>
+                              <Box className="info">
+                                <p>{t("Received Amount")}</p>
+                                <span>
+                                  {(history.attributes.currency &&
+                                    this.validationText(history.attributes.currency.currency)) +
+                                    " " +
+                                    Number(this.validationText(history.attributes.received_amount)).toLocaleString()}
+                                </span>
+                              </Box>
                             </Box>
                           </Box>
                         );

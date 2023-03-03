@@ -31,11 +31,11 @@ class MyUnitList extends MyUnitListController {
     if (this.state.myUnitList.length === 0) {
       return (
         <Grid item xs={12}>
-          <Card className="tenant">
+          <Card className="tenant tenant-empty-list">
             {this.state.filter.status === "Empty" ? (
-              <h6>{t("You don't have registered units that are vacant")}</h6>
+              <p>{t("You don't have registered units that are vacant")}</p>
             ) : (
-              <h6>{t("No Unit Registered")}</h6>
+              <p>{t("No Unit Registered")}</p>
             )}
           </Card>
         </Grid>
@@ -70,7 +70,7 @@ class MyUnitList extends MyUnitListController {
                     </Link>
                     <span className="bold-text">{t("My Units")}</span>
                   </div>
-                  <div className="right-icon">
+                  <div className="right-icon unit-list-menu">
                     <Menu
                       menuButton={
                         <IconButton>
@@ -96,11 +96,9 @@ class MyUnitList extends MyUnitListController {
                                 <Grid container spacing={2}>
                                   <Grid item xs={12}>
                                     <div className="header">
-                                      <Link href={`/MyUnitDetails/${unit.id}`}>
-                                        <h4 className="bold-text">{unit.attributes.society_management.name}</h4>
-                                      </Link>
+                                      <h4 className="bold-text">{unit.attributes.society_management.name}</h4>
                                       <div
-                                        className={`right-menu ${
+                                        className={`right-menu list-unit-menu ${
                                           unit.attributes.request.status === "Accepted" ? "" : "pending"
                                         }`}
                                       >
@@ -111,6 +109,15 @@ class MyUnitList extends MyUnitListController {
                                             </IconButton>
                                           }
                                         >
+                                          {unit.attributes.request.status !== "Rejected" && (
+                                            <MenuItem
+                                              onClick={() =>
+                                                this.props.navigation.navigate("MyUnitDetails", { id: unit.id })
+                                              }
+                                            >
+                                              {t("View")}
+                                            </MenuItem>
+                                          )}
                                           <MenuItem
                                             onClick={() =>
                                               this.props.navigation.navigate("EditMyUnit", { id: unit.id })
@@ -159,7 +166,7 @@ class MyUnitList extends MyUnitListController {
                                         {t(this.handleStatus(unit))}
                                       </Button>
                                     ) : (
-                                      <Button className="Pending">{t("Pending")}</Button>
+                                      <Button className="Pending">{t(unit.attributes.request.status)}</Button>
                                     )}
                                   </Grid>
                                 </Grid>
@@ -199,7 +206,9 @@ class MyUnitList extends MyUnitListController {
           <DialogContent>
             <Box textAlign="center">
               <img src={DeleteUnitIcon} alt="ExclamationIcon" />
-              <Typography variant="h6">{t("Delete added unit")}?</Typography>
+              <Typography variant="h6" className="bold-text">
+                {t("Delete added unit")}?
+              </Typography>
               <Typography variant="body1">
                 {t(
                   "Are you sure want to delete added unit details from this app? once deleted you won't be able to view deleted unit again."

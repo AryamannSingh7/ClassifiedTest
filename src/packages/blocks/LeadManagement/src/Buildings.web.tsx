@@ -375,7 +375,7 @@ class Buildings extends BuildingsController {
                               </option>
                               <option value="">{t("All")}</option>
                               <option value="Empty">{t("Empty")}</option>
-                              <option value="Rented">{t("Rented")}</option>
+                              <option value="rented">{t("Rented")}</option>
                               <option value="Occupied">{t("Occupied")}</option>
                               <option value="No-Own">{t("Not Owned")}</option>
                             </select>

@@ -105,7 +105,7 @@ class UnitDetails extends UnitDetailsController {
                       <IconButton onClick={() => this.props.navigation.navigate("MyUnitList")}>
                         <KeyboardBackspaceIcon />
                       </IconButton>
-                      <span>{this.validationText(this.state.unitDetails.complex)}</span>
+                      <span className="bold-text">{this.validationText(this.state.unitDetails.complex)}</span>
                     </div>
                   </Box>
                   <Container className="page-container">
@@ -142,10 +142,7 @@ class UnitDetails extends UnitDetailsController {
             </Grid>
           </Box>
         ) : (
-          <Box
-            style={{ background: "#F4F7FF", height: "100vh", overflowY: "hidden" }}
-            className={classes.tenantDetails}
-          >
+          <Box style={{ background: "white", height: "100vh", overflowY: "hidden" }} className={classes.tenantDetails}>
             <Grid container>
               <Grid item xs={12} md={7}>
                 <Box className="faq-step">
@@ -176,7 +173,7 @@ class UnitDetails extends UnitDetailsController {
                             }`}
                             target="_blank"
                           >
-                            <span>{t("See building on map")}</span>
+                            <span className="bold-text">{t("See building on map")}</span>
                           </Link>
                         </Box>
                         <Card className="detail-box">
@@ -199,7 +196,7 @@ class UnitDetails extends UnitDetailsController {
                                 </Box>
                               </Box>
                             </Grid>
-                            <Grid item xs={6}>
+                            <Grid item xs={12}>
                               <Box className="info-item">
                                 <img src={BlueCityIcon} alt="" />
                                 <Box className="item-data">
@@ -302,7 +299,7 @@ class UnitDetails extends UnitDetailsController {
                                 </Box>
                               </Box>
                             </Grid>
-                            <Grid item xs={6}>
+                            <Grid item xs={12}>
                               <Box className="info-item">
                                 <img src={BlueValuationIcon} alt="" />
                                 <Box className="item-data">
@@ -406,7 +403,7 @@ class UnitDetails extends UnitDetailsController {
                           <h4 className="bold-text">{t("Rent History")}</h4>
                           {this.state.rentHistory.length !== 0 && (
                             <span
-                              className="view-all-text"
+                              className="view-all-text bold-text"
                               onClick={() => this.props.navigation.navigate("RentHistory", { id: this.state.unitId })}
                             >
                               {t("View All")}
@@ -426,21 +423,23 @@ class UnitDetails extends UnitDetailsController {
                                   moment(history.attributes.end_date, "YYYY-MM-DD").format("MMMM YYYY")}
                               </p>
                               <Divider />
-                              <Box className="info">
-                                <p>{t("Rent Amount")}</p>
-                                <span>
-                                  {this.handleEmptyText(this.state.unitDetails.currency) +
-                                    " " +
-                                    Number(this.validationText(history.attributes.rent_amount)).toLocaleString()}
-                                </span>
-                              </Box>
-                              <Box className="info">
-                                <p>{t("Received Amount")}</p>
-                                <span>
-                                  {this.handleEmptyText(this.state.unitDetails.currency) +
-                                    " " +
-                                    Number(this.validationText(history.attributes.received_amount)).toLocaleString()}
-                                </span>
+                              <Box className="history-info-box">
+                                <Box className="info">
+                                  <p>{t("Rent Amount")}</p>
+                                  <span className="bold-text">
+                                    {this.handleEmptyText(this.state.unitDetails.currency) +
+                                      " " +
+                                      Number(this.validationText(history.attributes.rent_amount)).toLocaleString()}
+                                  </span>
+                                </Box>
+                                <Box className="info">
+                                  <p>{t("Received Amount")}</p>
+                                  <span className="bold-text">
+                                    {this.handleEmptyText(this.state.unitDetails.currency) +
+                                      " " +
+                                      Number(this.validationText(history.attributes.received_amount)).toLocaleString()}
+                                  </span>
+                                </Box>
                               </Box>
                             </Box>
                           );
