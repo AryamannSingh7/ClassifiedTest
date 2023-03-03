@@ -164,8 +164,8 @@ class ChairmanLogin extends ChairmanAccountLoginController {
                           }
                         </Box>
                         <Box style={{marginBottom: "25px"}}>
-                          <Box className="formGroup" style={{border:"0.1px solid rgb(209 209 209 / 100%)",borderRadius:"25px",backgroundColor:"#f9f9f9"}}>
-                            <Field name="email" type="text" placeholder="Email ID" className="formInput" />
+                          <Box className="formGroup">
+                            <Field name="email" type="text" placeholder="Email ID" className="formInput" style={{borderRadius:"10px",border:"0.1px solid #d1d1d1"}}/>
                             <span className="frmLeftIcons">
                             <img src={Email_Icon} className="frm-icons" alt="Email Icon" style={{marginTop:"2px"}} />
                           </span>
@@ -183,8 +183,8 @@ class ChairmanLogin extends ChairmanAccountLoginController {
                           </Box>
                         </Box>
                         <Box>
-                          <Box className="formGroup" style={{border:"0.1px solid rgb(209 209 209 / 100%)",borderRadius:"25px",backgroundColor:"#f9f9f9"}}>
-                            <Field name="password" type={values.showPassword ? "text" : "password"} placeholder="Password" className="formInput" />
+                          <Box className="formGroup" >
+                            <Field name="password" type={values.showPassword ? "text" : "password"} placeholder="Password" className="formInput"  style={{borderRadius:"10px",border:"0.1px solid #d1d1d1"}} />
                             <span className="frmLeftIcons">
                             <img src={Lock_User_Icon} className="frm-icons" alt="Email Icon" style={{marginTop:"-2px"}}/>
                           </span>
