@@ -26,6 +26,7 @@ interface ComplexData {
   aboutUs: string;
   photos: any[];
   complexArea: string;
+  measurement_unit: string;
   totalUnits: string;
   totalBuilding: number;
   buildingList: any[];
@@ -69,6 +70,7 @@ export default class OwnerComplexController extends BlockComponent<Props, S, SS>
         aboutUs: "",
         photos: [],
         complexArea: "",
+        measurement_unit: "",
         totalUnits: "",
         totalBuilding: 0,
         buildingList: [],
@@ -108,6 +110,7 @@ export default class OwnerComplexController extends BlockComponent<Props, S, SS>
             aboutUs: responseJson.data.attributes.description,
             photos: responseJson.data.attributes.photos,
             complexArea: responseJson.data.attributes.complex_area,
+            measurement_unit: responseJson.data.attributes.measurement_unit,
             totalUnits: responseJson.data.attributes.total_units && responseJson.data.attributes.total_units[0],
             totalBuilding: responseJson.data.attributes.total_buildings,
             buildingList: responseJson.data.attributes.building_list,

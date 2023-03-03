@@ -53,7 +53,7 @@ class OwnerBuildings extends OwnerBuildingsController {
 
     return (
       <>
-        <Box style={{ background: "white", height: "100vh" }} className={classes.complexDetails}>
+        <Box style={{ background: "white", height: "100vh", overflowY: "hidden" }} className={classes.complexDetails}>
           <Grid container>
             <Grid item xs={12} md={7}>
               <Box>
@@ -83,7 +83,7 @@ class OwnerBuildings extends OwnerBuildingsController {
                             }`}
                             target="_blank"
                           >
-                            <span>{t("See building on map")}</span>
+                            <span className="bold-text">{t("See building on map")}</span>
                           </Link>
                         </Box>
                         <p>{this.state.buildingData.aboutBuilding || "-"}</p>
