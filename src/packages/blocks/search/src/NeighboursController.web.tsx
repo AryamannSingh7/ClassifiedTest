@@ -589,7 +589,7 @@ getNeighboursDetails= (id :any) => {
 
       requestMessage.addData(
         getName(MessageEnum.RestAPIResponceEndPointMessage),
-        `account_block/accounts/neighobour_profile?account_id=${id}`
+        `/account_block/neighobour_profile?account_id=${id}`
       );
 
       requestMessage.addData(
@@ -624,7 +624,7 @@ getNeighboursDetails= (id :any) => {
 
       requestMessage.addData(
         getName(MessageEnum.RestAPIResponceEndPointMessage),
-        `account_block/accounts/my_building_list`
+        `/account_block/my_building_list`
       );
 
       requestMessage.addData(

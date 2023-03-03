@@ -116,7 +116,7 @@ export default class TenantProfileController extends BlockComponent<Props, S, SS
 
     apiRequest.addData(
       getName(MessageEnum.RestAPIResponceEndPointMessage),
-      `account_block/accounts/neighobour_profile?account_id=${this.state.profileId}`
+      `/account_block/neighobour_profile?account_id=${this.state.profileId}`
     );
 
     apiRequest.addData(getName(MessageEnum.RestAPIRequestHeaderMessage), JSON.stringify(header));

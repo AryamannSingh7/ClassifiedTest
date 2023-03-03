@@ -406,7 +406,7 @@ class IncidentManagementDetail extends IncidentManagementController {
             open={this.state.chatDrawer}
             onClose={()=>this.setState({chatDrawer:false})}
           >
-             <IncidentChatWeb/>  
+             <IncidentChatWeb onClose={()=>this.setState({chatDrawer:false})}/>  
           </Drawer>
           <AlertErrorWeb show={this.state.showError} handleClose={()=> this.setState({showError:false,error:null})} message={this.state.error} />  
       </>
