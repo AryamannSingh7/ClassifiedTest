@@ -365,11 +365,10 @@ class LeaseForm extends LeaseFormController {
                                 </Box>
                                 {errors.currency && touched.currency && <p className="error">{t(errors.currency)}</p>}
                               </FormControl>
-
-                              <div className="next-button">
-                                <Button type="submit">{t("Next")}</Button>
-                              </div>
                             </Box>
+                            <div className="next-button">
+                              <Button type="submit">{t("Next")}</Button>
+                            </div>
                           </Form>
                         );
                       }}

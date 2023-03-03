@@ -111,7 +111,7 @@ class ResidentDashboard extends DashboardController {
   };
 
   render() {
-    const { t,classes }: any = this.props;
+    const { t, classes }: any = this.props;
 
     return (
       <>
@@ -209,11 +209,18 @@ class ResidentDashboard extends DashboardController {
               <Container className="dashboard">
                 <Grid container spacing={1} style={{ marginTop: 15 }}>
                   <Grid item xs={12} sm={12} className="title">
-                    <Typography variant="h6" className="bold-text">{t("Building Services")}</Typography>
+                    <Typography variant="h6" className="bold-text">
+                      {t("Building Services")}
+                    </Typography>
                   </Grid>
                   <Grid item xs={6} sm={6}>
                     <Link href="/IncidentListing">
-                      <DashboardCard image={DashboardIncident} heading={t("Incidents")} title={t("Open")} value="75" />
+                      <DashboardCard
+                        image={DashboardIncident}
+                        heading={t("Incidents")}
+                        title={t("Open")}
+                        value={this.state.buildingCategory && this.state.buildingCategory.incidents.count}
+                      />
                     </Link>
                   </Grid>
                   <Grid item xs={6} sm={6}>
@@ -222,7 +229,7 @@ class ResidentDashboard extends DashboardController {
                         image={DashboardAnnouncement}
                         heading={t("Announcements")}
                         title={t("Total")}
-                        value="75"
+                        value={this.state.buildingCategory && this.state.buildingCategory.announcements.count}
                       />
                     </Link>
                   </Grid>
@@ -232,7 +239,17 @@ class ResidentDashboard extends DashboardController {
                         image={DashboardVisitor}
                         heading={t("Visitors")}
                         title={t("Scheduled")}
-                        value="75"
+                        value={this.state.buildingCategory && this.state.buildingCategory.visitors.count}
+                      />
+                    </Link>
+                  </Grid>
+                  <Grid item xs={6} sm={6}>
+                    <Link href="/FacilityReservation">
+                      <DashboardCard
+                        image={DashboardFacility}
+                        heading={t("Facility Reservation")}
+                        title={t("Facility Reservation")}
+                        value={this.state.buildingCategory && this.state.buildingCategory.facility_reservations.count}
                       />
                     </Link>
                   </Grid>
@@ -242,13 +259,18 @@ class ResidentDashboard extends DashboardController {
                         image={DashboardFee}
                         heading={t("Management Fees")}
                         title={t("Paid On")}
-                        value="75"
+                        value={this.state.buildingCategory && this.state.buildingCategory.management_fees.count}
                       />
                     </Link>
                   </Grid>
                   <Grid item xs={6} sm={6}>
                     <Link href="/pollsSurvey">
-                      <DashboardCard image={DashboardPoll} heading={t("Survey")} title={t("Ongoing")} value="75" />
+                      <DashboardCard
+                        image={DashboardPoll}
+                        heading={t("Survey")}
+                        title={t("Ongoing")}
+                        value={this.state.buildingCategory && this.state.buildingCategory.poll_surveys.count}
+                      />
                     </Link>
                   </Grid>
                   <Grid item xs={6} sm={6}>
@@ -257,7 +279,7 @@ class ResidentDashboard extends DashboardController {
                         image={DashboardInfo}
                         heading={t("Building Info & Rules")}
                         title={t("Last Uploaded")}
-                        value="75"
+                        value={this.state.buildingCategory && this.state.buildingCategory.building_info_and_rules.count}
                       />
                     </Link>
                   </Grid>
@@ -267,7 +289,7 @@ class ResidentDashboard extends DashboardController {
                         image={DashboardMeeting}
                         heading={t("Meetings")}
                         title={t("Scheduled")}
-                        value="75"
+                        value={this.state.buildingCategory && this.state.buildingCategory.meeting.count}
                       />
                     </Link>
                   </Grid>
@@ -277,7 +299,9 @@ class ResidentDashboard extends DashboardController {
                         image={DashboardClass}
                         heading={t("Classifieds")}
                         title={t("Last Uploaded")}
-                        value="75"
+                        value={
+                          this.state.buildingCategory && this.state.buildingCategory.classifieds.count + " Days Ago"
+                        }
                       />
                     </Link>
                   </Grid>
@@ -287,18 +311,28 @@ class ResidentDashboard extends DashboardController {
                         image={DashboardDocument}
                         heading={t("Building Documents")}
                         title={t("Last Uploaded")}
-                        value="75"
+                        value={
+                          this.state.buildingCategory &&
+                          this.state.buildingCategory.building_documents.count + " Days Ago"
+                        }
                       />
                     </Link>
                   </Grid>
                 </Grid>
                 <Grid container spacing={1} style={{ marginTop: 15 }}>
                   <Grid item xs={12} sm={12} className="title">
-                    <Typography variant="h6" className="bold-text">{t("Personal Services")}</Typography>
+                    <Typography variant="h6" className="bold-text">
+                      {t("Personal Services")}
+                    </Typography>
                   </Grid>
                   <Grid item xs={6} sm={6}>
                     <Link href="/MyLeaseList">
-                      <DashboardCard image={DashboardLease} heading={t("My Lease")} title={t("Total")} value="75" />
+                      <DashboardCard
+                        image={DashboardLease}
+                        heading={t("My Lease")}
+                        title={t("Total")}
+                        value={this.state.personalCategory && this.state.personalCategory.my_lease.count}
+                      />
                     </Link>
                   </Grid>
                   <Grid item xs={6} sm={6}>
@@ -307,7 +341,7 @@ class ResidentDashboard extends DashboardController {
                         image={DashboardVehicle.default}
                         heading={t("My Vehicles")}
                         title={t("Registered")}
-                        value="75"
+                        value={this.state.personalCategory && this.state.personalCategory.my_vehicles.count}
                       />
                     </Link>
                   </Grid>
@@ -317,7 +351,7 @@ class ResidentDashboard extends DashboardController {
                         image={DashboardFamily}
                         heading={t("My Family")}
                         title={t("Registered Members")}
-                        value="75"
+                        value={this.state.personalCategory && this.state.personalCategory.my_family.count}
                       />
                     </Link>
                   </Grid>
@@ -327,7 +361,7 @@ class ResidentDashboard extends DashboardController {
                         image={DashboardFee}
                         heading={t("Fees & Payment")}
                         title={t("Last Paid")}
-                        value="75"
+                        value={this.state.personalCategory && this.state.personalCategory.fees_and_payments.count}
                       />
                     </Link>
                   </Grid>
@@ -337,7 +371,7 @@ class ResidentDashboard extends DashboardController {
                         image={DashboardSuggestion}
                         heading={t("My Suggestions")}
                         title={t("Total")}
-                        value="75"
+                        value={this.state.personalCategory && this.state.personalCategory.my_suggesition.count}
                       />
                     </Link>
                   </Grid>
@@ -347,22 +381,17 @@ class ResidentDashboard extends DashboardController {
                         image={DashboardDocument}
                         heading={t("My Documents")}
                         title={t("Last Uploaded")}
-                        value="NA"
+                        value={this.state.personalCategory && this.state.personalCategory.my_documents.count}
                       />
                     </Link>
                   </Grid>
                   <Grid item xs={6} sm={6}>
                     <Link href="/AddRentPayment">
-                      <DashboardCard image={keyhand} heading={t("Register Rent Payment")} title={t("Register Rent")} value="75" />
-                    </Link>
-                  </Grid>
-                  <Grid item xs={6} sm={6}>
-                    <Link href="/FacilityReservation">
                       <DashboardCard
-                        image={DashboardFacility}
-                        heading={t("Facility Reservation")}
-                        title={t("Facility Reservation")}
-                        value="NA"
+                        image={keyhand}
+                        heading={t("Register Rent Payment")}
+                        title={t("Register Rent")}
+                        value={this.state.personalCategory && this.state.personalCategory.my_invoice.count}
                       />
                     </Link>
                   </Grid>
@@ -386,7 +415,9 @@ class ResidentDashboard extends DashboardController {
           <DialogContent>
             <Box textAlign="center">
               <img src={SidebarLogoutDialog} alt="ExclamationIcon" />
-              <Typography variant="h6" className="bold-text">{t("Are you sure you want to logout?")}</Typography>
+              <Typography variant="h6" className="bold-text">
+                {t("Are you sure you want to logout?")}
+              </Typography>
               <Typography variant="body1">{t("You will be returned to the login screen")}</Typography>
               <DialogActions className="dialog-button-group">
                 <Button onClick={() => this.logout()}>{t("Logout")}</Button>

@@ -291,6 +291,16 @@
   border-radius: 6px;
 }
 
+.tenant-menu .szh-menu-container ul {
+  left: -80px !important;
+  top: -10px !important;
+}
+
+.unit-menu .szh-menu-container ul {
+  left: -78px !important;
+  top: -6px !important;
+}
+
 .pending .szh-menu-container ul {
   left: -150px !important;
   top: -12px !important;
@@ -1182,12 +1192,28 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  margin-left: 5px;
 }
 
 .edit-building .building-image img {
-  height: 120px;
-  width: 200px;
+  height: 124px;
+  width: 100%;
   border-radius: 8px;
+}
+
+.edit-profile button {
+  padding-top: 9px;
+  padding-bottom: 9px;
+}
+
+.edit-complex-details .MuiGrid-grid-md-3,
+.edit-building-modal .MuiGrid-grid-md-3 {
+  padding: 10px !important;
+}
+
+.edit-complex-details .photo-label,
+.edit-building-modal .photo-label {
+  margin-bottom: 14px;
 }
 
 .edit-building .building-image {

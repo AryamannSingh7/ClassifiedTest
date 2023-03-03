@@ -41,6 +41,7 @@ class FaqChairman extends FaqChairmanController {
   render() {
     const { t, classes }: any = this.props;
     const userType = localStorage.getItem("userType");
+    const language = this.props.i18n.language;
 
     return (
       <>

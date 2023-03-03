@@ -1,6 +1,8 @@
 export const DashboardStyleWeb: any = {
   ownerDashboard: {
     "& .menu": {
+      position: "static",
+      top: "0",
       display: "flex",
       alignItems: "center",
       justifyContent: "space-between",
@@ -147,7 +149,7 @@ export const DashboardStyleWeb: any = {
       display: "none !important",
     },
     "& .notification-slider .slide-box": {
-      width: "95% !important",
+      width: "88% !important",
       padding: "20px",
       background: "white",
       borderRadius: "8px",

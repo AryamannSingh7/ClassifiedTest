@@ -424,9 +424,9 @@ class RegisterTenant extends RegisterTenantController {
                                   })}
                                   {this.handleErrorMessage(errors.otherDocument, touched.otherDocument, t)}
                                 </FormControl>
-                                <Box className="next-button submit-button">
-                                  <Button type="submit">{t("Next")}</Button>
-                                </Box>
+                              </Box>
+                              <Box className="next-button submit-button">
+                                <Button type="submit">{t("Next")}</Button>
                               </Box>
                             </Form>
                           );
