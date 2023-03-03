@@ -72,7 +72,7 @@ class Announcements extends AnnouncementsController {
                   <Box className="filter">
                     <Select displayEmpty
                             value={this.state.filterCategory}
-                            className="select-input"
+                            className="select-input Announcmenentcetaogry"
                             onChange={(e) => this.setState({filterCategory:e.target.value})}
                       >
                       <MenuItem value="">

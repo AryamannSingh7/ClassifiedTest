@@ -120,16 +120,16 @@ class PollsSurvey extends PollsSurveyController {
                               <Box style={{minWidth:"100%"}}>
                                   <Box style={{textTransform:"capitalize"}}><p style={{color:"rgba(24,29,37,0.5)",fontSize:"14px"}}>{item.attributes.type_name}</p></Box>
                                   <Box marginTop='0.8rem' className="bold-text textwrap"><h4>{item.attributes.title}</h4></Box>
-                                  <Box marginTop='0.7rem' style={{width:"95%",overflow:"hidden",color:"#666666"}}>
+                                  <Box marginTop='0px' style={{width:"95%",overflow:"hidden",color:"#666666",maxHeight:"25px"}}>
                                       <p
-                                          style={{color:"666666",fontSize:"14px"}}
+                                          style={{color:"666666",fontSize:"14px",marginTop:"0px",marginBottom:"5px"}}
                                           className="textwrap"
                                           dangerouslySetInnerHTML={
                                               { __html: DOMPurify.sanitize(item.attributes.description) }
                                           }
                                       ></p>
                                   </Box>
-                                  <Box marginTop='0.7rem'><Typography style={{color:"#181d25",fontSize:"15px"}}>Building : {item.attributes.building_name}</Typography></Box>
+                                  <Box marginTop='0.7'><Typography style={{color:"#181d25",fontSize:"15px"}}>Building : {item.attributes.building_name}</Typography></Box>
                                   <Divider style={{marginTop:'0.6rem', marginRight:2}}/>
                                   <Box display='flex' justifyContent='space-between' marginTop='1rem' marginBottom=".5rem">
                                       <Box className="EventsIconsDataBox">
@@ -190,9 +190,9 @@ class PollsSurvey extends PollsSurveyController {
                           <Box style={{minWidth:"100%"}}>
                             <Box style={{textTransform:"capitalize"}}><p style={{color:"rgba(24,29,37,0.5)",fontSize:"14px"}}>{items.attributes.type_name}</p></Box>
                             <Box marginTop='0.8rem' className="bold-text textwrap" style={{width:"95%",overflow:"hidden"}}><h4>{items.attributes.title}</h4></Box>
-                            <Box marginTop='0.7rem' style={{width:"95%",overflow:"hidden",color:"#666666"}}>
+                            <Box marginTop='0px' style={{width:"95%",overflow:"hidden",color:"#666666",maxHeight:"25px"}}>
                               <p
-                                  style={{color:"666666",fontSize:"14px"}}
+                                  style={{color:"666666",fontSize:"14px",marginTop:"0px",marginBottom:"5px"}}
                                   className="textwrap"
                                   dangerouslySetInnerHTML={
                                     { __html: DOMPurify.sanitize(items.attributes.description) }
