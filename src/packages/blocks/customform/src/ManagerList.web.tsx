@@ -25,7 +25,7 @@ import {
 } from "@material-ui/core";
 
 //resources
-import {Building, Building1, buildingImg, CarBlue, CarFront, userBlue} from "./assets";
+import {Building, Building1, buildingImg, CarBlue, CarFront, userBlue,CarLogo} from "./assets";
 import { withRouter } from 'react-router';
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import { Visibility, VisibilityOff } from "@material-ui/icons";
@@ -210,7 +210,7 @@ class ManagerList extends ManagerController {
                     {
                       this.state.allVehcile.length >= 0 &&
                         <>
-                          <Grid container spacing={4} >
+                          <Grid container spacing={2} style={{marginLeft:"0px"}}>
                             {
                               this.state.allVehcile.map((item, i) => <>
                                 <Grid md={4} sm={6} xs={12} >
@@ -220,7 +220,9 @@ class ManagerList extends ManagerController {
                                         {item.attributes.status == 'Pending Approval' ? 'Pending' :item.attributes.status }</Button>
                                     </div>
                                     <div className="card-content" style={{paddingTop: "5px",paddingBottom:"10px"}}>
-                                      <img src='https://cdn-icons-png.flaticon.com/512/112/112957.png' style={{marginRight:20,width:60,height:60}}/>
+                                      <Box style={{marginRight:"10px",border:".1px solid #80808042",display:"flex",alignItems:"center",justifyContent:'center',borderRadius:"10px"}}>
+                                        <img src={CarLogo} width="90%" style={{height:"25px"}}/>
+                                      </Box>
                                       <div className="content" style={{padding:0}}>
                                         <p className="title" style={{padding:'12px 0px 0px 0px',marginBottom:'1px'}}>
                                           {item.attributes.company_name}
