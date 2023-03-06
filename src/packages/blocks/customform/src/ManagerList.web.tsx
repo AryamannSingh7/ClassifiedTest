@@ -21,7 +21,7 @@ import {
   TableBody,
   Select,
   MenuItem,
-  InputAdornment,
+  InputAdornment, withStyles,
 } from "@material-ui/core";
 
 //resources
@@ -35,6 +35,7 @@ import ManagerController from "./ManagerController.web";
 import DashboardHeader from "../../dashboard/src/DashboardHeader.web";
 import ChairmanSidebarWeb from "../../dashboard/src/ChairmanSidebar.web";
 import { withTranslation } from 'react-i18next';
+import { ReportsStyleWeb } from "../../StoreCredits/src/ReportsStyle.web";
 import SearchIcon from "@material-ui/icons/Search";
 import '../../../web/src/i18n.js';
 class ManagerList extends ManagerController {
@@ -52,11 +53,11 @@ class ManagerList extends ManagerController {
   render() {
     //@ts-ignore
   //@ts-nocheck
-    const {t} = this.props
+    const {t,classes} = this.props
     //console.log("getRegistrationRequest===================>",building_name ,apartment_name);
     return (
       <>
-        <Box style={{ background: "#F7F9FE" }}>
+        <Box style={{ background: "#F7F9FE" }} className={classes.reportList}>
           {/* Dashboard Header -- */}
           <DashboardHeader {...this.props} />
           <Box style={{ display: "flex" }}>
@@ -92,12 +93,12 @@ class ManagerList extends ManagerController {
                   {({ values, touched, errors, isValid, setFieldError, setFieldValue, handleChange }) => (
                     <Form translate="yes" className="commonForm">
                       <Box className="sorting-header">
-                        <Box className="formGroup1 customSelect">
+                        <Box className="formGroup1 customSelect ">
                           <FormControl variant="outlined" style={{ width: '12rem' }}>
                             <Select
                               name="status"
                               labelId="demo-simple-select-outlined-label"
-                              id="demo-simple-select-outlined"
+                              className="select-input"
                               onChange={(e) => {
                                 (e.target.value != " ") && setFieldValue("status", e.target.value)
                               }}
@@ -279,7 +280,7 @@ class ManagerList extends ManagerController {
 }
 //@ts-nocheck
 //@ts-ignore
-export default withTranslation()(withRouter(ManagerList))
+export default withTranslation()(withStyles(ReportsStyleWeb)(withRouter(ManagerList)))
 
 const dashBoardBudget = {
   SideBar: {

@@ -54,10 +54,7 @@ class MyTeamCore extends ChairmanNominationMainController {
                         </Typography>
                         <Box display="flex" justifyContent="space-between" alignItems="center" width="100%">
                             <Typography variant="h4" className="subHeading bold-text" style={{fontSize:"32px"}}>{t("Chairman and Vice Chairman Nomination")}</Typography>
-                            {
-                                this.state.onGoingNomination && userType === "Chairman" &&
-                                    <AcceptButton style={{marginTop:"20px",width:"260px"}} disabled={this.state.startButton} onClick={()=>this.setState({setOpen:true})}>{t("START CHAIRMAN NOMINATION")}</AcceptButton>
-                            }
+                            <ButtonComponent chairmanNomination={this.state.onGoingNomination} userType={userType} handleOpen={()=>this.setState({setOpen:true})} isStart={this.state.startButton} t={t} />
                         </Box>
                     </Box>
                 </Box>
@@ -291,6 +288,16 @@ class MyTeamCore extends ChairmanNominationMainController {
 //@ts-ignore
 export default withTranslation()(withStyles(dashBoard)(withRouter(MyTeamCore)));
 
+const ButtonComponent = (props:any) => {
+    return(
+        <>
+            {
+                props.chairmanNomination && props.userType === "Chairman" &&
+                <AcceptButton style={{marginTop:"20px",width:"260px"}} disabled={props.isStart} onClick={props.handleOpen}>{props.t("START CHAIRMAN NOMINATION")}</AcceptButton>
+            }
+        </>
+    )
+}
 const dashBoard = {
     navigation: {
         display: "flex",
