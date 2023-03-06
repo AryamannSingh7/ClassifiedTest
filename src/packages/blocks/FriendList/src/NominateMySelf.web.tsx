@@ -45,7 +45,7 @@ class NominateMySelf extends NominateMySelfController{
                   <Grid item xs={12} style={{ display:"flex", alignItems:"center", gap:"1rem",justifyContent:"space-between"}} >
                       <Box style={{ display:"flex", alignItems:"center", gap:"1rem"}}>
                           <ArrowBackIcon onClick={() => window.history.back()} />
-                          <p style={{ fontSize: '1.2rem', fontWeight: 600 }}>
+                          <p className="bold-text"  style={{ fontSize: '18px' }}>
                               {
                                   this.state.nominatedSelf ?
                                   t("Edit Nomination")
@@ -61,14 +61,14 @@ class NominateMySelf extends NominateMySelfController{
                         <Grid item xs={12}>
                             <Box style={{display:'flex',justifyContent:'space-between'}}>
                                 <Box display="flex" alignItems="center">
-                                    <img src={this.state.myProfile?.image?.url || profileExp} width="50px" height="50px" style={{borderRadius:"100px"}}/>
+                                    <img src={this.state.myProfile?.image?.url.default || profileExp} width="50px" height="50px" style={{borderRadius:"100px"}}/>
                                     <Box style={{marginLeft:"10px"}}>
-                                        <Typography style={{fontWeight:"bold",marginRight:"20px"}}>{this.state.myProfile.name}</Typography>
+                                        <Typography className="bold-text" style={{fontWeight:"bold",marginRight:"20px"}}>{this.state.myProfile.name}</Typography>
                                         <Typography variant="subtitle2">{this.state.myProfile.unit_number?.join(",")}</Typography>
                                     </Box>
                                 </Box>
                                 <Box style={{marginTop:"10px"}}>
-                                    <Typography variant="subtitle2" className={"statusOngoingBlue"}>{this.state.myProfile.role}</Typography>
+                                    <Typography variant="subtitle2" className={"statusOngoingBlue bold-text"}>{this.state.myProfile.role}</Typography>
                                 </Box>
                             </Box>
                             <Box style={{width:"100%",marginTop:"20px "}}>
@@ -96,7 +96,7 @@ class NominateMySelf extends NominateMySelfController{
                             {
                                 !this.state.nominatedSelf &&
                                 <Box style={{width:"100%",marginTop:"20px "}}>
-                                    <Typography style={{fontWeight:"bold"}}>Nominate As a</Typography>
+                                    <Typography className="bold-text" style={{fontWeight:"bold"}}>Nominate As a</Typography>
                                     <FormControlLabel
                                         onChange={this.manageSelectRole}
                                         control={<Checkbox checkedIcon={<CheckBoxIcon style={{color:"#fc8434"}} />} name="checkedA" value={0} checked={this.state.myNominationAs.find((check:any)=> check === '0') ? true : false} />}
@@ -122,7 +122,6 @@ class NominateMySelf extends NominateMySelfController{
                                 {t("Submit")}
                             </CloseButton>
                         }
-
                     </Box>
                 </Box>
             </Grid>

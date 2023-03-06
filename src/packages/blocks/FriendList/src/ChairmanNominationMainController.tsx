@@ -43,6 +43,7 @@ interface S {
   endDateType:any;
   nominationsList:any;
   mainError:any;
+  startButton:boolean;
 }
 
 interface SS {
@@ -86,7 +87,8 @@ export default class FriendListController extends BlockComponent<
       startDateType:"text",
       endDateType:"text",
       nominationsList:[],
-      mainError:""
+      mainError:"",
+      startButton:false,
     };
     runEngine.attachBuildingBlock(this as IBlock, this.subScribedMessages);
   }
@@ -256,10 +258,35 @@ export default class FriendListController extends BlockComponent<
       if(this.getNominationListId === apiRequestCallId ){
         console.log("NOMINATION",responseJson,errorReponse)
         if(responseJson.hasOwnProperty("chairman_nominations") && responseJson.code === 200){
-          this.setState({
-            nominationsList:responseJson?.chairman_nominations?.data,
-            loading:false
+          const filterData = responseJson?.chairman_nominations?.data?.filter((item:any)=>{
+            return item.attributes.stage === "Nomination Started"
           })
+          if(filterData.length > 0){
+            this.setState({
+              nominationsList:responseJson?.chairman_nominations?.data,
+              loading:false,
+              startButton:true
+            })
+          }else{
+            this.setState({
+              nominationsList:responseJson?.chairman_nominations?.data,
+              loading:false
+            })
+          }
+
+        }else{
+          if(responseJson.message === "No nominations present"){
+            this.setState({
+              nominationsList:[],
+              onGoingNomination:false,
+              loading:false
+            })
+          }else{
+            this.setState({
+              nominationsList:[],
+              loading:false
+            })
+          }
         }
       }
       if(this.createNominationId === apiRequestCallId) {
@@ -279,6 +306,11 @@ export default class FriendListController extends BlockComponent<
         }
       }
     }
+  }
+
+
+  manageCancel = () => {
+
   }
 
   getNominationList = async () => {

@@ -43,7 +43,7 @@ class ChairmanNominationDetails extends ChairmanNominationDetailsController{
                   <Grid item xs={12} style={{ display:"flex", alignItems:"center", gap:"1rem",justifyContent:"space-between"}} >
                       <Box style={{ display:"flex", alignItems:"center", gap:"1rem"}}>
                           <ArrowBackIcon onClick={() => window.history.back()} />
-                          <p style={{ fontSize: '1.2rem', fontWeight: 600 }}>
+                          <p className="bold-text" style={{ fontSize: '18px'}}>
                               {this.state.nominationData.title}
                           </p>
                       </Box>
@@ -55,7 +55,7 @@ class ChairmanNominationDetails extends ChairmanNominationDetailsController{
                             <Paper elevation={2} style={{backgroundColor:"white",padding:"20px 30px",borderRadius:"15px"}}>
                                 <Grid container spacing={2} >
                                     <Grid item xs={12} style={{display:'flex'}}>
-                                        <Typography variant="h6" style={{fontWeight:"bold"}}>{this.state.nominationData.title}</Typography>
+                                        <Typography variant="h6" className="bold-text" >{this.state.nominationData.title}</Typography>
                                     </Grid>
                                     <Grid item xs={12}>
                                         <Box>
@@ -78,7 +78,7 @@ class ChairmanNominationDetails extends ChairmanNominationDetailsController{
                                     {
                                         this.state.nomineeList.length > 0 &&
                                         <Box style={{display:"flex"}} marginTop="10px">
-                                            <Typography variant="body1" style={{fontWeight:"bold"}}>{t("Nominated Members")}</Typography>
+                                            <Typography variant="body1" className="bold-text">{t("Nominated Members")}</Typography>
                                             <Typography
                                                 variant="subtitle2"
                                                 className="countButton"
@@ -97,14 +97,14 @@ class ChairmanNominationDetails extends ChairmanNominationDetailsController{
                                                         <Box onClick={this.handleOpenDetailsModal}>
                                                             <Box style={{display:'flex',justifyContent:'space-between'}}>
                                                                 <Box display="flex" alignItems="center">
-                                                                    <img src={item?.attributes?.image?.url || profileExp} width="50px" height="50px" style={{borderRadius:"100px"}}/>
+                                                                    <img src={item?.attributes?.image?.url.default || profileExp} width="50px" height="50px" style={{borderRadius:"100px"}}/>
                                                                     <Box style={{marginLeft:"10px"}}>
-                                                                        <Typography style={{fontWeight:"bold"}}>{item.attributes.name}</Typography>
+                                                                        <Typography className="bold-text" style={{fontWeight:"bold"}}>{item.attributes.name}</Typography>
                                                                         <Typography >{item.attributes?.unit_number?.join(",")}</Typography>
                                                                     </Box>
                                                                 </Box>
                                                                 <Box style={{marginTop:"10px"}}>
-                                                                    <Typography variant="subtitle2" className={"statusOngoingBlue"}>{item.attributes.role}</Typography>
+                                                                    <Typography variant="subtitle2" className="statusOngoingBlue bold-text">{item.attributes.role}</Typography>
                                                                 </Box>
                                                             </Box>
                                                             <Box style={{width:"100%",marginTop:"20px "}}>
@@ -375,7 +375,7 @@ class ChairmanNominationDetails extends ChairmanNominationDetailsController{
                                     <SubmitButton style={{width:"300px"}} fullWidth onClick={this.confirmVote}>
                                         {t("Yes Submit")}
                                     </SubmitButton>
-                                    <Button style={{width:"300px"}} fullWidth onClick={() => this.setState({startVotingModal:false})}>
+                                    <Button className="bold-text" style={{width:"300px",color:"#8D8D8D",fontWeight:"bold"}} fullWidth onClick={() => this.setState({voteConfirmModal:false})}>
                                         {t("No,cancel")}
                                     </Button>
                                 </DialogActions>
@@ -408,7 +408,6 @@ const DeclineButton = withStyles((theme) => ({
     root: {
         color: "#2b6fed",
         backgroundColor: "#E5ECFF",
-        border:"1px solid #2b6fed",
         fontWeight:"bold",
         borderRadius:"40px",
         padding:"10px 10px",

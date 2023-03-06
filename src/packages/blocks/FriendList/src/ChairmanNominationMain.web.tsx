@@ -14,7 +14,7 @@ import Divider from '@material-ui/core/Divider';
 import DateRangeOutlinedIcon from '@material-ui/icons/DateRangeOutlined';
 
 // Icons
-import {cancle} from "../../user-profile-basic/src/assets"
+import {cancle, newMember} from "../../user-profile-basic/src/assets"
 import ChairmanNominationMainController, {
   Props
 } from "./ChairmanNominationMainController";
@@ -53,95 +53,92 @@ class MyTeamCore extends ChairmanNominationMainController {
                             {t("My Team")} / <Box component="span" style={{color: "blue"}}>{t("Chairman and Vice Chairman Nomination")}</Box>
                         </Typography>
                         <Box display="flex" justifyContent="space-between" alignItems="center" width="100%">
-                            <Typography variant="h4" className="subHeading">{t("Chairman and Vice Chairman Nomination")}</Typography>
+                            <Typography variant="h4" className="subHeading bold-text" style={{fontSize:"32px"}}>{t("Chairman and Vice Chairman Nomination")}</Typography>
                             {
                                 this.state.onGoingNomination && userType === "Chairman" &&
-                                    <AcceptButton style={{marginTop:"20px"}} onClick={()=>this.setState({setOpen:true})}>{t("START CHAIRMAN NOMINATION")}</AcceptButton>
+                                    <AcceptButton style={{marginTop:"20px",width:"260px"}} disabled={this.state.startButton} onClick={()=>this.setState({setOpen:true})}>{t("START CHAIRMAN NOMINATION")}</AcceptButton>
                             }
                         </Box>
                     </Box>
                 </Box>
                 <Grid container spacing={3} style={{marginTop: 10, marginBottom:30}}>
-                    <Grid item xs={12}>
-
-                        </Grid>
                         {
                             this.state.nominationsList.length > 0
-                            &&
+                            ?
                             this.state.nominationsList.map((item:any,key:any) => {
                                 return(
                                     <Grid key={key} item xs={12} sm={12} md={6}>
-                                        <Paper elevation={6} style={{backgroundColor:"white",padding:"20px 30px",borderRadius:"15px",cursor:"pointer"}} onClick={()=> this.props.history.push(`/NominationDetails?id=${item.id}`)}>
-                                            <Grid container spacing={2} >
+                                        <Paper elevation={3} style={{backgroundColor:"white",padding:"20px 30px",borderRadius:"12px",cursor:"pointer"}} onClick={()=> this.props.history.push(`/NominationDetails?id=${item.id}`)}>
+                                            <Grid container spacing={1} >
                                                 <Grid item xs={9}>
-                                                    <Typography variant="h6" style={{fontWeight:"bold",minHeight:"60px",display:'flex',alignItems:"center",fontSize:"18px"}}>{item.attributes.title}</Typography>
+                                                    <Typography className="bold-text" style={{fontWeight:"bold",minHeight:"60px",display:'flex',alignItems:"center",fontSize:"18px"}}>{item.attributes.title}</Typography>
                                                 </Grid>
                                                 <Grid item xs={3} style={{display:'flex',alignItems:"center",justifyContent:"flex-end"}}>
                                                     {
                                                         item.attributes.status === "closed" &&
-                                                        <Typography variant="subtitle2" className={"statusOngoingRed"}>{item.attributes.status}</Typography>
+                                                        <Typography variant="subtitle2" className={"statusOngoingRed"} style={{fontSize:"12px",padding:"6px,10px"}}>{item.attributes.status}</Typography>
                                                     }
                                                     {
                                                         item.attributes.status === "active" &&
-                                                        <Typography variant="subtitle2" className={"statusOngoingGreen"}>{item.attributes.status}</Typography>
+                                                        <Typography variant="subtitle2" className={"statusOngoingGreen"} style={{fontSize:"12px",padding:"6px,10px"}}>{item.attributes.status}</Typography>
                                                     }
                                                     {
                                                         item.attributes.status === "upcoming" &&
-                                                        <Typography variant="subtitle2" className={"statusOngoingBlue"}>{item.attributes.status}</Typography>
+                                                        <Typography variant="subtitle2" className={"statusOngoingBlue"} style={{fontSize:"12px",padding:"6px,10px"}}>{item.attributes.status}</Typography>
                                                     }
                                                 </Grid>
                                                 <Grid item xs={6}>
                                                     <Box>
-                                                        <Typography variant="subtitle1" color="textSecondary">{t("Building")}:</Typography>
-                                                        <Typography variant="subtitle1" color="textPrimary">{item.attributes.building_name}</Typography>
+                                                        <Typography variant="subtitle1" color="textSecondary" style={{fontSize:"16px",color:"rgba(24,29,37,0.5)"}}>{t("Building")}:</Typography>
+                                                        <Typography variant="subtitle1" color="textPrimary" style={{fontSize:"17px"}}>{item.attributes.building_name}</Typography>
                                                     </Box>
                                                 </Grid>
                                                 <Grid item xs={6}>
                                                     <Box>
-                                                        <Typography variant="subtitle1" color="textSecondary">{t("Complex Name")}:</Typography>
-                                                        <Typography variant="subtitle1" color="textPrimary">{item.attributes.complex_name}</Typography>
+                                                        <Typography variant="subtitle1" color="textSecondary" style={{fontSize:"16px",color:"rgba(24,29,37,0.5)"}}>{t("Complex Name")}:</Typography>
+                                                        <Typography variant="subtitle1" color="textPrimary" style={{fontSize:"17px"}}>{item.attributes.complex_name}</Typography>
                                                     </Box>
                                                 </Grid>
                                                 <Grid item xs={6}>
                                                     <Box>
-                                                        <Typography variant="subtitle1" color="textSecondary">{t("Duration")}:</Typography>
-                                                        <Typography variant="subtitle1" color="textPrimary">{moment(item.attributes.start_date).format("DD-MMM-YYYY")} to {moment(item.attributes.end_date).format("DD-MMM-YYYY")}</Typography>
+                                                        <Typography variant="subtitle1" color="textSecondary" style={{fontSize:"16px",color:"rgba(24,29,37,0.5)"}}>{t("Duration")}:</Typography>
+                                                        <Typography variant="subtitle1" color="textPrimary" style={{fontSize:"17px"}}>{moment(item.attributes.start_date).format("DD-MMM-YYYY")} to {moment(item.attributes.end_date).format("DD-MMM-YYYY")}</Typography>
                                                     </Box>
                                                 </Grid>
                                                 <Grid item xs={6}>
                                                     <Box>
-                                                        <Typography variant="subtitle1" color="textSecondary">{t("Total Nomination")}: </Typography>
-                                                        <Typography variant="subtitle1" color="textPrimary">{item.attributes.total_nomination || 0} Members</Typography>
+                                                        <Typography variant="subtitle1" color="textSecondary" style={{fontSize:"16px",color:"rgba(24,29,37,0.5)"}}>{t("Total Nomination")}: </Typography>
+                                                        <Typography variant="subtitle1" color="textPrimary" style={{fontSize:"17px"}}>{item.attributes.total_nomination || 0} Members</Typography>
                                                     </Box>
                                                 </Grid>
                                                 {
                                                     item.attributes.stage === "Nomination Started" &&
                                                     <Grid item xs={12} className={"nominationBlueBG"} style={{marginBottom:"10px",marginTop:"10px"}}>
-                                                        <Typography variant="body1" style={{width:"100%"}} className="nominationBlueText" >{item.attributes.stage || "NA"}</Typography>
+                                                        <Typography variant="body1" style={{width:"100%",fontSize:"13px",padding:"5px 10px"}} className="nominationBlueText" >{item.attributes.stage || "NA"}</Typography>
                                                     </Grid>
                                                 }
                                                 {
                                                     item.attributes.stage === "Upcoming Nomination" &&
                                                     <Grid item xs={12} className={"nominationBlueBG"} style={{marginBottom:"10px",marginTop:"10px"}}>
-                                                        <Typography variant="body1" style={{width:"100%"}} className="nominationBlueText" >{item.attributes.stage || "NA"}</Typography>
+                                                        <Typography variant="body1" style={{width:"100%",fontSize:"13px",padding:"5px 10px"}} className="nominationBlueText" >{item.attributes.stage || "NA"}</Typography>
                                                     </Grid>
                                                 }
                                                 {
                                                     item.attributes.stage === "Nomination Closed" &&
                                                     <Grid item xs={12} className={"nominationGrayBG"} style={{marginBottom:"10px",marginTop:"10px"}}>
-                                                        <Typography variant="body1" style={{width:"100%"}} className="nominationGrayText" >{item.attributes.stage || "NA"}</Typography>
+                                                        <Typography variant="body1" style={{width:"100%",fontSize:"13px",padding:"5px 10px"}} className="nominationGrayText" >{item.attributes.stage || "NA"}</Typography>
                                                     </Grid>
                                                 }
                                                 {
                                                     item.attributes.stage === "Voting Started" &&
                                                     <Grid item xs={12} className={"nominationOrangeBG"} style={{marginBottom:"10px",marginTop:"10px"}}>
-                                                        <Typography variant="body1" style={{width:"100%"}} className="nominationOrangeText" >{item.attributes.stage || "NA"}</Typography>
+                                                        <Typography variant="body1" style={{width:"100%",fontSize:"13px",padding:"5px 10px"}} className="nominationOrangeText" >{item.attributes.stage || "NA"}</Typography>
                                                     </Grid>
                                                 }
                                                 {
                                                     item.attributes.stage === "Voting Closed" &&
                                                     <Grid item xs={12} className={"nominationGrayBG"} style={{marginBottom:"10px",marginTop:"10px"}}>
-                                                        <Typography variant="body1" style={{width:"100%"}} className="nominationGrayText" >{item.attributes.stage || "NA"}</Typography>
+                                                        <Typography variant="body1" style={{width:"100%",fontSize:"14px",padding:"5px 10px"}} className="nominationGrayText" >{item.attributes.stage || "NA"}</Typography>
                                                     </Grid>
                                                 }
                                             </Grid>
@@ -149,6 +146,21 @@ class MyTeamCore extends ChairmanNominationMainController {
                                     </Grid>
                                 )
                             })
+                            :
+                            <Paper elevation={2} style={{marginLeft:"10px",width:"100%",height:"100vh",display:'flex',alignItems:'center',justifyContent:'center',flexDirection:"column"}}>
+                                <Box style={{backgroundColor:"#FC8434",width:"50px",height:"50px",borderRadius:"50px",display:"flex",alignItems:"center",justifyContent:"center"}}>
+                                    <img src={newMember} />
+                                </Box>
+                                <Box style={{textAlign:"center",marginTop:"15px"}}>
+                                    <Typography>
+                                        {t("No ongoing nomination right now.")}
+                                    </Typography>
+                                    <Typography>
+                                        {t("Please tap on the below button to start nomination process.")}
+                                    </Typography>
+                                </Box>
+                                <AcceptButton style={{marginTop:"20px",fontSize:"14px",padding:"8px 15px",width:"260px"}} onClick={()=>this.setState({setOpen:true})}>{t("START CHAIRMAN NOMINATION")}</AcceptButton>
+                            </Paper>
                         }
                 </Grid>
             </Container>
@@ -166,10 +178,10 @@ class MyTeamCore extends ChairmanNominationMainController {
             <Fade in={Boolean(this.state.setOpen)}>
                 <div style={dashBoard.paper}>
                     <Box style={{display:'flex',alignItems:'center',justifyContent:'space-between',marginBottom:"10px"}}>
-                        <Typography variant="h5" style={{fontWeight:"bold"}}>
+                        <Typography variant="h5" className="bold-text" style={{fontWeight:"bold",fontSize:"22px"}}>
                             {t("Chairman and Vice Chairman Nomination")}
                         </Typography>
-                        <IconButton onClick={this.handleClose}>
+                        <IconButton onClick={this.handleClose} style={{paddingRight:"0px",paddingLeft:"0px"}}>
                             <img src={cancle}
                                 //@ts-ignore
                                  style={dashBoard.modalCacle}/>
@@ -189,7 +201,7 @@ class MyTeamCore extends ChairmanNominationMainController {
                                id="Nomination Title"
                                style={{border:"1px solid #ECECEC",borderRadius:"10px",backgroundColor:"#f9f9f9",marginRight:"10px"}}
                                inputProps={{
-                                   maxLength: 40
+                                   maxLength: 100
                                }}
                                fullWidth
                             />
@@ -262,7 +274,7 @@ class MyTeamCore extends ChairmanNominationMainController {
                     </Grid>
                     <Grid item xs={12} style={{display:'flex',justifyContent:"flex-end",marginTop:"20px"}}>
                         <Box>
-                            <DeclineButton variant="contained" style={{marginRight:"15px"}}>{t("Cancel")}</DeclineButton>
+                            <DeclineButton variant="contained" style={{marginRight:"15px"}} onClick={this.manageCancel}>{t("Cancel")}</DeclineButton>
                             <AcceptButton variant="contained" onClick={this.manageSubmit}>{t("Start Process")}</AcceptButton>
                         </Box>
                     </Grid>
@@ -392,11 +404,17 @@ const AcceptButton = withStyles((theme) => ({
         backgroundColor: "#2b6fed",
         fontWeight:"bold",
         borderRadius:"10px",
-        padding:"10px 20px",
-        fontSize:"15px",
+        width:"175px",
+        height:"45px",
+        padding:"5px 15px",
+        fontSize:"14px",
         '&:hover': {
             backgroundColor: "#2b6fed",
         },
+        '&:disabled': {
+            backgroundColor:"#2b6fed36",
+            color:"#fdfefe"
+        }
     },
 }))(Button);
 
@@ -407,8 +425,10 @@ const DeclineButton = withStyles((theme) => ({
         border:"1px solid #2b6fed",
         fontWeight:"bold",
         borderRadius:"10px",
-        padding:"10px 20px",
-        fontSize:"15px",
+        width:"175px",
+        height:"45px",
+        padding:"5px 15px",
+        fontSize:"14px",
         '&:hover': {
             backgroundColor: "white",
         },

@@ -180,8 +180,11 @@ class VisitorDetails extends VisitorDetailsController{
                                 <Box>
                                     <img src={userIcon} />
                                 </Box>
-                                <Typography variant="h6" style={{color:"black",fontWeight:"bold",marginTop:"15px",marginBottom:"10px",textAlign:"center"}}>
-                                    {t("Scheduled Visitors")}
+                                <Typography variant="h6" style={{color:"black",fontWeight:"bold",marginTop:"15px",textAlign:"center"}}>
+                                    {t("Scheduled")}
+                                </Typography>
+                                <Typography variant="h6" style={{color:"black",fontWeight:"bold",marginBottom:"10px",textAlign:"center"}}>
+                                    {t("Visitors")}
                                 </Typography>
                                 <Typography variant="body2" style={{textAlign:"center"}}>
                                     {t("Are you sure that you want to cancel this scheduled visit?")}
@@ -217,12 +220,12 @@ const CloseButton = withStyles((theme) => ({
 
 const PublishButton = withStyles((theme) => ({
     root: {
-        color: "#2b6fed",
+        color: "#8d8d8d",
         backgroundColor: "white",
         fontWeight:"bold",
         height:"45px",
         '&:hover': {
-            color: "#2b6fef",
+            color: "#8d8d8d",
         },
     },
 }))(Button);

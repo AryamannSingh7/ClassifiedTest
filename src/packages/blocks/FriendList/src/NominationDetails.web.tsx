@@ -86,12 +86,12 @@ class MyTeamCore extends NominationDetailsController {
                 <Grid container spacing={3} style={{marginTop: 10, marginBottom:30}}>
                     <Grid item xs={12}>
                         <Paper elevation={6} style={{backgroundColor:"white",padding:"20px 30px",borderRadius:"15px"}}>
-                            <Grid container spacing={2} >
+                            <Grid container spacing={1} >
                                 <Grid item xs={9} style={{display:'flex'}}>
-                                    <Typography variant="h6" style={{fontWeight:"bold"}}>{this.state.nominationData.title}</Typography>
+                                    <Typography className="bold-text" style={{fontWeight:"bold",fontSize:"17px",marginTop:"5px"}}>{this.state.nominationData.title}</Typography>
                                     {
                                         this.state.nominationData.status !== "closed" &&
-                                        <Button variant="text" color="primary" name="ButtonEdit" id="edit button" style={{color:"2b6fed",fontWeight:"bold"}} onClick={()=>this.setState({setOpen:true})}>{t("Edit Details")}</Button>
+                                        <Button variant="text" color="primary" name="ButtonEdit" id="edit button" style={{color:"2b6fed",fontWeight:"bold",textTransform:"capitalize"}} onClick={()=>this.setState({setOpen:true})}>{t("Edit Details")}</Button>
                                     }
                                 </Grid>
                                 <Grid item xs={3} style={{display:'flex',alignItems:"center",justifyContent:"flex-end"}}>
@@ -99,33 +99,33 @@ class MyTeamCore extends NominationDetailsController {
                                 </Grid>
                                 <Grid item xs={12} sm={3}>
                                     <Box>
-                                        <Typography variant="subtitle1" color="textSecondary">{t("Building")}:</Typography>
-                                        <Typography variant="subtitle1" color="textPrimary">{this.state.nominationData?.building_name || "NA"}</Typography>
+                                        <Typography variant="subtitle1" color="textSecondary" style={{fontSize:"16px",color:"rgba(24,29,37,0.5)"}}>{t("Building")}:</Typography>
+                                        <Typography variant="subtitle1" color="textPrimary" style={{fontSize:"17px"}}>{this.state.nominationData?.building_name || "NA"}</Typography>
                                     </Box>
                                 </Grid>
                                 <Grid item xs={12} sm={3}>
                                     <Box>
-                                        <Typography variant="subtitle1" color="textSecondary">{t("Complex Name")}:</Typography>
-                                        <Typography variant="subtitle1" color="textPrimary">{this.state.nominationData?.complex_name}</Typography>
+                                        <Typography variant="subtitle1" color="textSecondary" style={{fontSize:"16px",color:"rgba(24,29,37,0.5)"}}>{t("Complex Name")}:</Typography>
+                                        <Typography variant="subtitle1" color="textPrimary" style={{fontSize:"17px"}}>{this.state.nominationData?.complex_name}</Typography>
                                     </Box>
                                 </Grid>
                                 <Grid item xs={12} sm={3}>
                                     <Box>
-                                        <Typography variant="subtitle1" color="textSecondary">{t("Duration")}:</Typography>
-                                        <Typography variant="subtitle1" color="textPrimary">{moment(this.state.nominationData?.start_date).format("DD-MMM-YYYY")} to {moment(this.state.nominationData?.end_date).format("DD-MMM-YYYY")}</Typography>
+                                        <Typography variant="subtitle1" color="textSecondary" style={{fontSize:"16px",color:"rgba(24,29,37,0.5)"}}>{t("Duration")}:</Typography>
+                                        <Typography variant="subtitle1" color="textPrimary" style={{fontSize:"17px"}}>{moment(this.state.nominationData?.start_date).format("DD-MMM-YYYY")} to {moment(this.state.nominationData?.end_date).format("DD-MMM-YYYY")}</Typography>
                                     </Box>
                                 </Grid>
                                 <Grid item xs={12} sm={3}>
                                     <Box>
-                                        <Typography variant="subtitle1" color="textSecondary">{t("Total Nomination")}: </Typography>
-                                        <Typography variant="subtitle1" color="textPrimary">{this.state.nominationData?.total_nomination || 0} Members</Typography>
+                                        <Typography variant="subtitle1" color="textSecondary" style={{fontSize:"16px",color:"rgba(24,29,37,0.5)"}}>{t("Total Nomination")}: </Typography>
+                                        <Typography variant="subtitle1" color="textPrimary" style={{fontSize:"17px"}}>{this.state.nominationData?.total_nomination || 0} Members</Typography>
                                     </Box>
                                 </Grid>
 
                                 <Grid item xs={12}>
                                     <Box>
-                                        <Typography variant="subtitle1" color="textSecondary">{t("Description")}</Typography>
-                                        <Typography variant="subtitle1" color="textPrimary">{this.state.nominationData?.description}</Typography>
+                                        <Typography variant="subtitle1" color="textSecondary" style={{fontSize:"16px",color:"rgba(24,29,37,0.5)"}}>{t("Description")}</Typography>
+                                        <Typography variant="subtitle1" color="textPrimary" style={{fontSize:"17px"}}>{this.state.nominationData?.description}</Typography>
                                     </Box>
                                 </Grid>
                             </Grid>
@@ -366,7 +366,7 @@ class MyTeamCore extends NominationDetailsController {
                         <Grid item xs={12}>
                             <Box style={{display:'flex',justifyContent:'space-between'}}>
                                 <Box display="flex" alignItems="center">
-                                    <img src={this.state?.detailsForModal?.image?.url || profileExp} width="50px" height="50px" style={{borderRadius:"100px"}}/>
+                                    <img src={this.state?.detailsForModal?.image?.url?.default || profileExp} width="50px" height="50px" style={{borderRadius:"100px"}}/>
                                     <Box style={{marginLeft:"10px"}}>
                                         <Typography style={{fontWeight:"bold"}}>{this.state.detailsForModal.name}</Typography>
                                         <Typography >{this.state.detailsForModal.unit_number.join(",")}</Typography>
@@ -412,7 +412,7 @@ class MyTeamCore extends NominationDetailsController {
                         <Grid item xs={12}>
                             <Box style={{display:'flex',justifyContent:'space-between'}}>
                                 <Box display="flex" alignItems="center">
-                                    <img src={this.state.myProfile?.image?.url || profileExp}  width="50px" height="50px" style={{borderRadius:"100px"}}/>
+                                    <img src={this.state.myProfile?.image?.url.default || profileExp}  width="50px" height="50px" style={{borderRadius:"100px"}}/>
                                     <Box style={{marginLeft:"10px",display:"flex"}}>
                                         <Typography style={{fontWeight:"bold",marginRight:"20px"}}>{this.state.myProfile?.name}</Typography>
                                         <Typography>{this.state.myProfile.unit_number?.join(",")}</Typography>
@@ -522,7 +522,7 @@ const NominationHeader = (props:any) => {
     const {t} = useTranslation()
     return(
         <Box display="flex" justifyContent="space-between" alignItems="center" width="100%">
-            <Typography variant="h4" className="subHeading">{props?.title}</Typography>
+            <Typography variant="h4" className="subHeading bold-text" style={{fontSize:"32px"}}>{props?.title}</Typography>
             <Box>
                 {
                     props?.voting_flag ?
@@ -631,7 +631,7 @@ const NominatedMemberCard = (props:any) => {
                 <Box onClick={()=> handleOpenDetailsModal(item.attributes)}>
                     <Box style={{display:'flex',justifyContent:'space-between'}}>
                         <Box display="flex" alignItems="center">
-                            <img src={ item.attributes?.image?.url || profileExp} width="50px" height="50px" style={{borderRadius:"100px"}}/>
+                            <img src={ item.attributes?.image?.url.default || profileExp} width="50px" height="50px" style={{borderRadius:"100px"}}/>
                             <Box style={{marginLeft:"10px"}}>
                                 <Typography style={{fontWeight:"bold"}}>{item.attributes.name}</Typography>
                                 <Typography >{item.attributes.unit_number.join(",")}</Typography>
@@ -846,14 +846,14 @@ const AcceptButton = withStyles((theme) => ({
 const DeclineButton = withStyles((theme) => ({
     root: {
         color: "#2b6fed",
-        backgroundColor: "#E5ECFF",
+        backgroundColor: "#F7F9FE",
         border:"1px solid #2b6fed",
         fontWeight:"bold",
         borderRadius:"10px",
         padding:"10px 20px",
         fontSize:"15px",
         '&:hover': {
-            backgroundColor: "#E5ECFF",
+            backgroundColor: "#F7F9FE",
         },
     },
 }))(Button);
