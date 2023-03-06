@@ -591,14 +591,14 @@ export default class RegisterTenantController extends BlockComponent<Props, S, S
       if (responseJson.code === 200) {
         toast.success("Tenant created successfully");
         this.props.navigation.navigate("TenantList");
+      } else {
+        this.props.navigation.navigate("TenantList");
       }
     });
   };
 
   validationRegisterTenantFormSchema: any = Yup.object().shape({
-    tenantType: Yup.string()
-      .required("Required")
-      .matches(/\S/, "Required"),
+    tenantType: Yup.string().required("Required").matches(/\S/, "Required"),
     tenantName: Yup.string()
       .required("Required")
       .matches(/\S/, "Required")
@@ -607,13 +607,8 @@ export default class RegisterTenantController extends BlockComponent<Props, S, S
       .required("Required")
       .matches(/\S/, "Required")
       .matches(/^[0-9]{9,9}$/, { message: "Please enter valid number" }),
-    tenantEmail: Yup.string()
-      .required("Required")
-      .matches(/\S/, "Required")
-      .email("Please enter valid email"),
-    building: Yup.string()
-      .required("Required")
-      .matches(/\S/, "Required"),
+    tenantEmail: Yup.string().required("Required").matches(/\S/, "Required").email("Please enter valid email"),
+    building: Yup.string().required("Required").matches(/\S/, "Required"),
     unit: Yup.string()
       .required("Required")
       .matches(/\S/, "Required")
@@ -623,21 +618,11 @@ export default class RegisterTenantController extends BlockComponent<Props, S, S
         }
         return true;
       }),
-    idType: Yup.string()
-      .required("Required")
-      .matches(/\S/, "Required"),
-    idNumber: Yup.string()
-      .required("Required")
-      .matches(/\S/, "Required"),
-    idDate: Yup.string()
-      .required("Required")
-      .matches(/\S/, "Required"),
-    idCard: Yup.array()
-      .min(1, "Required")
-      .nullable(),
-    otherDocument: Yup.array()
-      .min(1, "Required")
-      .nullable(),
+    idType: Yup.string().required("Required").matches(/\S/, "Required"),
+    idNumber: Yup.string().required("Required").matches(/\S/, "Required"),
+    idDate: Yup.string().required("Required").matches(/\S/, "Required"),
+    idCard: Yup.array().min(1, "Required").nullable(),
+    otherDocument: Yup.array().min(1, "Required").nullable(),
   });
 
   niceBytes = (x: any) => {

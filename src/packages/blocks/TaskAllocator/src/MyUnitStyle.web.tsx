@@ -41,8 +41,20 @@ export const MyUnitStyle: any = {
     "& .right-menu button": {
       padding: "0px",
     },
+    "& .tenant-list-box": {
+      height: "88vh",
+      overflow: "hidden",
+      position: "relative",
+      marginTop: "15px",
+      ["@media (max-width:425px)"]: {
+        height: "unset",
+        overflow: "unset",
+        position: "unset",
+        marginTop: "unset",
+      },
+    },
     "& .tenant-list-box .upload-button": {
-      position: "fixed",
+      position: "sticky",
       bottom: 0,
       left: 0,
       right: 0,
@@ -51,6 +63,10 @@ export const MyUnitStyle: any = {
       justifyContent: "center",
       padding: "10px 0",
       background: "#F7F9FE",
+      ["@media (max-width:425px)"]: {
+        position: "fixed",
+        bottom: 10,
+      },
     },
     "& .tenant-list-box .upload-button .MuiGrid-root": {
       display: "flex",
@@ -65,13 +81,14 @@ export const MyUnitStyle: any = {
       fontWeight: 600,
     },
     "& .tenant-list-box .tenant-list": {
-      height: "100%",
-      overflow: "hidden",
-      maxHeight: "calc(100vh - 152px)",
-      overflowY: "auto",
-      position: "relative",
-      marginTop: "15px",
+      height: "calc(100% - 75px)",
       overflowX: "hidden",
+      ["@media (max-width:425px)"]: {
+        height: "calc(100vh - 140px)",
+        overflow: "hidden",
+        position: "relative",
+        marginTop: "15px",
+      },
     },
     "& .tenant-list-box .tenant": {
       borderRadius: "8px",
@@ -175,7 +192,14 @@ export const MyUnitStyle: any = {
     "& .page-container": {
       overflowY: "auto",
       height: "100%",
-      maxHeight: "calc(100vh - 190px)",
+      maxHeight: "calc(100vh - 70px)",
+      ["@media (max-width:425px)"]: {
+        height: "100%",
+        maxHeight: "calc(100vh - 190px)",
+      },
+    },
+    "& .page-container .issue-lease-content.form": {
+      ["@media (max-width:425px)"]: {},
     },
     "& .issue-lease-content .select-input-box .select-input": {
       background: "#F9F9F9",
@@ -430,10 +454,13 @@ export const MyUnitStyle: any = {
       opacity: 1,
     },
     "& .form.issue-lease-content .next-button": {
-      position: "fixed",
+      position: "sticky",
       bottom: 0,
       left: 0,
       right: 0,
+      ["@media (max-width:425px)"]: {
+        position: "fixed",
+      },
     },
     "& .unit-box-currency": {
       position: "relative",
@@ -482,6 +509,10 @@ export const MyUnitStyle: any = {
       background: "white",
       height: "85vh",
       overflow: "auto",
+      ["@media (max-width:425px)"]: {
+        height: "100%",
+        maxHeight: "calc(100vh - 140px)",
+      },
     },
     "& .upload-button": {
       position: "sticky",
@@ -493,6 +524,9 @@ export const MyUnitStyle: any = {
       justifyContent: "center",
       padding: "10px 0",
       background: "white",
+      ["@media (max-width:425px)"]: {
+        position: "fixed",
+      },
     },
     "& .upload-button .MuiGrid-root": {
       display: "flex",
@@ -563,8 +597,12 @@ export const MyUnitStyle: any = {
     },
     "& .rent-history-grid": {
       overflowX: "hidden",
-      height: "85vh",
+      height: "88vh",
       background: "white",
+      ["@media (max-width:425px)"]: {
+        height: "100%",
+        maxHeight: "calc(100vh - 140px)",
+      },
     },
     "& .rent-history-grid .rent-history-box": {
       minHeight: "calc(100% - 80px)",

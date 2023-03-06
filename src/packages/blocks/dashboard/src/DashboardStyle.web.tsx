@@ -30,6 +30,10 @@ export const DashboardStyleWeb: any = {
       overflowY: "auto",
       overflowX: "hidden",
       height: "85vh",
+      ["@media (max-width:425px)"]: {
+        height: "100%",
+        maxHeight: "calc(100vh - 140px)",
+      },
     },
     "& .dashboard .title": {
       paddingBottom: "5px",

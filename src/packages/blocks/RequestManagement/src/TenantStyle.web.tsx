@@ -11,7 +11,7 @@ export const TenantStyle: any = {
       zIndex: "9999",
       position: "sticky",
       top: "0",
-      borderBottom: "2px solid #e2e2ef",
+      borderBottom: "2px solid #f2f2f2",
     },
     "& .top-bar .left-icon": {
       display: "flex",
@@ -41,6 +41,10 @@ export const TenantStyle: any = {
       height: "88vh",
       position: "relative",
       overflow: "hidden",
+      ["@media (max-width:425px)"]: {
+        height: "100%",
+        maxHeight: "88vh",
+      },
     },
     "& .empty-list .content-box": {
       height: "calc(100% - 70px)",
@@ -49,6 +53,10 @@ export const TenantStyle: any = {
       justifyContent: "center",
       flexDirection: "column",
       gap: "12px",
+      padding: "12px",
+      ["@media (max-width:425px)"]: {
+        height: "76vh",
+      },
     },
     "& .upload-button": {
       position: "sticky",
@@ -59,6 +67,9 @@ export const TenantStyle: any = {
       alignItems: "center",
       justifyContent: "center",
       padding: "10px 0",
+      ["@media (max-width:425px)"]: {
+        position: "fixed !important",
+      },
     },
     "& .upload-button .MuiGrid-root": {
       display: "flex",
@@ -74,6 +85,7 @@ export const TenantStyle: any = {
     },
     "& .empty-list .content-box h3": {
       fontWeight: 600,
+      fontSize: "25px",
     },
     "& .empty-list .content-box .MuiBox-root": {
       textAlign: "center",
@@ -105,6 +117,10 @@ export const TenantStyle: any = {
       height: "88vh",
       position: "relative",
       overflow: "hidden",
+      ["@media (max-width:425px)"]: {
+        height: "100%",
+        maxHeight: "calc(100vh - 140px)",
+      },
     },
     "& .tenant-list-box .tenant-list": {
       height: "calc(100% - 70px)",
@@ -119,13 +135,19 @@ export const TenantStyle: any = {
       display: "flex",
       alignItems: "center",
       justifyContent: "space-between",
+      "& h4": {
+        fontSize: "18px",
+        color: "#181D25",
+      },
     },
     "& .tenant-list-box .tenant .info span": {
-      color: "gray",
+      color: "#8c8e92",
       fontSize: "14px",
     },
     "& .tenant-list-box .tenant .info p": {
-      color: "black",
+      color: "#181d25",
+      fontSize: "16px",
+      marginTop: "2px",
     },
   },
   tenantDetails: {
@@ -140,7 +162,7 @@ export const TenantStyle: any = {
       zIndex: "9999",
       position: "sticky",
       top: "0",
-      borderBottom: "2px solid #e2e2ef",
+      borderBottom: "2px solid #f2f2f2",
     },
     "& .top-bar .left-icon": {
       display: "flex",
@@ -170,13 +192,16 @@ export const TenantStyle: any = {
     },
     "& .tenant-detail-box .detail": {
       margin: "15px 0",
+      "& h4": {
+        fontSize: "18px",
+      },
     },
     "& .tenant-detail-box .detail .detail-box": {
       borderRadius: "8px",
       marginTop: "10px",
       boxShadow: "none",
       padding: "15px 20px",
-      border: "1px solid #e2e2ef",
+      border: "1px solid #f2f2f2",
     },
     "& .tenant-detail-box .detail .detail-box .info-item": {
       display: "flex",
@@ -186,20 +211,26 @@ export const TenantStyle: any = {
     "& .tenant-detail-box .detail .detail-box .info-item .item-data": {
       display: "flex",
       flexDirection: "column",
-      gap: "6px",
+      gap: "4px",
     },
     "& .tenant-detail-box .detail .detail-box .info-item span": {
-      lineHeight: "14px",
+      lineHeight: "18px",
+      fontSize: "14px",
+      color: "#121210",
     },
     "& .tenant-detail-box .detail .detail-box .info-item p": {
+      color: "#121210",
+      fontSize: "14px",
       fontWeight: 600,
     },
-    "& .tenant-detail-box .pdf-list-box": {},
+    "& .tenant-detail-box .pdf-list-box": {
+      marginBottom: "30px",
+    },
     "& .tenant-detail-box .pdf-list-box .pdf-card": {
       borderRadius: "8px",
       marginTop: "10px",
       boxShadow: "none",
-      border: "1px solid #e2e2ef",
+      border: "1px solid #e4e4e4",
       padding: "15px",
       display: "flex",
       justifyContent: "space-between",
@@ -208,8 +239,11 @@ export const TenantStyle: any = {
     "& .tenant-detail-box .pdf-list-box .pdf-card .heading": {
       display: "flex",
       alignItems: "center",
-      gap: "20px",
-      fontWeight: 600,
+      gap: "15px",
+      "& span": {
+        fontWeight: 600,
+        fontSize: "14px",
+      },
     },
   },
   selectTemplate: {
@@ -221,7 +255,7 @@ export const TenantStyle: any = {
       background: "#FFFFFF",
       padding: "10px 20px",
       justifyContent: "space-between",
-      borderBottom: "2px solid #F9F9F9",
+      borderBottom: "2px solid #f2f2f2",
       position: "sticky",
       top: "0",
     },
@@ -246,12 +280,17 @@ export const TenantStyle: any = {
     "& .page-container": {
       overflowY: "auto",
       height: "88vh",
+      ["@media (max-width:425px)"]: {
+        height: "100%",
+        maxHeight: "calc(100vh - 190px)",
+      },
     },
     "& .issue-lease-content .select-input-box .select-input": {
       background: "#F9F9F9",
       border: "1px solid #F0F0F0",
       borderRadius: "30px",
       marginTop: "18px",
+      height: "56px",
     },
     "& .issue-lease-content .select-input-box .select-input .MuiSelect-root": {
       background: "#F9F9F9",
@@ -263,6 +302,8 @@ export const TenantStyle: any = {
     },
     "& .issue-lease-content .select-input-box .input.select-input": {
       padding: "14px 22px",
+      fontSize: "16px",
+      appearance: "none",
     },
     "& .issue-lease-content .select-input-box .input.select-input .MuiInputAdornment-positionStart": {
       marginRight: "14px",
@@ -323,8 +364,9 @@ export const TenantStyle: any = {
       marginTop: "18px",
     },
     "& .issue-lease-content .upload-box p": {
-      color: "#CBCBCB",
+      color: "#9c9c9c",
       marginTop: "10px",
+      fontSize: "16px",
     },
     "& .templates-list": {
       width: "100% !important",
@@ -413,6 +455,9 @@ export const TenantStyle: any = {
       bottom: 0,
       left: 0,
       right: 0,
+      ["@media (max-width:425px)"]: {
+        position: "fixed",
+      },
     },
     "& .next-button button": {
       fontWeight: "600",
@@ -442,15 +487,15 @@ export const TenantStyle: any = {
       fontSize: "14px",
     },
     "& ::placeholder": {
-      color: "black !important",
+      color: "#9C9C9C !important",
       opacity: "1",
     },
     "& :-ms-input-placeholder": {
-      color: "black !important",
+      color: "#9C9C9C !important",
       opacity: "1",
     },
     "& ::-ms-input-placeholder": {
-      color: "black !important",
+      color: "#9C9C9C !important",
       opacity: "1",
     },
     "& .select-input-box .select-box": {
@@ -467,6 +512,7 @@ export const TenantStyle: any = {
     },
     "& .select-input-box .select-box .select-input .MuiSelect-root": {
       padding: "20px 10px",
+      fontSize: "16px",
     },
     "& .mobile-box": {
       display: "flex",
@@ -510,6 +556,9 @@ export const TenantStyle: any = {
       gap: "50px",
       margin: "50px 0",
     },
+    "& .divider-box span": {
+      color: "#9C9C9C",
+    },
     "& .divider-box .MuiDivider-root": {
       width: "120px",
     },
@@ -526,7 +575,7 @@ export const TenantStyle: any = {
       padding: "12px 50px",
       borderRadius: "25px",
       fontWeight: 600,
-      marginBottom: "20px",
+      marginBottom: "8px",
     },
     "& .pdf-preview .submit-button-box": {
       display: "flex",
@@ -571,7 +620,7 @@ export const TenantStyle: any = {
       alignItems: "center",
       gap: "15px",
       background: "white",
-      width: "100%",
+      width: "95%",
       boxShadow: "none",
       padding: "15px",
       borderRadius: "8px",
@@ -582,6 +631,13 @@ export const TenantStyle: any = {
     },
     "& .pdf-preview .pdf-box .pdf-info": {
       width: "100%",
+      display: "flex",
+      flexDirection: "column",
+      justifyContent: "center",
+      gap: "5px",
+    },
+    "& .pdf-preview .pdf-box .pdf-info .data": {
+      fontSize: "14px",
     },
     "& .pdf-preview .pdf-box .data span": {
       color: "#FC8433",
@@ -590,6 +646,12 @@ export const TenantStyle: any = {
       display: "flex",
       alignItems: "center",
       justifyContent: "space-between",
+      "& h4": {
+        fontSize: "16px",
+      },
+      "& button": {
+        padding: "0",
+      },
     },
     "& .pdf-preview .right-menu > .MuiButtonBase-root": {
       padding: "5px",

@@ -172,7 +172,7 @@ class TenantDetails extends TenantListController {
                               </Box>
                             </Box>
                           </Grid>
-                          <Grid item xs={6}>
+                          <Grid item xs={12}>
                             <Box className="info-item">
                               <img src={CalenderIcon} alt="" />
                               <Box className="item-data">
