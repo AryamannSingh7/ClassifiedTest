@@ -16,6 +16,9 @@ export interface Props {
 
 interface S {
   budgetReportCount:any;
+  expenseReportCount:any;
+  invitationReportCount:any;
+  managementFeeCount:any;
 }
 
 interface SS {
@@ -32,6 +35,9 @@ export default class ReportDashboardController extends CommonApiCallForBlockComp
 
     this.state = {
       budgetReportCount:0,
+      expenseReportCount:0,
+      invitationReportCount:0,
+      managementFeeCount:0,
     };
     runEngine.attachBuildingBlock(this as IBlock, this.subScribedMessages);
   }
@@ -61,7 +67,7 @@ export default class ReportDashboardController extends CommonApiCallForBlockComp
     this.getBudgetDataId = await this.apiCall({
       contentType: "application/json",
       method: "GET",
-      endPoint: `/society_managements/${societyID}/bx_block_report/budget_reports`,
+      endPoint: `/society_managements/${societyID}/bx_block_report/budget_reports/budget_report_list_count`,
     });
   }
 }

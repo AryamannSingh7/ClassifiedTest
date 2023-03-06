@@ -305,6 +305,22 @@ const SelectTab = (props:any) => {
         </>
     )
 }
+
+const VoteButton = (props:any) => {
+    const {votedChairmanId,votedViceChairmanId,item,t} = props
+    return(
+        <>
+            {
+                votedChairmanId == item.id &&
+                <DeclineButton fullWidth disableRipple>{t("Chairman")}</DeclineButton>
+            }
+            {
+                votedViceChairmanId == item.id &&
+                <DeclineButton fullWidth disableRipple>{t("Vice Chairman")}</DeclineButton>
+            }
+        </>
+    )
+}
 const NominatedMemberCard = (props:any) => {
     const {
         item,
@@ -351,14 +367,7 @@ const NominatedMemberCard = (props:any) => {
                                     </Box>
                                     <Grid container spacing={3} style={{marginTop:"1px"}}>
                                         <Grid item xs={12}>
-                                            {
-                                                votedChairmanId == item.id &&
-                                                <DeclineButton fullWidth disableRipple>{t("Chairman")}</DeclineButton>
-                                            }
-                                            {
-                                                votedViceChairmanId == item.id &&
-                                                <DeclineButton fullWidth disableRipple>{t("Vice Chairman")}</DeclineButton>
-                                            }
+                                           <VoteButton votedViceChairmanId={votedViceChairmanId} votedChairmanId={votedChairmanId} item={item} t={t} />
                                         </Grid>
                                     </Grid>
                                 </Box>
