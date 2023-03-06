@@ -3,33 +3,19 @@ import React from "react";
 import {
   Box,
   Button,
-  Link,
   Typography,
-  IconButton,
-  Dialog,
-  DialogActions,
-  DialogTitle,
   Grid,
-  TableContainer,
-  Table,
-  TableHead,
-  TableRow,
-  TableCell,
   Container,
   FormControl,
-  NativeSelect,
-  TableBody,
   Select,
   MenuItem,
   InputAdornment, withStyles,
 } from "@material-ui/core";
 
 //resources
-import {Building, Building1, buildingImg, CarBlue, CarFront, userBlue,CarLogo} from "./assets";
+import {buildingImg, userBlue,CarLogo} from "./assets";
 import { withRouter } from 'react-router';
-import { Formik, Form, Field, ErrorMessage } from "formik";
-import { Visibility, VisibilityOff } from "@material-ui/icons";
-import KeyboardBackspaceIcon from '@material-ui/icons/KeyboardBackspace';
+import { Formik, Form, ErrorMessage } from "formik";
 import Loader from "../../../components/src/Loader.web";
 import ManagerController from "./ManagerController.web";
 import DashboardHeader from "../../dashboard/src/DashboardHeader.web";
