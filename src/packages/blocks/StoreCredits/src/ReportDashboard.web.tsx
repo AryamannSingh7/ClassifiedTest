@@ -64,7 +64,7 @@ class ReportDashboard extends ReportDashboardController {
                             <img src={BudgetReportIcon} />
                           </Box>
                           <h4>{t("Budget Reports")}</h4>
-                          <Button className="color-btn">{this.state.budgetReportCount < 9 ? ("0" + this.state.budgetReportCount) : this.state.budgetReportCount}</Button>
+                          <Button className="color-btn">{this.state.budgetReportCount}</Button>
                         </Card>
                       </Link>
                     </Grid>
@@ -75,7 +75,7 @@ class ReportDashboard extends ReportDashboardController {
                             <img src={ExpenseReportIcon} />
                           </Box>
                           <h4>{t("Expense Reports")}</h4>
-                          <Button className="color-btn">02</Button>
+                          <Button className="color-btn">{this.state.expenseReportCount}</Button>
                         </Card>
                       </Link>
                     </Grid>
@@ -86,7 +86,7 @@ class ReportDashboard extends ReportDashboardController {
                             <img src={FeeReportIcon} />
                           </Box>
                           <h4>{t("Management Fee Reports")}</h4>
-                          <Button className="color-btn">02</Button>
+                          <Button className="color-btn">{this.state.managementFeeCount}</Button>
                         </Card>
                       </Link>
                     </Grid>
@@ -108,7 +108,7 @@ class ReportDashboard extends ReportDashboardController {
                             <img src={InvitationReportIcon} />
                           </Box>
                           <h4>{t("Invitations Reports")}</h4>
-                          <Button className="color-btn">02</Button>
+                          <Button className="color-btn">{this.state.invitationReportCount}</Button>
                         </Card>
                       </Link>
                     </Grid>
