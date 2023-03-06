@@ -65,7 +65,7 @@ class RegisterTenant extends RegisterTenantController {
         <Loader loading={this.state.loading} />
 
         {this.state.isRegisterTenantOpen ? (
-          <Box style={{ background: "white", height: "100vh" }} className={classes.selectTemplate}>
+          <Box style={{ background: "white", height: "100vh", overflowY: "hidden" }} className={classes.selectTemplate}>
             <Grid container>
               <Grid item xs={12} md={7}>
                 <Box>
@@ -448,6 +448,7 @@ class RegisterTenant extends RegisterTenantController {
             style={{
               background: this.state.contract ? "#F7F9FE" : "white",
               height: "100vh",
+              overflowY: "hidden",
             }}
             className={classes.selectTemplate}
           >
@@ -480,7 +481,7 @@ class RegisterTenant extends RegisterTenantController {
                             <Box className="pdf-info">
                               <Box className="heading">
                                 <h4 className="bold-text">{this.state.contract.name}</h4>
-                                <div className="right-menu">
+                                <div className="right-menu unit-menu">
                                   <Menu
                                     menuButton={
                                       <IconButton>

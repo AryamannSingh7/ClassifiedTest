@@ -2,11 +2,11 @@ import React from "react";
 import { withTranslation } from "react-i18next";
 import TenantListController, { Props } from "./TenantListController.web";
 import { TenantStyle } from "./TenantStyle.web";
-import { Box, Button, Card, Container, Grid, IconButton, Link, MenuItem, withStyles } from "@material-ui/core";
+import { Box, Button, Card, Container, Grid, IconButton, Link, withStyles } from "@material-ui/core";
 import KeyboardBackspaceIcon from "@material-ui/icons/KeyboardBackspace";
 import MoreVertIcon from "@material-ui/icons/MoreVert";
 import { BuildingImage, NoTenant } from "./assets";
-import { Menu } from "@szhsin/react-menu";
+import { Menu, MenuItem } from "@szhsin/react-menu";
 import Loader from "../../../components/src/Loader.web";
 
 class TenantList extends TenantListController {
@@ -73,7 +73,7 @@ class TenantList extends TenantListController {
                                       <div className="header">
                                         <Link href={`/Tenant/${tenant.id}`}>
                                           <h4 className="bold-text">
-                                            Building {tenant.attributes.building_management.name} Unit{" "}
+                                            {t("Building")} {tenant.attributes.building_management.name} {t("Unit")}{" "}
                                             {tenant.attributes.apartment_management.apartment_name}
                                           </h4>
                                         </Link>
