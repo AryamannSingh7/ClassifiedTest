@@ -84,13 +84,13 @@ class ScheduledVisitors  extends ScheduledVisitorController{
                                 <Box>
                                     <img src={userIcon} />
                                 </Box>
-                                <Typography variant="h6" style={{color:"black",fontWeight:"bold",marginTop:"15px",textAlign:"center"}}>
+                                <Typography className="visitorSceduledSceduled" variant="h6" style={{color:"black",fontWeight:"bold",marginTop:"15px",textAlign:"center"}}>
                                     {t("Scheduled")}
                                 </Typography>
-                                <Typography variant="h6" style={{color:"black",fontWeight:"bold",marginBottom:"10px",textAlign:"center"}}>
+                                <Typography className="visitorSceduledVisitors"  variant="h6" style={{color:"black",fontWeight:"bold",marginBottom:"10px",textAlign:"center"}}>
                                     {t("Visitors")}
                                 </Typography>
-                                <Typography variant="body2" style={{textAlign:"center"}}>
+                                <Typography className="visitorSceduledCaution" variant="body2" style={{textAlign:"center"}}>
                                     {t("Scheduled_Visit_Cancel_Caution")}
                                 </Typography>
                                 <Box style={{marginTop:"15px",width:"90%",display:"flex",flexDirection:"column",alignItems:"center"}}>

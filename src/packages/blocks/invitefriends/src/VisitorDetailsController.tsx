@@ -43,6 +43,7 @@ export default class VisitorDetailsController extends BlockComponent<
   emailReg: RegExp;
   labelTitle: string = "";
   visitorDetailsId:string = "";
+  deleteVisitorDetailsId:string = "";
   constructor(props: Props) {
 
     super(props);
@@ -86,6 +87,16 @@ export default class VisitorDetailsController extends BlockComponent<
     console.log("EDIT ?",this.props.match.params.type)
   }
 
+  deleteVisitor = async  () => {
+    const societyID = localStorage.getItem("society_id")
+    const visitorId =  window.location.search ? window.location.search.split("=")[1] : null;
+    this.deleteVisitorDetailsId = await this.apiCall({
+      contentType:"application/json",
+      method: "DELETE",
+      endPoint: `/society_managements/${societyID}/bx_block_visitor/visitors/${visitorId}`,
+    });
+  }
+
   getVisitorDetails = async () => {
     const societyID = localStorage.getItem("society_id")
     const visitorId =  window.location.search ? window.location.search.split("=")[1] : null;
@@ -122,6 +133,15 @@ export default class VisitorDetailsController extends BlockComponent<
         }else{
           window.history.back()
         }
+      }
+      if(this.deleteVisitorDetailsId === apiRequestCallId){
+        console.log("Data",responseJson)
+        if(responseJson.message === "Successfully deleted"){
+          this.setState({
+            deleteConfirmModal:false,
+          })
+        }
+        window.history.back()
       }
     }
   }

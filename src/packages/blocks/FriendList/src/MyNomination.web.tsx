@@ -40,16 +40,16 @@ class NominateMySelf extends NominateMySelfController{
       const {t} = this.props
     return (
         <>
-            <Grid item xs={12} md={12} className="auth-cols">
-                <Grid container style={{ margin: '1rem', width: '90%' }} >
-                  <Grid item xs={12} style={{ display:"flex", alignItems:"center", gap:"1rem",justifyContent:"space-between"}} >
-                      <Box style={{ display:"flex", alignItems:"center", gap:"1rem"}}>
+            <Grid item xs={12} md={12} className="auth-cols myNominationFile">
+                <Grid container className="myNominationFile" style={{ margin: '1rem', width: '90%' }} >
+                  <Grid item className="myNominationFile" xs={12} style={{ display:"flex", alignItems:"center", gap:"1rem",justifyContent:"space-between"}} >
+                      <Box className="myNominationFile" style={{ display:"flex", alignItems:"center", gap:"1rem"}}>
                           <ArrowBackIcon onClick={() => window.history.back()} />
-                          <p className="bold-text" style={{ fontSize: '18px'}}>
+                          <p className="bold-text myNominationFile" style={{ fontSize: '18px'}}>
                               {t("My Nomination")}
                           </p>
                       </Box>
-                      <IconButton onClick={()=> this.props.history.push(`/NominateMySelf?id=${this.state.nominationId}`)}>
+                      <IconButton className="myNominationFile" onClick={()=> this.props.history.push(`/NominateMySelf?id=${this.state.nominationId}`)}>
                           <img src={pencil} width="24px" height="24px" />
                       </IconButton>
                   </Grid>
