@@ -310,7 +310,7 @@
 }
 
 .statusOngoingBlue {
-  background: #2b6fed40;
+  background: #2b6fed20;
   padding: 5px 10px;  
   border-radius: 30px;
   color: #2b6fed;
@@ -367,7 +367,7 @@
 }
 
 .statusOngoingGreen {
-  background: #c1ffc1;
+  background: rgba(27,205,71,0.08);
   padding: 5px 15px;
   border-radius: 30px;
   color: #1bcd47;

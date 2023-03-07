@@ -16,6 +16,9 @@ export interface Props {
 
 interface S {
   budgetReportCount:any;
+  expenseReportCount:any;
+  invitationReportCount:any;
+  managementFeeCount:any;
 }
 
 interface SS {
@@ -32,6 +35,9 @@ export default class ReportDashboardController extends CommonApiCallForBlockComp
 
     this.state = {
       budgetReportCount:0,
+      expenseReportCount:0,
+      invitationReportCount:0,
+      managementFeeCount:0,
     };
     runEngine.attachBuildingBlock(this as IBlock, this.subScribedMessages);
   }
@@ -46,12 +52,12 @@ export default class ReportDashboardController extends CommonApiCallForBlockComp
       const responseJson = message.getData(getName(MessageEnum.RestAPIResponceSuccessMessage));
       const errorResponse = message.getData(getName(MessageEnum.RestAPIResponceErrorMessage));
       if(this.getBudgetDataId === apiRequestCallId ){
-        console.log("ERROR",errorResponse)
-        if(responseJson.hasOwnProperty("budget_report")){
           this.setState({
-            budgetReportCount:responseJson?.budget_report?.data?.length || 0
+            budgetReportCount:responseJson?.budget_report_count || 0,
+            expenseReportCount:responseJson?.expence_report_count || 0,
+            invitationReportCount:responseJson?.invitaion_report_count || 0,
+            managementFeeCount:responseJson?.management_fee_report_count || 0,
           })
-        }
       }
     }
   }
@@ -61,7 +67,7 @@ export default class ReportDashboardController extends CommonApiCallForBlockComp
     this.getBudgetDataId = await this.apiCall({
       contentType: "application/json",
       method: "GET",
-      endPoint: `/society_managements/${societyID}/bx_block_report/budget_reports`,
+      endPoint: `/society_managements/${societyID}/bx_block_report/budget_reports/budget_report_list_count`,
     });
   }
 }
