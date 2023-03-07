@@ -20,7 +20,7 @@ class ViewBuildingDocument extends ViewBuildingDocumentController {
 
     return (
       <>
-        <Box className={classes.buildingDocument} style={{ background: "#F7F9FE", height: "100vh" }}>
+        <Box className={classes.buildingDocument} style={{ background: "white", height: "100vh", overflowY: "hidden" }}>
           <Grid container>
             <Grid item xs={12} md={7}>
               <Box display={{ xs: "flex", md: "flex" }} className="menu building-document-menu">
@@ -79,7 +79,7 @@ class ViewBuildingDocument extends ViewBuildingDocumentController {
                     </div>
                     <div className="meeting-details">
                       <h4 className="bold-text">{t("Meeting Details")}</h4>
-                      <Card className="card">
+                      <Card className="view-meeting-card">
                         <p>{t("Date & Time")}:</p>
                         <span>
                           {moment(this.state.document.attributes.meeting_date_time, "DD-MM-YYYY HH:mm").format(

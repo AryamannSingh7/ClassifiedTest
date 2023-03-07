@@ -336,6 +336,7 @@ export const DocumentReportStyleWeb: any = {
       background: "#FFFFFF",
       padding: "10px 20px",
       textTransform: "capitalize",
+      borderBottom: "2px solid #f2f2f2",
     },
     "& .menu .name": {
       display: "flex",
@@ -497,10 +498,12 @@ export const DocumentReportStyleWeb: any = {
       marginBottom: "15px",
     },
     "& .meeting-details": {},
-    "& .meeting-details .card": {
+    "& .meeting-details .view-meeting-card": {
       padding: "15px",
       marginBottom: "10px",
       marginTop: "10px",
+      boxShadow: "4px 0px 14px #e9e9e9",
+      borderRadius: "8px",
     },
     "& .meeting-details p": {
       color: "darkgray",
