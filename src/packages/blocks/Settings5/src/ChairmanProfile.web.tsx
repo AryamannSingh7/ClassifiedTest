@@ -506,7 +506,7 @@ class ChairmanProfile extends ProfileController {
                             </Typography>
                           ) : null}
 </Box>
-<Box style={{display:'flex',gap:'1.5rem',width:'100%',gap:'1rem'}}>
+<Box style={{display:'flex',width:'100%',gap:'1rem'}}>
 <div style={{display:'flex',flexDirection:'column',width:'46.8%'}}>
   
                           {/* Twitter */}
@@ -582,7 +582,7 @@ class ChairmanProfile extends ProfileController {
 </div>
 
 </Box>
-<Box style={{display:'flex',gap:'1.5rem',width:'100%',gap:'1rem'}}>
+<Box style={{display:'flex',width:'100%',gap:'1rem'}}>
 <div style={{display:'flex',flexDirection:'column',width:'46.5%'}}>
 
                           {/* Insta */}
