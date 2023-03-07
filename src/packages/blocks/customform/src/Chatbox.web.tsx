@@ -132,7 +132,7 @@ console.log(moment( myDate ).calendar())
       <div style={{ padding: "0.3rem", backgroundColor: "#ffff",paddingLeft:'0.3rem',marginTop:'1rem'}}>
         <Grid container>
           <Grid item xs={12} style={{ display: 'flex', justifyContent: 'space-between',borderBottom:'1px solid #F2F2F2',paddingBottom:'1rem' }}>
-            <Box display='flex' alignItems='center' onClick={() => window.history.back()}>
+            <Box display='flex' alignItems='center' style={{gap:"5px"}} onClick={() => window.history.back()}>
               <KeyboardBackspaceIcon />
               <span className="bold-text" style={{ fontWeight: 'bold', fontSize:"16px" }}>
                 {item?.attributes?.chat_with_account?.id != localStorage.getItem('userId') ?item?.attributes?.chat_with_account?.attributes?.full_name || 'N/A':item?.attributes?.chatable?.attributes?.full_name || 'N/A' }
@@ -225,7 +225,9 @@ this.setState({ selectedMedia: message.message.images[0] })}} />
                   accept="image/png, image/jpeg, image/jpg,.pdf"
                 />
               </Grid>
-              <img src={Send} style={{ cursor: 'pointer',borderRadius:'20px',padding:'1rem',background:'#2B6FED' }} onClick={()=>this.createMessages()}/> 
+              <Box style={{borderRadius:'50%', cursor: 'pointer', padding:'10px',background:'#2B6FED'}} onClick={()=>this.createMessages()}>
+                <img src={Send} alt="send" /> 
+              </Box>
               {/* <SendIcon style={{ cursor: 'pointer' }} onClick={()=>this.createMessages()} /> */}
 
             </Grid>
