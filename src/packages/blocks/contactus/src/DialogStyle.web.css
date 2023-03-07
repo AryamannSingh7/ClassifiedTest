@@ -304,6 +304,11 @@
   top: -10px !important;
 }
 
+.chat-menu .szh-menu-container ul {
+  left: -120px !important;
+  top: -8px !important;
+}
+
 .profile-menu .szh-menu-container ul {
   left: -210px !important;
   top: -10px !important;
