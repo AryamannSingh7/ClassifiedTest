@@ -132,9 +132,9 @@ class IncidentListing extends IncidentController {
                                       <Button variant="contained" className="contain success" type="submit" >Resolved</Button>
                                     </Box>
                                     :
-                                    (val?.attributes?.incident_status === "Pending Confirmation") ?
+                                    (val?.attributes?.incident_status === "Pending Confirmation" || val?.attributes?.incident_status === "Ongoing") ?
                                       <Box className="customButton">
-                                        <Button variant="contained" className="contain warning" type="submit" >Pending Confirmation</Button>
+                                        <Button variant="contained" className="contain warning" type="submit" >{val?.attributes?.incident_status}</Button>
                                       </Box>
                                       :
                                       <Box className="customButton">

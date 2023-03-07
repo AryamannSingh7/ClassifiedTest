@@ -63,7 +63,7 @@ class IncidentManagementDetail extends IncidentManagementController {
       this.props.history.push("/IncidentManagement")
   }
   render() {
-    const statusArray = ["Unresolved", "Resolved", "Pending Confirmation"]
+    const statusArray = ["Unresolved", "Resolved", "Pending Confirmation","Ongoing"]
     const id = this.state?.getIncidentDetails?.id;
     const attributes = this.state?.getIncidentDetails?.attributes;
     const apartmentManagementId = attributes?.apartment_management?.apartment_management_id;
@@ -101,8 +101,8 @@ class IncidentManagementDetail extends IncidentManagementController {
                       <Typography component="h4" className="bold-text">
                         {attributes?.incident_title}
                       </Typography>
-                      <Box className={this.state?.statusDetail === 'Pending Confirmation' ? "formGroup customSelect warning" :
-                        this.state?.statusDetail === 'Resolved' ? 'formGroup customSelect success' : 'formGroup customSelect danger'}>
+                      <Box className={this.state?.statusDetail === 'Unresolved' ? "formGroup customSelect danger" :
+                        this.state?.statusDetail === 'Resolved' ? 'formGroup customSelect success' : 'formGroup customSelect warning'}>
                         <FormControl variant="outlined" >
                           <Select
                             name="statusDetail"

@@ -197,7 +197,7 @@ class IncidentManagement extends IncidentManagementController {
                         <Card className="management-card card" key={index}>
                           <CardContent className="costom-card-content">
                             <Box className="customButton">
-                              <Button variant="contained" className={val?.attributes?.incident_status === 'Pending Confirmation' ? "contain warning" : val?.attributes?.incident_status === 'Resolved' ? 'contain success' : 'contain danger'} type="submit">
+                              <Button variant="contained" className={val?.attributes?.incident_status === 'Unresolved' ? "contain danger" : val?.attributes?.incident_status === 'Resolved' ? 'contain success' : 'contain warning'} type="submit">
                                 {val?.attributes?.incident_status}</Button>
                             </Box>
                             <Typography component="h4" className="bold-text" style={{fontSize:"20px"}}>
