@@ -142,10 +142,7 @@ class IncidentListing extends IncidentController {
                      this.props.history.push("/CreateIncident") }} >Add New Incident</Button>
                   </Box>
                 </Box>
-                {/* <Box className="footer-main-block bottomBlock">
-                  <h6 className="bottom-text">POWERED BY</h6>
-                  <img src={Tenant_Logo.default} className="tenant-logo" alt="" />
-                </Box> */}
+               
               </Box>
             </Grid>
             {/* desktop footer block */}
@@ -163,32 +160,6 @@ class IncidentListing extends IncidentController {
   }
 }
 
-// const ButtonStatus =(props:any)=>{
-//   const val = props?.val;
-
-//   const checkCls=()=>{
-    
-//   }
-//   return (
-//     <>
-//      {
-//                                   val?.attributes?.incident_status === "Resolved" ?
-//                                     <Box className="customButton">
-//                                       <Button variant="contained" className="contain success" type="submit" >Resolved</Button>
-//                                     </Box>
-//                                     :
-//                                     (val?.attributes?.incident_status === "Pending Confirmation" || val?.attributes?.incident_status === "Ongoing") ?
-//                                       <Box className="customButton">
-//                                         <Button variant="contained" className="contain warning" type="submit" >{val?.attributes?.incident_status}</Button>
-//                                       </Box>
-//                                       :
-//                                       <Box className="customButton">
-//                                         <Button variant="contained" className="contain danger" type="submit" >Unresolved</Button>
-//                                       </Box>
-//                                 }
-//     </>
-//   )
-// }
 const ButtonStatus=(props:any)=>{
   const attributes = props?.val
   const checkCl=()=>{
