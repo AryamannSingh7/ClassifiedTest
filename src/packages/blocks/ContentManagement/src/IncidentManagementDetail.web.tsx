@@ -45,7 +45,6 @@ import CountryCodeSelector from "../../country-code-selector/src/CountryCodeSele
 import IncidentManagementController, { Props } from "./IncidentManagementController.web";
 import DashboardHeader from "../../dashboard/src/DashboardHeader.web";
 import ChairmanSidebar from "../../dashboard/src/ChairmanSidebar.web";
-
 //resorces
 import { Close_Icon, Bank_Icon, Box_Icon, Building1,Tick_Circle_Icon } from "./assets";
 import IncidentChatWeb from "../../customform/src/IncidentChat.web";
@@ -85,9 +84,14 @@ class IncidentManagementDetail extends IncidentManagementController {
                 <Box style={dashBoard.navigation}>
                   <Box>
                     <Typography variant="body1" >
-                      My Dashboard / General Dashboard / Incidents/<Box component="span" style={{ color: "blue" }}> Incidents Detail</Box>
+                      <Link href="DashboardGeneral"  color="inherit"> My Dashboard</Link> /
+                      <Link href="DashboardGeneral"  color="inherit"> General Dashboard</Link> / 
+                      <Link href="IncidentManagement"color="inherit"> Incidents</Link> / 
+                      <Box component="span" style={{ color: "#2c6fed" }}>
+                        <Link href="IncidentManagementDetail" color="inherit"> Incidents Details</Link>
+                      </Box>
                     </Typography>
-                    <Typography variant="h5" className="bold-text" style={dashBoard.subHeading}>Incidents Details</Typography>
+                    <Typography variant="h5" className="bold-text" style={dashBoard.subHeading}>Incident Details</Typography>
                   </Box>
                  
                 </Box>
@@ -169,6 +173,12 @@ class IncidentManagementDetail extends IncidentManagementController {
                         </Box>
                         <Box className="card-rows" style={{borderBottom:'1px solid #f4f6fb',marginBottom:'0.5rem'}}>
                         <Typography className="title-span" component="span">
+                         Reported on:
+                        </Typography>
+                          <h4 className="bold-text">{attributes?.reported_on}</h4>
+                        </Box>
+                        <Box className="card-rows" style={{borderBottom:'1px solid #f4f6fb',marginBottom:'0.5rem'}}>
+                        <Typography className="title-span" component="span">
                          Acknowledge by Manager:
                         </Typography>
                           <h4 className="bold-text">{attributes?.acknoledged_by_manager}</h4>
@@ -222,7 +232,7 @@ class IncidentManagementDetail extends IncidentManagementController {
                   </Card>
                 </Box>
 
-                <Box className="incident-button-row customButton">
+                <Box className="incident-button-row customButton" style={{padding:"30px"}}>
                         {
                           attributes?.assign_incidents?.data === null ?
                             <Button variant="outlined"
@@ -230,7 +240,7 @@ class IncidentManagementDetail extends IncidentManagementController {
                             >assign incident to provider</Button>
                             :
                             <Box className="user-btn-box">
-                              <h6 className="user-title bold-text">{attributes?.assign_incidents?.data?.attributes?.provider?.full_name}</h6>
+                              <h6 className="user-title bold-text" style={{color:"#fc8434"}}>{attributes?.assign_incidents?.data?.attributes?.provider?.full_name}</h6>
                               <Button className="change-btn" style={{color:"#3769fc"}} onClick={() => this.providerList(apartmentManagementId)}>change</Button>
                             </Box>
                         }
@@ -255,7 +265,7 @@ class IncidentManagementDetail extends IncidentManagementController {
                 <Box className="provider-dialouge-body desktop-ui">
                   <Box className="dialouge-header">
                     <DialogTitle className="alert-dialog-title" id="alert-dialog-title">
-                      Assign Incident to Provider
+                     <h3 className="bold-text">Assign Incident to Provider</h3> 
                     </DialogTitle>
                     <Button>
                       <img src={Close_Icon} className="close-icon" onClick={() => { this.setState({ showDialog: false }) }} />
@@ -312,16 +322,18 @@ class IncidentManagementDetail extends IncidentManagementController {
                         </Select>
                       </FormControl>
                     </Box>
-                    <Box className="customButton">
-                      <Button variant="outlined"
+                    <Box className="incident-Listing-wrapper">
+                      <Box className="incident-button-row customButton" style={{paddingTop:"0px"}}>
+                      <Button variant="outlined" 
                         onClick={() => { this.setState({ showDialog: false }) }}
                       >cancel</Button>
-                      {
+                        {
                         attributes?.assign_incidents?.data === null ?
                           <Button variant="contained" onClick={() => this.assginProvider()}>assign incident</Button>
                           :
                           <Button variant="contained" onClick={() => this.updateProvider(attributes?.assign_incidents?.data?.id)}>assign incident</Button>
                       }
+                      </Box>
                     </Box>
                   </Box>
                 </Box>
@@ -377,22 +389,24 @@ class IncidentManagementDetail extends IncidentManagementController {
                   },
                 }}
               >
-                <Box className="diloag-body desktop-ui ">
-                  <Box className="diloag-header">
-                    <DialogTitle className="alert-dialog-title" id="alert-dialog-title">
-                      Update Status
-                    </DialogTitle>
-                    <Button onClick={() => this.setState({ statusShowDialog: false ,statusDetail: attributes?.incident_status})}>
-                      <img src={Close_Icon} className="close-icon" />
-                    </Button>
-                  </Box>
+                <Box className="diloag-body desktop-ui" style={{padding:"50px"}}>
                   <Box className="diloag-content diloag-management-content">
                   <img src={Tick_Circle_Icon} className="lock-logo" alt="Lock_Icon" />
-                  <p> Are you sure you want to change the status to {this.state?.statusDetail}</p>
-                   <Box className="diloag-btn customButton">
-                   <Button variant="outlined" onClick={() => { this.setState({ statusShowDialog: false , statusDetail: attributes?.incident_status}) }}>Close</Button>
-                   <Button variant="outlined" onClick={() =>this.updateStatus(this.state?.statusDetail)}>Confirm</Button>
+                  <br/>
+                  <h3 className="bold-text">Update Status</h3>
+                  <p> Are you sure you want to change the status to {this.state?.statusDetail} ?</p>
+                  <br/>
+                  <Box className="incident-Listing-wrapper">
+                   <Box className="incident-button-row customButton" style={{paddingTop:"0px",paddingLeft:"54px"}}>
+                   <Button variant="outlined" style={{padding:"10px 60px"}}
+                      onClick={() => { this.setState({ statusShowDialog: false , statusDetail: attributes?.incident_status}) }}>Close</Button>
+                   <Button variant="contained" style={{padding:"10px 60px"}} onClick={() =>this.updateStatus(this.state?.statusDetail)}>Confirm</Button>
                    </Box>
+                   {/* <Box className="diloag-btn customButton">
+                   <Button variant="outlined" onClick={() => { this.setState({ statusShowDialog: false , statusDetail: attributes?.incident_status}) }}>Close</Button>
+                   <Button variant="contained" onClick={() =>this.updateStatus(this.state?.statusDetail)}>Confirm</Button>
+                   </Box> */}
+                  </Box>
                   </Box>
                 </Box>
               </Dialog>
