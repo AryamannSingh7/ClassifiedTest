@@ -288,23 +288,7 @@ class EditProfile extends ProfileController {
                             </Typography>
                          
                           {/* gender */}
-                          <Box className="formGroup formCheckbox" style={{flexDirection:'column',marginTop:'1rem',marginLeft:'1rem',fontWeight:'bold'}}>
-                            <p className="bold-text" style={{fontSize:"16px"}}> 
-                              Gender
-                            </p>
-                            <div style={{display:'flex'}}>
-                              <div>
-                                <RadioGroup
-                                  name="radio-buttons-group"
-                                  defaultValue={values.gender}
-                                  style={{ display: 'flex',flexDirection:'row',marginTop:'0.25rem' }}
-                                >
-                                  <FormControlLabel className={values.gender == 'Female' ? 'active profile-gender' : 'unactive profile-gender'} name='gender' onChange={handleChange} value="Female" control={<Radio />} label="Female" style={{ paddingRight: 30, borderRadius: 25, border: '1px solid #e9dede' }}  />
-                                  <FormControlLabel className={values.gender == 'Male' ? 'active profile-gender' : 'unactive profile-gender'} name='gender' onChange={handleChange} value="Male" control={<Radio />} label="Male" style={{ paddingRight: 30, borderRadius: 25, border: '1px solid #e9dede' }} />
-                                </RadioGroup>
-                              </div>
-                            </div>
-                          </Box>
+                        <Gender values={values} handleChange={handleChange}/>
                           {/* DOB */}
                           <Box
                             className="formInputGrp"
@@ -732,6 +716,31 @@ class EditProfile extends ProfileController {
   }
 }
 
+const Gender =(props:any)=>{
+ const  values = props?.values
+ const handleChange = props?.handleChange
+  return(
+    <>
+      <Box className="formGroup formCheckbox" style={{flexDirection:'column',marginTop:'1rem',marginLeft:'1rem',fontWeight:'bold'}}>
+                            <p className="bold-text" style={{fontSize:"16px"}}> 
+                              Gender
+                            </p>
+                            <div style={{display:'flex'}}>
+                              <div>
+                                <RadioGroup
+                                  name="radio-buttons-group"
+                                  defaultValue={values.gender}
+                                  style={{ display: 'flex',flexDirection:'row',marginTop:'0.25rem' }}
+                                >
+                                  <FormControlLabel className={values.gender == 'Female' ? 'active profile-gender' : 'unactive profile-gender'} name='gender' onChange={handleChange} value="Female" control={<Radio />} label="Female" style={{ paddingRight: 30, borderRadius: 25, border: '1px solid #e9dede' }}  />
+                                  <FormControlLabel className={values.gender == 'Male' ? 'active profile-gender' : 'unactive profile-gender'} name='gender' onChange={handleChange} value="Male" control={<Radio />} label="Male" style={{ paddingRight: 30, borderRadius: 25, border: '1px solid #e9dede' }} />
+                                </RadioGroup>
+                              </div>
+                            </div>
+                          </Box>
+    </>
+  )
+}
 // @ts-ignore
 // @ts-nocheck
 export default withTranslation()(withRouter(EditProfile));
