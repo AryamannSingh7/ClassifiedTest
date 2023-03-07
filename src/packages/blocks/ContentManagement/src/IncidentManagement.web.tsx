@@ -196,10 +196,7 @@ class IncidentManagement extends IncidentManagementController {
                       <Grid item sm={4} key={index} onClick={() => this.getIncidentDetails(val.id)}>
                         <Card className="management-card card" key={index}>
                           <CardContent className="costom-card-content">
-                            <Box className="customButton">
-                              <Button variant="contained" className={val?.attributes?.incident_status === 'Unresolved' ? "contain danger" : val?.attributes?.incident_status === 'Resolved' ? 'contain success' : 'contain warning'} type="submit">
-                                {val?.attributes?.incident_status}</Button>
-                            </Box>
+                           <ButtonStatus val={val}></ButtonStatus>
                             <Typography component="h4" className="bold-text" style={{fontSize:"20px"}}>
                               {val?.attributes?.incident_related?.name}
                             </Typography>
@@ -234,6 +231,19 @@ class IncidentManagement extends IncidentManagementController {
 
 export default withTranslation()(withStyles(dashBoard)(withRouter(IncidentManagement)));
 
+
+const ButtonStatus =(props:any)=>{
+  const val = props?.val
+  return(
+
+    <>
+     <Box className="customButton">
+          <Button variant="contained" className={val?.attributes?.incident_status === 'Unresolved' ? "contain danger" : val?.attributes?.incident_status === 'Resolved' ? 'contain success' : 'contain warning'} type="submit">
+                  {val?.attributes?.incident_status}</Button>
+           </Box>
+    </>
+  )
+}
 const dashBoard = {
   navigation: {
     display: "flex",

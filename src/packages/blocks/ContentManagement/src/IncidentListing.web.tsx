@@ -126,21 +126,7 @@ class IncidentListing extends IncidentController {
                                 <Typography className="sub-title h5-title" component="h5">
                                   {val?.attributes?.common_area?.name}
                                 </Typography>
-                                {
-                                  val?.attributes?.incident_status === "Resolved" ?
-                                    <Box className="customButton">
-                                      <Button variant="contained" className="contain success" type="submit" >Resolved</Button>
-                                    </Box>
-                                    :
-                                    (val?.attributes?.incident_status === "Pending Confirmation" || val?.attributes?.incident_status === "Ongoing") ?
-                                      <Box className="customButton">
-                                        <Button variant="contained" className="contain warning" type="submit" >{val?.attributes?.incident_status}</Button>
-                                      </Box>
-                                      :
-                                      <Box className="customButton">
-                                        <Button variant="contained" className="contain danger" type="submit" >Unresolved</Button>
-                                      </Box>
-                                }
+                               <ButtonStatus val={val}></ButtonStatus>
                                 {/* <Button className="success">Resolved</Button> */}
                               </CardActions>
                             </CardContent>
@@ -177,4 +163,26 @@ class IncidentListing extends IncidentController {
   }
 }
 
+const ButtonStatus =(props:any)=>{
+  const val = props?.val;
+  return (
+    <>
+     {
+                                  val?.attributes?.incident_status === "Resolved" ?
+                                    <Box className="customButton">
+                                      <Button variant="contained" className="contain success" type="submit" >Resolved</Button>
+                                    </Box>
+                                    :
+                                    (val?.attributes?.incident_status === "Pending Confirmation" || val?.attributes?.incident_status === "Ongoing") ?
+                                      <Box className="customButton">
+                                        <Button variant="contained" className="contain warning" type="submit" >{val?.attributes?.incident_status}</Button>
+                                      </Box>
+                                      :
+                                      <Box className="customButton">
+                                        <Button variant="contained" className="contain danger" type="submit" >Unresolved</Button>
+                                      </Box>
+                                }
+    </>
+  )
+}
 export default withRouter(IncidentListing)

@@ -103,9 +103,7 @@ class IncidentDetails extends IncidentController {
                     }
                     <Box className="incident-rows mt-15">
                       <h4>Incident Details</h4>
-                      <Box className="customButton">
-                        <Button variant="contained" className={attributes?.incident_status === 'Unresolved' ? "contain danger" : attributes?.incident_status === 'Resolved' ? 'contain success' : 'contain warning'}  > {attributes?.incident_status}</Button>
-                      </Box>
+                     <ButtonStatus attributes={attributes}></ButtonStatus>
                     </Box>
                     <Card className="incident-card card">
                       <CardContent>
@@ -309,6 +307,17 @@ class IncidentDetails extends IncidentController {
       </>
     )
   }
+}
+
+const ButtonStatus=(props:any)=>{
+  const attributes = props?.attributes
+  return(
+    <>
+     <Box className="customButton">
+                        <Button variant="contained" className={attributes?.incident_status === 'Unresolved' ? "contain danger" : attributes?.incident_status === 'Resolved' ? 'contain success' : 'contain warning'}  > {attributes?.incident_status}</Button>
+                      </Box>
+    </>
+  )
 }
 
 export default withRouter(IncidentDetails)

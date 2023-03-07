@@ -101,43 +101,7 @@ class IncidentManagementDetail extends IncidentManagementController {
                       <Typography component="h4" className="bold-text">
                         {attributes?.incident_title}
                       </Typography>
-                      <Box className={this.state?.statusDetail === 'Unresolved' ? "formGroup customSelect danger" :
-                        this.state?.statusDetail === 'Resolved' ? 'formGroup customSelect success' : 'formGroup customSelect warning'}>
-                        <FormControl variant="outlined" >
-                          <Select
-                            name="statusDetail"
-                            labelId="demo-simple-select-outlined-label"
-                            id="demo-simple-select-outlined"
-                            onChange={(e) => { this.onChange(e) }}
-                            value={this.state?.statusDetail}
-                            MenuProps={{
-                              anchorOrigin: {
-                                vertical: 'bottom',
-                                horizontal: 'left',
-                              },
-                              transformOrigin: {
-                                vertical: 'top',
-                                horizontal: 'left',
-                              },
-                              getContentAnchorEl: null,
-                            }}
-                          >
-                            <MenuItem disabled value=" ">
-                              Select Status
-                            </MenuItem>
-                            {
-                              statusArray?.map((val, index) => (
-                                <MenuItem
-                                  key={index}
-                                  value={val}
-                                >
-                                  {val}
-                                </MenuItem>
-                              ))
-                            }
-                          </Select>
-                        </FormControl>
-                      </Box>
+                      <SelectStatus this={this} statusArray={statusArray}></SelectStatus>
                     </Box>
                     <CardContent className="card-content">
                       <Box className="row-block">
@@ -524,7 +488,50 @@ const dashBoard = {
     paddingBottom: 150,
   },
 };
-
+const SelectStatus = (props:any) => {
+  
+  return(
+   <>
+                    <Box className={props?.this.state?.statusDetail === 'Unresolved' ? "formGroup customSelect danger" :
+                        props?.this.state?.statusDetail === 'Resolved' ? 'formGroup customSelect success' : 'formGroup customSelect warning'}>
+                        <FormControl variant="outlined" >
+                          <Select
+                            name="statusDetail"
+                            labelId="demo-simple-select-outlined-label"
+                            id="demo-simple-select-outlined"
+                            onChange={(e) => {props?.this.onChange(e) }}
+                            value={props?.this.state?.statusDetail}
+                            MenuProps={{
+                              anchorOrigin: {
+                                vertical: 'bottom',
+                                horizontal: 'left',
+                              },
+                              transformOrigin: {
+                                vertical: 'top',
+                                horizontal: 'left',
+                              },
+                              getContentAnchorEl: null,
+                            }}
+                          >
+                            <MenuItem disabled value=" ">
+                              Select Status
+                            </MenuItem>
+                            {
+                              props?.statusArray?.map((val, index) => (
+                                <MenuItem
+                                  key={index}
+                                  value={val}
+                                >
+                                  {val}
+                                </MenuItem>
+                              ))
+                            }
+                          </Select>
+                        </FormControl>
+                      </Box>
+   </>
+  )
+}
 // Customizable Area End
 
 export default withRouter(IncidentManagementDetail)
