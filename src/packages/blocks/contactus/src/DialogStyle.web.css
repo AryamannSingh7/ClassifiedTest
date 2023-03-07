@@ -198,6 +198,8 @@
 .save-lease h6 {
   margin-bottom: 6px;
   font-weight: 600;
+  font-size: 20px;
+  line-height: 28px;
 }
 
 .delete-document p,
@@ -302,6 +304,16 @@
   top: -10px !important;
 }
 
+.profile-menu .szh-menu-container ul {
+  left: -210px !important;
+  top: -10px !important;
+}
+
+.family-menu .szh-menu-container ul {
+  left: -90px !important;
+  top: -5px !important;
+}
+
 .list-unit-menu .szh-menu-container ul {
   left: -95px !important;
   top: -10px !important;
@@ -398,6 +410,10 @@
   align-items: center !important;
   justify-content: flex-start !important;
   text-decoration: none !important;
+}
+
+.family-menu button {
+  padding: 0;
 }
 
 .menu-list .MuiListItem-root {
@@ -661,7 +677,6 @@
   padding: 4px 0 4px 30px;
   min-height: 32px;
   font-size: 16px;
-  font-family: "Roboto", "Helvetica", "Arial", sans-serif;
   font-weight: 400 !important;
   font-size: 16px;
 }
@@ -700,7 +715,6 @@
   outline: none;
   background-color: #f9f9f9;
   color: black;
-  font-family: "Roboto", "Helvetica", "Arial", sans-serif;
   font-weight: 400 !important;
   font-size: 16px;
   resize: none;
@@ -1589,15 +1603,13 @@
   margin-bottom: 8px;
 }
 
-.group-user-type {
-  /* width: 100px;
-  text-overflow: ellipsis;
-  -webkit-line-clamp: 1; */
-  /* display: -webkit-box; */
-  /* overflow: hidden;
-  word-break: break-all;
-  -webkit-box-orient: vertical;
-  white-space: normal; */
+.profile-gender span {
+  font-family: "Gotham_Bold" !important;
+}
+
+.react-tel-input .selected-flag:hover,
+.react-tel-input .selected-flag:focus {
+  background-color: #f9f9f9 !important;
 }
 
 @media only screen and (max-width: 425px) {

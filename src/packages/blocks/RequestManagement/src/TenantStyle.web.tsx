@@ -521,6 +521,7 @@ export const TenantStyle: any = {
       border: "1px solid #F0F0F0",
       borderRadius: "30px",
       marginTop: "18px",
+      height: "56px",
     },
     "& .mobile-box .mobile-select": {
       width: "120px",

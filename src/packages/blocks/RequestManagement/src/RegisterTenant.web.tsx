@@ -164,7 +164,36 @@ class RegisterTenant extends RegisterTenantController {
                                 </FormControl>
                                 <FormControl fullWidth>
                                   <Box className="mobile-box">
-                                    <Select
+                                    <Box>
+                                      <FormControl variant="outlined">
+                                        <PhoneInput
+                                          inputProps={{ name: "selectCode" }}
+                                          enableSearch={true}
+                                          value={values.tenantCountryCode}
+                                          onChange={(e: any) => {
+                                            setFieldValue("tenantCountryCode", `+${e}`);
+                                          }}
+                                          country={"us"}
+                                        />
+                                      </FormControl>
+                                    </Box>
+                                    <Box className="divider" />
+                                    <Input
+                                      value={values.tenantMobile}
+                                      onChange={(e: any) => {
+                                        setFieldValue("tenantMobile", e.target.value);
+                                      }}
+                                      onBlur={handleBlur}
+                                      name="tenantMobile"
+                                      className="mobile-input"
+                                      placeholder={t("Tenant Mobile")}
+                                      startAdornment={
+                                        <InputAdornment position="start">
+                                          <img src={GreyPhoneNumber} alt="" />
+                                        </InputAdornment>
+                                      }
+                                    />
+                                    {/* <Select
                                       displayEmpty
                                       value={values.tenantCountryCode}
                                       onChange={(e: any) => {
@@ -189,8 +218,8 @@ class RegisterTenant extends RegisterTenantController {
                                           </MenuItem>
                                         );
                                       })}
-                                    </Select>
-                                    <Box className="divider" />
+                                    </Select> */}
+                                    {/* <Box className="divider" />
                                     <Input
                                       value={values.tenantMobile}
                                       onChange={(e: any) => {
@@ -205,7 +234,7 @@ class RegisterTenant extends RegisterTenantController {
                                           <img src={GreyPhoneNumber} alt="" />
                                         </InputAdornment>
                                       }
-                                    />
+                                    /> */}
                                   </Box>
                                   {this.handleErrorMessage(errors.tenantMobile, touched.tenantMobile, t)}
                                 </FormControl>

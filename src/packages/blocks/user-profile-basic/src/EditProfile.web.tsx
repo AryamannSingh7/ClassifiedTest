@@ -1,23 +1,15 @@
 import * as React from "react";
 // custom components
 import {
-  Button, Grid, Box, Typography, Link, IconButton, FormControl, InputLabel, Select, MenuItem, Avatar, Checkbox, Dialog, DialogActions, RadioGroup, FormControlLabel, Radio
+  Button, Grid, Box, Typography, FormControl, Select, MenuItem, Avatar, Dialog, DialogActions, RadioGroup, FormControlLabel, Radio
 } from "@material-ui/core";
-import ArrowBackIcon from '@material-ui/icons/ArrowBack';
-
-import PermIdentityIcon from '@material-ui/icons/PermIdentity';
-
-import MailOutlineIcon from '@material-ui/icons/MailOutline';
-import HomeIcon from '@material-ui/icons/Home';
-import { Building1, calendar, emailedit, fbedit, heart, instaedit,  Lock,  message, mobile, NoProfile_Img, Pencil, snapedit,twitteredit, user,} from "./assets";
+import { Building1, calendar, emailedit, fbedit, heart, instaedit,  Lock, mobile, NoProfile_Img, Pencil, snapedit, twitteredit, user,} from "./assets";
 import { withRouter } from 'react-router';
 import Loader from "../../../components/src/Loader.web";
 import '../assets/css/style.scss';
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import ProfileController from "./ProfileController.web";
 import { dailCode } from "../../email-account-registration/src/code";
-import CircleCheckedFilled from '@material-ui/icons/CheckCircle';
-import CircleUnchecked from '@material-ui/icons/RadioButtonUnchecked';
 import ChipInput from 'material-ui-chip-input'
 import KeyboardBackspaceIcon from '@material-ui/icons/KeyboardBackspace';
 import OtpInput from 'react-otp-input';
@@ -25,31 +17,30 @@ import PhoneInput from 'react-phone-input-2'
 import 'react-phone-input-2/lib/style.css'
 import { Hyperlink } from "../../customform/src/assets";
 import AlertErrorWeb from "../../../components/src/AlertError.web";
+import { withTranslation } from "react-i18next";
 
 class EditProfile extends ProfileController {
-  async componentDidMount() {
-    // this.getProfile()
-  }
   render() {
     // @ts-ignore
-// @ts-nocheck
-    let profileData:any = JSON.parse(localStorage.getItem('profileData'))
+    // @ts-nocheck
+    let profileData:any = JSON.parse(localStorage.getItem('profileData'));
+    const { t, classes }: any = this.props;
+
     return (
       <>
-        <Grid container spacing={2} className="auth-container">
+        <Grid container spacing={4} className="auth-container">
           <Grid item xs={12} md={7} className="auth-cols" style={{ justifyContent: 'unset' }}>
-            <Grid container style={{borderBottom:'2px solid #f2efef'}}>
+            <Grid container style={{borderBottom:'2px solid #f2efef', padding:"10px 0"}}>
               <Grid xs={12} style={{ display: 'flex', alignItems: 'center',gap:'0.25rem',marginBottom:5 }}>
                 <KeyboardBackspaceIcon onClick={() => window.history.back()} /> {" "}
-                <p style={{ fontWeight: 600, fontSize: '17px',paddingLeft:8 }}>
-
-                 {" "} Edit My Profile
+                <p style={{ fontWeight: 600, fontSize: '18px',paddingLeft:8 }} className="bold-text">
+                  {t("Edit My Profile")}
                 </p>
               </Grid>
             </Grid>
-            <div>
 
-              <Grid container className="main-content-block" style={{marginTop:'1.5rem'}}>
+            <div>
+              <Grid container className="main-content-block">
                 <Grid xs={12} className='inputPlaceholderRegistration'>
                   <Formik initialValues={{
                     bannerUrl:profileData?.attributes?.profile_pic?.url,
@@ -72,11 +63,7 @@ class EditProfile extends ProfileController {
                     validateOnMount={true}
                     onSubmit={(values) => { this.updateProfile(values) }}
                   >
-                    {({ values,
-                      errors,
-                      touched,
-                      isValid, handleChange,
-                      setFieldValue, setFieldError }) => (
+                    {({ values, errors, touched, isValid, handleChange, setFieldValue, setFieldError }) => (
                       <Form className="commonForm" translate="yes" >
                         <Box className='formGroup' style={{ height: '91%' }}>
                           <Box style={{
@@ -87,10 +74,8 @@ class EditProfile extends ProfileController {
                             marginBottom: '1.5rem'
                           }}>
                             <Avatar src={values.bannerUrl || NoProfile_Img} className="info-icon" style={{width:50,height:50}} />
-
-                            <label htmlFor="file1"
-                              style={{ color: '#FC8434',fontSize:'1rem'}} className='text-bold'>
-                              Add Profile Picture
+                            <label htmlFor="file1" style={{ color: '#FC8434',fontSize:'1rem'}} className='bold-text'>
+                              Change Profile Picture
                             </label>
                             <input
                               id="file1"
@@ -141,10 +126,8 @@ class EditProfile extends ProfileController {
 
                           <Box
                             className="formInputGrp"
-                            style={{border:"0.1px solid rgb(209 209 209 / 100%)",borderRadius:"25px",backgroundColor:"#f9f9f9"}}
+                            style={{border:"1px solid #f0f0f0",borderRadius:"50px",backgroundColor:"#f9f9f9"}}
                           >
-
-
                             <Field
                               className="formInput"
                               name="full_name"
@@ -160,7 +143,6 @@ class EditProfile extends ProfileController {
                             <Typography
                               style={{
                                 color: "#F14E24",
-
                                 fontWeight: 300,
                                 fontSize: 14,
                                 marginTop: 5,
@@ -181,12 +163,10 @@ class EditProfile extends ProfileController {
                             border="0.1px solid rgb(209 209 209 / 44%)"
                             borderRadius="25px"
                             bgcolor="#f9f9f9"
-                            style={{border:"0.1px solid rgb(209 209 209 / 100%)",borderRadius:"25px",backgroundColor:"#f9f9f9"}}
+                            style={{border:"1px solid #f0f0f0",borderRadius:"50px",backgroundColor:"#f9f9f9"}}
                           >
                             <Box>
                               <FormControl variant="outlined" >
-                                {/* <InputLabel id="demo-simple-select-outlined-label"><img src={`https://cdn.jsdelivr.net/npm/country-flag-emoji-json@2.0.0/dist/images/AF.svg`} width='15' height='15' />
-                          sd</InputLabel> */}
                                 <Select
                                   name='selectCode'
                                   labelId="demo-simple-select-outlined-label"
@@ -204,14 +184,10 @@ class EditProfile extends ProfileController {
                                     <MenuItem key={item.dial_code} value={item.dial_code}> <img src={`https://cdn.jsdelivr.net/npm/country-flag-emoji-json@2.0.0/dist/images/${item.code}.svg`} width='15' height='15' style={{ marginRight: '5px' }} />
                                       {item.dial_code}</MenuItem>
 
-                                  )
-                                  }
-
+                                  )}
                                 </Select>
                               </FormControl>
-
                             </Box>
-
                             <Field
                               name="phone"
                               id="mobile"
@@ -232,7 +208,6 @@ class EditProfile extends ProfileController {
                               }}
                             />
                           </Box>
-
                           {errors.phone && touched.phone ? (
                             <Typography
                               style={{
@@ -246,13 +221,13 @@ class EditProfile extends ProfileController {
                               <ErrorMessage className="text-error" component="Typography" name="phone" />
                             </Typography>
                           ) : null}
-                          <p style={{ color:'#FC8434',textAlign:'right',fontWeight:'bold',cursor:'pointer'}} onClick={()=>this.setState({showDialog:true})}>
+                          <p className="bold-text" style={{ color:'#FC8434',textAlign:'right',fontWeight:'bold',cursor:'pointer'}} onClick={()=>this.setState({showDialog:true})}>
                             Verify number to update
                           </p>
                           {/* email */}
                           <Box
                             className="formInputGrp"
-                            style={{border:"0.1px solid rgb(209 209 209 / 100%)",borderRadius:"25px",backgroundColor:"#f9f9f9"}}
+                            style={{border:"1px solid #f0f0f0",borderRadius:"50px",backgroundColor:"#f9f9f9"}}
                           >
                                                         <Field
                               className="formInput"
@@ -283,7 +258,7 @@ class EditProfile extends ProfileController {
                           {/* Bio */}
                           <Box
                             className="formInputGrp"
-                            style={{border:"0.1px solid rgb(209 209 209 / 100%)",borderRadius:"25px",backgroundColor:"#f9f9f9"}}
+                            style={{border:"1px solid #f0f0f0",borderRadius:"50px",backgroundColor:"#f9f9f9"}}
                           >
 
 
@@ -312,41 +287,29 @@ class EditProfile extends ProfileController {
                               <ErrorMessage className="text-error" component="Typography" name="bio" />
                             </Typography>
                           ) : null}
-{/* gender */}
+                          {/* gender */}
                           <Box className="formGroup formCheckbox" style={{flexDirection:'column',marginTop:'1rem',marginLeft:'1rem',fontWeight:'bold'}}>
-                            <div>
+                            <p className="bold-text" style={{fontSize:"16px"}}> 
                               Gender
-                            </div>
-
+                            </p>
                             <div style={{display:'flex'}}>
                               <div>
                                 <RadioGroup
-                                  aria-labelledby="demo-radio-buttons-group-label"
                                   name="radio-buttons-group"
                                   defaultValue={values.gender}
                                   style={{ display: 'flex',flexDirection:'row',marginTop:'0.25rem' }}
                                 >
-                                  {/* <FormControlLabel name={values.gender} value="Female" control={<Radio />} label="Female" /> */}
-                                  <FormControlLabel className={values.gender == 'Female' ? 'active':'unactive'} name='gender' onChange={handleChange} value="Female" control={<Radio />} label="Female" style={{ paddingRight: 30, borderRadius: 25, border: '1px solid #e9dede' }}  />
-                                  <FormControlLabel
-                                    className={values.gender == 'Male' ? 'active' : 'unactive'} name='gender' onChange={handleChange} value="Male" control={<Radio />} label="Male" style={{ paddingRight: 30, borderRadius: 25, border: '1px solid #e9dede' }} />
-
+                                  <FormControlLabel className={values.gender == 'Female' ? 'active profile-gender' : 'unactive profile-gender'} name='gender' onChange={handleChange} value="Female" control={<Radio />} label="Female" style={{ paddingRight: 30, borderRadius: 25, border: '1px solid #e9dede' }}  />
+                                  <FormControlLabel className={values.gender == 'Male' ? 'active profile-gender' : 'unactive profile-gender'} name='gender' onChange={handleChange} value="Male" control={<Radio />} label="Male" style={{ paddingRight: 30, borderRadius: 25, border: '1px solid #e9dede' }} />
                                 </RadioGroup>
-                              {/* <Checkbox name="male" onChange={handleChange} checked={values.male} icon={<CircleUnchecked />}
-                                checkedIcon={<CircleCheckedFilled />} id="loginCheckbox"
-                              />
-                              <label htmlFor="loginCheckbox" className="checkboxLabel">Male</label> */}
                               </div>
-
-                              </div>
-                           </Box>
+                            </div>
+                          </Box>
                           {/* DOB */}
                           <Box
                             className="formInputGrp"
-                            style={{border:"0.1px solid rgb(209 209 209 / 100%)",borderRadius:"25px",backgroundColor:"#f9f9f9"}}
+                            style={{border:"1px solid #f0f0f0",borderRadius:"50px",backgroundColor:"#f9f9f9"}}
                           >
-
-
                             <Field
                               className="formInput"
                               name="DOB"
@@ -375,7 +338,7 @@ class EditProfile extends ProfileController {
                           {/* Hobbies */}
                           <Box
                             className="formInputGrp"
-                            style={{border:"0.1px solid rgb(209 209 209 / 100%)",borderRadius:"25px",backgroundColor:"#f9f9f9"}}
+                            style={{border:"1px solid #f0f0f0",borderRadius:"50px",backgroundColor:"#f9f9f9"}}
                           >
 
 
@@ -420,10 +383,8 @@ class EditProfile extends ProfileController {
                           {/* Twitter */}
                           <Box
                             className="formInputGrp"
-                            style={{border:"0.1px solid rgb(209 209 209 / 100%)",borderRadius:"25px",backgroundColor:"#f9f9f9"}}
+                            style={{border:"1px solid #f0f0f0",borderRadius:"50px",backgroundColor:"#f9f9f9"}}
                           >
-
-
                             <Field
                               className="formInput"
                               name="twitter"
@@ -454,10 +415,8 @@ class EditProfile extends ProfileController {
                           {/* fb */}
                           <Box
                             className="formInputGrp"
-                            style={{border:"0.1px solid rgb(209 209 209 / 100%)",borderRadius:"25px",backgroundColor:"#f9f9f9"}}
+                            style={{border:"1px solid #f0f0f0",borderRadius:"50px",backgroundColor:"#f9f9f9"}}
                           >
-
-
                             <Field
                               className="formInput"
                               name="fb"
@@ -487,10 +446,8 @@ class EditProfile extends ProfileController {
                           {/* Insta */}
                           <Box
                             className="formInputGrp"
-                            style={{border:"0.1px solid rgb(209 209 209 / 100%)",borderRadius:"25px",backgroundColor:"#f9f9f9"}}
+                            style={{border:"1px solid #f0f0f0",borderRadius:"50px",backgroundColor:"#f9f9f9"}}
                           >
-
-
                             <Field
                               className="formInput"
                               name="insta"
@@ -520,10 +477,8 @@ class EditProfile extends ProfileController {
                           {/* snap */}
                           <Box
                             className="formInputGrp"
-                            style={{border:"0.1px solid rgb(209 209 209 / 100%)",borderRadius:"25px",backgroundColor:"#f9f9f9"}}
+                            style={{border:"1px solid #f0f0f0",borderRadius:"50px",backgroundColor:"#f9f9f9"}}
                           >
-
-
                             <Field
                               className="formInput"
                               name="snap"
@@ -540,7 +495,6 @@ class EditProfile extends ProfileController {
                             <Typography
                               style={{
                                 color: "#F14E24",
-
                                 fontWeight: 300,
                                 fontSize: 14,
                                 marginTop: 5,
@@ -550,18 +504,11 @@ class EditProfile extends ProfileController {
                               <ErrorMessage className="text-error" component="Typography" name="snap" />
                             </Typography>
                           ) : null}
-
                            </Box>
                         <Box className="customButton">
-
-                          <Button
-                            variant="contained"
-                            type="submit"
-
-                          >
+                          <Button variant="contained" type="submit">
                             Save
                           </Button>
-
                         </Box>
                       </Form>
                     )}
@@ -577,16 +524,15 @@ class EditProfile extends ProfileController {
             </Box>
           </Grid>
         </Grid>
+
         <Dialog
           open={this.state.showDialog}
           onClose={() => this.setState({ showDialog: false })}
-          aria-labelledby="alert-dialog-title"
-          aria-describedby="alert-dialog-description"
           className="diloag-wrapper"
           PaperProps={{
             style: {
               borderRadius: '15px',
-              padding: '2rem',
+              padding: '10px',
               margin: 0,
               overflow:'visible'
             },
@@ -603,18 +549,15 @@ class EditProfile extends ProfileController {
           </Grid>
           <Grid container>
             <Grid xs={12} style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', marginBottom: 10 }}>
-
-              <p style={{ fontWeight: 600, fontSize: '1.25rem', textAlign: 'center' }}>
+              <p className="bold-text" style={{ fontWeight: 600, fontSize: '20px', textAlign: 'center' }}>
                 Add New Mobile Number
-
               </p>
             </Grid>
           </Grid>
           <Grid container>
             <Grid xs={12} style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', marginBottom: 10 }}>
               <p style={{ fontWeight: 400, fontSize: '0.8rem', textAlign: 'center' }}>
-                Add new mobile number in the
-                below field
+                Add new mobile number in the below field
               </p>
             </Grid>
           </Grid>
@@ -644,7 +587,7 @@ class EditProfile extends ProfileController {
                       border="0.1px solid rgb(209 209 209 / 44%)"
                       borderRadius="25px"
                       bgcolor="#f9f9f9"
-                      style={{border:"0.1px solid rgb(209 209 209 / 100%)",borderRadius:"25px",backgroundColor:"#f9f9f9"}}
+                      style={{border:"1px solid #f0f0f0",borderRadius:"50px",backgroundColor:"#f9f9f9"}}
                     >
                       <Box>
                         <FormControl variant="outlined" >
@@ -729,16 +672,15 @@ class EditProfile extends ProfileController {
           </Grid>
 
         </Dialog>
+
         <Dialog
           open={this.state.showDialogDelete}
           onClose={() => this.setState({ showDialogDelete: false })}
-          aria-labelledby="alert-dialog-title"
-          aria-describedby="alert-dialog-description"
           className="diloag-wrapper"
           PaperProps={{
             style: {
               borderRadius: '15px',
-              padding: '1rem',
+              padding: '10px',
               margin: 0
             },
           }}
@@ -748,16 +690,13 @@ class EditProfile extends ProfileController {
           </Box>
           <Grid container>
             <Grid xs={12} style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', marginBottom: 10 }}>
-
               <img src={Lock} width='50' height='50' />
             </Grid>
           </Grid>
           <Grid container>
             <Grid xs={12} style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', marginBottom: 10 }}>
-
-              <p style={{ fontWeight: 600, fontSize: '1.25rem', textAlign: 'center' }}>
+              <p className="bold-text" style={{ fontWeight: 600, fontSize: '20px', textAlign: 'center' }}>
                 Verify New Mobile Number
-
               </p>
             </Grid>
           </Grid>
@@ -783,18 +722,16 @@ class EditProfile extends ProfileController {
               </Box>
             </Grid>
           </Grid>
-
         </Dialog>
+
         <Loader loading={this.state.loading} />
+
         <AlertErrorWeb show={this.state.showError} handleClose={()=> this.setState({showError:false,error:null})} message={this.state.error} />
-
       </>
-
     )
-
   }
-
 }
+
 // @ts-ignore
 // @ts-nocheck
-export default withRouter(EditProfile)
+export default withTranslation()(withRouter(EditProfile));

@@ -86,7 +86,7 @@ const MenuList = [
     img: SidebarUnit,
   },
   {
-    name: "My Neighbors",
+    name: "My Neighbours",
     url: "/NeighboursListing",
     img: SidebarNeighbor,
   },
