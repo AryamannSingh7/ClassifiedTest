@@ -30,6 +30,9 @@ import { AvatarIcon, CallIcon, ChatIcon, EmailIcon, FacebookIcon, InstagramIcon,
 import OtpInput from "react-otp-input";
 import { withRouter } from 'react-router';
 import { withTranslation } from "react-i18next";
+import { Hyperlink } from "../../customform/src/assets";
+import PhoneInput from "react-phone-input-2";
+import 'react-phone-input-2/lib/style.css'
 
 class ChairmanProfile extends ProfileController {
   constructor(props: Props) {
@@ -110,7 +113,8 @@ class ChairmanProfile extends ProfileController {
           PaperProps={{
             style: {
               borderRadius: '15px',
-              maxWidth:650
+              maxWidth:700,
+              width:'100%'
               
             },
           }}
@@ -129,7 +133,7 @@ class ChairmanProfile extends ProfileController {
           </Grid>
           
           <Grid container className="main-content-block" style={{marginTop:'1.5rem',padding: '1rem'}}>
-                <Grid xs={12}>
+                <Grid xs={12} className='inputPlaceholderRegistration'>
                   <Formik initialValues={{
                     bannerUrl: profileData?.attributes?.profile_pic,
                     full_name: profileData?.attributes?.full_name?.name,
@@ -225,12 +229,12 @@ class ChairmanProfile extends ProfileController {
                             </Typography>
                           ) : null}
 
-                          <Box style={{display:'flex',justifyContent:'space-between',width:'100%'}}>
+                          <Box style={{display:'flex',gap:'1.5rem',width:'100%'}}>
                             {/* name */}
 
                           <Box
                             className="formInputGrp"
-                            style={{width:'50%'}}
+                            style={{width:'45%',border:"0.1px solid rgb(209 209 209 / 100%)",borderRadius:"25px",backgroundColor:"#f9f9f9",height:'59px'}}
                           >
 
 
@@ -241,7 +245,7 @@ class ChairmanProfile extends ProfileController {
                               placeholder={"Enter your name"}
 
                             />
-                            <span className="frmLeftIcons" style={{top:'22%'}}>
+                            <span className="frmLeftIcons" style={{top:'29%'}}>
                               <img src={user} />
                             </span>
                           </Box>
@@ -346,7 +350,7 @@ class ChairmanProfile extends ProfileController {
                           {/* email */}
                           <Box
                             className="formInputGrp"
-                            style={{width:'50%'}}
+                            style={{width:'45%',border:"0.1px solid rgb(209 209 209 / 100%)",borderRadius:"25px",backgroundColor:"#f9f9f9"}}
                           >
                                                         <Field
                               className="formInput"
@@ -377,6 +381,7 @@ class ChairmanProfile extends ProfileController {
                           {/* Bio */}
                           <Box
                             className="formInputGrp"
+                            style={{width:'45%',border:"0.1px solid rgb(209 209 209 / 100%)",borderRadius:"25px",backgroundColor:"#f9f9f9"}}
                           >
 
 
@@ -388,7 +393,7 @@ class ChairmanProfile extends ProfileController {
 
                             />
                             <span className="frmLeftIcons">
-                              <img src={message} />
+                              <img src={Hyperlink} />
                             </span>
                           </Box>
                           {errors.bio && touched.bio ? (
@@ -417,12 +422,12 @@ class ChairmanProfile extends ProfileController {
                                   aria-labelledby="demo-radio-buttons-group-label"
                                   name="radio-buttons-group"
                                   defaultValue={values.gender}
-                                  style={{ display: 'flex',flexDirection:'row',marginTop:'0.25rem',width:'100%' }}
+                                  style={{ display: 'flex',flexDirection:'row',marginTop:'0.25rem',width:'100%',gap:'1rem' }}
                                 >
                                   {/* <FormControlLabel name={values.gender} value="Female" control={<Radio />} label="Female" /> */}
-                                  <FormControlLabel className={values.gender == 'Female' ? 'active':'unactive'} name='gender' onChange={handleChange} value="Female" control={<Radio/>} label="Female" style={{ padding:'7px 42px 7px 10px', borderRadius: 25, border: '1px solid #e9dede',width:'40%',background:'#F9F9F9' }}  />
+                                  <FormControlLabel className={values.gender == 'Female' ? 'active':'unactive'} name='gender' onChange={handleChange} value="Female" control={<Radio/>} label="Female" style={{ padding:'7px 42px 7px 10px', borderRadius: 25, border:"0.1px solid rgb(209 209 209 / 100%)",width:'37%',height:45,background:'#F9F9F9' }}  />
                                   <FormControlLabel
-                                    className={values.gender == 'Male' ? 'active' : 'unactive'} name='gender' onChange={handleChange} value="Male" control={<Radio />} label="Male" style={{ padding:'7px 42px 7px 10px', borderRadius: 25, border: '1px solid #e9dede',width:'40%',background:'#F9F9F9' }} />
+                                    className={values.gender == 'Male' ? 'active' : 'unactive'} name='gender' onChange={handleChange} value="Male" control={<Radio />} label="Male" style={{ padding:'7px 42px 7px 10px', borderRadius: 25, border:"0.1px solid rgb(209 209 209 / 100%)",width:'37.5%',background:'#F9F9F9' }} />
 
                                 </RadioGroup>
                              
@@ -430,11 +435,12 @@ class ChairmanProfile extends ProfileController {
 
                               </div>
                            </Box>
-<Box style={{display:'flex',justifyContent:'space-between'}}>
+<Box style={{display:'flex',gap:'1.2rem'}}>
                           {/* DOB */}
                           <Box
                             className="formInputGrp"
-                            style={{width:'46%'}}
+                            style={{width:'46%',border:"0.1px solid rgb(209 209 209 / 100%)",borderRadius:"25px",backgroundColor:"#f9f9f9"}}
+                            
                           >
 
 
@@ -444,7 +450,7 @@ class ChairmanProfile extends ProfileController {
                               placeholder={"Date of Birth"}
 
                             />
-                            <span className="frmLeftIcons" style={{top:'12%'}}>
+                            <span className="frmLeftIcons" style={{top:'24%'}}>
                               <img src={calendar} />
                             </span>
                           </Box>
@@ -452,7 +458,6 @@ class ChairmanProfile extends ProfileController {
                             <Typography
                               style={{
                                 color: "#F14E24",
-
                                 fontWeight: 300,
                                 fontSize: 14,
                                 marginTop: 5,
@@ -466,7 +471,7 @@ class ChairmanProfile extends ProfileController {
                           {/* Hobbies */}
                           <Box
                             className="formInputGrp"
-                            style={{width:'50%'}}
+                            style={{width:'45%',border:"0.1px solid rgb(209 209 209 / 100%)",borderRadius:"25px",backgroundColor:"#f9f9f9"}}
                           >
 
 
@@ -474,7 +479,7 @@ class ChairmanProfile extends ProfileController {
                             <ChipInput
                               className="formInput"
                               placeholder="Hobbies"
-                              style={{ padding:'10px 0px 6px 50px',width:'85%'}}
+                              style={{ padding:'10px 0px 6px 50px',width:'79%'}}
                               disableUnderline={true}
                               value={values.hobbies}
                               // onChange={(chip) => setFieldValue('hobbies', chip)}
@@ -501,12 +506,13 @@ class ChairmanProfile extends ProfileController {
                             </Typography>
                           ) : null}
 </Box>
-<Box style={{display:'flex',justifyContent:'space-between',width:'100%',gap:'1rem'}}>
-<div style={{display:'flex',flexDirection:'column',width:'50%'}}>
+<Box style={{display:'flex',width:'100%',gap:'1rem'}}>
+<div style={{display:'flex',flexDirection:'column',width:'46.8%'}}>
   
                           {/* Twitter */}
                           <Box
                             className="formInputGrp"
+                            style={{border:"0.1px solid rgb(209 209 209 / 100%)",borderRadius:"25px",backgroundColor:"#f9f9f9"}}
                           >
 
 
@@ -538,11 +544,12 @@ class ChairmanProfile extends ProfileController {
                           ) : null}
 </div>
 
-<div style={{display:'flex',flexDirection:'column',width:'50%'}}>
+<div style={{display:'flex',flexDirection:'column',width:'45%'}}>
 
                           {/* fb */}
                           <Box
                             className="formInputGrp"
+                            style={{border:"0.1px solid rgb(209 209 209 / 100%)",borderRadius:"25px",backgroundColor:"#f9f9f9"}}
                           >
 
 
@@ -575,12 +582,13 @@ class ChairmanProfile extends ProfileController {
 </div>
 
 </Box>
-<Box style={{display:'flex',justifyContent:'space-between',width:'100%',gap:'1rem'}}>
-<div style={{display:'flex',flexDirection:'column',width:'50%'}}>
+<Box style={{display:'flex',width:'100%',gap:'1rem'}}>
+<div style={{display:'flex',flexDirection:'column',width:'46.5%'}}>
 
                           {/* Insta */}
                           <Box
                             className="formInputGrp"
+                          style={{border:"0.1px solid rgb(209 209 209 / 100%)",borderRadius:"25px",backgroundColor:"#f9f9f9"}}
                           >
 
 
@@ -590,6 +598,7 @@ class ChairmanProfile extends ProfileController {
                               type='url'
                               value={values.insta}
                               placeholder={"Instagram profile link"}
+                              
 
                             />
                             <span className="frmLeftIcons">
@@ -611,11 +620,12 @@ class ChairmanProfile extends ProfileController {
                             </Typography>
                           ) : null}
 </div>
-<div style={{display:'flex',flexDirection:'column',width:'50%'}}>
+<div style={{display:'flex',flexDirection:'column',width:'45%'}}>
 
                           {/* snap */}
                           <Box
                             className="formInputGrp"
+                            style={{border:"0.1px solid rgb(209 209 209 / 100%)",borderRadius:"25px",backgroundColor:"#f9f9f9"}}
                           >
 
 
@@ -693,7 +703,8 @@ class ChairmanProfile extends ProfileController {
             style: {
               borderRadius: '15px',
               padding: '2rem',
-              margin: 0
+              margin: 0,
+              overflow:'visible',
             },
           }}
         >
@@ -743,7 +754,7 @@ class ChairmanProfile extends ProfileController {
                       marginTop='1rem'
                       className='formInputGrp'
                       display="flex"
-                      overflow="hidden"
+                      overflow="visible"
                       alignItems="center"
                       height="56px"
                       border="0.1px solid rgb(209 209 209 / 44%)"
@@ -752,30 +763,13 @@ class ChairmanProfile extends ProfileController {
                     >
                       <Box>
                         <FormControl variant="outlined" >
-                          {/* <InputLabel id="demo-simple-select-outlined-label"><img src={`https://cdn.jsdelivr.net/npm/country-flag-emoji-json@2.0.0/dist/images/AF.svg`} width='15' height='15' />
-                          sd</InputLabel> */}
-                          <Select
-                            name='selectCode'
-                            labelId="demo-simple-select-outlined-label"
-
-                            id="demo-simple-select-outlined"
-                            onChange={this.handleChange}
-                            label="Unit"
-                            style={{minWidth:'7rem'}}
-                            className="hello"
+                                       <PhoneInput
+                            inputProps={{name:'selectCode'}}
+                            enableSearch={true}
                             value={this.state.selectCode}
-                          >
-                            <MenuItem value="">
-                              <em>None</em>
-                            </MenuItem>
-                            {dailCode.map((item) =>
-                              <MenuItem key={item.dial_code} value={item.dial_code}> <img src={`https://cdn.jsdelivr.net/npm/country-flag-emoji-json@2.0.0/dist/images/${item.code}.svg`} width='15' height='15' style={{ marginRight: '5px' }} />
-                                {item.dial_code}</MenuItem>
-
-                            )
-                            }
-
-                          </Select>
+                            onChange={this.handleChangeCCode}
+  country={'us'}
+/>
                         </FormControl>
 
                       </Box>

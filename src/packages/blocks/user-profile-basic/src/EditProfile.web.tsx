@@ -518,7 +518,7 @@ class EditProfile extends ProfileController {
               borderRadius: '15px',
               padding: '10px',
               margin: 0,
-              overflow:'visible'
+              overflow:'visible',
             },
           }}
         >
