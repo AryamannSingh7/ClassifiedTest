@@ -96,7 +96,7 @@ class EditProfile extends ProfileController {
                               accept="image/png, image/jpeg, image/jpg"
                             />
                           </Box>
-                          {errors.banner && touched.banner ? (
+                        
                             <Typography
                               style={{
                                 color: "#F14E24",
@@ -109,8 +109,8 @@ class EditProfile extends ProfileController {
                             >
                               <ErrorMessage className="text-error" component="Typography" name="banner" />
                             </Typography>
-                          ) : null}
-                          {errors.bannerUrl && touched.bannerUrl ? (
+                        
+                          
                             <Typography
                               style={{
                                 color: "#F14E24",
@@ -122,7 +122,7 @@ class EditProfile extends ProfileController {
                             >
                               {errors.bannerUrl}
                             </Typography>
-                          ) : null}
+                 
 
                           <Box
                             className="formInputGrp"

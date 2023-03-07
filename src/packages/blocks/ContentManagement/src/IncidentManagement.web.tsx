@@ -234,11 +234,20 @@ export default withTranslation()(withStyles(dashBoard)(withRouter(IncidentManage
 
 const ButtonStatus =(props:any)=>{
   const val = props?.val
+  const checkCl=()=>{
+    if( val?.attributes?.incident_status === 'Unresolved'){
+      return "contain danger"
+    }else if(val?.attributes?.incident_status === 'Resolved'){
+      return 'contain success'
+    }else{
+      return 'contain warning'
+    }
+  }
   return(
-
     <>
      <Box className="customButton">
-          <Button variant="contained" className={val?.attributes?.incident_status === 'Unresolved' ? "contain danger" : val?.attributes?.incident_status === 'Resolved' ? 'contain success' : 'contain warning'} type="submit">
+          <Button variant="contained" className={checkCl()
+            } type="submit">
                   {val?.attributes?.incident_status}</Button>
            </Box>
     </>

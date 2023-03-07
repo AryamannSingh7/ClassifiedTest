@@ -18,8 +18,6 @@ import { Visibility, VisibilityOff } from "@material-ui/icons";
 import KeyboardBackspaceIcon from '@material-ui/icons/KeyboardBackspace';
 import Loader from "../../../components/src/Loader.web";
 import VeichleListController from "./VeichleListController.web";
-// import Menu from '@material-ui/core/Menu';
-// import MenuItem from '@material-ui/core/MenuItem';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 import InboxController from "./inboxController.web";
 import moment from "moment";
@@ -45,7 +43,6 @@ class Inbox extends InboxController {
       let m = date.getMinutes();
 
       return this.dateToFromNowDaily(value[value.length-1].message.created_at)
-      // return `${d}:${m < 9 ? `0` + m : m} (${moment(value[value.length-1].message.created_at).format("DD MMM YYYY")})`
     } else {
       return ''
     }

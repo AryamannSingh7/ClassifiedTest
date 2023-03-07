@@ -311,10 +311,19 @@ class IncidentDetails extends IncidentController {
 
 const ButtonStatus=(props:any)=>{
   const attributes = props?.attributes
+  const checkCl=()=>{
+    if( attributes?.incident_status === 'Unresolved'){
+      return "contain danger"
+    }else if(attributes?.incident_status === 'Resolved'){
+      return 'contain success'
+    }else{
+      return 'contain warning'
+    }
+  }
   return(
     <>
      <Box className="customButton">
-                        <Button variant="contained" className={attributes?.incident_status === 'Unresolved' ? "contain danger" : attributes?.incident_status === 'Resolved' ? 'contain success' : 'contain warning'}  > {attributes?.incident_status}</Button>
+                        <Button variant="contained" className={checkCl()}  > {attributes?.incident_status}</Button>
                       </Box>
     </>
   )

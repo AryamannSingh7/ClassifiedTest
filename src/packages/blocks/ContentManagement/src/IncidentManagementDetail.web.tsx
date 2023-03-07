@@ -489,11 +489,20 @@ const dashBoard = {
   },
 };
 const SelectStatus = (props:any) => {
+
+  const checkCl=()=>{
+    if( props?.this.state?.statusDetail === 'Unresolved'){
+      return "formGroup customSelect danger"
+    }else if(props?.this.state?.statusDetail === 'Resolved'){
+      return 'formGroup customSelect success'
+    }else{
+      return 'formGroup customSelect warning'
+    }
+  }
   
   return(
    <>
-                    <Box className={props?.this.state?.statusDetail === 'Unresolved' ? "formGroup customSelect danger" :
-                        props?.this.state?.statusDetail === 'Resolved' ? 'formGroup customSelect success' : 'formGroup customSelect warning'}>
+                    <Box className={checkCl()}>
                         <FormControl variant="outlined" >
                           <Select
                             name="statusDetail"

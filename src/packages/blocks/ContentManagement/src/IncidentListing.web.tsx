@@ -163,25 +163,48 @@ class IncidentListing extends IncidentController {
   }
 }
 
-const ButtonStatus =(props:any)=>{
-  const val = props?.val;
-  return (
+// const ButtonStatus =(props:any)=>{
+//   const val = props?.val;
+
+//   const checkCls=()=>{
+    
+//   }
+//   return (
+//     <>
+//      {
+//                                   val?.attributes?.incident_status === "Resolved" ?
+//                                     <Box className="customButton">
+//                                       <Button variant="contained" className="contain success" type="submit" >Resolved</Button>
+//                                     </Box>
+//                                     :
+//                                     (val?.attributes?.incident_status === "Pending Confirmation" || val?.attributes?.incident_status === "Ongoing") ?
+//                                       <Box className="customButton">
+//                                         <Button variant="contained" className="contain warning" type="submit" >{val?.attributes?.incident_status}</Button>
+//                                       </Box>
+//                                       :
+//                                       <Box className="customButton">
+//                                         <Button variant="contained" className="contain danger" type="submit" >Unresolved</Button>
+//                                       </Box>
+//                                 }
+//     </>
+//   )
+// }
+const ButtonStatus=(props:any)=>{
+  const attributes = props?.val
+  const checkCl=()=>{
+    if( attributes?.attributes?.incident_status === 'Unresolved'){
+      return "contain danger"
+    }else if(attributes?.attributes?.incident_status === 'Resolved'){
+      return 'contain success'
+    }else{
+      return 'contain warning'
+    }
+  }
+  return(
     <>
-     {
-                                  val?.attributes?.incident_status === "Resolved" ?
-                                    <Box className="customButton">
-                                      <Button variant="contained" className="contain success" type="submit" >Resolved</Button>
-                                    </Box>
-                                    :
-                                    (val?.attributes?.incident_status === "Pending Confirmation" || val?.attributes?.incident_status === "Ongoing") ?
-                                      <Box className="customButton">
-                                        <Button variant="contained" className="contain warning" type="submit" >{val?.attributes?.incident_status}</Button>
-                                      </Box>
-                                      :
-                                      <Box className="customButton">
-                                        <Button variant="contained" className="contain danger" type="submit" >Unresolved</Button>
-                                      </Box>
-                                }
+     <Box className="customButton">
+                        <Button variant="contained" className={checkCl()} type="submit" > {attributes?.attributes?.incident_status}</Button>
+                      </Box>
     </>
   )
 }
