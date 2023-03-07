@@ -193,48 +193,7 @@ class RegisterTenant extends RegisterTenantController {
                                         </InputAdornment>
                                       }
                                     />
-                                    {/* <Select
-                                      displayEmpty
-                                      value={values.tenantCountryCode}
-                                      onChange={(e: any) => {
-                                        setFieldValue("tenantCountryCode", e.target.value);
-                                      }}
-                                      onBlur={handleBlur}
-                                      name="tenantCountryCode"
-                                      fullWidth
-                                      className="mobile-select"
-                                      input={<OutlinedInput />}
-                                    >
-                                      {CountryList.map((country: any) => {
-                                        return (
-                                          <MenuItem key={country.dial_code} value={country.dial_code}>
-                                            <img
-                                              src={`https://cdn.jsdelivr.net/npm/country-flag-emoji-json@2.0.0/dist/images/${country.code}.svg`}
-                                              width="15"
-                                              height="15"
-                                              style={{ marginRight: "5px" }}
-                                            />
-                                            {country.dial_code}
-                                          </MenuItem>
-                                        );
-                                      })}
-                                    </Select> */}
-                                    {/* <Box className="divider" />
-                                    <Input
-                                      value={values.tenantMobile}
-                                      onChange={(e: any) => {
-                                        setFieldValue("tenantMobile", e.target.value);
-                                      }}
-                                      onBlur={handleBlur}
-                                      name="tenantMobile"
-                                      className="mobile-input"
-                                      placeholder={t("Tenant Mobile")}
-                                      startAdornment={
-                                        <InputAdornment position="start">
-                                          <img src={GreyPhoneNumber} alt="" />
-                                        </InputAdornment>
-                                      }
-                                    /> */}
+                                 
                                   </Box>
                                   {this.handleErrorMessage(errors.tenantMobile, touched.tenantMobile, t)}
                                 </FormControl>

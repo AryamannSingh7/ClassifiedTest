@@ -20,7 +20,7 @@ class PublicView extends ProfileController {
     // @ts-ignore
     // @ts-nocheck
     let profileData = JSON.parse(localStorage.getItem('profileData'));
-    const { t, classes }: any = this.props;
+    const { t }: any = this.props;
 
     return (
       <>

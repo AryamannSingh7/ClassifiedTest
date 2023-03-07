@@ -3,7 +3,7 @@ import * as React from "react";
 import {
   Button, Grid, Box, Typography, FormControl, Select, MenuItem, Avatar, Dialog, DialogActions, RadioGroup, FormControlLabel, Radio
 } from "@material-ui/core";
-import { Building1, calendar, emailedit, fbedit, heart, instaedit,  Lock, mobile, NoProfile_Img, Pencil, snapedit, twitteredit, user,} from "./assets";
+import { Building1, calendar, emailedit, fbedit, heart, instaedit,  Lock, mobile, NoProfile_Img, snapedit, twitteredit, user,} from "./assets";
 import { withRouter } from 'react-router';
 import Loader from "../../../components/src/Loader.web";
 import '../assets/css/style.scss';
@@ -24,7 +24,7 @@ class EditProfile extends ProfileController {
     // @ts-ignore
     // @ts-nocheck
     let profileData:any = JSON.parse(localStorage.getItem('profileData'));
-    const { t, classes }: any = this.props;
+    const { t }: any = this.props;
 
     return (
       <>

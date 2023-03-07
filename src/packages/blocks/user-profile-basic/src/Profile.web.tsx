@@ -22,7 +22,7 @@ class Profile extends ProfileController {
 
   render() {
     let profileData = this.state.profiledata;
-    const { t, classes }: any = this.props;
+    const { t }: any = this.props;
 
     return (
 
@@ -73,61 +73,7 @@ class Profile extends ProfileController {
               </Grid>
             </Grid>
             <Grid container>
-              <Grid item xs={12}>
-                <Box className="card-top-block">
-                  <img style={{width:64,height:64,borderRadius:'50%'}} src={profileData?.attributes?.profile_pic?.url || NoProfile_Img} className="info-icon" alt="info-icon" />
-                  <Typography component="h4" className="title bold-text" style={{ fontSize:'18px', paddingTop:"0"}}>
-                    {profileData?.attributes?.full_name?.name}
-                  </Typography>
-                  <Box className="social-raw">
-                  {
-                    profileData?.attributes?.disable_chat ?
-                    <Box className="blocks">
-                      <img src={Chat_Disable_Icon}  className="icons" alt="info-icon" width='15' />
-                    </Box> :
-                    <Box className="blocks">
-                      <img src={Chat_Icon} onClick={()=>this.props.history.push('/inbox')} className="icons" alt="info-icon" />
-                    </Box>
-                  }
-                      <Box className="blocks">
-                        <a href={`tel:${profileData?.attributes?.full_phone_number?.full_phone_number}`}>
-                          <img src={Contact_Icon} className="icons" alt="info-icon" />
-                        </a>
-                      </Box>
-                      <Box className="blocks" style={{border:0}}>
-                        <a href={`mailto:${profileData?.attributes?.email?.email}`}>
-                          <img src={Email_Msg_Icon} className="icons" alt="info-icon" />
-                        </a>
-                      </Box>
-                  </Box>
-                  <Box className="relation-row">
-                    <Box className="blocks" style={{ display: 'flex',gap:'1rem', marginTop:"15px" }}>
-                      <div>
-                      {
-                        profileData?.attributes?.gender?.publilc_access ?
-                          <Box style={{display:"flex", alignItems:"center", gap:"5px"}}>
-                            <p className="bold-text">Gender:</p>
-                            <span style={{fontWeight:400, fontSize:"14px"}}>{profileData?.attributes?.gender?.gender}</span>
-                          </Box>
-                          : null
-                      }
-                      </div>
-                      <div>
-
-                      {
-                        profileData?.attributes?.date_of_birth?.publilc_access ?
-                          <Box style={{display:"flex", alignItems:"center", gap:"5px"}}>
-                            <p className="bold-text">DOB:</p>
-                            <span style={{fontWeight:400, fontSize:"14px"}}>{profileData?.attributes?.date_of_birth?.date_of_birth}</span>
-                          </Box>
-                          :
-                          null
-                      }
-                      </div>
-                    </Box>
-                  </Box>
-                </Box>
-              </Grid>
+              <SectionOne profileData={profileData} props={this.props}/>
             </Grid>
             <Grid container>
               <Grid item xs={12} style={{display:'flex',justifyContent:'center',marginTop:'1rem',gap:'1rem'}}>
@@ -355,3 +301,65 @@ class Profile extends ProfileController {
 // @ts-ignore
 // @ts-nocheck
 export default withTranslation()(withRouter(Profile));
+
+
+function SectionOne(props:any){
+  const {profileData} =props
+  return <>
+  <Grid item xs={12}>
+                <Box className="card-top-block">
+                  <img style={{width:64,height:64,borderRadius:'50%'}} src={profileData?.attributes?.profile_pic?.url || NoProfile_Img} className="info-icon" alt="info-icon" />
+                  <Typography component="h4" className="title bold-text" style={{ fontSize:'18px', paddingTop:"0"}}>
+                    {profileData?.attributes?.full_name?.name}
+                  </Typography>
+                  <Box className="social-raw">
+                  {
+                    profileData?.attributes?.disable_chat ?
+                    <Box className="blocks">
+                      <img src={Chat_Disable_Icon}  className="icons" alt="info-icon" width='15' />
+                    </Box> :
+                    <Box className="blocks">
+                      <img src={Chat_Icon} onClick={()=>props.history.push('/inbox')} className="icons" alt="info-icon" />
+                    </Box>
+                  }
+                      <Box className="blocks">
+                        <a href={`tel:${profileData?.attributes?.full_phone_number?.full_phone_number}`}>
+                          <img src={Contact_Icon} className="icons" alt="info-icon" />
+                        </a>
+                      </Box>
+                      <Box className="blocks" style={{border:0}}>
+                        <a href={`mailto:${profileData?.attributes?.email?.email}`}>
+                          <img src={Email_Msg_Icon} className="icons" alt="info-icon" />
+                        </a>
+                      </Box>
+                  </Box>
+                  <Box className="relation-row">
+                    <Box className="blocks" style={{ display: 'flex',gap:'1rem', marginTop:"15px" }}>
+                      <div>
+                      {
+                        profileData?.attributes?.gender?.publilc_access ?
+                          <Box style={{display:"flex", alignItems:"center", gap:"5px"}}>
+                            <p className="bold-text">Gender:</p>
+                            <span style={{fontWeight:400, fontSize:"14px"}}>{profileData?.attributes?.gender?.gender}</span>
+                          </Box>
+                          : null
+                      }
+                      </div>
+                      <div>
+
+                      {
+                        profileData?.attributes?.date_of_birth?.publilc_access ?
+                          <Box style={{display:"flex", alignItems:"center", gap:"5px"}}>
+                            <p className="bold-text">DOB:</p>
+                            <span style={{fontWeight:400, fontSize:"14px"}}>{profileData?.attributes?.date_of_birth?.date_of_birth}</span>
+                          </Box>
+                          :
+                          null
+                      }
+                      </div>
+                    </Box>
+                  </Box>
+                </Box>
+              </Grid>
+  </>
+}
