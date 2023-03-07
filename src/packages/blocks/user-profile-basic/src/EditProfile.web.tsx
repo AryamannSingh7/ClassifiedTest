@@ -139,7 +139,7 @@ class EditProfile extends ProfileController {
                               <img src={user} />
                             </span>
                           </Box>
-                          {errors.full_name && touched.full_name ? (
+                        
                             <Typography
                               style={{
                                 color: "#F14E24",
@@ -151,7 +151,7 @@ class EditProfile extends ProfileController {
                             >
                               <ErrorMessage className="text-error" component="Typography" name="full_name" />
                             </Typography>
-                          ) : null}
+                         
                           {/* mobile */}
                           <Box
                             marginTop='1rem'
@@ -208,7 +208,7 @@ class EditProfile extends ProfileController {
                               }}
                             />
                           </Box>
-                          {errors.phone && touched.phone ? (
+                        
                             <Typography
                               style={{
                                 color: "#F14E24",
@@ -220,7 +220,7 @@ class EditProfile extends ProfileController {
                             >
                               <ErrorMessage className="text-error" component="Typography" name="phone" />
                             </Typography>
-                          ) : null}
+                        
                           <p className="bold-text" style={{ color:'#FC8434',textAlign:'right',fontWeight:'bold',cursor:'pointer'}} onClick={()=>this.setState({showDialog:true})}>
                             Verify number to update
                           </p>
@@ -241,7 +241,7 @@ class EditProfile extends ProfileController {
                               <img src={emailedit} />
                             </span>
                           </Box>
-                          {errors.email && touched.email ? (
+                       
                             <Typography
                               style={{
                                 color: "#F14E24",
@@ -254,7 +254,7 @@ class EditProfile extends ProfileController {
                             >
                               <ErrorMessage className="text-error" component="Typography" name="email" />
                             </Typography>
-                          ) : null}
+                         
                           {/* Bio */}
                           <Box
                             className="formInputGrp"
@@ -273,7 +273,7 @@ class EditProfile extends ProfileController {
                               <img src={Hyperlink} />
                             </span>
                           </Box>
-                          {errors.bio && touched.bio ? (
+                         
                             <Typography
                               style={{
                                 color: "#F14E24",
@@ -286,7 +286,7 @@ class EditProfile extends ProfileController {
                             >
                               <ErrorMessage className="text-error" component="Typography" name="bio" />
                             </Typography>
-                          ) : null}
+                         
                           {/* gender */}
                           <Box className="formGroup formCheckbox" style={{flexDirection:'column',marginTop:'1rem',marginLeft:'1rem',fontWeight:'bold'}}>
                             <p className="bold-text" style={{fontSize:"16px"}}> 
@@ -320,7 +320,7 @@ class EditProfile extends ProfileController {
                               <img src={calendar} />
                             </span>
                           </Box>
-                          {errors.DOB && touched.DOB ? (
+                         
                             <Typography
                               style={{
                                 color: "#F14E24",
@@ -333,7 +333,7 @@ class EditProfile extends ProfileController {
                             >
                               <ErrorMessage className="text-error" component="Typography" name="DOB" />
                             </Typography>
-                          ) : null}
+                         
 
                           {/* Hobbies */}
                           <Box
@@ -366,7 +366,7 @@ class EditProfile extends ProfileController {
                               <img src={heart} />
                             </span>
                           </Box>
-                          {errors.hobbies && touched.hobbies ? (
+                          
                             <Typography
                               style={{
                                 color: "#F14E24",
@@ -379,7 +379,7 @@ class EditProfile extends ProfileController {
                             >
                               <ErrorMessage className="text-error" component="Typography" name="hobbies" />
                             </Typography>
-                          ) : null}
+                       
                           {/* Twitter */}
                           <Box
                             className="formInputGrp"
@@ -397,7 +397,7 @@ class EditProfile extends ProfileController {
                               <img src={twitteredit} />
                             </span>
                           </Box>
-                          {errors.twitter && touched.twitter ? (
+                          
                             <Typography
                               style={{
                                 color: "#F14E24",
@@ -410,7 +410,7 @@ class EditProfile extends ProfileController {
                             >
                               <ErrorMessage className="text-error" component="Typography" name="twitter" />
                             </Typography>
-                          ) : null}
+                      
 
                           {/* fb */}
                           <Box
@@ -429,7 +429,7 @@ class EditProfile extends ProfileController {
                               <img src={fbedit} />
                             </span>
                           </Box>
-                          {errors.fb && touched.fb ? (
+                        
                             <Typography
                               style={{
                                 color: "#F14E24",
@@ -442,7 +442,7 @@ class EditProfile extends ProfileController {
                             >
                               <ErrorMessage className="text-error" component="Typography" name="fb" />
                             </Typography>
-                          ) : null}
+                        
                           {/* Insta */}
                           <Box
                             className="formInputGrp"
@@ -460,7 +460,7 @@ class EditProfile extends ProfileController {
                               <img src={instaedit} />
                             </span>
                           </Box>
-                          {errors.insta && touched.insta ? (
+                         
                             <Typography
                               style={{
                                 color: "#F14E24",
@@ -473,7 +473,7 @@ class EditProfile extends ProfileController {
                             >
                               <ErrorMessage className="text-error" component="Typography" name="insta" />
                             </Typography>
-                          ) : null}
+                        
                           {/* snap */}
                           <Box
                             className="formInputGrp"
@@ -491,7 +491,7 @@ class EditProfile extends ProfileController {
                               <img src={snapedit} />
                             </span>
                           </Box>
-                          {errors.snap && touched.snap ? (
+                         
                             <Typography
                               style={{
                                 color: "#F14E24",
@@ -503,7 +503,7 @@ class EditProfile extends ProfileController {
                             >
                               <ErrorMessage className="text-error" component="Typography" name="snap" />
                             </Typography>
-                          ) : null}
+                        
                            </Box>
                         <Box className="customButton">
                           <Button variant="contained" type="submit">
@@ -644,7 +644,7 @@ class EditProfile extends ProfileController {
                       />
                     </Box>
 
-                    {errors.phone && touched.phone ? (
+                  
                       <Typography
                         style={{
                           color: "#F14E24",
@@ -656,7 +656,7 @@ class EditProfile extends ProfileController {
                       >
                         <ErrorMessage className="text-error" component="Typography" name="phone" />
                       </Typography>
-                    ) : null}
+                  
                     <Box className="dialog-footer desktop-ui">
                       <DialogActions className="customButton">
                         <Button
