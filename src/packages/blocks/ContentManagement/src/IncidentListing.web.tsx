@@ -41,7 +41,6 @@ class IncidentListing extends IncidentController {
   }
   render() {
     const { navigation } = this.props;
-    console.log("this.state?.incidentListing==========>", this.state?.incidentListing)
     return (
       <>
         <Box className="login-wrapper incident-wrapper" >
@@ -63,7 +62,8 @@ class IncidentListing extends IncidentController {
                         anchorEl={this.state.anchorEl}
                         keepMounted
                         open={Boolean(this.state.anchorEl)}
-                        onClose={() => this.handleClose("" ,"")}
+                        onClose={() => this.handleClose("" ,"")}  
+                        style={{top:"28px"}}
                       >
                         <MenuItem onClick={(e) => this.handleClose(e, "asc")}>Ascending</MenuItem>
                         <MenuItem onClick={(e) => this.handleClose(e, "desc")}>Descending</MenuItem>
@@ -79,6 +79,7 @@ class IncidentListing extends IncidentController {
                       keepMounted
                       open={Boolean(this.state.anchorEl_1)}
                       onClose={() => this.handleClose_1("","")}
+                      style={{top:"28px"}}
                     >
                       <MenuItem onClick={(e) => this.handleClose_1(e, "Unresolved")}>Unresolved</MenuItem>
                       <MenuItem onClick={(e) => this.handleClose_1(e, "Resolved")}>Resolved</MenuItem>
@@ -125,21 +126,7 @@ class IncidentListing extends IncidentController {
                                 <Typography className="sub-title h5-title" component="h5">
                                   {val?.attributes?.common_area?.name}
                                 </Typography>
-                                {
-                                  val?.attributes?.incident_status === "Resolved" ?
-                                    <Box className="customButton">
-                                      <Button variant="contained" className="contain success" type="submit" >Resolved</Button>
-                                    </Box>
-                                    :
-                                    (val?.attributes?.incident_status === "Pending Confirmation") ?
-                                      <Box className="customButton">
-                                        <Button variant="contained" className="contain warning" type="submit" >Pending Confirmation</Button>
-                                      </Box>
-                                      :
-                                      <Box className="customButton">
-                                        <Button variant="contained" className="contain danger" type="submit" >Unresolved</Button>
-                                      </Box>
-                                }
+                               <ButtonStatus val={val}></ButtonStatus>
                                 {/* <Button className="success">Resolved</Button> */}
                               </CardActions>
                             </CardContent>
@@ -155,10 +142,7 @@ class IncidentListing extends IncidentController {
                      this.props.history.push("/CreateIncident") }} >Add New Incident</Button>
                   </Box>
                 </Box>
-                {/* <Box className="footer-main-block bottomBlock">
-                  <h6 className="bottom-text">POWERED BY</h6>
-                  <img src={Tenant_Logo.default} className="tenant-logo" alt="" />
-                </Box> */}
+               
               </Box>
             </Grid>
             {/* desktop footer block */}
@@ -176,4 +160,23 @@ class IncidentListing extends IncidentController {
   }
 }
 
+const ButtonStatus=(props:any)=>{
+  const attributes = props?.val
+  const checkCl=()=>{
+    if( attributes?.attributes?.incident_status === 'Unresolved'){
+      return "contain danger"
+    }else if(attributes?.attributes?.incident_status === 'Resolved'){
+      return 'contain success'
+    }else{
+      return 'contain warning'
+    }
+  }
+  return(
+    <>
+     <Box className="customButton">
+                        <Button variant="contained" className={checkCl()} type="submit" > {attributes?.attributes?.incident_status}</Button>
+                      </Box>
+    </>
+  )
+}
 export default withRouter(IncidentListing)

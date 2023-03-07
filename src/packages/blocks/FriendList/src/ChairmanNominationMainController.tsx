@@ -43,6 +43,7 @@ interface S {
   endDateType:any;
   nominationsList:any;
   mainError:any;
+  startButton:boolean;
 }
 
 interface SS {
@@ -86,7 +87,8 @@ export default class FriendListController extends BlockComponent<
       startDateType:"text",
       endDateType:"text",
       nominationsList:[],
-      mainError:""
+      mainError:"",
+      startButton:false,
     };
     runEngine.attachBuildingBlock(this as IBlock, this.subScribedMessages);
   }
@@ -247,6 +249,40 @@ export default class FriendListController extends BlockComponent<
     }
   }
 
+  getNominationListResponse = (responseJson:any) => {
+    if(responseJson.hasOwnProperty("chairman_nominations") && responseJson.code === 200){
+      const filterData = responseJson?.chairman_nominations?.data?.filter((item:any)=>{
+        return item.attributes.stage === "Nomination Started"
+      })
+      if(filterData.length > 0){
+        this.setState({
+          nominationsList:responseJson?.chairman_nominations?.data,
+          loading:false,
+          startButton:true
+        })
+      }else{
+        this.setState({
+          nominationsList:responseJson?.chairman_nominations?.data,
+          loading:false
+        })
+      }
+
+    }else{
+      if(responseJson.message === "No nominations present"){
+        this.setState({
+          nominationsList:[],
+          onGoingNomination:false,
+          loading:false
+        })
+      }else{
+        this.setState({
+          nominationsList:[],
+          loading:false
+        })
+      }
+    }
+  }
+
   async receive(from: string, message: Message) {
     runEngine.debugLog("Message Recived", message);
     if(getName(MessageEnum.RestAPIResponceMessage) === message.id) {
@@ -255,12 +291,7 @@ export default class FriendListController extends BlockComponent<
       var errorReponse = message.getData(getName(MessageEnum.RestAPIResponceErrorMessage));
       if(this.getNominationListId === apiRequestCallId ){
         console.log("NOMINATION",responseJson,errorReponse)
-        if(responseJson.hasOwnProperty("chairman_nominations") && responseJson.code === 200){
-          this.setState({
-            nominationsList:responseJson?.chairman_nominations?.data,
-            loading:false
-          })
-        }
+        this.getNominationListResponse(responseJson)
       }
       if(this.createNominationId === apiRequestCallId) {
         if(responseJson.meta.message === "Nomination created."){
@@ -279,6 +310,11 @@ export default class FriendListController extends BlockComponent<
         }
       }
     }
+  }
+
+
+  manageCancel = () => {
+
   }
 
   getNominationList = async () => {

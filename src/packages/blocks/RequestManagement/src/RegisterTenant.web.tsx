@@ -65,7 +65,7 @@ class RegisterTenant extends RegisterTenantController {
         <Loader loading={this.state.loading} />
 
         {this.state.isRegisterTenantOpen ? (
-          <Box style={{ background: "white", height: "100vh" }} className={classes.selectTemplate}>
+          <Box style={{ background: "white", height: "100vh", overflowY: "hidden" }} className={classes.selectTemplate}>
             <Grid container>
               <Grid item xs={12} md={7}>
                 <Box>
@@ -164,32 +164,19 @@ class RegisterTenant extends RegisterTenantController {
                                 </FormControl>
                                 <FormControl fullWidth>
                                   <Box className="mobile-box">
-                                    <Select
-                                      displayEmpty
-                                      value={values.tenantCountryCode}
-                                      onChange={(e: any) => {
-                                        setFieldValue("tenantCountryCode", e.target.value);
-                                      }}
-                                      onBlur={handleBlur}
-                                      name="tenantCountryCode"
-                                      fullWidth
-                                      className="mobile-select"
-                                      input={<OutlinedInput />}
-                                    >
-                                      {CountryList.map((country: any) => {
-                                        return (
-                                          <MenuItem key={country.dial_code} value={country.dial_code}>
-                                            <img
-                                              src={`https://cdn.jsdelivr.net/npm/country-flag-emoji-json@2.0.0/dist/images/${country.code}.svg`}
-                                              width="15"
-                                              height="15"
-                                              style={{ marginRight: "5px" }}
-                                            />
-                                            {country.dial_code}
-                                          </MenuItem>
-                                        );
-                                      })}
-                                    </Select>
+                                    <Box>
+                                      <FormControl variant="outlined">
+                                        <PhoneInput
+                                          inputProps={{ name: "selectCode" }}
+                                          enableSearch={true}
+                                          value={values.tenantCountryCode}
+                                          onChange={(e: any) => {
+                                            setFieldValue("tenantCountryCode", `+${e}`);
+                                          }}
+                                          country={"us"}
+                                        />
+                                      </FormControl>
+                                    </Box>
                                     <Box className="divider" />
                                     <Input
                                       value={values.tenantMobile}
@@ -206,6 +193,7 @@ class RegisterTenant extends RegisterTenantController {
                                         </InputAdornment>
                                       }
                                     />
+                                 
                                   </Box>
                                   {this.handleErrorMessage(errors.tenantMobile, touched.tenantMobile, t)}
                                 </FormControl>
@@ -448,6 +436,7 @@ class RegisterTenant extends RegisterTenantController {
             style={{
               background: this.state.contract ? "#F7F9FE" : "white",
               height: "100vh",
+              overflowY: "hidden",
             }}
             className={classes.selectTemplate}
           >
@@ -480,7 +469,7 @@ class RegisterTenant extends RegisterTenantController {
                             <Box className="pdf-info">
                               <Box className="heading">
                                 <h4 className="bold-text">{this.state.contract.name}</h4>
-                                <div className="right-menu">
+                                <div className="right-menu unit-menu">
                                   <Menu
                                     menuButton={
                                       <IconButton>

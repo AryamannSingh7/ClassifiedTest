@@ -20,6 +20,7 @@ export const ProfileStyleWeb: any = {
     },
     "& .my-profile-box .heading h6": {
       fontWeight: "600",
+      fontSize: "22px",
     },
     "& .my-profile-box .heading .setting": {
       display: "flex",
@@ -29,7 +30,7 @@ export const ProfileStyleWeb: any = {
       cursor: "pointer",
     },
     "& .profile-details-box": {
-      boxShadow: "none",
+      boxShadow: "4px 0px 14px #e9e9e9",
       padding: "20px",
       marginTop: "15px",
     },
@@ -52,6 +53,7 @@ export const ProfileStyleWeb: any = {
       display: "flex",
       alignItems: "center",
       gap: "15px",
+      cursor: "pointer",
     },
     "& .profile-details-box .border": {
       borderLeft: "1px solid #EBEBEB",
@@ -72,7 +74,6 @@ export const ProfileStyleWeb: any = {
       gap: "10px",
       flexWrap: "wrap",
       background: "white",
-
     },
     "& .profile-details-box .right-side .info .hobbies span": {
       borderRadius: "25px",
@@ -96,12 +97,11 @@ export const ProfileStyleWeb: any = {
       background: "#2B6FED",
       color: "white",
       borderRadius: "8px",
-      padding: "8px 20px",
+      padding: "10px 22px",
       fontWeight: "600",
+      position: "fixed",
+      bottom: 0,
+      marginBottom: "50px",
     },
-    "& .MuiTypography-body1":{
-      fontWeight:600
-    }
   },
-  
 };

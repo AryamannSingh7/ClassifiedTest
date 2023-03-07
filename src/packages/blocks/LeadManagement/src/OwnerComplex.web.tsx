@@ -54,7 +54,7 @@ class OwnerComplex extends OwnerComplexController {
 
     return (
       <>
-        <Box style={{ background: "white", height: "100vh" }} className={classes.complexDetails}>
+        <Box style={{ background: "white", height: "100vh", overflowY: "hidden" }} className={classes.complexDetails}>
           <Grid container>
             <Grid item xs={12} md={7}>
               <Box>
@@ -82,14 +82,16 @@ class OwnerComplex extends OwnerComplexController {
                             }`}
                             target="_blank"
                           >
-                            <span>{t("See complex on map")}</span>
+                            <span className="bold-text">{t("See complex on map")}</span>
                           </Link>
                         </Box>
                         <p>{this.state.complexData.aboutUs || "-"}</p>
                         <Grid container>
                           <Grid item xs={6} className="info-item">
                             <span>{t("Complex Area")}</span>
-                            <p>{this.state.complexData.complexArea || "-"}</p>
+                            <p>
+                              {this.state.complexData.complexArea || "-"} {this.state.complexData.measurement_unit}
+                            </p>
                           </Grid>
                           <Grid item xs={6} className="info-item">
                             <span>{t("Total Buildings")}</span>

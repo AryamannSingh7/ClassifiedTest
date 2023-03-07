@@ -57,7 +57,7 @@ class IncidentDetails extends IncidentController {
   }
 
   render() {
-    const { navigation } = this.props;
+   
     const id = this.state?.getIncidentDetails?.id;
     const attributes = this.state?.getIncidentDetails?.attributes;
     return (
@@ -103,9 +103,7 @@ class IncidentDetails extends IncidentController {
                     }
                     <Box className="incident-rows mt-15">
                       <h4>Incident Details</h4>
-                      <Box className="customButton">
-                        <Button variant="contained" className={attributes?.incident_status === 'Pending Confirmation' ? "contain warning" : attributes?.incident_status === 'Resolved' ? 'contain success' : 'contain danger'}  > {attributes?.incident_status}</Button>
-                      </Box>
+                     <ButtonStatus attributes={attributes}></ButtonStatus>
                     </Box>
                     <Card className="incident-card card">
                       <CardContent>
@@ -309,6 +307,26 @@ class IncidentDetails extends IncidentController {
       </>
     )
   }
+}
+
+const ButtonStatus=(props:any)=>{
+  const attributes = props?.attributes
+  const checkCl=()=>{
+    if( attributes?.incident_status === 'Unresolved'){
+      return "contain danger"
+    }else if(attributes?.incident_status === 'Resolved'){
+      return 'contain success'
+    }else{
+      return 'contain warning'
+    }
+  }
+  return(
+    <>
+     <Box className="customButton">
+                        <Button variant="contained" className={checkCl()}  > {attributes?.incident_status}</Button>
+                      </Box>
+    </>
+  )
 }
 
 export default withRouter(IncidentDetails)

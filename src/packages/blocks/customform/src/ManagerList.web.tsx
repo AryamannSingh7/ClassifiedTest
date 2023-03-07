@@ -3,38 +3,25 @@ import React from "react";
 import {
   Box,
   Button,
-  Link,
   Typography,
-  IconButton,
-  Dialog,
-  DialogActions,
-  DialogTitle,
   Grid,
-  TableContainer,
-  Table,
-  TableHead,
-  TableRow,
-  TableCell,
   Container,
   FormControl,
-  NativeSelect,
-  TableBody,
   Select,
   MenuItem,
-  InputAdornment,
+  InputAdornment, withStyles,
 } from "@material-ui/core";
 
 //resources
-import {Building, Building1, buildingImg, CarBlue, CarFront, userBlue} from "./assets";
+import {buildingImg, userBlue,CarLogo} from "./assets";
 import { withRouter } from 'react-router';
-import { Formik, Form, Field, ErrorMessage } from "formik";
-import { Visibility, VisibilityOff } from "@material-ui/icons";
-import KeyboardBackspaceIcon from '@material-ui/icons/KeyboardBackspace';
+import { Formik, Form, ErrorMessage } from "formik";
 import Loader from "../../../components/src/Loader.web";
 import ManagerController from "./ManagerController.web";
 import DashboardHeader from "../../dashboard/src/DashboardHeader.web";
 import ChairmanSidebarWeb from "../../dashboard/src/ChairmanSidebar.web";
 import { withTranslation } from 'react-i18next';
+import { ReportsStyleWeb } from "../../StoreCredits/src/ReportsStyle.web";
 import SearchIcon from "@material-ui/icons/Search";
 import '../../../web/src/i18n.js';
 class ManagerList extends ManagerController {
@@ -52,11 +39,11 @@ class ManagerList extends ManagerController {
   render() {
     //@ts-ignore
   //@ts-nocheck
-    const {t} = this.props
+    const {t,classes} = this.props
     //console.log("getRegistrationRequest===================>",building_name ,apartment_name);
     return (
       <>
-        <Box style={{ background: "#F7F9FE" }}>
+        <Box style={{ background: "#F7F9FE" }} className={classes.reportList}>
           {/* Dashboard Header -- */}
           <DashboardHeader {...this.props} />
           <Box style={{ display: "flex" }}>
@@ -92,12 +79,12 @@ class ManagerList extends ManagerController {
                   {({ values, touched, errors, isValid, setFieldError, setFieldValue, handleChange }) => (
                     <Form translate="yes" className="commonForm">
                       <Box className="sorting-header">
-                        <Box className="formGroup1 customSelect">
+                        <Box className="formGroup1 customSelect ">
                           <FormControl variant="outlined" style={{ width: '12rem' }}>
                             <Select
                               name="status"
                               labelId="demo-simple-select-outlined-label"
-                              id="demo-simple-select-outlined"
+                              className="select-input"
                               onChange={(e) => {
                                 (e.target.value != " ") && setFieldValue("status", e.target.value)
                               }}
@@ -209,7 +196,7 @@ class ManagerList extends ManagerController {
                     {
                       this.state.allVehcile.length >= 0 &&
                         <>
-                          <Grid container spacing={4} >
+                          <Grid container spacing={2} style={{marginLeft:"0px"}}>
                             {
                               this.state.allVehcile.map((item, i) => <>
                                 <Grid md={4} sm={6} xs={12} >
@@ -219,7 +206,9 @@ class ManagerList extends ManagerController {
                                         {item.attributes.status == 'Pending Approval' ? 'Pending' :item.attributes.status }</Button>
                                     </div>
                                     <div className="card-content" style={{paddingTop: "5px",paddingBottom:"10px"}}>
-                                      <img src='https://cdn-icons-png.flaticon.com/512/112/112957.png' style={{marginRight:20,width:60,height:60}}/>
+                                      <Box style={{marginRight:"10px",border:".1px solid #80808042",display:"flex",alignItems:"center",justifyContent:'center',borderRadius:"10px"}}>
+                                        <img src={CarLogo} width="90%" style={{height:"25px"}}/>
+                                      </Box>
                                       <div className="content" style={{padding:0}}>
                                         <p className="title" style={{padding:'12px 0px 0px 0px',marginBottom:'1px'}}>
                                           {item.attributes.company_name}
@@ -279,7 +268,7 @@ class ManagerList extends ManagerController {
 }
 //@ts-nocheck
 //@ts-ignore
-export default withTranslation()(withRouter(ManagerList))
+export default withTranslation()(withStyles(ReportsStyleWeb)(withRouter(ManagerList)))
 
 const dashBoardBudget = {
   SideBar: {

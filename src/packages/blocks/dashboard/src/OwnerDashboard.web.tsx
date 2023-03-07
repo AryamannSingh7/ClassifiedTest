@@ -86,7 +86,7 @@ const MenuList = [
     img: SidebarUnit,
   },
   {
-    name: "My Neighbors",
+    name: "My Neighbours",
     url: "/NeighboursListing",
     img: SidebarNeighbor,
   },
@@ -142,7 +142,7 @@ class OwnerDashboard extends DashboardController {
 
     return (
       <>
-        <Box className={classes.ownerDashboard} style={{ background: "#F7F9FE", height: "100vh" }}>
+        <Box className={classes.ownerDashboard} style={{ background: "#F7F9FE", height: "100vh", overflowY:"hidden" }}>
           <Drawer open={this.state.isMenuOpen} onClose={() => this.toggleDrawer()}>
             <Box className="dashboard-sidebar">
               <Box className="close-menu">

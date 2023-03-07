@@ -714,7 +714,7 @@ export const BuildingApartmentStyle: any = {
       background: "#FFFFFF",
       padding: "10px 20px",
       justifyContent: "space-between",
-      borderBottom: "2px solid lightgrey",
+      borderBottom: "2px solid #f2f2f2",
     },
     "& .top-bar .left-icon": {
       display: "flex",
@@ -751,6 +751,7 @@ export const BuildingApartmentStyle: any = {
     },
     "& .heading-box .heading-top h4": {
       color: "#2B6FED",
+      fontSize: "18px",
     },
     "& .heading-box .heading-bottom .heading": {
       display: "flex",
@@ -759,17 +760,26 @@ export const BuildingApartmentStyle: any = {
       marginTop: "20px",
       marginBottom: "5px",
     },
+    "& .heading-box .heading-bottom h4": {
+      fontSize: "18px",
+    },
     "& .heading-box .heading-bottom .heading span": {
       color: "#FC8434",
       fontWeight: 600,
       cursor: "pointer",
+      fontSize: "14px",
     },
     "& .heading-box .heading-bottom .info-item": {
       margin: "10px 0",
     },
     "& .heading-box .heading-bottom .info-item span": {
-      color: "#ACACAC",
+      color: "#181D25",
       fontSize: "14px",
+    },
+    "& .heading-box .heading-bottom .info-item p": {
+      color: "black",
+      fontSize: "14px",
+      marginTop: "6px",
     },
     "& .building-box": {
       margin: "20px 0",

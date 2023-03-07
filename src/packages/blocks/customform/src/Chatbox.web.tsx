@@ -23,17 +23,13 @@ import SendIcon from "@material-ui/icons/Send";
 import Loader from "../../../components/src/Loader.web";
 import moment from "moment";
 import KeyboardBackspaceIcon from '@material-ui/icons/KeyboardBackspace';
-
-
-
-
-// import { backIcon, logo, newMessage, pdfIcon } from "./assets";
 import { Formik, Form, Field } from "formik";
 import AttachFileIcon from '@material-ui/icons/AttachFile';
 import InboxController,{Props} from "./inboxController.web";
 import '../assets/css/style.scss'
 import { DoubleTick, info, Send } from "./assets";
 import { NoProfile_Img } from "../../user-profile-basic/src/assets";
+import { withTranslation } from "react-i18next";
 
 class ChatBox extends InboxController {
   constructor(props: Props) {
@@ -136,9 +132,9 @@ console.log(moment( myDate ).calendar())
       <div style={{ padding: "0.3rem", backgroundColor: "#ffff",paddingLeft:'0.3rem',marginTop:'1rem'}}>
         <Grid container>
           <Grid item xs={12} style={{ display: 'flex', justifyContent: 'space-between',borderBottom:'1px solid #F2F2F2',paddingBottom:'1rem' }}>
-            <Box display='flex' alignItems='center' onClick={() => window.history.back()}>
+            <Box display='flex' alignItems='center' style={{gap:"5px"}} onClick={() => window.history.back()}>
               <KeyboardBackspaceIcon />
-              <span style={{ fontWeight: 'bold' }}>
+              <span className="bold-text" style={{ fontWeight: 'bold', fontSize:"16px" }}>
                 {item?.attributes?.chat_with_account?.id != localStorage.getItem('userId') ?item?.attributes?.chat_with_account?.attributes?.full_name || 'N/A':item?.attributes?.chatable?.attributes?.full_name || 'N/A' }
               </span>
             </Box>
@@ -229,7 +225,9 @@ this.setState({ selectedMedia: message.message.images[0] })}} />
                   accept="image/png, image/jpeg, image/jpg,.pdf"
                 />
               </Grid>
-              <img src={Send} style={{ cursor: 'pointer',borderRadius:'20px',padding:'1rem',background:'#2B6FED' }} onClick={()=>this.createMessages()}/> 
+              <Box style={{borderRadius:'50%', cursor: 'pointer', padding:'10px',background:'#2B6FED'}} onClick={()=>this.createMessages()}>
+                <img src={Send} alt="send" /> 
+              </Box>
               {/* <SendIcon style={{ cursor: 'pointer' }} onClick={()=>this.createMessages()} /> */}
 
             </Grid>
@@ -424,7 +422,7 @@ const styles = StyleSheet.create({
 // Customizable Area End
 // @ts-ignore
 // @ts-nocheck
-export default withRouter(ChatBox as React.ComponentType<any>)
+export default withTranslation()(withRouter(ChatBox as React.ComponentType<any>));
 
 
 const MessageSection=(props:any)=>{
@@ -528,10 +526,8 @@ const MessageSection=(props:any)=>{
 
 const DisplayMessage=(props:any)=>{
   return(<>
-   <p>
-
-{props?.item?.attributes?.chatable?.attributes?.full_name}
-{props?.item?.attributes?.chatable?.attributes?.disable_chat ? props?.item?.attributes?.chatable?.attributes?.full_name:props?.item?.attributes?.chat_with_account?.attributes?.full_name} has disabled his chat. You won’t be able to send him message unit he enables it.
-</p>
+    <p>
+      {props?.item?.attributes?.chatable?.attributes?.full_name} has disabled his chat. You won’t be able to send him message until he enables it.
+    </p>
   </>)
 }

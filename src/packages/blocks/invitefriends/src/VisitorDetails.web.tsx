@@ -180,15 +180,18 @@ class VisitorDetails extends VisitorDetailsController{
                                 <Box>
                                     <img src={userIcon} />
                                 </Box>
-                                <Typography variant="h6" style={{color:"black",fontWeight:"bold",marginTop:"15px",marginBottom:"10px",textAlign:"center"}}>
-                                    {t("Scheduled Visitors")}
+                                <Typography className="visitorDetailsSceduled" variant="h6" style={{color:"black",fontWeight:"bold",marginTop:"15px",textAlign:"center"}}>
+                                    {t("Scheduled")}
                                 </Typography>
-                                <Typography variant="body2" style={{textAlign:"center"}}>
+                                <Typography className="visitorDetailsVisitor" variant="h6" style={{color:"black",fontWeight:"bold",marginBottom:"10px",textAlign:"center"}}>
+                                    {t("Visitors")}
+                                </Typography>
+                                <Typography className="visitorDetailsConfirmation" variant="body2" style={{textAlign:"center"}}>
                                     {t("Are you sure that you want to cancel this scheduled visit?")}
                                 </Typography>
                                 <Box style={{marginTop:"15px",width:"90%",display:"flex",flexDirection:"column",alignItems:"center"}}>
                                     {/*@ts-ignore*/}
-                                    <CloseButton variant="outlined" fullWidth style={{marginRight:"10px",marginBottom:"15px"}} onClick={this.closeDeleteModal}>{t("Yes, Cancel")}</CloseButton>
+                                    <CloseButton variant="outlined" fullWidth style={{marginRight:"10px",marginBottom:"15px"}} onClick={this.deleteVisitor}>{t("Yes, Cancel")}</CloseButton>
                                     <PublishButton fullWidth onClick={this.handleCloseDeleteModal} >{t("No, Don't Cancel")}</PublishButton>
                                 </Box>
                             </Box>
@@ -217,12 +220,12 @@ const CloseButton = withStyles((theme) => ({
 
 const PublishButton = withStyles((theme) => ({
     root: {
-        color: "#2b6fed",
+        color: "#8d8d8d",
         backgroundColor: "white",
         fontWeight:"bold",
         height:"45px",
         '&:hover': {
-            color: "#2b6fef",
+            color: "#8d8d8d",
         },
     },
 }))(Button);

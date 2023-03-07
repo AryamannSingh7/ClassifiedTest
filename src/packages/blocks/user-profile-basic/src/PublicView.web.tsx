@@ -1,60 +1,47 @@
 import * as React from "react";
 // custom components
 import {
-  Button, Grid, Box, Typography, Link, IconButton, FormControl, InputLabel, Select, MenuItem, Avatar, Checkbox, Dialog, DialogActions
+  Button, Grid, Box, Checkbox, Dialog, DialogActions, DialogContent, Typography
 } from "@material-ui/core";
-import ArrowBackIcon from '@material-ui/icons/ArrowBack';
-
-import PermIdentityIcon from '@material-ui/icons/PermIdentity';
-
-import MailOutlineIcon from '@material-ui/icons/MailOutline';
-import HomeIcon from '@material-ui/icons/Home';
 import { Building1, username } from "./assets";
 import { withRouter } from 'react-router';
 import Loader from "../../../components/src/Loader.web";
 import '../assets/css/style.scss';
-import { Formik, Form, Field, ErrorMessage } from "formik";
+import { Formik, Form } from "formik";
 import ProfileController from "./ProfileController.web";
-import { dailCode } from "../../email-account-registration/src/code";
 import CircleCheckedFilled from '@material-ui/icons/CheckCircle';
 import CircleUnchecked from '@material-ui/icons/RadioButtonUnchecked';
 import KeyboardBackspaceIcon from '@material-ui/icons/KeyboardBackspace';
+import { withTranslation } from "react-i18next";
 
 class PublicView extends ProfileController {
 
-  async componentDidMount() {
-
-    // this.getRelation()
-    // this.getIdType();
-
-  }
   render() {
     // @ts-ignore
-// @ts-nocheck
-    let profileData = JSON.parse(localStorage.getItem('profileData'))
-    return (
+    // @ts-nocheck
+    let profileData = JSON.parse(localStorage.getItem('profileData'));
+    const { t }: any = this.props;
 
+    return (
       <>
-        <Grid container spacing={2} className="auth-container" style={{ background:'#F8F9FE'}}>
+        <Grid container spacing={2} className="auth-container" style={{ background:'#F7F9FE'}}>
           <Grid item xs={12} md={7} className="auth-cols" style={{ justifyContent: 'unset' }}>
             <Grid container>
-              <Grid xs={12} style={{ display: 'flex', alignItems: 'center', borderBottom: '1px solid #f2f2f2',marginTop:'1.25rem' }}>
+              <Grid xs={12} style={{ display: 'flex', alignItems: 'center', borderBottom: '3px solid #f2f2f2', padding:'10px 0' }}>
                 <KeyboardBackspaceIcon onClick={() => window.history.back()} />
-                <p className="text-bold" style={{marginLeft:'0.25rem'}}>
-
+                <p className="bold-text" style={{marginLeft:'0.25rem', fontSize:"18px"}} >
                   Publish on Community Page
                 </p>
               </Grid>
             </Grid>
-            <Grid container>
+            <Grid container style={{background:"#F7F9FE"} }>
               <Grid item xs={12}>
-                <div style={{ background:'#EBF1FD', padding:'0.5rem',marginTop:'1rem'}}>
-                  This screen will allow you to select which of your information wil be visible to the rest of the residents in the building.
+                <div style={{ background:'#EBF1FD', padding:'0.5rem', marginTop:'1rem', marginBottom:'1rem'}}>
+                  <p style={{fontSize:"14px"}}>This screen will allow you to select which of your information wil be visible to the rest of the residents in the building.</p>
                 </div>
               </Grid>
             </Grid>
-            <div style={{background:'#F8F9FE'}}>
-
+            <div style={{background:'#F7F9FE'}}>
               <Grid container className="main-content-block">
                 <Grid xs={12}>
                   <Formik initialValues={{
@@ -74,24 +61,16 @@ class PublicView extends ProfileController {
                   }}
                     onSubmit={(values) => { this.updatePublicProfile(values) }}
                   >
-                    {({ values,
-                      errors,
-                      touched,
-                      isValid, handleChange,
-                      setFieldValue, setFieldError }) => (
+                    {({ values, errors, touched, isValid, handleChange, setFieldValue, setFieldError }) => (
                       <Form className="commonForm" translate="yes" >
                         <Box className='formGroup' style={{ height: '90%' }}>
-
-                          {/* name  */}
-                          <Box className="formGroup formCheckbox" style={{ flexDirection: 'column', marginTop: '1rem', marginLeft: '1rem', fontWeight: 'bold' }}>
-
-                            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', width: '90%', background:'white',borderRadius:'25px', padding:"0.25rem",paddingLeft:'1rem' }}>
+                          <Box className="formGroup formCheckbox" style={{ display:"block" }}>
+                            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', background:'white', borderRadius:'8px', padding:"10px" }}>
                               <div>
-                                <label htmlFor="loginCheckboxna" className="checkboxLabel">Name</label>
+                                <label htmlFor="loginCheckboxna" className="checkboxLabel bold-text">Name</label>
                                 <p style={{marginTop:'0.25rem'}}>
                                   {profileData.attributes.full_name.name}
                                 </p>
-
                               </div>
                               <div>
                                 <Checkbox className="radio-toolbar" name="full_name" onChange={handleChange} checked={values.full_name} icon={<CircleUnchecked />}
@@ -100,13 +79,11 @@ class PublicView extends ProfileController {
                               </div>
                             </div>
                           </Box>
-
-                          <Box className="formGroup formCheckbox" style={{ flexDirection: 'column', marginTop: '1rem', marginLeft: '1rem', fontWeight: 'bold' }}>
-
-                            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', width: '90%', background:'white',borderRadius:'25px', padding:"0.25rem",paddingLeft:'1rem' }}>
+                          <Box className="formGroup formCheckbox" style={{ display:"block" }}>
+                            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', background:'white', borderRadius:'8px', padding:"10px" }}>
                               <div>
-                                <label htmlFor="loginCheckboxu" className="checkboxLabel">Apartment No.</label>
-                                <p style={{ marginTop: '0.25rem' }}>
+                                <label htmlFor="loginCheckboxu" className="checkboxLabel bold-text">Apartment No.</label>
+                                <p style={{ marginTop: '8px' }}>
                                   {profileData.attributes.apartment_number.apartment_number}
                                 </p>
                               </div>
@@ -117,12 +94,11 @@ class PublicView extends ProfileController {
                               </div>
                             </div>
                           </Box>
-                          <Box className="formGroup formCheckbox" style={{ flexDirection: 'column', marginTop: '1rem', marginLeft: '1rem', fontWeight: 'bold' }}>
-
-                            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', width: '90%', background:'white',borderRadius:'25px', padding:"0.25rem",paddingLeft:'1rem' }}>
+                          <Box className="formGroup formCheckbox" style={{ display:"block" }}>
+                            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', background:'white',borderRadius:'8px', padding:"10px", }}>
                               <div>
-                                <label htmlFor="loginCheckboxp" className="checkboxLabel">Phone No.</label>
-                                <p style={{ marginTop: '0.25rem' }}>
+                                <label htmlFor="loginCheckboxp" className="checkboxLabel bold-text">Phone No.</label>
+                                <p style={{ marginTop: '8px' }}>
                                   {profileData.attributes.full_phone_number.full_phone_number}
                                 </p>
                               </div>
@@ -133,12 +109,11 @@ class PublicView extends ProfileController {
                               </div>
                             </div>
                           </Box>
-                          <Box className="formGroup formCheckbox" style={{ flexDirection: 'column', marginTop: '1rem', marginLeft: '1rem', fontWeight: 'bold' }}>
-
-                            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', width: '90%', background:'white',borderRadius:'25px', padding:"0.25rem",paddingLeft:'1rem' }}>
+                          <Box className="formGroup formCheckbox" style={{ display:"block" }}>
+                            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', background:'white', borderRadius:'8px', padding:"10px" }}>
                               <div>
-                                <label htmlFor="loginCheckboxe" className="checkboxLabel">Email Address</label>
-                                <p style={{ marginTop: '0.25rem' }}>
+                                <label htmlFor="loginCheckboxe" className="checkboxLabel bold-text">Email Address</label>
+                                <p style={{ marginTop: '8px' }}>
                                   {profileData.attributes.email.email}
                                 </p>
                               </div>
@@ -149,12 +124,11 @@ class PublicView extends ProfileController {
                               </div>
                             </div>
                           </Box>
-                          <Box className="formGroup formCheckbox" style={{ flexDirection: 'column', marginTop: '1rem', marginLeft: '1rem', fontWeight: 'bold' }}>
-
-                            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', width: '90%', background:'white',borderRadius:'25px', padding:"0.25rem",paddingLeft:'1rem' }}>
+                          <Box className="formGroup formCheckbox" style={{ display:"block" }}>
+                            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', background:'white', borderRadius:'8px', padding:"10px" }}>
                               <div>
-                                <label htmlFor="loginCheckboxg" className="checkboxLabel">Gender</label>
-                                <p style={{ marginTop: '0.25rem' }}>
+                                <label htmlFor="loginCheckboxg" className="checkboxLabel bold-text">Gender</label>
+                                <p style={{ marginTop: '8px' }}>
                                   {profileData.attributes.gender.gender}
                                 </p>
                               </div>
@@ -165,12 +139,11 @@ class PublicView extends ProfileController {
                               </div>
                             </div>
                           </Box>
-                          <Box className="formGroup formCheckbox" style={{ flexDirection: 'column', marginTop: '1rem', marginLeft: '1rem', fontWeight: 'bold' }}>
-
-                            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', width: '90%', background:'white',borderRadius:'25px', padding:"0.25rem",paddingLeft:'1rem' }}>
+                          <Box className="formGroup formCheckbox" style={{ display:"block" }}>
+                            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', background:'white', borderRadius:'8px', padding:"10px" }}>
                               <div>
-                                <label htmlFor="loginCheckboxdb" className="checkboxLabel">Date of Birth</label>
-                                <p style={{ marginTop: '0.25rem' }}>
+                                <label htmlFor="loginCheckboxdb" className="checkboxLabel bold-text">Date of Birth</label>
+                                <p style={{ marginTop: '8px' }}>
                                   {profileData.attributes.date_of_birth.date_of_birth}
                                 </p>
                               </div>
@@ -181,12 +154,11 @@ class PublicView extends ProfileController {
                               </div>
                             </div>
                           </Box>
-                          <Box className="formGroup formCheckbox" style={{ flexDirection: 'column', marginTop: '1rem', marginLeft: '1rem', fontWeight: 'bold' }}>
-
-                            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', width: '90%', background:'white',borderRadius:'25px', padding:"0.25rem",paddingLeft:'1rem' }}>
+                          <Box className="formGroup formCheckbox" style={{ display:"block" }}>
+                            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', background:'white', borderRadius:'8px', padding:"10px" }}>
                               <div>
-                                <label htmlFor="loginCheckboxh" className="checkboxLabel">Hobbies</label>
-                                <p style={{ marginTop: '0.25rem' }}>
+                                <label htmlFor="loginCheckboxh" className="checkboxLabel bold-text">Hobbies</label>
+                                <p style={{ marginTop: '8px' }}>
                                   {profileData?.attributes?.hobbies?.hobbies?.join(',')}
                                 </p>
                               </div>
@@ -197,12 +169,11 @@ class PublicView extends ProfileController {
                               </div>
                             </div>
                           </Box>
-                          <Box className="formGroup formCheckbox" style={{ flexDirection: 'column', marginTop: '1rem', marginLeft: '1rem', fontWeight: 'bold' }}>
-
-                            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', width: '90%', background:'white',borderRadius:'25px', padding:"0.25rem",paddingLeft:'1rem' }}>
+                          <Box className="formGroup formCheckbox" style={{ display:"block" }}>
+                            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', background:'white', borderRadius:'8px', padding:"10px" }}>
                               <div>
-                                <label htmlFor="loginCheckboxt" className="checkboxLabel">Twitter</label>
-                                <p style={{ marginTop: '0.25rem' }}>
+                                <label htmlFor="loginCheckboxt" className="checkboxLabel bold-text">Twitter</label>
+                                <p style={{ marginTop: '8px' }}>
                                   {profileData.attributes.website[0].twitter_link}
                                 </p>
                               </div>
@@ -213,12 +184,11 @@ class PublicView extends ProfileController {
                               </div>
                             </div>
                           </Box>
-                          <Box className="formGroup formCheckbox" style={{ flexDirection: 'column', marginTop: '1rem', marginLeft: '1rem', fontWeight: 'bold' }}>
-
-                            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', width: '90%', background:'white',borderRadius:'25px', padding:"0.25rem",paddingLeft:'1rem' }}>
+                          <Box className="formGroup formCheckbox" style={{ display:"block" }}>
+                            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', background:'white', borderRadius:'8px', padding:"10px" }}>
                               <div>
-                                <label htmlFor="loginCheckboxb" className="checkboxLabel">Facebook</label>
-                                <p style={{ marginTop: '0.25rem' }}>
+                                <label htmlFor="loginCheckboxb" className="checkboxLabel bold-text">Facebook</label>
+                                <p style={{ marginTop: '8px' }}>
                                   {profileData.attributes.website[2].fb_link}
                                 </p>
                               </div>
@@ -229,12 +199,11 @@ class PublicView extends ProfileController {
                               </div>
                             </div>
                           </Box>
-                          <Box className="formGroup formCheckbox" style={{ flexDirection: 'column', marginTop: '1rem', marginLeft: '1rem', fontWeight: 'bold' }}>
-
-                            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', width: '90%', background:'white',borderRadius:'25px', padding:"0.25rem",paddingLeft:'1rem' }}>
+                          <Box className="formGroup formCheckbox" style={{ display:"block" }}>
+                            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', background:'white', borderRadius:'8px', padding:"10px" }}>
                               <div>
-                                <label htmlFor="loginCheckboxi" className="checkboxLabel">Instagram</label>
-                                <p style={{ marginTop: '0.25rem' }}>
+                                <label htmlFor="loginCheckboxi" className="checkboxLabel bold-text">Instagram</label>
+                                <p style={{ marginTop: '8px' }}>
                                   {profileData.attributes.website[1].instagram_link}
                                 </p>
                               </div>
@@ -245,12 +214,11 @@ class PublicView extends ProfileController {
                               </div>
                             </div>
                           </Box>
-                          <Box className="formGroup formCheckbox" style={{ flexDirection: 'column', marginTop: '1rem', marginLeft: '1rem', fontWeight: 'bold' }}>
-
-                            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', width: '90%', background:'white',borderRadius:'25px', padding:"0.25rem",paddingLeft:'1rem' }}>
+                          <Box className="formGroup formCheckbox" style={{ display:"block" }}>
+                            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', background:'white', borderRadius:'8px', padding:"10px" }}>
                               <div>
-                                <label htmlFor="loginCheckboxs" className="checkboxLabel">Snapchat</label>
-                                <p style={{ marginTop: '0.25rem' }}>
+                                <label htmlFor="loginCheckboxs" className="checkboxLabel bold-text">Snapchat</label>
+                                <p style={{ marginTop: '8px' }}>
                                   {profileData.attributes.website[3].snapchat_link}
                                 </p>
                               </div>
@@ -261,12 +229,11 @@ class PublicView extends ProfileController {
                               </div>
                             </div>
                           </Box>
-                          <Box className="formGroup formCheckbox" style={{ flexDirection: 'column', marginTop: '1rem', marginLeft: '1rem', fontWeight: 'bold' }}>
-
-                            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', width: '90%', background:'white',borderRadius:'25px', padding:"0.25rem",paddingLeft:'1rem' }}>
+                          <Box className="formGroup formCheckbox" style={{ display:"block" }}>
+                            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', background:'white', borderRadius:'8px', padding:"10px" }}>
                               <div>
-                                <label htmlFor="loginCheckboxf" className="checkboxLabel">Family Details</label>
-                                <p style={{ marginTop: '0.25rem' }}>
+                                <label htmlFor="loginCheckboxf" className="checkboxLabel bold-text">Family Details</label>
+                                <p style={{ marginTop: '8px' }}>
                                   {profileData?.attributes.families?.families?.length + ' Members' || '0 Members'}
                                 </p>
                               </div>
@@ -279,15 +246,9 @@ class PublicView extends ProfileController {
                           </Box>
                         </Box>
                         <Box className="customButton">
-
-                          <Button
-                            variant="contained"
-                            type="submit"
-
-                          >
+                          <Button variant="contained" type="submit" style={{marginTop:"15px"}}>
                             Save
                           </Button>
-
                         </Box>
                       </Form>
                     )}
@@ -303,53 +264,34 @@ class PublicView extends ProfileController {
             </Box>
           </Grid>
         </Grid>
+
         <Dialog
-          open={this.state.showDialog}
+          className="delete-document personal"
+          fullWidth
           onClose={() => this.setState({ showDialog: false })}
-          aria-labelledby="alert-dialog-title"
-          aria-describedby="alert-dialog-description"
-          className="diloag-wrapper"
-          PaperProps={{
-            style: {
-              borderRadius: '15px',
-              padding: '2rem'
-            },
-          }}
+          open={this.state.showDialog}
         >
-          <Grid container>
-            <Grid xs={12} style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', marginBottom: 10 }}>
-
-              <img src={username} />
-            </Grid>
-          </Grid>
-          <Grid container>
-            <Grid xs={12} style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', marginBottom: 10 }}>
-
-              <p style={{ fontWeight: 600, fontSize: '1.25rem', textAlign: 'center' }}>
-                Are you sure you want
-                <br />
-                to hide your name?
-              </p>
-            </Grid>
-          </Grid>
-          <Grid container>
-            <Grid xs={12} style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', marginBottom: 10 }}>
-              <p style={{ fontWeight: 400, fontSize: '0.8rem', textAlign: 'center' }}>
-                On hiding your name, you’ll go anonymous and you will not be able to message anyone. Do you want to hide your name?
-              </p>
-            </Grid>
-          </Grid>
-          <Box className="dialog-footer desktop-ui">
-            <DialogActions className="customButton">
-              <Button variant="contained" onClick={() => this.setState({ showDialog: false })}  >
-                No, Don’t Hide It
-              </Button>
-              <Button  onClick={() => this.publicViewAPI()}  variant='text'>
-                Yes, Hide It
-              </Button>
-            </DialogActions>
-          </Box>
+          <DialogContent>
+            <Box textAlign="center">
+              <img src={username} alt="ExclamationIcon" />
+              <Typography variant="h6" className="bold-text">
+                Are you sure you want <br /> to hide your name?
+              </Typography>
+              <Typography variant="body1">
+                {t(
+                  "On hiding your name, you’ll go anonymous and you will not be able to message anyone. Do you want to hide your name?"
+                )}
+              </Typography>
+              <DialogActions className="dialog-button-group">
+                <Button onClick={() => this.setState({ showDialog: false })}>
+                  {t("No, Don’t Hide It")}
+                </Button>
+                <Button onClick={() => this.publicViewAPI()}>{t("Yes, Hide It")}</Button>
+              </DialogActions>
+            </Box>
+          </DialogContent>
         </Dialog>
+
         <Loader loading={this.state.loading} />
       </>
 
@@ -359,6 +301,4 @@ class PublicView extends ProfileController {
 
 }
 
-// @ts-igonre
-// @ts-nocheck
-export default withRouter(PublicView)
+export default withTranslation()(withRouter(PublicView));

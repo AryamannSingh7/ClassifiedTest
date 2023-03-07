@@ -165,6 +165,7 @@ export const MeetingsStyleWeb: any = {
       borderRadius: "25px",
       background: "#2B6FED",
       color: "white",
+      width: "fit-content",
     },
     "& .meeting-table .table-bottom": {
       padding: "20px",

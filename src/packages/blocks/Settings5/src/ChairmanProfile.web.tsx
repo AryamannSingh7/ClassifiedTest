@@ -4,37 +4,21 @@ import {
   Container,
   Typography,
   FormControl,
-  Tab,
   withStyles,
   Button,
-  Accordion,
-  AccordionSummary,
-  AccordionDetails,
   Dialog,
-  DialogContent,
   DialogActions,
-  IconButton,
   Card,
-  Input,
-  InputAdornment,
   Select,
   MenuItem,
-  ListItemIcon,
   Avatar,
   FormControlLabel,
   RadioGroup,
   Radio,
 } from "@material-ui/core";
 import { Formik, Form, Field, ErrorMessage } from "formik";
-import MuiDialogTitle from "@material-ui/core/DialogTitle";
-import CloseIcon from "@material-ui/icons/Close";
-import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
-import DeleteOutlineIcon from "@material-ui/icons/DeleteOutline";
-import EditIcon from "@material-ui/icons/Edit";
 import Box from "@material-ui/core/Box";
-import AddIcon from "@material-ui/icons/Add";
 import Grid from "@material-ui/core/Grid";
-
 import DashboardHeader from "../../dashboard/src/DashboardHeader.web";
 import ChairmanSidebarWeb from "../../dashboard/src/ChairmanSidebar.web";
 import { ProfileStyleWeb } from "./ProfileStyle.web";
@@ -45,35 +29,30 @@ import ChipInput from "material-ui-chip-input";
 import { AvatarIcon, CallIcon, ChatIcon, EmailIcon, FacebookIcon, InstagramIcon, SettingIcon, SnapchatIcon, TwitterIcon } from "./assets";
 import OtpInput from "react-otp-input";
 import { withRouter } from 'react-router';
+import { withTranslation } from "react-i18next";
 
 class ChairmanProfile extends ProfileController {
   constructor(props: Props) {
     super(props);
   }
+
   async componentDidMount() {
-    this.getProfile()
-        // this.getVehicle()
-    
-      }
+    this.getProfile();
+  }
 
   render() {
-     //@ts-ignore
-            //@ts-nocheck
-    const { classes } = this.props;
+    const { classes }: any = this.props;
     let profileData =this.state.profiledata
-
  
     return (
       <>
         <Box
-          style={{ background: "#F4F7FF" }}
+          style={{ background: "#F7F9FE" }}
           className={classes.ChairmanProfile}
         >
-          {/* Dashboard Header -- */}
           <DashboardHeader {...this.props} />
           <Box style={{ display: "flex" }}>
             <Grid item xs={3} md={3} sm={3} className="SideBar">
-              {/* Chairman Sidebar -- */}
               <ChairmanSidebarWeb {...this.props} />
             </Grid>
 
@@ -82,18 +61,18 @@ class ChairmanProfile extends ProfileController {
                 <Box className="navigation">
                   <Box>
                     <Typography variant="body1">
-                      <Box component="span" style={{ color: "blue" }}>
+                      <Box component="span" style={{color:"#2B6FED"}}>
                         My Profile
                       </Box>
                     </Typography>
-                    <Typography variant="h5" className="sub-heading">
+                    <Typography variant="h5" className="sub-heading bold-text">
                       My Profile
                     </Typography>
                   </Box>
                 </Box>
                 <Box className="my-profile-box">
                   <Box className="heading">
-                    <Typography variant="h6" className="sub-heading">
+                    <Typography variant="h6" className="sub-heading bold-text">
                       General Details
                     </Typography>
                     {/* <Box className="setting">
@@ -104,13 +83,11 @@ class ChairmanProfile extends ProfileController {
                   <Card className="profile-details-box">
                     <Grid container>
                       <Grid item xs={3} className="left-side" style={{padding:20}}>
-                       
                         <SectionOne profileData={profileData} handleClick={()=>this.props.history.push('/chairmanchat')}/>
                       </Grid>
                       <Grid item xs={1} className="border" />
                       <Grid item xs={8} className="right-side" style={{padding:20}}>
                         <SectionTwo profileData={profileData}/>
-                       
                       </Grid>
                     </Grid>
                   </Card>
@@ -705,6 +682,7 @@ class ChairmanProfile extends ProfileController {
             </DialogActions>
           </Box>
         </Dialog>
+       
         <Dialog
           open={this.state.showDialog1}
           onClose={() => this.setState({ showDialog1: false })}
@@ -857,6 +835,7 @@ class ChairmanProfile extends ProfileController {
           </Grid>
 
         </Dialog>
+       
         <Dialog
           open={this.state.showDialogDelete}
           onClose={() => this.setState({ showDialogDelete: false })}
@@ -921,9 +900,9 @@ class ChairmanProfile extends ProfileController {
   }
 }
 
-export default withRouter(withStyles(ProfileStyleWeb)(ChairmanProfile));
-// Customizable Area End
- 
+// @ts-ignore
+export default withTranslation()(withRouter(withStyles(ProfileStyleWeb)(ChairmanProfile)));
+
 
 const SectionOne=(props:any)=>{
   return <>
@@ -931,8 +910,8 @@ const SectionOne=(props:any)=>{
                           src={props?.profileData?.attributes?.profile_pic?.url||AvatarIcon.default}
                           alt="avatar"
                           className="profile"
-                        />
-                        <Typography variant="h6" className="sub-heading">
+                          />
+                        <Typography variant="h6" className="sub-heading bold-text">
                         {props?.profileData?.attributes?.full_name.name || 'N/A'}
                         </Typography>
 
@@ -947,9 +926,6 @@ const SectionOne=(props:any)=>{
 
 const SectionTwo=(profileData:any)=>{
  const checkNosocialMedia=(profileData:any)=>{
-     
-      
-
     if(!profileData?.attributes?.website[0].twitter_link){
       if(!profileData?.attributes?.website[1].instagram_link){
         if(!profileData?.attributes?.website[2].fb_link){
@@ -957,7 +933,7 @@ const SectionTwo=(profileData:any)=>{
 return 'No social media handle'
           }
         }
-
+        
       }
     }
 
@@ -1005,7 +981,7 @@ return 'No social media handle'
                             <span>Social Media</span>
                             <Box className="icons">
                             {
-                    profileData?.attributes?.website[0].twitter_link &&
+                              profileData?.attributes?.website[0].twitter_link &&
                      <Button href={profileData?.attributes?.website[0].twitter_link} target="_blank">
                       <img src={TwitterIcon} alt="phone" />
                     </Button>
@@ -1037,3 +1013,5 @@ return 'No social media handle'
                         </Grid>
   </>
 }
+
+// Customizable Area End

@@ -61,22 +61,37 @@ class IncidentManagement extends IncidentManagementController {
             <Grid xs={9} md={9} sm={9} spacing={4} style={{ paddingTop: 35 ,backgroundColor:"#f4f7ff" }}>
               <Container>
                 <Box style={dashBoard.navigation}>
-                  <Box>
+                <Box>
                     <Typography variant="body1" >
-                      {t("My Dashboard")} / {t("General Dashboard")} /<Box component="span" style={{ color: "blue" }}> {t("Incidents")}</Box>
+                      <Link href="DashboardGeneral"  color="inherit"> {t("My Dashboard")}</Link> /
+                      <Link href="DashboardGeneral"  color="inherit"> {t("General Dashboard")}</Link> / 
+                      <Box component="span" style={{ color: "#2c6fed" }}>
+                        <Link href="IncidentManagement" color="inherit"> {t("Incidents")}</Link>
+                      </Box>
                     </Typography>
-                    <Typography variant="h5" className="bold-text" style={dashBoard.subHeading}>{t("Incidents")}</Typography>
+                    <Typography variant="h5" className="bold-text" style={dashBoard.subHeading}>Incident Details</Typography>
                   </Box>
                 </Box>
-                <Box className="sorting-header inputPlaceholderRegistration">
-                  <Box className="formGroup customSelect"  style={{border:"0.1px solid rgb(209 209 209 / 100%)",borderRadius:"25px",backgroundColor:"#f9f9f9"}}>
-                    <FormControl variant="outlined">
+                <Box className="sorting-header ">
+                  <Box className="formGroup customSelect" >
+                    <FormControl variant="outlined" >
                       <Select
                         name="buildingName"
                         labelId="demo-simple-select-outlined-label"
                         id="demo-simple-select-outlined"
                         onChange={(e) => { this.onChange(e) }}
                         value={this.state.buildingName}
+                        MenuProps={{
+                          anchorOrigin: {
+                            vertical: 'bottom',
+                            horizontal: 'left',
+                          },
+                          transformOrigin: {
+                            vertical: 'top',
+                            horizontal: 'left',
+                          },
+                          getContentAnchorEl: null,
+                        }}
                       >
                         <MenuItem disabled value=" ">
                           {t("Select Building")}
@@ -94,7 +109,7 @@ class IncidentManagement extends IncidentManagementController {
                       </Select>
                     </FormControl>
                   </Box>
-                  <Box className="formGroup customSelect" style={{border:"0.1px solid rgb(209 209 209 / 100%)",borderRadius:"25px",backgroundColor:"#f9f9f9"}}>
+                  <Box className="formGroup customSelect" >
                     <FormControl variant="outlined" >
                       <Select
                         name="unitName"
@@ -102,6 +117,17 @@ class IncidentManagement extends IncidentManagementController {
                         id="demo-simple-select-outlined"
                         onChange={(e) => { this.onChange(e) }}
                         value={this.state.unitName}
+                        MenuProps={{
+                          anchorOrigin: {
+                            vertical: 'bottom',
+                            horizontal: 'left',
+                          },
+                          transformOrigin: {
+                            vertical: 'top',
+                            horizontal: 'left',
+                          },
+                          getContentAnchorEl: null,
+                        }}
                       >
                         <MenuItem disabled value=" ">
                           {t("Select Unit")}
@@ -121,7 +147,7 @@ class IncidentManagement extends IncidentManagementController {
                     </FormControl>
                   </Box>
 
-                  <Box className="formGroup customSelect" style={{border:"0.1px solid rgb(209 209 209 / 100%)",borderRadius:"25px",backgroundColor:"#f9f9f9"}}>
+                  <Box className="formGroup customSelect" >
                     <FormControl variant="outlined" >
                       <Select
                         name="status"
@@ -129,6 +155,17 @@ class IncidentManagement extends IncidentManagementController {
                         id="demo-simple-select-outlined"
                         onChange={(e) => { this.onChange(e) }}
                         value={this.state.status}
+                        MenuProps={{
+                          anchorOrigin: {
+                            vertical: 'bottom',
+                            horizontal: 'left',
+                          },
+                          transformOrigin: {
+                            vertical: 'top',
+                            horizontal: 'left',
+                          },
+                          getContentAnchorEl: null,
+                        }}
                       >
                         <MenuItem disabled value=" ">
                           {t("Select Status")}
@@ -159,10 +196,7 @@ class IncidentManagement extends IncidentManagementController {
                       <Grid item sm={4} key={index} onClick={() => this.getIncidentDetails(val.id)}>
                         <Card className="management-card card" key={index}>
                           <CardContent className="costom-card-content">
-                            <Box className="customButton">
-                              <Button variant="contained" className={val?.attributes?.incident_status === 'Pending Confirmation' ? "contain warning" : val?.attributes?.incident_status === 'Resolved' ? 'contain success' : 'contain danger'} type="submit">
-                                {val?.attributes?.incident_status}</Button>
-                            </Box>
+                           <ButtonStatus val={val}></ButtonStatus>
                             <Typography component="h4" className="bold-text" style={{fontSize:"20px"}}>
                               {val?.attributes?.incident_related?.name}
                             </Typography>
@@ -197,6 +231,28 @@ class IncidentManagement extends IncidentManagementController {
 
 export default withTranslation()(withStyles(dashBoard)(withRouter(IncidentManagement)));
 
+
+const ButtonStatus =(props:any)=>{
+  const val = props?.val
+  const checkCl=()=>{
+    if( val?.attributes?.incident_status === 'Unresolved'){
+      return "contain danger"
+    }else if(val?.attributes?.incident_status === 'Resolved'){
+      return 'contain success'
+    }else{
+      return 'contain warning'
+    }
+  }
+  return(
+    <>
+     <Box className="customButton">
+          <Button variant="contained" className={checkCl()
+            } type="submit">
+                  {val?.attributes?.incident_status}</Button>
+           </Box>
+    </>
+  )
+}
 const dashBoard = {
   navigation: {
     display: "flex",

@@ -62,10 +62,10 @@ class NeighboursDetails extends NeighboursController {
     console.log("getNeighboursDetails=====>", this.state?.getNeighboursDetails)
     return (
       <>
-        <Box className="login-wrapper incident-wrapper neighbour-listing-wrapper">
+        <Box className="login-wrapper incident-wrapper neighbour-listing-wrapper" style={{backgroundColor:"#ffffff"}}>
           <Grid container spacing={2} className="auth-container">
             <Grid item xs={12} md={7} className="auth-cols">
-              <Box className="content-block common_content_block" style={{ backgroundColor: "white" }}>
+              <Box className="content-block common_content_block" style={{ backgroundColor: "#ffffff" }}>
                 <Box className="content-header">
                   <Box className="left-block blocks">
                     <Box className="backIcons" onClick={() => window.history.back()}><KeyboardBackspaceIcon /></Box>
@@ -81,7 +81,7 @@ class NeighboursDetails extends NeighboursController {
                     <img src={Setting_Icon} className="Search_Icon" alt="Search Icon" />
                   </Button> */}
                 </Box>
-                <Box className="content-block-wrapper neighbor-content-block-wrapper common-incident-block desktop-ui">
+                <Box className="content-block-wrapper neighbor-content-block-wrapper common-incident-block desktop-ui" style={{backgroundColor:"#ffffff"}}>
                   {/* neighbour detail section */}
                   {
                     attributes?.full_name?.publilc_access ?
