@@ -272,7 +272,7 @@
 
 .select-meeting .list-heading span {
   font-weight: 600;
-  font-family: "Gotham_Bold" !important;
+  font-family: "Gotham_Bold", sans-serif !important;
 }
 
 .select-meeting .dialog-button-group {
@@ -1604,7 +1604,7 @@
 }
 
 .profile-gender span {
-  font-family: "Gotham_Bold" !important;
+  font-family: "Gotham_Bold", sans-serif !important;
 }
 
 .react-tel-input .selected-flag:hover,
