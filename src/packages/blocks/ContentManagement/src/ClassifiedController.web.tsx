@@ -1050,8 +1050,8 @@ createClassifiedSchemaGerenic() {
       classifiedTitle: Yup.string().max(50, "Too Long!").required("Title is required"),
       description: Yup.string().max(200, "Too Long!").required("Description is required"),
       currency:Yup.string().trim().required("Currency is required"),
-      startDate: Yup.date().required("Start Date is required"),
-      endDate: Yup.date().required(" End Date is required")
+      startDate: Yup.date().typeError("Invalid date!").required("Start Date is required"),
+      endDate: Yup.date().typeError("Invalid date!").required(" End Date is required")
                          .test("is-greater", "End date should be greater than Start date", function(value) {
                          const { startDate } = this.parent;
       return moment(value, "DD/MM/YYYY").isSameOrAfter(moment(startDate, "DD/MM/YYYY"));
@@ -1086,8 +1086,8 @@ createClassifiedSchemaGerenic() {
       classifiedTitle: Yup.string().max(50, "Too Long!").required("Title is required"),
       description: Yup.string().max(200, "Too Long!").required("Description is required"),
       currency:Yup.string().trim().required("Currency is required"),
-      startDate: Yup.date().required("Start Date is required"),
-      endDate: Yup.date().required(" End Date is required")
+      startDate: Yup.date().typeError("Invalid date!").required("Start Date is required"),
+      endDate: Yup.date().typeError("Invalid date!").required(" End Date is required")
                          .test("is-greater", "End date should be greater than Start date", function(value) {
                          const { startDate } = this.parent;
       return moment(value, "DD/MM/YYYY").isSameOrAfter(moment(startDate, "DD/MM/YYYY"));
@@ -1127,8 +1127,8 @@ createClassifiedSchemaGerenic() {
       classifiedTitle: Yup.string().max(50, "Too Long!").required("Title is required"),
       description: Yup.string().max(200, "Too Long!").required("Description is required"),
       currency:Yup.string().trim().required("Currency is required"),
-      startDate: Yup.date().required("Start Date is required"),
-      endDate: Yup.date().required(" End Date is required")
+      startDate: Yup.date().typeError("Invalid date!").required("Start Date is required"),
+      endDate: Yup.date().typeError("Invalid date!").required(" End Date is required")
                          .test("is-greater", "End date should be greater than Start date", function(value) {
                          const { startDate } = this.parent;
       return moment(value, "DD/MM/YYYY").isSameOrAfter(moment(startDate, "DD/MM/YYYY"));
