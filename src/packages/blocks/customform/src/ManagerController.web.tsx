@@ -56,7 +56,8 @@ interface S {
   buildingNameData:any;
   buildingName:any;
   selectBuilding:any;
-  allUnit:any
+  allUnit:any;
+  status:any
   // Customizable Area End
 }
 
@@ -106,6 +107,7 @@ export default class ManagerController extends BlockComponent<Props, S, SS> {
       buildingName:null,
       selectBuilding:null,
       allUnit:[],
+      status:null
     };
     // Customizable Area End
     runEngine.attachBuildingBlock(this as IBlock, this.subScribedMessages);
@@ -820,7 +822,7 @@ const newData={
     if (e.target.name !== 'selectBuilding') {
       // @ts-ignore
       // @ts-nocheck
-      this.setState({ ...this.state, [e.target.name]: e.target.value }, () => this.getData(e))
+      this.setState({ ...this.state, [e.target.name]: e.target.value })
     }else{
       const array = e.target?.value?.split(" ");
       const id = array[0]
@@ -879,7 +881,7 @@ const newData={
     runEngine.sendMessage(requestMessage.id, requestMessage);
     return true;
   }
-  getVehicle2(value:any) {
+  getVehicle2(status:any,building:any,unit:any) {
 
     const header = {
       "Content-Type": configJSON.contentTypeApiAddDetail,
@@ -897,7 +899,7 @@ console.log(this.state.buildingName)
     this.getVehicleListApiCallId = requestMessage.messageId;
     requestMessage.addData(
       getName(MessageEnum.RestAPIResponceEndPointMessage),
-      `bx_block_vehicle/vehicles?search_building=${this.state.selectBuilding=='All'? '':this.state.selectBuilding}&search_unit=${value.unit=='All' ? '':value.unit}&filter_by=${value.status =='All'?'':value.status}`
+      `bx_block_vehicle/vehicles?search_building=${this.state.selectBuilding=='All'? '':this.state.selectBuilding}&search_unit=${unit=='All' ? '':unit}&filter_by=${status =='All'?'':status}`
     );
 
     requestMessage.addData(
