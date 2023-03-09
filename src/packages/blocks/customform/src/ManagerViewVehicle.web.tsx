@@ -351,7 +351,7 @@ class ManagerViewVeichle extends ManagerController {
                 CLOSE
               </Button>
               <Button variant="contained" style={{borderRadius:10,width:'200px'}} onClick={() => this.acceptRequest()} >
-                CONFRIM
+                CONFIRM
               </Button>
             </DialogActions>
           </Box>
