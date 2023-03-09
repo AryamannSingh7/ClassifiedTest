@@ -304,6 +304,7 @@ export default withTranslation()(withRouter(Profile));
 
 
 function SectionOne(props:any){
+  console.log('props',props)
   const {profileData} =props
   return <>
   <Grid item xs={12}>
@@ -319,7 +320,7 @@ function SectionOne(props:any){
                       <img src={Chat_Disable_Icon}  className="icons" alt="info-icon" width='15' />
                     </Box> :
                     <Box className="blocks">
-                      <img src={Chat_Icon} onClick={()=>props.history.push('/inbox')} className="icons" alt="info-icon" />
+                      <img src={Chat_Icon} onClick={()=>props?.props?.history.push('/inbox')} className="icons" alt="info-icon" />
                     </Box>
                   }
                       <Box className="blocks">
