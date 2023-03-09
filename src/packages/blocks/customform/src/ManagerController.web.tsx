@@ -733,14 +733,11 @@ if(this.state.allVehcile.length<3){
       "token": localStorage.getItem('userToken')
     };
 
-    // const formData = new FormData();
-    // formData.append("vehicle[status]", 'Rejected')
-    // formData.append("vehicle[description]", '')
-const newData={
-  "vehicle": {
-      "status": false
-  }
-}
+    const newData={
+      "vehicle": {
+          "status": false
+      }
+    }
     const requestMessage = new Message(
       getName(MessageEnum.RestAPIRequestMessage)
     );

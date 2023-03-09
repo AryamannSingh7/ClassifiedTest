@@ -86,21 +86,7 @@ export default class ClassifiedController extends BlockComponent<
   updateClassifiedApiCallId:any;
   getCurrencyListApiCallId:any;
 
-  imgPasswordVisible: any;
-  imgPasswordInVisible: any;
 
-  labelHeader: any;
-  labelFirstName: string;
-  lastName: string;
-  labelEmail: string;
-  labelPassword: string;
-  labelRePassword: string;
-  labelLegalText: string;
-  labelLegalTermCondition: string;
-  labelLegalPrivacyPolicy: string;
-  btnTextSignUp: string;
-
-  currentCountryCode: any;
   // Customizable Area End
 
   constructor(props: Props) {
@@ -158,19 +144,6 @@ export default class ClassifiedController extends BlockComponent<
     this.passwordReg = new RegExp("\\w+");
     this.emailReg = new RegExp("\\w+");
 
-    this.imgPasswordVisible = imgPasswordVisible;
-    this.imgPasswordInVisible = imgPasswordInVisible;
-
-    this.labelHeader = configJSON.labelHeader;
-    this.labelFirstName = configJSON.labelFirstName;
-    this.lastName = configJSON.lastName;
-    this.labelEmail = configJSON.labelEmail;
-    this.labelPassword = configJSON.labelPassword;
-    this.labelRePassword = configJSON.labelRePassword;
-    this.labelLegalText = configJSON.labelLegalText;
-    this.labelLegalTermCondition = configJSON.labelLegalTermCondition;
-    this.labelLegalPrivacyPolicy = configJSON.labelLegalPrivacyPolicy;
-    this.btnTextSignUp = configJSON.btnTextSignUp;
     // Customizable Area End
   }
 

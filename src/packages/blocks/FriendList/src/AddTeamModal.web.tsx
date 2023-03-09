@@ -53,7 +53,7 @@ class AddTeamModal extends AddTeamModalController {
     return (
         <div style={dashBoard.paper}>
             <Box style={{display:'flex',alignItems:'center',justifyContent:'space-between',marginBottom:"10px"}}>
-                <Typography variant="h5" className="bold-text" style={{fontWeight:"bold",fontSize:"22px"}}>
+                <Typography variant="h5" className="bold-text addTeamModal" style={{fontWeight:"bold",fontSize:"22px"}}>
                     Create New Member
                 </Typography>
                 <IconButton onClick={this.handleModalClose}>
