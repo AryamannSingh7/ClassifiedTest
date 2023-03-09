@@ -9,6 +9,7 @@ import {
     DialogActions,
     FormControl,
     FormControlLabel,
+    Input,
     MenuItem,
     Radio,
     RadioGroup,
@@ -22,6 +23,7 @@ import Grid from "@material-ui/core/Grid";
 import DashboardHeader from "../../dashboard/src/DashboardHeader.web";
 import ChairmanSidebarWeb from "../../dashboard/src/ChairmanSidebar.web";
 import {ProfileStyleWeb} from "./ProfileStyle.web";
+import AlertErrorWeb from "../../../components/src/AlertError.web";
 import ProfileController, {Props} from "../../user-profile-basic/src/ProfileController.web";
 import {
     calendar,
@@ -69,6 +71,8 @@ class ChairmanProfile extends ProfileController {
 
         return (
             <>
+            <AlertErrorWeb show={this.state.showError} handleClose={()=> this.setState({showError:false,error:null})} message={this.state.error} />
+      
                 <Box
                     style={{background: "#F7F9FE"}}
                     className={classes.ChairmanProfile}
@@ -225,7 +229,7 @@ class ChairmanProfile extends ProfileController {
                                                         accept="image/png, image/jpeg, image/jpg"
                                                     />
                                                 </Box>
-                                                {errors.banner && touched.banner ? (
+                                     
                                                     <Typography
                                                         style={{
                                                             color: "#F14E24",
@@ -239,20 +243,21 @@ class ChairmanProfile extends ProfileController {
                                                         <ErrorMessage className="text-error" component="Typography"
                                                                       name="banner"/>
                                                     </Typography>
-                                                ) : null}
-                                                {errors.bannerUrl && touched.bannerUrl ? (
-                                                    <Typography
-                                                        style={{
-                                                            color: "#F14E24",
-                                                            fontFamily: "Poppins",
-                                                            fontWeight: 300,
-                                                            fontSize: 14,
-                                                            marginTop: 5
-                                                        }}
-                                                    >
-                                                        {errors.bannerUrl}
-                                                    </Typography>
-                                                ) : null}
+                                                    {errors.bannerUrl && touched.bannerUrl ? (
+                            <Typography
+                              style={{
+                                color: "#F14E24",
+                                fontFamily: "Poppins",
+                                fontWeight: 300,
+                                fontSize: 14,
+                                marginTop: 5
+                              }}
+                            >
+                              {errors.bannerUrl}
+                            </Typography>
+                          ) : null}
+
+                                           
                                                 <Grid container spacing={2} style={{width:"98%"}}>
                                                     <Grid item xs={6}>
                                                         {/* name */}
@@ -277,7 +282,7 @@ class ChairmanProfile extends ProfileController {
                                                           <img src={user}/>
                                                         </span>
                                                         </Box>
-                                                        {errors.full_name && touched.full_name ? (
+                                                     
                                                             <Typography
                                                                 style={{
                                                                     color: "#F14E24",
@@ -291,7 +296,7 @@ class ChairmanProfile extends ProfileController {
                                                                 <ErrorMessage className="text-error" component="Typography"
                                                                               name="full_name"/>
                                                             </Typography>
-                                                        ) : null}
+                                              
                                                     </Grid>
                                                     <Grid item xs={6}>
                                                         {/* phone */}
@@ -359,7 +364,7 @@ class ChairmanProfile extends ProfileController {
                                                                     }}
                                                                 />
                                                             </Box>
-                                                            {errors.phone && touched.phone ? (
+                                                          
                                                                 <Typography
                                                                     style={{
                                                                         color: "#F14E24",
@@ -372,7 +377,7 @@ class ChairmanProfile extends ProfileController {
                                                                     <ErrorMessage className="text-error"
                                                                                   component="Typography" name="phone"/>
                                                                 </Typography>
-                                                            ) : null}
+                                             
                                                             <p style={{
                                                                 color: '#FC8434',
                                                                 textAlign: 'right',
@@ -404,7 +409,7 @@ class ChairmanProfile extends ProfileController {
                                                               <img src={emailedit}/>
                                                             </span>
                                                         </Box>
-                                                        {errors.email && touched.email ? (
+                                                  
                                                             <Typography
                                                                 style={{
                                                                     color: "#F14E24",
@@ -417,7 +422,7 @@ class ChairmanProfile extends ProfileController {
                                                                 <ErrorMessage className="text-error" component="Typography"
                                                                               name="email"/>
                                                             </Typography>
-                                                        ) : null}
+                                                  
                                                     </Grid>
                                                     <Grid item xs={6}>
                                                         {/* Bio */}
@@ -442,7 +447,7 @@ class ChairmanProfile extends ProfileController {
                                                               <img src={Hyperlink}/>
                                                             </span>
                                                         </Box>
-                                                        {errors.bio && touched.bio ? (
+                                                     
                                                             <Typography
                                                                 style={{
                                                                     color: "#F14E24",
@@ -454,7 +459,7 @@ class ChairmanProfile extends ProfileController {
                                                             >
                                                                 <ErrorMessage className="text-error" component="Typography" name="bio"/>
                                                             </Typography>
-                                                        ) : null}
+                                                      
                                                     </Grid>
                                                     <Grid item xs={12}>
                                                         <Typography className="bold-text" style={{marginBottom:"10px"}}>
@@ -509,12 +514,14 @@ class ChairmanProfile extends ProfileController {
                                                                 className="formInput"
                                                                 name="DOB"
                                                                 placeholder={"Date of Birth"}
+                                                                
                                                             />
                                                             <span className="frmLeftIcons" style={{top: '24%'}}>
                                                           <img src={calendar}/>
                                                         </span>
+                                                         
                                                         </Box>
-                                                        {errors.DOB && touched.DOB ? (
+                                                 
                                                             <Typography
                                                                 style={{
                                                                     color: "#F14E24",
@@ -527,7 +534,7 @@ class ChairmanProfile extends ProfileController {
                                                                 <ErrorMessage className="text-error" component="Typography"
                                                                               name="DOB"/>
                                                             </Typography>
-                                                        ) : null}
+                                                
                                                     </Grid>
                                                     <Grid item xs={6}>
                                                         <Box
@@ -554,7 +561,7 @@ class ChairmanProfile extends ProfileController {
                                                               <img src={heart}/>
                                                             </span>
                                                         </Box>
-                                                        {errors.hobbies && touched.hobbies ? (
+                                                     
                                                             <Typography
                                                                 style={{
                                                                     color: "#F14E24",
@@ -568,7 +575,7 @@ class ChairmanProfile extends ProfileController {
                                                                 <ErrorMessage className="text-error" component="Typography"
                                                                               name="hobbies"/>
                                                             </Typography>
-                                                        ) : null}
+                                                      
                                                     </Grid>
                                                     <Grid item xs={6}>
                                                         <div style={{
@@ -599,7 +606,7 @@ class ChairmanProfile extends ProfileController {
                                                                   <img src={twitteredit}/>
                                                                 </span>
                                                             </Box>
-                                                            {errors.twitter && touched.twitter ? (
+                                                         
                                                                 <Typography
                                                                     style={{
                                                                         color: "#F14E24",
@@ -611,7 +618,7 @@ class ChairmanProfile extends ProfileController {
                                                                 >
                                                                     <ErrorMessage className="text-error" component="Typography" name="twitter"/>
                                                                 </Typography>
-                                                            ) : null}
+                                                 
                                                         </div>
                                                     </Grid>
                                                     <Grid item xs={6}>
@@ -643,7 +650,7 @@ class ChairmanProfile extends ProfileController {
                                                                   <img src={fbedit}/>
                                                                 </span>
                                                             </Box>
-                                                            {errors.fb && touched.fb ? (
+                                                        
                                                                 <Typography
                                                                     style={{
                                                                         color: "#F14E24",
@@ -657,7 +664,7 @@ class ChairmanProfile extends ProfileController {
                                                                     <ErrorMessage className="text-error"
                                                                                   component="Typography" name="fb"/>
                                                                 </Typography>
-                                                            ) : null}
+                                                         
                                                         </div>
                                                     </Grid>
                                                     <Grid item xs={6}>
@@ -690,7 +697,7 @@ class ChairmanProfile extends ProfileController {
                                                               <img src={instaedit}/>
                                                             </span>
                                                             </Box>
-                                                            {errors.insta && touched.insta ? (
+                                           
                                                                 <Typography
                                                                     style={{
                                                                         color: "#F14E24",
@@ -704,7 +711,7 @@ class ChairmanProfile extends ProfileController {
                                                                     <ErrorMessage className="text-error"
                                                                                   component="Typography" name="insta"/>
                                                                 </Typography>
-                                                            ) : null}
+                                                         
                                                         </div>
                                                     </Grid>
                                                     <Grid item xs={6}>
@@ -735,7 +742,7 @@ class ChairmanProfile extends ProfileController {
                                                                   <img src={snapedit}/>
                                                                 </span>
                                                             </Box>
-                                                            {errors.snap && touched.snap ? (
+                                                        
                                                                 <Typography
                                                                     style={{
                                                                         color: "#F14E24",
@@ -748,7 +755,7 @@ class ChairmanProfile extends ProfileController {
                                                                     <ErrorMessage className="text-error"
                                                                                   component="Typography" name="snap"/>
                                                                 </Typography>
-                                                            ) : null}
+                                                       
                                                         </div>
                                                     </Grid>
                                                 </Grid>
@@ -763,6 +770,7 @@ class ChairmanProfile extends ProfileController {
                                                     </Button>
                                                 </Box>
                                             </Box>
+                                            {JSON.stringify(errors, null, 2)}
                                         </Form>
                                     )}
                                 </Formik>
@@ -905,7 +913,7 @@ class ChairmanProfile extends ProfileController {
                                                     : null
 
                                             }
-                                            {errors.phone && touched.phone ? (
+                                           
                                                 <Typography
                                                     style={{
                                                         color: "#F14E24",
@@ -919,7 +927,7 @@ class ChairmanProfile extends ProfileController {
                                                                   name="phone"/>
 
                                                 </Typography>
-                                            ) : null}
+                                 
 
                                             <Box className="dialog-footer desktop-ui">
                                                 <DialogActions className="customButton">
@@ -1150,6 +1158,8 @@ const SectionTwo = (profileData: any) => {
                 </Box>
             </Grid>
         </Grid>
+        
+
     </>
 }
 

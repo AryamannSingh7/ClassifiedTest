@@ -55,7 +55,7 @@ class ManagerList extends ManagerController {
             </Grid>
 
             <Grid xs={9} md={9} sm={9} spacing={4} style={{ paddingTop: 35 }}>
-              <Container>
+              <Container className="top-bar" style={{display:'block'}}>
                 <Box style={dashBoardBudget.navigation}>
                   <Box>
                     <Typography variant="body1" >
@@ -197,8 +197,9 @@ class ManagerList extends ManagerController {
                               onChange={(e) => {
                                 (e.target.value != " ") && this.handleChange(e)
                               }}
+                              value={this.state.status}
                             >
-                              <MenuItem value=" " >
+                              <MenuItem value="" >
                                 {t("Status")}
                               </MenuItem>
                               <MenuItem value="All" >
@@ -226,8 +227,9 @@ class ManagerList extends ManagerController {
                                 (e.target.value != " ")&& this.handleChange(e)
 
                               }}
+                              value={this.state.buildingName}
                             >
-                              <MenuItem disabled value=" " >
+                              <MenuItem disabled value="" >
                                 {t("Select Building")}
                               </MenuItem>
                               <MenuItem value="All" >
@@ -252,10 +254,12 @@ class ManagerList extends ManagerController {
                               onChange={(e) => {
                                 (e.target.value != " ") && this.handleChange(e)
                               }}
+                              value={this.state.unit}
+
                              
                             >
 
-                                  <MenuItem disabled value=" " >
+                                  <MenuItem disabled value="" >
                                     {t("Select Unit")}
                                   </MenuItem>
                                   <MenuItem value="All" >

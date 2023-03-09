@@ -56,8 +56,10 @@ interface S {
   buildingNameData:any;
   buildingName:any;
   selectBuilding:any;
+  selectBuilding2:any;
   allUnit:any;
-  status:any
+  status:any;
+  unit:any
   // Customizable Area End
 }
 
@@ -104,10 +106,12 @@ export default class ManagerController extends BlockComponent<Props, S, SS> {
       showDialog:false,
       showDialogPhoto:false,
       buildingNameData:null,
-      buildingName:null,
-      selectBuilding:null,
+      buildingName:'',
+      selectBuilding:'',
+      selectBuilding2:'',
       allUnit:[],
-      status:null
+      status:'',
+      unit:''
     };
     // Customizable Area End
     runEngine.attachBuildingBlock(this as IBlock, this.subScribedMessages);
@@ -896,7 +900,7 @@ console.log(this.state.buildingName)
     this.getVehicleListApiCallId = requestMessage.messageId;
     requestMessage.addData(
       getName(MessageEnum.RestAPIResponceEndPointMessage),
-      `bx_block_vehicle/vehicles?search_building=${this.state.selectBuilding=='All'? '':this.state.selectBuilding}&search_unit=${unit=='All' ? '':unit}&filter_by=${status =='All'?'':status}`
+      `bx_block_vehicle/vehicles?search_building=${this.state.selectBuilding=='All'? '':this.state.selectBuilding}&search_unit=${unit=='All' ? '':this.state.unit}&filter_by=${status =='All'?'':status}`
     );
 
     requestMessage.addData(
