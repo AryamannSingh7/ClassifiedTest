@@ -416,10 +416,10 @@ class Buildings extends BuildingsController {
                                     <TableCell>{unit.attributes.apartment_name}</TableCell>
                                     <TableCell>{unit.attributes.floor_number}</TableCell>
                                     <TableCell>
-                                      {unit.attributes.resident ? unit.attributes.resident.resident_name : "-"}
+                                      {unit.attributes.status !== "No-Own" ? unit.attributes.resident.full_name : "-"}
                                     </TableCell>
                                     <TableCell>
-                                      {unit.attributes.owner ? unit.attributes.owner.owner_name : "-"}
+                                      {unit.attributes.status !== "No-Own" ? unit.attributes.owner.full_name : "-"}
                                     </TableCell>
                                     <TableCell>
                                       <span className={unit.attributes.status}>

@@ -53,7 +53,7 @@ class AddTeamModal extends AddTeamModalController {
     return (
         <div style={dashBoard.paper}>
             <Box style={{display:'flex',alignItems:'center',justifyContent:'space-between',marginBottom:"10px"}}>
-                <Typography variant="h5" style={{fontWeight:"bold"}}>
+                <Typography variant="h5" className="bold-text" style={{fontWeight:"bold",fontSize:"22px"}}>
                     Create New Member
                 </Typography>
                 <IconButton onClick={this.handleModalClose}>
@@ -61,7 +61,6 @@ class AddTeamModal extends AddTeamModalController {
                         //@ts-ignore
                          style={dashBoard.modalCacle}/>
                 </IconButton>
-
             </Box>
             <Divider/>
                     <form className="commonForm ">
@@ -319,7 +318,7 @@ const dashBoard = {
         backgroundColor: "#fff",
         borderRadius: '10px',
         // boxShadow: theme.shadows[5],
-        padding: "16px 32px 24px",
+        padding: "16px 32px 10px",
         width:"700px"
     },
     formLabels:{
