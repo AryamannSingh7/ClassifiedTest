@@ -770,7 +770,7 @@ class ChairmanProfile extends ProfileController {
                                                     </Button>
                                                 </Box>
                                             </Box>
-                                            {JSON.stringify(errors, null, 2)}
+                                         
                                         </Form>
                                     )}
                                 </Formik>
