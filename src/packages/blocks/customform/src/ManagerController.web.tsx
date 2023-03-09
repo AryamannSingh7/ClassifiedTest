@@ -733,10 +733,14 @@ if(this.state.allVehcile.length<3){
       "token": localStorage.getItem('userToken')
     };
 
-    const formData = new FormData();
-    formData.append("vehicle[status]", 'Rejected')
-    formData.append("vehicle[description]", '')
-
+    // const formData = new FormData();
+    // formData.append("vehicle[status]", 'Rejected')
+    // formData.append("vehicle[description]", '')
+const newData={
+  "vehicle": {
+      "status": false
+  }
+}
     const requestMessage = new Message(
       getName(MessageEnum.RestAPIRequestMessage)
     );
@@ -745,7 +749,7 @@ if(this.state.allVehcile.length<3){
     this.acceptRequestAPICallId = requestMessage.messageId;
     requestMessage.addData(
       getName(MessageEnum.RestAPIResponceEndPointMessage),
-      `bx_block_vehicle/vehicles/${item.id}?role=Chairman`
+      `bx_block_vehicle/vehicles/${item.id}/verify_vehicles`
     );
 
     requestMessage.addData(
@@ -754,7 +758,7 @@ if(this.state.allVehcile.length<3){
     );
     requestMessage.addData(
       getName(MessageEnum.RestAPIRequestBodyMessage),
-      formData
+      JSON.stringify(newData)
     );
 
 
