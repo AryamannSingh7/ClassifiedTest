@@ -24,6 +24,7 @@ import { withTranslation } from 'react-i18next';
 import { ReportsStyleWeb } from "../../StoreCredits/src/ReportsStyle.web";
 import SearchIcon from "@material-ui/icons/Search";
 import '../../../web/src/i18n.js';
+import { SearchIconImage } from "../../ExpenseTracking/src/assets";
 class ManagerList extends ManagerController {
   //@ts-ignore
   //@ts-nocheck
@@ -54,7 +55,7 @@ class ManagerList extends ManagerController {
             </Grid>
 
             <Grid xs={9} md={9} sm={9} spacing={4} style={{ paddingTop: 35 }}>
-              <Container>
+              <Container className="top-bar" style={{display:'block'}}>
                 <Box style={dashBoardBudget.navigation}>
                   <Box>
                     <Typography variant="body1" >
@@ -63,7 +64,7 @@ class ManagerList extends ManagerController {
                     <Typography variant="h5" style={dashBoardBudget.subHeading} >{t("Vehicles")}</Typography>
                   </Box>
                 </Box>
-                <Formik
+                {/* <Formik
                   initialValues={{
                     buildingName: " ",
                     unit: " ",
@@ -178,9 +179,7 @@ class ManagerList extends ManagerController {
                           </FormControl>
                         </Box>
 
-                        {/* <Box className="customButton">
-                          <Button variant="contained" type="submit">{t("Search")}</Button>
-                        </Box> */}
+                        
                         <Button className='btnMy' variant="contained" type="submit"style={{ backgroundColor: "#2D6EED",
    padding:"9px 10px",height:'3.3rem'}}><InputAdornment position="start" style={{color:'white'}}>
                                 <SearchIcon />
@@ -188,8 +187,100 @@ class ManagerList extends ManagerController {
                       </Box>
                     </Form>
                   )}
-                </Formik>
+                </Formik> */}
+ <Box className="filter">
+ <Select
+                              name="status"
+                              labelId="demo-simple-select-outlined-label"
+                              className="select-input"
+                              displayEmpty 
+                              onChange={(e) => {
+                                (e.target.value != " ") && this.handleChange(e)
+                              }}
+                              value={this.state.status}
+                            >
+                              <MenuItem value="" >
+                                {t("Status")}
+                              </MenuItem>
+                              <MenuItem value="All" >
+                                {t("All")}
+                              </MenuItem>
+                              <MenuItem value="Pending Approval">
+                                {t("Pending")}
+                              </MenuItem>
+                              <MenuItem value="Approved">
+                                {t("Approved")}
+                              </MenuItem>
+                              <MenuItem value="Rejected">
+                                {t("Rejected")}
+                              </MenuItem>
 
+                            </Select>
+                    <Select
+                              name="selectBuilding"
+                              labelId="demo-simple-select-outlined-label"
+                              id="demo-simple-select-outlined"
+                              displayEmpty className="select-input"
+                              onChange={(e) => {
+                                //@ts-ignore
+              //@ts-nocheck
+                                (e.target.value != " ")&& this.handleChange(e)
+
+                              }}
+                              value={this.state.buildingName}
+                            >
+                              <MenuItem disabled value="" >
+                                {t("Select Building")}
+                              </MenuItem>
+                              <MenuItem value="All" >
+                                {t("All")}
+                              </MenuItem>
+                              {
+                                this.state?.buildingNameData?.map((val:any, index:any) => (
+                                  <MenuItem
+                                    key={index}
+                                    value={`${val?.id} ${val?.attributes.name}`}
+                                  >
+                                    {val?.attributes.name}
+                                  </MenuItem>
+                                ))
+                              }
+                            </Select>
+                    <Select
+                              name="unit"
+                              labelId="demo-simple-select-outlined-label"
+                              id="demo-simple-select-outlined"
+                              displayEmpty className="select-input"
+                              onChange={(e) => {
+                                (e.target.value != " ") && this.handleChange(e)
+                              }}
+                              value={this.state.unit}
+
+                             
+                            >
+
+                                  <MenuItem disabled value="" >
+                                    {t("Select Unit")}
+                                  </MenuItem>
+                                  <MenuItem value="All" >
+                                {t("All")}
+                              </MenuItem>
+
+                              {    this.state?.allUnit?.map((val:any, index:any) => (
+                                    <MenuItem
+                                      key={index}
+                                      value={val?.apartment_name}
+                                    >
+                                      {val?.apartment_name}
+                                    </MenuItem>
+                                  ))}
+
+
+                            </Select>
+                    <Button startIcon={<img src={SearchIconImage} />} onClick={() => this.getVehicle2(this.state.status,this.state.selectBuilding,this.state.unit)}>
+                      {t("Search")}
+                    </Button>
+                  </Box>
              <Grid container>
               <Grid xs={12}>
 

@@ -64,14 +64,14 @@ class MyTeam extends MyTeamController {
                         <Typography variant="body1" >
                             {t("My Team")} / <Box component="span" style={{color: "blue"}}>{t("Team Members")}</Box>
                         </Typography>
-                        <Typography variant="h5" className="subHeading">{t("Team Members")}</Typography>
+                        <Typography variant="h5" className="subHeading bold-text">{t("Team Members")}</Typography>
                     </Box>
                     <Box>
                         <AcceptButton variant="outlined" onClick={(e) => this.setState({setOpen:true})}>{t("Create new Member")}</AcceptButton>
                     </Box>
                 </Box>
                 <Box className="RecentItems">
-                    <Typography className="Recenttitle">{t("Pending Request")}({this.state.pendingReq.length})</Typography>
+                    <Typography className="Recenttitle bold-text" style={{fontSize:"22px"}}>{t("Pending Request")}({this.state.pendingReq.length})</Typography>
                 </Box>
 
                 <Grid container spacing={3} style={{marginTop: 15, marginBottom:30}}>
@@ -87,13 +87,13 @@ class MyTeam extends MyTeamController {
                           :
                           <Box style={{marginLeft:"25px"}}>
                               <Typography variant={"body1"} style={{fontWeight:"bold"}} color="textSecondary" >
-                                  {t("No User Found")}
+                                  {t("No Pending Request!")}
                               </Typography>
                           </Box>
                     }
                 </Grid>
                 <Box className="RecentItems">
-                    <Typography className="Recenttitle">Core Members({this.state.coreMembers.length})</Typography>
+                    <Typography className="Recenttitle bold-text" style={{fontSize:"22px"}}>Core Members({this.state.coreMembers.length})</Typography>
                     {
                         this.state.coreMembers.length > 3 &&
                         <Link href="/TeamMembers/Core_member" >
@@ -120,7 +120,7 @@ class MyTeam extends MyTeamController {
                     }
                 </Grid>
                 <Box className="RecentItems">
-                    <Typography className="Recenttitle">Sub Team ({this.state.subTeam.length})</Typography>
+                    <Typography className="Recenttitle bold-text" style={{fontSize:"22px"}}>Sub Team ({this.state.subTeam.length})</Typography>
                     {
                         this.state.subTeam.length > 3 &&
                         <Link href="/TeamMembers/Sub_team" >
@@ -148,7 +148,7 @@ class MyTeam extends MyTeamController {
                     }
                 </Grid>
                 <Box className="RecentItems">
-                    <Typography className="Recenttitle">{t("Service Providers")}({this.state.providers.length})</Typography>
+                    <Typography className="Recenttitle bold-text" style={{fontSize:"22px"}}>{t("Service Providers")}({this.state.providers.length})</Typography>
                     {
                         this.state.providers.length > 3 &&
                             <Link href="/TeamMembers/Service_provider" >

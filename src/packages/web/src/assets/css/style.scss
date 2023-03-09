@@ -158,6 +158,27 @@ li {
   font-weight: 600;
 }
 
+.text-error-currency {
+  color: $WARNING;
+  font-size: 14px !important;
+  margin-bottom: 10px !important;
+  display: flex;
+  margin-left: 0px;
+  margin-top: 23px !important;
+  font-weight: 600;
+}
+
+.text-error-currency1 {
+  color: $WARNING;
+  font-size: 14px !important;
+  margin-bottom: 10px !important;
+  display: flex;
+  margin-left: 0px;
+  margin-top: 5px !important;
+  font-weight: 600;
+}
+
+
 .text-errorSelect {
   color: $WARNING;
   font-size: 14px !important;

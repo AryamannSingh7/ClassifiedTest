@@ -64,3 +64,57 @@
         }
     }
 }
+
+.priceSelect {
+    & .MuiFormControl-root {
+        width: 100%;
+    }
+    & .frmLeftIcons {
+        z-index: 9;
+    }
+    & fieldset {
+        top: 0;
+        // background-color: #f9f9f9;
+        & legend {
+            display: none;
+        }
+        outline: 0;
+    }
+    & .MuiOutlinedInput-input {
+        padding-left: 0;
+        padding-right: 0;
+    }
+    & .MuiSelect-select {
+        &:focus {
+            background-color: #f9f9f9;
+        }
+    }
+    & .MuiOutlinedInput-root {
+        padding-left: 50px;
+        color: $LIGHT_GRAY_SHADE3;
+        border-radius: $FORM_BORDER_RADIUS;
+        background-color: #f9f9f9;
+        outline: 0;
+        &:hover {
+            & fieldset {
+                border-color: #e9dede;
+            }
+        }
+        & .MuiOutlinedInput-notchedOutline {
+            border-color: #e9dede;
+            // background-color: #f9f9f9;
+            border-width: 1px;
+        }
+        &.Mui-focused {
+            & .MuiOutlinedInput-notchedOutline {
+                border-color: #e9dede;
+                border-width: 1px;
+                // background-color: #f9f9f9;
+                // z-index: -1;
+            }
+        }
+    }
+    .MuiSelect-outlined {
+        // z-index: 9;
+    }
+}
