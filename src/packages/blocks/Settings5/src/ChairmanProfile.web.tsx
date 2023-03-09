@@ -143,7 +143,7 @@ class ChairmanProfile extends ProfileController {
                         <Grid container>
                             <Grid xs={12} style={{borderBottom: '1px solid #e9dede', padding: '1rem'}}>
                                 <Box display='flex' justifyContent='space-between'>
-                                    <p style={{fontWeight: 600}}>
+                                    <p className="bold-text" style={{fontWeight: 600}}>
                                         {t("Edit My Profile")}
                                     </p>
                                     <p onClick={() => this.setState({showDialog: false})} style={{cursor: 'pointer'}}>
@@ -153,7 +153,7 @@ class ChairmanProfile extends ProfileController {
                             </Grid>
                         </Grid>
 
-                        <Grid container className="main-content-block" style={{marginTop: '1.5rem', padding: '1rem'}}>
+                        <Grid container className="main-content-block" style={{marginTop: '1.5rem', padding: '0rem 1rem 0rem 1rem'}}>
                             <Grid xs={12} className='inputPlaceholderRegistration'>
                                 <Formik initialValues={{
                                     bannerUrl: profileData?.attributes?.profile_pic,
@@ -186,7 +186,7 @@ class ChairmanProfile extends ProfileController {
                                           setFieldValue, setFieldError
                                       }) => (
                                         <Form className="commonForm" translate="yes">
-                                            <Box className='formGroup' style={{height: '91%'}}>
+                                            <Box className='formGroup' style={{display:'flex',flexDirection:"column",justifyContent:'center',alignItems:'center'}}>
                                                 <Box style={{
                                                     display: 'flex',
                                                     alignItems: 'center',
@@ -202,9 +202,9 @@ class ChairmanProfile extends ProfileController {
                                                             :
                                                             <img src={NoProfile_Img}/>
                                                     }
-                                                    <label htmlFor="file1"
+                                                    <label htmlFor="file1" className="bold-text"
                                                            style={{color: '#FC8434', fontWeight: 'bold'}}>
-                                                        Add Profile Picture
+                                                        {t("Add Profile Picture")}
                                                     </label>
                                                     <input
                                                         id="file1"
@@ -253,7 +253,7 @@ class ChairmanProfile extends ProfileController {
                                                         {errors.bannerUrl}
                                                     </Typography>
                                                 ) : null}
-                                                <Grid container spacing={2} >
+                                                <Grid container spacing={2} style={{width:"98%"}}>
                                                     <Grid item xs={6}>
                                                         {/* name */}
                                                         <Box
@@ -457,29 +457,27 @@ class ChairmanProfile extends ProfileController {
                                                         ) : null}
                                                     </Grid>
                                                     <Grid item xs={12}>
-                                                        <Typography className="bold-text">
+                                                        <Typography className="bold-text" style={{marginBottom:"10px"}}>
                                                             {t("Gender")}
                                                         </Typography>
-                                                        <Grid container spacing={2}>
-                                                            <RadioGroup
-                                                                aria-labelledby="demo-radio-buttons-group-label"
-                                                                name="radio-buttons-group"
-                                                                defaultValue={values.gender}
-                                                                style={{
-                                                                    width: '100%',
-                                                                }}
-                                                            >
+                                                        <RadioGroup
+                                                            aria-labelledby="demo-radio-buttons-group-label"
+                                                            name="radio-buttons-group"
+                                                            defaultValue={values.gender}
+                                                            style={{width: '100%',marginLeft:"20px"}}>
+                                                            <Grid container spacing={2} className="formCheckboxProfile">
                                                                 <Grid xs={6}>
                                                                     <FormControlLabel
                                                                         className={values.gender == 'Female' ? 'active' : 'unactive'}
                                                                         name='gender' onChange={handleChange} value="Female"
                                                                         control={<Radio/>} label="Female" style={{
-                                                                        padding: '7px 42px 7px 10px',
-                                                                        borderRadius: 25,
+                                                                        borderRadius: 10,
                                                                         border: "0.1px solid rgb(209 209 209 / 100%)",
-                                                                        width: '37%',
-                                                                        height: 45,
-                                                                        background: '#F9F9F9'
+                                                                        width: '95%',
+                                                                        height: "55px",
+                                                                        background: '#F9F9F9',
+                                                                        marginRight:"0px",
+                                                                        backgroundColor:"white",
                                                                     }}/>
                                                                 </Grid>
                                                                 <Grid xs={6}>
@@ -487,312 +485,280 @@ class ChairmanProfile extends ProfileController {
                                                                         className={values.gender == 'Male' ? 'active' : 'unactive'}
                                                                         name='gender' onChange={handleChange} value="Male"
                                                                         control={<Radio/>} label="Male" style={{
-                                                                        padding: '7px 42px 7px 10px',
-                                                                        borderRadius: 25,
+                                                                        borderRadius: 10,
                                                                         border: "0.1px solid rgb(209 209 209 / 100%)",
-                                                                        width: '37.5%',
-                                                                        background: '#F9F9F9'
+                                                                        width: '95%',
+                                                                        height: "55px",
+                                                                        background: '#F9F9F9',
+                                                                        backgroundColor:"white",
                                                                     }}/>
                                                                 </Grid>
-                                                            </RadioGroup>
                                                         </Grid>
+                                                        </RadioGroup>
+                                                    </Grid>
+                                                    <Grid item xs={6}>
+                                                        <Box
+                                                            className="formInputGrp"
+                                                            style={{
+                                                                width: '100%',
+                                                                border: "0.1px solid rgb(209 209 209 / 100%)",
+                                                                borderRadius: "10px",
+                                                                backgroundColor: "#f9f9f9"
+                                                            }}>
+                                                            <Field
+                                                                className="formInput"
+                                                                name="DOB"
+                                                                placeholder={"Date of Birth"}
+                                                            />
+                                                            <span className="frmLeftIcons" style={{top: '24%'}}>
+                                                          <img src={calendar}/>
+                                                        </span>
+                                                        </Box>
+                                                        {errors.DOB && touched.DOB ? (
+                                                            <Typography
+                                                                style={{
+                                                                    color: "#F14E24",
+                                                                    fontWeight: 300,
+                                                                    fontSize: 14,
+                                                                    marginTop: 5,
+                                                                    marginLeft: 10
+                                                                }}
+                                                            >
+                                                                <ErrorMessage className="text-error" component="Typography"
+                                                                              name="DOB"/>
+                                                            </Typography>
+                                                        ) : null}
+                                                    </Grid>
+                                                    <Grid item xs={6}>
+                                                        <Box
+                                                            className="formInputGrp"
+                                                            style={{
+                                                                width: '100%',
+                                                                border: "0.1px solid rgb(209 209 209 / 100%)",
+                                                                borderRadius: "10px",
+                                                                backgroundColor: "#f9f9f9"
+                                                            }}
+                                                        >
+                                                            <ChipInput
+                                                                className="formInput"
+                                                                placeholder="Hobbies"
+                                                                style={{padding: '10px 0px 7px 50px', width: '79%'}}
+                                                                disableUnderline={true}
+                                                                value={values.hobbies}
+                                                                // onChange={(chip) => setFieldValue('hobbies', chip)}
+                                                                onAdd={(chip: any) => this.handleAddChip(setFieldValue, chip, values.hobbies)}
+                                                                onDelete={(chip: any, index: any) => this.handleDeleteChip(setFieldValue, chip, values.hobbies, index)}
+
+                                                            />
+                                                            <span className="frmLeftIcons">
+                                                              <img src={heart}/>
+                                                            </span>
+                                                        </Box>
+                                                        {errors.hobbies && touched.hobbies ? (
+                                                            <Typography
+                                                                style={{
+                                                                    color: "#F14E24",
+
+                                                                    fontWeight: 300,
+                                                                    fontSize: 14,
+                                                                    marginTop: 5,
+                                                                    marginLeft: 10
+                                                                }}
+                                                            >
+                                                                <ErrorMessage className="text-error" component="Typography"
+                                                                              name="hobbies"/>
+                                                            </Typography>
+                                                        ) : null}
+                                                    </Grid>
+                                                    <Grid item xs={6}>
+                                                        <div style={{
+                                                            display: 'flex',
+                                                            flexDirection: 'column',
+                                                            width: '100%'
+                                                        }}>
+
+                                                            {/* Twitter */}
+                                                            <Box
+                                                                className="formInputGrp"
+                                                                style={{
+                                                                    border: "0.1px solid rgb(209 209 209 / 100%)",
+                                                                    borderRadius: "10px",
+                                                                    backgroundColor: "#f9f9f9",
+                                                                    marginTop:"0px"
+                                                                }}
+                                                            >
+                                                                <Field
+                                                                    className="formInput"
+                                                                    name="twitter"
+                                                                    type='url'
+                                                                    value={values.twitter}
+                                                                    placeholder={"Twitter profile link"}
+
+                                                                />
+                                                                <span className="frmLeftIcons">
+                                                                  <img src={twitteredit}/>
+                                                                </span>
+                                                            </Box>
+                                                            {errors.twitter && touched.twitter ? (
+                                                                <Typography
+                                                                    style={{
+                                                                        color: "#F14E24",
+                                                                        fontWeight: 300,
+                                                                        fontSize: 14,
+                                                                        marginTop: 5,
+                                                                        marginLeft: 10
+                                                                    }}
+                                                                >
+                                                                    <ErrorMessage className="text-error" component="Typography" name="twitter"/>
+                                                                </Typography>
+                                                            ) : null}
+                                                        </div>
+                                                    </Grid>
+                                                    <Grid item xs={6}>
+                                                        <div style={{
+                                                            display: 'flex',
+                                                            flexDirection: 'column',
+                                                            width: '100%'
+                                                        }}>
+
+                                                            {/* fb */}
+                                                            <Box
+                                                                className="formInputGrp"
+                                                                style={{
+                                                                    border: "0.1px solid rgb(209 209 209 / 100%)",
+                                                                    borderRadius: "10px",
+                                                                    backgroundColor: "#f9f9f9",
+                                                                    marginTop:"0px"
+                                                                }}
+                                                            >
+                                                                <Field
+                                                                    className="formInput"
+                                                                    name="fb"
+                                                                    type='url'
+                                                                    value={values.fb}
+                                                                    placeholder={"Faceook  profile link"}
+
+                                                                />
+                                                                <span className="frmLeftIcons">
+                                                                  <img src={fbedit}/>
+                                                                </span>
+                                                            </Box>
+                                                            {errors.fb && touched.fb ? (
+                                                                <Typography
+                                                                    style={{
+                                                                        color: "#F14E24",
+
+                                                                        fontWeight: 300,
+                                                                        fontSize: 14,
+                                                                        marginTop: 5,
+                                                                        marginLeft: 10
+                                                                    }}
+                                                                >
+                                                                    <ErrorMessage className="text-error"
+                                                                                  component="Typography" name="fb"/>
+                                                                </Typography>
+                                                            ) : null}
+                                                        </div>
+                                                    </Grid>
+                                                    <Grid item xs={6}>
+                                                        <div style={{
+                                                            display: 'flex',
+                                                            flexDirection: 'column',
+                                                            width: '100%'
+                                                        }}>
+
+                                                            {/* Insta */}
+                                                            <Box
+                                                                className="formInputGrp"
+                                                                style={{
+                                                                    border: "0.1px solid rgb(209 209 209 / 100%)",
+                                                                    borderRadius: "10px",
+                                                                    backgroundColor: "#f9f9f9",
+                                                                    marginTop:"0px"
+                                                                }}
+                                                            >
+                                                                <Field
+                                                                    className="formInput"
+                                                                    name="insta"
+                                                                    type='url'
+                                                                    value={values.insta}
+                                                                    placeholder={"Instagram profile link"}
+
+
+                                                                />
+                                                                <span className="frmLeftIcons">
+                                                              <img src={instaedit}/>
+                                                            </span>
+                                                            </Box>
+                                                            {errors.insta && touched.insta ? (
+                                                                <Typography
+                                                                    style={{
+                                                                        color: "#F14E24",
+
+                                                                        fontWeight: 300,
+                                                                        fontSize: 14,
+                                                                        marginTop: 5,
+                                                                        marginLeft: 10
+                                                                    }}
+                                                                >
+                                                                    <ErrorMessage className="text-error"
+                                                                                  component="Typography" name="insta"/>
+                                                                </Typography>
+                                                            ) : null}
+                                                        </div>
+                                                    </Grid>
+                                                    <Grid item xs={6}>
+                                                        <div style={{
+                                                            display: 'flex',
+                                                            flexDirection: 'column',
+                                                            width: '100%'
+                                                        }}>
+                                                            {/* snap */}
+                                                            <Box
+                                                                className="formInputGrp"
+                                                                style={{
+                                                                    border: "0.1px solid rgb(209 209 209 / 100%)",
+                                                                    borderRadius: "10px",
+                                                                    backgroundColor: "#f9f9f9",
+                                                                    marginTop:"0px"
+                                                                }}
+                                                            >
+                                                                <Field
+                                                                    className="formInput"
+                                                                    name="snap"
+                                                                    type='url'
+                                                                    value={values.snap}
+                                                                    placeholder={"Snapchat profile link"}
+
+                                                                />
+                                                                <span className="frmLeftIcons">
+                                                                  <img src={snapedit}/>
+                                                                </span>
+                                                            </Box>
+                                                            {errors.snap && touched.snap ? (
+                                                                <Typography
+                                                                    style={{
+                                                                        color: "#F14E24",
+                                                                        fontWeight: 300,
+                                                                        fontSize: 14,
+                                                                        marginTop: 5,
+                                                                        marginLeft: 10
+                                                                    }}
+                                                                >
+                                                                    <ErrorMessage className="text-error"
+                                                                                  component="Typography" name="snap"/>
+                                                                </Typography>
+                                                            ) : null}
+                                                        </div>
                                                     </Grid>
                                                 </Grid>
-                                                {/* email */}
-
-
-                                                {/* gender */}
-                                                <Box className="formGroup formCheckbox" style={{
-                                                    flexDirection: 'column',
-                                                    marginTop: '1rem',
-                                                    marginLeft: '1rem',
-                                                    fontWeight: 'bold'
-                                                }}>
-
-                                                    <div style={{display: 'flex', width: '100%'}}>
-                                                        <div style={{width: '100%'}}>
-
-                                                                {/* <FormControlLabel name={values.gender} value="Female" control={<Radio />} label="Female" /> */}
-                                                        </div>
-                                                    </div>
-                                                </Box>
-                                                <Box style={{display: 'flex', gap: '1.2rem'}}>
-                                                    {/* DOB */}
-                                                    <Box
-                                                        className="formInputGrp"
-                                                        style={{
-                                                            width: '46%',
-                                                            border: "0.1px solid rgb(209 209 209 / 100%)",
-                                                            borderRadius: "25px",
-                                                            backgroundColor: "#f9f9f9"
-                                                        }}
-
-                                                    >
-
-
-                                                        <Field
-                                                            className="formInput"
-                                                            name="DOB"
-                                                            placeholder={"Date of Birth"}
-
-                                                        />
-                                                        <span className="frmLeftIcons" style={{top: '24%'}}>
-                              <img src={calendar}/>
-                            </span>
-                                                    </Box>
-                                                    {errors.DOB && touched.DOB ? (
-                                                        <Typography
-                                                            style={{
-                                                                color: "#F14E24",
-                                                                fontWeight: 300,
-                                                                fontSize: 14,
-                                                                marginTop: 5,
-                                                                marginLeft: 10
-                                                            }}
-                                                        >
-                                                            <ErrorMessage className="text-error" component="Typography"
-                                                                          name="DOB"/>
-                                                        </Typography>
-                                                    ) : null}
-
-                                                    {/* Hobbies */}
-                                                    <Box
-                                                        className="formInputGrp"
-                                                        style={{
-                                                            width: '45%',
-                                                            border: "0.1px solid rgb(209 209 209 / 100%)",
-                                                            borderRadius: "25px",
-                                                            backgroundColor: "#f9f9f9"
-                                                        }}
-                                                    >
-
-
-                                                        <ChipInput
-                                                            className="formInput"
-                                                            placeholder="Hobbies"
-                                                            style={{padding: '10px 0px 6px 50px', width: '79%'}}
-                                                            disableUnderline={true}
-                                                            value={values.hobbies}
-                                                            // onChange={(chip) => setFieldValue('hobbies', chip)}
-                                                            onAdd={(chip: any) => this.handleAddChip(setFieldValue, chip, values.hobbies)}
-                                                            onDelete={(chip: any, index: any) => this.handleDeleteChip(setFieldValue, chip, values.hobbies, index)}
-
-                                                        />
-                                                        <span className="frmLeftIcons">
-                              <img src={heart}/>
-                            </span>
-                                                    </Box>
-                                                    {errors.hobbies && touched.hobbies ? (
-                                                        <Typography
-                                                            style={{
-                                                                color: "#F14E24",
-
-                                                                fontWeight: 300,
-                                                                fontSize: 14,
-                                                                marginTop: 5,
-                                                                marginLeft: 10
-                                                            }}
-                                                        >
-                                                            <ErrorMessage className="text-error" component="Typography"
-                                                                          name="hobbies"/>
-                                                        </Typography>
-                                                    ) : null}
-                                                </Box>
-                                                <Box style={{display: 'flex', width: '100%', gap: '1rem'}}>
-                                                    <div style={{
-                                                        display: 'flex',
-                                                        flexDirection: 'column',
-                                                        width: '46.8%'
-                                                    }}>
-
-                                                        {/* Twitter */}
-                                                        <Box
-                                                            className="formInputGrp"
-                                                            style={{
-                                                                border: "0.1px solid rgb(209 209 209 / 100%)",
-                                                                borderRadius: "25px",
-                                                                backgroundColor: "#f9f9f9"
-                                                            }}
-                                                        >
-
-
-                                                            <Field
-                                                                className="formInput"
-                                                                name="twitter"
-                                                                type='url'
-                                                                value={values.twitter}
-                                                                placeholder={"Twitter profile link"}
-
-                                                            />
-                                                            <span className="frmLeftIcons">
-                              <img src={twitteredit}/>
-                            </span>
-                                                        </Box>
-                                                        {errors.twitter && touched.twitter ? (
-                                                            <Typography
-                                                                style={{
-                                                                    color: "#F14E24",
-
-                                                                    fontWeight: 300,
-                                                                    fontSize: 14,
-                                                                    marginTop: 5,
-                                                                    marginLeft: 10
-                                                                }}
-                                                            >
-                                                                <ErrorMessage className="text-error"
-                                                                              component="Typography" name="twitter"/>
-                                                            </Typography>
-                                                        ) : null}
-                                                    </div>
-
-                                                    <div style={{
-                                                        display: 'flex',
-                                                        flexDirection: 'column',
-                                                        width: '45%'
-                                                    }}>
-
-                                                        {/* fb */}
-                                                        <Box
-                                                            className="formInputGrp"
-                                                            style={{
-                                                                border: "0.1px solid rgb(209 209 209 / 100%)",
-                                                                borderRadius: "25px",
-                                                                backgroundColor: "#f9f9f9"
-                                                            }}
-                                                        >
-
-
-                                                            <Field
-                                                                className="formInput"
-                                                                name="fb"
-                                                                type='url'
-                                                                value={values.fb}
-                                                                placeholder={"Faceook  profile link"}
-
-                                                            />
-                                                            <span className="frmLeftIcons">
-                              <img src={fbedit}/>
-                            </span>
-                                                        </Box>
-                                                        {errors.fb && touched.fb ? (
-                                                            <Typography
-                                                                style={{
-                                                                    color: "#F14E24",
-
-                                                                    fontWeight: 300,
-                                                                    fontSize: 14,
-                                                                    marginTop: 5,
-                                                                    marginLeft: 10
-                                                                }}
-                                                            >
-                                                                <ErrorMessage className="text-error"
-                                                                              component="Typography" name="fb"/>
-                                                            </Typography>
-                                                        ) : null}
-                                                    </div>
-
-                                                </Box>
-                                                <Box style={{display: 'flex', width: '100%', gap: '1rem'}}>
-                                                    <div style={{
-                                                        display: 'flex',
-                                                        flexDirection: 'column',
-                                                        width: '46.5%'
-                                                    }}>
-
-                                                        {/* Insta */}
-                                                        <Box
-                                                            className="formInputGrp"
-                                                            style={{
-                                                                border: "0.1px solid rgb(209 209 209 / 100%)",
-                                                                borderRadius: "25px",
-                                                                backgroundColor: "#f9f9f9"
-                                                            }}
-                                                        >
-
-
-                                                            <Field
-                                                                className="formInput"
-                                                                name="insta"
-                                                                type='url'
-                                                                value={values.insta}
-                                                                placeholder={"Instagram profile link"}
-
-
-                                                            />
-                                                            <span className="frmLeftIcons">
-                              <img src={instaedit}/>
-                            </span>
-                                                        </Box>
-                                                        {errors.insta && touched.insta ? (
-                                                            <Typography
-                                                                style={{
-                                                                    color: "#F14E24",
-
-                                                                    fontWeight: 300,
-                                                                    fontSize: 14,
-                                                                    marginTop: 5,
-                                                                    marginLeft: 10
-                                                                }}
-                                                            >
-                                                                <ErrorMessage className="text-error"
-                                                                              component="Typography" name="insta"/>
-                                                            </Typography>
-                                                        ) : null}
-                                                    </div>
-                                                    <div style={{
-                                                        display: 'flex',
-                                                        flexDirection: 'column',
-                                                        width: '45%'
-                                                    }}>
-
-                                                        {/* snap */}
-                                                        <Box
-                                                            className="formInputGrp"
-                                                            style={{
-                                                                border: "0.1px solid rgb(209 209 209 / 100%)",
-                                                                borderRadius: "25px",
-                                                                backgroundColor: "#f9f9f9"
-                                                            }}
-                                                        >
-
-
-                                                            <Field
-                                                                className="formInput"
-                                                                name="snap"
-                                                                type='url'
-                                                                value={values.snap}
-                                                                placeholder={"Snapchat profile link"}
-
-                                                            />
-                                                            <span className="frmLeftIcons">
-                              <img src={snapedit}/>
-                            </span>
-                                                        </Box>
-                                                        {errors.snap && touched.snap ? (
-                                                            <Typography
-                                                                style={{
-                                                                    color: "#F14E24",
-
-                                                                    fontWeight: 300,
-                                                                    fontSize: 14,
-                                                                    marginTop: 5,
-                                                                    marginLeft: 10
-                                                                }}
-                                                            >
-                                                                <ErrorMessage className="text-error"
-                                                                              component="Typography" name="snap"/>
-                                                            </Typography>
-                                                        ) : null}
-                                                    </div>
-                                                </Box>
-
                                             </Box>
-                                            <Box style={{padding: '1rem', borderTop: '1px solid #1A181D25', display: 'flex', justifyContent: 'end'}}>
-                                                <Button variant='text' onClick={() => {localStorage.setItem('profileData', JSON.stringify(profileData));this.setState({showDialog: false})}} style={{marginRight: '2rem'}}>
+                                            <Box style={{padding: '1rem 1rem 0rem 1rem', borderTop: '1px solid #1A181D25', display: 'flex', justifyContent: 'end'}}>
+                                                <DeclineButton variant='contained' onClick={() => {localStorage.setItem('profileData', JSON.stringify(profileData));this.setState({showDialog: false})}} style={{marginRight: '1rem'}}>
                                                     CANCEL
-                                                </Button>
-                                                <Box className="customButton" style={{width: '10rem'}}>
-                                                    <Button variant="contained" type="submit">
+                                                </DeclineButton>
+                                                <Box className="customButton" style={{width:'10rem'}}>
+                                                    <Button variant="contained" type="submit" style={{borderRadius:"10px"}}>
                                                         Save
                                                     </Button>
                                                 </Box>
@@ -1079,6 +1045,20 @@ const SectionOne = (props: any) => {
         </Box>
     </>
 }
+
+const DeclineButton = withStyles((theme) => ({
+    root: {
+        color: "#2b6fed",
+        backgroundColor: "white",
+        border:"1px solid #2b6fed",
+        fontWeight:"bold",
+        width:"10rem",
+        borderRadius:"10px",
+        '&:hover': {
+            backgroundColor: "white",
+        },
+    },
+}))(Button);
 
 const SectionTwo = (profileData: any) => {
     const checkNosocialMedia = (profileData: any) => {
