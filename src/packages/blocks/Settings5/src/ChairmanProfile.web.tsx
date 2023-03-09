@@ -64,7 +64,7 @@ class ChairmanProfile extends ProfileController {
     }
 
     render() {
-        const {classes}: any = this.props;
+        const {classes,t}: any = this.props;
         let profileData = this.state.profiledata
 
         return (
@@ -144,7 +144,7 @@ class ChairmanProfile extends ProfileController {
                             <Grid xs={12} style={{borderBottom: '1px solid #e9dede', padding: '1rem'}}>
                                 <Box display='flex' justifyContent='space-between'>
                                     <p style={{fontWeight: 600}}>
-                                        Edit My Profile
+                                        {t("Edit My Profile")}
                                     </p>
                                     <p onClick={() => this.setState({showDialog: false})} style={{cursor: 'pointer'}}>
                                         X
@@ -202,7 +202,6 @@ class ChairmanProfile extends ProfileController {
                                                             :
                                                             <img src={NoProfile_Img}/>
                                                     }
-
                                                     <label htmlFor="file1"
                                                            style={{color: '#FC8434', fontWeight: 'bold'}}>
                                                         Add Profile Picture
@@ -254,117 +253,158 @@ class ChairmanProfile extends ProfileController {
                                                         {errors.bannerUrl}
                                                     </Typography>
                                                 ) : null}
-
-                                                <Box style={{display: 'flex', gap: '1.5rem', width: '100%'}}>
-                                                    {/* name */}
-
-                                                    <Box
-                                                        className="formInputGrp"
-                                                        style={{
-                                                            width: '45%',
-                                                            border: "0.1px solid rgb(209 209 209 / 100%)",
-                                                            borderRadius: "25px",
-                                                            backgroundColor: "#f9f9f9",
-                                                            height: '59px'
-                                                        }}
-                                                    >
-
-
-                                                        <Field
-                                                            className="formInput"
-                                                            name="full_name"
-                                                            value={values.full_name}
-                                                            placeholder={"Enter your name"}
-
-                                                        />
-                                                        <span className="frmLeftIcons" style={{top: '29%'}}>
-                              <img src={user}/>
-                            </span>
-                                                    </Box>
-                                                    {errors.full_name && touched.full_name ? (
-                                                        <Typography
+                                                <Grid container spacing={2} >
+                                                    <Grid item xs={6}>
+                                                        {/* name */}
+                                                        <Box
+                                                            className="formInputGrp"
                                                             style={{
-                                                                color: "#F14E24",
-
-                                                                fontWeight: 300,
-                                                                fontSize: 14,
-                                                                marginTop: 5,
-                                                                marginLeft: 10
+                                                                border: "0.1px solid rgb(209 209 209 / 100%)",
+                                                                borderRadius: "10px",
+                                                                backgroundColor: "#f9f9f9",
+                                                                height: '59px',
+                                                                width:"100%"
                                                             }}
                                                         >
-                                                            <ErrorMessage className="text-error" component="Typography"
-                                                                          name="full_name"/>
-                                                        </Typography>
-                                                    ) : null}
-
-                                                    {/* phone */}
-                                                    <Box>
-
-                                                        <Box
-                                                            marginTop='1rem'
-                                                            className='formInputGrp'
-                                                            display="flex"
-                                                            overflow="hidden"
-                                                            alignItems="center"
-                                                            height="56px"
-                                                            border="0.1px solid rgb(209 209 209 / 44%)"
-                                                            borderRadius="25px"
-                                                            bgcolor="#f9f9f9"
-                                                            style={{width: '100%'}}
-                                                        >
-                                                            <Box>
-                                                                <FormControl variant="outlined">
-
-                                                                    <Select
-                                                                        name='selectCode'
-                                                                        labelId="demo-simple-select-outlined-label"
-
-                                                                        id="demo-simple-select-outlined"
-                                                                        onChange={this.handleChange}
-                                                                        label="Unit"
-                                                                        disabled
-                                                                        value={this.state.selectCode3}
-                                                                    >
-                                                                        <MenuItem value="">
-                                                                            <em>None</em>
-                                                                        </MenuItem>
-                                                                        {dailCode.map((item) =>
-                                                                            <MenuItem key={item.dial_code}
-                                                                                      value={item.dial_code}> <img
-                                                                                src={`https://cdn.jsdelivr.net/npm/country-flag-emoji-json@2.0.0/dist/images/${item.code}.svg`}
-                                                                                width='15' height='15'
-                                                                                style={{marginRight: '5px'}}/>
-                                                                                {item.dial_code}</MenuItem>
-                                                                        )
-                                                                        }
-
-                                                                    </Select>
-                                                                </FormControl>
-
-                                                            </Box>
-
                                                             <Field
-                                                                name="phone"
-                                                                id="mobile"
-                                                                disabled
-                                                                value={values.phone}
-                                                                placeholder={"Mobile"}
-                                                                style={{
-                                                                    border: "none",
-                                                                    height: "42%",
-                                                                    width: "80%",
-                                                                    color: "rgba(0, 0, 0, 0.6)",
-                                                                    fontWeight: 400,
-                                                                    fontSize: 16,
-                                                                    marginRight: 10,
-                                                                    marginLeft: 21,
-                                                                    outline: "none",
-                                                                    backgroundColor: '#f9f9f9'
-                                                                }}
-                                                            />
-                                                        </Box>
+                                                                className="formInput"
+                                                                name="full_name"
+                                                                value={values.full_name}
+                                                                placeholder={"Enter your name"}
 
-                                                        {errors.phone && touched.phone ? (
+                                                            />
+                                                            <span className="frmLeftIcons" style={{top: '29%'}}>
+                                                          <img src={user}/>
+                                                        </span>
+                                                        </Box>
+                                                        {errors.full_name && touched.full_name ? (
+                                                            <Typography
+                                                                style={{
+                                                                    color: "#F14E24",
+
+                                                                    fontWeight: 300,
+                                                                    fontSize: 14,
+                                                                    marginTop: 5,
+                                                                    marginLeft: 0
+                                                                }}
+                                                            >
+                                                                <ErrorMessage className="text-error" component="Typography"
+                                                                              name="full_name"/>
+                                                            </Typography>
+                                                        ) : null}
+                                                    </Grid>
+                                                    <Grid item xs={6}>
+                                                        {/* phone */}
+                                                        <Box>
+                                                            <Box
+                                                                marginTop='1rem'
+                                                                className='formInputGrp'
+                                                                display="flex"
+                                                                overflow="hidden"
+                                                                alignItems="center"
+                                                                height="56px"
+                                                                border="0.1px solid rgb(209 209 209)"
+                                                                borderRadius="10px"
+                                                                bgcolor="#f9f9f9"
+                                                                style={{width: '100%'}}
+                                                            >
+                                                                <Box>
+                                                                    <FormControl variant="outlined">
+
+                                                                        <Select
+                                                                            name='selectCode'
+                                                                            labelId="demo-simple-select-outlined-label"
+
+                                                                            id="demo-simple-select-outlined"
+                                                                            onChange={this.handleChange}
+                                                                            label="Unit"
+                                                                            disabled
+                                                                            value={this.state.selectCode3}
+                                                                        >
+                                                                            <MenuItem value="">
+                                                                                <em>None</em>
+                                                                            </MenuItem>
+                                                                            {dailCode.map((item) =>
+                                                                                <MenuItem key={item.dial_code}
+                                                                                          value={item.dial_code}> <img
+                                                                                    src={`https://cdn.jsdelivr.net/npm/country-flag-emoji-json@2.0.0/dist/images/${item.code}.svg`}
+                                                                                    width='15' height='15'
+                                                                                    style={{marginRight: '5px'}}/>
+                                                                                    {item.dial_code}</MenuItem>
+                                                                            )
+                                                                            }
+
+                                                                        </Select>
+                                                                    </FormControl>
+
+                                                                </Box>
+
+                                                                <Field
+                                                                    name="phone"
+                                                                    id="mobile"
+                                                                    disabled
+                                                                    value={values.phone}
+                                                                    placeholder={"Mobile"}
+                                                                    style={{
+                                                                        border: "none",
+                                                                        height: "42%",
+                                                                        width: "80%",
+                                                                        color: "rgba(0, 0, 0, 0.6)",
+                                                                        fontWeight: 400,
+                                                                        fontSize: 16,
+                                                                        marginRight: 10,
+                                                                        marginLeft: 0,
+                                                                        outline: "none",
+                                                                        backgroundColor: '#f9f9f9'
+                                                                    }}
+                                                                />
+                                                            </Box>
+                                                            {errors.phone && touched.phone ? (
+                                                                <Typography
+                                                                    style={{
+                                                                        color: "#F14E24",
+                                                                        fontWeight: 300,
+                                                                        fontSize: 14,
+                                                                        marginTop: 5,
+                                                                        marginLeft: 10
+                                                                    }}
+                                                                >
+                                                                    <ErrorMessage className="text-error"
+                                                                                  component="Typography" name="phone"/>
+                                                                </Typography>
+                                                            ) : null}
+                                                            <p style={{
+                                                                color: '#FC8434',
+                                                                textAlign: 'right',
+                                                                fontWeight: 'bold',
+                                                                cursor: 'pointer'
+                                                            }} onClick={() => this.setState({showDialog1: true})}>
+                                                                Update phone number
+                                                            </p>
+                                                        </Box>
+                                                    </Grid>
+                                                    <Grid item xs={6}>
+                                                        <Box
+                                                            className="formInputGrp"
+                                                            style={{
+                                                                width: '100%',
+                                                                border: "0.1px solid rgb(209 209 209 / 100%)",
+                                                                borderRadius: "10px",
+                                                                backgroundColor: "#f9f9f9",
+                                                                marginTop:"0px"
+                                                            }}
+                                                        >
+                                                            <Field
+                                                                className="formInput"
+                                                                value={values.email}
+                                                                name="email"
+                                                                placeholder={"Email ID"}
+                                                            />
+                                                            <span className="frmLeftIcons">
+                                                              <img src={emailedit}/>
+                                                            </span>
+                                                        </Box>
+                                                        {errors.email && touched.email ? (
                                                             <Typography
                                                                 style={{
                                                                     color: "#F14E24",
@@ -374,96 +414,93 @@ class ChairmanProfile extends ProfileController {
                                                                     marginLeft: 10
                                                                 }}
                                                             >
-                                                                <ErrorMessage className="text-error"
-                                                                              component="Typography" name="phone"/>
+                                                                <ErrorMessage className="text-error" component="Typography"
+                                                                              name="email"/>
                                                             </Typography>
                                                         ) : null}
-                                                        <p style={{
-                                                            color: '#FC8434',
-                                                            textAlign: 'right',
-                                                            fontWeight: 'bold',
-                                                            cursor: 'pointer'
-                                                        }} onClick={() => this.setState({showDialog1: true})}>
-                                                            Update phone number
-                                                        </p>
-                                                    </Box>
-                                                </Box>
+                                                    </Grid>
+                                                    <Grid item xs={6}>
+                                                        {/* Bio */}
+                                                        <Box
+                                                            className="formInputGrp"
+                                                            style={{
+                                                                width: '100%',
+                                                                border: "0.1px solid rgb(209 209 209 / 100%)",
+                                                                borderRadius: "10px",
+                                                                backgroundColor: "#f9f9f9",
+                                                                marginTop:"0px"
+                                                            }}
+                                                        >
+                                                            <Field
+                                                                className="formInput"
+                                                                name="bio"
+                                                                value={values.bio}
+                                                                placeholder={"Enter your bio"}
 
+                                                            />
+                                                            <span className="frmLeftIcons">
+                                                              <img src={Hyperlink}/>
+                                                            </span>
+                                                        </Box>
+                                                        {errors.bio && touched.bio ? (
+                                                            <Typography
+                                                                style={{
+                                                                    color: "#F14E24",
+                                                                    fontWeight: 300,
+                                                                    fontSize: 14,
+                                                                    marginTop: 5,
+                                                                    marginLeft: 10
+                                                                }}
+                                                            >
+                                                                <ErrorMessage className="text-error" component="Typography" name="bio"/>
+                                                            </Typography>
+                                                        ) : null}
+                                                    </Grid>
+                                                    <Grid item xs={12}>
+                                                        <Typography className="bold-text">
+                                                            {t("Gender")}
+                                                        </Typography>
+                                                        <Grid container spacing={2}>
+                                                            <RadioGroup
+                                                                aria-labelledby="demo-radio-buttons-group-label"
+                                                                name="radio-buttons-group"
+                                                                defaultValue={values.gender}
+                                                                style={{
+                                                                    width: '100%',
+                                                                }}
+                                                            >
+                                                                <Grid xs={6}>
+                                                                    <FormControlLabel
+                                                                        className={values.gender == 'Female' ? 'active' : 'unactive'}
+                                                                        name='gender' onChange={handleChange} value="Female"
+                                                                        control={<Radio/>} label="Female" style={{
+                                                                        padding: '7px 42px 7px 10px',
+                                                                        borderRadius: 25,
+                                                                        border: "0.1px solid rgb(209 209 209 / 100%)",
+                                                                        width: '37%',
+                                                                        height: 45,
+                                                                        background: '#F9F9F9'
+                                                                    }}/>
+                                                                </Grid>
+                                                                <Grid xs={6}>
+                                                                    <FormControlLabel
+                                                                        className={values.gender == 'Male' ? 'active' : 'unactive'}
+                                                                        name='gender' onChange={handleChange} value="Male"
+                                                                        control={<Radio/>} label="Male" style={{
+                                                                        padding: '7px 42px 7px 10px',
+                                                                        borderRadius: 25,
+                                                                        border: "0.1px solid rgb(209 209 209 / 100%)",
+                                                                        width: '37.5%',
+                                                                        background: '#F9F9F9'
+                                                                    }}/>
+                                                                </Grid>
+                                                            </RadioGroup>
+                                                        </Grid>
+                                                    </Grid>
+                                                </Grid>
                                                 {/* email */}
-                                                <Box
-                                                    className="formInputGrp"
-                                                    style={{
-                                                        width: '45%',
-                                                        border: "0.1px solid rgb(209 209 209 / 100%)",
-                                                        borderRadius: "25px",
-                                                        backgroundColor: "#f9f9f9"
-                                                    }}
-                                                >
-                                                    <Field
-                                                        className="formInput"
-                                                        value={values.email}
-
-                                                        name="email"
-                                                        placeholder={"Email ID"}
-
-                                                    />
-                                                    <span className="frmLeftIcons">
-                              <img src={emailedit}/>
-                            </span>
-                                                </Box>
-                                                {errors.email && touched.email ? (
-                                                    <Typography
-                                                        style={{
-                                                            color: "#F14E24",
-
-                                                            fontWeight: 300,
-                                                            fontSize: 14,
-                                                            marginTop: 5,
-                                                            marginLeft: 10
-                                                        }}
-                                                    >
-                                                        <ErrorMessage className="text-error" component="Typography"
-                                                                      name="email"/>
-                                                    </Typography>
-                                                ) : null}
-                                                {/* Bio */}
-                                                <Box
-                                                    className="formInputGrp"
-                                                    style={{
-                                                        width: '45%',
-                                                        border: "0.1px solid rgb(209 209 209 / 100%)",
-                                                        borderRadius: "25px",
-                                                        backgroundColor: "#f9f9f9"
-                                                    }}
-                                                >
 
 
-                                                    <Field
-                                                        className="formInput"
-                                                        name="bio"
-                                                        value={values.bio}
-                                                        placeholder={"Enter your bio"}
-
-                                                    />
-                                                    <span className="frmLeftIcons">
-                              <img src={Hyperlink}/>
-                            </span>
-                                                </Box>
-                                                {errors.bio && touched.bio ? (
-                                                    <Typography
-                                                        style={{
-                                                            color: "#F14E24",
-
-                                                            fontWeight: 300,
-                                                            fontSize: 14,
-                                                            marginTop: 5,
-                                                            marginLeft: 10
-                                                        }}
-                                                    >
-                                                        <ErrorMessage className="text-error" component="Typography"
-                                                                      name="bio"/>
-                                                    </Typography>
-                                                ) : null}
                                                 {/* gender */}
                                                 <Box className="formGroup formCheckbox" style={{
                                                     flexDirection: 'column',
@@ -471,51 +508,12 @@ class ChairmanProfile extends ProfileController {
                                                     marginLeft: '1rem',
                                                     fontWeight: 'bold'
                                                 }}>
-                                                    <div>
-                                                        Gender
-                                                    </div>
 
                                                     <div style={{display: 'flex', width: '100%'}}>
                                                         <div style={{width: '100%'}}>
-                                                            <RadioGroup
-                                                                aria-labelledby="demo-radio-buttons-group-label"
-                                                                name="radio-buttons-group"
-                                                                defaultValue={values.gender}
-                                                                style={{
-                                                                    display: 'flex',
-                                                                    flexDirection: 'row',
-                                                                    marginTop: '0.25rem',
-                                                                    width: '100%',
-                                                                    gap: '1rem'
-                                                                }}
-                                                            >
+
                                                                 {/* <FormControlLabel name={values.gender} value="Female" control={<Radio />} label="Female" /> */}
-                                                                <FormControlLabel
-                                                                    className={values.gender == 'Female' ? 'active' : 'unactive'}
-                                                                    name='gender' onChange={handleChange} value="Female"
-                                                                    control={<Radio/>} label="Female" style={{
-                                                                    padding: '7px 42px 7px 10px',
-                                                                    borderRadius: 25,
-                                                                    border: "0.1px solid rgb(209 209 209 / 100%)",
-                                                                    width: '37%',
-                                                                    height: 45,
-                                                                    background: '#F9F9F9'
-                                                                }}/>
-                                                                <FormControlLabel
-                                                                    className={values.gender == 'Male' ? 'active' : 'unactive'}
-                                                                    name='gender' onChange={handleChange} value="Male"
-                                                                    control={<Radio/>} label="Male" style={{
-                                                                    padding: '7px 42px 7px 10px',
-                                                                    borderRadius: 25,
-                                                                    border: "0.1px solid rgb(209 209 209 / 100%)",
-                                                                    width: '37.5%',
-                                                                    background: '#F9F9F9'
-                                                                }}/>
-
-                                                            </RadioGroup>
-
                                                         </div>
-
                                                     </div>
                                                 </Box>
                                                 <Box style={{display: 'flex', gap: '1.2rem'}}>
@@ -789,29 +787,14 @@ class ChairmanProfile extends ProfileController {
                                                 </Box>
 
                                             </Box>
-                                            <Box style={{
-                                                padding: '1rem',
-                                                borderTop: '1px solid #1A181D25',
-                                                display: 'flex',
-                                                justifyContent: 'end'
-                                            }}>
-
-                                                <Button variant='text' onClick={() => {
-                                                    localStorage.setItem('profileData', JSON.stringify(profileData));
-                                                    this.setState({showDialog: false})
-                                                }} style={{marginRight: '2rem'}}>
+                                            <Box style={{padding: '1rem', borderTop: '1px solid #1A181D25', display: 'flex', justifyContent: 'end'}}>
+                                                <Button variant='text' onClick={() => {localStorage.setItem('profileData', JSON.stringify(profileData));this.setState({showDialog: false})}} style={{marginRight: '2rem'}}>
                                                     CANCEL
                                                 </Button>
                                                 <Box className="customButton" style={{width: '10rem'}}>
-
-                                                    <Button
-                                                        variant="contained"
-                                                        type="submit"
-
-                                                    >
+                                                    <Button variant="contained" type="submit">
                                                         Save
                                                     </Button>
-
                                                 </Box>
                                             </Box>
                                         </Form>
