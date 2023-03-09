@@ -67,14 +67,15 @@ class AddTeamModal extends AddTeamModalController {
                         <Grid container spacing={3}>
                             <Grid item xs={12} sm={6}>
                                 <Box className="formGroup customSelect">
-                                    <FormLabel component="legend" style={dashBoard.labelsStyle}>{t("User Name")}</FormLabel>
-                                    <FormControl variant="outlined" >
-                                                    <span className="frmLeftIcons">
+                                    <FormLabel component="legend" className="addTeamModal" style={dashBoard.labelsStyle}>{t("User Name")}</FormLabel>
+                                    <FormControl variant="outlined" className="addTeamModal">
+                                                    <span className="frmLeftIcons addTeamModal">
                                                       <img src={user_icon} className="frm-icons" alt="User Icon" />
                                                     </span>
                                         <InputLabel id="demo-simple-select-outlined-label" style={dashBoard.formLabels}>{t("Select User")}</InputLabel>
                                         <Select
                                             name="usertype"
+                                            className="addTeamModal"
                                             disabled={this.props.editId}
                                             labelId="demo-simple-select-outlined-label"
                                             id="demo-simple-select-outlined"
@@ -85,7 +86,7 @@ class AddTeamModal extends AddTeamModalController {
                                             }}
                                             value={this.state.userId}
                                         >
-                                            <MenuItem  disabled value=" ">
+                                            <MenuItem  disabled value=" " className="addTeamModal">
                                                 {t("User Name")}
                                             </MenuItem>
                                             {
@@ -98,7 +99,7 @@ class AddTeamModal extends AddTeamModalController {
                                             }
                                         </Select>
                                     </FormControl>
-                                    <Typography variant="subtitle2" style={{color:"red"}}>{t(this.state.userError)}</Typography>
+                                    <Typography className="addTeamModal" variant="subtitle2" style={{color:"red"}}>{t(this.state.userError)}</Typography>
                                 </Box>
                             </Grid>
                             <Grid item xs={12} sm={6}>
