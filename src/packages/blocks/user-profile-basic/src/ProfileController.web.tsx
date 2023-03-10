@@ -1549,9 +1549,9 @@ this.setState({loading:true})
         formData.append('[data][attributes][hobbies][]',item)
       })
       console.log(values)
-      if(values.bannerUrl.includes('ti1finalleap')){
+      if(values?.bannerUrl?.includes('ti1finalleap')){
         
-        
+        console.log('hello')
       }else{
 
         let blob = await fetch(values.bannerUrl).then(r => r.blob());
@@ -1630,7 +1630,7 @@ this.setState({loading:true})
       if(values.bannerUrl){
 
       }else if(values.bannerUrl.includes('blob')){
-        
+        console.log('hello')
         
       }else{
 
@@ -1680,7 +1680,7 @@ this.setState({loading:true})
 
       full_name: Yup.string().required(`This field is required`).trim(),
       email: Yup.string().required(`This field is required`).trim(),
-      DOB: Yup.string().matches(/^(?:(?:31(\/|-|\.)(?:0?[13578]|1[02]))\1|(?:(?:29|30)(\/|-|\.)(?:0?[13-9]|1[0-2])\2))(?:(?:1[6-9]|[2-9]\d)?\d{2})$|^(?:29(\/|-|\.)0?2\3(?:(?:(?:1[6-9]|[2-9]\d)?(?:0[48]|[2468][048]|[13579][26])|(?:(?:16|[2468][048]|[3579][26])00))))$|^(?:0?[1-9]|1\d|2[0-8])(\/|-|\.)(?:(?:0?[1-9])|(?:1[0-2]))\4(?:(?:1[6-9]|[2-9]\d)?\d{2})$/,`Invalid Date`).nullable(),
+      DOB: Yup.string().nullable(),
       hobbies: Yup.string().required(`This field is required`).nullable(),
       fb: Yup.string().matches(/(?:(?:http|https):\/\/)?(?:www.)?facebook.com\/(?:(?:\w)*#!\/)?(?:pages\/)?(?:[?\w\-]*\/)?(?:profile.php\?id=(?=\d.*))?([\w\-]*)?/, `Invalid facebook URL`).nullable(),
       insta: Yup.string().matches(/(?:(?:http|https):\/\/)?(?:www\.)?(?:instagram\.com|instagr\.am)\/([A-Za-z0-9-_\.]+)/im, `Invalid instagram URL`).nullable(),

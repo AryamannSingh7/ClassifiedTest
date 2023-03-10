@@ -9,7 +9,6 @@ import {
     DialogActions,
     FormControl,
     FormControlLabel,
-    Input,
     MenuItem,
     Radio,
     RadioGroup,
@@ -32,7 +31,6 @@ import {
     heart,
     instaedit,
     mobile,
-    NoProfile_Img,
     snapedit,
     twitteredit,
     user
@@ -55,6 +53,7 @@ import {withTranslation} from "react-i18next";
 import {Hyperlink} from "../../customform/src/assets";
 import PhoneInput from "react-phone-input-2";
 import 'react-phone-input-2/lib/style.css'
+import { NoProfile_Img } from "../../search/src/assets";
 
 class ChairmanProfile extends ProfileController {
     constructor(props: Props) {
@@ -199,10 +198,11 @@ class ChairmanProfile extends ProfileController {
                                                     marginBottom: '1.5rem',
                                                     flexDirection: 'column',
                                                 }}>
+                                                    
                                                     {
-                                                        values.bannerUrl ?
+                                                        values.bannerUrl.url ?
 
-                                                            <Avatar src={values.bannerUrl}/>
+                                                            <Avatar src={values.bannerUrl?.url}/>
                                                             :
                                                             <img src={NoProfile_Img}/>
                                                     }
@@ -1035,7 +1035,7 @@ export default withTranslation()(withRouter(withStyles(ProfileStyleWeb)(Chairman
 const SectionOne = (props: any) => {
     return <>
         <img
-            src={props?.profileData?.attributes?.profile_pic?.url || AvatarIcon.default}
+            src={props?.profileData?.attributes?.profile_pic?.url || NoProfile_Img}
             alt="avatar"
             className="profile"
         />
