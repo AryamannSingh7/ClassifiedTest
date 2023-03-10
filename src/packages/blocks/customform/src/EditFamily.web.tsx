@@ -19,6 +19,7 @@ import VeichleListController from "./VeichleListController.web";
 import '../assets/css/style.scss';
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import FamilyController from "./FamilyController.web";
+import { NoProfile_Img } from "../../search/src/assets";
 
 
 
@@ -62,6 +63,7 @@ class EditFamily extends FamilyController {
                     relation: item.attributes.relation.id,
                     IDoption: item.attributes.id_proof.id,
                     IDnumber: item.attributes.id_number,
+                    bannerUrl:item.attributes?.member_pic
                   }}
                     validationSchema={this.addVehicleSchema()}
                     validateOnMount={true}
@@ -84,7 +86,8 @@ class EditFamily extends FamilyController {
                             marginTop: '1rem',
                             marginBottom: '1.5rem'
                           }}>
-                            <Avatar src={values.bannerUrl} />
+                            <Avatar src={values.bannerUrl?.url || NoProfile_Img} />
+                            
 
                             <label for="file1"
                               style={{ color: '#FC8434', fontWeight: 'bold' }}>

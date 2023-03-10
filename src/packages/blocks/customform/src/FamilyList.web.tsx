@@ -63,7 +63,7 @@ class FamilyList extends FamilyController {
                           <div className="flex">
                             <div style={{display:"flex",alignItems:'center',gap:'0.5rem'}}>
 
-                            <Avatar src={item?.attributes?.member_pic}/>
+                            <Avatar src={item?.attributes?.member_pic?.url}/>
                             <p className="text-bold">
 
                               {item.attributes.name}
