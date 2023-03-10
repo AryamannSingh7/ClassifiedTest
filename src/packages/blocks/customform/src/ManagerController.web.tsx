@@ -56,7 +56,10 @@ interface S {
   buildingNameData:any;
   buildingName:any;
   selectBuilding:any;
-  allUnit:any
+  selectBuilding2:any;
+  allUnit:any;
+  status:any;
+  unit:any
   // Customizable Area End
 }
 
@@ -103,9 +106,12 @@ export default class ManagerController extends BlockComponent<Props, S, SS> {
       showDialog:false,
       showDialogPhoto:false,
       buildingNameData:null,
-      buildingName:null,
-      selectBuilding:null,
+      buildingName:'',
+      selectBuilding:'',
+      selectBuilding2:'',
       allUnit:[],
+      status:'',
+      unit:''
     };
     // Customizable Area End
     runEngine.attachBuildingBlock(this as IBlock, this.subScribedMessages);
@@ -817,7 +823,7 @@ if(this.state.allVehcile.length<3){
     if (e.target.name !== 'selectBuilding') {
       // @ts-ignore
       // @ts-nocheck
-      this.setState({ ...this.state, [e.target.name]: e.target.value }, () => this.getData(e))
+      this.setState({ ...this.state, [e.target.name]: e.target.value })
     }else{
       const array = e.target?.value?.split(" ");
       const id = array[0]
@@ -876,7 +882,7 @@ if(this.state.allVehcile.length<3){
     runEngine.sendMessage(requestMessage.id, requestMessage);
     return true;
   }
-  getVehicle2(value:any) {
+  getVehicle2(status:any,building:any,unit:any) {
 
     const header = {
       "Content-Type": configJSON.contentTypeApiAddDetail,
@@ -894,7 +900,7 @@ console.log(this.state.buildingName)
     this.getVehicleListApiCallId = requestMessage.messageId;
     requestMessage.addData(
       getName(MessageEnum.RestAPIResponceEndPointMessage),
-      `bx_block_vehicle/vehicles?search_building=${this.state.selectBuilding=='All'? '':this.state.selectBuilding}&search_unit=${value.unit=='All' ? '':value.unit}&filter_by=${value.status =='All'?'':value.status}`
+      `bx_block_vehicle/vehicles?search_building=${this.state.selectBuilding=='All'? '':this.state.selectBuilding}&search_unit=${unit=='All' ? '':this.state.unit}&filter_by=${status =='All'?'':status}`
     );
 
     requestMessage.addData(

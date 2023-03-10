@@ -301,9 +301,10 @@ const profileData = JSON.parse(localStorage.getItem('profileData') ||'{}')
           else if (responseJson?.errors) {
 
             let error = responseJson.errors;
+            console.log('err',responseJson.errors)
             this.setState({ error },()=>console.log(this.state.error));
             // ApiCatchErrorResponse(error)
-            this.setState({error:responseJson?.error,showError:true})
+            this.setState({error:responseJson.errors,showError:true})
 
             // this.parseApiCatchErrorResponse(this.state.error);
             // this.parseApiCatchErrorResponse(errorReponse);
@@ -311,7 +312,7 @@ const profileData = JSON.parse(localStorage.getItem('profileData') ||'{}')
             this.setState({ error: responseJson?.errors || "Something went wrong!" });
             // this.parseApiCatchErrorResponse(this.state.error);
             // this.parseApiCatchErrorResponse(errorReponse);
-            this.setState({error:responseJson?.error,showError:true})
+            this.setState({error:responseJson.errors,showError:true})
 
           }
           this.setState({ loading: false })
@@ -1603,6 +1604,7 @@ this.setState({loading:true})
   }
   updateChairmenProfile = async(values: any) => {
     this.setState({ loading: true })
+    console.log(values)
     try {
       const header = {
 
@@ -1625,7 +1627,9 @@ this.setState({loading:true})
 
 
       // formData.append("vehicle[color]", values.carColor)
-      if(values.bannerUrl.includes('blob')){
+      if(values.bannerUrl){
+
+      }else if(values.bannerUrl.includes('blob')){
         
         
       }else{
@@ -1675,15 +1679,8 @@ this.setState({loading:true})
     const validations = Yup.object().shape({
 
       full_name: Yup.string().required(`This field is required`).trim(),
-      phone: Yup.number()
-        .typeError("Only numbers are allowed.")
-        .required("Mobile number is required.")
-        .positive("Negative numbers are not allowed.")
-        .integer("Number can't contain a decimal.")
-        .min(10000000, "Minimum 8 digits are required.")
-        .max(999999999, "Maximum 9 digits are allowed."),
       email: Yup.string().required(`This field is required`).trim(),
-      DOB: Yup.date().required(`This field is required`),
+      DOB: Yup.string().matches(/^(?:(?:31(\/|-|\.)(?:0?[13578]|1[02]))\1|(?:(?:29|30)(\/|-|\.)(?:0?[13-9]|1[0-2])\2))(?:(?:1[6-9]|[2-9]\d)?\d{2})$|^(?:29(\/|-|\.)0?2\3(?:(?:(?:1[6-9]|[2-9]\d)?(?:0[48]|[2468][048]|[13579][26])|(?:(?:16|[2468][048]|[3579][26])00))))$|^(?:0?[1-9]|1\d|2[0-8])(\/|-|\.)(?:(?:0?[1-9])|(?:1[0-2]))\4(?:(?:1[6-9]|[2-9]\d)?\d{2})$/,`Invalid Date`).nullable(),
       hobbies: Yup.string().required(`This field is required`).nullable(),
       fb: Yup.string().matches(/(?:(?:http|https):\/\/)?(?:www.)?facebook.com\/(?:(?:\w)*#!\/)?(?:pages\/)?(?:[?\w\-]*\/)?(?:profile.php\?id=(?=\d.*))?([\w\-]*)?/, `Invalid facebook URL`).nullable(),
       insta: Yup.string().matches(/(?:(?:http|https):\/\/)?(?:www\.)?(?:instagram\.com|instagr\.am)\/([A-Za-z0-9-_\.]+)/im, `Invalid instagram URL`).nullable(),
