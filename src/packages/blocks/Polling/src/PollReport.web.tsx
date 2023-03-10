@@ -81,8 +81,8 @@ class PollReport extends PollingController {
                     </Grid>
                     <Grid style={{marginTop: "2rem", marginBottom:"5rem"}} className="PollResponseMain">
                         <Grid item sm={12} md={12} xs={12}>
-                            <Box className="tableTopSearch">
-                                <h4>{t("Poll Title Name")}</h4>
+                            <Box className="tableTopSearch" marginTop="0px">
+                                <h4>{this.state.pollName}</h4>
                                 <div className="searchBox">
                                     <div className="searchIcon">
                                     <SearchIcon />
