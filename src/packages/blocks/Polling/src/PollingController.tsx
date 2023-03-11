@@ -85,7 +85,7 @@ interface S {
   inputType2:any;
   showError:boolean;
   error:any;
-
+  pollName:any;
 }
 
 interface SS {
@@ -233,6 +233,7 @@ export default class PollingController extends BlockComponent<
       inputType2:"text",
       error:"",
       showError:false,
+      pollName:"",
     };
     runEngine.attachBuildingBlock(this as IBlock, this.subScribedMessages);
 
@@ -968,7 +969,8 @@ export default class PollingController extends BlockComponent<
        if(responseJson.hasOwnProperty("report")){
          this.getGeneratePollReport(responseJson?.report?.data)
          this.setState({
-            reportPagination:responseJson.meta
+            reportPagination:responseJson.meta,
+            pollName:responseJson?.poll?.title
          })
        }
      }
