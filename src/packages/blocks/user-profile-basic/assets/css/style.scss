@@ -176,3 +176,41 @@ h4.MuiTypography-body1 {
 //   top:0 !important;
 //   left:-214px !important;
 // }
+input[type="date"]::-webkit-calendar-picker-indicator {
+  color: rgba(0, 0, 0, 0);
+  opacity: 1;
+  display: block;
+  background-repeat:  no-repeat;
+  width: 25px;
+  height: 25px;
+  border-width: thin
+}
+input[type="date"]::-webkit-calendar-picker-indicator {
+  position: absolute;
+  left: 5%;
+}
+input::-webkit-datetime-edit-fields-wrapper {
+  position: relative;
+  left: 8%;
+}
+input::-webkit-datetime-edit {
+  position: relative;
+  left: 8%;
+}
+
+.my-date{
+  width: 160px !important;
+  input{
+    padding-left: 2rem;
+  }
+}
+.my-date::after{
+  border: none !important;
+  border-bottom: none !important;
+
+}
+.my-date::before{
+  border: none !important;
+  border-bottom: none !important;
+
+}

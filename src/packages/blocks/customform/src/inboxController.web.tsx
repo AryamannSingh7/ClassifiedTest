@@ -218,8 +218,8 @@ export default class InboxController extends BlockComponent<Props, S, SS> {
            
       if (responseJson.data) {
 
-        this.setState({ allInbox: responseJson.data,loading:false,switchVaule: responseJson.data[0]?.attributes?.chat_with_account?.id == localStorage.getItem('userId') ?responseJson.data[0]?.attributes?.chat_with_account?.attributes?.disable_chat : responseJson.data[0]?.attributes?.chatable?.attributes?.disable_chat})
-        console.log(responseJson.data[0]?.attributes?.chat_with_account?.id == localStorage.getItem('userId') ?responseJson.data[0]?.attributes?.chat_with_account?.attributes?.disable_chat : responseJson.data[0]?.attributes?.attributes?.chatable?.attributes?.disable_chat)
+        this.setState({ allInbox: responseJson.data,loading:false,switchVaule: responseJson.data[0]?.attributes?.chat_with_account?.id == localStorage.getItem('userId') ?responseJson.data[0]?.attributes?.chat_with_account?.attributes?.disable_chat : responseJson.data[0]?.attributes?.chatable?.attributes?.disable_chat},()=>this.openChat2(this.state.allInbox[0]))
+
       }
     } else {
       //Check Error Response

@@ -1,7 +1,7 @@
 import * as React from "react";
 // custom components
 import {
-  Button, Grid, Box, Typography, FormControl, Select, MenuItem, Avatar, Dialog, DialogActions, RadioGroup, FormControlLabel, Radio
+  Button, Grid, Box, Typography, FormControl, Select, MenuItem, Avatar, Dialog, DialogActions, RadioGroup, FormControlLabel, Radio, Input
 } from "@material-ui/core";
 import { Building1, calendar, emailedit, fbedit, heart, instaedit,  Lock, mobile, NoProfile_Img, snapedit, twitteredit, user,} from "./assets";
 import { withRouter } from 'react-router';
@@ -294,7 +294,7 @@ class EditProfile extends ProfileController {
                             className="formInputGrp"
                             style={{border:"1px solid #f0f0f0",borderRadius:"50px",backgroundColor:"#f9f9f9"}}
                           >
-                            <Field
+                            {/* <Field
                               className="formInput"
                               name="DOB"
                               placeholder={"Date of Birth"}
@@ -302,7 +302,8 @@ class EditProfile extends ProfileController {
                             />
                             <span className="frmLeftIcons">
                               <img src={calendar} />
-                            </span>
+                            </span> */}
+                            <Input type="date" className="my-date"/>
                           </Box>
                          
                             <Typography

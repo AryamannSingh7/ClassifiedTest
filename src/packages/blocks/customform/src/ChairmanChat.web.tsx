@@ -194,10 +194,16 @@ class ChairmanChat extends InboxController {
                                                 {/* {this.state.allInbox[0]?.attributes?.chatable?.attributes?.disable_chat ? 'Enable Chat' :'Disable Chat'} */}Enable
                                                 Chat
                                             </p>
-                                            <FormControlLabel
-                                                control={<PurpleSwitch/>}
+                                            {/* <FormControlLabel
+                                                control={<PurpleSwitch enable={this.state.switchVaule}
+                                                value="start" labelPlacement="start"
+                                                diableChat={() => this.setState({
+                                                    showSuccessModal: !this.state.showSuccessModal,
+                                                    switchVaule: !this.state.switchVaule
+                                                })}/>}
                                                 label=""
-                                            />
+                                                
+                                            /> */}
                                             <FormControlLabel
                                                 style={{marginRight:"0px"}}
                                                 control={<IOSSwitch sx={{m: 1}} enable={this.state.switchVaule}
@@ -253,7 +259,7 @@ class ChairmanChat extends InboxController {
                                                                             borderBottom: '1px solid #f2f2f2'
                                                                         }} onClick={() => this.openChat2(item)}>
                                                                             <img
-                                                                                src={item?.attributes?.chat_with_account?.attributes?.profile_pic?.url || 'https://images.freeimages.com/images/large-previews/e04/yellow-frontal-with-ivy-1228121.jpg'}
+                                                                                src={item?.attributes?.chat_with_account?.attributes?.profile_pic?.url || NoProfile_Img}
                                                                                 width='50' height='50'
                                                                                 style={{borderRadius: 50}}/>
                                                                             <InBoxCard item={item}
@@ -588,6 +594,7 @@ const PurpleSwitch = withStyles({
     track: {},
 })(Switch);
 
+
 // export default ChairmanChat;
 // export default withRouter(ChairmanChat)
 export default withTranslation()(withRouter(ChairmanChat));
@@ -599,59 +606,31 @@ const IOSSwitch = styled((props) => (
     <Switch focusVisibleClassName=".Mui-focusVisible" inputProps={{'aria-label': 'controlled'}}
             onChange={props.diableChat} checked={!props.enable} {...props}/>
 ))(({theme}) => ({
-    width: 42,
-    height: 26,
-    padding: 0,
-    '& .MuiSwitch-switchBase': {
-        padding: 0,
-        margin: 2,
-        transitionDuration: '300ms',
-        '&.Mui-checked': {
-            transform: 'translateX(16px)',
-            color: '#FC8434',
-            '& + .MuiSwitch-track': {
-                // @ts-ignore
-                // backgroundColor: theme.palette.mode === 'dark' ? '#2ECA45' : '#65C466',
-                opacity: 1,
-                background: 'transparent',
-                border: '1px solid #FC8434'
-            },
-            '&.Mui-disabled + .MuiSwitch-track': {
-                opacity: 0.5,
-            },
+    switchBase: {
+        color: "#B0BEC5" ,
+        '&$checked': {
+            color: "#FC8434",
         },
-        '&.Mui-focusVisible .MuiSwitch-thumb': {
-            color: '#33cf4d',
-            border: '6px solid #fff',
+        '&$checked + $track': {
+            backgroundColor: "#FC8434",
         },
-        '&.Mui-disabled .MuiSwitch-thumb': {
-            color:
-            // @ts-ignore
-                theme.palette.mode === 'light'
-                    ? theme.palette.grey[100]
-                    : theme.palette.grey[600],
-        },
-        '&.Mui-disabled + .MuiSwitch-track': {
-            // @ts-ignore
-            opacity: theme.palette.mode === 'light' ? 0.7 : 0.3,
-        },
+        '& .MuiSwitch-thumb':{
+            backgroundColor:'white          '
+        }
+    },
+    checked: {},
+    track: {},
+    color: "#B0BEC5" ,
+    '&$checked': {
+        color: "#FC8434",
     },
     '& .MuiSwitch-thumb': {
-        boxSizing: 'border-box',
-        width: 22,
-        height: 22,
+        backgroundColor: "#FC8434",
     },
-    '& .MuiSwitch-track': {
-        borderRadius: 26 / 2,
-        // @ts-ignore
-        // backgroundColor: theme.palette.mode === 'light' ? '#E9E9EA' : '#39393D',
-        background: 'transparent',
-        opacity: 1,
-        border: '1px solid grey',
-        transition: theme.transitions.create(['background-color'], {
-            duration: 500,
-        }),
-    },
+    '& .MuiSwitch-colorSecondary.Mui-checked + .MuiSwitch-track':{
+        backgroundColor:'#FC8434'
+    }
+   
 }));
 
 
@@ -805,9 +784,9 @@ const ChatRoomSection = (props: any) => {
                  console.log("PROFILE DETAILS",props?.item?.attributes)
              }
              {props.item?.attributes?.chat_with_account?.id != localStorage.getItem('userId') ?
-                 <img src={props.item?.attributes?.chat_with_account?.attributes?.profile_pic?.url} width='50'
+                 <img src={props.item?.attributes?.chat_with_account?.attributes?.profile_pic?.url||NoProfile_Img} width='50'
                       height='50' style={{marginLeft:"10px",borderRadius:"50px"}} /> || <img src={NoProfile_Img} width='50' height='50' style={{marginLeft:"10px",borderRadius:"50px"}}/> :
-                 <img src={props.item?.attributes?.chatable?.attributes?.profile_pic?.url} width='50' height='50' style={{marginLeft:"10px",borderRadius:"50px"}}/> ||
+                 <img src={props.item?.attributes?.chatable?.attributes?.profile_pic?.url||NoProfile_Img} width='50' height='50' style={{marginLeft:"10px",borderRadius:"50px"}}/> ||
                  <img src={NoProfile_Img} width='50' height='50' style={{marginLeft:"10px",borderRadius:"50px"}}/>}
                  {props.item?.attributes?.chat_with_account?.id != localStorage.getItem('userId') ? props.item?.attributes?.chat_with_account?.attributes?.full_name || 'N/A' : props.item?.attributes?.chatable?.attributes?.full_name || 'N/A'}
              </span>
