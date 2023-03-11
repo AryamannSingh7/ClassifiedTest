@@ -57,7 +57,6 @@ class PollReport extends PollingController {
 
             <Grid xs={9} md={9} sm={9} spacing={4} style={{paddingTop: 35}}>
                 <Container>
-
                     <Grid item sm={12} md={12} xs={12}>
                         <Box className="navigation">
                             <Box>

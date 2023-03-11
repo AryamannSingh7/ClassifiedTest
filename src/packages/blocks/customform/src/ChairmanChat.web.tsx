@@ -13,10 +13,12 @@ import {
     styled,
     Switch,
     Typography,
+    Container
 } from "@material-ui/core";
 import {withRouter} from 'react-router';
 import Box from "@material-ui/core/Box";
 import Grid from "@material-ui/core/Grid";
+import { withStyles } from '@material-ui/core/styles';
 import DashboardHeader from "../../dashboard/src/DashboardHeader.web";
 import {NoProfile_Img} from "../../user-profile-basic/src/assets";
 import {DoubleTick, info, NoChat, Send} from "./assets";
@@ -162,8 +164,6 @@ class ChairmanChat extends InboxController {
 //@ts-nocheck
         let item = this.state.selectedChatRoom;
         const currentAccountId = localStorage.getItem('userId')
-
-
         return (
             <>
                 <Box
@@ -178,366 +178,349 @@ class ChairmanChat extends InboxController {
                             <GeneralSideBarWeb {...this.props}></GeneralSideBarWeb>
                         </Grid>
                         <Grid item xs={9}>
-                            <Grid container>
-                                <Grid item justifyContent="space-between" style={{
-                                    width: '100%',
-                                    display: 'flex',
-                                    paddingRight: '2.5rem',
-                                    marginLeft: '2.5rem',
-                                    marginTop:"20px",
-                                    marginBottom:"10px"
-                                }}>
-                                    <p className="bold-text" style={{fontWeight: 600, fontSize: '32px'}}>
-                                        Chat
-                                    </p>
-                                    <Box display={'flex'} alignItems='center' gridGap={'1rem'}>
-                                        <p className="bold-text" style={{fontSize:"16px"}}>
-                                            {/* {this.state.allInbox[0]?.attributes?.chatable?.attributes?.disable_chat ? 'Enable Chat' :'Disable Chat'} */}Enable
+                            <Container>
+                                <Grid container>
+                                    <Grid item justifyContent="space-between" style={{
+                                        width: '100%',
+                                        display: 'flex',
+                                        marginTop:"20px",
+                                        marginBottom:"10px"
+                                    }}>
+                                        <p className="bold-text" style={{fontWeight: 600, fontSize: '32px'}}>
                                             Chat
                                         </p>
-                                        <FormControlLabel
-                                            control={<IOSSwitch sx={{m: 1}} enable={this.state.switchVaule}
-                                                        value="start" labelPlacement="start"
-                                                        diableChat={() => this.setState({
-                                                            showSuccessModal: !this.state.showSuccessModal,
-                                                            switchVaule: !this.state.switchVaule
-                                                        })}/>}
-                                            label=''
-                                        />
-                                    </Box>
-
-                                </Grid>
-                            </Grid>
-                            <Grid container style={{marginLeft: '2.3rem'}}>
-
-                                <Grid item xs={4} md={4} sm={4}
-                                      style={{boxShadow: 'rgb(0 0 0 / 15%) 9px -3px 8px 0px'}}>
-
-                                    <>
-                                        <Box className="login-wrapper reg-wrapper"
-                                             style={{margin: 0, background: '#FFFFFF'}}>
-                                            <Grid container style={{padding: '0 1rem'}}>
-                                                <Grid item xs={12}
-                                                      style={{display: 'flex', justifyContent: 'space-between'}}>
-                                                    <Box display='flex' alignItems='center'
-                                                         width={this.state.isSearch ? '7%' : '100%'}>
-                                                        {/* <KeyboardBackspaceIcon onClick={() => window.history.back()}/> */}
-                                                        <input autoFocus className="inputbox" placeholder="search"
-                                                               onChange={(e) => this.getInboxBySearch(e.target.value)}
-                                                               style={{
-                                                                   border: '1px solid #F1F1F1',
-                                                                   borderRadius: '10px',
-                                                                   fontSize: '1rem',
-                                                                   height: '50px',
-                                                                   padding: '0.75rem',
-                                                                   marginTop: '1rem'
-                                                               }}/>
-
-                                                    </Box>
-
-
-                                                </Grid>
-                                            </Grid>
-                                            <Grid container>
-                                                <Grid item xs={12} md={12}
-                                                      style={{justifyContent: 'normal'}}>
-                                                    {
-                                                        this.state.allInbox.length != 0 ? this.state.allInbox.map(item =>
-                                                                <>
-
-
-                                                                    <Box key={item} display='flex' style={{
-                                                                        gap: '1rem',
-                                                                        maxHeight: '5rem',
-                                                                        marginTop: '1rem',
-                                                                        cursor: 'pointer',
-                                                                        borderBottom: '1px solid #f2f2f2'
-                                                                    }} onClick={() => this.openChat2(item)}>
-                                                                        <img
-                                                                            src={item?.attributes?.chat_with_account?.attributes?.profile_pic?.url || 'https://images.freeimages.com/images/large-previews/e04/yellow-frontal-with-ivy-1228121.jpg'}
-                                                                            width='50' height='50'
-                                                                            style={{borderRadius: 25}}/>
-                                                                        <InBoxCard item={item}
-                                                                                   displaytime={this.displaytime}
-                                                                                   getLastMessage={this.getLastMessage}/>
-                                                                        {/* <Box padding='0.25rem' width='100%' >
-                      <Box width='100%' display='flex' justifyContent='space-between' alignItems='center'>
-
-                      <h5>
-                      {item?.attributes?.chat_with_account?.id != localStorage.getItem('userId') ?item?.attributes?.chat_with_account?.attributes?.full_name || 'N/A':item?.attributes?.chatable?.attributes?.full_name || 'N/A' }
-
-                      </h5>
-                      <p>
-                       { this.displaytime(item.attributes.messages)}
-                      </p>
-                      </Box>
-                      <Box style={{display:'flex',justifyContent:'space-between'}}>
-
-                      <p>
-
-                        {
-                          Object.keys(item.attributes.messages).length !=0 && this.getLastMessage(item.attributes.messages)
-                        }
-                      </p>
-                      {
-                         item?.attributes?.is_mark_unread===0 ?null :
-                      <p style={{background:'#FC8434',color:'white',borderRadius:'50%',width:'12px',height:'12px',fontSize:'12px',padding:'4px 6px 8px 6px',textAlign:'center'}}>
-                       {item?.attributes?.is_mark_unread}
-                      </p>
-                      }
-                      </Box>
-                    </Box> */}
-                                                                    </Box>
-
-                                                                </>
-                                                            )
-                                                            :
-                                                            <div>
-                                                                No chat
-                                                            </div>
-                                                    }
-                                                </Grid>
-
-                                            </Grid>
+                                        <Box display={'flex'} alignItems='center' gridGap={'1rem'}>
+                                            <p className="bold-text" style={{fontSize:"16px"}}>
+                                                {/* {this.state.allInbox[0]?.attributes?.chatable?.attributes?.disable_chat ? 'Enable Chat' :'Disable Chat'} */}Enable
+                                                Chat
+                                            </p>
+                                            <FormControlLabel
+                                                control={<PurpleSwitch/>}
+                                                label=""
+                                            />
+                                            <FormControlLabel
+                                                style={{marginRight:"0px"}}
+                                                control={<IOSSwitch sx={{m: 1}} enable={this.state.switchVaule}
+                                                            value="start" labelPlacement="start"
+                                                            diableChat={() => this.setState({
+                                                                showSuccessModal: !this.state.showSuccessModal,
+                                                                switchVaule: !this.state.switchVaule
+                                                            })}/>}
+                                                            label=''
+                                            />
                                         </Box>
 
-                                        <Dialog
-                                            open={this.state.showSuccessModal}
-                                            onClose={() => this.setState({showSuccessModal: false})}
-                                            aria-labelledby="alert-dialog-title"
-                                            aria-describedby="alert-dialog-description"
-                                            className="diloag-wrapper"
-                                            PaperProps={{
-                                                style: {
-                                                    borderRadius: '15px',
-                                                    padding: '2rem',
-                                                    width: '450px'
-                                                },
-                                            }}
-                                        >
-                                            <DialogBox allInbox={this.state.allInbox} disableChat={this.disablechat}
-                                                       onClickHandle={() => this.setState({showSuccessModal: false})}/>
-                                            {/* <Grid container>
-            <Grid xs={12} style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', marginBottom: 10 }}>
-
-              <img src={NoChat} />
-            </Grid>
-          </Grid>
-          <Grid container>
-            <Grid xs={12} style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', marginBottom: 10 }}>
-
-              <p style={{ fontWeight: 800, fontSize: '1.5rem', textAlign: 'center' }}>
-               {
-                this.state.allInbox[0]?.attributes?.chatable?.attributes?.disable_chat ? 'Enable Chat' :'Disable Chat'
-               }  Functionality?
-
-              </p>
-            </Grid>
-          </Grid>
-          <Grid container>
-            <Grid xs={12} style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', marginBottom: 10 }}>
-              <p style={{ fontWeight: 400, fontSize: '0.8rem', textAlign: 'center' }}>
-                Are you sure want to {
-                this.state.allInbox[0]?.attributes?.chatable?.attributes?.disable_chat ? 'Enable Chat' :'Disable Chat'
-               } functionality? No one will be able to send you any messages while it is disabled.
-              </p>
-            </Grid>
-          </Grid>
-          <Box className="dialog-footer desktop-ui">
-            <DialogActions className="customButton" style={{display:'flex',gap:'1rem',justifyContent:'center',flexDirection:'row-reverse'}}>
-              <Button variant="contained" onClick={() => this.disablechat()} style={{width:'12rem'}}  >
-                Yes
-                {
-                  this.state.allInbox[0]?.attributes?.chatable?.attributes?.disable_chat ? ' Enable' :' Disable'
-                }
-                 
-              </Button>
-              <Button variant='text' onClick={() => this.setState({ showSuccessModal: false })} style={{width:'fit-content',border:'1px solid #668DE7',color:'#668DE7'}} >
-                No, don’t
-                {
-                  this.state.allInbox[0]?.attributes?.chatable?.attributes?.disable_chat ? ' Enable' :' Disable'
-                }
-              </Button>
-            </DialogActions>
-          </Box> */}
-                                        </Dialog>
-                                        < Loader loading={this.state.loading}/>
-                                    </>
-
-                                </Grid>
-                                <Grid item xs={7} md={7} sm={7} style={{
-                                    borderLeft: '1px solid #EFEFEF',
-                                    boxShadow: 'rgb(0 0 0 / 15%) 9px -3px 8px 0px'
-                                }}>
-                                    <Grid item xs={12} md={12} className="auth-cols">
-                                        <Box display={{xs: 'none', md: 'flex'}}>
-                                            <div style={{
-                                                padding: "0.3rem",
-                                                backgroundColor: "#ffff",
-                                                paddingLeft: '0.3rem',
-                                                minWidth: '95%'
-                                            }}>
-                                                <Grid container>
-                                                    <Grid item xs={12} style={{
-                                                        display: 'flex',
-                                                        justifyContent: 'space-between',
-                                                        paddingBottom: '1rem'
-                                                    }}>
-                                                        {/* <Box display='flex' alignItems='center' >
-             
-              <span style={{ fontWeight: 'bold',display:'flex',gap:'0.5rem',marginTop:'1rem' }}>
-              {item?.attributes?.chat_with_account?.id != localStorage.getItem('userId')  ? <img src={item?.attributes?.chat_with_account?.attributes?.profile_pic?.url} width='25' height='25'/> || <img src={NoProfile_Img} width='25' height='25' />:<img src={item?.attributes?.chatable?.attributes?.profile_pic?.url} width='25' height='25'/>   || <img src={NoProfile_Img} width='25' height='25'/> }
-
-                {item?.attributes?.chat_with_account?.id != localStorage.getItem('userId') ?item?.attributes?.chat_with_account?.attributes?.full_name || 'N/A':item?.attributes?.chatable?.attributes?.full_name || 'N/A' }
-              </span>
-            </Box> */}
-                                                        <ChatRoomSection item={item}/>
-
-
-                                                    </Grid>
-
-                                                    <Grid xs={12}>
-                                                        <List style={{
-                                                            overflowY: "auto",
-                                                            maxHeight: "71vh",
-                                                            minHeight: "71vh",
-                                                            overflowX: 'hidden'
-                                                        }}>
-                                                            {/* {
-  this.state.allInboxKey ? 'hey':'bye'
-} */}
-
-                                                            {this.state.allInboxKey?.length != 0 && this.state.allInboxKey?.map((date, i) => (
-                                                                <>
-
-
-                                                                    <Box key={i} display='flex' justifyContent='center'
-                                                                         position='relative'>
-                                                                        <p className="oval-shape">
-
-                                                                            {
-                                                                                i > 1 ? this.dateToFromNowDaily(date) : moment.utc(date).format('MMM-DD-YYYY')
-                                                                            }
-
-                                                                        </p>
-                                                                    </Box>
-
-                                                                    {
-                                                                        this.state.singleChatRoom[date]?.map((message: any, i: any) => <>
-
-
-                                                                            <ListItem key={i}>
-                                                                                <Grid container>
-                                                                                    <MessageSection handleClick={() => {//@ts-ignore
-//@ts-nocheck
-                                                                                        this.setState({selectedMedia: message.message.images[0]})
-                                                                                    }} message={message}
-                                                                                                    displaytime2={this.displaytime2}
-                                                                                                    currentAccountId={currentAccountId}/>
-                                                                                </Grid>
-                                                                            </ListItem>
-                                                                        </>)
-                                                                    }
-                                                                </>
-                                                            ))}
-                                                        </List>
-
-                                                        <SendMessage newMessage={this.state.newMessage}
-                                                                     selectedChatRoom={this.state.selectedChatRoom}
-                                                                     handleFile2={this.handleFile2}
-                                                                     createMessages={this.createMessages}
-                                                                     CreateNewMessage={this.CreateNewMessage}/>
-
-                                                    </Grid>
-                                                </Grid>
-
-
-                                                <Modal
-                                                    //@ts-ignore
-                                                    //@ts-nocheck
-
-                                                    open={this.state.selectedMedia}
-                                                    style={{
-                                                        display: 'flex',
-                                                        alignItems: 'center',
-                                                        flexDirection: 'column-reverse',
-                                                        justifyContent: 'center'
-                                                    }}
-                                                    onClose={() => this.setState({selectedMedia: null, accept: false})}
-                                                    aria-labelledby="alert-Modal-title"
-                                                    aria-describedby="alert-dialog-description"
-                                                >
-                                                    <div>
-
-                                                        {this.state.selectedMedia?.mimetype !== "application/pdf" ? (
-                                                            <Avatar src={this.state.selectedMedia?.url} style={{
-                                                                width: '300px',
-                                                                height: '26rem',
-                                                                borderRadius: 0
-                                                            }}/>
-                                                        ) : (
-                                                            <iframe src={this.state.selectedMedia?.url}
-                                                                    style={{width: '300px', height: '26rem'}}/>
-                                                        )}
-
-
-                                                        {
-                                                            this.state.accept &&
-                                                            <div style={{display: 'flex', justifyContent: 'center'}}>
-                                                                <button onClick={() => this.setState({
-                                                                    selectedMedia: null,
-                                                                    accept: false
-                                                                })} style={{
-                                                                    marginRight: '2rem',
-                                                                    backgroundColor: 'rgb(241, 78, 36)',
-                                                                    border: '1px solid rgb(217, 219, 233)',
-                                                                    borderRadius: '16px',
-                                                                    height: 35,
-                                                                    boxShadow: 'none',
-                                                                    color: ' rgb(247, 247, 252)',
-                                                                    fontFamily: 'Poppins',
-                                                                    fontSize: 13,
-                                                                    marginTop: 10,
-                                                                    // @ts-ignore
-// @ts-nocheck
-                                                                    marginRight: 10,
-                                                                    width: 150
-                                                                }}>
-                                                                    Cancel
-                                                                </button>
-                                                                <button onClick={() => this.setState({
-                                                                    selectedMedia: null,
-                                                                    accept: false
-                                                                }, () => this.handleSelectFile(this.state.file))}
-                                                                        style={{
-                                                                            backgroundColor: '#ffff',
-                                                                            border: '1px solid red',
-                                                                            borderRadius: '16px',
-                                                                            height: 35,
-                                                                            boxShadow: 'none',
-                                                                            color: ' red',
-                                                                            fontFamily: 'Poppins',
-                                                                            fontSize: 13,
-                                                                            marginTop: 10,
-                                                                            marginRight: 10,
-                                                                            width: 150
-                                                                        }}>
-                                                                    Send
-                                                                </button>
-                                                            </div>
-                                                        }
-
-                                                    </div>
-
-                                                </Modal>
-
-
-                                            </div>
-                                        </Box>
                                     </Grid>
                                 </Grid>
-                            </Grid>
+                                <Grid container>
+                                    <Grid item xs={4} md={4} sm={4}
+                                          style={{boxShadow: 'rgb(0 0 0 / 15%) 9px -3px 8px 0px'}}>
+                                        <>
+                                            <Box className="login-wrapper reg-wrapper"
+                                                 style={{margin: 0, background: '#FFFFFF'}}>
+                                                <Grid container style={{padding: '0 1rem'}}>
+                                                    <Grid item xs={12}
+                                                          style={{display: 'flex', justifyContent: 'space-between'}}>
+                                                           <Box display='flex' alignItems='center'
+                                                             width={this.state.isSearch ? '7%' : '100%'} style={{display:"flex",justifyContent:"center"}}>
+                                                            {/* <KeyboardBackspaceIcon onClick={() => window.history.back()}/> */}
+                                                            <input autoFocus className="inputbox" placeholder="search"
+                                                                   onChange={(e) => this.getInboxBySearch(e.target.value)}
+                                                                   style={{
+                                                                       border: '1px solid #F1F1F1',
+                                                                       borderRadius: '10px',
+                                                                       fontSize: '1rem',
+                                                                       height: '50px',
+                                                                       padding: '0.75rem',
+                                                                       marginTop: '1rem',
+                                                                       width:"100%"
+                                                                   }}/>
+                                                        </Box>
+                                                    </Grid>
+                                                </Grid>
+                                                <Grid container>
+                                                    <Grid item xs={12} md={12}
+                                                          style={{justifyContent: 'normal'}}>
+                                                        {
+                                                            this.state.allInbox.length != 0 ? this.state.allInbox.map(item =>
+                                                                    <>
+                                                                        <Box key={item} display='flex' style={{
+                                                                            gap: '1rem',
+                                                                            maxHeight: '5rem',
+                                                                            padding:"0.5rem 1rem",
+                                                                            marginTop: '1rem',
+                                                                            cursor: 'pointer',
+                                                                            borderBottom: '1px solid #f2f2f2'
+                                                                        }} onClick={() => this.openChat2(item)}>
+                                                                            <img
+                                                                                src={item?.attributes?.chat_with_account?.attributes?.profile_pic?.url || 'https://images.freeimages.com/images/large-previews/e04/yellow-frontal-with-ivy-1228121.jpg'}
+                                                                                width='50' height='50'
+                                                                                style={{borderRadius: 50}}/>
+                                                                            <InBoxCard item={item}
+                                                                                       displaytime={this.displaytime}
+                                                                                       getLastMessage={this.getLastMessage}/>
+                                                                            {/* <Box padding='0.25rem' width='100%' >
+                          <Box width='100%' display='flex' justifyContent='space-between' alignItems='center'>
 
+                          <h5>
+                          {item?.attributes?.chat_with_account?.id != localStorage.getItem('userId') ?item?.attributes?.chat_with_account?.attributes?.full_name || 'N/A':item?.attributes?.chatable?.attributes?.full_name || 'N/A' }
+
+                          </h5>
+                          <p>
+                           { this.displaytime(item.attributes.messages)}
+                          </p>
+                          </Box>
+                          <Box style={{display:'flex',justifyContent:'space-between'}}>
+
+                          <p>
+
+                            {
+                              Object.keys(item.attributes.messages).length !=0 && this.getLastMessage(item.attributes.messages)
+                            }
+                          </p>
+                          {
+                             item?.attributes?.is_mark_unread===0 ?null :
+                          <p style={{background:'#FC8434',color:'white',borderRadius:'50%',width:'12px',height:'12px',fontSize:'12px',padding:'4px 6px 8px 6px',textAlign:'center'}}>
+                           {item?.attributes?.is_mark_unread}
+                          </p>
+                          }
+                          </Box>
+                        </Box> */}
+                                                                        </Box>
+
+                                                                    </>
+                                                                )
+                                                                :
+                                                                <div style={{width:"100%",height:"100%",display:"flex",justifyContent:"center",alignItems:'Center'}}>
+                                                                    <Typography className="bold-text" color="textSecondary">{"No chat"}</Typography>
+                                                                </div>
+                                                        }
+                                                    </Grid>
+
+                                                </Grid>
+                                            </Box>
+
+                                            <Dialog
+                                                open={this.state.showSuccessModal}
+                                                onClose={() => this.setState({showSuccessModal: false})}
+                                                aria-labelledby="alert-dialog-title"
+                                                aria-describedby="alert-dialog-description"
+                                                className="diloag-wrapper"
+                                                PaperProps={{
+                                                    style: {
+                                                        borderRadius: '15px',
+                                                        padding: '2rem',
+                                                        width: '450px'
+                                                    },
+                                                }}
+                                            >
+                                                <DialogBox allInbox={this.state.allInbox} disableChat={this.disablechat}
+                                                           onClickHandle={() => this.setState({showSuccessModal: false})}/>
+                                                {/* <Grid container>
+                <Grid xs={12} style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', marginBottom: 10 }}>
+
+                  <img src={NoChat} />
+                </Grid>
+              </Grid>
+              <Grid container>
+                <Grid xs={12} style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', marginBottom: 10 }}>
+
+                  <p style={{ fontWeight: 800, fontSize: '1.5rem', textAlign: 'center' }}>
+                   {
+                    this.state.allInbox[0]?.attributes?.chatable?.attributes?.disable_chat ? 'Enable Chat' :'Disable Chat'
+                   }  Functionality?
+
+                  </p>
+                </Grid>
+              </Grid>
+              <Grid container>
+                <Grid xs={12} style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', marginBottom: 10 }}>
+                  <p style={{ fontWeight: 400, fontSize: '0.8rem', textAlign: 'center' }}>
+                    Are you sure want to {
+                    this.state.allInbox[0]?.attributes?.chatable?.attributes?.disable_chat ? 'Enable Chat' :'Disable Chat'
+                   } functionality? No one will be able to send you any messages while it is disabled.
+                  </p>
+                </Grid>
+              </Grid>
+              <Box className="dialog-footer desktop-ui">
+                <DialogActions className="customButton" style={{display:'flex',gap:'1rem',justifyContent:'center',flexDirection:'row-reverse'}}>
+                  <Button variant="contained" onClick={() => this.disablechat()} style={{width:'12rem'}}  >
+                    Yes
+                    {
+                      this.state.allInbox[0]?.attributes?.chatable?.attributes?.disable_chat ? ' Enable' :' Disable'
+                    }
+
+                  </Button>
+                  <Button variant='text' onClick={() => this.setState({ showSuccessModal: false })} style={{width:'fit-content',border:'1px solid #668DE7',color:'#668DE7'}} >
+                    No, don’t
+                    {
+                      this.state.allInbox[0]?.attributes?.chatable?.attributes?.disable_chat ? ' Enable' :' Disable'
+                    }
+                  </Button>
+                </DialogActions>
+              </Box> */}
+                                            </Dialog>
+                                            < Loader loading={this.state.loading}/>
+                                        </>
+
+                                    </Grid>
+                                    <Grid item xs={8} md={8} sm={8} style={{
+                                        borderLeft: '1px solid #EFEFEF',
+                                        boxShadow: 'rgb(0 0 0 / 15%) 9px -3px 8px 0px'
+                                    }}>
+                                        <Grid item xs={12} md={12} className="auth-cols">
+                                            <Box display={{xs: 'none', md: 'flex'}}>
+                                                <div style={{
+                                                    padding: "0.3rem",
+                                                    backgroundColor: "#ffff",
+                                                    paddingLeft: '0.3rem',
+                                                    minWidth: '99%'
+                                                }}>
+                                                    <Grid container>
+                                                        <Grid item xs={12} style={{
+                                                            display: 'flex',
+                                                            justifyContent: 'space-between',
+                                                            paddingBottom: '.8rem',
+                                                            borderBottom:"1px solid #F0F0F0"
+                                                        }}>
+                                                            {/* <Box display='flex' alignItems='center' >
+                  <span style={{ fontWeight: 'bold',display:'flex',gap:'0.5rem',marginTop:'1rem' }}>
+                  {item?.attributes?.chat_with_account?.id != localStorage.getItem('userId')  ? <img src={item?.attributes?.chat_with_account?.attributes?.profile_pic?.url} width='25' height='25'/> || <img src={NoProfile_Img} width='25' height='25' />:<img src={item?.attributes?.chatable?.attributes?.profile_pic?.url} width='25' height='25'/>   || <img src={NoProfile_Img} width='25' height='25'/> }
+
+                    {item?.attributes?.chat_with_account?.id != localStorage.getItem('userId') ?item?.attributes?.chat_with_account?.attributes?.full_name || 'N/A':item?.attributes?.chatable?.attributes?.full_name || 'N/A' }
+                  </span>
+                </Box> */}
+                                                            <ChatRoomSection item={item}/>
+                                                        </Grid>
+
+                                                        <Grid xs={12}>
+                                                            <List style={{
+                                                                overflowY: "auto",
+                                                                maxHeight: "55vh",
+                                                                minHeight: "55vh",
+                                                                overflowX: 'hidden'
+                                                            }}>
+                                                                {this.state.allInboxKey?.length != 0 && this.state.allInboxKey?.map((date, i) => (
+                                                                    <>
+                                                                        <Box key={i} display='flex' justifyContent='center'
+                                                                             position='relative'>
+                                                                            <p className="oval-shape bold-text" style={{fontSize:"11px",padding:"5px 12px"}}>
+                                                                                {
+                                                                                    i > 1 ? this.dateToFromNowDaily(date) : moment.utc(date).format('DD MMM, YYYY')
+                                                                                }
+                                                                            </p>
+                                                                        </Box>
+                                                                        {
+                                                                            this.state.singleChatRoom[date]?.map((message: any, i: any) => <>
+
+                                                                                <ListItem key={i}>
+                                                                                    <Grid container>
+                                                                                        <MessageSection handleClick={() => {//@ts-ignore
+    //@ts-nocheck
+                                                                                            this.setState({selectedMedia: message.message.images[0]})
+                                                                                        }} message={message}
+                                                                                                        displaytime2={this.displaytime2}
+                                                                                                        currentAccountId={currentAccountId}/>
+                                                                                    </Grid>
+                                                                                </ListItem>
+                                                                            </>)
+                                                                        }
+                                                                    </>
+                                                                ))}
+                                                            </List>
+                                                            <SendMessage newMessage={this.state.newMessage}
+                                                                         selectedChatRoom={this.state.selectedChatRoom}
+                                                                         handleFile2={this.handleFile2}
+                                                                         createMessages={this.createMessages}
+                                                                         CreateNewMessage={this.CreateNewMessage}/>
+
+                                                        </Grid>
+                                                    </Grid>
+
+
+                                                    <Modal
+                                                        //@ts-ignore
+                                                        //@ts-nocheck
+
+                                                        open={this.state.selectedMedia}
+                                                        style={{
+                                                            display: 'flex',
+                                                            alignItems: 'center',
+                                                            flexDirection: 'column-reverse',
+                                                            justifyContent: 'center'
+                                                        }}
+                                                        onClose={() => this.setState({selectedMedia: null, accept: false})}
+                                                        aria-labelledby="alert-Modal-title"
+                                                        aria-describedby="alert-dialog-description"
+                                                    >
+                                                        <div>
+
+                                                            {this.state.selectedMedia?.mimetype !== "application/pdf" ? (
+                                                                <Avatar src={this.state.selectedMedia?.url} style={{
+                                                                    width: '300px',
+                                                                    height: '26rem',
+                                                                    borderRadius: 0
+                                                                }}/>
+                                                            ) : (
+                                                                <iframe src={this.state.selectedMedia?.url}
+                                                                        style={{width: '300px', height: '26rem'}}/>
+                                                            )}
+
+
+                                                            {
+                                                                this.state.accept &&
+                                                                <div style={{display: 'flex', justifyContent: 'center'}}>
+                                                                    <button onClick={() => this.setState({
+                                                                        selectedMedia: null,
+                                                                        accept: false
+                                                                    })} style={{
+                                                                        marginRight: '2rem',
+                                                                        backgroundColor: 'rgb(241, 78, 36)',
+                                                                        border: '1px solid rgb(217, 219, 233)',
+                                                                        borderRadius: '16px',
+                                                                        height: 35,
+                                                                        boxShadow: 'none',
+                                                                        color: ' rgb(247, 247, 252)',
+                                                                        fontFamily: 'Poppins',
+                                                                        fontSize: 13,
+                                                                        marginTop: 10,
+                                                                        // @ts-ignore
+    // @ts-nocheck
+                                                                        marginRight: 10,
+                                                                        width: 150
+                                                                    }}>
+                                                                        Cancel
+                                                                    </button>
+                                                                    <button onClick={() => this.setState({
+                                                                        selectedMedia: null,
+                                                                        accept: false
+                                                                    }, () => this.handleSelectFile(this.state.file))}
+                                                                            style={{
+                                                                                backgroundColor: '#ffff',
+                                                                                border: '1px solid red',
+                                                                                borderRadius: '16px',
+                                                                                height: 35,
+                                                                                boxShadow: 'none',
+                                                                                color: ' red',
+                                                                                fontFamily: 'Poppins',
+                                                                                fontSize: 13,
+                                                                                marginTop: 10,
+                                                                                marginRight: 10,
+                                                                                width: 150
+                                                                            }}>
+                                                                        Send
+                                                                    </button>
+                                                                </div>
+                                                            }
+
+                                                        </div>
+                                                    </Modal>
+                                                </div>
+                                            </Box>
+                                        </Grid>
+                                    </Grid>
+                                </Grid>
+                            </Container>
                         </Grid>
                     </Box>
 
@@ -591,6 +574,19 @@ class ChairmanChat extends InboxController {
         );
     }
 }
+const PurpleSwitch = withStyles({
+    switchBase: {
+        color: "#B0BEC5" ,
+        '&$checked': {
+            color: "#FC8434",
+        },
+        '&$checked + $track': {
+            backgroundColor: "#FC8434",
+        },
+    },
+    checked: {},
+    track: {},
+})(Switch);
 
 // export default ChairmanChat;
 // export default withRouter(ChairmanChat)
@@ -612,13 +608,13 @@ const IOSSwitch = styled((props) => (
         transitionDuration: '300ms',
         '&.Mui-checked': {
             transform: 'translateX(16px)',
-            color: '#65C466',
+            color: '#FC8434',
             '& + .MuiSwitch-track': {
                 // @ts-ignore
                 // backgroundColor: theme.palette.mode === 'dark' ? '#2ECA45' : '#65C466',
                 opacity: 1,
                 background: 'transparent',
-                border: '1px solid #65C466'
+                border: '1px solid #FC8434'
             },
             '&.Mui-disabled + .MuiSwitch-track': {
                 opacity: 0.5,
@@ -661,29 +657,20 @@ const IOSSwitch = styled((props) => (
 
 const InBoxCard = (props: any) => {
     console.log(props)
-
     function displaytime(obj: any) {
-
         let value = obj[Object.keys(obj)[Object.keys(obj).length - 1]]
-
         //@ts-ignore
         //@ts-nocheck
         if (value) {
-
-
             return dateToFromNowDaily1(value[value.length - 1].message.created_at)
-
         } else {
             return ''
         }
-
     }
 
     const dateToFromNowDaily1 = (myDate: any) => {
-
         // get from-now for this date
         let fromNow = moment.utc(myDate).fromNow();
-
         // ensure the date is displayed with today and yesterday
         return moment(myDate).calendar(null, {
             // when the date is closer, specify custom values
@@ -701,26 +688,29 @@ const InBoxCard = (props: any) => {
     return (
         <Box padding='0.25rem' width='100%'>
             <Box width='100%' display='flex' justifyContent='space-between' alignItems='center'>
-
-                <h5>
+                <p style={{fontSize:"16px"}} className="bold-text">
                     {props?.item?.attributes?.chat_with_account?.id != localStorage.getItem('userId') ? props?.item?.attributes?.chat_with_account?.attributes?.full_name || 'N/A' : props?.item?.attributes?.chatable?.attributes?.full_name || 'N/A'}
-
-                </h5>
-                <p>
+                </p>
+                <p style={{fontSize:"12px",color:"#8D8D8D"}}>
                     {displaytime(props?.item.attributes.messages)}
                 </p>
             </Box>
             <Box style={{display: 'flex', justifyContent: 'space-between'}}>
-
-                <p>
-
+                <p className="textwrap" style={{fontSize:"14px",color:"#8D8D8D"}}>
                     {
                         Object.keys(props?.item.attributes.messages).length != 0 && props?.getLastMessage(props?.item.attributes.messages)
                     }
                 </p>
                 {
-                    props?.item?.attributes?.is_mark_unread === 0 ? null :
-                        <p style={{
+                    props?.item?.attributes?.is_mark_unread === 0 ?
+                        <div style={{position: 'relative', marginRight: '0.25rem'}}>
+                            <img src={DoubleTick}/>
+                            <img src={DoubleTick} style={{position: 'absolute', left: '-4px'}}/>
+                        </div>
+                        :
+                        <p
+                            className="bold-text"
+                            style={{
                             background: '#FC8434',
                             color: 'white',
                             borderRadius: '50%',
@@ -810,14 +800,15 @@ const ChatRoomSection = (props: any) => {
     return (
         <>
             <Box display='flex' alignItems='center'>
-             
-             <span style={{fontWeight: 'bold', display: 'flex', gap: '0.5rem', marginTop: '1rem'}}>
+             <span style={{fontWeight: 'bold', display: 'flex', gap: '0.5rem', marginTop: '.8rem',alignItems:"center"}}>
+             {
+                 console.log("PROFILE DETAILS",props?.item?.attributes)
+             }
              {props.item?.attributes?.chat_with_account?.id != localStorage.getItem('userId') ?
-                 <img src={props.item?.attributes?.chat_with_account?.attributes?.profile_pic?.url} width='25'
-                      height='25'/> || <img src={NoProfile_Img} width='25' height='25'/> :
-                 <img src={props.item?.attributes?.chatable?.attributes?.profile_pic?.url} width='25' height='25'/> ||
-                 <img src={NoProfile_Img} width='25' height='25'/>}
-
+                 <img src={props.item?.attributes?.chat_with_account?.attributes?.profile_pic?.url} width='50'
+                      height='50' style={{marginLeft:"10px",borderRadius:"50px"}} /> || <img src={NoProfile_Img} width='50' height='50' style={{marginLeft:"10px",borderRadius:"50px"}}/> :
+                 <img src={props.item?.attributes?.chatable?.attributes?.profile_pic?.url} width='50' height='50' style={{marginLeft:"10px",borderRadius:"50px"}}/> ||
+                 <img src={NoProfile_Img} width='50' height='50' style={{marginLeft:"10px",borderRadius:"50px"}}/>}
                  {props.item?.attributes?.chat_with_account?.id != localStorage.getItem('userId') ? props.item?.attributes?.chat_with_account?.attributes?.full_name || 'N/A' : props.item?.attributes?.chatable?.attributes?.full_name || 'N/A'}
              </span>
             </Box>
@@ -862,8 +853,7 @@ const SendMessage = (props: any) => {
                 <Grid container
                       style={{padding: "20px", display: 'flex', alignItems: 'center', justifyContent: 'space-between'}}>
 
-                    <Grid item xs={10} style={{display: 'flex', alignItems: 'center'}}>
-
+                    <Grid item xs={11} style={{display: 'flex', alignItems: 'center'}}>
                         <input
                             disabled={!props.selectedChatRoom}
                             onKeyPress={event => {
@@ -871,13 +861,14 @@ const SendMessage = (props: any) => {
                                     props.createMessages()
                                 }
                             }}
-
                             onChange={(e) => props.CreateNewMessage(e)} type="" style={{
-                            border: '1px solid #EDEDED',
+                            border: '1px solid #F0F0F0',
                             color: '#726363',
-                            borderRadius: 15,
+                            backgroundColor:"#F9F9F9",
+                            borderRadius: "25px",
                             padding: 10,
-                            width: '100%'
+                            height:"50px",
+                            width: '100%',
                         }} placeholder="Type your message" value={props.newMessage}/>
                         {// @ts-ignore
 // @ts-nocheck
@@ -909,9 +900,9 @@ const SendMessage = (props: any) => {
                             accept="image/png, image/jpeg, image/jpg,.pdf"
                         />
                     </Grid>
-                    <img src={Send}
-                         style={{cursor: 'pointer', borderRadius: '20px', padding: '1rem', background: '#2B6FED'}}
-                         onClick={() => props.createMessages()}/>
+                    <Box style={{cursor: 'pointer', borderRadius: '50px', padding: '1rem', background: '#2B6FED'}} onClick={() => props.createMessages()}>
+                        <img src={Send}/>
+                    </Box>
                     {/* <SendIcon style={{ cursor: 'pointer' }} onClick={()=>this.createMessages()} /> */}
 
                 </Grid>
@@ -921,9 +912,9 @@ const SendMessage = (props: any) => {
 }
 
 const MessageSection = (props: any) => {
-    return (<>
+    return (
+        <>
         <Grid item xs={12}
-
             // @ts-ignore
               style={props.message.message.account_id == props.currentAccountId ? {
                   'display': 'flex',
@@ -937,91 +928,74 @@ const MessageSection = (props: any) => {
                     <img src={props.message.message.profile_pic.url} alt='profile-pic' width='50' height='50'
                          style={{borderRadius: 20, marginRight: 5}}/> : null
             }
+            {props.message.message.account_id == props.currentAccountId &&
+                <div style={{position: 'relative', marginBottom: '22px'}}>
+                    <img src={DoubleTick}/>
+                    <img src={DoubleTick} style={{position: 'absolute', left: '-4px'}}/>
+                </div>
+            }
+            <Box>
 
-
-            {/* <img src=""/> */}
-
-
-            <Box style={{background: '#f6f6f6', borderRadius: '6px', padding: '0.5rem', borderTopRightRadius: 0}}>
-
-
-                <Typography
-                    style={{
-                        color: "#081F32",
-                        fontFamily: "Poppins",
-                        fontWeight: 500,
-                        fontSize: 14,
-                        marginLeft: 5
-                    }}
-                    align={
-                        props.message.message.account_id == props.currentAccountId
-                            ? "right"
-                            : "left"
+                <Box style={{background: '#f6f6f6', borderRadius: '6px', padding: '0.5rem', borderTopRightRadius: 0}}>
+                    <Typography
+                        style={{
+                            color: "#081F32",
+                            fontFamily: "Poppins",
+                            fontWeight: 500,
+                            fontSize: 14,
+                            marginLeft: 5
+                        }}
+                        align={
+                            props.message.message.account_id == props.currentAccountId
+                                ? "right"
+                                : "left"
+                        }
+                    >
+                    </Typography>
+                    {
+                        props.message.message.message.length > 45 ?
+                            <>
+                                <Typography
+                                    style={{
+                                        color: "#081F32",
+                                        fontWeight: 500,
+                                        fontSize: 14,
+                                        wordBreak: 'break-all'
+                                    }}
+                                    align='left'
+                                >
+                                    {props.message.message.message}
+                                </Typography>
+                            </>
+                            :
+                            <>
+                                <Typography
+                                    style={{
+                                        color: "#081F32",
+                                        fontWeight: 500,
+                                        fontSize: 14,
+                                        wordBreak: 'break-all',
+                                        display: 'flex',
+                                        alignItems: 'center'
+                                    }}
+                                >
+                                    {props.message.message.message}
+                                </Typography>
+                            </>
                     }
-                >
-
-                </Typography>
-
-
-                {
-                    props.message.message.message.length > 45 ?
-                        <>
-                            <Typography
-                                style={{
-                                    color: "#081F32",
-                                    fontWeight: 500,
-                                    fontSize: 14,
-                                    wordBreak: 'break-all'
-                                }}
-                                align='left'
+                    {
+                        props.message?.message?.images.length != 0 ?
+                            <Grid item xs={12}
                             >
-                                {props.message.message.message}
-                            </Typography>
-
-
-                        </>
-
-                        :
-
-                        <>
-                            <Typography
-                                style={{
-                                    color: "#081F32",
-                                    fontWeight: 500,
-                                    fontSize: 14,
-                                    wordBreak: 'break-all',
-                                    display: 'flex',
-                                    alignItems: 'center'
-                                }}
-                            >
-                                {props.message.message.account_id == props.currentAccountId &&
-                                    <div style={{position: 'relative', marginRight: '0.25rem'}}>
-                                        <img src={DoubleTick}/>
-                                        <img src={DoubleTick} style={{position: 'absolute', left: '-4px'}}/>
-                                    </div>}
-                                {props.message.message.message}
-                            </Typography>
-
-                        </>
-                }
-
-
-                {
-                    props.message?.message?.images.length != 0 ?
-                        <Grid item xs={12}
-                        >
-
-                            <img style={{'cursor': 'pointer'}} onClick={props.handleClick}
-                                 src={props.message.message.images[0].url} width="75" height="75"/>
-                        </Grid>
-                        :
-                        null
-
-                }
-
+                                <img style={{'cursor': 'pointer'}} onClick={props.handleClick}
+                                     src={props.message.message.images[0].url} width="75" height="75"/>
+                            </Grid>
+                            :
+                            null
+                    }
+                </Box>
                 <ListItemText
-
-                    style={props.message.message.account_id == props.currentAccountId ? {textAlign: "right"} : {textAlign: "left"}}
+                    style={props.message.message.account_id == props.currentAccountId ? {textAlign: "right",fontSize:"11px"} : {textAlign: "left",fontSize:"11px"}}
                     secondary={props.displaytime2(props.message.message.created_at)}
                 />
             </Box>
