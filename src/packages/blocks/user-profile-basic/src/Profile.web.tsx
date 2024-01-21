@@ -1,9 +1,22 @@
 import * as React from "react";
 // custom components
 import {
-  Button, Grid, Box, Typography, IconButton, Dialog, DialogActions, DialogContent
+  Box,
+  Button,
+  Link,
+  Typography,
+  IconButton,
+  Grid,
+  Card,
+  CardContent,
+  CardActions,
+  Dialog,
+  DialogTitle,
+  Menu,
+  MenuItem,
+  CardActionArea,
 } from "@material-ui/core";
-import { Building1, Chat_Disable_Icon, Chat_Icon, Contact_Icon,  Email_Msg_Icon, FB_Icon, Instagram_Icon, NoProfile_Img, Pencil, Snapchat_Icon, Twitter_Icon } from "./assets";
+import {Chat_Disable_Icon, Chat_Icon, Contact_Icon,  Email_Msg_Icon, FB_Icon, Instagram_Icon, NoProfile_Img,  Pencil, Snapchat_Icon, Twitter_Icon } from "./assets";
 import { withRouter } from 'react-router';
 import Loader from "../../../components/src/Loader.web";
 import '../assets/css/style.scss';
@@ -11,288 +24,223 @@ import MoreVertIcon from '@material-ui/icons/MoreVert';
 import ProfileController from "./ProfileController.web";
 import AlertErrorWeb from "../../../components/src/AlertError.web";
 import KeyboardBackspaceIcon from '@material-ui/icons/KeyboardBackspace';
-import { Menu, MenuItem } from "@szhsin/react-menu";
+// import { Menu, MenuItem } from "@szhsin/react-menu";
 import { withTranslation } from "react-i18next";
+import { DeleteIcon, Building1, NoClassifiedIcon, Setting_Icon, Filter_Icon } from "../../ContentManagement/src/assets";
+import ClassifiedController, { Props } from "../../ContentManagement/src/ClassifiedController.web";
 
-class Profile extends ProfileController {
+class Profile extends ClassifiedController {
 
-  async componentDidMount() {
-    this.getProfile();
-  }
+
 
   render() {
-    let profileData = this.state.profiledata;
-    const { t }: any = this.props;
 
     return (
 
       <>
-        <Grid container className="auth-container">
-          <Grid item xs={12} md={7} className="auth-cols" style={{ justifyContent: 'unset', overflowY: 'auto', overflowX: 'hidden' }}>
-            <Grid container>
-              <Grid xs={12} style={{ display: 'flex', alignItems: 'center',borderBottom:'2px solid #F2F2F2' }}>
-                <div className="flex" style={{width:'100%', alignItems: 'center'}}>
-                  <div style={{ display: "flex", alignItems: 'center', gap: '0.5rem' }}>
-                    <KeyboardBackspaceIcon onClick={this.redirectToDashboard} />
-                    <p style={{ fontSize: '16px' }} className="bold-text">
-                      {t("My Profile")}
-                    </p>
-                  </div>
-
-                  <div className="right-icon profile-menu">
-                    <Menu
-                      menuButton={
-                        <IconButton>
-                           <MoreVertIcon />
-                        </IconButton>
-                      }
-                    >
-                      <MenuItem onClick={() =>{
-                        localStorage.setItem('profileData',JSON.stringify(profileData));
-                        // @ts-ignore
-                        // @ts-nocheck
-                        this.props.history.push('/editprofile');
-                      }}
-                      >{t("Edit profile")}</MenuItem>
-                      <MenuItem onClick={() =>{
-                        localStorage.setItem('profileData', JSON.stringify(profileData));
-                        // @ts-ignore
-                        // @ts-nocheck
-                        this.props.history.push('/publicview');
-                      }}>{t("Publish details for others")}</MenuItem>
-                      <MenuItem onClick={() => this.disablechat()}>{
-                        profileData?.attributes?.disable_chat ? 'Enable Chat' : 'Disable Chat'
-                      }</MenuItem>
-                    </Menu>
-                  </div>
-                </div>
-              </Grid>
-            </Grid>
-            <Grid container style={{marginTop:'1.5rem'}}>
-              <Grid item xs={12} >
-              </Grid>
-            </Grid>
-            <Grid container>
-              <SectionOne profileData={profileData} props={this.props}/>
-            </Grid>
-            <Grid container>
-              <Grid item xs={12} style={{display:'flex',justifyContent:'center',marginTop:'1rem',gap:'1rem'}}>
-              </Grid>
-            </Grid>
-
-            <Grid container>
-              <Grid item xs={12}>
-                <p className="bold-text" style={{ padding:"0 10px", fontWeight: 'bold', fontSize: '18px', marginTop: '0.5rem', marginBottom: '0.25rem' }}>
-                  Bio
-                </p>
-              </Grid>
-            </Grid>
-            <Grid container>
-              <Grid item xs={12}>
-                <p style={{ padding:"0 10px", fontSize: '14px', marginBottom: '0.5rem' }}>
-                  {profileData?.attributes?.bio?.bio || 'N/A'}
-                </p>
-              </Grid>
-            </Grid>
-
-            {
-              profileData?.attributes?.hobbies?.hobbies != null &&  profileData?.attributes?.hobbies?.hobbies.length>0 &&
-              <>
-                <Grid container>
-                  <Grid item xs={12}>
-                    <p className="bold-text" style={{ padding:"0 10px", fontWeight: 'bold', fontSize: '18px', marginTop: '0.5rem', marginBottom: '0.25rem' }}>
-                      Hobbies
-                    </p>
-                  </Grid>
-                </Grid>
-              </>
-            }
-
-            {
-              profileData?.attributes?.hobbies?.hobbies && <>
-                <Grid container>
-                  <Grid item xs={12} style={{ display:"flex", flexWrap:"wrap"}}>
-                    {
-                      profileData?.attributes?.hobbies?.hobbies.map((item:any) => <>
-                        <span className="hobbies" style={{marginTop:'0', marginBottom:'0.5rem'}}>
-                          {item}
-                        </span>
-                      </>)
-                    }
-                  </Grid>
-                </Grid>
-              </>
-            }
-
-
-            <Grid container>
-              <Grid item xs={12}>
-                <p className="bold-text" style={{ padding:"0 10px", fontWeight: 'bold', fontSize: '18px', marginTop: '0.5rem', marginBottom: '0.25rem' }}>
-                  Follow me on:
-                </p>
-              </Grid>
-            </Grid>
-            <Grid container>
-              <Grid item xs={12}>
-                <Box display='flex' justifyContent='start' marginTop='1rem'>
-                  {
-                    profileData?.attributes?.website[0].twitter_link && <Button href={profileData?.attributes?.website[0].twitter_link} target="_blank">
-                      <img src={Twitter_Icon} className="icon" alt="FB_Icon" />
-                    </Button>
-                  }
-                  {
-                    profileData?.attributes?.website[1].instagram_link && <Button href={profileData?.attributes?.website[1].instagram_link} target="_blank">
-                      <img src={Instagram_Icon} className="icon" alt="FB_Icon" />
-                    </Button>
-                  }
-                  {
-                    profileData?.attributes?.website[2].fb_link && <Button href={profileData?.attributes?.website[2].fb_link} target="_blank">
-                      <img src={FB_Icon} className="icon" alt="FB_Icon" />
-                    </Button>
-                  }
-                  {
-                    profileData?.attributes?.website[3].snapchat_link && <Button href={profileData?.attributes?.website[3].snapchat_link} target="_blank">
-                      <img src={Snapchat_Icon} className="icon" alt="FB_Icon" />
-                    </Button>
-                  }
+        <Box className="login-wrapper incident-wrapper">
+          <Grid container spacing={2} className="auth-container">
+            <Grid item xs={12} md={7} className="auth-cols">
+              <Box className="content-header">
+                <Box className="left-block blocks">
+                  <Box className="backIcons BackArrow" onClick={this.redirectToDashboard}><KeyboardBackspaceIcon/></Box>
+                  <h4 className="Heading">Classifieds</h4>
                 </Box>
-              </Grid>
-            </Grid>
-
-            {
-              localStorage.getItem('userType') !== 'Owner' &&
-              <>
-                <Grid container style={{ padding:"0 10px",}}>
-                  <Grid item xs={12} style={{ display:'flex',justifyContent:'space-between',alignItems:'center'}}>
-                    <p className="bold-text" style={{ fontWeight: 'bold', fontSize: '18px', marginTop: '0.5rem', marginBottom: '0.25rem' }}>
-                      My Family
-                    </p>
-                    {
-                      profileData?.attributes?.families?.families?.length > 0 && 
-                      <img src={Pencil} width='25' height='25' onClick={()=>this.props.history.push('/familylist')}/>
-                    }
-                  </Grid>
-                </Grid>
-                <Grid container>
-                  <Grid item xs={12} style={{ padding:"0 10px", margin: '0.25rem' }}>
-                    {
-                      profileData?.attributes?.families.families && profileData?.attributes?.families.families.map((item: any) =>
-                        <>
-                          <Grid xs={12} className="card fam" spacing={4} style={{marginTop:0}}>
-                            <div className="flex">
-                              <div style={{ display: "flex", alignItems: 'center', gap: '0.5rem' }}>
-                                {/* <Avatar src={item?.attributes?.member_pic} /> */}
-                                <p className="bold-text" style={{fontSize:"16px"}}>
-                                  {item.attributes.name}
-                                </p>
-                              </div>
-                              <div className="right-icon family-menu">
-                                <Menu
-                                  menuButton={
-                                    <IconButton>
-                                      <MoreVertIcon />
-                                    </IconButton>
-                                  }
-                                >
-                                  <MenuItem onClick={() => this.handleClose(item)}>{t("Edit")}</MenuItem>
-                                  <MenuItem onClick={() => { this.setState({ showDialogDelete: true }); localStorage.setItem('selectFamily', JSON.stringify(item)) }}>{t("Delete")}</MenuItem>
-                                </Menu>
-                              </div>
-                            </div>
-                            <div>
-                              <p className="fam-label">
-                                Relation:
-                              </p>
-                              <p className="fam-value">
-                                {item.attributes.relation.name}
-                              </p>
-                            </div>
-                            <div>
-                              <p className="fam-label">
-                                ID:
-                              </p>
-                              <p className="fam-value">
-                                {item.attributes.id_number}
-                              </p>
-                            </div>
-                          </Grid>
-                        </>
-                      )
-                    }
-                  </Grid>
-                </Grid>
                 {
-                  profileData?.attributes?.families?.families == null && 
-                  <Grid container >
-                    <Grid xs={12} style={{ display: 'flex', justifyContent: 'center' }}>
-                      <Button
-                        fullWidth={true}
-                        className={'btn'}
-                        variant="contained"
-                        type="submit"
-                        onClick={() => {
-                          // @ts-ignore
-                        // @ts-nocheck
-                          this.props.history.push("/NewFamily")
-                        }}
-                        style={{
-                          border: "1px solid #2B6FEC",
-                          background: 'white',
-                          borderRadius: 25,
-                          height: 50,
-                          boxShadow: "none",
-                          color: "#2B6FEC",
-                          fontWeight: 600,
-                          fontSize: 16,
-                          maxWidth: 350
-                        }}
-
-                      >
-                        {t("Add Family Details")}
+                  this.state?.myOrAllClassified ?
+                    <Box className="incident-right-block blocks">
+                      <Button aria-controls="fade-menu" aria-haspopup="true" onClick={(e: any) => this.handleClick_1(e)}>
+                        <img src={Filter_Icon} className="filter-icon icons" alt="" />
                       </Button>
-                    </Grid>
-                  </Grid>
-                }
-              </>
-            }
-          </Grid>
-          <Grid item xs={12} md={5} className="auth-cols">
-            <Box className="right-block" display={{ xs: 'none', md: 'flex' }}>
-              <img src={Building1.default} className="building-logo" alt="" />
-            </Box>
-          </Grid>
-        </Grid>
+                      <Menu
+                        id="fade-menu"
+                        anchorEl={this.state.anchorEl_1}
+                        keepMounted
+                        open={Boolean(this.state.anchorEl_1)}
+                        onClose={() => this.handleClose_1("", "")}
+                      >
+                        <MenuItem onClick={(e) => this.handleClose_1(e, "seller")}>Sell</MenuItem>
+                        <MenuItem onClick={(e) => this.handleClose_1(e, "buyer")}>Buy</MenuItem>
+                        <MenuItem onClick={(e) => this.handleClose_1(e, "generic")}>Generic</MenuItem>
+                        <MenuItem onClick={(e) => this.handleClose_1(e, "All")}>All</MenuItem>
+                      </Menu>
 
-        <Dialog
-          className="delete-document personal"
-          fullWidth
-          onClose={() => this.setState({ showDialogDelete: false, showDialog: false })}
-          open={this.state.showDialogDelete}
-        >
-          <DialogContent>
-            <Box textAlign="center">
-              {/* <img src={DeleteUnitIcon} alt="ExclamationIcon" /> */}
-              <Typography variant="h6" className="bold-text">
-                Delete registered <br /> Family Member
-              </Typography>
-              <Typography variant="body1">
-                {t(
-                  "Are you should want to delete this registered family member from this App?"
-                )}
-              </Typography>
-              <DialogActions className="dialog-button-group">
-                <Button onClick={() => this.deleteRequest()}>
-                  {t("Yes, Delete")}
-                </Button>
-                <Button onClick={() => this.setState({ showDialogDelete: false, showDialog: false })}>{t("No, Don’t Delete")}</Button>
-              </DialogActions>
+                    </Box>
+                    :
+                    null
+                }
             </Box>
-          </DialogContent>
-        </Dialog>
+            <Box className="common_content_block content-block">
+                <Box className="content-block-wrapper common-incident-block">
+                  <Box className="incident-content-wrapper">
+                    <div className="classified-header">
+                      <Box className={this.state?.myOrAllClassified ? "customButton" : "customButton btn-gray"}>
+                        <Button variant="contained" onClick={() => this.getClassifiedListing(this.state.status)}>All Classifieds</Button>
+                      </Box>
+                      <Box className={this.state?.myOrAllClassified ? "customButton btn-gray" : "customButton"}>
+                        <Button variant="contained" onClick={() => this.getMyClassifiedList()}>My Classifieds</Button>
+                      </Box>
+                    </div>
+                    {
+                      this.state?.classifiedListing?.length === 0 ?
+                        <>
+                          <Box className='no-classification-wrapper'>
+                            <Box className='no-classification'>
+                              <img src={NoClassifiedIcon} className="lock-logo" alt="Lock_Icon" />
+                              <h1>No classifieds were <br></br>found</h1>
+                              <p>Looks like you havn’t added any classifieds! You can create a new request by tapping the below button.</p>
+                            </Box>
+                          </Box>
+                        </>
+                        :
+                        this.state?.classifiedListing?.map((val: any, index: any) => (
+                          <>
+                            {
+                              this.state?.myOrAllClassified ?
+                                null
+                                :
+                                <Box className="classifiedCardRow">
+                                  {/* <IconButton onClick={(e: any) => { this.handleClick(e, val?.attributes?.id) }} style={{ padding: "5px" }}>
+                                    <MoreVertIcon style={{ color: "#000000", fontSize: "1.8rem" }} />
+                                  </IconButton> */}
+                                  <Button className="menu-btn" aria-controls="simple-menu" onClick={(e: any) => { this.handleClick(e, val?.attributes?.id,val?.attributes?.classified_type) }}>
+                                    <img src={Setting_Icon} className="grid-icon icons" alt="" />
+                                  </Button>
+                                  <Menu
+                                    id="simple-menu"
+                                    anchorEl={this.state.anchorEl}
+                                    keepMounted
+                                    open={Boolean(this.state.anchorEl)}
+                                    onClose={() => this.handleClose("", "")}
+                                  >
+                                    <MenuItem onClick={(e) => this.handleClose(e, "edit")}>Edit</MenuItem>
+                                    <MenuItem onClick={(e) => this.handleClose(e, "delete")}>Delete </MenuItem>
+                                  </Menu>
+                                </Box>
+                            }
+                            <Card className="classified-card card" key={val?.attributes?.id} >
+                              <CardContent className="costom-card-content" onClick={(e: any) => { this.getClassifiedDetails(e, val.id) }}>
+                                <Box className="classified-card-header">
+                                  <Typography component="h4">
+                                    {val?.attributes?.title}
+                                  </Typography>
+
+                                </Box>
+                                <Typography className="" component="h5">
+                                  {val?.attributes?.description}
+                                </Typography>
+                                { val?.attributes?.classified_type === "seller" ?
+                                   <Typography component="span">
+                                   Available to sell:
+                                 </Typography>
+                                 :
+                                 val?.attributes?.classified_type === "buyer" 
+                                 ?
+                                 <Typography component="span">
+                                 Available to buy:
+                               </Typography>
+                                :
+                                <Typography component="span">
+                                Available :
+                              </Typography>
+                                }
+                                <Typography className="" component="h5">
+                                  {val?.attributes?.duration_from} to {val?.attributes?.duration_to}
+                                </Typography>
+                                <hr />
+                                <Box className="card-footer classified-footer">
+                                  {
+                                    val?.attributes?.classified_type === "buyer" ?
+                                      <div className="left-block">
+                                        {/* <img src={Dollar_Icon} className="dollar-icon" alt="Dollar Icon" /> */}
+                                        <Typography component="h4">
+                                          {val?.attributes?.price_from} {val?.attributes?.currency?.currency} - {val?.attributes?.price_to} {val?.attributes?.currency?.currency}
+                                        </Typography>
+                                      </div>
+                                      :
+                                      null
+                                  }
+
+                                  {
+                                    val?.attributes?.classified_type === "generic" ?
+                                      <div className="left-block">
+                                        {/* <img src={Dollar_Icon} className="dollar-icon" alt="Dollar Icon" /> */}
+                                        <Typography component="h4">
+                                          {val?.attributes?.payment_detail} {val?.attributes?.currency?.currency}
+                                        </Typography>
+                                      </div>
+                                      :
+                                      null
+                                  }
+
+                                  {
+                                    val?.attributes?.classified_type === "seller" ?
+                                      <div className="left-block">
+                                        {/* <img src={Dollar_Icon} className="dollar-icon" alt="Dollar Icon" /> */}
+                                        <Typography component="h4">
+                                          {val?.attributes?.price} {val?.attributes?.currency?.currency}
+                                        </Typography>
+                                      </div>
+                                      :
+                                      null
+                                  }
+
+
+
+                                  {
+                                    val?.attributes?.classified_type === "buyer" ?
+                                      <Box className="customButton">
+                                        <Button variant="contained" className="contain success" type="submit" >Buy</Button>
+                                      </Box>
+                                      :
+                                      (val?.attributes?.classified_type === "generic") ?
+                                        <Box className="customButton">
+                                          <Button variant="contained" className="contain blue" type="submit" >Generic</Button>
+                                        </Box>
+                                        :
+                                        <Box className="customButton">
+                                          <Button variant="contained" className="contain danger" type="submit" >Sell</Button>
+                                        </Box>
+                                  }
+                                  <StatusButton val ={val}/>
+                                </Box>
+                              </CardContent>
+                            </Card>
+                            {/* </Box> */}
+                          </>
+                        ))
+                    }
+                  </Box>
+                </Box>
+                {
+                  this.state?.myOrAllClassified ?
+                    null
+                    :
+                    <Box className="footer-block desktop-ui">
+                      <Box className="customButton add-incident">
+                        <Button variant="contained" onClick={() => {
+                          this.setState({ loading: true });//@ts-ignore
+                          this.props.history.push("/ClassifiedType")
+                        }} >{this.state?.classifiedListing?.length === 0 ? 'Add Classified Request'
+                          :
+                          'ADD Classified'}</Button>
+                      </Box>
+                    </Box>
+                }
+              </Box>
+              
+            </Grid>
+            <Grid item xs={12} md={5} className="auth-cols">
+            <Box className="right-block" display={{ xs: 'none', md: 'flex' }}>
+                <img src={Building1.default} className="building-logo" alt="" />
+              </Box>
+            </Grid>
+          </Grid>
+        </Box>
 
         <Loader loading={this.state.loading} />
 
-        <AlertErrorWeb show={this.state.showError} handleClose={()=> this.setState({showError:false,error:null})} message={this.state.error} />
+        {/* <AlertErrorWeb show={this.state.showError} handleClose={()=> this.setState({showError:false,error:null})} message={this.state.error} /> */}
       </>
     )
   }
@@ -303,64 +251,15 @@ class Profile extends ProfileController {
 export default withTranslation()(withRouter(Profile));
 
 
-function SectionOne(props:any){
-  console.log('props',props)
-  const {profileData} =props
-  return <>
-  <Grid item xs={12}>
-                <Box className="card-top-block">
-                  <img style={{width:64,height:64,borderRadius:'50%'}} src={profileData?.attributes?.profile_pic?.url || NoProfile_Img} className="info-icon" alt="info-icon" />
-                  <Typography component="h4" className="title bold-text" style={{ fontSize:'18px', paddingTop:"0"}}>
-                    {profileData?.attributes?.full_name?.name}
-                  </Typography>
-                  <Box className="social-raw">
-                  {
-                    profileData?.attributes?.disable_chat ?
-                    <Box className="blocks">
-                      <img src={Chat_Disable_Icon}  className="icons" alt="info-icon" width='15' />
-                    </Box> :
-                    <Box className="blocks">
-                      <img src={Chat_Icon} onClick={()=>props?.props?.history.push('/inbox')} className="icons" alt="info-icon" />
-                    </Box>
-                  }
-                      <Box className="blocks">
-                        <a href={`tel:${profileData?.attributes?.full_phone_number?.full_phone_number}`}>
-                          <img src={Contact_Icon} className="icons" alt="info-icon" />
-                        </a>
-                      </Box>
-                      <Box className="blocks" style={{border:0}}>
-                        <a href={`mailto:${profileData?.attributes?.email?.email}`}>
-                          <img src={Email_Msg_Icon} className="icons" alt="info-icon" />
-                        </a>
-                      </Box>
-                  </Box>
-                  <Box className="relation-row">
-                    <Box className="blocks" style={{ display: 'flex',gap:'1rem', marginTop:"15px" }}>
-                      <div>
-                      {
-                        profileData?.attributes?.gender?.publilc_access ?
-                          <Box style={{display:"flex", alignItems:"center", gap:"5px"}}>
-                            <p className="bold-text">Gender:</p>
-                            <span style={{fontWeight:400, fontSize:"14px"}}>{profileData?.attributes?.gender?.gender}</span>
-                          </Box>
-                          : null
-                      }
-                      </div>
-                      <div>
 
-                      {
-                        profileData?.attributes?.date_of_birth?.publilc_access ?
-                          <Box style={{display:"flex", alignItems:"center", gap:"5px"}}>
-                            <p className="bold-text">DOB:</p>
-                            <span style={{fontWeight:400, fontSize:"14px"}}>{profileData?.attributes?.date_of_birth?.date_of_birth}</span>
-                          </Box>
-                          :
-                          null
-                      }
-                      </div>
-                    </Box>
-                  </Box>
-                </Box>
-              </Grid>
+const StatusButton = (props:any) => {
+  const val =props?.val;
+  return(
+    <>
+             <Box className="customButton">
+              <Button variant="contained" className={val?.attributes?.classified_status === 'Pending Approval' ? "contain" : val?.attributes?.classified_status === 'Published' ? 'contain success' : 'contain danger'} type="submit">
+              {val?.attributes?.classified_status}</Button>
+            </Box>
   </>
+  )
 }

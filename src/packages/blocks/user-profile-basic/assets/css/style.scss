@@ -180,10 +180,10 @@ input[type="date"]::-webkit-calendar-picker-indicator {
   color: rgba(0, 0, 0, 0);
   opacity: 1;
   display: block;
-  background-repeat:  no-repeat;
+  background-repeat: no-repeat;
   width: 25px;
   height: 25px;
-  border-width: thin
+  border-width: thin;
 }
 input[type="date"]::-webkit-calendar-picker-indicator {
   position: absolute;
@@ -198,19 +198,27 @@ input::-webkit-datetime-edit {
   left: 8%;
 }
 
-.my-date{
+.my-date {
   width: 160px !important;
-  input{
+  input {
     padding-left: 2rem;
   }
 }
-.my-date::after{
+.my-date::after {
   border: none !important;
   border-bottom: none !important;
-
 }
-.my-date::before{
+.my-date::before {
   border: none !important;
   border-bottom: none !important;
+}
 
+.Heading {
+  font-weight: 900;
+  font: caption;
+  font-size: x-large;
+}
+
+.BackArrow {
+  font-weight: 200;
 }

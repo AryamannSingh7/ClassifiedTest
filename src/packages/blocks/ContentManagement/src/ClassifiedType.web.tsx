@@ -41,7 +41,7 @@ class ClassifiedType extends ClassifiedController {
                 </Box>
                 <Box className="classifiedtype-block content-block-wrapper common-incident-block">
                   <Box className="incident-content-wrapper">
-                    <p className="text-left">
+                    <p className="text-center text-bold">
                       This page will allow the residents to publish classifieds to the building's classified page.
                       You can publish an advertisement to sell things, buy things, or ask for services like a baby setter
                       for your child.
@@ -56,10 +56,7 @@ class ClassifiedType extends ClassifiedController {
                           I want to sell something
                         </label>
                       </Box>
-                      {/* <CustomRadioButton name="1" value="1" /> */}
-                      {/* <Checkbox className="radio-toolbar" id="radCreateMode1" name="type" value='seller' onChange={(e) => this.changeType(e.target.value)} icon={<CircleUnchecked />}
-                    checkedIcon={<CircleCheckedFilled />}
-                  /> */}
+                      
                     </Card>
                     <Card className="card classified-type-card">
                       <Box className="middle-section">

@@ -75,9 +75,13 @@
     width: 450px;
     margin: 0 auto;
 
-    // &.no-classification-wrapper {
-    //   height: 100%
-    // }
+    &.no-classification-wrapper {
+      height: 100%;
+      & .no-classification {
+        font-size: larger;
+        width: 100%;
+      }
+    }
     @include mq(tablet-landscape-up) {
       width: 95%;
       margin: 0 auto;

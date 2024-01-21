@@ -545,7 +545,7 @@ nextBtn = (val:any)=>{
   console.log("nextBtn=========>", val);
     this.setState({ loading: true })
     //@ts-ignore
-    this.props.history.push("/CreateClassified")
+    this.props.history.push("/ClassifiedCreate")
 }  
 onSubmit =(values:any)=>{
   localStorage.setItem("classifiedPreview", JSON.stringify(values))

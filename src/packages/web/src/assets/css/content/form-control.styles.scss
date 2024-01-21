@@ -1,5 +1,5 @@
-@import "../constants/base/colors.scss";
-@import "../constants/base/global.scss";
+@import '../constants/base/colors.scss';
+@import '../constants/base/global.scss';
 
 .commonForm {
   width: 100%;
@@ -19,14 +19,11 @@
     margin-bottom: 20px;
   }
 
-  & .visitorTextfield
-  {
+  & .visitorTextfield {
     .MuiOutlinedInput-input {
       padding: 15px 10px;
-  }
-  &.CreateClassifiedFrm {
-   
-
+    }
+    &.CreateClassifiedFrm {
     }
     & .classifiedFormGroup {
       width: auto;
@@ -53,12 +50,12 @@
     & .formInput {
       width: 100%;
       padding: 18px 18px 18px 50px;
-      color: #b5b5b5;
-      border-radius: 25px;
-      border: 1px solid #e9dede;
-      background-color: #f9f9f9;
+      color: #0c0909;
+      border-radius: 15px;
+      border: 1px solid #0c0a0a;
+      background-color: #e7cece;
       font-size: 16px;
-      outline: 0;
+      outline: #0c0909;
 
       &::placeholder {
         color: #b9b9b9;
@@ -72,7 +69,7 @@
     }
 
     &.otpBlock {
-      &>div {
+      & > div {
         justify-content: space-between;
         width: 100%;
       }
@@ -97,14 +94,14 @@
       position: absolute;
       left: 20px;
       top: 32%;
-      color: #b9b9b9;
+      color: #191414;
     }
 
     & .frmrightIcons {
       position: absolute;
       right: 20px;
       top: 14px;
-      color: #b9b9b9;
+      color: #1c1717;
       cursor: pointer;
     }
 
@@ -123,13 +120,13 @@
         z-index: 1;
 
         &::before {
-          content: "";
+          content: '';
           position: absolute;
           left: 0;
           top: 0;
           height: 100%;
           width: 100%;
-          background: rgba(0, 0, 0, 0.2);
+          // background: rgb(0, 0, 0);
           z-index: 2;
           border-radius: 20px;
           // border: 1px solid #e9dede;
@@ -153,11 +150,13 @@
         display: flex;
         flex-direction: column;
         align-items: center;
-        border-radius: 20px;
+        border-radius: 10px;
+        color: rgba(0, 0, 0, 0.61);
 
-        // background: rgba(0, 0, 0, 0.6);
+        // background: rgba(0, 0, 0, 0.3);
         & .content-text {
           display: flex;
+
           flex-direction: column;
           justify-content: center;
           height: 100%;
@@ -330,20 +329,20 @@
         }
 
         & .MuiSelect-root {
-          color: $ORANGE;
+          // color: $ORANGE;
           font-size: 13px;
           font-weight: bold;
           text-transform: uppercase;
           position: relative;
 
           &::before {
-            content: "";
+            content: '';
             top: 1px;
             right: 20px;
             position: absolute;
             width: 8px;
             height: 8px;
-            border: 4px solid #fc8434;
+            border: 4px solid #0b0a09;
             border-radius: 2px;
             border-left: 0;
             border-top: 0;
@@ -370,7 +369,7 @@
 
         & .MuiSelect-root {
           &::before {
-            content: "";
+            content: '';
             top: 0px;
             right: 5px;
           }
@@ -384,7 +383,7 @@
   & .commonForm {
     @include mq(tablet-portrait-medium-up) {
       & .formGroup {
-        border-radius: 15px;
+        border-radius: 25px;
 
         & .formInput {
           border-radius: 25px;
@@ -396,4 +395,15 @@
       }
     }
   }
+}
+
+.customInput {
+  margin-bottom: '0rem';
+  display: 'flex';
+  overflow: 'hidden';
+  align-items: center;
+  height: 56px;
+  border: 0.1px solid rgba(0, 0, 0, 0.61);
+  border-radius: 25px;
+  background: '#f9f9f9';
 }

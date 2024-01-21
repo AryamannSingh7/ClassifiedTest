@@ -1,5 +1,5 @@
-@import "../constants/base/colors.scss";
-@import "../constants/base/global.scss";
+@import '../constants/base/colors.scss';
+@import '../constants/base/global.scss';
 
 .card {
   & .costom-card-content {
@@ -50,7 +50,7 @@
         font-family: $Gotham_Light;
         font-size: 16px;
         font-weight: 500;
-        color:#6f6e71;
+        color: #6f6e71;
 
         @include mq(tablet-portrait-large-up) {
           font-size: 14px;
@@ -186,7 +186,7 @@
   &.classified-card {
     & h4 {
       &.MuiTypography-body1 {
-        text-transform: capitalize;
+        // text-transform: capitalize;
         margin-top: 0;
       }
     }
@@ -205,11 +205,11 @@
 
     & p {
       &.MuiTypography-body1 {
-        text-transform: capitalize;
+        // text-transform: capitalize;
         margin: 10px 0px;
         font-size: 17px;
         letter-spacing: 2px;
-        font-family: $Gotham_Light;
+        // font-family: $Gotham_Light;
         font-weight: 500;
         letter-spacing: 0.7px;
         line-height: 19px;
@@ -266,24 +266,24 @@
 
     & .card-footer {
       display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding-top: 10px;
+      // justify-content: center;
+      // align-items: center;
+      // padding-top: 10px;
 
       & .left-block {
         display: flex;
-        align-items: center;
+        // align-items: center;
         position: relative;
         & h4 {
           &.MuiTypography-body1 {
             text-transform: uppercase;
             padding-left: 10px;
-            color: $ORANGE_SHADE2;
+            // color: $ORANGE_SHADE2;
             margin: 0;
           }
           &.managerTitle {
             &.MuiTypography-body1 {
-              font-size: 18px;
+              font-size: 14px;
               width: 150px;
               text-overflow: ellipsis;
               overflow: hidden;
@@ -349,7 +349,7 @@
         cursor: pointer;
 
         &::after {
-          content: "";
+          content: '';
           position: absolute;
           top: 4px;
           left: 4px;
@@ -390,7 +390,7 @@
       padding: 0;
     }
 
-    input[type="radio"]:checked:after {
+    input[type='radio']:checked:after {
       width: 15px;
       height: 15px;
       border-radius: 15px;
@@ -398,7 +398,7 @@
       left: -1px;
       position: relative;
       background-color: #ffa500;
-      content: "";
+      content: '';
       display: inline-block;
       visibility: visible;
       border: 2px solid white;
@@ -446,7 +446,7 @@
       & .MuiOutlinedInput-root {
         padding-left: 0;
       }
-      
+
       &.danger {
         background-color: transparent !important;
         & .MuiOutlinedInput-root {
@@ -465,10 +465,8 @@
           background-color: #ffeded;
           border: 0 !important;
         }
-        & .MuiSelect-outlined
-        {
-          &.MuiSelect-outlined
-          {
+        & .MuiSelect-outlined {
+          &.MuiSelect-outlined {
             background-color: #ffeded;
           }
         }
@@ -488,13 +486,11 @@
           color: $GREEN;
         }
         & .MuiOutlinedInput-root {
-          background-color:  $GREEN_SHADE1;
+          background-color: $GREEN_SHADE1;
           border: 0 !important;
         }
-        & .MuiSelect-outlined
-        {
-          &.MuiSelect-outlined
-          {
+        & .MuiSelect-outlined {
+          &.MuiSelect-outlined {
             background-color: $GREEN_SHADE1;
           }
         }
@@ -513,13 +509,11 @@
           color: $ORANGE;
         }
         & .MuiOutlinedInput-root {
-          background-color:  $ORANGE_SHADE1;
+          background-color: $ORANGE_SHADE1;
           border: 0 !important;
         }
-        & .MuiSelect-outlined
-        {
-          &.MuiSelect-outlined
-          {
+        & .MuiSelect-outlined {
+          &.MuiSelect-outlined {
             background-color: $ORANGE_SHADE1;
           }
         }
@@ -546,7 +540,7 @@
     & .card-rows {
       display: flex;
       margin: 10px 0;
-      border-bottom:1px solid #fdfafa ;
+      border-bottom: 1px solid #fdfafa;
 
       & h4 {
         padding-left: 20px;
@@ -775,7 +769,7 @@
       position: relative;
 
       &::before {
-        content: " ";
+        content: ' ';
         position: absolute;
         top: 20px;
         left: -100%;
@@ -784,7 +778,7 @@
       }
 
       &::after {
-        content: " ";
+        content: ' ';
         position: absolute;
         top: 20px;
         right: -100%;

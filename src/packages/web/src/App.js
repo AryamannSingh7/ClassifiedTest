@@ -41,6 +41,9 @@ import SuggestionData from '../../blocks/Feedback/src/SuggestionDetails.web';
 import NewRequestSuggestion from '../../blocks/Feedback/src/newRequest.web';
 import ResponseSuggestion from '../../blocks/Feedback/src/ResponseSuggestion.web';
 
+//Classifieds
+
+import ClassifiedCreate from '../../blocks/ContentManagement/src/ClassifiedCreate.web';
 // import Contactus from "../../blocks/contactus/src/Contactus";
 import AddContactus from '../../blocks/contactus/src/AddContactus';
 import CountryCodeSelector from '../../blocks/country-code-selector/src/CountryCodeSelector';
@@ -389,6 +392,7 @@ import SpentVsCollected from '../../blocks/StoreCredits/src/MyExpenseReport/Spen
 
 import AuditorDashboardGeneral from '../../blocks/customform/src/Auditor.web';
 
+import ClassifiedLanding from '../../blocks/ContentManagement/src/ClassifiedLanding.web';
 const routeMap = {
   //done
   LandingPage: {
@@ -400,6 +404,12 @@ const routeMap = {
   Profile: {
     component: Profile,
     path: '/profile',
+    exact: true
+    // roles: [ROLE.PRIVATE]
+  },
+  Classified: {
+    component: ClassifiedLanding,
+    path: '/classified',
     exact: true
     // roles: [ROLE.PRIVATE]
   },
@@ -2329,6 +2339,13 @@ const routeMap = {
     component: AlertBlock,
     path: '*/AlertWeb',
     modal: true
+  },
+
+  ClassifiedCreate: {
+    component: ClassifiedCreate,
+    path: '/ClassifiedCreate',
+    // roles: [ROLE.OWNER],
+    exact: true
   }
 };
 

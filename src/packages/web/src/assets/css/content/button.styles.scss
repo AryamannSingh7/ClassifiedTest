@@ -1,124 +1,124 @@
-@import "../constants/base/colors.scss";
-@import "../constants/base/global.scss";
+@import '../constants/base/colors.scss';
+@import '../constants/base/global.scss';
 
 .customButton {
-    & .MuiButton-contained {
-        width: 100%;
-        background-color: $BLUE;
-        color: $WHITE;
-        font-size: 15px;
-        &.contain {
-            padding: 5px 15px;
-            box-shadow: none;
-            & span {
-                font-size: 12px;
-                font-weight: 900;
-                white-space: nowrap;
-                text-transform: capitalize;
-            }
-        }
-        &.success {
-            background-color: $GREEN_SHADE1;
-            & span {
-                color: $GREEN;
-            }
-            &:hover {
-                background-color: $GREEN;
-                & span {
-                    color: $GREEN_SHADE1;
-                }
-            }
-        }
-        &.warning {
-            background-color: $ORANGE_SHADE1;
-            & span {
-                color: $ORANGE;
-            }
-            &:hover {
-                background-color: $ORANGE;
-                & span {
-                    color: $GREEN_SHADE1;
-                }
-            }
-        }
-        &.danger {
-            background-color: $DANGER_SHADE1;
-            & span {
-                color: $WARNING;
-            }
-            &:hover {
-                background-color: $WARNING_SHADE1 !important;
-                & span {
-                    color: $DANGER_SHADE1;
-                }
-            }
-        }
-        &.blue {
-            background-color: #ebf4ff;
-            & span {
-                color: #2686f7;
-            }
-            &:hover {
-                background-color: #2686f7;
-                & span {
-                    color: $GREEN_SHADE1;
-                }
-            }
-        }
-        @include mq(tablet-landscape-up) {
-            font-size: 14px;
-        }
-        &:hover,
-        &:active {
-            background-color: $BLUE;
-            color: $WHITE;
-        }
+  & .MuiButton-contained {
+    width: 100%;
+    background-color: $BLUE;
+    color: $WHITE;
+    font-size: 15px;
+    &.contain {
+      padding: 5px 15px;
+      box-shadow: none;
+      & span {
+        font-size: 12px;
+        font-weight: 900;
+        white-space: nowrap;
+        text-transform: capitalize;
+      }
     }
-    & .MuiButton-outlined {
-        border: 1px solid $LIGHT_GRAY_SHADE1;
+    &.success {
+      background-color: $GREEN_SHADE1;
+      & span {
+        color: $GREEN;
+      }
+      &:hover {
+        background-color: $GREEN;
         & span {
-            color: $DARK;
+          color: $GREEN_SHADE1;
         }
-        &:hover {
-            background-color: $BLUE;
-            & span {
-                color: $WHITE;
-            }
+      }
+    }
+    &.warning {
+      background-color: $ORANGE_SHADE1;
+      & span {
+        color: $ORANGE;
+      }
+      &:hover {
+        background-color: $ORANGE;
+        & span {
+          color: $GREEN_SHADE1;
         }
+      }
     }
-    & .outline-danger {
-        & .MuiButton-outlined {
-            border: 1px solid $WARNING !important;
-            & span {
-                color: $WARNING !important;
-            }
-            &:hover {
-                background-color: $WARNING !important;
-                & span {
-                    color: $WHITE !important;
-                }
-            }
+    &.danger {
+      background-color: $DANGER_SHADE1;
+      & span {
+        color: $WARNING;
+      }
+      &:hover {
+        background-color: $WARNING_SHADE1 !important;
+        & span {
+          color: $DANGER_SHADE1;
         }
+      }
     }
-    & .MuiButton-root {
-        font-weight: 600;
-        border-radius: 30px;
-        padding: 15px;
-        text-transform: uppercase;
-    }
-    & .MuiButton-text {
-        color: #8d8d8d;
-        @include mq(tablet-landscape-up) {
-            font-size: 14px;
+    &.blue {
+      background-color: #ebf4ff;
+      & span {
+        color: #2686f7;
+      }
+      &:hover {
+        background-color: #2686f7;
+        & span {
+          color: $GREEN_SHADE1;
         }
+      }
     }
+    @include mq(tablet-landscape-up) {
+      font-size: 14px;
+    }
+    &:hover,
+    &:active {
+      background-color: $BLUE;
+      color: $WHITE;
+    }
+  }
+  & .MuiButton-outlined {
+    border: 1px solid $LIGHT_GRAY_SHADE1;
+    & span {
+      color: $DARK;
+    }
+    &:hover {
+      background-color: $BLUE;
+      & span {
+        color: $WHITE;
+      }
+    }
+  }
+  & .outline-danger {
+    & .MuiButton-outlined {
+      border: 1px solid $WARNING !important;
+      & span {
+        color: $WARNING !important;
+      }
+      &:hover {
+        background-color: $WARNING !important;
+        & span {
+          color: $WHITE !important;
+        }
+      }
+    }
+  }
+  & .MuiButton-root {
+    font-weight: 600;
+    border-radius: 30px;
+    padding: 15px;
+    text-transform: uppercase;
+  }
+  & .MuiButton-text {
+    color: #8d8d8d;
+    @include mq(tablet-landscape-up) {
+      font-size: 14px;
+    }
+  }
 }
 .desktop-ui {
-    @include mq(tablet-portrait-medium-up) {
-        & .customButton {
-            & .MuiButton-root {
-                border-radius: $FORM_BORDER_RADIUS;
-            }
-        }
+  @include mq(tablet-portrait-medium-up) {
+    & .customButton {
+      & .MuiButton-root {
+        border-radius: $FORM_BORDER_RADIUS;
+      }
     }
+  }
 }
